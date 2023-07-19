@@ -2,6 +2,9 @@
  * @file        UART.h
  * @author      Bryan McElvy
  * @brief       Driver module for UART1.
+ * 
+ * @addtogroup  uart
+ * @{
  */
 
 #ifndef __UART_H___
@@ -37,3 +40,5 @@ void UART0_WriteChar(unsigned char input_char);
 void UART0_WriteStr(unsigned char * str_ptr);
 
 #endif
+
+/** @} */

@@ -2,6 +2,9 @@
  * @file
  * @author      Bryan McElvy
  * @brief       Driver module for using SysTick-based timing and/or interrupts.
+ * 
+ * @addtogroup  systick
+ * @{
  */
 
 #ifndef __SYSTICK_H___
@@ -29,3 +32,5 @@ void SysTick_Wait1ms(uint32_t delay_ms);
 void SysTick_Interrupt_Init(uint32_t time_ms);
 
 #endif
+
+/** @} */
