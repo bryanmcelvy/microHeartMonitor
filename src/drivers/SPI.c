@@ -1,14 +1,17 @@
 /**
- *  Pin |  Function |   Bus
+ *  Pin |  Function | ILI9341 Pin
  *  --------------------------------------------------------------
  *  PA2 |  SSI0Clk  |   CLK     |   Serial clock signal
  *  PA3 |  SSI0Fss  |   CS      |   Chip select signal
+ *  PA4 |  SSI0Rx   |   MISO    |   TM4C (M) input, LCD (S) output
  *  PA5 |  SSI0Tx   |   MOSI    |   TM4C (M) output, LCD (S) input
  *  PA6 |  GPIO     |   D/C     |   Data = 1, Command = 0
  *  PA7 |  GPIO     |   RESET   |   Reset the display
  * 
  *  Clk. Polarity  =   steady state low (0)
  *  Clk. Phase     =   rising clock edge (0)
+ * 
+ *  **TODO: Add commands + hex codes from datasheet**
  */
 
 #include "SPI.h"
@@ -29,14 +32,14 @@ void SPI_Init(void) {
     SYSCTL_RCGCSSI_R |= 0x01;                       // enable SSI0 clk.
     SYSCTL_RCGCGPIO_R |= 0x01;                      // enable Port A clk.
 
-    GPIO_PORTA_AFSEL_R |= 0x2C;                     // alt. mode for PA2/3/5
-    GPIO_PORTA_PCTL_R = (GPIO_PORTA_PCTL_R & 0)     // SSI mode for PA2/3/5
-                        | 0x2C;
+    GPIO_PORTA_AFSEL_R |= 0x3C;                     // alt. mode for PA2-5
+    GPIO_PORTA_PCTL_R = (GPIO_PORTA_PCTL_R & 0)     // SSI mode for PA2-5
+                        | 0x3C;
     
     GPIO_PORTA_DIR_R |= 0xC0;                       // use PA6/7 as output pins
 
-    GPIO_PORTA_AMSEL_R &= ~(0xEC);                  // disable analog for PA2/3/5-7
-    GPIO_PORTA_DEN_R |= 0xEC;                       // enable digital IO for PA2/3/5-7
+    GPIO_PORTA_AMSEL_R &= ~(0xFC);                  // disable analog for PA2-7
+    GPIO_PORTA_DEN_R |= 0xFC;                       // enable digital IO for PA2-7
 
     SSI0_CR1_R &= ~(0x02);                          // disable SSI0
     SSI0_CR1_R &= ~(0x04);                          // controller (M) mode
