@@ -1,7 +1,9 @@
 /**
- * @file    Timer.h
+ * @file
  * @author  Bryan McElvy
  * @brief   Implementation for timer module.
+ * 
+ * @ingroup timer
  */
 
 #include "Timer.h"

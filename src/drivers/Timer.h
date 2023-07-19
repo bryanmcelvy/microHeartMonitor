@@ -1,10 +1,10 @@
 /**
+ * @addtogroup  timer
+ * @{
+ * 
  * @file
  * @author      Bryan McElvy
  * @brief       Driver module for timing (Timer0) and interrupts (Timer1).
- * 
- * @addtogroup  timer
- * @{
  */
 
 #ifndef __TIMER_H___
@@ -46,6 +46,8 @@ void Timer0A_Wait1ms(uint32_t time_ms);
  * 
  * @param   time_ms Time in [ms] between interrupts.
  *                  Must be <= 53 seconds.
+ * 
+ * @ingroup thread
  */
 void Timer1A_Init(uint32_t time_ms);
 
