@@ -1,4 +1,7 @@
 /**
+ * @addtogroup  adc 
+ * @{
+ * 
  * @file
  * @author      Bryan McElvy
  * @brief       Driver module for analog-to-digital conversion (ADC)
@@ -10,3 +13,5 @@
 #include "tm4c123gh6pm.h"
 
 #endif
+
+/** @} */

@@ -1,7 +1,11 @@
 /**
+ * @addtogroup  gpio
+ * @{
+ * 
  * @file        GPIO.h
  * @author      Bryan McElvy
  * @brief       Driver module for using the LaunchPad's onboard switches and RGB LEDs for GPIO and interrupts.
+ * 
  */
 
 #ifndef __GPIO_H___
@@ -54,3 +58,5 @@ void GPIO_PF_Sw_Init(void);
 void GPIO_PF_Interrupt_Init(void);
 
 #endif
+
+/** @} */

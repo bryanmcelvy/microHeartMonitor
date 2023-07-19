@@ -2,6 +2,9 @@
  * @file
  * @author      Bryan McElvy
  * @brief       Driver module for timing (Timer0) and interrupts (Timer1).
+ * 
+ * @addtogroup  timer
+ * @{
  */
 
 #ifndef __TIMER_H___
@@ -47,3 +50,5 @@ void Timer0A_Wait1ms(uint32_t time_ms);
 void Timer1A_Init(uint32_t time_ms);
 
 #endif
+
+/** @} */
