@@ -21,7 +21,7 @@ void ILI9341_ResetSoft(void) {
 void ILI9341_DisplayOn(uint8_t is_ON) {
     /** `0x28` for OFF, `0x29` for ON */
     is_ON = (is_ON > 1) ? 1 : is_ON;
-    SPI_WriteCmd( (uint9_t) (0x28 & is_ON) );
+    SPI_WriteCmd( (uint8_t) (0x28 & is_ON) );
 }
 
 void ILI9341_SetDispInterface(void) {
@@ -43,7 +43,9 @@ void ILI9341_SetDispInterface(void) {
      *  allowing the blanking porch to be set using the `0xB5` command and ignoring the value of the `DE` signal.
      */
     // SPI_WriteCmd(0xB0);
-    SPI_WriteSequence(0xB0, [0x61], 1);
+    const uint8_t cmd = 0xB0;
+    const uint8_t param[1] = {0x61};
+    SPI_WriteSequence(cmd, param, 1);
 }
 
 void ILI9341_SetFrameRate(uint8_t frame_rate) {
