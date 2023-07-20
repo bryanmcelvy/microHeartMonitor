@@ -41,6 +41,7 @@ void SPI_Init(void) {
                         | 0x3C;
     
     GPIO_PORTA_DIR_R |= 0xC0;                       // use PA6/7 as output pins
+    GPIO_PORTA_PUR_R |= 0x80;                       // enable pull-up on PA7 (RESET signal is active low)
 
     GPIO_PORTA_AMSEL_R &= ~(0xFC);                  // disable analog for PA2-7
     GPIO_PORTA_DEN_R |= 0xFC;                       // enable digital IO for PA2-7
