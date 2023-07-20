@@ -21,12 +21,44 @@
 #include "SPI.h"
 #include "Timer.h"
 
+/**
+ * @brief       Initialize the LCD driver.
+ * 
+ */
 void ILI9341_Init(void);
+
+/**
+ * @brief       Perform a hardware reset of the LCD driver.
+ * 
+ */
 void ILI9341_ResetHard(void);
+
+/**
+ * @brief       Perform a software reset of the LCD driver.
+ * 
+ */
 void ILI9341_ResetSoft(void);
-void ILI9341_DisplayOn(void);
-void ILI9341_DisplayOff(void);
+
+/**
+ * @brief       Send command to turn the display ON or OFF.
+ * 
+ * @param       is_ON `1` to turn ON, `0` to turn OFF
+ */
+void ILI9341_DisplayOn(uint8_t is_ON);
+
+/**
+ * @brief       Set the display's frame rate.
+ * 
+ * @param       frame_rate num. in the range [61, 119] (exact values in datasheet)
+ */
 void ILI9341_SetFrameRate(uint8_t frame_rate);
+
+/**
+ * @brief       Send command to set operation status of display interface
+ * 
+ */
+void ILI9341_SetDispInterface(void);
+
 /*  TODO
         –Memory Write
         –Page Address Set (row(s) select)
