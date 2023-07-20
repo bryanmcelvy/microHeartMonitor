@@ -39,6 +39,15 @@ void SPI_WriteCmd(uint8_t cmd);
  */
 void SPI_WriteData(uint8_t data);
 
+/**
+ * @brief                   Write a command sequence to the peripheral.
+ * 
+ * @param cmd               8-bit command
+ * @param param_sequence    sequence of parameters to send after `cmd`
+ * @param num_params        number of parameters to send; should be <= size of `param_sequence`
+ */
+void SPI_WriteSequence(uint8_t cmd, uint8_t param_sequence[], uint8_t num_params);
+
 #endif
 
 /** @} */

@@ -12,7 +12,7 @@
  *  PA4 |  SSI0Rx   |   MISO    |   TM4C (M) input, LCD (S) output
  *  PA5 |  SSI0Tx   |   MOSI    |   TM4C (M) output, LCD (S) input
  *  PA6 |  GPIO     |   D/C     |   Data = 1, Command = 0
- *  PA7 |  GPIO     |   RESET   |   Reset the display
+ *  PA7 |  GPIO     |   RESET   |   Reset the display (negative logic/active low)
  * 
  *  Clk. Polarity  =   steady state low (0)
  *  Clk. Phase     =   rising clock edge (0)
@@ -70,5 +70,12 @@ void SPI_WriteCmd(uint8_t cmd) {
 void SPI_WriteData(uint8_t data) {
     while ((SSI0_SR_R & 0x02) == 0) {}              // wait until Tx FIFO isn't full
     GPIO_PORTA_DATA_R |= 0x40;                      // set D/C to write data
-    SSI0_DR_R = data;                                // write command
+    SSI0_DR_R = data;                               // write command
+}
+
+void SPI_WriteSequence(uint8_t cmd, uint8_t param_sequence[], uint8_t num_params) {
+    SPI_WriteCmd(cmd);
+    for (uint8_t i = 0; i < num_params; i++) {
+        SPI_WriteData( param_sequence[i] );
+    }
 }
