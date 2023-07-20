@@ -1,4 +1,10 @@
 /**
+ * @file 
+ * @author  Bryan McElvy
+ * @brief   Source code for SPI module.
+ */
+
+/**
  *  Pin |  Function | ILI9341 Pin
  *  --------------------------------------------------------------
  *  PA2 |  SSI0Clk  |   CLK     |   Serial clock signal
@@ -10,8 +16,6 @@
  * 
  *  Clk. Polarity  =   steady state low (0)
  *  Clk. Phase     =   rising clock edge (0)
- * 
- *  **TODO: Add commands + hex codes from datasheet**
  */
 
 #include "SPI.h"
@@ -48,4 +52,22 @@ void SPI_Init(void) {
     SSI0_CR0_R = ( SSI0_CR0_R & ~(0xFFF0) )         // SCR = 0, clk. phase = 0,
                         | 0x07;                     // clk. polarity = 0, SPI, 8-bit data
     SSI0_CR1_R |= 0x02;                             // re-enable SSI0
+}
+
+uint8_t SPI_Read(void) {
+    while (SSI0_SR_R & 0x04) {}                     // wait until Rx FIFO is empty
+    return (uint8_t) (SSI0_DR_R & 0xFF);            // return data from data register
+}
+
+void SPI_WriteCmd(uint8_t cmd) {
+    while (SSI0_SR_R & 0x10) {}                     // wait until SSI0 is ready
+    GPIO_PORTA_DATA_R &= ~(0x40);                   // clear D/C to write command
+    SSI0_DR_R = cmd;                                // write command
+    while (SSI0_SR_R & 0x10) {}                     // wait until transmission is finished
+}
+
+void SPI_WriteData(uint8_t data) {
+    while ((SSI0_SR_R & 0x02) == 0) {}              // wait until Tx FIFO isn't full
+    GPIO_PORTA_DATA_R |= 0x40;                      // set D/C to write data
+    SSI0_DR_R = data;                                // write command
 }

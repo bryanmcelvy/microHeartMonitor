@@ -18,6 +18,27 @@
  */
 void SPI_Init(void);
 
+/**
+ * @brief   Read data from peripheral.
+ * 
+ * @return  uint8_t
+ */
+uint8_t SPI_Read(void);
+
+/**
+ * @brief   Write an 8-bit command to the peripheral.
+ * 
+ * @param   cmd command for peripheral
+ */
+void SPI_WriteCmd(uint8_t cmd);
+
+/**
+ * @brief   Write 8-bit data to the peripheral.
+ * 
+ * @param   data input data for peripheral
+ */
+void SPI_WriteData(uint8_t data);
+
 #endif
 
 /** @} */
