@@ -12,12 +12,12 @@ int main() {
 
     PLL_Init();
     Timer0A_Init();
-    UART0_Init();
+    UART1_Init();
 
-    UART0_WriteStr((unsigned char *) "Starting transmission...\r\n");
+    UART1_WriteStr((unsigned char *) "Starting transmission...\r\n");
 
     while(1) {
-        UART0_WriteStr((unsigned char *) "Hello World!\n");
-        Timer0A_Wait1ms(10);
+        UART1_WriteStr((unsigned char *) "Hello World!\r\n");
+        Timer0A_Wait1ms(1);
     }
 }
