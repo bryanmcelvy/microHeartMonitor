@@ -34,11 +34,12 @@ void SPI_Init(void) {
      */
 
     SYSCTL_RCGCSSI_R |= 0x01;                       // enable SSI0 clk.
-    SYSCTL_RCGCGPIO_R |= 0x01;                      // enable Port A clk.
+    if ((SYSCTL_RCGCGPIO_R & 0x01) == 0) {
+        SYSCTL_RCGCGPIO_R |= 0x01;                  // enable GPIO Port A clk.
+    }
 
     GPIO_PORTA_AFSEL_R |= 0x3C;                     // alt. mode for PA2-5
-    GPIO_PORTA_PCTL_R = (GPIO_PORTA_PCTL_R & 0)     // SSI mode for PA2-5
-                        | 0x3C;
+    GPIO_PORTA_PCTL_R |= 0x3C;                      // SSI mode for PA2-5
     
     GPIO_PORTA_DIR_R |= 0xC0;                       // use PA6/7 as output pins
 

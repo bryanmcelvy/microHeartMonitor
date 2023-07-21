@@ -21,7 +21,9 @@ void UART0_Init(void) {
      */
     
     SYSCTL_RCGCUART_R |= 0x01;                  // activate clock for UART0
-    SYSCTL_RCGCGPIO_R |= 0x01;                  // activate clock for GPIO Port A
+    if ((SYSCTL_RCGCGPIO_R & 0x01) == 0) {
+        SYSCTL_RCGCGPIO_R |= 0x01;              // activate clock for GPIO Port A
+    }
 
     UART0_CTL_R &= ~(0x01);                     // disable UART0
     UART0_IBRD_R |= 43;                         /// NOTE: LCRH must be accessed *AFTER* setting the `BRD` register0
@@ -31,7 +33,7 @@ void UART0_Init(void) {
     UART0_CTL_R |= 0x01;                        // re-enable UART0
 
     GPIO_PORTA_AFSEL_R |= 0x03;                 // alt. mode for PA0/1
-    GPIO_PORTA_PCTL_R = 0x11;                   // UART mode for PA0/1
+    GPIO_PORTA_PCTL_R |= 0x11;                  // UART mode for PA0/1
     GPIO_PORTA_DR8R_R |= 0x03;                  // 2[ma] drive strength
     GPIO_PORTA_AMSEL_R &= ~(0x03);              // disable analog
     GPIO_PORTA_DEN_R |= 0x03;                   // enable digital I/O
