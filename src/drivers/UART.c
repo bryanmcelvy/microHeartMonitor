@@ -38,7 +38,7 @@ void UART0_Init(void) {
 
     GPIO_PORTA_AFSEL_R |= 0x03;                 // alt. mode for PA0/1
     GPIO_PORTA_PCTL_R |= 0x11;                  // UART mode for PA0/1
-    GPIO_PORTA_DR8R_R |= 0x03;                  // 2[ma] drive strength
+    GPIO_PORTA_DR8R_R |= 0x03;                  // 8 [ma] drive strength
     GPIO_PORTA_AMSEL_R &= ~(0x03);              // disable analog
     GPIO_PORTA_DEN_R |= 0x03;                   // enable digital I/O
 }
@@ -106,7 +106,7 @@ void UART1_Init(void) {
 
     GPIO_PORTB_AFSEL_R |= 0x03;                 // alt. mode for PB0/1
     GPIO_PORTB_PCTL_R |= 0x11;                  // UART mode for PB0/1
-    GPIO_PORTB_DR8R_R |= 0x03;                  // 2[ma] drive strength
+    GPIO_PORTB_DR8R_R |= 0x03;                  // 8 [ma] drive strength
     GPIO_PORTB_AMSEL_R &= ~(0x03);              // disable analog
     GPIO_PORTB_DEN_R |= 0x03;                   // enable digital I/O
 }
