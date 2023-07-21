@@ -7,20 +7,35 @@
 #include "ILI9341.h"
 
 void ILI9341_Init(void) {
-
+    SPI_Init();
+    Timer2A_Init();
 }
 
 void ILI9341_ResetHard(void) {
+    /** The ILI9341's RESET signal requires a negative logic (i.e. active `LOW`) signal
+     *  for >= 10 [us] and an additional 5 [ms] before further commands can be sent.     */
 
+    while(Timer2A_isCounting());                // in case previous command started timer
+    GPIO_PORTA_DATA_R &= ~(0x80);                    // clear PA7 for 1 [ms] to initiate a hardware reset
+    Timer2A_Wait1ms(1);
+    GPIO_PORTA_DATA_R |= 0x80;                       // set PA7 to end reset pulse
+    Timer2A_Start(5);                           // wait 5 [ms] before next command after reset
 }
 
 void ILI9341_ResetSoft(void) {
-
+    /** The ILI9341 requires an additional 5 [ms] before 
+     *  further commands can be sent after a reset.      */
+    
+    while(Timer2A_isCounting());                // in case previous command started timer
+    SPI_WriteCmd( (uint8_t) 0x21);
+    Timer2A_Start(5);                           // wait 5 [ms] before next command after reset
 }
 
 void ILI9341_DisplayOn(uint8_t is_ON) {
     /** `0x28` for OFF, `0x29` for ON */
     is_ON = (is_ON > 1) ? 1 : is_ON;
+
+    while(Timer2A_isCounting());                // in case previous command started timer
     SPI_WriteCmd( (uint8_t) (0x28 & is_ON) );
 }
 
@@ -42,9 +57,11 @@ void ILI9341_SetDispInterface(void) {
      *  The default values are `01000001` (`0x41`). This function alters the RGB interface to use `SYNC` mode, 
      *  allowing the blanking porch to be set using the `0xB5` command and ignoring the value of the `DE` signal.
      */
-    // SPI_WriteCmd(0xB0);
+    
     const uint8_t cmd = 0xB0;
     const uint8_t param[1] = {0x61};
+
+    while(Timer2A_isCounting());                // in case previous command started timer
     SPI_WriteSequence(cmd, param, 1);
 }
 
