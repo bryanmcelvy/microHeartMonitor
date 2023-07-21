@@ -46,7 +46,7 @@ void SPI_WriteData(uint8_t data);
  * @param param_sequence    sequence of parameters to send after `cmd`
  * @param num_params        number of parameters to send; should be <= size of `param_sequence`
  */
-void SPI_WriteSequence(const uint8_t cmd, const uint8_t param_sequence[], uint8_t num_params);
+void SPI_WriteSequence(uint8_t cmd, uint8_t param_sequence[], uint8_t num_params);
 
 #endif
 
