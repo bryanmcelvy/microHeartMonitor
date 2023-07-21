@@ -71,11 +71,23 @@ target_include_directories(Test_Timer1_Int.elf
 
 # UART
 add_executable(Test_UART_Write.elf 
-                    test_uart_Write.c 
+                    test_uart_write.c 
                     ${PROJECT_SOURCE_DIR}/src/device/startup_gcc.c
                     )
 
 target_include_directories(Test_UART_Write.elf
+                            PRIVATE 
+                                ${PROJECT_SOURCE_DIR}/src/drivers
+                                ${PROJECT_SOURCE_DIR}/src/device
+                            )
+
+# UART (Logic Analyzer)
+add_executable(Test_UART_LA.elf 
+                    test_uart_la.c 
+                    ${PROJECT_SOURCE_DIR}/src/device/startup_gcc.c
+                    )
+
+target_include_directories(Test_UART_LA.elf
                             PRIVATE 
                                 ${PROJECT_SOURCE_DIR}/src/drivers
                                 ${PROJECT_SOURCE_DIR}/src/device

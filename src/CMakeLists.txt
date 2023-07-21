@@ -88,6 +88,14 @@ target_link_libraries(  Test_UART_Write.elf
                             UART
 )
 
+# UART (Logic Analyzer) Test
+target_link_libraries(  Test_UART_LA.elf
+                        PRIVATE 
+                            PLL
+                            Timer
+                            UART
+)
+
 #[[***********************************************************************************************
 Library Linking (App. Software Tests)
 **************************************************************************************************  ]]
