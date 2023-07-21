@@ -12,7 +12,7 @@
  *  PA4 |  SSI0Rx   |   MISO    |   TM4C (M) input, LCD (S) output
  *  PA5 |  SSI0Tx   |   MOSI    |   TM4C (M) output, LCD (S) input
  *  PA6 |  GPIO     |   D/C     |   Data = 1, Command = 0
- *  PA7 |  GPIO     |   RESET   |   Reset the display (negative logic/active low)
+ *  PA7 |  GPIO     |   RESET   |   Reset the display (negative logic/active `LOW`)
  * 
  *  Clk. Polarity  =   steady state low (0)
  *  Clk. Phase     =   rising clock edge (0)
@@ -41,10 +41,10 @@ void SPI_Init(void) {
                         | 0x3C;
     
     GPIO_PORTA_DIR_R |= 0xC0;                       // use PA6/7 as output pins
-    GPIO_PORTA_PUR_R |= 0x80;                       // enable pull-up on PA7 (RESET signal is active low)
 
     GPIO_PORTA_AMSEL_R &= ~(0xFC);                  // disable analog for PA2-7
     GPIO_PORTA_DEN_R |= 0xFC;                       // enable digital IO for PA2-7
+    GPIO_PORTA_DATA_R |= 0x80;                      // set `RESET` signal `HIGH` (active `LOW`)
 
     SSI0_CR1_R &= ~(0x02);                          // disable SSI0
     SSI0_CR1_R &= ~(0x04);                          // controller (M) mode
