@@ -9,6 +9,8 @@
 void ILI9341_Init(void) {
     SPI_Init();
     Timer2A_Init();
+
+    ILI9341_ResetHard();
 }
 
 void ILI9341_ResetHard(void) {
@@ -16,9 +18,9 @@ void ILI9341_ResetHard(void) {
      *  for >= 10 [us] and an additional 5 [ms] before further commands can be sent.     */
 
     while(Timer2A_isCounting());                // in case previous command started timer
-    GPIO_PORTA_DATA_R &= ~(0x80);                    // clear PA7 for 1 [ms] to initiate a hardware reset
+    GPIO_PORTA_DATA_R &= ~(0x80);               // clear PA7 for 1 [ms] to initiate a hardware reset
     Timer2A_Wait1ms(1);
-    GPIO_PORTA_DATA_R |= 0x80;                       // set PA7 to end reset pulse
+    GPIO_PORTA_DATA_R |= 0x80;                  // set PA7 to end reset pulse
     Timer2A_Start(5);                           // wait 5 [ms] before next command after reset
 }
 
@@ -32,7 +34,7 @@ void ILI9341_ResetSoft(void) {
 }
 
 void ILI9341_DisplayOn(uint8_t is_ON) {
-    /** `0x28` for OFF, `0x29` for ON */
+    /// `0x28` for OFF, `0x29` for ON
     is_ON = (is_ON > 1) ? 1 : is_ON;
 
     while(Timer2A_isCounting());                // in case previous command started timer
@@ -58,11 +60,12 @@ void ILI9341_SetDispInterface(void) {
      *  allowing the blanking porch to be set using the `0xB5` command and ignoring the value of the `DE` signal.
      */
     
-    const uint8_t cmd = 0xB0;
+    const uint8_t cmd = 0xB0;                                   
     const uint8_t param[1] = {0x61};
 
-    while(Timer2A_isCounting());                // in case previous command started timer
-    SPI_WriteSequence(cmd, param, 1);
+    while(Timer2A_isCounting());                                // in case previous command started timer
+    SPI_WriteSequence((uint8_t) cmd, (uint8_t *) param, 1);     /** The `const` modifier is cast away for
+                                                                    both variables to avoid compiler warnings. */
 }
 
 void ILI9341_SetFrameRate(uint8_t frame_rate) {

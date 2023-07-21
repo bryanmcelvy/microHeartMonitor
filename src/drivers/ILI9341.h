@@ -5,6 +5,7 @@
  * @file
  * @author      Bryan McElvy
  * @brief       Driver module for interfacing with an ILI9341 LCD driver
+ * 
  * @details     This module contains functions for initializing and outputting 
  *              graphical data to a 240RGBx320 resolution, 262K color-depth liquid 
  *              crystal display (LCD). The module interfaces the LaunchPad (or any 
