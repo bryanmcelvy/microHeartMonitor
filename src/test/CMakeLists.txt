@@ -23,6 +23,12 @@ target_include_directories(Test_PLL.elf
                                 ${PROJECT_SOURCE_DIR}/src/device
                             )
 
+target_link_libraries(  Test_PLL.elf 
+                        PRIVATE 
+                            PLL
+                            SysTick
+                        )
+
 # SysTick Interrupts
 add_executable(Test_SysTick_Int.elf 
                     test_systick_int.c 
@@ -34,6 +40,12 @@ target_include_directories(Test_SysTick_Int.elf
                                 ${PROJECT_SOURCE_DIR}/src/drivers
                                 ${PROJECT_SOURCE_DIR}/src/device
                             )
+
+target_link_libraries(  Test_SysTick_Int.elf 
+                        PRIVATE 
+                            PLL
+                            SysTick
+)
 
 # Timer 0
 add_executable(Test_Timer0.elf 
@@ -47,6 +59,13 @@ target_include_directories(Test_Timer0.elf
                                 ${PROJECT_SOURCE_DIR}/src/device
                             )
 
+target_link_libraries(  Test_Timer0.elf
+                        PRIVATE 
+                            GPIO
+                            PLL
+                            Timer
+)
+
 # GPIO Interrupts
 add_executable(Test_GPIO_Int.elf 
                     test_gpio_int.c 
@@ -58,6 +77,14 @@ target_include_directories(Test_GPIO_Int.elf
                                 ${PROJECT_SOURCE_DIR}/src/drivers
                                 ${PROJECT_SOURCE_DIR}/src/device
                             )
+
+target_link_libraries(  Test_GPIO_Int.elf 
+                        PRIVATE 
+                            GPIO
+                            PLL
+                            SysTick
+                            Timer
+)
 
 # Timer 1 Interrupts
 add_executable(Test_Timer1_Int.elf 
@@ -71,6 +98,13 @@ target_include_directories(Test_Timer1_Int.elf
                                 ${PROJECT_SOURCE_DIR}/src/device
                             )
 
+target_link_libraries(  Test_Timer1_Int.elf
+                        PRIVATE 
+                            GPIO
+                            PLL
+                            Timer
+)
+
 # UART
 add_executable(Test_UART_Write.elf 
                     test_uart_write.c 
@@ -83,6 +117,14 @@ target_include_directories(Test_UART_Write.elf
                                 ${PROJECT_SOURCE_DIR}/src/device
                             )
 
+target_link_libraries(  Test_UART_Write.elf
+                        PRIVATE 
+                            GPIO
+                            PLL
+                            Timer
+                            UART
+)
+
 # UART (Logic Analyzer)
 add_executable(Test_UART_LA.elf 
                     test_uart_la.c 
@@ -94,6 +136,13 @@ target_include_directories(Test_UART_LA.elf
                                 ${PROJECT_SOURCE_DIR}/src/drivers
                                 ${PROJECT_SOURCE_DIR}/src/device
                             )
+
+target_link_libraries(  Test_UART_LA.elf
+                        PRIVATE 
+                            PLL
+                            Timer
+                            UART
+)
 
 #*****************************************************************************
 # Application SW Tests
@@ -112,5 +161,10 @@ target_include_directories(Test_UserCtrl.elf
                                 ${PROJECT_SOURCE_DIR}/src/drivers
                                 ${PROJECT_SOURCE_DIR}/src/device
                             )
+
+target_link_libraries(  Test_UserCtrl.elf 
+                        PRIVATE 
+                            UserCtrl
+)
 
 endif(OPT_TESTING)

@@ -1,13 +1,16 @@
 #[[***********************************************************************************************
 File:           src/CMakeLists.txt
-Description:    Adds subdirectories and main target executable; links static
-                libraries to main target and test scripts
+Description:    Adds subdirectories and main target executable
 **************************************************************************************************  ]]
 add_subdirectory(app)
 add_subdirectory(common)
 add_subdirectory(device)
 add_subdirectory(drivers)
-add_subdirectory(test)
+
+if(OPT_TESTING)
+    add_subdirectory(test)
+endif(OPT_TESTING)
+
 
 #[[***********************************************************************************************
 Main Target Declaration
@@ -33,77 +36,3 @@ target_link_libraries(  ${MAIN_TARGET}
                             Debug   Filter      QRS     UserCtrl    # app libraries
                             ADC     ILI9341     PLL                 # driver libraries
                         )
-
-#[[***********************************************************************************************
-Library Linking (Driver Tests)
-**************************************************************************************************  ]]
-
-if(OPT_TESTING)
-
-# PLL Test
-target_link_libraries(  Test_PLL.elf 
-                        PRIVATE 
-                            PLL
-                            SysTick
-                        )
-
-# SysTick Interrupt Test
-target_link_libraries(  Test_SysTick_Int.elf 
-                        PRIVATE 
-                            PLL
-                            SysTick
-)
-
-# Timer 0 Test
-target_link_libraries(  Test_Timer0.elf
-                        PRIVATE 
-                            GPIO
-                            PLL
-                            Timer
-)
-
-# GPIO Interrupts Test
-target_link_libraries(  Test_GPIO_Int.elf 
-                        PRIVATE 
-                            GPIO
-                            PLL
-                            SysTick
-                            Timer
-)
-
-# Timer 1 Interrupts Test
-target_link_libraries(  Test_Timer1_Int.elf
-                        PRIVATE 
-                            GPIO
-                            PLL
-                            Timer
-)
-
-# UART Test
-target_link_libraries(  Test_UART_Write.elf
-                        PRIVATE 
-                            GPIO
-                            PLL
-                            Timer
-                            UART
-)
-
-# UART (Logic Analyzer) Test
-target_link_libraries(  Test_UART_LA.elf
-                        PRIVATE 
-                            PLL
-                            Timer
-                            UART
-)
-
-#[[***********************************************************************************************
-Library Linking (App. Software Tests)
-**************************************************************************************************  ]]
-
-# UserCtrl Test
-target_link_libraries(  Test_UserCtrl.elf 
-                        PRIVATE 
-                            UserCtrl
-)
-
-endif(OPT_TESTING)
