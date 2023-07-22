@@ -7,6 +7,12 @@
 #include "ILI9341.h"
 
 void ILI9341_Init(void) {
+    /**
+     *  This function initializes the SPI (i.e. SSI0) and Timer2A peripherals,
+     *  initiates a hardware reset of the display, and tunes the display interface
+     *  to allow blanking porch values to be manipulated via SPI commands.
+     */
+    
     SPI_Init();
     Timer2A_Init();
 
