@@ -88,7 +88,7 @@ uint8_t Timer2A_isCounting(void) {
     return TIMER2_CTL_R & 0x101;             // check enable bit (1 if counting, 0 if not)
 }
 
-void Time20A_Wait1ms(uint32_t time_ms) {
+void Timer2A_Wait1ms(uint32_t time_ms) {
     Timer2A_Start(time_ms);
     while (Timer2A_isCounting()) {}
 }
