@@ -11,6 +11,8 @@ void ILI9341_Init(void) {
     Timer2A_Init();
 
     ILI9341_ResetHard();
+    ILI9341_DisplayOn(0);
+    ILI9341_SetDispInterface();
 }
 
 void ILI9341_ResetHard(void) {
