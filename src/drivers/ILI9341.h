@@ -24,6 +24,34 @@
 #include "SPI.h"
 #include "Timer.h"
 
+// Selected commands from the datasheet
+#define NOP                     (uint8_t) 0x00          /// No Operation
+#define SWRESET                 (uint8_t) 0x01          /// Software Reset
+#define RDDST                   (uint8_t) 0x09          /// Read Display Status
+#define RDDMADCTL               (uint8_t) 0x0B          /// Read Display MADCTL
+#define DINVOFF                 (uint8_t) 0x20          /// Display Inversion OFF
+#define DINVON                  (uint8_t) 0x21          /// Display Inversion ON
+#define CASET                   (uint8_t) 0x2A          /// Column Address Set
+#define PASET                   (uint8_t) 0x2B          /// Page Address Set
+#define RAMWR                   (uint8_t) 0x2C          /// Memory Write
+#define RGBSET                  (uint8_t) 0x2D          /// Color Set
+#define RAMRD                   (uint8_t) 0x2E          /// Memory Read
+#define DISPOFF                 (uint8_t) 0x28          /// Display OFF
+#define DISPON                  (uint8_t) 0x29          /// Display ON
+#define VSCRDEF                 (uint8_t) 0x33          /// Vertical Scrolling Definition
+#define MADCTL                  (uint8_t) 0x36          /// Memory Access Control
+#define VSCRSADD                (uint8_t) 0x37          /// Vertical Scrolling Start Address
+#define PIXSET                  (uint8_t) 0x3A          /// Pixel Format Set
+#define WRITE_MEMORY_CONTINUE   (uint8_t) 0x3C          /// Write_Memory_Continue
+#define READ_MEMORY_CONTINUE    (uint8_t) 0x3E          /// Read_Memory_Continue
+#define WRDISBV                 (uint8_t) 0x51          /// Write Display Brightness
+#define RDDISBV                 (uint8_t) 0x52          /// Read Display Brightness
+#define IFMODE                  (uint8_t) 0xB0          /// RGB Interface Signal Control
+#define FRMCTR1                 (uint8_t) 0xB1          /// Frame Control Set (Normal Mode)
+#define INVTR                   (uint8_t) 0xB4          /// Display Inversion Control
+#define PRCTR                   (uint8_t) 0xB5          /// Blanking Porch Control
+#define DISCTRL                 (uint8_t) 0xB6          /// Display Function Control
+
 /**
  * @brief       Initialize the LCD driver.
  * 
