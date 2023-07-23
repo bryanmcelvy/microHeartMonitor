@@ -68,7 +68,6 @@ void ILI9341_SetDispInterface(void) {
      *  allowing the blanking porch to be set using the `0xB5` command and ignoring the value of the `DE` signal.
      */
     
-    const uint8_t cmd = 0xB0;                                   
     const uint8_t param[1] = {0x61};
 
     while(Timer2A_isCounting());                                // in case previous command started timer
