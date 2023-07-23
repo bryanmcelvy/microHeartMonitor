@@ -37,7 +37,7 @@ void ILI9341_ResetSoft(void) {
      *  further commands can be sent after a reset.      */
     
     while(Timer2A_isCounting());                // in case previous command started timer
-    SPI_WriteCmd( (uint8_t) 0x21);
+    SPI_WriteCmd(SWRESET);
     Timer2A_Start(5);                           // wait 5 [ms] before next command after reset
 }
 
@@ -72,8 +72,8 @@ void ILI9341_SetDispInterface(void) {
     const uint8_t param[1] = {0x61};
 
     while(Timer2A_isCounting());                                // in case previous command started timer
-    SPI_WriteSequence((uint8_t) cmd, (uint8_t *) param, 1);     /** The `const` modifier is cast away for
-                                                                    both variables to avoid compiler warnings. */
+    SPI_WriteSequence(IFMODE, (uint8_t *) param, 1);        /** The `const` modifier is cast away for
+                                                                both variables to avoid compiler warnings. */
 }
 
 void ILI9341_SetFrameRate(uint8_t frame_rate) {
