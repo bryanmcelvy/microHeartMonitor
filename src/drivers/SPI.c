@@ -22,8 +22,6 @@
 
 void SPI_Init(void) {
     /**
-     *  @details
-     *      
      *  The bit rate `BR` is set using the clock prescale divisor `CPSDVSR`
      *  and `SCR` field in the SSI Control 0 (`CR0`) register:
      * 
@@ -31,6 +29,8 @@ void SPI_Init(void) {
      * 
      *  The ILI9341 driver has a minimum write cycle of 100 [ns],
      *  corresponding to a maximum serial clock frequency of 10 [MHz].
+     *  Thus, this function sets the bit rate `BR` to be the bus frequency
+     *  ($\ff_{bus} = 80 [MHz]$\f) divided by 10 ($\f8 [MHz]).
      */
 
     SYSCTL_RCGCSSI_R |= 0x01;                       // enable SSI0 clk.
