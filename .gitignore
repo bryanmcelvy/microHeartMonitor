@@ -2,4 +2,4 @@
 /.vscode
 /build
 /ecg_hrm.code-workspace
-*ili9341_lcd_driver*
+/.cache
