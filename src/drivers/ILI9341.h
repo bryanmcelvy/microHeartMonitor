@@ -1,4 +1,7 @@
 /**
+ * @addtogroup  ili9341
+ * @{
+ * 
  * @file
  * @author      Bryan McElvy
  * @brief       Driver module for interfacing with an ILI9341 LCD driver
@@ -8,9 +11,6 @@
  *              other board featuring the TM4C123GH6PM microcontroller) with an 
  *              ILI9341 LCD driver chip via the SPI (serial peripheral interface)
  *              protocol.
- * 
- * @addtogroup  lcd
- * @{
  */
 
 

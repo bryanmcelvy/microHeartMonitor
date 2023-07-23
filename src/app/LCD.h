@@ -1,4 +1,7 @@
 /**
+ * @addtogroup lcd
+ * @{
+ * 
  * @file
  * @author  Bryan McElvy
  * @brief   Module for outputting the ECG waveform and HR to a liquid crystal display (LCD).
@@ -12,3 +15,5 @@
 void LCD_Init(void);
 
 #endif
+
+/** @} */
