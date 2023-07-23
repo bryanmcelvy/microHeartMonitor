@@ -14,8 +14,6 @@
  *              protocol.
  */
 
-//**TODO: Add commands + hex codes from datasheet**
-
 #ifndef __ILI9341_H__
 #define __ILI9341_H__
 
