@@ -19,7 +19,7 @@
 #include "QRS.h"
 #include "UserCtrl.h"
 
-int main() {
+int main(void) {
     
 }
 
