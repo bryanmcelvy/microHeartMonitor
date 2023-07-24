@@ -6,7 +6,7 @@
  */
 
 #include <stdint.h>
-#include <stdio.h>
+// #include <stdio.h>
 
 /**
  * @brief   Array-based FIFO buffer type.

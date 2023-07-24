@@ -14,8 +14,8 @@
  * @param MAX_SIZE      maximum number of elements allowed within buffer.
  */
 struct FIFO_buffer {
-    volatile uint16_t   *front_ptr;
-    volatile uint16_t   *rear_ptr;
+    volatile uint16_t * front_ptr;
+    volatile uint16_t * rear_ptr;
     volatile uint32_t   curr_size;
     uint32_t            MAX_SIZE;
 };
@@ -62,7 +62,7 @@ uint16_t FIFO_rem_sample(FIFO_buffer_t *FIFO_ptr)  {
     }
     else {
         front_val = 0;
-        printf("FIFO is empty.");
+        // printf("FIFO is empty.");
     }
 
     return front_val;
@@ -74,12 +74,12 @@ uint32_t FIFO_get_size(FIFO_buffer_t *FIFO_ptr) {
 
 void FIFO_show_data(FIFO_buffer_t *FIFO_ptr) {
     if (FIFO_ptr->curr_size == 0) {
-        printf("FIFO is empty.\n");
+        // printf("FIFO is empty.\n");
     }
     else {
         for (int i = 0; i < FIFO_ptr->curr_size; i++) {
-            printf("%d ", *(FIFO_ptr->front_ptr + i));
+            // printf("%d ", *(FIFO_ptr->front_ptr + i));
         }
-        printf("\n");
+        // printf("\n");
     }
 }
