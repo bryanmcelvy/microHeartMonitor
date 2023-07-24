@@ -9,6 +9,9 @@ target_link_libraries(Debug PRIVATE UART)
 
 add_library(Filter STATIC Filter.c Filter.h)
 
+add_library(LCD STATIC LCD.c LCD.h)
+target_link_libraries(LCD PRIVATE ILI9341)
+
 add_library(QRS STATIC QRS.c QRS.h)
 target_link_libraries(QRS 
                         PRIVATE Filter
