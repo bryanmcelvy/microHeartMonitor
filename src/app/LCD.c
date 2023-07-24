@@ -6,6 +6,6 @@
 
 #include "LCD.h"
 
-void LCD_Init() {
+void LCD_Init(void) {
 
 }
