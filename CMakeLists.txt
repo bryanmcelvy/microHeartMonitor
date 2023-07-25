@@ -10,7 +10,6 @@ project(ECG_HRM C)
 # Build Options
 option(OPT_GEN_DOC      "Generate documentation using Doxygen and pdflatex"         OFF)
 option(OPT_CPPCHECK     "Run static code analysis (i.e. linting) via CppCheck"      ON)
-option(OPT_CLANG_TIDY   "Run static code analysis (i.e. linting) via clang-tidy"    OFF)
 option(OPT_TESTING      "Build test scripts for various modules"                    ON)
 
 # CppCheck Configuration
@@ -28,10 +27,6 @@ if(OPT_CPPCHECK)
                 ")
     endif()
     
-endif()
-
-if(OPT_CLANG_TIDY)
-    find_program(CMAKE_C_CLANG_TIDY NAMES clang-tidy)
 endif()
 
 # Subdirectories
