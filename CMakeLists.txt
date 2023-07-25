@@ -9,19 +9,20 @@ project(ECG_HRM C)
 
 # Build Options
 option(OPT_GEN_DOC      "Generate documentation using Doxygen and pdflatex"         OFF)
-option(OPT_CPPCHECK     "Run static code analysis (i.e. linting) via CppCheck"      OFF)
+option(OPT_CPPCHECK     "Run static code analysis (i.e. linting) via CppCheck"      ON)
 option(OPT_CLANG_TIDY   "Run static code analysis (i.e. linting) via clang-tidy"    OFF)
-option(OPT_TESTING      "Build test scripts for various modules"                    OFF)
-
-# Subdirectories
-add_subdirectory(src)                               # source code, libraries, test scripts
-add_subdirectory(docs)                              # datasheets and generated code documentation
+option(OPT_TESTING      "Build test scripts for various modules"                    ON)
 
 # CppCheck Configuration
 if(OPT_CPPCHECK)
     find_program(CMAKE_C_CPPCHECK NAMES cppcheck)
     if(CMAKE_C_CPPCHECK)
-        list(APPEND CMAKE_C_CPPCHECK "--enable=all;--cppcheck-build-dir=${PROJECT_BINARY_DIR};--clang")
+        list(APPEND CMAKE_C_CPPCHECK "\
+                --enable=all;\
+                --cppcheck-build-dir=${PROJECT_BINARY_DIR}/cppcheck;\
+                --clang;\
+                -i ${PROJECT_SOURCE_DIR}/src/device\
+                ")
     endif()
     
 endif()
@@ -29,3 +30,7 @@ endif()
 if(OPT_CLANG_TIDY)
     find_program(CMAKE_C_CLANG_TIDY NAMES clang-tidy)
 endif()
+
+# Subdirectories
+add_subdirectory(src)                               # source code, libraries, test scripts
+add_subdirectory(docs)                              # datasheets and generated code documentation
