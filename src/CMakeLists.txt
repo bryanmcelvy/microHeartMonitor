@@ -2,6 +2,8 @@
 File:           src/CMakeLists.txt
 Description:    Adds subdirectories and main target executable
 **************************************************************************************************  ]]
+
+# Subdirectories
 add_subdirectory(app)
 add_subdirectory(common)
 add_subdirectory(device)
@@ -9,12 +11,9 @@ add_subdirectory(drivers)
 
 if(OPT_TESTING)
     add_subdirectory(test)
-endif(OPT_TESTING)
+endif()
 
-
-#[[***********************************************************************************************
-Main Target Declaration
-**************************************************************************************************  ]]
+# Main Target Declaration
 set(MAIN_TARGET ${CMAKE_PROJECT_NAME}.elf)
 
 add_executable(${MAIN_TARGET} 
