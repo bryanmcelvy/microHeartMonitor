@@ -19,6 +19,9 @@ if(OPT_CPPCHECK)
     if(CMAKE_C_CPPCHECK)
         list(APPEND CMAKE_C_CPPCHECK "\
                 --enable=all;\
+                --error-exitcode=1;\
+                --suppress=unusedFunction;\
+                --verbose;\
                 --cppcheck-build-dir=${PROJECT_BINARY_DIR}/cppcheck;\
                 --clang;\
                 -i ${PROJECT_SOURCE_DIR}/src/device\
