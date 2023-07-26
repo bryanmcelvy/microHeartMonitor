@@ -1,6 +1,7 @@
 /**
- * @brief   Main program file for ECG-HRM
+ * @file
  * @author  Bryan McElvy
+ * @brief   Main program file for ECG-HRM
  */
 
 // Driver Libraries
