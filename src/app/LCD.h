@@ -9,6 +9,10 @@
 
 #include "ILI9341.h"
 
+/**
+ * @brief   Initializes and configures the ILI9341 LCD driver.
+ * 
+ */
 void LCD_Init(void);
 
 #endif
