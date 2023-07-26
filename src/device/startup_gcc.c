@@ -55,6 +55,7 @@ static void IntDefaultHandler(void);
 // External declarations for the interrupt handlers used by the application.
 //
 //*****************************************************************************
+void __attribute__((weak, alias("IntDefaultHandler"))) ADC0_SS3_Handler(void);
 void __attribute__((weak, alias("IntDefaultHandler"))) GPIO_PortF_Handler(void);
 void __attribute__((weak, alias("IntDefaultHandler"))) SysTick_Handler(void);
 void __attribute__((weak, alias("IntDefaultHandler"))) Timer1A_Handler(void);
@@ -119,7 +120,7 @@ void (* const g_pfnVectors[])(void) =
     IntDefaultHandler,                      // ADC Sequence 0
     IntDefaultHandler,                      // ADC Sequence 1
     IntDefaultHandler,                      // ADC Sequence 2
-    IntDefaultHandler,                      // ADC Sequence 3
+    ADC0_SS3_Handler,                       // ADC Sequence 3
     IntDefaultHandler,                      // Watchdog timer
     IntDefaultHandler,                      // Timer 0 subtimer A
     IntDefaultHandler,                      // Timer 0 subtimer B
