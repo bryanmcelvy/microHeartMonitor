@@ -101,8 +101,9 @@ void ILI9341_setDisplayOn(uint8_t is_ON);
 /**
  * @brief       Send command to set operation status of display interface
  * 
+ * @param       param 
  */
-void ILI9341_SetDispInterface(void);
+void ILI9341_setDispInterface(uint8_t param);
 
 /*  TODO
         –Memory Write

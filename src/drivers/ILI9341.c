@@ -5,6 +5,8 @@
  */
 
 #include "ILI9341.h"
+#include "SPI.h"
+#include <stdint.h>
 
 void ILI9341_Init(void) {
     /**
@@ -18,7 +20,6 @@ void ILI9341_Init(void) {
 
     ILI9341_ResetHard();
     ILI9341_setDisplayOn(0);
-    ILI9341_SetDispInterface();
 }
 
 void ILI9341_ResetHard(void) {
@@ -49,7 +50,7 @@ void ILI9341_setDisplayOn(uint8_t is_ON) {
     SPI_WriteCmd( (uint8_t) (0x28 & is_ON) );
 }
 
-void ILI9341_SetDispInterface(void) {
+void ILI9341_setDispInterface(uint8_t param) {
     /** 
      *  This function sets the display interface according to the following table,
      *  adapted from pg. 154 of the ILI9341 datasheet.
@@ -69,15 +70,12 @@ void ILI9341_SetDispInterface(void) {
                     `0` for high enable, `1` for low enable
                     (NOTE: irrelevant in `SYNC` mode)
      * 
-     *  The default values are `01000001` (`0x41`). 
-     *  
-     *  This function alters the RGB interface to use `SYNC` mode, 
-     *  allowing the blanking porch to be set using the `0xB5` command and 
-     *  ignoring the value of the `DE` signal.
+     *  The default values are `01000001` (`0x41`).
      */
     
-    const uint8_t param[1] = {0x61};
+    // const uint8_t param[1] = {0x61}; use `SYNC` mode
 
-    while(Timer2A_isCounting());                            // in case previous command started timer
-    SPI_WriteSequence(IFMODE, (uint8_t *) param, 1);        // cast away `const` modifier to avoid compiler warnings
+    while(Timer2A_isCounting());                // in case previous command started timer
+    SPI_WriteCmd(IFMODE);
+    SPI_WriteData(param);
 }
