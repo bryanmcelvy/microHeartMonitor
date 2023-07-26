@@ -9,4 +9,10 @@
 
 #include "tm4c123gh6pm.h"
 
+/**
+ * @brief   Initialize ADC0 and ADC1 as a differential-input analog-to-digital converter.
+ * 
+ */
+void ADC_Init(void);
+
 #endif
