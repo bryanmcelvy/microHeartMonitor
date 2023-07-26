@@ -9,7 +9,6 @@
 
 // Driver Libraries
 #include "ADC.h"
-#include "ISR.c"
 #include "ILI9341.h"
 #include "PLL.h"
 
