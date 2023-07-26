@@ -100,12 +100,11 @@ Timer3A
 
 /**
  * @brief   Initialize Timer3A as a 32-bit, periodic, countdown timer 
- *          that triggers ADC interrupts.
+ *          that triggers ADC sample capture.
  * 
  * @param   time_ms     Time in [ms] to load into Timer3A. 
  *                      Must be <= 53 seconds.
  */
 void Timer3A_Init(uint32_t time_ms);
-
 
 #endif
