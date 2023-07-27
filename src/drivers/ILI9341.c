@@ -23,6 +23,7 @@ void ILI9341_Init(void) {
     Timer2A_Init();
 
     ILI9341_ResetHard();
+    ILI9341_setInterface();
     ILI9341_setDisplayStatus(0);
 }
 
@@ -88,6 +89,7 @@ void ILI9341_setRowAddress(uint16_t start_row, uint16_t end_row) {
     cmd_sequence[2] = (uint8_t) ((end_row & 0x1100) >> 8);
     cmd_sequence[3] = (uint8_t) (end_row & 0x0011);
 
+    while(Timer2A_isCounting());                // in case previous command started timer
     SPI_WriteSequence(PASET, cmd_sequence, 4);
 }
 
@@ -113,11 +115,13 @@ void ILI9341_setColAddress(uint16_t start_col, uint16_t end_col) {
     cmd_sequence[2] = (uint8_t) ((end_col & 0x1100) >> 8);
     cmd_sequence[3] = (uint8_t) (end_col & 0x0011);
 
+    while(Timer2A_isCounting());                // in case previous command started timer
     SPI_WriteSequence(CASET, cmd_sequence, 4);
 }
 
 //TODO: Write
 void ILI9341_write1px(uint8_t data[3]) { 
+    while(Timer2A_isCounting());                // in case previous command started timer
     SPI_WriteSequence(RAMWR, data, 3);
 }
 
@@ -163,9 +167,9 @@ void ILI9341_setMemAccessCtrl(
 }
 
 void ILI9341_setPixelFormat(uint8_t is_16bit) { //TODO: Write
-    uint8_t param;
+    uint8_t param = (is_16bit) ? 0x55 : 0x66;
 
-    param = (is_16bit) ? 0x55 : 0x66;
+    while(Timer2A_isCounting());                // in case previous command started timer
     SPI_WriteCmd(PIXSET);
     SPI_WriteData(param);
 }
@@ -190,8 +194,8 @@ void ILI9341_setDispInterface(uint8_t param) {
      *  adapted from pg. 154 of the ILI9341 datasheet.
      * 
      *  --------------------------------------------------------------------
-     *  Bit   ||      7      |   6    |    5   | 4 |  3   |  2   |  1  |  0
-     *  Value || ByPass_MODE | RCM[1] | RCM[0] | 0 | VSPL | HSPL | DPL | EPL
+     *  Bit   |      7      |   6    |    5   | 4 |  3   |  2   |  1  |  0
+     *  Value | ByPass_MODE | RCM[1] | RCM[0] | 0 | VSPL | HSPL | DPL | EPL
      *  --------------------------------------------------------------------
      *  ByPass_MODE: display data path; 0 for shift register, 1 for memory
      *          RCM: RGB interface selection; `10` for `DE`, `11` for `SYNC`
@@ -226,5 +230,6 @@ void ILI9341_setInterface(void) { //TODO: Add comments/make nicer
     /// RGB Interface, 6-bit data transfer (3 transfer/pixel)
     uint8_t cmd_sequence[3] = {0x01, 0x00, 0x03};
 
+    while(Timer2A_isCounting());                // in case previous command started timer
     SPI_WriteSequence(IFCTL, cmd_sequence, 3);
 }
