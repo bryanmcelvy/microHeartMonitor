@@ -137,7 +137,12 @@ void ILI9341_setRowAddress(uint16_t start_row, uint16_t end_row);
  */
 void ILI9341_setColAddress(uint16_t start_col, uint16_t end_col);
 
-void ILI9341_writeMem(uint8_t data[], uint32_t num_pixels);
+/**
+ * @brief       Write a single pixel to memory.
+ * 
+ * @param data 
+ */
+void ILI9341_write1px(uint8_t data[3]);
 //TODO: readMem
 
 /**********************************************************************
