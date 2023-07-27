@@ -150,23 +150,21 @@ void ILI9341_setDisplayStatus(uint8_t is_ON) {
     SPI_WriteCmd(NOP);
 }
 
+//TODO: Write
 void ILI9341_setVertScrollArea( uint16_t top_fixed, 
                                 uint16_t vert_scroll,
-                                uint16_t bottom_fixed) { //TODO: Write
+                                uint16_t bottom_fixed) {}
 
-}
+//TODO: Write
+void ILI9341_setVertScrollStart(uint16_t start_address) {}
 
-void ILI9341_setVertScrollStart(uint16_t start_address) { //TODO: Write
-
-}
-
+//TODO: Write
 void ILI9341_setMemAccessCtrl(  
         uint8_t row_address_order, uint8_t col_address_order,
         uint8_t row_col_exchange, uint8_t vert_refresh_order,
-        uint8_t rgb_order, uint8_t hor_refresh_order) { //TODO: Write
-}
+        uint8_t rgb_order, uint8_t hor_refresh_order) {}
 
-void ILI9341_setPixelFormat(uint8_t is_16bit) { //TODO: Write
+void ILI9341_setPixelFormat(uint8_t is_16bit) {
     uint8_t param = (is_16bit) ? 0x55 : 0x66;
 
     while(Timer2A_isCounting());                // in case previous command started timer
@@ -174,12 +172,11 @@ void ILI9341_setPixelFormat(uint8_t is_16bit) { //TODO: Write
     SPI_WriteData(param);
 }
 
-void ILI9341_setDispBrightness(uint8_t brightness) { //TODO: Write
+//TODO: Write
+void ILI9341_setDispBrightness(uint8_t brightness) {}
 
-}
-
-uint8_t ILI9341_getDispBrightness(void) { //TODO: Write
-    
+//TODO: Write
+uint8_t ILI9341_getDispBrightness(void) {    
     return 0;
 }
 
@@ -218,12 +215,14 @@ void ILI9341_setDispInterface(uint8_t param) {
     SPI_WriteData(param);
 }
 
-void ILI9341_setFrameRate(uint8_t div_ratio, uint8_t clocks_per_line) { //TODO: Write
+//TODO: Write
+void ILI9341_setFrameRate(uint8_t div_ratio, uint8_t clocks_per_line) {
 
 }
 
+//TODO: Write
 void ILI9341_setBlankingPorch(uint8_t vert_front_porch, uint8_t vert_back_porch,
-                                uint8_t hor_front_porch, uint8_t hor_back_porch) { //TODO: Write
+                                uint8_t hor_front_porch, uint8_t hor_back_porch) {
 }
 
 void ILI9341_setInterface(void) { //TODO: Add comments/make nicer
