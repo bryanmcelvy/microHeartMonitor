@@ -136,11 +136,13 @@ void ILI9341_setDisplay(uint8_t is_ON) {
     while(Timer2A_isCounting());                // in case previous command started timer
     SPI_WriteCmd( (uint8_t) (0x28 & is_ON) );
 }
+
 void ILI9341_setVertScrollArea( uint16_t top_fixed, 
                                 uint16_t vert_scroll,
                                 uint16_t bottom_fixed) { //TODO: Write
 
 }
+
 void ILI9341_setVertScrollStart(uint16_t start_address) { //TODO: Write
 
 }
@@ -150,8 +152,13 @@ void ILI9341_setMemAccessCtrl(
         uint8_t row_col_exchange, uint8_t vert_refresh_order,
         uint8_t rgb_order, uint8_t hor_refresh_order) { //TODO: Write
 }
-void ILI9341_setPixelFormat(uint8_t is_16bit) { //TODO: Write
 
+void ILI9341_setPixelFormat(uint8_t is_16bit) { //TODO: Write
+    uint8_t param;
+
+    param = (is_16bit) ? 0x55 : 0x66;
+    SPI_WriteCmd(PIXSET);
+    SPI_WriteData(param);
 }
 
 void ILI9341_setDispBrightness(uint8_t brightness) { //TODO: Write
@@ -197,6 +204,7 @@ void ILI9341_setDispInterface(uint8_t param) {
     SPI_WriteCmd(IFMODE);
     SPI_WriteData(param);
 }
+
 void ILI9341_setFrameRate(uint8_t div_ratio, uint8_t clocks_per_line) { //TODO: Write
 
 }
@@ -205,6 +213,9 @@ void ILI9341_setBlankingPorch(uint8_t vert_front_porch, uint8_t vert_back_porch,
                                 uint8_t hor_front_porch, uint8_t hor_back_porch) { //TODO: Write
 }
 
-void ILI9341_setInterface(void) { //TODO: WRITE
+void ILI9341_setInterface(void) { //TODO: Add comments/make nicer
+    /// RGB Interface, 6-bit data transfer (3 transfer/pixel)
+    uint8_t cmd_sequence[3] = {0x01, 0x00, 0x03};
 
+    SPI_WriteSequence(IFCTL, cmd_sequence, 3);
 }
