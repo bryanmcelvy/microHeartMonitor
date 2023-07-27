@@ -64,15 +64,59 @@ uint8_t ILI9341_getMemAccessCtrl(void) { //TODO: Write
 Memory Reading/Writing
 ***********************************************************************/
 
-void ILI9341_setRowAddress(uint8_t start_row, uint8_t end_row) { //TODO: Write
+void ILI9341_setRowAddress(uint16_t start_row, uint16_t end_row) {
+    /**
+        This function implements the "Page Address Set" command from
+        p. 112 of the ILI9341 datasheet. 
+        
+        The input parameters represent the first and last rows to be written
+        to when ILI9341_WriteMem() is called.
 
+        To work correctly, `start_row` must be no greater than `end_row`,
+        and `end_row` cannot be greater than 319.
+    */
+    
+    uint8_t cmd_sequence[4];
+
+    // ensure `start_row` and `end_row` meet restrictions
+    end_row = (end_row >= 320) ? 319 : end_row;
+    start_row = (start_row > end_row) ? end_row : start_row;
+
+    // configure send command sequence
+    cmd_sequence[0] = (uint8_t) ((start_row & 0x1100) >> 8);
+    cmd_sequence[1] = (uint8_t) (start_row & 0x0011);
+    cmd_sequence[2] = (uint8_t) ((end_row & 0x1100) >> 8);
+    cmd_sequence[3] = (uint8_t) (end_row & 0x0011);
+
+    SPI_WriteSequence(PASET, cmd_sequence, 4);
 }
 
-void ILI9341_setColAddress(uint8_t start_col, uint8_t end_col) { //TODO: Write
+void ILI9341_setColAddress(uint16_t start_col, uint16_t end_col) {
+    /**
+        This function implements the "Column Address Set" command from
+        p. 110 of the ILI9341 datasheet. 
+        
+        The input parameters represent the first and last columns to be written
+        to when ILI9341_WriteMem() is called.
 
+        To work correctly, `start_col` must be no greater than `end_col`,
+        and `end_col` cannot be greater than 239.
+    */
+    
+    uint8_t cmd_sequence[4];
+
+    end_col = (end_col >= 240) ? 239 : end_col;
+    start_col = (start_col > end_col) ? end_col : start_col;
+
+    cmd_sequence[0] = (uint8_t) ((start_col & 0x1100) >> 8);
+    cmd_sequence[1] = (uint8_t) (start_col & 0x0011);
+    cmd_sequence[2] = (uint8_t) ((end_col & 0x1100) >> 8);
+    cmd_sequence[3] = (uint8_t) (end_col & 0x0011);
+
+    SPI_WriteSequence(CASET, cmd_sequence, 4);
 }
 
-void ILI9341_write(uint8_t data[]) { //TODO: Write
+void ILI9341_writeMem(uint8_t data[], uint32_t num_pixels) { //TODO: Write
 
 }
 

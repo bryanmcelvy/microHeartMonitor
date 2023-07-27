@@ -118,9 +118,23 @@ uint8_t ILI9341_getMemAccessCtrl(void);
 Memory Reading/Writing
 ***********************************************************************/
 
-void ILI9341_setRowAddress(uint8_t start_row, uint8_t end_row);
-void ILI9341_setColAddress(uint8_t start_col, uint8_t end_col);
-void ILI9341_write(uint8_t data[]);
+/**
+ * @brief       Sets the start/end rows to be written to.
+ * 
+ * @param       start_row:      0 <= `start_row` <= `end_row`
+ * @param       end_row:        `start_row` <= `end_row` < 320
+ */
+void ILI9341_setRowAddress(uint16_t start_row, uint16_t end_row);
+
+/**
+ * @brief       Sets the start/end rows to be written to.
+ * 
+ * @param       start_col:      0 <= `start_col` <= `end_col`
+ * @param       end_col:        `start_col` <= `end_col` < 240
+ */
+void ILI9341_setColAddress(uint16_t start_col, uint16_t end_col);
+
+void ILI9341_writeMem(uint8_t data[], uint32_t num_pixels);
 //TODO: readMem
 
 /**********************************************************************
