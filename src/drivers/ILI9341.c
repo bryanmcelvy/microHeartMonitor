@@ -204,3 +204,7 @@ void ILI9341_setFrameRate(uint8_t div_ratio, uint8_t clocks_per_line) { //TODO: 
 void ILI9341_setBlankingPorch(uint8_t vert_front_porch, uint8_t vert_back_porch,
                                 uint8_t hor_front_porch, uint8_t hor_back_porch) { //TODO: Write
 }
+
+void ILI9341_setInterface(void) { //TODO: WRITE
+
+}

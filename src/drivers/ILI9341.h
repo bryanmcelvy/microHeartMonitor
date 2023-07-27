@@ -66,6 +66,8 @@
 
 #define PRCTR                   (uint8_t) 0xB5          /// Blanking Porch Control
 
+#define IFCTL                   (uint8_t) 0xF6          /// Interface Control
+
 /*      SECTIONS
         Initialization/Reset
         Reading Display Status
@@ -81,6 +83,7 @@
                 RGB Interface
                 Frame Rate Control
                 Blanking Porch Control
+                Interface Control
 
 */
 
@@ -173,9 +176,16 @@ Other
  * @param       param 
  */
 void ILI9341_setDispInterface(uint8_t param);
+
 void ILI9341_setFrameRate(uint8_t div_ratio, uint8_t clocks_per_line);
 void ILI9341_setBlankingPorch(uint8_t vert_front_porch, uint8_t vert_back_porch,
                                 uint8_t hor_front_porch, uint8_t hor_back_porch);
+
+/**
+ * @brief       Sets the interface for the ILI9341.
+ * 
+ */
+void ILI9341_setInterface(void);
 
 #endif
 
