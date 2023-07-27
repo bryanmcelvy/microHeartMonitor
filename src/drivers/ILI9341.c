@@ -23,7 +23,7 @@ void ILI9341_Init(void) {
     Timer2A_Init();
 
     ILI9341_ResetHard();
-    ILI9341_setDisplay(0);
+    ILI9341_setDisplayStatus(0);
 }
 
 void ILI9341_ResetHard(void) {
@@ -125,16 +125,24 @@ void ILI9341_writeMem(uint8_t data[], uint32_t num_pixels) { //TODO: Write
 /**********************************************************************
 Display Config.
 ***********************************************************************/
-void ILI9341_setDispInv(uint8_t is_ON) { //TODO: Write
+void ILI9341_setDispInversion(uint8_t is_ON) {
+    
+    while(Timer2A_isCounting());                // in case previous command started timer
 
+    is_ON = (is_ON > 1) ? 1 : is_ON;
+    if (is_ON) { SPI_WriteCmd(DINVON); }
+    else { SPI_WriteCmd(DINVOFF); }
+    SPI_WriteCmd(NOP);
 }
 
-void ILI9341_setDisplay(uint8_t is_ON) {
-    /// `0x28` for OFF, `0x29` for ON
-    is_ON = (is_ON > 1) ? 1 : is_ON;
-
+void ILI9341_setDisplayStatus(uint8_t is_ON) {
+    
     while(Timer2A_isCounting());                // in case previous command started timer
-    SPI_WriteCmd( (uint8_t) (0x28 & is_ON) );
+
+    is_ON = (is_ON > 1) ? 1 : is_ON;
+    if (is_ON) { SPI_WriteCmd(DISPON); }
+    else { SPI_WriteCmd(DISPOFF); }
+    SPI_WriteCmd(NOP);
 }
 
 void ILI9341_setVertScrollArea( uint16_t top_fixed, 

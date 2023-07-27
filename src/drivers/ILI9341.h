@@ -149,8 +149,8 @@ Display Config.
  * 
  * @param       is_ON `1` to turn ON, `0` to turn OFF
  */
-void ILI9341_setDispInv(uint8_t is_ON);
-void ILI9341_setDisplay(uint8_t is_ON);
+void ILI9341_setDispInversion(uint8_t is_ON);
+void ILI9341_setDisplayStatus(uint8_t is_ON);
 void ILI9341_setVertScrollArea(
                                 uint16_t top_fixed, 
                                 uint16_t vert_scroll,
