@@ -30,6 +30,6 @@ void ADC_Init(void) {
 
     ADC0_ACTSS_R |= 0x08;                   // enable SS3
 
-    Timer3A_Init(5);                // start sampling @ 200 [Hz]
+    Timer3A_Init(5);                        // start sampling @ 200 [Hz]
 }
 
