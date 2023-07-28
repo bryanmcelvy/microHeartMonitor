@@ -184,6 +184,11 @@ void ILI9341_setMemAccessCtrl(
 
 void ILI9341_setPixelFormat(uint8_t is_16bit);
 
+/**
+ * @brief       Sets the brightness value of the display.
+ * 
+ * @param       brightness value between `0` (lowest) and `255` (highest)
+ */
 void ILI9341_setDispBrightness(uint8_t brightness);
 
 uint8_t ILI9341_getDispBrightness(void);

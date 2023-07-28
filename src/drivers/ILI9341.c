@@ -163,8 +163,10 @@ void ILI9341_setPixelFormat(uint8_t is_16bit) {
     SPI_WriteData(param);
 }
 
-//TODO: Write
-void ILI9341_setDispBrightness(uint8_t brightness) {}
+void ILI9341_setDispBrightness(uint8_t brightness) {
+    SPI_WriteCmd(WRDISBV);
+    SPI_WriteData(brightness);
+}
 
 //TODO: Write
 uint8_t ILI9341_getDispBrightness(void) {    
