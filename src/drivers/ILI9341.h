@@ -21,7 +21,6 @@
 
 #include "SPI.h"
 #include "Timer.h"
-#include <stdint.h>
 
 /**********************************************************************
 Defines
