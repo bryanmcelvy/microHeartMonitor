@@ -124,8 +124,14 @@ void ILI9341_setRowAddress(uint16_t start_row, uint16_t end_row);
 void ILI9341_setColAddress(uint16_t start_col, uint16_t end_col);
 
 /**
+ * @brief       Sends the "Write Memory" command (`RAMWR`).
+ *              Should be used before `ILI9341_write1px()`.
+ */
+void ILI9341_writeMemCmd(void);
+
+/**
  * @brief       Write a single pixel to memory.
- * 
+ *              Should be used after `ILI9341_writeMemCmd()`.
  * @param data 
  */
 void ILI9341_write1px(uint8_t data[3]);

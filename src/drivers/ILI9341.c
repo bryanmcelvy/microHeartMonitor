@@ -112,9 +112,12 @@ void ILI9341_setColAddress(uint16_t start_col, uint16_t end_col) {
     SPI_WriteSequence(CASET, cmd_sequence, 4);
 }
 
-//TODO: Write
+void ILI9341_writeMemCmd(void){
+    SPI_WriteCmd(RAMWR);
+}
+
 void ILI9341_write1px(uint8_t data[3]) {     
-    SPI_WriteSequence(RAMWR, data, 3);
+    SPI_WriteSequence(0, data, 3);
 }
 
 //TODO: readMem
