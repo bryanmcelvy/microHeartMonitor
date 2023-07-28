@@ -75,7 +75,7 @@ void SPI_WriteData(uint8_t data) {
 }
 
 void SPI_WriteSequence(uint8_t cmd, uint8_t param_sequence[], uint8_t num_params) {
-    SPI_WriteCmd(cmd);
+    if (cmd != 0) { SPI_WriteCmd(cmd); }
     for (uint8_t i = 0; i < num_params; i++) {
         SPI_WriteData( param_sequence[i] );
     }
