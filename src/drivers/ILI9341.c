@@ -80,7 +80,7 @@ void ILI9341_setRowAddress(uint16_t start_row, uint16_t end_row) {
     uint8_t cmd_sequence[4];
 
     // ensure `start_row` and `end_row` meet restrictions
-    end_row = (end_row >= 320) ? 319 : end_row;
+    end_row = (end_row < NUM_ROWS) ? end_row : (NUM_ROWS - 1);
     start_row = (start_row > end_row) ? end_row : start_row;
 
     // configure send command sequence
@@ -105,7 +105,7 @@ void ILI9341_setColAddress(uint16_t start_col, uint16_t end_col) {
     
     uint8_t cmd_sequence[4];
 
-    end_col = (end_col >= 240) ? 239 : end_col;
+    end_col = (end_col < NUM_COLS) ? end_col : (NUM_COLS - 1);
     start_col = (start_col > end_col) ? end_col : start_col;
 
     cmd_sequence[0] = (uint8_t) ((start_col & 0x1100) >> 8);

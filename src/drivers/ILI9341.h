@@ -23,6 +23,10 @@
 #include "Timer.h"
 #include <stdint.h>
 
+/**********************************************************************
+Defines
+***********************************************************************/
+
 // Selected commands from the datasheet
 #define NOP                     (uint8_t) 0x00          /// No Operation
 #define SWRESET                 (uint8_t) 0x01          /// Software Reset
@@ -52,23 +56,29 @@
 #define PRCTR                   (uint8_t) 0xB5          /// Blanking Porch Control
 #define IFCTL                   (uint8_t) 0xF6          /// Interface Control
 
-/*      SECTIONS
-        Initialization/Reset
-        Reading Display Status
-        Memory Reading/Writing
-        Display Config.
-                Inversion
-                ON/OFF
-                Scrolling
-                Memory Access Control
-                Pixel Format
-                Brightness
-        Other
-                RGB Interface
-                Frame Rate Control
-                Blanking Porch Control
-                Interface Control
+// Other useful constants
+#define NUM_COLS                (uint8_t) 240
+#define NUM_ROWS                (uint8_t) 320
 
+/**********************************************************************
+SECTIONS
+***********************************************************************
+
+Initialization/Reset
+Reading Display Status
+Memory Reading/Writing
+Display Config.
+        -Inversion
+        -ON/OFF
+        -Scrolling
+        -Memory Access Control
+        -Pixel Format
+        -Brightness
+Other
+        -RGB Interface
+        -Frame Rate Control
+        -Blanking Porch Control
+        -Interface Control
 */
 
 /**********************************************************************
