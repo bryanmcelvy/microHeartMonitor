@@ -43,6 +43,10 @@ void ILI9341_ResetSoft(void) {
     Timer2A_Wait1ms(5);                         // wait 5 [ms] after reset before next command
 }
 
+void ILI9341_NoOpCmd(void) {
+    SPI_WriteCmd(NOP);
+}
+
 /**********************************************************************
 Reading Display Status
 ***********************************************************************/
