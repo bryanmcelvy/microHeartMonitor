@@ -6,7 +6,6 @@
 
 #include "ILI9341.h"
 #include "SPI.h"
-#include <stdint.h>
 
 /**********************************************************************
 Initialization/Reset
