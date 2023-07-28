@@ -5,17 +5,17 @@
  */
 
 /**
- *  Pin |  Function | ILI9341 Pin
- *  --------------------------------------------------------------
- *  PA2 |  SSI0Clk  |   CLK     |   Serial clock signal
- *  PA3 |  SSI0Fss  |   CS      |   Chip select signal
- *  PA4 |  SSI0Rx   |   MISO    |   TM4C (M) input, LCD (S) output
- *  PA5 |  SSI0Tx   |   MOSI    |   TM4C (M) output, LCD (S) input
- *  PA6 |  GPIO     |   D/C     |   Data = 1, Command = 0
- *  PA7 |  GPIO     |   RESET   |   Reset the display (negative logic/active `LOW`)
+ *     TM4C Pin |  Function | ILI9341 Pin   | Description
+ *  ------------|-----------|---------------|------------------------------------------------
+ *          PA2 |  SSI0Clk  |   CLK         | Serial clock signal
+ *          PA3 |  SSI0Fss  |   CS          | Chip select signal
+ *          PA4 |  SSI0Rx   |   MISO        | TM4C (M) input, LCD (S) output
+ *          PA5 |  SSI0Tx   |   MOSI        | TM4C (M) output, LCD (S) input
+ *          PA6 |  GPIO     |   D/C         | Data = 1, Command = 0
+ *          PA7 |  GPIO     |   RESET       | Reset the display (negative logic/active `LOW`)
  * 
- *  Clk. Polarity  =   steady state low (0)
- *  Clk. Phase     =   rising clock edge (0)
+ *  Clk. Polarity  =   steady state low (0)     <br>
+ *  Clk. Phase     =   rising clock edge (0)    <br>
  */
 
 #include "SPI.h"
