@@ -30,21 +30,17 @@ void ILI9341_Init(void) {
 void ILI9341_ResetHard(void) {
     /** The ILI9341's RESET signal requires a negative logic (i.e. active `LOW`) signal
      *  for >= 10 [us] and an additional 5 [ms] before further commands can be sent.     */
-
-    while(Timer2A_isCounting());                // in case previous command started timer
     GPIO_PORTA_DATA_R &= ~(0x80);               // clear PA7 for 1 [ms] to initiate a hardware reset
     Timer2A_Wait1ms(1);
     GPIO_PORTA_DATA_R |= 0x80;                  // set PA7 to end reset pulse
-    Timer2A_Start(5);                           // wait 5 [ms] before next command after reset
+    Timer2A_Wait1ms(5);                         // wait 5 [ms] after reset before next command
 }
 
 void ILI9341_ResetSoft(void) {
     /** The ILI9341 requires an additional 5 [ms] before 
      *  further commands can be sent after a reset.      */
-    
-    while(Timer2A_isCounting());                // in case previous command started timer
     SPI_WriteCmd(SWRESET);
-    Timer2A_Start(5);                           // wait 5 [ms] before next command after reset
+    Timer2A_Wait1ms(5);                         // wait 5 [ms] after reset before next command
 }
 
 /**********************************************************************
@@ -88,8 +84,6 @@ void ILI9341_setRowAddress(uint16_t start_row, uint16_t end_row) {
     cmd_sequence[1] = (uint8_t) (start_row & 0x0011);
     cmd_sequence[2] = (uint8_t) ((end_row & 0x1100) >> 8);
     cmd_sequence[3] = (uint8_t) (end_row & 0x0011);
-
-    while(Timer2A_isCounting());                // in case previous command started timer
     SPI_WriteSequence(PASET, cmd_sequence, 4);
 }
 
@@ -115,13 +109,11 @@ void ILI9341_setColAddress(uint16_t start_col, uint16_t end_col) {
     cmd_sequence[2] = (uint8_t) ((end_col & 0x1100) >> 8);
     cmd_sequence[3] = (uint8_t) (end_col & 0x0011);
 
-    while(Timer2A_isCounting());                // in case previous command started timer
     SPI_WriteSequence(CASET, cmd_sequence, 4);
 }
 
 //TODO: Write
-void ILI9341_write1px(uint8_t data[3]) { 
-    while(Timer2A_isCounting());                // in case previous command started timer
+void ILI9341_write1px(uint8_t data[3]) {     
     SPI_WriteSequence(RAMWR, data, 3);
 }
 
@@ -131,9 +123,6 @@ void ILI9341_write1px(uint8_t data[3]) {
 Display Config.
 ***********************************************************************/
 void ILI9341_setDispInversion(uint8_t is_ON) {
-    
-    while(Timer2A_isCounting());                // in case previous command started timer
-
     is_ON = (is_ON > 1) ? 1 : is_ON;
     if (is_ON) { SPI_WriteCmd(DINVON); }
     else { SPI_WriteCmd(DINVOFF); }
@@ -141,9 +130,6 @@ void ILI9341_setDispInversion(uint8_t is_ON) {
 }
 
 void ILI9341_setDisplayStatus(uint8_t is_ON) {
-    
-    while(Timer2A_isCounting());                // in case previous command started timer
-
     is_ON = (is_ON > 1) ? 1 : is_ON;
     if (is_ON) { SPI_WriteCmd(DISPON); }
     else { SPI_WriteCmd(DISPOFF); }
@@ -166,8 +152,6 @@ void ILI9341_setMemAccessCtrl(
 
 void ILI9341_setPixelFormat(uint8_t is_16bit) {
     uint8_t param = (is_16bit) ? 0x55 : 0x66;
-
-    while(Timer2A_isCounting());                // in case previous command started timer
     SPI_WriteCmd(PIXSET);
     SPI_WriteData(param);
 }
@@ -209,8 +193,6 @@ void ILI9341_setDispInterface(uint8_t param) {
      */
     
     // const uint8_t param[1] = {0x61}; use `SYNC` mode
-
-    while(Timer2A_isCounting());                // in case previous command started timer
     SPI_WriteCmd(IFMODE);
     SPI_WriteData(param);
 }
@@ -228,7 +210,5 @@ void ILI9341_setBlankingPorch(uint8_t vert_front_porch, uint8_t vert_back_porch,
 void ILI9341_setInterface(void) { //TODO: Add comments/make nicer
     /// RGB Interface, 6-bit data transfer (3 transfer/pixel)
     uint8_t cmd_sequence[3] = {0x01, 0x00, 0x03};
-
-    while(Timer2A_isCounting());                // in case previous command started timer
     SPI_WriteSequence(IFCTL, cmd_sequence, 3);
 }
