@@ -22,8 +22,11 @@ void ILI9341_Init(void) {
     Timer2A_Init();
 
     ILI9341_ResetHard();
+
     ILI9341_setInterface();
+    ILI9341_setRGBInterface(0x61);
     ILI9341_setPixelFormat(1);
+
     ILI9341_setDisplayStatus(0);
 }
 
