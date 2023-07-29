@@ -39,7 +39,6 @@ Defines
 #define CASET                   (uint8_t) 0x2A          /// Column Address Set
 #define PASET                   (uint8_t) 0x2B          /// Page Address Set
 #define RAMWR                   (uint8_t) 0x2C          /// Memory Write
-// #define RGBSET                  (uint8_t) 0x2D          /// Color Set
 #define RAMRD                   (uint8_t) 0x2E          /// Memory Read
 #define DISPOFF                 (uint8_t) 0x28          /// Display OFF
 #define DISPON                  (uint8_t) 0x29          /// Display ON
@@ -47,13 +46,7 @@ Defines
 #define MADCTL                  (uint8_t) 0x36          /// Memory Access Control
 #define VSCRSADD                (uint8_t) 0x37          /// Vertical Scrolling Start Address
 #define PIXSET                  (uint8_t) 0x3A          /// Pixel Format Set
-// #define WRITE_MEMORY_CONTINUE   (uint8_t) 0x3C          /// Write_Memory_Continue
-// #define READ_MEMORY_CONTINUE    (uint8_t) 0x3E          /// Read_Memory_Continue
-#define WRDISBV                 (uint8_t) 0x51          /// Write Display Brightness
-#define RDDISBV                 (uint8_t) 0x52          /// Read Display Brightness
-#define IFMODE                  (uint8_t) 0xB0          /// RGB Interface Signal Control (i.e. Interface Mode Control)
 #define FRMCTR1                 (uint8_t) 0xB1          /// Frame Control Set (Normal Mode)
-// #define INVTR                   (uint8_t) 0xB4          /// Display Inversion Control
 #define PRCTR                   (uint8_t) 0xB5          /// Blanking Porch Control
 #define IFCTL                   (uint8_t) 0xF6          /// Interface Control
 
@@ -61,6 +54,15 @@ Defines
 #define NUM_COLS                (uint16_t) 240
 #define NUM_ROWS                (uint16_t) 320
 
+/* NOTE: not being used at the moment
+// #define RGBSET                  (uint8_t) 0x2D          /// Color Set
+// #define WRITE_MEMORY_CONTINUE   (uint8_t) 0x3C          /// Write_Memory_Continue
+// #define READ_MEMORY_CONTINUE    (uint8_t) 0x3E          /// Read_Memory_Continue
+// #define WRDISBV                 (uint8_t) 0x51          /// Write Display Brightness
+// #define RDDISBV                 (uint8_t) 0x52          /// Read Display Brightness
+// #define IFMODE                  (uint8_t) 0xB0          /// RGB Interface Signal Control (i.e. Interface Mode Control)
+// #define INVTR                   (uint8_t) 0xB4          /// Display Inversion Control
+*/
 /**********************************************************************
 SECTIONS
 ***********************************************************************
@@ -141,18 +143,34 @@ void ILI9341_setColAddress(uint16_t start_col, uint16_t end_col);
  * @brief
  *      Sends the "Write Memory" (`RAMWR`) command to the LCD driver,
  *      signalling that incoming data should be written to memory. Should be
- *      be called after setting the row (`ILI9341_setRowAddress`) a
- *      and/or column (`ILI9341_setRowAddress`) addresses, but before
- *      writing image data (`ILI9341_write1px()`).
+ *      be called after setting the row (`ILI9341_setRowAddress`) and/or column
+ *      (`ILI9341_setRowAddress`) addresses, but before writing image data
+ *      (`ILI9341_write1px()`).
  */
 void ILI9341_writeMemCmd(void);
 
 /**
- * @brief       Write a single pixel to memory.
- *              Should be called after `ILI9341_writeMemCmd()`.
- * @param data 
+ * @brief
+ *      Write a single 16-bit pixel to frame memory.
+ *      Call `ILI9341_writeMemCmd()` before this one.
+ *
+ * @param red           5-bit `R` value
+ * @param green         6-bit `G` value
+ * @param blue          5-bit `B` value
  */
-void ILI9341_write1px(uint8_t red, uint8_t green, uint8_t blue);
+void ILI9341_write1px_16(uint8_t red, uint8_t green, uint8_t blue);
+
+/**
+ * @brief
+ *      Write a single 18-bit pixel to frame memory.
+ *      Call `ILI9341_writeMemCmd()` before this one.
+ *
+ * @param red           6-bit `R` value
+ * @param green         6-bit `G` value
+ * @param blue          6-bit `B` value
+ */
+void ILI9341_write1px_18(uint8_t red, uint8_t green, uint8_t blue);
+
 
 //TODO: readMem
 
@@ -195,16 +213,17 @@ void ILI9341_setMemAccessCtrl(
         uint8_t rgb_order, uint8_t hor_refresh_order
         );
 
-void ILI9341_setPixelFormat(uint8_t is_16bit);
-
 /**
- * @brief       Sets the brightness value of the display.
- * 
- * @param       brightness value between `0` (lowest) and `255` (highest)
+ * @brief
+ *      Set the pixel format to be 16-bit (65K colors) or 18-bit (262K colors).
+ *
+ * @param is_16bit 
  */
-void ILI9341_setDispBrightness(uint8_t brightness);
+void ILI9341_setColorDepth(uint8_t is_16bit);
 
-uint8_t ILI9341_getDispBrightness(void);
+/// not using backlight, so these aren't necessary
+// void ILI9341_setDispBrightness(uint8_t brightness);
+// uint8_t ILI9341_getDispBrightness(void);
 
 /**********************************************************************
 Other
@@ -223,8 +242,8 @@ void ILI9341_NoOpCmd(void);
 
 void ILI9341_setFrameRate(uint8_t div_ratio, uint8_t clocks_per_line);
 
-void ILI9341_setBlankingPorch(uint8_t vert_front_porch, uint8_t vert_back_porch,
-                                uint8_t hor_front_porch, uint8_t hor_back_porch);
+void ILI9341_setBlankingPorch(  uint8_t vpf, uint8_t vbp, 
+                                uint8_t hfp, uint8_t hbp);
 
 /**
  * @brief       Sets the interface for the ILI9341.

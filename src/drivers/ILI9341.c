@@ -14,11 +14,7 @@ Initialization/Reset
 ***********************************************************************/
 
 void ILI9341_Init(void) {
-    /**
-     *  This function initializes the SPI (i.e. SSI0) and Timer2A peripherals,
-     *  initiates a hardware reset of the display, and tunes the display interface
-     *  to allow blanking porch values to be manipulated via SPI commands.
-     */
+    ///TODO: rewrite description
     
     SPI_Init();
     Timer2A_Init();
@@ -27,26 +23,26 @@ void ILI9341_Init(void) {
     ILI9341_sleepMode(0);
 
     ILI9341_setInterface();
-    // ILI9341_setRGBInterface(0x61);
-    ILI9341_setPixelFormat(1);
+    ILI9341_setColorDepth(1);
 
     ILI9341_setDisplayStatus(1);
 }
 
 void ILI9341_ResetHard(void) {
-    /** The ILI9341's RESET signal requires a negative logic (i.e. active `LOW`) signal
-     *  for >= 10 [us] and an additional 5 [ms] before further commands can be sent.     */
-    GPIO_PORTA_DATA_R &= ~(0x80);               // clear PA7 for 1 [ms] to initiate a hardware reset
+    /** 
+     *  The LCD driver's RESET pin requires a negative logic (i.e. active `LOW`)
+     *  signal for >= 10 [us] and an additional 5 [ms] before further commands 
+     *  can be sent.
+     */
+    GPIO_PORTA_DATA_R &= ~(0x80);               // clear PA7 to init. reset
     Timer2A_Wait1ms(1);
     GPIO_PORTA_DATA_R |= 0x80;                  // set PA7 to end reset pulse
-    Timer2A_Wait1ms(5);                         // wait 5 [ms] after reset before next command
+    Timer2A_Wait1ms(5);
 }
 
 void ILI9341_ResetSoft(void) {
-    /** The ILI9341 requires an additional 5 [ms] before 
-     *  further commands can be sent after a reset.      */
     SPI_WriteCmd(SWRESET);
-    Timer2A_Wait1ms(5);                         // wait 5 [ms] after reset before next command
+    Timer2A_Wait1ms(5); /// the driver needs 5 [ms] before another command
 }
 
 /**********************************************************************
@@ -119,13 +115,13 @@ void ILI9341_setColAddress(uint16_t start_col, uint16_t end_col) {
 
 void ILI9341_writeMemCmd(void){
     /**
-     *  Sends the "Write Memory" (`RAMWR`) command to the LCD driver, signalling
-     *  that incoming data should be written to memory. 
+     *  Sends the "Write Memory" (`RAMWR`) command to the LCD driver,
+     *  signalling that incoming data should be written to memory. 
      */
     SPI_WriteCmd(RAMWR);
 }
 
-void ILI9341_write1px(uint8_t red, uint8_t green, uint8_t blue) {     
+void ILI9341_write1px_16(uint8_t red, uint8_t green, uint8_t blue) {     
     ///TODO: Write Description
     
     uint8_t data[2];
@@ -135,16 +131,25 @@ void ILI9341_write1px(uint8_t red, uint8_t green, uint8_t blue) {
     data[1] = ((green & 0x07) << 5) |
                 (blue & 0x1F);
 
-    // uint8_t data[3];
-
-    // data[0] = (red & 0x1F) << 1;
-    // data[1] = (green & 0x3F);
-    // data[2] = (blue & 0x1F) << 1;
-
     SPI_WriteSequence(0, data, 2);
 }
 
-//TODO: readMem
+void ILI9341_write1px_18(uint8_t red, uint8_t green, uint8_t blue) {     
+    /**
+     *  This function is the same as
+     * 
+     */
+    
+    uint8_t data[3];
+
+    data[0] = ( (red & 0x3F) << 2 ) + 0x03;
+    data[1] = ( (green & 0x3F) << 2 ) + 0x03;
+    data[2] = ( (blue & 0x3F) << 2 ) + 0x03;
+
+    SPI_WriteSequence(0, data, 3);
+}
+
+///TODO: readMem
 
 /**********************************************************************
 Display Config.
@@ -167,11 +172,13 @@ void ILI9341_sleepMode(uint8_t is_sleeping) {
 }
 
 void ILI9341_setDispInversion(uint8_t is_ON) {
+    ///TODO: Write description
     if (is_ON != 0) { SPI_WriteCmd(DINVON); }
     else { SPI_WriteCmd(DINVOFF); }
 }
 
 void ILI9341_setDisplayStatus(uint8_t is_ON) {
+    ///TODO: Write description
     if (is_ON != 0) { SPI_WriteCmd(DISPON); }
     else { SPI_WriteCmd(DISPOFF); }
 }
@@ -190,20 +197,14 @@ void ILI9341_setMemAccessCtrl(
         uint8_t row_col_exchange, uint8_t vert_refresh_order,
         uint8_t rgb_order, uint8_t hor_refresh_order) {}
 
-void ILI9341_setPixelFormat(uint8_t is_16bit) {
+void ILI9341_setColorDepth(uint8_t is_16bit) {
+    /**
+     *  16-bit requires 2 transfers and allows for 65K colors.
+     *  18-bit requires 3 transfers and allows for 262K colors.
+     */
     uint8_t param = (is_16bit) ? 0x55 : 0x66;
     SPI_WriteCmd(PIXSET);
     SPI_WriteData(param);
-}
-
-void ILI9341_setDispBrightness(uint8_t brightness) {
-    SPI_WriteCmd(WRDISBV);
-    SPI_WriteData(brightness);
-}
-
-//TODO: Write
-uint8_t ILI9341_getDispBrightness(void) {    
-    return 0;
 }
 
 /**********************************************************************
@@ -220,8 +221,8 @@ void ILI9341_setFrameRate(uint8_t div_ratio, uint8_t clocks_per_line) {
 }
 
 //TODO: Write
-void ILI9341_setBlankingPorch(uint8_t vert_front_porch, uint8_t vert_back_porch,
-                                uint8_t hor_front_porch, uint8_t hor_back_porch) {
+void ILI9341_setBlankingPorch(  uint8_t vpf, uint8_t vbp, 
+                                uint8_t hfp, uint8_t hbp) {
 }
 
 void ILI9341_setInterface(void) { 
