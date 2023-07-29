@@ -9,26 +9,29 @@ project(ECG_HRM C)
 
 # Build Options
 option(OPT_GEN_DOC      "Generate documentation using Doxygen and pdflatex"         OFF)
-option(OPT_CPPCHECK     "Run static code analysis (i.e. linting) via CppCheck"      ON)
+option(OPT_CPPCHECK     "Run static code analysis (i.e. linting) via cppcheck"      ON)
 option(OPT_TESTING      "Build test scripts for various modules"                    ON)
-
-# CppCheck Configuration
-if(OPT_CPPCHECK)
-    find_program(CMAKE_C_CPPCHECK NAMES cppcheck)
-    if(CMAKE_C_CPPCHECK)
-        list(APPEND CMAKE_C_CPPCHECK "\
-                --enable=all;\
-                --error-exitcode=1;\
-                --suppress=unusedFunction;\
-                --verbose;\
-                --cppcheck-build-dir=${PROJECT_BINARY_DIR}/cppcheck;\
-                --clang;\
-                -i ${PROJECT_SOURCE_DIR}/src/device\
-                ")
-    endif()
-    
-endif()
 
 # Subdirectories
 add_subdirectory(src)                               # source code, libraries, test scripts
 add_subdirectory(docs)                              # datasheets and generated code documentation
+
+# cppcheck Configuration
+if(OPT_CPPCHECK)
+    find_program(CMAKE_C_CPPCHECK NAMES cppcheck)
+    if(CMAKE_C_CPPCHECK)
+        
+        # flags
+        set(CPPCHECK_FLAGS "--enable=all" "--error-exitcode=1" "--verbose")
+        list(APPEND CPPCHECK_FLAGS "--suppress=unusedFunction" "--suppress=missingIncludeSystem")
+        list(APPEND CPPCHECK_FLAGS "--cppcheck-build-dir=${PROJECT_BINARY_DIR}/cppcheck" "--project=${PROJECT_BINARY_DIR}/compile_commands.json" "-i" "src/device" "src")
+
+        # target configuration
+        add_custom_target(lint ALL
+                            COMMENT "Running cppcheck:"
+                            COMMAND ${CMAKE_C_CPPCHECK} ${CPPCHECK_FLAGS}
+                            WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/src
+                            VERBATIM)
+    endif()
+    
+endif()
