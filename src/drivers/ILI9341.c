@@ -186,9 +186,9 @@ uint8_t ILI9341_getDispBrightness(void) {
 Other
 ***********************************************************************/
 
-void ILI9341_setDispInterface(uint8_t param) {
+void ILI9341_setRGBInterface(uint8_t param) {
 /** 
-*  This function sets the display interface according to the following table,
+*  This function sets the RGB interface according to the following table,
 *  adapted from pg. 154 of the ILI9341 datasheet.
 * 
 *  Bit    |      7      |   6    |    5   | 4 |  3   |  2   |  1  |  0

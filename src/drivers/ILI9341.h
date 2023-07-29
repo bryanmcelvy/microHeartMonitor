@@ -204,9 +204,9 @@ Other
 /**
  * @brief       Send command to set operation status of display interface
  * 
- * @param       param 
+ * @param       param 8-bit hex code.
  */
-void ILI9341_setDispInterface(uint8_t param);
+void ILI9341_setRGBInterface(uint8_t param);
 
 void ILI9341_setFrameRate(uint8_t div_ratio, uint8_t clocks_per_line);
 
