@@ -6,7 +6,7 @@ Description:    Adds subdirectories and main target executable
 # Subdirectories
 add_subdirectory(app)
 add_subdirectory(common)
-add_subdirectory(device)
+# add_subdirectory(device)
 add_subdirectory(drivers)
 
 if(OPT_TESTING)
