@@ -23,6 +23,7 @@ void ILI9341_Init(void) {
 
     ILI9341_ResetHard();
     ILI9341_setInterface();
+    ILI9341_setPixelFormat(1);
     ILI9341_setDisplayStatus(0);
 }
 
