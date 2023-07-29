@@ -22,6 +22,7 @@ void ILI9341_Init(void) {
     Timer2A_Init();
 
     ILI9341_ResetHard();
+    ILI9341_sleepMode(0);
 
     ILI9341_setInterface();
     ILI9341_setRGBInterface(0x61);
@@ -140,6 +141,25 @@ void ILI9341_write1px(uint8_t red, uint8_t green, uint8_t blue) {
 /**********************************************************************
 Display Config.
 ***********************************************************************/
+
+void ILI9341_sleepMode(uint8_t is_sleeping) {
+    /**     This function turns sleep mode ON or OFF 
+     *      depending on the value of `is_sleeping`.
+     *      Either way, the MCU must wait >= 5 [ms]
+     *      before sending further commands.
+     *
+     *      It's also necessary to wait 120 [ms] after
+     *      sending `SPLOUT` to send `SLPIN` again.
+     */
+    while(Timer2A_isCounting()); 
+
+    if (is_sleeping) { SPI_WriteCmd(SPLIN); }
+    else { SPI_WriteCmd(SPLOUT); }
+
+    Timer2A_Wait1ms(5);
+    Timer2A_Start(115);
+}
+
 void ILI9341_setDispInversion(uint8_t is_ON) {
     is_ON = (is_ON > 1) ? 1 : is_ON;
     if (is_ON) { SPI_WriteCmd(DINVON); }

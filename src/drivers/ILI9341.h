@@ -32,6 +32,8 @@ Defines
 #define RDDST                   (uint8_t) 0x09          /// Read Display Status
 #define RDDMADCTL               (uint8_t) 0x0B          /// Read Display MADCTL
 #define RDDCOLMOD               (uint8_t) 0x0C          /// Read Display Pixel Format
+#define SPLIN                   (uint8_t) 0x10          /// Enter Sleep Mode
+#define SPLOUT                  (uint8_t) 0x11          /// Sleep Out (i.e. Exit Sleep Mode)
 #define DINVOFF                 (uint8_t) 0x20          /// Display Inversion OFF
 #define DINVON                  (uint8_t) 0x21          /// Display Inversion ON
 #define CASET                   (uint8_t) 0x2A          /// Column Address Set
@@ -157,6 +159,13 @@ void ILI9341_write1px(uint8_t red, uint8_t blue, uint8_t green);
 /**********************************************************************
 Display Config.
 ***********************************************************************/
+
+/**
+ * @brief       Send command to enter or exit sleep mode
+ * 
+ * @param       is_sleeping `1` to enter sleep mode, `0` to exit
+ */
+void ILI9341_sleepMode(uint8_t is_sleeping);
 
 /**
  * @brief       Send command to toggle display display inversion
