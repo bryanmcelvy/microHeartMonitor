@@ -143,16 +143,14 @@ void ILI9341_sleepMode(uint8_t is_sleeping) {
      *      Either way, the MCU must wait >= 5 [ms]
      *      before sending further commands.
      *
-     *      It's also necessary to wait 120 [ms] after
-     *      sending `SPLOUT` to send `SLPIN` again.
+     *      It's also necessary to wait 120 [ms] before
+     *      sending `SPLOUT` after sending `SPLIN` or a reset,
+     *      so this function waits 120 [ms] regardless of the preceding event.
      */
-    while(Timer2A_isCounting()); 
+    Timer2A_Wait1ms(120);
 
     if (is_sleeping) { SPI_WriteCmd(SPLIN); }
     else { SPI_WriteCmd(SPLOUT); }
-
-    Timer2A_Wait1ms(5);
-    Timer2A_Start(115);
 }
 
 void ILI9341_setDispInversion(uint8_t is_ON) {
