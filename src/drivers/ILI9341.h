@@ -56,8 +56,8 @@ Defines
 #define IFCTL                   (uint8_t) 0xF6          /// Interface Control
 
 // Other useful constants
-#define NUM_COLS                (uint8_t) 240
-#define NUM_ROWS                (uint8_t) 320
+#define NUM_COLS                (uint16_t) 240
+#define NUM_ROWS                (uint16_t) 320
 
 /**********************************************************************
 SECTIONS
