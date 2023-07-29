@@ -27,10 +27,11 @@ void SPI_Init(void) {
      * 
      *  $\fBR = f_{bus} / ( CPSDVSR * (1 + SCR) )$\f
      * 
-     *  The ILI9341 driver has a minimum write cycle of 100 [ns],
-     *  corresponding to a maximum serial clock frequency of 10 [MHz].
+     *  The ILI9341 driver has a min. write cycle of 100 [ns],
+     *  and a min. write cycle of 150 [ns].
      *  Thus, this function sets the bit rate `BR` to be the bus frequency
-     *  ($\ff_{bus} = 80 [MHz]$\f) divided by 10 ($\f8 [MHz]).
+     *  ($\ff_{bus} = 80 [MHz]$\f) divided by 12, allowing a bit rate of 6.67 [MHz],
+     *  or a period of 150 [ns].
      */
 
     SYSCTL_RCGCSSI_R |= 0x01;                       // enable SSI0 clk.
@@ -50,9 +51,9 @@ void SPI_Init(void) {
     SSI0_CR1_R &= ~(0x02);                          // disable SSI0
     SSI0_CR1_R &= ~(0x04);                          // controller (M) mode
     SSI0_CC_R &= ~(0x0F);                           // system clock
-    SSI0_CPSR_R |= 0x0A;                            // = 10
-    SSI0_CR0_R = ( SSI0_CR0_R & ~(0xFFF0) )         // SCR = 0, clk. phase = 0,
-                        | 0x07;                     // clk. polarity = 0, SPI, 8-bit data
+    SSI0_CPSR_R |= 0x06;                            
+    SSI0_CR0_R &= ~(0xFFFF);                        // clk. phase = 0, clk. polarity = 0, SPI mode
+    SSI0_CR0_R |= 0x0107;                           // SCR = 1, 8-bit data
     SSI0_CR1_R |= 0x02;                             // re-enable SSI0
 }
 
@@ -71,7 +72,7 @@ void SPI_WriteCmd(uint8_t cmd) {
 void SPI_WriteData(uint8_t data) {
     while ((SSI0_SR_R & 0x02) == 0) {}              // wait until Tx FIFO isn't full
     GPIO_PORTA_DATA_R |= 0x40;                      // set D/C to write data
-    SSI0_DR_R = data;                               // write command
+    SSI0_DR_R += data;                              // write command
 }
 
 void SPI_WriteSequence(uint8_t cmd, uint8_t * param_sequence, uint8_t num_params) {
