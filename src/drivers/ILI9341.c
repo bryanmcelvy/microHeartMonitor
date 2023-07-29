@@ -122,13 +122,21 @@ void ILI9341_writeMemCmd(void){
 
 void ILI9341_write1px(uint8_t red, uint8_t green, uint8_t blue) {     
     ///TODO: Write Description
-    uint8_t data[2];
+    
+    // uint8_t data[2];
 
-    data[0] = ((red & 0x1F) << 3) |
-                ((green & 0x38) >> 3);
-    data[1] = ((green & 0x07) << 5) |
-                (blue & 0x1F);
-    SPI_WriteSequence(0, data, 2);
+    // data[0] = ((red & 0x1F) << 3) |
+    //             ((green & 0x38) >> 3);
+    // data[1] = ((green & 0x07) << 5) |
+    //             (blue & 0x1F);
+
+    uint8_t data[3];
+
+    data[0] = (red & 0x1F) << 1;
+    data[1] = (green & 0x3F);
+    data[2] = (blue & 0x1F) << 1;
+
+    SPI_WriteSequence(0, data, 3);
 }
 
 //TODO: readMem
@@ -243,7 +251,7 @@ void ILI9341_setBlankingPorch(uint8_t vert_front_porch, uint8_t vert_back_porch,
 }
 
 void ILI9341_setInterface(void) { //TODO: Add comments/make nicer
-    /// RGB Interface, 6-bit data transfer (2-3 transfer/pixel)
-    uint8_t cmd_sequence[3] = {0x01, 0x00, 0x03};
+    /// RGB Interface, 6-bit data transfer (3 transfers/pixel)
+    uint8_t cmd_sequence[3] = {0x01, 0x00, 0x07};
     SPI_WriteSequence(IFCTL, cmd_sequence, 3);
 }
