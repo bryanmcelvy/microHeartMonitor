@@ -210,32 +210,6 @@ void ILI9341_NoOpCmd(void) {
     SPI_WriteCmd(NOP);
 }
 
-void ILI9341_setRGBInterface(uint8_t param) {
-/** 
-*  This function sets the RGB interface according to the following table,
-*  adapted from pg. 154 of the ILI9341 datasheet.
-* 
-*  Bit    |      7      |   6    |    5   | 4 |  3   |  2   |  1  |  0
-*  -------|-------------|--------|--------|---|------|------|-----|-----
-*  Value  | ByPass_MODE | RCM[1] | RCM[0] | 0 | VSPL | HSPL | DPL | EPL
-*  Default|      0      |   1    |    0   | 0 |   0  |   0  |  0  |  1
-*  
-*  Name        | Description           | 0                 | 1             | Notes
-*  ------------|-----------------------|-------------------|---------------|--------------------------------------------------------
-*  ByPass_MODE | display data path     | shift register    | memory        | N/A
-*       RCM[1] | RGB interface select  | N/A               | N/A           | Always `1`
-*       RCM[0] | RGB interface select  | `DE`              |`SYNC`         | use `SYNC` to set blanking porch w/o `DE` bit/signal
-*         VPSL | VSYNC polarity        | low level         | high level    | N/A
-*         HSPL | HSYNC polarity        | low level         | high level    | N/A
-*          DPL | DOTCLK polarity       | rising edge       | falling edge  | when to fetch data relative to the dot clock
-*          EPL | DE polarity           | high enable       | low enable    | irrelevant in `SYNC` mode
-*/
-    
-    // const uint8_t param[1] = {0x61}; use `SYNC` mode
-    SPI_WriteCmd(IFMODE);
-    SPI_WriteData(param);
-}
-
 //TODO: Write
 void ILI9341_setFrameRate(uint8_t div_ratio, uint8_t clocks_per_line) {
 

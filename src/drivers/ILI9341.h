@@ -218,12 +218,8 @@ Other
  */
 void ILI9341_NoOpCmd(void);
 
-/**
- * @brief       Send command to set operation status of display interface
- * 
- * @param       param 8-bit hex code.
- */
-void ILI9341_setRGBInterface(uint8_t param);
+// NOTE: The RGB interface is not usable via SPI, so this function wass useless.
+// void ILI9341_setRGBInterface(uint8_t param);
 
 void ILI9341_setFrameRate(uint8_t div_ratio, uint8_t clocks_per_line);
 
