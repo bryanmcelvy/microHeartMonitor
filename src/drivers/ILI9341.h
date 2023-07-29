@@ -104,13 +104,6 @@ void ILI9341_ResetHard(void);
  */
 void ILI9341_ResetSoft(void);
 
-/**
- * @brief       Send the "No Operation" command (`NOP`) to the LCD driver.
- *              Can be used to terminate the "Memory Write" and "Memory Read"
- *              commands (`RAMWR` and `RAMRD`, respectively), but does nothing otherwise.
- */
-void ILI9341_NoOpCmd(void);
-
 /**********************************************************************
 Reading Display Status
 ***********************************************************************/
@@ -209,6 +202,13 @@ uint8_t ILI9341_getDispBrightness(void);
 /**********************************************************************
 Other
 ***********************************************************************/
+
+/**
+ * @brief       Send the "No Operation" command (`NOP`) to the LCD driver.
+ *              Can be used to terminate the "Memory Write" and "Memory Read"
+ *              commands (`RAMWR` and `RAMRD`, respectively), but does nothing otherwise.
+ */
+void ILI9341_NoOpCmd(void);
 
 /**
  * @brief       Send command to set operation status of display interface

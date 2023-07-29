@@ -5,7 +5,6 @@
  */
 
 #include "ILI9341.h"
-#include "SPI.h"
 
 /**********************************************************************
 Initialization/Reset
@@ -45,10 +44,6 @@ void ILI9341_ResetSoft(void) {
      *  further commands can be sent after a reset.      */
     SPI_WriteCmd(SWRESET);
     Timer2A_Wait1ms(5);                         // wait 5 [ms] after reset before next command
-}
-
-void ILI9341_NoOpCmd(void) {
-    SPI_WriteCmd(NOP);
 }
 
 /**********************************************************************
@@ -208,6 +203,10 @@ uint8_t ILI9341_getDispBrightness(void) {
 /**********************************************************************
 Other
 ***********************************************************************/
+
+void ILI9341_NoOpCmd(void) {
+    SPI_WriteCmd(NOP);
+}
 
 void ILI9341_setRGBInterface(uint8_t param) {
 /** 
