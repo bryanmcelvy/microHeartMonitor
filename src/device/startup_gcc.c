@@ -374,7 +374,7 @@ IntDefaultHandler(void)
 //
 //*****************************************************************************
 
-void InterruptGlobal_Disable() {
+void InterruptGlobal_Disable(void) {
     __asm__(
         "   CPSID   I\n\t"          // Set I bit in PRIMASK
         "   BX      LR\n\t"         // Return
