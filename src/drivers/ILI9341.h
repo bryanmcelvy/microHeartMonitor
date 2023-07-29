@@ -114,9 +114,9 @@ uint8_t ILI9341_getMemAccessCtrl(void);
 
 //TODO getPixelFormat
 
-/**********************************************************************
+/******************************************************************************
 Memory Reading/Writing
-***********************************************************************/
+*******************************************************************************/
 
 /**
  * @brief       Sets the start/end rows to be written to.
@@ -127,7 +127,10 @@ Memory Reading/Writing
 void ILI9341_setRowAddress(uint16_t start_row, uint16_t end_row);
 
 /**
- * @brief       Sets the start/end rows to be written to.
+ * @brief
+ *      Sets the start/end rows to be written to.
+ *      Should be called along with `ILI9341_setRowAddress()` and before 
+        `ILI9341_writeMemCmd()`.
  * 
  * @param       start_col:      0 <= `start_col` <= `end_col`
  * @param       end_col:        `start_col` <= `end_col` < 240
@@ -135,14 +138,18 @@ void ILI9341_setRowAddress(uint16_t start_row, uint16_t end_row);
 void ILI9341_setColAddress(uint16_t start_col, uint16_t end_col);
 
 /**
- * @brief       Sends the "Write Memory" command (`RAMWR`).
- *              Should be used before `ILI9341_write1px()`.
+ * @brief
+ *      Sends the "Write Memory" (`RAMWR`) command to the LCD driver,
+ *      signalling that incoming data should be written to memory. Should be
+ *      be called after setting the row (`ILI9341_setRowAddress`) a
+ *      and/or column (`ILI9341_setRowAddress`) addresses, but before
+ *      writing image data (`ILI9341_write1px()`).
  */
 void ILI9341_writeMemCmd(void);
 
 /**
  * @brief       Write a single pixel to memory.
- *              Should be used after `ILI9341_writeMemCmd()`.
+ *              Should be called after `ILI9341_writeMemCmd()`.
  * @param data 
  */
 void ILI9341_write1px(uint8_t red, uint8_t green, uint8_t blue);
@@ -204,9 +211,10 @@ Other
 ***********************************************************************/
 
 /**
- * @brief       Send the "No Operation" command (`NOP`) to the LCD driver.
- *              Can be used to terminate the "Memory Write" and "Memory Read"
- *              commands (`RAMWR` and `RAMRD`, respectively), but does nothing otherwise.
+ * @brief       
+ *      Send the "No Operation" command (`NOP`) to the LCD driver.
+ *      Can be used to terminate the "Memory Write" (`RAMWR`
+ *      "Memory Read" (`RAMRD`) commands, but does nothing otherwise.
  */
 void ILI9341_NoOpCmd(void);
 

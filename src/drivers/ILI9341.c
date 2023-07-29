@@ -114,7 +114,10 @@ void ILI9341_setColAddress(uint16_t start_col, uint16_t end_col) {
 }
 
 void ILI9341_writeMemCmd(void){
-    ///TODO: Write Description
+    /**
+     * Sends the "Write Memory" (`RAMWR`) command to the LCD driver, signalling that
+     * incoming data should be written to memory. 
+     */
     SPI_WriteCmd(RAMWR);
 }
 
