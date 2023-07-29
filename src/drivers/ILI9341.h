@@ -218,7 +218,7 @@ Other
  */
 void ILI9341_NoOpCmd(void);
 
-// NOTE: The RGB interface is not usable via SPI, so this function wass useless.
+// NOTE: The RGB interface is not usable via SPI, so this function was useless.
 // void ILI9341_setRGBInterface(uint8_t param);
 
 void ILI9341_setFrameRate(uint8_t div_ratio, uint8_t clocks_per_line);
