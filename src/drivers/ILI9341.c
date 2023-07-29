@@ -121,8 +121,15 @@ void ILI9341_writeMemCmd(void){
     SPI_WriteCmd(RAMWR);
 }
 
-void ILI9341_write1px(uint8_t data[3]) {     
-    SPI_WriteSequence(0, data, 3);
+void ILI9341_write1px(uint8_t red, uint8_t green, uint8_t blue) {     
+    ///TODO: Write Description
+    uint8_t data[2];
+
+    data[0] = ((red & 0x1F) << 3) |
+                ((green & 0x38) >> 3);
+    data[1] = ((green & 0x07) << 5) |
+                (blue & 0x1F);
+    SPI_WriteSequence(0, data, 2);
 }
 
 //TODO: readMem
