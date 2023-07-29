@@ -162,17 +162,13 @@ void ILI9341_sleepMode(uint8_t is_sleeping) {
 }
 
 void ILI9341_setDispInversion(uint8_t is_ON) {
-    is_ON = (is_ON > 1) ? 1 : is_ON;
-    if (is_ON) { SPI_WriteCmd(DINVON); }
+    if (is_ON != 0) { SPI_WriteCmd(DINVON); }
     else { SPI_WriteCmd(DINVOFF); }
-    SPI_WriteCmd(NOP);
 }
 
 void ILI9341_setDisplayStatus(uint8_t is_ON) {
-    is_ON = (is_ON > 1) ? 1 : is_ON;
-    if (is_ON) { SPI_WriteCmd(DISPON); }
+    if (is_ON != 0) { SPI_WriteCmd(DISPON); }
     else { SPI_WriteCmd(DISPOFF); }
-    SPI_WriteCmd(NOP);
 }
 
 //TODO: Write
