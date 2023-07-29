@@ -145,7 +145,7 @@ void ILI9341_writeMemCmd(void);
  *              Should be used after `ILI9341_writeMemCmd()`.
  * @param data 
  */
-void ILI9341_write1px(uint8_t red, uint8_t blue, uint8_t green);
+void ILI9341_write1px(uint8_t red, uint8_t green, uint8_t blue);
 
 //TODO: readMem
 
