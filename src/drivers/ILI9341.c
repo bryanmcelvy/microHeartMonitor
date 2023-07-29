@@ -8,6 +8,7 @@
 
 static void ILI9341_setAddress(
     uint16_t start_address, uint16_t end_address, uint8_t is_row);
+
 /**********************************************************************
 Initialization/Reset
 ***********************************************************************/
@@ -66,10 +67,11 @@ uint8_t ILI9341_getMemAccessCtrl(void) { //TODO: Write
 Memory Reading/Writing
 ***********************************************************************/
 
-static void ILI9341_setAddress(uint16_t start_address, uint16_t end_address, uint8_t is_row) {
+static void ILI9341_setAddress(
+    uint16_t start_address, uint16_t end_address, uint8_t is_row) {
     /**
-    This function implements the "Column Address Set" (`CASET`) and 
-    "Page Address Set" (`PASET`) commands from p. 110-113 of the ILI9341 datasheet.
+    This function implements the "Column Address Set" (`CASET`) and "Page
+    Address Set" (`PASET`) commands from p. 110-113 of the ILI9341 datasheet.
     
     The input parameters represent the first and last addresses to be written
     to when ILI9341_write1px() is called.
@@ -97,9 +99,9 @@ static void ILI9341_setAddress(uint16_t start_address, uint16_t end_address, uin
 
 void ILI9341_setRowAddress(uint16_t start_row, uint16_t end_row) {
     /**
-        This function is simply an interface to the ILI9341_setAddress() function.
-        To work correctly, `start_row` must be no greater than `end_row`,
-        and `end_row` cannot be greater than the max number of rows (default 320).
+        This function is simply an interface to ILI9341_setAddress().
+        To work correctly, `start_row` must be no greater than `end_row`, and
+        `end_row` cannot be greater than the max row number (default 320).
     */
     
     ILI9341_setAddress(start_row, end_row, 1);
@@ -107,9 +109,9 @@ void ILI9341_setRowAddress(uint16_t start_row, uint16_t end_row) {
 
 void ILI9341_setColAddress(uint16_t start_col, uint16_t end_col) {
     /**
-        This function is simply an interface to the ILI9341_setAddress() function.
-        To work correctly, `start_col` must be no greater than `end_col`,
-        and `end_col` cannot be greater than the max number of columns (default 240).
+        This function is simply an interface to ILI9341_setAddress().
+        To work correctly, `start_col` must be no greater than `end_col`, and
+        `end_col` cannot be greater than the max column number (default 240).
     */
     
     ILI9341_setAddress(start_col, end_col, 1);
@@ -117,8 +119,8 @@ void ILI9341_setColAddress(uint16_t start_col, uint16_t end_col) {
 
 void ILI9341_writeMemCmd(void){
     /**
-     * Sends the "Write Memory" (`RAMWR`) command to the LCD driver, signalling that
-     * incoming data should be written to memory. 
+     *  Sends the "Write Memory" (`RAMWR`) command to the LCD driver, signalling
+     *  that incoming data should be written to memory. 
      */
     SPI_WriteCmd(RAMWR);
 }
@@ -223,9 +225,8 @@ void ILI9341_setBlankingPorch(uint8_t vert_front_porch, uint8_t vert_back_porch,
 }
 
 void ILI9341_setInterface(void) { 
-    //TODO: Add comments/make nicer
+    //TODO: Write description
 
-    // uint8_t cmd_sequence[3] = {0x01, 0x00, 0x07};       /// RGB Interface, 6-bit data transfer (3 transfers/pixel)
     uint8_t cmd_sequence[3] = {0x01, 0x00, 0x00};
     SPI_WriteSequence(IFCTL, cmd_sequence, 3);
 }
