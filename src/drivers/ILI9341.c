@@ -117,6 +117,7 @@ void ILI9341_setColAddress(uint16_t start_col, uint16_t end_col) {
 }
 
 void ILI9341_writeMemCmd(void){
+    ///TODO: Write Description
     SPI_WriteCmd(RAMWR);
 }
 
@@ -215,7 +216,7 @@ void ILI9341_setBlankingPorch(uint8_t vert_front_porch, uint8_t vert_back_porch,
 }
 
 void ILI9341_setInterface(void) { //TODO: Add comments/make nicer
-    /// RGB Interface, 6-bit data transfer (3 transfer/pixel)
+    /// RGB Interface, 6-bit data transfer (2-3 transfer/pixel)
     uint8_t cmd_sequence[3] = {0x01, 0x00, 0x03};
     SPI_WriteSequence(IFCTL, cmd_sequence, 3);
 }
