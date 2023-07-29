@@ -64,55 +64,53 @@ uint8_t ILI9341_getMemAccessCtrl(void) { //TODO: Write
 Memory Reading/Writing
 ***********************************************************************/
 
-void ILI9341_setRowAddress(uint16_t start_row, uint16_t end_row) {
+static void ILI9341_setAddress(uint16_t start_address, uint16_t end_address, uint8_t is_row) {
     /**
-        This function implements the "Page Address Set" command from
-        p. 112 of the ILI9341 datasheet. 
-        
-        The input parameters represent the first and last rows to be written
-        to when ILI9341_WriteMem() is called.
+    This function implements the "Column Address Set" (`CASET`) and 
+    "Page Address Set" (`PASET`) commands from p. 110-113 of the ILI9341 datasheet.
+    
+    The input parameters represent the first and last addresses to be written
+    to when ILI9341_write1px() is called.
 
-        To work correctly, `start_row` must be no greater than `end_row`,
-        and `end_row` cannot be greater than 319.
+    To work correctly, `start_address` must be no greater than `end_address`,
+    and `end_address` cannot be greater than the max number of rows/columns.
     */
     
     uint8_t cmd_sequence[4];
 
-    // ensure `start_row` and `end_row` meet restrictions
-    end_row = (end_row < NUM_ROWS) ? end_row : (NUM_ROWS - 1);
-    start_row = (start_row > end_row) ? end_row : start_row;
+    uint8_t cmd = (is_row) ? PASET : CASET;
+    uint16_t max_num = (is_row) ? NUM_ROWS : NUM_COLS;
+
+    // ensure `start_address` and `end_address` meet restrictions
+    end_address = (end_address < max_num) ? end_address : (max_num - 1);
+    start_address = (start_address < end_address) ? start_address : end_address;
 
     // configure send command sequence
-    cmd_sequence[0] = (uint8_t) ((start_row & 0x1100) >> 8);
-    cmd_sequence[1] = (uint8_t) (start_row & 0x0011);
-    cmd_sequence[2] = (uint8_t) ((end_row & 0x1100) >> 8);
-    cmd_sequence[3] = (uint8_t) (end_row & 0x0011);
-    SPI_WriteSequence(PASET, cmd_sequence, 4);
+    cmd_sequence[0] = (uint8_t) ((start_address & 0x1100) >> 8);
+    cmd_sequence[1] = (uint8_t) (start_address & 0x0011);
+    cmd_sequence[2] = (uint8_t) ((end_address & 0x1100) >> 8);
+    cmd_sequence[3] = (uint8_t) (end_address & 0x0011);
+    SPI_WriteSequence(cmd, cmd_sequence, 4);
+}
+
+void ILI9341_setRowAddress(uint16_t start_row, uint16_t end_row) {
+    /**
+        This function is simply an interface to the ILI9341_setAddress() function.
+        To work correctly, `start_row` must be no greater than `end_row`,
+        and `end_row` cannot be greater than the max number of rows (default 320).
+    */
+    
+    ILI9341_setAddress(start_row, end_row, 1);
 }
 
 void ILI9341_setColAddress(uint16_t start_col, uint16_t end_col) {
     /**
-        This function implements the "Column Address Set" command from
-        p. 110 of the ILI9341 datasheet. 
-        
-        The input parameters represent the first and last columns to be written
-        to when ILI9341_WriteMem() is called.
-
+        This function is simply an interface to the ILI9341_setAddress() function.
         To work correctly, `start_col` must be no greater than `end_col`,
-        and `end_col` cannot be greater than 239.
+        and `end_col` cannot be greater than the max number of columns (default 240).
     */
     
-    uint8_t cmd_sequence[4];
-
-    end_col = (end_col < NUM_COLS) ? end_col : (NUM_COLS - 1);
-    start_col = (start_col > end_col) ? end_col : start_col;
-
-    cmd_sequence[0] = (uint8_t) ((start_col & 0x1100) >> 8);
-    cmd_sequence[1] = (uint8_t) (start_col & 0x0011);
-    cmd_sequence[2] = (uint8_t) ((end_col & 0x1100) >> 8);
-    cmd_sequence[3] = (uint8_t) (end_col & 0x0011);
-
-    SPI_WriteSequence(CASET, cmd_sequence, 4);
+    ILI9341_setAddress(start_col, end_col, 1);
 }
 
 void ILI9341_writeMemCmd(void){
@@ -200,7 +198,6 @@ void ILI9341_setDispBrightness(uint8_t brightness) {
 uint8_t ILI9341_getDispBrightness(void) {    
     return 0;
 }
-
 
 /**********************************************************************
 Other
