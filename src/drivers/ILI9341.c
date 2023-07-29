@@ -6,6 +6,8 @@
 
 #include "ILI9341.h"
 
+static void ILI9341_setAddress(
+    uint16_t start_address, uint16_t end_address, uint8_t is_row);
 /**********************************************************************
 Initialization/Reset
 ***********************************************************************/
