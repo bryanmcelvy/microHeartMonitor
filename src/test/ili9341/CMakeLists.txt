@@ -18,4 +18,5 @@ target_include_directories(Test_ILI9341_BlinkDisplay.elf
 target_link_libraries(Test_ILI9341_BlinkDisplay.elf
                         PRIVATE
                             PLL
-                            ILI9341)
+                            ILI9341
+                            GPIO)
