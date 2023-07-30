@@ -86,10 +86,10 @@ static void ILI9341_setAddress(
     start_address = (start_address < end_address) ? start_address : end_address;
 
     // configure send command sequence
-    cmd_sequence[0] = (uint8_t) ((start_address & 0x1100) >> 8);
-    cmd_sequence[1] = (uint8_t) (start_address & 0x0011);
-    cmd_sequence[2] = (uint8_t) ((end_address & 0x1100) >> 8);
-    cmd_sequence[3] = (uint8_t) (end_address & 0x0011);
+    cmd_sequence[0] = (uint8_t) ((start_address & 0xFF00) >> 8);
+    cmd_sequence[1] = (uint8_t) (start_address & 0x00FF);
+    cmd_sequence[2] = (uint8_t) ((end_address & 0xFF00) >> 8);
+    cmd_sequence[3] = (uint8_t) (end_address & 0x00FF);
     SPI_WriteSequence(cmd, cmd_sequence, 4);
 }
 
@@ -110,7 +110,7 @@ void ILI9341_setColAddress(uint16_t start_col, uint16_t end_col) {
         `end_col` cannot be greater than the max column number (default 240).
     */
     
-    ILI9341_setAddress(start_col, end_col, 1);
+    ILI9341_setAddress(start_col, end_col, 0);
 }
 
 void ILI9341_writeMemCmd(void){
