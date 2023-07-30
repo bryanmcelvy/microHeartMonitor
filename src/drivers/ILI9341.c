@@ -192,10 +192,21 @@ void ILI9341_setVertScrollArea( uint16_t top_fixed,
 void ILI9341_setVertScrollStart(uint16_t start_address) {}
 
 //TODO: Write
-void ILI9341_setMemAccessCtrl(  
-        uint8_t row_address_order, uint8_t col_address_order,
+void ILI9341_setMemAccessCtrl(  uint8_t row_order, uint8_t col_order,
         uint8_t row_col_exchange, uint8_t vert_refresh_order,
-        uint8_t rgb_order, uint8_t hor_refresh_order) {}
+                                uint8_t rgb_order, uint8_t hor_refresh_order) {
+    uint8_t param = 0x00;
+
+    param = (row_order > 0) ? (param | 0x80) : param;
+    param = (col_order > 0) ? (param | 0x40) : param;
+    param = (row_col_exchange > 0) ? (param | 0x20) : param;
+    param = (vert_refresh_order > 0) ? (param | 0x10) : param;
+    param = (rgb_order > 0) ? (param | 0x08) : param;
+    param = (hor_refresh_order > 0) ? (param | 0x04) : param;
+
+    SPI_WriteCmd(MADCTL);
+    SPI_WriteData(param);
+}
 
 void ILI9341_setColorDepth(uint8_t is_16bit) {
     /**

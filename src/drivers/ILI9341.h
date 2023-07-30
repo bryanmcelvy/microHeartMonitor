@@ -207,8 +207,18 @@ void ILI9341_setVertScrollArea(
 
 void ILI9341_setVertScrollStart(uint16_t start_address);
 
+/**
+ * @brief       Send command to set the LCD driver's read/write scanning direction.
+ * 
+ * @param row_order             `0` for up-to-down, `1` for down-to-up
+ * @param col_order             `0` for left-to-right, `1` for right-to-left
+ * @param row_col_exchange      `0` for default, `1` to switch invert rows/columns
+ * @param vert_refresh_order    `0` for top-to-bottom, `1` for bottom-to-top
+ * @param rgb_order             TODO: figure out what this actually does
+ * @param hor_refresh_order     `0` for left-to-right, `1` for right-to-left
+ */
 void ILI9341_setMemAccessCtrl(  
-        uint8_t row_address_order, uint8_t col_address_order,
+        uint8_t row_order, uint8_t col_order,
         uint8_t row_col_exchange, uint8_t vert_refresh_order,
         uint8_t rgb_order, uint8_t hor_refresh_order
         );
