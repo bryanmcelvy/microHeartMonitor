@@ -191,10 +191,11 @@ void ILI9341_setVertScrollArea( uint16_t top_fixed,
 //TODO: Write
 void ILI9341_setVertScrollStart(uint16_t start_address) {}
 
-//TODO: Write
 void ILI9341_setMemAccessCtrl(  uint8_t row_order, uint8_t col_order,
         uint8_t row_col_exchange, uint8_t vert_refresh_order,
                                 uint8_t rgb_order, uint8_t hor_refresh_order) {
+    //TODO: Write description
+
     uint8_t param = 0x00;
 
     param = (row_order > 0) ? (param | 0x80) : param;

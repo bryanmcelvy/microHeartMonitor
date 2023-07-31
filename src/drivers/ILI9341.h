@@ -66,6 +66,7 @@ Defines
 // #define IFMODE                  (uint8_t) 0xB0          /// RGB Interface Signal Control (i.e. Interface Mode Control)
 // #define INVTR                   (uint8_t) 0xB4          /// Display Inversion Control
 */
+
 /******************************************************************************
 SECTIONS
 *******************************************************************************
@@ -91,30 +92,23 @@ Other
 Initialization/Reset
 *******************************************************************************/
 
-/**
- * @brief       Initialize the LCD driver.
- * 
- */
+/// @brief      Initialize the LCD driver.
 void ILI9341_Init(void);
 
-/**
- * @brief       Perform a hardware reset of the LCD driver.
- * 
- */
+/// @brief      Perform a hardware reset of the LCD driver.
 void ILI9341_ResetHard(void);
 
-/**
- * @brief       Perform a software reset of the LCD driver.
- * 
- */
+/// @brief      Perform a software reset of the LCD driver.
 void ILI9341_ResetSoft(void);
 
 /******************************************************************************
 Reading Display Status
 *******************************************************************************/
 
+///TODO: Write
 uint8_t * ILI9341_getDispStatus(void);
 
+///TODO: Write
 uint8_t ILI9341_getMemAccessCtrl(void);
 
 //TODO getPixelFormat
@@ -126,16 +120,19 @@ Memory Reading/Writing
 /**
  * @brief       Sets the start/end rows to be written to.
  * 
+ *              Should be called along with `ILI9341_setColAddress()` and 
+ *              before `ILI9341_writeMemCmd()`.
+ * 
  * @param       start_row:      0 <= `start_row` <= `end_row`
  * @param       end_row:        `start_row` <= `end_row` < 320
  */
 void ILI9341_setRowAddress(uint16_t start_row, uint16_t end_row);
 
 /**
- * @brief
- *      Sets the start/end rows to be written to.
- *      Should be called along with `ILI9341_setRowAddress()` and before 
-        `ILI9341_writeMemCmd()`.
+ * @brief       Sets the start/end rows to be written to.
+ * 
+ *              Should be called along with `ILI9341_setRowAddress()` and 
+ *              before `ILI9341_writeMemCmd()`.
  * 
  * @param       start_col:      0 <= `start_col` <= `end_col`
  * @param       end_col:        `start_col` <= `end_col` < 240
@@ -145,21 +142,24 @@ void ILI9341_setColAddress(uint16_t start_col, uint16_t end_col);
 /**
  * @brief
  *      Sends the "Write Memory" (`RAMWR`) command to the LCD driver,
- *      signalling that incoming data should be written to memory. Should be
- *      be called after setting the row (`ILI9341_setRowAddress()`) and/or column
- *      (`ILI9341_setRowAddress()`) addresses, but before writing image data
- *      (`ILI9341_write1px()`).
+ *      signalling that incoming data should be written to memory. 
+ * 
+ *      Should be called after setting the row (`ILI9341_setRowAddress()`) and/or 
+ *      and/or column (`ILI9341_setRowAddress()`) addresses, but before writing
+ *      image data (`ILI9341_write1px()`).
  */
 void ILI9341_writeMemCmd(void);
 
 /**
- * @brief
- *      Write a single 16-bit pixel to frame memory.
- *      Call `ILI9341_writeMemCmd()` before this one.
+ * @brief               Write a single pixel to frame memory.
  *
+ *                      Call `ILI9341_writeMemCmd()` before this one.
+ * 
  * @param red           5 or 6-bit `R` value
  * @param green         5 or 6-bit `G` value
  * @param blue          5 or 6-bit `B` value
+ * @param is_16bit      `true` for 16-bit (65K colors, 2 transfers) color depth,
+ *                      `false` for 18-bit (262K colors, 3 transfer) color depth
  */
 void ILI9341_write1px(uint8_t red, uint8_t green, uint8_t blue, bool is_16bit);
 
@@ -190,12 +190,15 @@ void ILI9341_setDispInversion(bool is_ON);
  */
 void ILI9341_setDisplayStatus(bool is_ON);
 
+///TODO: Write
 void ILI9341_setVertScrollArea(
                                 uint16_t top_fixed, 
                                 uint16_t vert_scroll,
                                 uint16_t bottom_fixed
         );
 
+
+///TODO: Write
 void ILI9341_setVertScrollStart(uint16_t start_address);
 
 /**
@@ -241,8 +244,10 @@ void ILI9341_NoOpCmd(void);
 // NOTE: The RGB interface is not usable via SPI, so this function was useless.
 // void ILI9341_setRGBInterface(uint8_t param);
 
+///TODO: Write
 void ILI9341_setFrameRate(uint8_t div_ratio, uint8_t clocks_per_line);
 
+///TODO: Write
 void ILI9341_setBlankingPorch(  uint8_t vpf, uint8_t vbp, 
                                 uint8_t hfp, uint8_t hbp);
 

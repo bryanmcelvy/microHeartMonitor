@@ -17,6 +17,7 @@ Includes
 #include "tm4c123gh6pm.h"
 
 #include <stdint.h>
+#include <stdbool.h>
 
 /******************************************************************************
 Declarations
@@ -24,7 +25,7 @@ Declarations
 
 // Function Prototypes
 static void LCD_updateNumPixels(void);
-static void LCD_drawLine(uint16_t center, uint16_t lineWidth, bool is_row);
+static void LCD_drawLine(uint16_t center, uint16_t lineWidth, bool is_horizontal);
 
 // LCD Object
 struct LCD {
@@ -94,15 +95,20 @@ Drawing Area
 *******************************************************************************/
 
 static void LCD_updateNumPixels(void) {
+    /// Updates `lcd`'s `numPixels` parameter after changing rows/columns
+
     lcd.numPixels = ((lcd.rowEnd - lcd.rowStart) + 1) 
                     * ((lcd.colEnd - lcd.colStart) + 1);
 }
 
 void LCD_setArea(   uint16_t rowStartNew, uint16_t rowEndNew,
                     uint16_t colStartNew, uint16_t colEndNew) {
+    
+    // ensure the row numbers meet the restrictions
     lcd.rowEnd = (rowEndNew < NUM_ROWS) ? rowEndNew : (NUM_ROWS - 1);
     lcd.rowStart = (rowStartNew < rowEndNew) ? rowStartNew : (rowEndNew);
 
+    // ensure the column numbers meet the restrictions
     lcd.colEnd = (colEndNew < NUM_COLS) ? colEndNew : (NUM_COLS - 1);
     lcd.colStart = (colStartNew < colEndNew) ? colStartNew : (colEndNew);
 
@@ -110,12 +116,16 @@ void LCD_setArea(   uint16_t rowStartNew, uint16_t rowEndNew,
 }
 
 void LCD_setRow(uint16_t rowStartNew, uint16_t rowEndNew) {
+    
+    // ensure the row numbers meet the restrictions
     lcd.rowEnd = (rowEndNew < NUM_ROWS) ? rowEndNew : (NUM_ROWS - 1);
     lcd.rowStart = (rowStartNew < rowEndNew) ? rowStartNew : (rowEndNew);
     LCD_updateNumPixels();
 }
 
 void LCD_setCol(uint16_t colStartNew, uint16_t colEndNew) {
+    
+    // ensure the column numbers meet the restrictions
     lcd.colEnd = (colEndNew < NUM_COLS) ? colEndNew : (NUM_COLS - 1);
     lcd.colStart = (colStartNew < colEndNew) ? colStartNew : (colEndNew);
     LCD_updateNumPixels();
@@ -136,15 +146,15 @@ void LCD_setColor_3bit(uint8_t color_code) {
         This is simply a convenience function for `LCD_setColor()`.
         The following table shows what the output color will be:
 
-        hex | binary | pixel color
-        -------------|------------
-        0x04|  100   |    red 
-        0x06|  110   |    yellow 
-        0x02|  010   |    green 
-        0x03|  011   |    cyan 
-        0x01|  001   |    blue 
-        0x05|  101   |    purple 
-        0x07|  111   |    white 
+        hex     | binary | pixel color
+        --------|--------|------------
+        0x04    |  100   |    red 
+        0x06    |  110   |    yellow 
+        0x02    |  010   |    green 
+        0x03    |  011   |    cyan 
+        0x01    |  001   |    blue 
+        0x05    |  101   |    purple 
+        0x07    |  111   |    white 
      */
     
     // use white if `color_code` == 0
@@ -169,27 +179,39 @@ void LCD_draw(void) {
     }
 }
 
-static void LCD_drawLine(uint16_t center, uint16_t lineWidth, bool is_row) {
+/**
+ * @brief   Helper function for drawing straight lines.
+ * 
+ * @param center        Row or column that the line is centered on.
+ *                      `center` is increased or decreased if the line to be
+ *                      written would have gone out of bounds.
+ * @param lineWidth     Width of the line. Should be a positive, odd number.
+ * @param is_row        `true` for horizontal line, `false` for vertical line
+ */
+static void LCD_drawLine(uint16_t center, uint16_t lineWidth, bool is_horizontal) {
     uint16_t start, end;
     uint16_t padding;
-    uint16_t max_num;
+    uint16_t MAX_NUM;
 
-    max_num = (is_row) ? NUM_ROWS : NUM_COLS;
+    MAX_NUM = (is_horizontal) ? NUM_ROWS : NUM_COLS;
 
+    // ensure `lineWidth` is odd and positive
+    lineWidth = (lineWidth > 0) ? lineWidth : 1;
     lineWidth = ((lineWidth % 2) == 0) ? lineWidth : (lineWidth - 1);
     padding = ( (lineWidth - 1) / 2 );
 
+    // ensure line does not go out-of-bounds
     if (center < padding) {
         center = padding + 1;
     }
-    else if ( center >= (max_num - padding) ) {
-        center = (max_num - padding) - 1;
+    else if ( center >= (MAX_NUM - padding) ) {
+        center = (MAX_NUM - padding) - 1;
     }
 
+    // set start and end row/column, and draw
     start = center - padding;
     end = center + padding;
-
-    if (is_row) {
+    if (is_horizontal) {
         LCD_setArea(start, end, 0, (NUM_COLS-1));
     }
     else {
@@ -199,15 +221,14 @@ static void LCD_drawLine(uint16_t center, uint16_t lineWidth, bool is_row) {
 }
 
 void LCD_drawHLine(uint16_t rowCenter, uint16_t lineWidth) {
-    LCD_drawLine(rowCenter, lineWidth, 1);
+    LCD_drawLine(rowCenter, lineWidth, true);
 }
 
 void LCD_drawVLine(uint16_t colCenter, uint16_t lineWidth) {
-    LCD_drawLine(colCenter, lineWidth, 0);
+    LCD_drawLine(colCenter, lineWidth, false);
 }
 
 //TODO: Write
 void LCD_drawSquare(uint16_t startRow, uint16_t startCol, uint16_t N) {
 
 }
-
