@@ -18,7 +18,7 @@ int main(void) {
     GPIO_PF_LED_Init();
     ILI9341_setRowAddress(0, NUM_ROWS-1);
     ILI9341_setColAddress(0, NUM_COLS-1);
-    // ILI9341_setDisplayStatus(1);
+    ILI9341_setMemAccessCtrl(0, 0, 0, 0, 1, 0);
 
     color = BLUE;
     while(1) {
@@ -52,7 +52,7 @@ int main(void) {
         GPIO_PF_LED_Write(color, 1);
         ILI9341_writeMemCmd();
         for (uint32_t i = 0; i < 76800; i++) {
-            ILI9341_write1px_16(blue_val, green_val, red_val);
+            ILI9341_write1px_16(red_val, green_val, blue_val);
         }
         // ILI9341_NoOpCmd();
 
