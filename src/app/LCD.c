@@ -228,7 +228,40 @@ void LCD_drawVLine(uint16_t colCenter, uint16_t lineWidth) {
     LCD_drawLine(colCenter, lineWidth, false);
 }
 
-//TODO: Write
-void LCD_drawSquare(uint16_t startRow, uint16_t startCol, uint16_t N) {
+void LCD_drawRectangle( uint16_t startRow, uint16_t startCol,
+                        uint16_t height_px, uint16_t len_px,
+                        bool is_filled) {
+    uint16_t endRow;
+    uint16_t endCol;
+    
+    // ensure startRow and startCol are less than their max numbers
+    startRow = (startRow < NUM_ROWS) ? startRow : (NUM_ROWS - 1);
+    startCol = (startCol < NUM_COLS) ? startCol : (NUM_COLS - 1);
+
+    // ensure lines don't go out of bounds
+    if ( (startRow + height_px) < NUM_ROWS ) {
+        height_px = (NUM_ROWS - startRow - 1);
+    }
+    if ( (startCol + len_px) < NUM_COLS ) {
+        len_px = (NUM_COLS - startCol - 1);
+    }
+
+    // draw rectangle based on `is_filled`
+    endRow = (startRow + height_px) - 1;
+    endCol = (startCol + len_px) - 1;
+    if (is_filled) {
+        LCD_setArea(startRow, endRow, startCol, endCol);
+        LCD_draw();
+    }
+    else {
+        LCD_setArea(startRow, endRow, startCol, startCol);      // left side
+        LCD_draw();
+        LCD_setArea(startRow, endRow, endCol, endCol);          // right side
+        LCD_draw();
+        LCD_setArea(startRow, startRow, startCol, endCol);      // top side
+        LCD_draw();
+        LCD_setArea(endRow, endRow, startCol, endCol);          // right side
+        LCD_draw();
+    }
 
 }

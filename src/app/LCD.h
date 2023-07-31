@@ -123,13 +123,16 @@ void LCD_drawHLine(uint16_t rowCenter, uint16_t lineWidth);
 void LCD_drawVLine(uint16_t colCenter, uint16_t lineWidth);
 
 /**
- * @brief   Draw an `N` x `N` square onto the display.
- *          The top-left corner will be located at (`startRow`, `start`Col`).
+ * @brief           Draw an `l` x `h` rectangle on the display.
  * 
- * @param   startRow    index of top-most row; `0 <= startRow < NUM_ROWS`
- * @param   startCol    index of left-most column; `0 <= startRow < NUM_COLS`
- * @param   N           length of each side; `0 < N < NUM_COLS`
+ * @param startRow  index of top-most row; `0 <= startRow < NUM_ROWS`
+ * @param startCol  index of left-most column; `0 <= startRow < NUM_COLS`
+ * @param height_px height `h` (i.e. vertical distance) in pixels
+ * @param len_px    length `l` (i.e. horizontal distance) in pixels
+ * @param is_filled `true` for filled rectangle, `false` for unfilled
  */
-void LCD_drawSquare(uint16_t startRow, uint16_t startCol, uint16_t N);
+void LCD_drawRectangle( uint16_t startRow, uint16_t startCol,
+                        uint16_t height_px, uint16_t len_px,
+                        bool is_filled);
 
 #endif
