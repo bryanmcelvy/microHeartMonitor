@@ -10,6 +10,28 @@ static void ILI9341_setAddress(
     uint16_t start_address, uint16_t end_address, uint8_t is_row);
 
 /**********************************************************************
+Pixel Type
+***********************************************************************/
+struct pixel {
+    const uint8_t R_val;
+    const uint8_t G_val;
+    const uint8_t B_val;
+};
+
+pixel_t ILI9341_Pixel_Init(uint8_t R_val, uint8_t G_val, uint8_t B_val) {
+    pixel_t new_pixel = {R_val, G_val, B_val};
+    return new_pixel;
+}
+
+void ILI9341_Pixel_Write_16bit(pixel_t * pixel_ptr) {
+    ILI9341_write1px_16(pixel_ptr->R_val, pixel_ptr->G_val, pixel_ptr->B_val);
+}
+
+void ILI9341_Pixel_Write_18bit(pixel_t * pixel_ptr) {
+    ILI9341_write1px_18(pixel_ptr->R_val, pixel_ptr->G_val, pixel_ptr->B_val);
+}
+
+/**********************************************************************
 Initialization/Reset
 ***********************************************************************/
 

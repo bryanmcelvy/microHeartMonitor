@@ -22,9 +22,9 @@
 #include "SPI.h"
 #include "Timer.h"
 
-/**********************************************************************
+/******************************************************************************
 Defines
-***********************************************************************/
+*******************************************************************************/
 
 // Selected commands from the datasheet
 #define NOP                     (uint8_t) 0x00          /// No Operation
@@ -63,10 +63,11 @@ Defines
 // #define IFMODE                  (uint8_t) 0xB0          /// RGB Interface Signal Control (i.e. Interface Mode Control)
 // #define INVTR                   (uint8_t) 0xB4          /// Display Inversion Control
 */
-/**********************************************************************
+/******************************************************************************
 SECTIONS
 ***********************************************************************
 
+Pixel Type
 Initialization/Reset
 Reading Display Status
 Memory Reading/Writing
@@ -84,9 +85,40 @@ Other
         -Interface Control
 */
 
-/**********************************************************************
+/******************************************************************************
+Pixel Type
+*******************************************************************************/
+
+typedef struct pixel pixel_t;
+
+/**
+ * @brief       Initialize a pixel using the inputted RGB values,
+ *              and return a pointer to it.
+ * 
+ * @param R_val 5 or 6-bit R value.
+ * @param G_val 6-bit G value.
+ * @param B_val 5 or 6-bit B value.
+ * @return pixel_t* 
+ */
+pixel_t ILI9341_Pixel_Init(uint8_t R_val, uint8_t G_val, uint8_t B_val);
+
+/**
+ * @brief               Write a 16-bit (2 transfers) pixel to the LCD driver.
+ * 
+ * @param pixel_ptr     pointer to the pixel
+ */
+void ILI9341_Pixel_Write_16bit(pixel_t * pixel_ptr);
+
+/**
+ * @brief               Write an 18-bit (3 transfers) pixel to the LCD driver.
+ * 
+ * @param pixel_ptr     pointer to the pixel
+ */
+void ILI9341_Pixel_Write_18bit(pixel_t * pixel_ptr);
+
+/******************************************************************************
 Initialization/Reset
-***********************************************************************/
+*******************************************************************************/
 
 /**
  * @brief       Initialize the LCD driver.
@@ -106,9 +138,9 @@ void ILI9341_ResetHard(void);
  */
 void ILI9341_ResetSoft(void);
 
-/**********************************************************************
+/******************************************************************************
 Reading Display Status
-***********************************************************************/
+*******************************************************************************/
 
 uint8_t * ILI9341_getDispStatus(void);
 
@@ -174,9 +206,9 @@ void ILI9341_write1px_18(uint8_t red, uint8_t green, uint8_t blue);
 
 //TODO: readMem
 
-/**********************************************************************
+/******************************************************************************
 Display Config.
-***********************************************************************/
+*******************************************************************************/
 
 /**
  * @brief       Send command to enter or exit sleep mode
@@ -235,9 +267,9 @@ void ILI9341_setColorDepth(uint8_t is_16bit);
 // void ILI9341_setDispBrightness(uint8_t brightness);
 // uint8_t ILI9341_getDispBrightness(void);
 
-/**********************************************************************
+/******************************************************************************
 Other
-***********************************************************************/
+*******************************************************************************/
 
 /**
  * @brief       
