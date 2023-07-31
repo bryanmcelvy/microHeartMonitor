@@ -27,7 +27,7 @@
 
 /******************************************************************************
 Defines
-***********************************************************************/
+*******************************************************************************/
 
 // Selected commands from the datasheet
 #define NOP                     (uint8_t) 0x00          /// No Operation
@@ -66,9 +66,9 @@ Defines
 // #define IFMODE                  (uint8_t) 0xB0          /// RGB Interface Signal Control (i.e. Interface Mode Control)
 // #define INVTR                   (uint8_t) 0xB4          /// Display Inversion Control
 */
-/**********************************************************************
+/******************************************************************************
 SECTIONS
-***********************************************************************
+*******************************************************************************
 
 Initialization/Reset
 Reading Display Status
@@ -87,9 +87,9 @@ Other
         -Interface Control
 */
 
-/**********************************************************************
+/******************************************************************************
 Initialization/Reset
-***********************************************************************/
+*******************************************************************************/
 
 /**
  * @brief       Initialize the LCD driver.
@@ -109,9 +109,9 @@ void ILI9341_ResetHard(void);
  */
 void ILI9341_ResetSoft(void);
 
-/**********************************************************************
+/******************************************************************************
 Reading Display Status
-***********************************************************************/
+*******************************************************************************/
 
 uint8_t * ILI9341_getDispStatus(void);
 
@@ -146,8 +146,8 @@ void ILI9341_setColAddress(uint16_t start_col, uint16_t end_col);
  * @brief
  *      Sends the "Write Memory" (`RAMWR`) command to the LCD driver,
  *      signalling that incoming data should be written to memory. Should be
- *      be called after setting the row (`ILI9341_setRowAddress`) and/or column
- *      (`ILI9341_setRowAddress`) addresses, but before writing image data
+ *      be called after setting the row (`ILI9341_setRowAddress()`) and/or column
+ *      (`ILI9341_setRowAddress()`) addresses, but before writing image data
  *      (`ILI9341_write1px()`).
  */
 void ILI9341_writeMemCmd(void);
@@ -165,9 +165,9 @@ void ILI9341_write1px(uint8_t red, uint8_t green, uint8_t blue, bool is_16bit);
 
 //TODO: readMem
 
-/**********************************************************************
+/******************************************************************************
 Display Config.
-***********************************************************************/
+*******************************************************************************/
 
 /**
  * @brief       Send command to enter or exit sleep mode
@@ -226,9 +226,9 @@ void ILI9341_setColorDepth(bool is_16bit);
 // void ILI9341_setDispBrightness(uint8_t brightness);
 // uint8_t ILI9341_getDispBrightness(void);
 
-/**********************************************************************
+/******************************************************************************
 Other
-***********************************************************************/
+*******************************************************************************/
 
 /**
  * @brief       
