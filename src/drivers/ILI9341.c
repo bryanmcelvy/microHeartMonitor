@@ -12,6 +12,7 @@
 #include "tm4c123gh6pm.h"
 
 #include <stdint.h>
+#include <stdbool.h>
 
 static void ILI9341_setAddress(
     uint16_t start_address, uint16_t end_address, uint8_t is_row);
@@ -30,12 +31,8 @@ pixel_t ILI9341_Pixel_Init(uint8_t R_val, uint8_t G_val, uint8_t B_val) {
     return new_pixel;
 }
 
-void ILI9341_Pixel_Write_16bit(pixel_t * pixel_ptr) {
-    ILI9341_write1px_16(pixel_ptr->R_val, pixel_ptr->G_val, pixel_ptr->B_val);
-}
-
-void ILI9341_Pixel_Write_18bit(pixel_t * pixel_ptr) {
-    ILI9341_write1px_18(pixel_ptr->R_val, pixel_ptr->G_val, pixel_ptr->B_val);
+void ILI9341_Pixel_Write(pixel_t * pixel_ptr, bool is_16bit) {
+    ILI9341_write1px(pixel_ptr->R_val, pixel_ptr->G_val, pixel_ptr->B_val, is_16bit);
 }
 
 /**********************************************************************
@@ -150,32 +147,24 @@ void ILI9341_writeMemCmd(void){
     SPI_WriteCmd(RAMWR);
 }
 
-void ILI9341_write1px_16(uint8_t red, uint8_t green, uint8_t blue) {     
+void ILI9341_write1px(uint8_t red, uint8_t green, uint8_t blue, bool is_16bit) {     
     ///TODO: Write Description
     
-    uint8_t data[2];
+    uint8_t data[3] = {0};
 
-    data[0] = ((red & 0x1F) << 3) |
-                ((green & 0x38) >> 3);
-    data[1] = ((green & 0x07) << 5) |
-                (blue & 0x1F);
-
-    SPI_WriteSequence(0, data, 2);
-}
-
-void ILI9341_write1px_18(uint8_t red, uint8_t green, uint8_t blue) {     
-    /**
-     *  This function is the same as
-     * 
-     */
-    
-    uint8_t data[3];
-
-    data[0] = ( (red & 0x3F) << 2 ) + 0x03;
-    data[1] = ( (green & 0x3F) << 2 ) + 0x03;
-    data[2] = ( (blue & 0x3F) << 2 ) + 0x03;
-
-    SPI_WriteSequence(0, data, 3);
+    if (is_16bit) {
+        data[0] = ((red & 0x1F) << 3) |
+                    ((green & 0x38) >> 3);
+        data[1] = ((green & 0x07) << 5) |
+                    (blue & 0x1F);
+        SPI_WriteSequence(0, data, 2);
+    }
+    else {
+        data[0] = ( (red & 0x3F) << 2 ) + 0x03;
+        data[1] = ( (green & 0x3F) << 2 ) + 0x03;
+        data[2] = ( (blue & 0x3F) << 2 ) + 0x03;
+        SPI_WriteSequence(0, data, 3);
+    }
 }
 
 ///TODO: readMem
@@ -200,15 +189,15 @@ void ILI9341_sleepMode(uint8_t is_sleeping) {
     else { SPI_WriteCmd(SPLOUT); }
 }
 
-void ILI9341_setDispInversion(uint8_t is_ON) {
+void ILI9341_setDispInversion(bool is_ON) {
     ///TODO: Write description
-    if (is_ON != 0) { SPI_WriteCmd(DINVON); }
+    if (is_ON) { SPI_WriteCmd(DINVON); }
     else { SPI_WriteCmd(DINVOFF); }
 }
 
-void ILI9341_setDisplayStatus(uint8_t is_ON) {
+void ILI9341_setDisplayStatus(bool is_ON) {
     ///TODO: Write description
-    if (is_ON != 0) { SPI_WriteCmd(DISPON); }
+    if (is_ON) { SPI_WriteCmd(DISPON); }
     else { SPI_WriteCmd(DISPOFF); }
 }
 
@@ -237,7 +226,7 @@ void ILI9341_setMemAccessCtrl(  uint8_t row_order, uint8_t col_order,
     SPI_WriteData(param);
 }
 
-void ILI9341_setColorDepth(uint8_t is_16bit) {
+void ILI9341_setColorDepth(bool is_16bit) {
     /**
      *  16-bit requires 2 transfers and allows for 65K colors.
      *  18-bit requires 3 transfers and allows for 262K colors.

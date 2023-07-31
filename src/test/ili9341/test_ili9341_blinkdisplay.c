@@ -52,7 +52,7 @@ int main(void) {
         GPIO_PF_LED_Write(color, 1);
         ILI9341_writeMemCmd();
         for (uint32_t i = 0; i < 76800; i++) {
-            ILI9341_write1px_16(red_val, green_val, blue_val);
+            ILI9341_write1px(red_val, green_val, blue_val, 1);
         }
         // ILI9341_NoOpCmd();
 

@@ -23,6 +23,7 @@
 #include "tm4c123gh6pm.h"
 
 #include <stdint.h>
+#include <stdbool.h>
 
 /******************************************************************************
 Defines
@@ -105,18 +106,13 @@ typedef struct pixel pixel_t;
 pixel_t ILI9341_Pixel_Init(uint8_t R_val, uint8_t G_val, uint8_t B_val);
 
 /**
- * @brief               Write a 16-bit (2 transfers) pixel to the LCD driver.
+ * @brief               Write a pixel to the LCD driver.
  * 
  * @param pixel_ptr     pointer to the pixel
+ * @param is_16bit      `true` for 16-bit (65K colors, 2 transfers),
+ *                      `false` for 18-bit (262 colors, 3 transfers)
  */
-void ILI9341_Pixel_Write_16bit(pixel_t * pixel_ptr);
-
-/**
- * @brief               Write an 18-bit (3 transfers) pixel to the LCD driver.
- * 
- * @param pixel_ptr     pointer to the pixel
- */
-void ILI9341_Pixel_Write_18bit(pixel_t * pixel_ptr);
+void ILI9341_Pixel_Write(pixel_t * pixel_ptr, bool is_16bit);
 
 /******************************************************************************
 Initialization/Reset
@@ -188,23 +184,11 @@ void ILI9341_writeMemCmd(void);
  *      Write a single 16-bit pixel to frame memory.
  *      Call `ILI9341_writeMemCmd()` before this one.
  *
- * @param red           5-bit `R` value
- * @param green         6-bit `G` value
- * @param blue          5-bit `B` value
+ * @param red           5 or 6-bit `R` value
+ * @param green         5 or 6-bit `G` value
+ * @param blue          5 or 6-bit `B` value
  */
-void ILI9341_write1px_16(uint8_t red, uint8_t green, uint8_t blue);
-
-/**
- * @brief
- *      Write a single 18-bit pixel to frame memory.
- *      Call `ILI9341_writeMemCmd()` before this one.
- *
- * @param red           6-bit `R` value
- * @param green         6-bit `G` value
- * @param blue          6-bit `B` value
- */
-void ILI9341_write1px_18(uint8_t red, uint8_t green, uint8_t blue);
-
+void ILI9341_write1px(uint8_t red, uint8_t green, uint8_t blue, bool is_16bit);
 
 //TODO: readMem
 
@@ -224,14 +208,14 @@ void ILI9341_sleepMode(uint8_t is_sleeping);
  * 
  * @param       is_ON `1` to turn ON, `0` to turn OFF
  */
-void ILI9341_setDispInversion(uint8_t is_ON);
+void ILI9341_setDispInversion(bool is_ON);
 
 /**
  * @brief       Send command to turn the display ON or OFF.
  * 
  * @param       is_ON `1` to turn ON, `0` to turn OFF
  */
-void ILI9341_setDisplayStatus(uint8_t is_ON);
+void ILI9341_setDisplayStatus(bool is_ON);
 
 void ILI9341_setVertScrollArea(
                                 uint16_t top_fixed, 
@@ -263,7 +247,7 @@ void ILI9341_setMemAccessCtrl(
  *
  * @param is_16bit 
  */
-void ILI9341_setColorDepth(uint8_t is_16bit);
+void ILI9341_setColorDepth(bool is_16bit);
 
 /// not using backlight, so these aren't necessary
 // void ILI9341_setDispBrightness(uint8_t brightness);
