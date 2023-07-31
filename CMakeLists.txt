@@ -22,12 +22,13 @@ if(OPT_CPPCHECK)
     if(CMAKE_C_CPPCHECK)
         
         # flags
-        set(CPPCHECK_FLAGS "--enable=all" "--error-exitcode=1" "--verbose")
-        list(APPEND CPPCHECK_FLAGS "--suppress=unusedFunction" "--suppress=missingIncludeSystem")
-        list(APPEND CPPCHECK_FLAGS "--cppcheck-build-dir=${PROJECT_BINARY_DIR}/cppcheck" "--project=${PROJECT_BINARY_DIR}/compile_commands.json" "-i" "src/device" "src")
+        set(CPPCHECK_FLAGS "--enable=all" "--error-exitcode=1" "--quiet")
+        list(APPEND CPPCHECK_FLAGS "--suppress=unusedFunction" "--suppress=missingIncludeSystem" "--suppress=*:src/device/startup_gcc.c")
+        list(APPEND CPPCHECK_FLAGS "--cppcheck-build-dir=${PROJECT_BINARY_DIR}/cppcheck" "--project=${PROJECT_BINARY_DIR}/compile_commands.json" "src")
 
         # target configuration
-        add_custom_target(lint ALL
+        add_custom_target(lint 
+                            ALL
                             COMMENT "Running cppcheck:"
                             COMMAND ${CMAKE_C_CPPCHECK} ${CPPCHECK_FLAGS}
                             WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/src
