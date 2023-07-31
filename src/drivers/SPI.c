@@ -20,6 +20,10 @@
 
 #include "SPI.h"
 
+#include "tm4c123gh6pm.h"
+
+#include <stdint.h>
+
 void SPI_Init(void) {
     /**
      *  The bit rate `BR` is set using the clock prescale divisor `CPSDVSR`

@@ -12,6 +12,8 @@
 
 #include "tm4c123gh6pm.h"
 
+#include <stdint.h>
+
 /**
  * @brief   Initialize SSI0 to act as an SPI Controller (AKA Master) in mode 0.
  * 

@@ -12,6 +12,7 @@
 
 #include "tm4c123gh6pm.h"
 
+#include <stdint.h>
 /**
  * @brief Initializes the phase-locked-loop (PLL), allowing a bus frequency of 80[MHz].
  * 

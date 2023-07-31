@@ -6,6 +6,13 @@
 
 #include "ILI9341.h"
 
+#include "SPI.h"
+#include "Timer.h"
+
+#include "tm4c123gh6pm.h"
+
+#include <stdint.h>
+
 static void ILI9341_setAddress(
     uint16_t start_address, uint16_t end_address, uint8_t is_row);
 

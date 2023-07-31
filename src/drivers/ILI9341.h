@@ -17,10 +17,12 @@
 #ifndef __ILI9341_H__
 #define __ILI9341_H__
 
-#include "tm4c123gh6pm.h"
-
 #include "SPI.h"
 #include "Timer.h"
+
+#include "tm4c123gh6pm.h"
+
+#include <stdint.h>
 
 /******************************************************************************
 Defines
