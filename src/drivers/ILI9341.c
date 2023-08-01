@@ -193,19 +193,38 @@ void ILI9341_setVertScrollStart(uint16_t start_address) {
     //TODO: Write
 }
 
-void ILI9341_setMemAccessCtrl(  bool row_order, bool col_order,
-                                bool row_col_exchange, bool vert_refresh_order,
-                                bool rgb_order, bool hor_refresh_order) {
-    //TODO: Add description
+void ILI9341_setMemAccessCtrl(  bool areRowsFlipped, bool areColsFlipped,
+                                bool areRowsColsSwitched, bool isVertRefreshFlipped,
+                                bool isColorOrderFlipped, bool isHorRefreshFlipped) {
+    /**
+    *   This function implements the "Memory Access Control" (`MADCTL`) command from
+    *   p. 127-128 of the ILI9341 datasheet, which controls how the LCD driver
+    *   displays data upon writing to memory.
+    *
+    *   Name | Bit # | Effect when set = `1`
+    *   -----|-------|-------------------------------------------
+    *   MY   |  7    | flip row (AKA "page") addresses
+    *   MX   |  6    | flip column addresses
+    *   MV   |  5    | exchange rows and column addresses
+    *   ML   |  4    | reverse horizontal refresh order
+    *   BGR  |  3    | reverse color input order (RGB -> BGR)
+    *   MH   |  2    | reverse vertical refresh order
+    *
+    *   All bits are clear after powering on or `HWRESET`.
+    */
 
-    uint8_t param = 0x00;
+    uint8_t param;
 
-    param = (row_order) ? (param | 0x80) : param;
-    param = (col_order) ? (param | 0x40) : param;
-    param = (row_col_exchange) ? (param | 0x20) : param;
-    param = (vert_refresh_order) ? (param | 0x10) : param;
-    param = (rgb_order) ? (param | 0x08) : param;
-    param = (hor_refresh_order) ? (param | 0x04) : param;
+    // start with all bits cleared
+    param = 0x00;
+
+    // set bits based on input arguments
+    param = (areRowsFlipped) ? (param | 0x80) : param;
+    param = (areColsFlipped) ? (param | 0x40) : param;
+    param = (areRowsColsSwitched) ? (param | 0x20) : param;
+    param = (isVertRefreshFlipped) ? (param | 0x10) : param;
+    param = (isColorOrderFlipped) ? (param | 0x08) : param;
+    param = (isHorRefreshFlipped) ? (param | 0x04) : param;
 
     SPI_WriteCmd(MADCTL);
     SPI_WriteData(param);

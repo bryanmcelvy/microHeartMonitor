@@ -202,18 +202,19 @@ void ILI9341_setVertScrollArea(
 void ILI9341_setVertScrollStart(uint16_t start_address);
 
 /**
- * @brief       Send command to set the LCD driver's read/write scanning direction.
+ * @brief
+ *      Set how data is converted from memory to display.
  * 
- * @param row_order             `0` for up-to-down, `1` for down-to-up
- * @param col_order             `0` for left-to-right, `1` for right-to-left
- * @param row_col_exchange      `0` for default, `1` to switch invert rows/columns
- * @param vert_refresh_order    `0` for top-to-bottom, `1` for bottom-to-top
- * @param rgb_order             TODO: figure out what this actually does
- * @param hor_refresh_order     `0` for left-to-right, `1` for right-to-left
+ * @param areRowsFlipped 
+ * @param areColsFlipped 
+ * @param areRowsColsSwitched 
+ * @param isVertRefreshFlipped 
+ * @param isColorOrderFlipped 
+ * @param isHorRefreshFlipped 
  */
-void ILI9341_setMemAccessCtrl(  bool row_order, bool col_order,
-                                bool row_col_exchange, bool vert_refresh_order,
-                                bool rgb_order, bool hor_refresh_order);
+void ILI9341_setMemAccessCtrl(  bool areRowsFlipped, bool areColsFlipped,
+                                bool areRowsColsSwitched, bool isVertRefreshFlipped,
+                                bool isColorOrderFlipped, bool isHorRefreshFlipped);
 
 /**
  * @brief
