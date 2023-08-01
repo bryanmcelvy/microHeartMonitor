@@ -29,16 +29,16 @@ int main(void) {
     LCD_draw();
 
     LCD_setColor_3bit(LCD_RED);
-    LCD_drawRectangle(0, 0, 40, 40, true);      // top left corner
-
-    LCD_setColor_3bit(LCD_GREEN);
-    LCD_drawRectangle(0, 199, 40, 40, true);    // top right corner
+    LCD_drawRectangle(0, 0, 40, 40, false);
 
     LCD_setColor_3bit(LCD_BLUE);
-    LCD_drawRectangle(279, 0, 40, 40, true);    // bottom left corner
+    LCD_drawRectangle(0, 199, 40, 40, false);
+
+    LCD_setColor_3bit(LCD_GREEN);
+    LCD_drawRectangle(279, 0, 40, 40, false);
 
     LCD_setColor_3bit(LCD_PURPLE);
-    LCD_drawRectangle(279, 199, 40, 40, true);      // bottom right corner
+    LCD_drawRectangle(279, 199, 40, 40, false);
 
     LCD_toggleStatus();                         // display ON
     while(1) {
