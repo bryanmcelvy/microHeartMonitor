@@ -17,6 +17,19 @@
 #ifndef __ILI9341_H__
 #define __ILI9341_H__
 
+/******************************************************************************
+SECTIONS
+        Preprocessor Directives
+        Initialization/Reset
+        Configuration
+        Memory Writing
+*******************************************************************************/
+
+/******************************************************************************
+Preprocessor Directives
+*******************************************************************************/
+
+// Includes
 #include "SPI.h"
 #include "Timer.h"
 
@@ -25,68 +38,9 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-/******************************************************************************
-Defines
-*******************************************************************************/
-
-// Selected commands from the datasheet
-#define NOP                     (uint8_t) 0x00          /// No Operation
-#define SWRESET                 (uint8_t) 0x01          /// Software Reset
-#define RDDST                   (uint8_t) 0x09          /// Read Display Status
-#define RDDMADCTL               (uint8_t) 0x0B          /// Read Display MADCTL
-#define RDDCOLMOD               (uint8_t) 0x0C          /// Read Display Pixel Format
-#define SPLIN                   (uint8_t) 0x10          /// Enter Sleep Mode
-#define SPLOUT                  (uint8_t) 0x11          /// Sleep Out (i.e. Exit Sleep Mode)
-#define DINVOFF                 (uint8_t) 0x20          /// Display Inversion OFF
-#define DINVON                  (uint8_t) 0x21          /// Display Inversion ON
-#define CASET                   (uint8_t) 0x2A          /// Column Address Set
-#define PASET                   (uint8_t) 0x2B          /// Page Address Set
-#define RAMWR                   (uint8_t) 0x2C          /// Memory Write
-#define RAMRD                   (uint8_t) 0x2E          /// Memory Read
-#define DISPOFF                 (uint8_t) 0x28          /// Display OFF
-#define DISPON                  (uint8_t) 0x29          /// Display ON
-#define VSCRDEF                 (uint8_t) 0x33          /// Vertical Scrolling Definition
-#define MADCTL                  (uint8_t) 0x36          /// Memory Access Control
-#define VSCRSADD                (uint8_t) 0x37          /// Vertical Scrolling Start Address
-#define PIXSET                  (uint8_t) 0x3A          /// Pixel Format Set
-#define FRMCTR1                 (uint8_t) 0xB1          /// Frame Control Set (Normal Mode)
-#define PRCTR                   (uint8_t) 0xB5          /// Blanking Porch Control
-#define IFCTL                   (uint8_t) 0xF6          /// Interface Control
-
-// Other useful constants
+// Defines
 #define NUM_COLS                (uint16_t) 240
 #define NUM_ROWS                (uint16_t) 320
-
-/* NOTE: not being used at the moment
-// #define RGBSET                  (uint8_t) 0x2D          /// Color Set
-// #define WRITE_MEMORY_CONTINUE   (uint8_t) 0x3C          /// Write_Memory_Continue
-// #define READ_MEMORY_CONTINUE    (uint8_t) 0x3E          /// Read_Memory_Continue
-// #define WRDISBV                 (uint8_t) 0x51          /// Write Display Brightness
-// #define RDDISBV                 (uint8_t) 0x52          /// Read Display Brightness
-// #define IFMODE                  (uint8_t) 0xB0          /// RGB Interface Signal Control (i.e. Interface Mode Control)
-// #define INVTR                   (uint8_t) 0xB4          /// Display Inversion Control
-*/
-
-/******************************************************************************
-SECTIONS
-*******************************************************************************
-
-Initialization/Reset
-Reading Display Status
-Memory Reading/Writing
-Display Config.
-        -Inversion
-        -ON/OFF
-        -Scrolling
-        -Memory Access Control
-        -Pixel Format
-        -Brightness
-Other
-        -RGB Interface
-        -Frame Rate Control
-        -Blanking Porch Control
-        -Interface Control
-*/
 
 /******************************************************************************
 Initialization/Reset
@@ -102,19 +56,95 @@ void ILI9341_ResetHard(void);
 void ILI9341_ResetSoft(void);
 
 /******************************************************************************
-Reading Display Status
+Configuration
 *******************************************************************************/
 
-///TODO: Write
-uint8_t * ILI9341_getDispStatus(void);
+/**
+ * @brief       Enter or exit sleep mode. The LCD driver is in sleep mode by
+ *              default upon power on or either kind of reset.
+ * 
+ * @param       is_sleeping `true` to enter sleep mode, `false` to exit
+ */
+void ILI9341_setSleepMode(bool is_sleeping);
+
+/**
+ * @brief       Send command to toggle display display inversion
+ * 
+ * @param       is_ON `1` to turn ON, `0` to turn OFF
+ */
+void ILI9341_setDispInversion(bool is_ON);
+
+/**
+ * @brief       Send command to turn the display ON or OFF.
+ * 
+ * @param       is_ON `1` to turn ON, `0` to turn OFF
+ */
+void ILI9341_setDisplayStatus(bool is_ON);
 
 ///TODO: Write
-uint8_t ILI9341_getMemAccessCtrl(void);
+void ILI9341_setVertScrollArea(
+                                uint16_t top_fixed, 
+                                uint16_t vert_scroll,
+                                uint16_t bottom_fixed
+        );
 
-//TODO getPixelFormat
+///TODO: Write
+void ILI9341_setVertScrollStart(uint16_t start_address);
+
+/**
+ * @brief
+ *      Set how data is converted from memory to display.
+ * 
+ * @param areRowsFlipped 
+ * @param areColsFlipped 
+ * @param areRowsColsSwitched 
+ * @param isVertRefreshFlipped 
+ * @param isColorOrderFlipped 
+ * @param isHorRefreshFlipped 
+ */
+void ILI9341_setMemAccessCtrl(  bool areRowsFlipped, bool areColsFlipped,
+                                bool areRowsColsSwitched, bool isVertRefreshFlipped,
+                                bool isColorOrderFlipped, bool isHorRefreshFlipped);
+
+/**
+ * @brief
+ *      Set the pixel format to be 16-bit (65K colors) or 18-bit (262K colors).
+ *
+ * @param is_16bit 
+ */
+void ILI9341_setColorDepth(bool is_16bit);
+
+/**
+ * @brief       
+ *      Send the "No Operation" command (`NOP`) to the LCD driver.
+ *      Can be used to terminate the "Memory Write" (`RAMWR`
+ *      "Memory Read" (`RAMRD`) commands, but does nothing otherwise.
+ */
+void ILI9341_NoOpCmd(void);
+
+///TODO: Write
+void ILI9341_setFrameRate(uint8_t div_ratio, uint8_t clocks_per_line);
+
+///TODO: Write
+void ILI9341_setBlankingPorch(  uint8_t vpf, uint8_t vbp, 
+                                uint8_t hfp, uint8_t hbp);
+
+/**
+ * @brief       Sets the interface for the ILI9341.
+ *              The parameters for this command are hard-coded, so it only
+ *              needs to be called once upon initialization.
+ */
+void ILI9341_setInterface(void);
+
+/// not using backlight, so these aren't necessary
+// void ILI9341_setDispBrightness(uint8_t brightness);
+// uint8_t ILI9341_getDispBrightness(void);
+
+// NOTE: The RGB interface is not usable via SPI, so this function was useless.
+// void ILI9341_setRGBInterface(uint8_t param);
 
 /******************************************************************************
-Memory Reading/Writing
+Memory Writing
 *******************************************************************************/
 
 /**
@@ -162,101 +192,6 @@ void ILI9341_writeMemCmd(void);
  *                      `false` for 18-bit (262K colors, 3 transfer) color depth
  */
 void ILI9341_write1px(uint8_t red, uint8_t green, uint8_t blue, bool is_16bit);
-
-//TODO: readMem
-
-/******************************************************************************
-Display Config.
-*******************************************************************************/
-
-/**
- * @brief       Enter or exit sleep mode. The LCD driver is in sleep mode by
- *              default upon power on or either kind of reset.
- * 
- * @param       is_sleeping `true` to enter sleep mode, `false` to exit
- */
-void ILI9341_sleepMode(bool is_sleeping);
-
-/**
- * @brief       Send command to toggle display display inversion
- * 
- * @param       is_ON `1` to turn ON, `0` to turn OFF
- */
-void ILI9341_setDispInversion(bool is_ON);
-
-/**
- * @brief       Send command to turn the display ON or OFF.
- * 
- * @param       is_ON `1` to turn ON, `0` to turn OFF
- */
-void ILI9341_setDisplayStatus(bool is_ON);
-
-///TODO: Write
-void ILI9341_setVertScrollArea(
-                                uint16_t top_fixed, 
-                                uint16_t vert_scroll,
-                                uint16_t bottom_fixed
-        );
-
-
-///TODO: Write
-void ILI9341_setVertScrollStart(uint16_t start_address);
-
-/**
- * @brief
- *      Set how data is converted from memory to display.
- * 
- * @param areRowsFlipped 
- * @param areColsFlipped 
- * @param areRowsColsSwitched 
- * @param isVertRefreshFlipped 
- * @param isColorOrderFlipped 
- * @param isHorRefreshFlipped 
- */
-void ILI9341_setMemAccessCtrl(  bool areRowsFlipped, bool areColsFlipped,
-                                bool areRowsColsSwitched, bool isVertRefreshFlipped,
-                                bool isColorOrderFlipped, bool isHorRefreshFlipped);
-
-/**
- * @brief
- *      Set the pixel format to be 16-bit (65K colors) or 18-bit (262K colors).
- *
- * @param is_16bit 
- */
-void ILI9341_setColorDepth(bool is_16bit);
-
-/// not using backlight, so these aren't necessary
-// void ILI9341_setDispBrightness(uint8_t brightness);
-// uint8_t ILI9341_getDispBrightness(void);
-
-/******************************************************************************
-Other
-*******************************************************************************/
-
-/**
- * @brief       
- *      Send the "No Operation" command (`NOP`) to the LCD driver.
- *      Can be used to terminate the "Memory Write" (`RAMWR`
- *      "Memory Read" (`RAMRD`) commands, but does nothing otherwise.
- */
-void ILI9341_NoOpCmd(void);
-
-// NOTE: The RGB interface is not usable via SPI, so this function was useless.
-// void ILI9341_setRGBInterface(uint8_t param);
-
-///TODO: Write
-void ILI9341_setFrameRate(uint8_t div_ratio, uint8_t clocks_per_line);
-
-///TODO: Write
-void ILI9341_setBlankingPorch(  uint8_t vpf, uint8_t vbp, 
-                                uint8_t hfp, uint8_t hbp);
-
-/**
- * @brief       Sets the interface for the ILI9341.
- *              The parameters for this command are hard-coded, so it only
- *              needs to be called once upon initialization.
- */
-void ILI9341_setInterface(void);
 
 #endif
 

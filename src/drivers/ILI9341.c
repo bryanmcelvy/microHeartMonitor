@@ -4,6 +4,19 @@
  * @brief   Source code for ILI9341 module.
  */
 
+/******************************************************************************
+SECTIONS
+        Preprocessor Directives
+        Initialization/Reset
+        Configuration
+        Memory Writing
+*******************************************************************************/
+
+/******************************************************************************
+Preprocessor Directives
+*******************************************************************************/
+
+// Includes
 #include "ILI9341.h"
 
 #include "SPI.h"
@@ -14,6 +27,42 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+// Selected commands from the datasheet
+// NOTE: NUM_COLS and NUM_ROWS are defined in the header
+#define NOP                     (uint8_t) 0x00          /// No Operation
+#define SWRESET                 (uint8_t) 0x01          /// Software Reset
+#define SPLIN                   (uint8_t) 0x10          /// Enter Sleep Mode
+#define SPLOUT                  (uint8_t) 0x11          /// Sleep Out (i.e. Exit Sleep Mode)
+#define DINVOFF                 (uint8_t) 0x20          /// Display Inversion OFF
+#define DINVON                  (uint8_t) 0x21          /// Display Inversion ON
+#define CASET                   (uint8_t) 0x2A          /// Column Address Set
+#define PASET                   (uint8_t) 0x2B          /// Page Address Set
+#define RAMWR                   (uint8_t) 0x2C          /// Memory Write
+#define DISPOFF                 (uint8_t) 0x28          /// Display OFF
+#define DISPON                  (uint8_t) 0x29          /// Display ON
+#define VSCRDEF                 (uint8_t) 0x33          /// Vertical Scrolling Definition
+#define MADCTL                  (uint8_t) 0x36          /// Memory Access Control
+#define VSCRSADD                (uint8_t) 0x37          /// Vertical Scrolling Start Address
+#define PIXSET                  (uint8_t) 0x3A          /// Pixel Format Set
+#define FRMCTR1                 (uint8_t) 0xB1          /// Frame Control Set (Normal Mode)
+#define PRCTR                   (uint8_t) 0xB5          /// Blanking Porch Control
+#define IFCTL                   (uint8_t) 0xF6          /// Interface Control
+
+/* Currently unused commands
+// #define RDDST                   (uint8_t) 0x09          /// Read Display Status
+// #define RDDMADCTL               (uint8_t) 0x0B          /// Read Display MADCTL
+// #define RDDCOLMOD               (uint8_t) 0x0C          /// Read Display Pixel Format
+// #define RGBSET                  (uint8_t) 0x2D          /// Color Set
+// #define RAMRD                   (uint8_t) 0x2E          /// Memory Read
+// #define WRITE_MEMORY_CONTINUE   (uint8_t) 0x3C          /// Write_Memory_Continue
+// #define READ_MEMORY_CONTINUE    (uint8_t) 0x3E          /// Read_Memory_Continue
+// #define WRDISBV                 (uint8_t) 0x51          /// Write Display Brightness
+// #define RDDISBV                 (uint8_t) 0x52          /// Read Display Brightness
+// #define IFMODE                  (uint8_t) 0xB0          /// RGB Interface Signal Control (i.e. Interface Mode Control)
+// #define INVTR                   (uint8_t) 0xB4          /// Display Inversion Control
+*/
+
+// Function Prototypes
 static void ILI9341_setAddress(
     uint16_t start_address, uint16_t end_address, bool is_row);
 
@@ -21,9 +70,7 @@ static void ILI9341_setAddress(
 Initialization/Reset
 ***********************************************************************/
 
-void ILI9341_Init(void) {
-    ///TODO: rewrite description
-    
+void ILI9341_Init(void) {    
     SPI_Init();
     Timer2A_Init();
     ILI9341_ResetHard();
@@ -48,108 +95,10 @@ void ILI9341_ResetSoft(void) {
 }
 
 /**********************************************************************
-Reading Display Status
+Configuration
 ***********************************************************************/
 
-uint8_t * ILI9341_getDispStatus(void) { //TODO: Write
-    return 0;
-}
-
-uint8_t ILI9341_getMemAccessCtrl(void) { //TODO: Write
-    return 0;
-}
-
-//TODO getPixelFormat
-
-/**********************************************************************
-Memory Reading/Writing
-***********************************************************************/
-
-static void ILI9341_setAddress(
-    uint16_t start_address, uint16_t end_address, bool is_row) {
-    /**
-    This function implements the "Column Address Set" (`CASET`) and "Page
-    Address Set" (`PASET`) commands from p. 110-113 of the ILI9341 datasheet.
-    
-    The input parameters represent the first and last addresses to be written
-    to when ILI9341_write1px() is called.
-
-    To work correctly, `start_address` must be no greater than `end_address`,
-    and `end_address` cannot be greater than the max number of rows/columns.
-    */
-    
-    uint8_t cmd_sequence[4];
-
-    uint8_t cmd = (is_row) ? PASET : CASET;
-    uint16_t max_num = (is_row) ? NUM_ROWS : NUM_COLS;
-
-    // ensure `start_address` and `end_address` meet restrictions
-    end_address = (end_address < max_num) ? end_address : (max_num - 1);
-    start_address = (start_address < end_address) ? start_address : end_address;
-
-    // configure send command sequence
-    cmd_sequence[0] = (uint8_t) ((start_address & 0xFF00) >> 8);
-    cmd_sequence[1] = (uint8_t) (start_address & 0x00FF);
-    cmd_sequence[2] = (uint8_t) ((end_address & 0xFF00) >> 8);
-    cmd_sequence[3] = (uint8_t) (end_address & 0x00FF);
-    SPI_WriteSequence(cmd, cmd_sequence, 4);
-}
-
-void ILI9341_setRowAddress(uint16_t start_row, uint16_t end_row) {
-    /**
-        This function is simply an interface to ILI9341_setAddress().
-        To work correctly, `start_row` must be no greater than `end_row`, and
-        `end_row` cannot be greater than the max row number (default 320).
-    */
-    
-    ILI9341_setAddress(start_row, end_row, 1);
-}
-
-void ILI9341_setColAddress(uint16_t start_col, uint16_t end_col) {
-    /**
-        This function is simply an interface to ILI9341_setAddress().
-        To work correctly, `start_col` must be no greater than `end_col`, and
-        `end_col` cannot be greater than the max column number (default 240).
-    */
-    
-    ILI9341_setAddress(start_col, end_col, 0);
-}
-
-void ILI9341_writeMemCmd(void){
-    /**
-     *  Sends the "Write Memory" (`RAMWR`) command to the LCD driver,
-     *  signalling that incoming data should be written to memory. 
-     */
-    SPI_WriteCmd(RAMWR);
-}
-
-void ILI9341_write1px(uint8_t red, uint8_t green, uint8_t blue, bool is_16bit) {     
-    ///TODO: Write Description
-    
-    uint8_t data[3] = {0};
-
-    if (is_16bit) {
-        data[0] = ((red & 0x1F) << 3) |
-                    ((green & 0x38) >> 3);
-        data[1] = ((green & 0x07) << 5) |
-                    (blue & 0x1F);
-        SPI_WriteSequence(0, data, 2);
-    }
-    else {
-        data[0] = ( (red & 0x3F) << 2 ) + 0x03;
-        data[1] = ( (green & 0x3F) << 2 ) + 0x03;
-        data[2] = ( (blue & 0x3F) << 2 ) + 0x03;
-        SPI_WriteSequence(0, data, 3);
-    }
-}
-
-///TODO: readMem
-
-/**********************************************************************
-Display Config.
-***********************************************************************/
-
-void ILI9341_sleepMode(bool is_sleeping) {
+void ILI9341_setSleepMode(bool is_sleeping) {
     /**     This function turns sleep mode ON or OFF 
      *      depending on the value of `is_sleeping`.
      *      Either way, the MCU must wait >= 5 [ms]
@@ -234,10 +183,6 @@ void ILI9341_setColorDepth(bool is_16bit) {
     SPI_WriteData(param);
 }
 
-/**********************************************************************
-Other
-***********************************************************************/
-
 void ILI9341_NoOpCmd(void) {
     SPI_WriteCmd(NOP);
 }
@@ -282,4 +227,86 @@ void ILI9341_setInterface(void) {
 
     const uint8_t param_sequence[3] = {0x00, 0x00, 0x00};
     SPI_WriteSequence(IFCTL, (uint8_t (*)) param_sequence, 3);
+}
+
+/**********************************************************************
+Memory Reading/Writing
+***********************************************************************/
+
+static void ILI9341_setAddress(
+    uint16_t start_address, uint16_t end_address, bool is_row) {
+    /**
+    This function implements the "Column Address Set" (`CASET`) and "Page
+    Address Set" (`PASET`) commands from p. 110-113 of the ILI9341 datasheet.
+    
+    The input parameters represent the first and last addresses to be written
+    to when ILI9341_write1px() is called.
+
+    To work correctly, `start_address` must be no greater than `end_address`,
+    and `end_address` cannot be greater than the max number of rows/columns.
+    */
+    
+    uint8_t cmd_sequence[4];
+
+    uint8_t cmd = (is_row) ? PASET : CASET;
+    uint16_t max_num = (is_row) ? NUM_ROWS : NUM_COLS;
+
+    // ensure `start_address` and `end_address` meet restrictions
+    end_address = (end_address < max_num) ? end_address : (max_num - 1);
+    start_address = (start_address < end_address) ? start_address : end_address;
+
+    // configure send command sequence
+    cmd_sequence[0] = (uint8_t) ((start_address & 0xFF00) >> 8);
+    cmd_sequence[1] = (uint8_t) (start_address & 0x00FF);
+    cmd_sequence[2] = (uint8_t) ((end_address & 0xFF00) >> 8);
+    cmd_sequence[3] = (uint8_t) (end_address & 0x00FF);
+    SPI_WriteSequence(cmd, cmd_sequence, 4);
+}
+
+void ILI9341_setRowAddress(uint16_t start_row, uint16_t end_row) {
+    /**
+        This function is simply an interface to ILI9341_setAddress().
+        To work correctly, `start_row` must be no greater than `end_row`, and
+        `end_row` cannot be greater than the max row number (default 320).
+    */
+    
+    ILI9341_setAddress(start_row, end_row, 1);
+}
+
+void ILI9341_setColAddress(uint16_t start_col, uint16_t end_col) {
+    /**
+        This function is simply an interface to ILI9341_setAddress().
+        To work correctly, `start_col` must be no greater than `end_col`, and
+        `end_col` cannot be greater than the max column number (default 240).
+    */
+    
+    ILI9341_setAddress(start_col, end_col, 0);
+}
+
+void ILI9341_writeMemCmd(void){
+    /**
+     *  Sends the "Write Memory" (`RAMWR`) command to the LCD driver,
+     *  signalling that incoming data should be written to memory. 
+     */
+    SPI_WriteCmd(RAMWR);
+}
+
+void ILI9341_write1px(uint8_t red, uint8_t green, uint8_t blue, bool is_16bit) {     
+    ///TODO: Write Description
+    
+    uint8_t data[3] = {0};
+
+    if (is_16bit) {
+        data[0] = ((red & 0x1F) << 3) |
+                    ((green & 0x38) >> 3);
+        data[1] = ((green & 0x07) << 5) |
+                    (blue & 0x1F);
+        SPI_WriteSequence(0, data, 2);
+    }
+    else {
+        data[0] = ( (red & 0x3F) << 2 ) + 0x03;
+        data[1] = ( (green & 0x3F) << 2 ) + 0x03;
+        data[2] = ( (blue & 0x3F) << 2 ) + 0x03;
+        SPI_WriteSequence(0, data, 3);
+    }
 }
