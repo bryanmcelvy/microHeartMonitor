@@ -29,24 +29,24 @@ Preprocessor Directives
 
 // Selected commands from the datasheet
 // NOTE: NUM_COLS and NUM_ROWS are defined in the header
-#define NOP                     (uint8_t) 0x00          /// No Operation
-#define SWRESET                 (uint8_t) 0x01          /// Software Reset
-#define SPLIN                   (uint8_t) 0x10          /// Enter Sleep Mode
-#define SPLOUT                  (uint8_t) 0x11          /// Sleep Out (i.e. Exit Sleep Mode)
-#define DINVOFF                 (uint8_t) 0x20          /// Display Inversion OFF
-#define DINVON                  (uint8_t) 0x21          /// Display Inversion ON
-#define CASET                   (uint8_t) 0x2A          /// Column Address Set
-#define PASET                   (uint8_t) 0x2B          /// Page Address Set
-#define RAMWR                   (uint8_t) 0x2C          /// Memory Write
-#define DISPOFF                 (uint8_t) 0x28          /// Display OFF
-#define DISPON                  (uint8_t) 0x29          /// Display ON
-#define VSCRDEF                 (uint8_t) 0x33          /// Vertical Scrolling Definition
-#define MADCTL                  (uint8_t) 0x36          /// Memory Access Control
-#define VSCRSADD                (uint8_t) 0x37          /// Vertical Scrolling Start Address
-#define PIXSET                  (uint8_t) 0x3A          /// Pixel Format Set
-#define FRMCTR1                 (uint8_t) 0xB1          /// Frame Control Set (Normal Mode)
-#define PRCTR                   (uint8_t) 0xB5          /// Blanking Porch Control
-#define IFCTL                   (uint8_t) 0xF6          /// Interface Control
+#define NOP         (uint8_t) 0x00      /// No Operation
+#define SWRESET     (uint8_t) 0x01      /// Software Reset
+#define SPLIN       (uint8_t) 0x10      /// Enter Sleep Mode
+#define SPLOUT      (uint8_t) 0x11      /// Sleep Out (i.e. Exit Sleep Mode)
+#define DINVOFF     (uint8_t) 0x20      /// Display Inversion OFF
+#define DINVON      (uint8_t) 0x21      /// Display Inversion ON
+#define CASET       (uint8_t) 0x2A      /// Column Address Set
+#define PASET       (uint8_t) 0x2B      /// Page Address Set
+#define RAMWR       (uint8_t) 0x2C      /// Memory Write
+#define DISPOFF     (uint8_t) 0x28      /// Display OFF
+#define DISPON      (uint8_t) 0x29      /// Display ON
+#define VSCRDEF     (uint8_t) 0x33      /// Vertical Scrolling Definition
+#define MADCTL      (uint8_t) 0x36      /// Memory Access Control
+#define VSCRSADD    (uint8_t) 0x37      /// Vertical Scrolling Start Address
+#define PIXSET      (uint8_t) 0x3A      /// Pixel Format Set
+#define FRMCTR1     (uint8_t) 0xB1      /// Frame Control Set (Normal Mode)
+#define PRCTR       (uint8_t) 0xB5      /// Blanking Porch Control
+#define IFCTL       (uint8_t) 0xF6      /// Interface Control
 
 /* Currently unused commands
 // #define RDDST                   (uint8_t) 0x09          /// Read Display Status
@@ -66,9 +66,9 @@ Preprocessor Directives
 static void ILI9341_setAddress(
     uint16_t start_address, uint16_t end_address, bool is_row);
 
-/**********************************************************************
+/******************************************************************************
 Initialization/Reset
-***********************************************************************/
+*******************************************************************************/
 
 void ILI9341_Init(void) {    
     SPI_Init();
@@ -94,9 +94,9 @@ void ILI9341_ResetSoft(void) {
     Timer2A_Wait1ms(5); /// the driver needs 5 [ms] before another command
 }
 
-/**********************************************************************
+/******************************************************************************
 Configuration
-***********************************************************************/
+*******************************************************************************/
 
 void ILI9341_setSleepMode(bool is_sleeping) {
     /**     This function turns sleep mode ON or OFF 
@@ -187,14 +187,13 @@ void ILI9341_NoOpCmd(void) {
     SPI_WriteCmd(NOP);
 }
 
-//TODO: Write
 void ILI9341_setFrameRate(uint8_t div_ratio, uint8_t clocks_per_line) {
-
+    ///TODO: Write
 }
 
-//TODO: Write
 void ILI9341_setBlankingPorch(  uint8_t vpf, uint8_t vbp, 
                                 uint8_t hfp, uint8_t hbp) {
+    ///TODO: Write
 }
 
 void ILI9341_setInterface(void) { 
@@ -229,9 +228,9 @@ void ILI9341_setInterface(void) {
     SPI_WriteSequence(IFCTL, (uint8_t (*)) param_sequence, 3);
 }
 
-/**********************************************************************
-Memory Reading/Writing
-***********************************************************************/
+/******************************************************************************
+Memory Writing
+*******************************************************************************/
 
 static void ILI9341_setAddress(
     uint16_t start_address, uint16_t end_address, bool is_row) {
