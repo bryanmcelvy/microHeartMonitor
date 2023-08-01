@@ -119,32 +119,33 @@ Drawing
 void LCD_draw(void);
 
 /**
- * @brief   Draw a horizontal line onto the display.
+ * @brief           Draw a horizontal line onto the display.
  * 
- * @param   rowCenter row that the line will be centered on
- * @param   lineWidth width of the line; needs to be odd
+ * @param yCenter   y-coordinate to center the line on        
+ * @param lineWidth width of the line; should be a positive, odd number
  */
-void LCD_drawHLine(uint16_t rowCenter, uint16_t lineWidth);
+void LCD_drawHLine(uint16_t yCenter, uint16_t lineWidth);
 
 /**
- * @brief   Draw a vertical line onto the display.
+ * @brief           Draw a vertical line onto the display.
  * 
- * @param   colCenter column that the line will be centered on
- * @param   lineWidth width of the line; needs to be odd
+ * @param xCenter   x-coordinate to center the line on        
+ * @param lineWidth width of the line; should be a positive, odd number
  */
-void LCD_drawVLine(uint16_t colCenter, uint16_t lineWidth);
+void LCD_drawVLine(uint16_t xCenter, uint16_t lineWidth);
 
 /**
  * @brief           Draw an `l` x `h` rectangle on the display.
+ *                  The bottom-left corner will be located at `(x1, y1)`.
  * 
- * @param startRow  index of top-most row; `0 <= startRow < NUM_ROWS`
- * @param startCol  index of left-most column; `0 <= startRow < NUM_COLS`
- * @param height_px height `h` (i.e. vertical distance) in pixels
- * @param len_px    length `l` (i.e. horizontal distance) in pixels
- * @param is_filled `true` for filled rectangle, `false` for unfilled
+ * @param x1        x-coordinate of bottom-left corner
+ * @param y1        y-coordinate of bottom-left corner
+ * @param dx        AKA `l`; length (horizontal distance) of the rectangle
+ * @param dy        AKA `h`; height (vertical distance) of the rectangle
+ * @param is_filled `true` to fill the rectangle, `false` to leave it unfilled
  */
-void LCD_drawRectangle( uint16_t startRow, uint16_t startCol,
-                        uint16_t height_px, uint16_t len_px,
+void LCD_drawRectangle( uint16_t x1, uint16_t y1,
+                        uint16_t dx, uint16_t dy,
                         bool is_filled);
 
 #endif

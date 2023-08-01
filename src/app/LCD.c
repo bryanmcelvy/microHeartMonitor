@@ -28,11 +28,11 @@ static void LCD_updateNumPixels(void);
 static void LCD_drawLine(uint16_t center, uint16_t lineWidth, bool is_horizontal);
 
 // LCD Object
-struct LCD {
-    uint16_t rowStart;
-    uint16_t rowEnd;
-    uint16_t colStart;
-    uint16_t colEnd;
+typedef struct {
+    uint16_t x1;
+    uint16_t x2;
+    uint16_t y1;
+    uint16_t y2;
     uint32_t numPixels;
 
     uint8_t R_val;
@@ -41,12 +41,12 @@ struct LCD {
 
     bool is_ON;
     bool is_inverted;
-
     bool is_16bit;
-    bool is_init;
-};
 
-static struct LCD lcd = {  
+    bool is_init;
+} LCD_t;
+
+static LCD_t lcd = {  
     0, (NUM_ROWS-1),                // entire area
     0, (NUM_COLS-1),                // colStart, colEnd
     (NUM_ROWS * NUM_COLS),          // numPixels
@@ -66,7 +66,7 @@ Initialization and Configuration
 void LCD_Init(void) {
     if (lcd.is_init == false) {
         ILI9341_Init();
-        ILI9341_setMemAccessCtrl(0, 0, 0, 0, 1, 0);
+        ILI9341_setMemAccessCtrl(1, 0, 0, 0, 1, 0);
         lcd.is_init = true;
     }
 }
@@ -97,37 +97,37 @@ Drawing Area
 static void LCD_updateNumPixels(void) {
     /// Updates `lcd`'s `numPixels` parameter after changing rows/columns
 
-    lcd.numPixels = ((lcd.rowEnd - lcd.rowStart) + 1) 
-                    * ((lcd.colEnd - lcd.colStart) + 1);
+    lcd.numPixels = ((lcd.x2 - lcd.x1) + 1) 
+                    * ((lcd.y2 - lcd.y1) + 1);
 }
 
-void LCD_setArea(   uint16_t rowStartNew, uint16_t rowEndNew,
-                    uint16_t colStartNew, uint16_t colEndNew) {
+void LCD_setArea(   uint16_t x1New, uint16_t x2New,
+                    uint16_t y1New, uint16_t y2New) {
     
     // ensure the row numbers meet the restrictions
-    lcd.rowEnd = (rowEndNew < NUM_ROWS) ? rowEndNew : (NUM_ROWS - 1);
-    lcd.rowStart = (rowStartNew < rowEndNew) ? rowStartNew : (rowEndNew);
+    lcd.x2 = (x2New < NUM_ROWS) ? x2New : (NUM_ROWS - 1);
+    lcd.x1 = (x1New < x2New) ? x1New : (x2New);
 
     // ensure the column numbers meet the restrictions
-    lcd.colEnd = (colEndNew < NUM_COLS) ? colEndNew : (NUM_COLS - 1);
-    lcd.colStart = (colStartNew < colEndNew) ? colStartNew : (colEndNew);
+    lcd.y2 = (y2New < NUM_COLS) ? y2New : (NUM_COLS - 1);
+    lcd.y1 = (y1New < y2New) ? y1New : (y2New);
 
     LCD_updateNumPixels();
 }
 
-void LCD_setRow(uint16_t rowStartNew, uint16_t rowEndNew) {
+void LCD_setRow(uint16_t x1New, uint16_t x2New) {
     
     // ensure the row numbers meet the restrictions
-    lcd.rowEnd = (rowEndNew < NUM_ROWS) ? rowEndNew : (NUM_ROWS - 1);
-    lcd.rowStart = (rowStartNew < rowEndNew) ? rowStartNew : (rowEndNew);
+    lcd.x2 = (x2New < NUM_ROWS) ? x2New : (NUM_ROWS - 1);
+    lcd.x1 = (x1New < x2New) ? x1New : (x2New);
     LCD_updateNumPixels();
 }
 
-void LCD_setCol(uint16_t colStartNew, uint16_t colEndNew) {
+void LCD_setCol(uint16_t y1New, uint16_t y2New) {
     
     // ensure the column numbers meet the restrictions
-    lcd.colEnd = (colEndNew < NUM_COLS) ? colEndNew : (NUM_COLS - 1);
-    lcd.colStart = (colStartNew < colEndNew) ? colStartNew : (colEndNew);
+    lcd.y2 = (y2New < NUM_COLS) ? y2New : (NUM_COLS - 1);
+    lcd.y1 = (y1New < y2New) ? y1New : (y2New);
     LCD_updateNumPixels();
 }
 
@@ -170,8 +170,8 @@ Drawing
 *******************************************************************************/
 
 void LCD_draw(void) {
-    ILI9341_setRowAddress(lcd.rowStart, lcd.rowEnd);
-    ILI9341_setColAddress(lcd.colStart, lcd.colEnd);
+    ILI9341_setRowAddress(lcd.x1, lcd.x2);
+    ILI9341_setColAddress(lcd.y1, lcd.y2);
 
     ILI9341_writeMemCmd();
     for (int count = 0; count < lcd.numPixels; count ++) {
@@ -180,7 +180,7 @@ void LCD_draw(void) {
 }
 
 /**
- * @brief   Helper function for drawing straight lines.
+ * @brief               Helper function for drawing straight lines.
  * 
  * @param center        Row or column that the line is centered on.
  *                      `center` is increased or decreased if the line to be
@@ -220,47 +220,47 @@ static void LCD_drawLine(uint16_t center, uint16_t lineWidth, bool is_horizontal
     LCD_draw();
 }
 
-void LCD_drawHLine(uint16_t rowCenter, uint16_t lineWidth) {
-    LCD_drawLine(rowCenter, lineWidth, true);
+void LCD_drawHLine(uint16_t yCenter, uint16_t lineWidth) {
+    LCD_drawLine(yCenter, lineWidth, true);
 }
 
-void LCD_drawVLine(uint16_t colCenter, uint16_t lineWidth) {
-    LCD_drawLine(colCenter, lineWidth, false);
+void LCD_drawVLine(uint16_t xCenter, uint16_t lineWidth) {
+    LCD_drawLine(xCenter, lineWidth, false);
 }
 
-void LCD_drawRectangle( uint16_t startRow, uint16_t startCol,
-                        uint16_t height_px, uint16_t len_px,
+void LCD_drawRectangle( uint16_t x1, uint16_t y1,
+                        uint16_t dx, uint16_t dy,
                         bool is_filled) {
-    uint16_t endRow;
-    uint16_t endCol;
+    uint16_t x2;
+    uint16_t y2;
     
     // ensure startRow and startCol are less than their max numbers
-    startRow = (startRow < NUM_ROWS) ? startRow : (NUM_ROWS - 1);
-    startCol = (startCol < NUM_COLS) ? startCol : (NUM_COLS - 1);
+    x1 = (x1 < NUM_ROWS) ? x1 : (NUM_ROWS - 1);
+    y1 = (y1 < NUM_COLS) ? y1 : (NUM_COLS - 1);
 
     // ensure lines don't go out of bounds
-    if ( (startRow + height_px) > NUM_ROWS ) {
-        height_px = (NUM_ROWS - startRow - 1);
+    if ( (x1 + dx) > NUM_ROWS ) {
+        dx = (NUM_ROWS - x1 - 1);
     }
-    if ( (startCol + len_px) > NUM_COLS ) {
-        len_px = (NUM_COLS - startCol - 1);
+    if ( (y1 + dy) > NUM_COLS ) {
+        dy = (NUM_COLS - y1 - 1);
     }
 
     // draw rectangle based on `is_filled`
-    endRow = (startRow + height_px) - 1;
-    endCol = (startCol + len_px) - 1;
+    x2 = (x1 + dx) - 1;
+    y2 = (y1 + dy) - 1;
     if (is_filled) {
-        LCD_setArea(startRow, endRow, startCol, endCol);
+        LCD_setArea(x1, x2, y1, y2);
         LCD_draw();
     }
     else {
-        LCD_setArea(startRow, endRow, startCol, startCol);      // left side
+        LCD_setArea(x1, x2, y1, y1);      // left side
         LCD_draw();
-        LCD_setArea(startRow, endRow, endCol, endCol);          // right side
+        LCD_setArea(x1, x2, y2, y2);          // right side
         LCD_draw();
-        LCD_setArea(startRow, startRow, startCol, endCol);      // top side
+        LCD_setArea(x1, x1, y1, y2);      // top side
         LCD_draw();
-        LCD_setArea(endRow, endRow, startCol, endCol);          // right side
+        LCD_setArea(x2, x2, y1, y2);          // right side
         LCD_draw();
     }
 
