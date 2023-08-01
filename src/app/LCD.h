@@ -8,8 +8,10 @@
 #define __LCD_H__
 
 /******************************************************************************
-Includes
+Preprocessor Directives
 *******************************************************************************/
+
+// Includes
 #include "ILI9341.h"
 
 #include "SPI.h"
@@ -18,6 +20,16 @@ Includes
 #include "tm4c123gh6pm.h"
 
 #include <stdint.h>
+
+// Defines
+#define LCD_RED     (uint8_t) 0x04
+#define LCD_GREEN   (uint8_t) 0x02
+#define LCD_BLUE    (uint8_t) 0x01
+
+#define LCD_YELLOW  (LCD_RED + LCD_GREEN)
+#define LCD_CYAN    (LCD_BLUE + LCD_GREEN)
+#define LCD_PURPLE  (LCD_RED + LCD_BLUE)
+#define LCD_WHITE   (LCD_RED + LCD_BLUE + LCD_GREEN)
 
 /******************************************************************************
 Initialization and Configuration
