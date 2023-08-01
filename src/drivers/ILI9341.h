@@ -170,11 +170,12 @@ Display Config.
 *******************************************************************************/
 
 /**
- * @brief       Send command to enter or exit sleep mode
+ * @brief       Enter or exit sleep mode. The LCD driver is in sleep mode by
+ *              default upon power on or either kind of reset.
  * 
- * @param       is_sleeping `1` to enter sleep mode, `0` to exit
+ * @param       is_sleeping `true` to enter sleep mode, `false` to exit
  */
-void ILI9341_sleepMode(uint8_t is_sleeping);
+void ILI9341_sleepMode(bool is_sleeping);
 
 /**
  * @brief       Send command to toggle display display inversion

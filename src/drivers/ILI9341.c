@@ -155,7 +155,7 @@ void ILI9341_write1px(uint8_t red, uint8_t green, uint8_t blue, bool is_16bit) {
 Display Config.
 ***********************************************************************/
 
-void ILI9341_sleepMode(uint8_t is_sleeping) {
+void ILI9341_sleepMode(bool is_sleeping) {
     /**     This function turns sleep mode ON or OFF 
      *      depending on the value of `is_sleeping`.
      *      Either way, the MCU must wait >= 5 [ms]
