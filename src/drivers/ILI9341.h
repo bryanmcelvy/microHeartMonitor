@@ -92,7 +92,7 @@ Other
 Initialization/Reset
 *******************************************************************************/
 
-/// @brief      Initialize the LCD driver.
+/// @brief      Initialize the LCD driver, the SPI module, and Timer2A.
 void ILI9341_Init(void);
 
 /// @brief      Perform a hardware reset of the LCD driver.

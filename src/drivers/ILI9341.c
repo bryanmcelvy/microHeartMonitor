@@ -26,14 +26,8 @@ void ILI9341_Init(void) {
     
     SPI_Init();
     Timer2A_Init();
-
     ILI9341_ResetHard();
-    ILI9341_sleepMode(0);
-
     ILI9341_setInterface();
-    ILI9341_setColorDepth(1);
-
-    ILI9341_setDisplayStatus(1);
 }
 
 void ILI9341_ResetHard(void) {

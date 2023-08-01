@@ -29,20 +29,15 @@ static void LCD_drawLine(uint16_t center, uint16_t lineWidth, bool is_horizontal
 
 // LCD Object
 typedef struct {
-    uint16_t x1;
-    uint16_t x2;
-    uint16_t y1;
-    uint16_t y2;
+    uint16_t x1; uint16_t x2;
+    uint16_t y1; uint16_t y2;
     uint32_t numPixels;
 
-    uint8_t R_val;
-    uint8_t G_val;
-    uint8_t B_val;
+    uint8_t R_val; uint8_t G_val; uint8_t B_val;
 
     bool is_ON;
     bool is_inverted;
     bool is_16bit;
-
     bool is_init;
 } LCD_t;
 
@@ -53,7 +48,7 @@ static LCD_t lcd = {
 
     255, 0, 0,                      // write color is red
 
-    true,                           // display is on
+    false,                          // display is on
     false,                          // not inverted
     true,                           // 16-bit color depth
     false                           // not initialized
@@ -66,7 +61,10 @@ Initialization and Configuration
 void LCD_Init(void) {
     if (lcd.is_init == false) {
         ILI9341_Init();
+        ILI9341_setSleepMode(false);
         ILI9341_setMemAccessCtrl(1, 0, 0, 0, 1, 0);
+        ILI9341_setColorDepth(1);
+
         lcd.is_init = true;
     }
 }
