@@ -251,7 +251,8 @@ void ILI9341_setBlankingPorch(  uint8_t vpf, uint8_t vbp,
 
 /**
  * @brief       Sets the interface for the ILI9341.
- * 
+ *              The parameters for this command are hard-coded, so it only
+ *              needs to be called once upon initialization.
  */
 void ILI9341_setInterface(void);
 

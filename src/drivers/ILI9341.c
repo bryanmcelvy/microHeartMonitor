@@ -240,8 +240,33 @@ void ILI9341_setBlankingPorch(  uint8_t vpf, uint8_t vbp,
 }
 
 void ILI9341_setInterface(void) { 
-    //TODO: Write description
+    /**
+    *   This function implements the "Interface Control" `IFCTL` command from
+    *   p. 192-194 of the ILI9341 datasheet, which controls how the LCD driver
+    *   handles 16-bit data and what interfaces (internal or external) are used.
+    *
+    *       Name | Bit # | Param # | Effect when set = `1`
+    *   ---------|-------|---------|-------------------------------------------
+    *   MY_EOR   |  7    |    0    | flips value of corresponding MADCTL bit
+    *   MX_EOR   |  6    |    ^    | flips value of corresponding MADCTL bit
+    *   MV_EOR   |  5    |    ^    | flips value of corresponding MADCTL bit
+    *   BGR_EOR  |  3    |    ^    | flips value of corresponding MADCTL bit
+    *   WEMODE   |  0    |    ^    | overflowing pixel data is not ignored
+    *   EPF[1:0] |  5:4  |    1    | controls 16 to 18-bit pixel data conversion
+    *   MDT[1:0] |  1:0  |    ^    | controls display data transfer method
+    *   ENDIAN   |  5    |    2    | host sends LSB first
+    *   DM[1:0]  |  3:2  |    ^    | selects display operation mode
+    *   RM       |  1    |    ^    | selects GRAM interface mode
+    *   RIM      |  0    |    ^    | specifies RGB interface-specific details
+    *
+    *   The first param's bits are cleared so that the corresponding MADCTL bits
+    *   (ILI9341_setMemoryAccessCtrl()) are unaffected and overflowing pixel
+    *   data is ignored. The EPF bits are cleared so that the LSB of the
+    *   R and B values is copied from the MSB when using 16-bit color depth. 
+    *   The TM4C123 sends the MSB first, so the ENDIAN bit is cleared. The other
+    *   bits are cleared and/or irrelevant since the RGB and VSYNC interfaces aren't used.
+    */
 
-    uint8_t cmd_sequence[3] = {0x01, 0x00, 0x00};
-    SPI_WriteSequence(IFCTL, cmd_sequence, 3);
+    const uint8_t param_sequence[3] = {0x00, 0x00, 0x00};
+    SPI_WriteSequence(IFCTL, (uint8_t (*)) param_sequence, 3);
 }
