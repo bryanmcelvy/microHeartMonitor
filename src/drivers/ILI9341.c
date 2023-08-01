@@ -15,7 +15,7 @@
 #include <stdbool.h>
 
 static void ILI9341_setAddress(
-    uint16_t start_address, uint16_t end_address, uint8_t is_row);
+    uint16_t start_address, uint16_t end_address, bool is_row);
 
 /**********************************************************************
 Initialization/Reset
@@ -72,7 +72,7 @@ Memory Reading/Writing
 ***********************************************************************/
 
 static void ILI9341_setAddress(
-    uint16_t start_address, uint16_t end_address, uint8_t is_row) {
+    uint16_t start_address, uint16_t end_address, bool is_row) {
     /**
     This function implements the "Column Address Set" (`CASET`) and "Page
     Address Set" (`PASET`) commands from p. 110-113 of the ILI9341 datasheet.
@@ -194,7 +194,7 @@ void ILI9341_setVertScrollStart(uint16_t start_address) {
 }
 
 void ILI9341_setMemAccessCtrl(  bool row_order, bool col_order,
-        bool row_col_exchange, bool vert_refresh_order,
+                                bool row_col_exchange, bool vert_refresh_order,
                                 bool rgb_order, bool hor_refresh_order) {
     //TODO: Add description
 
