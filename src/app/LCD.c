@@ -239,10 +239,10 @@ void LCD_drawRectangle( uint16_t startRow, uint16_t startCol,
     startCol = (startCol < NUM_COLS) ? startCol : (NUM_COLS - 1);
 
     // ensure lines don't go out of bounds
-    if ( (startRow + height_px) < NUM_ROWS ) {
+    if ( (startRow + height_px) > NUM_ROWS ) {
         height_px = (NUM_ROWS - startRow - 1);
     }
-    if ( (startCol + len_px) < NUM_COLS ) {
+    if ( (startCol + len_px) > NUM_COLS ) {
         len_px = (NUM_COLS - startCol - 1);
     }
 
