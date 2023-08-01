@@ -183,27 +183,29 @@ void ILI9341_setDisplayStatus(bool is_ON) {
     else { SPI_WriteCmd(DISPOFF); }
 }
 
-//TODO: Write
 void ILI9341_setVertScrollArea( uint16_t top_fixed, 
                                 uint16_t vert_scroll,
-                                uint16_t bottom_fixed) {}
-
+                                uint16_t bottom_fixed) {
 //TODO: Write
-void ILI9341_setVertScrollStart(uint16_t start_address) {}
+}
 
-void ILI9341_setMemAccessCtrl(  uint8_t row_order, uint8_t col_order,
-        uint8_t row_col_exchange, uint8_t vert_refresh_order,
-                                uint8_t rgb_order, uint8_t hor_refresh_order) {
-    //TODO: Write description
+void ILI9341_setVertScrollStart(uint16_t start_address) {
+    //TODO: Write
+}
+
+void ILI9341_setMemAccessCtrl(  bool row_order, bool col_order,
+        bool row_col_exchange, bool vert_refresh_order,
+                                bool rgb_order, bool hor_refresh_order) {
+    //TODO: Add description
 
     uint8_t param = 0x00;
 
-    param = (row_order > 0) ? (param | 0x80) : param;
-    param = (col_order > 0) ? (param | 0x40) : param;
-    param = (row_col_exchange > 0) ? (param | 0x20) : param;
-    param = (vert_refresh_order > 0) ? (param | 0x10) : param;
-    param = (rgb_order > 0) ? (param | 0x08) : param;
-    param = (hor_refresh_order > 0) ? (param | 0x04) : param;
+    param = (row_order) ? (param | 0x80) : param;
+    param = (col_order) ? (param | 0x40) : param;
+    param = (row_col_exchange) ? (param | 0x20) : param;
+    param = (vert_refresh_order) ? (param | 0x10) : param;
+    param = (rgb_order) ? (param | 0x08) : param;
+    param = (hor_refresh_order) ? (param | 0x04) : param;
 
     SPI_WriteCmd(MADCTL);
     SPI_WriteData(param);

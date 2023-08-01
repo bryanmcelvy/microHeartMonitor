@@ -211,11 +211,9 @@ void ILI9341_setVertScrollStart(uint16_t start_address);
  * @param rgb_order             TODO: figure out what this actually does
  * @param hor_refresh_order     `0` for left-to-right, `1` for right-to-left
  */
-void ILI9341_setMemAccessCtrl(  
-        uint8_t row_order, uint8_t col_order,
-        uint8_t row_col_exchange, uint8_t vert_refresh_order,
-        uint8_t rgb_order, uint8_t hor_refresh_order
-        );
+void ILI9341_setMemAccessCtrl(  bool row_order, bool col_order,
+                                bool row_col_exchange, bool vert_refresh_order,
+                                bool rgb_order, bool hor_refresh_order);
 
 /**
  * @brief
