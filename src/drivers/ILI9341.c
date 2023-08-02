@@ -51,17 +51,17 @@ Preprocessor Directives
 #define IFCTL       (uint8_t) 0xF6      /// Interface Control
 
 /* Currently unused commands
-// #define RDDST                   (uint8_t) 0x09          /// Read Display Status
-// #define RDDMADCTL               (uint8_t) 0x0B          /// Read Display MADCTL
-// #define RDDCOLMOD               (uint8_t) 0x0C          /// Read Display Pixel Format
-// #define RGBSET                  (uint8_t) 0x2D          /// Color Set
-// #define RAMRD                   (uint8_t) 0x2E          /// Memory Read
-// #define WRITE_MEMORY_CONTINUE   (uint8_t) 0x3C          /// Write_Memory_Continue
-// #define READ_MEMORY_CONTINUE    (uint8_t) 0x3E          /// Read_Memory_Continue
-// #define WRDISBV                 (uint8_t) 0x51          /// Write Display Brightness
-// #define RDDISBV                 (uint8_t) 0x52          /// Read Display Brightness
-// #define IFMODE                  (uint8_t) 0xB0          /// RGB Interface Signal Control (i.e. Interface Mode Control)
-// #define INVTR                   (uint8_t) 0xB4          /// Display Inversion Control
+#define RDDST                   (uint8_t) 0x09          /// Read Display Status
+#define RDDMADCTL               (uint8_t) 0x0B          /// Read Display MADCTL
+#define RDDCOLMOD               (uint8_t) 0x0C          /// Read Display Pixel Format
+#define RGBSET                  (uint8_t) 0x2D          /// Color Set
+#define RAMRD                   (uint8_t) 0x2E          /// Memory Read
+#define WRITE_MEMORY_CONTINUE   (uint8_t) 0x3C          /// Write_Memory_Continue
+#define READ_MEMORY_CONTINUE    (uint8_t) 0x3E          /// Read_Memory_Continue
+#define WRDISBV                 (uint8_t) 0x51          /// Write Display Brightness
+#define RDDISBV                 (uint8_t) 0x52          /// Read Display Brightness
+#define IFMODE                  (uint8_t) 0xB0          /// RGB Interface Signal Control (i.e. Interface Mode Control)
+#define INVTR                   (uint8_t) 0xB4          /// Display Inversion Control
 */
 
 // Function Prototypes
@@ -216,31 +216,31 @@ void ILI9341_setBlankingPorch(  uint8_t vpf, uint8_t vbp,
 
 void ILI9341_setInterface(void) { 
     /**
-    *   This function implements the "Interface Control" `IFCTL` command from
-    *   p. 192-194 of the ILI9341 datasheet, which controls how the LCD driver
-    *   handles 16-bit data and what interfaces (internal or external) are used.
-    *
-    *       Name | Bit # | Param # | Effect when set = `1`
-    *   ---------|-------|---------|-------------------------------------------
-    *   MY_EOR   |  7    |    0    | flips value of corresponding MADCTL bit
-    *   MX_EOR   |  6    |    ^    | flips value of corresponding MADCTL bit
-    *   MV_EOR   |  5    |    ^    | flips value of corresponding MADCTL bit
-    *   BGR_EOR  |  3    |    ^    | flips value of corresponding MADCTL bit
-    *   WEMODE   |  0    |    ^    | overflowing pixel data is not ignored
-    *   EPF[1:0] |  5:4  |    1    | controls 16 to 18-bit pixel data conversion
-    *   MDT[1:0] |  1:0  |    ^    | controls display data transfer method
-    *   ENDIAN   |  5    |    2    | host sends LSB first
-    *   DM[1:0]  |  3:2  |    ^    | selects display operation mode
-    *   RM       |  1    |    ^    | selects GRAM interface mode
-    *   RIM      |  0    |    ^    | specifies RGB interface-specific details
-    *
-    *   The first param's bits are cleared so that the corresponding MADCTL bits
-    *   (ILI9341_setMemoryAccessCtrl()) are unaffected and overflowing pixel
-    *   data is ignored. The EPF bits are cleared so that the LSB of the
-    *   R and B values is copied from the MSB when using 16-bit color depth. 
-    *   The TM4C123 sends the MSB first, so the ENDIAN bit is cleared. The other
-    *   bits are cleared and/or irrelevant since the RGB and VSYNC interfaces aren't used.
-    */
+     *   This function implements the "Interface Control" `IFCTL` command from
+     *   p. 192-194 of the ILI9341 datasheet, which controls how the LCD driver
+     *   handles 16-bit data and what interfaces (internal or external) are used.
+     *
+     *   Name     | Bit # | Param # | Effect when set = `1`
+     *   ---------|-------|---------|-------------------------------------------
+     *   MY_EOR   |  7    |    0    | flips value of corresponding MADCTL bit
+     *   MX_EOR   |  6    |    ^    | flips value of corresponding MADCTL bit
+     *   MV_EOR   |  5    |    ^    | flips value of corresponding MADCTL bit
+     *   BGR_EOR  |  3    |    ^    | flips value of corresponding MADCTL bit
+     *   WEMODE   |  0    |    ^    | overflowing pixel data is not ignored
+     *   EPF[1:0] |  5:4  |    1    | controls 16 to 18-bit pixel data conversion
+     *   MDT[1:0] |  1:0  |    ^    | controls display data transfer method
+     *   ENDIAN   |  5    |    2    | host sends LSB first
+     *   DM[1:0]  |  3:2  |    ^    | selects display operation mode
+     *   RM       |  1    |    ^    | selects GRAM interface mode
+     *   RIM      |  0    |    ^    | specifies RGB interface-specific details
+     *
+     *   The first param's bits are cleared so that the corresponding MADCTL bits
+     *   (ILI9341_setMemoryAccessCtrl()) are unaffected and overflowing pixel
+     *   data is ignored. The EPF bits are cleared so that the LSB of the
+     *   R and B values is copied from the MSB when using 16-bit color depth. 
+     *   The TM4C123 sends the MSB first, so the ENDIAN bit is cleared. The other
+     *   bits are cleared and/or irrelevant since the RGB and VSYNC interfaces aren't used.
+     */
 
     const uint8_t param_sequence[3] = {0x00, 0x00, 0x00};
     SPI_WriteSequence(IFCTL, (uint8_t (*)) param_sequence, 3);
@@ -305,27 +305,27 @@ void ILI9341_writeMemCmd(void){
 }
 
 void ILI9341_write1px(uint8_t red, uint8_t green, uint8_t blue, bool is_16bit) {     
-    /*
-        This function sends one pixel to the display. Because the serial interface
-        (SPI) is used, each pixel requires 2 transfers in 16-bit mode and 3
-        transfers in 18-bit mode. 
-        
-        The following table (adapted from p. 63 of the datasheet) visualizes 
-        how the RGB data is sent to the display when using 16-bit color depth.
-
-        ---------|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----
-        Transfer |                    1                   ||||||||                    2                  ||||||||
-        Bit #    |  7  |  6  |  5  |  4  |  3  |  2  |  1  |  0  |  7  |  6  |  5  |  4  |  3  |  2  |  1  |  0
-        Value    | R4  | R3  | R2  | R1  | R0  | G5  | G4  | G3  | G2  | G1  | G0  | B4  | B3  | B2  | B1  | B0
-
-        The following table (adapted from p. 64 of the datasheet) visualizes 
-        how the RGB data is sent to the display when using 18-bit color depth.
-
-        ---------|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----
-        Transfer |                    1                   ||||||||        2  |||
-        Bit #    |  7  |  6  |  5  |  4  |  3  |  2  |  1  |  0  |  7  |  6  | ...
-        Value    |  R5 | R4  | R3  | R2  | R1  | R0  | 0/1 | 0/1 |  G5 |  G4 | ...
-    */
+    /**
+     *  This function sends one pixel to the display. Because the serial interface
+     *  (SPI) is used, each pixel requires 2 transfers in 16-bit mode and 3
+     *  transfers in 18-bit mode. 
+     * 
+     *  The following table (adapted from p. 63 of the datasheet) visualizes 
+     *  how the RGB data is sent to the display when using 16-bit color depth.
+     *  
+     *  Transfer |                    1              ||||||||                         2                    ||||||||     
+     *  ---------|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----
+     *  Bit #    |  7  |  6  |  5  |  4  |  3  |  2  |  1  |  0  |  7  |  6  |  5  |  4  |  3  |  2  |  1  |  0
+     *  Value    | R4  | R3  | R2  | R1  | R0  | G5  | G4  | G3  | G2  | G1  | G0  | B4  | B3  | B2  | B1  | B0
+     * 
+     *  The following table (adapted from p. 64 of the datasheet) visualizes 
+     *  how the RGB data is sent to the display when using 18-bit color depth.
+     * 
+     *  Transfer |                    1              ||||||||       2        |||
+     *  ---------|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----
+     *  Bit #    |  7  |  6  |  5  |  4  |  3  |  2  |  1  |  0  |  7  |  6  | ...
+     *  Value    |  R5 | R4  | R3  | R2  | R1  | R0  | 0/1 | 0/1 |  G5 |  G4 | ...
+     */
     
     static uint8_t data[3] = {0};
 
