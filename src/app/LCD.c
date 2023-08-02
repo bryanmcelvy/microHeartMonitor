@@ -127,6 +127,9 @@ void LCD_setArea(   uint16_t x1New, uint16_t x2New,
     lcd.y2 = (y2New < NUM_COLS) ? y2New : (NUM_COLS - 1);
     lcd.y1 = (y1New < y2New) ? y1New : (y2New);
 
+    ILI9341_setRowAddress(lcd.x1, lcd.x2);
+    ILI9341_setColAddress(lcd.y1, lcd.y2);
+
     LCD_updateNumPixels();
 }
 
@@ -135,6 +138,9 @@ void LCD_setRow(uint16_t x1New, uint16_t x2New) {
     // ensure the row numbers meet the restrictions
     lcd.x2 = (x2New < NUM_ROWS) ? x2New : (NUM_ROWS - 1);
     lcd.x1 = (x1New < x2New) ? x1New : (x2New);
+
+    ILI9341_setRowAddress(lcd.x1, lcd.x2);
+
     LCD_updateNumPixels();
 }
 
@@ -143,6 +149,9 @@ void LCD_setCol(uint16_t y1New, uint16_t y2New) {
     // ensure the column numbers meet the restrictions
     lcd.y2 = (y2New < NUM_COLS) ? y2New : (NUM_COLS - 1);
     lcd.y1 = (y1New < y2New) ? y1New : (y2New);
+    
+    ILI9341_setColAddress(lcd.y1, lcd.y2);
+
     LCD_updateNumPixels();
 }
 
@@ -185,9 +194,6 @@ Drawing
 *******************************************************************************/
 
 void LCD_draw(void) {
-    ILI9341_setRowAddress(lcd.x1, lcd.x2);
-    ILI9341_setColAddress(lcd.y1, lcd.y2);
-
     ILI9341_writeMemCmd();
     for (int count = 0; count < lcd.numPixels; count ++) {
         ILI9341_write1px(lcd.R_val, lcd.G_val, lcd.B_val, lcd.is_16bit);
