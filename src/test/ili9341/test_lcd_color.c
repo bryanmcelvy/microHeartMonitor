@@ -23,7 +23,6 @@ int main(void) {
     Timer0A_Init();
     GPIO_PF_LED_Init();
     LCD_Init();
-    LCD_toggleStatus();                         // display OFF
 
     LCD_setColor_3bit(LCD_WHITE);
     LCD_draw();
