@@ -146,14 +146,38 @@ void ILI9341_setDispOutput(bool is_ON) {
     else { SPI_WriteCmd(DISPOFF); }
 }
 
-void ILI9341_setVertScrollArea( uint16_t top_fixed, 
+void ILI9341_setScrollArea( uint16_t top_fixed, 
                                 uint16_t vert_scroll,
                                 uint16_t bottom_fixed) {
-//TODO: Write
+
+    uint8_t param_sequence[6];
+
+    // ensure parameters sum together
+    while( (top_fixed + vert_scroll + bottom_fixed) < NUM_ROWS ) {
+        vert_scroll += 1;
+    }
+    while( (top_fixed + vert_scroll + bottom_fixed) > NUM_ROWS ) {
+        vert_scroll -= 1;
+    }
+
+    // configure and send command sequence
+    param_sequence[0] = (uint8_t) ((top_fixed & 0xFF00) >> 8);
+    param_sequence[1] = (uint8_t) (top_fixed & 0x00FF);
+    param_sequence[2] = (uint8_t) ((vert_scroll & 0xFF00) >> 8);
+    param_sequence[3] = (uint8_t) (vert_scroll & 0x00FF);
+    param_sequence[4] = (uint8_t) ((bottom_fixed & 0xFF00) >> 8);
+    param_sequence[5] = (uint8_t) (bottom_fixed & 0x00FF);
+
+    SPI_WriteSequence(VSCRDEF, param_sequence, 6);
 }
 
-void ILI9341_setVertScrollStart(uint16_t start_address) {
-    //TODO: Write
+void ILI9341_setScrollStart(uint16_t startRow) {
+    uint8_t param_sequence[2];
+
+    param_sequence[0] = (uint8_t) ((startRow & 0xFF00) >> 8);
+    param_sequence[1] = (uint8_t) (startRow & 0x00FF);
+
+    SPI_WriteSequence(VSCRSADD, param_sequence, 2);
 }
 
 void ILI9341_setMemAccessCtrl(  bool areRowsFlipped, bool areColsFlipped,

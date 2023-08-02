@@ -102,15 +102,27 @@ void ILI9341_setDispInversion(bool is_ON);
  */
 void ILI9341_setDispOutput(bool is_ON);
 
-///TODO: Write
-void ILI9341_setVertScrollArea(
-                                uint16_t top_fixed, 
-                                uint16_t vert_scroll,
-                                uint16_t bottom_fixed
+/**
+ * @brief                       Set the vertical scrolling area of the display.
+ *                              The sum of the three parameters should be equal
+ *                              to the max number of rows `NUM_ROWS = 320`.
+ * 
+ * @param topFixedArea          Number of rows fixed at the top of the screen.
+ * @param vertScrollArea        Number of rows that scroll.
+ * @param bottFixedArea         Number of rows fixed at the bottom of the screen.
+ */
+void ILI9341_setScrollArea(
+                                uint16_t topFixedArea, 
+                                uint16_t vertScrollArea,
+                                uint16_t bottFixedArea
         );
 
-///TODO: Write
-void ILI9341_setVertScrollStart(uint16_t start_address);
+/**
+ * @brief               Set the start row for vertical scrolling.
+ * 
+ * @param startRow      Start row for scrolling. Should be `>= topFixedArea - 1`
+ */
+void ILI9341_setScrollStart(uint16_t startRow);
 
 /**
  * @brief
