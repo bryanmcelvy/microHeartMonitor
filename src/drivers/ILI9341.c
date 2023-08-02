@@ -33,6 +33,8 @@ Preprocessor Directives
 #define SWRESET     (uint8_t) 0x01      /// Software Reset
 #define SPLIN       (uint8_t) 0x10      /// Enter Sleep Mode
 #define SPLOUT      (uint8_t) 0x11      /// Sleep Out (i.e. Exit Sleep Mode)
+#define PTLON       (uint8_t) 0x12      /// Partial Display Mode ON
+#define NORON       (uint8_t) 0x13      /// Normal Display Mode ON
 #define DINVOFF     (uint8_t) 0x20      /// Display Inversion OFF
 #define DINVON      (uint8_t) 0x21      /// Display Inversion ON
 #define CASET       (uint8_t) 0x2A      /// Column Address Set
@@ -114,6 +116,22 @@ void ILI9341_setSleepMode(bool is_sleeping) {
     else { SPI_WriteCmd(SPLOUT); }
 }
 
+void ILI9341_setDisplayMode(bool is_normal) {
+    if (is_normal) { SPI_WriteCmd(NORON); }
+    else { SPI_WriteCmd(PTLON); }       // call after ILI9341_setPartialArea()
+}
+
+void ILI9341_setPartialArea(uint16_t rowStart, uint16_t rowEnd) {
+    ///TODO: Implement
+
+    /*
+    cmd_sequence[0] = (uint8_t) ((start_address & 0xFF00) >> 8);
+    cmd_sequence[1] = (uint8_t) (start_address & 0x00FF);
+    cmd_sequence[2] = (uint8_t) ((end_address & 0xFF00) >> 8);
+    cmd_sequence[3] = (uint8_t) (end_address & 0x00FF);
+    */
+}
+
 void ILI9341_setDispInversion(bool is_ON) {
     ///TODO: Write description
     if (is_ON) { SPI_WriteCmd(DINVON); }
@@ -140,21 +158,21 @@ void ILI9341_setMemAccessCtrl(  bool areRowsFlipped, bool areColsFlipped,
                                 bool areRowsColsSwitched, bool isVertRefreshFlipped,
                                 bool isColorOrderFlipped, bool isHorRefreshFlipped) {
     /**
-    *   This function implements the "Memory Access Control" (`MADCTL`) command from
-    *   p. 127-128 of the ILI9341 datasheet, which controls how the LCD driver
-    *   displays data upon writing to memory.
-    *
-    *   Name | Bit # | Effect when set = `1`
-    *   -----|-------|-------------------------------------------
-    *   MY   |  7    | flip row (AKA "page") addresses
-    *   MX   |  6    | flip column addresses
-    *   MV   |  5    | exchange rows and column addresses
-    *   ML   |  4    | reverse horizontal refresh order
-    *   BGR  |  3    | reverse color input order (RGB -> BGR)
-    *   MH   |  2    | reverse vertical refresh order
-    *
-    *   All bits are clear after powering on or `HWRESET`.
-    */
+     *   This function implements the "Memory Access Control" (`MADCTL`) command from
+     *   p. 127-128 of the ILI9341 datasheet, which controls how the LCD driver
+     *   displays data upon writing to memory.
+     *
+     *   Name | Bit # | Effect when set = `1`
+     *   -----|-------|-------------------------------------------
+     *   MY   |  7    | flip row (AKA "page") addresses
+     *   MX   |  6    | flip column addresses
+     *   MV   |  5    | exchange rows and column addresses
+     *   ML   |  4    | reverse horizontal refresh order
+     *   BGR  |  3    | reverse color input order (RGB -> BGR)
+     *   MH   |  2    | reverse vertical refresh order
+     *
+     *   All bits are clear after powering on or `HWRESET`.
+     */
 
     uint8_t param;
 

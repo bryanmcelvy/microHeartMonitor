@@ -61,11 +61,29 @@ Configuration
 
 /**
  * @brief       Enter or exit sleep mode. The LCD driver is in sleep mode by
- *              default upon power on or either kind of reset.
+ *              default upon powering on or either kind of reset.
  * 
  * @param       is_sleeping `true` to enter sleep mode, `false` to exit
  */
 void ILI9341_setSleepMode(bool is_sleeping);
+
+/**
+ * @brief       Set the display to normal mode or partial mode. The LCD driver
+ *              starts out in normal mode. Calling with either possible value
+ *              exits scrolling mode.
+ * 
+ * @param       is_normal 'true' for normal mode, 'false' for partial mode
+ */
+void ILI9341_setDisplayMode(bool is_normal);
+
+/**
+ * @brief       Set the partial display area for partial mode.
+ *              Call before activating partial mode via ILI9341_setDisplayMode().
+ * 
+ * @param       rowStart 
+ * @param       rowEnd 
+ */
+void ILI9341_setPartialArea(uint16_t rowStart, uint16_t rowEnd);
 
 /**
  * @brief       Send command to toggle display display inversion
