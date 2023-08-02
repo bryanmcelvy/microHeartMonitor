@@ -12,54 +12,54 @@ add_subdirectory(ili9341)
 **************************************************************************************************  ]]  
 
 # Phase-Lock-Loop (PLL)
-add_executable(Test_PLL.elf 
+add_executable(test_pll.elf 
                     test_pll.c
                     ${PROJECT_SOURCE_DIR}/src/device/startup_gcc.c
                 )
 
-target_include_directories(Test_PLL.elf 
+target_include_directories(test_pll.elf 
                             PRIVATE 
                                 ${PROJECT_SOURCE_DIR}/src/drivers
                                 ${PROJECT_SOURCE_DIR}/src/device
                             )
 
-target_link_libraries(  Test_PLL.elf 
+target_link_libraries(  test_pll.elf 
                         PRIVATE 
                             PLL
                             SysTick
                         )
 
 # SysTick Interrupts
-add_executable(Test_SysTick_Int.elf 
+add_executable(test_systick_int.elf 
                     test_systick_int.c 
                     ${PROJECT_SOURCE_DIR}/src/device/startup_gcc.c
                     )
 
-target_include_directories(Test_SysTick_Int.elf 
+target_include_directories(test_systick_int.elf 
                             PRIVATE 
                                 ${PROJECT_SOURCE_DIR}/src/drivers
                                 ${PROJECT_SOURCE_DIR}/src/device
                             )
 
-target_link_libraries(  Test_SysTick_Int.elf 
+target_link_libraries(  test_systick_int.elf 
                         PRIVATE 
                             PLL
                             SysTick
 )
 
 # Timer 0
-add_executable(Test_Timer0.elf 
+add_executable(test_timer0.elf 
                     test_timer0.c 
                     ${PROJECT_SOURCE_DIR}/src/device/startup_gcc.c
                     )
 
-target_include_directories(Test_Timer0.elf
+target_include_directories(test_timer0.elf
                             PRIVATE 
                                 ${PROJECT_SOURCE_DIR}/src/drivers
                                 ${PROJECT_SOURCE_DIR}/src/device
                             )
 
-target_link_libraries(  Test_Timer0.elf
+target_link_libraries(  test_timer0.elf
                         PRIVATE 
                             GPIO
                             PLL
@@ -67,18 +67,18 @@ target_link_libraries(  Test_Timer0.elf
 )
 
 # GPIO Interrupts
-add_executable(Test_GPIO_Int.elf 
+add_executable(test_gpio_int.elf 
                     test_gpio_int.c 
                     ${PROJECT_SOURCE_DIR}/src/device/startup_gcc.c
                     )
 
-target_include_directories(Test_GPIO_Int.elf 
+target_include_directories(test_gpio_int.elf 
                             PRIVATE 
                                 ${PROJECT_SOURCE_DIR}/src/drivers
                                 ${PROJECT_SOURCE_DIR}/src/device
                             )
 
-target_link_libraries(  Test_GPIO_Int.elf 
+target_link_libraries(  test_gpio_int.elf 
                         PRIVATE 
                             GPIO
                             PLL
@@ -87,18 +87,18 @@ target_link_libraries(  Test_GPIO_Int.elf
 )
 
 # Timer 1 Interrupts
-add_executable(Test_Timer1_Int.elf 
+add_executable(test_timer1_int.elf 
                     test_timer1_int.c 
                     ${PROJECT_SOURCE_DIR}/src/device/startup_gcc.c
                     )
 
-target_include_directories(Test_Timer1_Int.elf
+target_include_directories(test_timer1_int.elf
                             PRIVATE 
                                 ${PROJECT_SOURCE_DIR}/src/drivers
                                 ${PROJECT_SOURCE_DIR}/src/device
                             )
 
-target_link_libraries(  Test_Timer1_Int.elf
+target_link_libraries(  test_timer1_int.elf
                         PRIVATE 
                             GPIO
                             PLL
@@ -106,18 +106,18 @@ target_link_libraries(  Test_Timer1_Int.elf
 )
 
 # UART
-add_executable(Test_UART_Write.elf 
+add_executable(test_uart_write.elf 
                     test_uart_write.c 
                     ${PROJECT_SOURCE_DIR}/src/device/startup_gcc.c
                     )
 
-target_include_directories(Test_UART_Write.elf
+target_include_directories(test_uart_write.elf
                             PRIVATE 
                                 ${PROJECT_SOURCE_DIR}/src/drivers
                                 ${PROJECT_SOURCE_DIR}/src/device
                             )
 
-target_link_libraries(  Test_UART_Write.elf
+target_link_libraries(  test_uart_write.elf
                         PRIVATE 
                             GPIO
                             PLL
@@ -126,18 +126,18 @@ target_link_libraries(  Test_UART_Write.elf
 )
 
 # UART (Logic Analyzer)
-add_executable(Test_UART_LA.elf 
+add_executable(test_uart_la.elf 
                     test_uart_la.c 
                     ${PROJECT_SOURCE_DIR}/src/device/startup_gcc.c
                     )
 
-target_include_directories(Test_UART_LA.elf
+target_include_directories(test_uart_la.elf
                             PRIVATE 
                                 ${PROJECT_SOURCE_DIR}/src/drivers
                                 ${PROJECT_SOURCE_DIR}/src/device
                             )
 
-target_link_libraries(  Test_UART_LA.elf
+target_link_libraries(  test_uart_la.elf
                         PRIVATE 
                             PLL
                             Timer
@@ -149,20 +149,20 @@ target_link_libraries(  Test_UART_LA.elf
 #*****************************************************************************
 
 # UserCtrl
-add_executable(Test_UserCtrl.elf 
+add_executable(test_userctrl.elf 
                     test_userctrl.c 
                     ${PROJECT_SOURCE_DIR}/src/drivers/isr.c
                     ${PROJECT_SOURCE_DIR}/src/device/startup_gcc.c
                     )
 
-target_include_directories(Test_UserCtrl.elf 
+target_include_directories(test_userctrl.elf 
                             PRIVATE 
                                 ${PROJECT_SOURCE_DIR}/src/app
                                 ${PROJECT_SOURCE_DIR}/src/drivers
                                 ${PROJECT_SOURCE_DIR}/src/device
                             )
 
-target_link_libraries(  Test_UserCtrl.elf 
+target_link_libraries(  test_userctrl.elf 
                         PRIVATE 
                             UserCtrl
 )

@@ -18,7 +18,6 @@ set(MAIN_TARGET ${CMAKE_PROJECT_NAME}.elf)
 
 add_executable(${MAIN_TARGET} 
                     main.c
-                    # ${PROJECT_SOURCE_DIR}/src/drivers/isr.c
                     ${PROJECT_SOURCE_DIR}/src/device/startup_gcc.c
                 )
 

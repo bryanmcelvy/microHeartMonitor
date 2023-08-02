@@ -5,7 +5,7 @@ Description:    Sets minimum CMake version, links toolchain file, declares
 #***********************************************************************************************    ]]
 cmake_minimum_required(VERSION 3.20)
 set(CMAKE_TOOLCHAIN_FILE "tm4c123g.cmake")          # must be placed before project()
-project(ECG_HRM C)
+project(ecg_hrm C)
 
 # Build Options
 option(OPT_GEN_DOC      "Generate documentation using Doxygen and pdflatex"         OFF)
