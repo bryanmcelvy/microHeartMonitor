@@ -14,6 +14,7 @@ SECTIONS
         Drawing Area
         Color
         Drawing
+        Scrolling
 *******************************************************************************/
 
 /******************************************************************************
@@ -156,5 +157,10 @@ void LCD_drawVLine(uint16_t xCenter, uint16_t lineWidth);
 void LCD_drawRectangle( uint16_t x1, uint16_t y1,
                         uint16_t dx, uint16_t dy,
                         bool is_filled);
+
+/******************************************************************************
+Scrolling
+*******************************************************************************/
+// void LCD_setScrollArea
 
 #endif
