@@ -112,10 +112,10 @@ void ILI9341_setSleepMode(bool is_sleeping) {
      *      sending `SPLOUT` after sending `SPLIN` or a reset,
      *      so this function waits 120 [ms] regardless of the preceding event.
      */
-    Timer2A_Wait1ms(120);
-
     if (is_sleeping) { SPI_WriteCmd(SPLIN); }
     else { SPI_WriteCmd(SPLOUT); }
+
+    Timer2A_Wait1ms(120);
 }
 
 void ILI9341_setDispMode(bool is_normal) {
