@@ -8,6 +8,15 @@
 #define __LCD_H__
 
 /******************************************************************************
+SECTIONS
+        Preprocessor Directives
+        Initialization/Configuration
+        Drawing Area
+        Color
+        Drawing
+*******************************************************************************/
+
+/******************************************************************************
 Preprocessor Directives
 *******************************************************************************/
 
@@ -32,7 +41,7 @@ Preprocessor Directives
 #define LCD_WHITE   (LCD_RED + LCD_BLUE + LCD_GREEN)
 
 /******************************************************************************
-Initialization and Configuration
+Initialization/Configuration
 *******************************************************************************/
 void LCD_Init(void);
 

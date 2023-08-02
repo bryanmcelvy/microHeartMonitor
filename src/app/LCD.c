@@ -5,7 +5,16 @@
  */
 
 /******************************************************************************
-Includes
+SECTIONS
+        Preprocessor Directives
+        Initialization/Configuration
+        Drawing Area
+        Color
+        Drawing
+*******************************************************************************/
+
+/******************************************************************************
+Preprocessor Directives
 *******************************************************************************/
 #include "LCD.h"
 
@@ -23,11 +32,20 @@ Includes
 Declarations
 *******************************************************************************/
 
-// Function Prototypes
+/// @brief Updates `lcd`'s `numPixels` parameter after changing rows/columns
 static void LCD_updateNumPixels(void);
+
+/**
+ * @brief               Helper function for drawing straight lines.
+ * 
+ * @param center        Row or column that the line is centered on.
+ *                      `center` is increased or decreased if the line to be
+ *                      written would have gone out of bounds.
+ * @param lineWidth     Width of the line. Should be a positive, odd number.
+ * @param is_row        `true` for horizontal line, `false` for vertical line
+ */
 static void LCD_drawLine(uint16_t center, uint16_t lineWidth, bool is_horizontal);
 
-// LCD Object
 typedef struct {
     uint16_t x1; uint16_t x2;
     uint16_t y1; uint16_t y2;
@@ -55,7 +73,7 @@ static LCD_t lcd = {
 };
 
 /******************************************************************************
-Initialization and Configuration
+Initialization/Configuration
 *******************************************************************************/
 
 void LCD_Init(void) {
@@ -93,8 +111,6 @@ Drawing Area
 *******************************************************************************/
 
 static void LCD_updateNumPixels(void) {
-    /// Updates `lcd`'s `numPixels` parameter after changing rows/columns
-
     lcd.numPixels = ((lcd.x2 - lcd.x1) + 1) 
                     * ((lcd.y2 - lcd.y1) + 1);
 }
@@ -177,15 +193,6 @@ void LCD_draw(void) {
     }
 }
 
-/**
- * @brief               Helper function for drawing straight lines.
- * 
- * @param center        Row or column that the line is centered on.
- *                      `center` is increased or decreased if the line to be
- *                      written would have gone out of bounds.
- * @param lineWidth     Width of the line. Should be a positive, odd number.
- * @param is_row        `true` for horizontal line, `false` for vertical line
- */
 static void LCD_drawLine(uint16_t center, uint16_t lineWidth, bool is_horizontal) {
     uint16_t start, end;
     uint16_t padding;
