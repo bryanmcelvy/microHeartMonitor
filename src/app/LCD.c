@@ -71,7 +71,7 @@ void LCD_Init(void) {
 
 void LCD_toggleStatus(void) {
     lcd.is_ON = !(lcd.is_ON);
-    ILI9341_setDisplayStatus(lcd.is_ON);
+    ILI9341_setDispOutput(lcd.is_ON);
 }
 
 void LCD_toggleInversion(void) {

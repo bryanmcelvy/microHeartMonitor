@@ -75,11 +75,11 @@ Initialization/Reset
 void ILI9341_Init(void) {    
     SPI_Init();
     Timer2A_Init();
-    ILI9341_ResetHard();
+    ILI9341_resetHard();
     ILI9341_setInterface();
 }
 
-void ILI9341_ResetHard(void) {
+void ILI9341_resetHard(void) {
     /** 
      *  The LCD driver's RESET pin requires a negative logic (i.e. active `LOW`)
      *  signal for >= 10 [us] and an additional 5 [ms] before further commands 
@@ -91,7 +91,7 @@ void ILI9341_ResetHard(void) {
     Timer2A_Wait1ms(5);
 }
 
-void ILI9341_ResetSoft(void) {
+void ILI9341_resetSoft(void) {
     SPI_WriteCmd(SWRESET);
     Timer2A_Wait1ms(5); /// the driver needs 5 [ms] before another command
 }
@@ -116,7 +116,7 @@ void ILI9341_setSleepMode(bool is_sleeping) {
     else { SPI_WriteCmd(SPLOUT); }
 }
 
-void ILI9341_setDisplayMode(bool is_normal) {
+void ILI9341_setDispMode(bool is_normal) {
     if (is_normal) { SPI_WriteCmd(NORON); }
     else { SPI_WriteCmd(PTLON); }       // call after ILI9341_setPartialArea()
 }
@@ -138,7 +138,7 @@ void ILI9341_setDispInversion(bool is_ON) {
     else { SPI_WriteCmd(DINVOFF); }
 }
 
-void ILI9341_setDisplayStatus(bool is_ON) {
+void ILI9341_setDispOutput(bool is_ON) {
     ///TODO: Write description
     if (is_ON) { SPI_WriteCmd(DISPON); }
     else { SPI_WriteCmd(DISPOFF); }
@@ -301,17 +301,33 @@ void ILI9341_setColAddress(uint16_t start_col, uint16_t end_col) {
 }
 
 void ILI9341_writeMemCmd(void){
-    /**
-     *  Sends the "Write Memory" (`RAMWR`) command to the LCD driver,
-     *  signalling that incoming data should be written to memory. 
-     */
     SPI_WriteCmd(RAMWR);
 }
 
 void ILI9341_write1px(uint8_t red, uint8_t green, uint8_t blue, bool is_16bit) {     
-    ///TODO: Write Description
+    /*
+        This function sends one pixel to the display. Because the serial interface
+        (SPI) is used, each pixel requires 2 transfers in 16-bit mode and 3
+        transfers in 18-bit mode. 
+        
+        The following table (adapted from p. 63 of the datasheet) visualizes 
+        how the RGB data is sent to the display when using 16-bit color depth.
+
+        ---------|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----
+        Transfer |                    1                   ||||||||                    2                  ||||||||
+        Bit #    |  7  |  6  |  5  |  4  |  3  |  2  |  1  |  0  |  7  |  6  |  5  |  4  |  3  |  2  |  1  |  0
+        Value    | R4  | R3  | R2  | R1  | R0  | G5  | G4  | G3  | G2  | G1  | G0  | B4  | B3  | B2  | B1  | B0
+
+        The following table (adapted from p. 64 of the datasheet) visualizes 
+        how the RGB data is sent to the display when using 18-bit color depth.
+
+        ---------|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----
+        Transfer |                    1                   ||||||||        2  |||
+        Bit #    |  7  |  6  |  5  |  4  |  3  |  2  |  1  |  0  |  7  |  6  | ...
+        Value    |  R5 | R4  | R3  | R2  | R1  | R0  | 0/1 | 0/1 |  G5 |  G4 | ...
+    */
     
-    uint8_t data[3] = {0};
+    static uint8_t data[3] = {0};
 
     if (is_16bit) {
         data[0] = ((red & 0x1F) << 3) |
@@ -321,6 +337,8 @@ void ILI9341_write1px(uint8_t red, uint8_t green, uint8_t blue, bool is_16bit) {
         SPI_WriteSequence(0, data, 2);
     }
     else {
+        // bits 1 and 0 are set to prevent the TM4C from 
+        // attempting to right-justify the RGB data
         data[0] = ( (red & 0x3F) << 2 ) + 0x03;
         data[1] = ( (green & 0x3F) << 2 ) + 0x03;
         data[2] = ( (blue & 0x3F) << 2 ) + 0x03;

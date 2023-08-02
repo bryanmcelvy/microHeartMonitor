@@ -50,10 +50,10 @@ Initialization/Reset
 void ILI9341_Init(void);
 
 /// @brief      Perform a hardware reset of the LCD driver.
-void ILI9341_ResetHard(void);
+void ILI9341_resetHard(void);
 
 /// @brief      Perform a software reset of the LCD driver.
-void ILI9341_ResetSoft(void);
+void ILI9341_resetSoft(void);
 
 /******************************************************************************
 Configuration
@@ -74,7 +74,7 @@ void ILI9341_setSleepMode(bool is_sleeping);
  * 
  * @param       is_normal 'true' for normal mode, 'false' for partial mode
  */
-void ILI9341_setDisplayMode(bool is_normal);
+void ILI9341_setDispMode(bool is_normal);
 
 /**
  * @brief       Set the partial display area for partial mode.
@@ -86,18 +86,21 @@ void ILI9341_setDisplayMode(bool is_normal);
 void ILI9341_setPartialArea(uint16_t rowStart, uint16_t rowEnd);
 
 /**
- * @brief       Send command to toggle display display inversion
+ * @brief       Toggle display inversion. Turning `ON` causes colors to be
+ *              inverted on the display.
  * 
- * @param       is_ON `1` to turn ON, `0` to turn OFF
+ * @param       is_ON `true` to turn ON, `false` to turn OFF
  */
 void ILI9341_setDispInversion(bool is_ON);
 
 /**
- * @brief       Send command to turn the display ON or OFF.
+ * @brief       Turn display output ON or OFF. This function clears the display
+ *              and stops outputting to the display area, but does not affect
+ *              frame memory or power.
  * 
- * @param       is_ON `1` to turn ON, `0` to turn OFF
+ * @param       is_ON `true` to turn ON, `false` to turn OFF
  */
-void ILI9341_setDisplayStatus(bool is_ON);
+void ILI9341_setDispOutput(bool is_ON);
 
 ///TODO: Write
 void ILI9341_setVertScrollArea(
@@ -133,10 +136,9 @@ void ILI9341_setMemAccessCtrl(  bool areRowsFlipped, bool areColsFlipped,
 void ILI9341_setColorDepth(bool is_16bit);
 
 /**
- * @brief       
- *      Send the "No Operation" command (`NOP`) to the LCD driver.
- *      Can be used to terminate the "Memory Write" (`RAMWR`
- *      "Memory Read" (`RAMRD`) commands, but does nothing otherwise.
+ * @brief       Send the "No Operation" command (`NOP` = `0x00`) to the LCD driver.
+ *              Can be used to terminate the "Memory Write" (`RAMWR`) and
+ *              "Memory Read" (`RAMRD`) commands, but does nothing otherwise.
  */
 void ILI9341_NoOpCmd(void);
 
@@ -208,6 +210,7 @@ void ILI9341_writeMemCmd(void);
  * @param blue          5 or 6-bit `B` value
  * @param is_16bit      `true` for 16-bit (65K colors, 2 transfers) color depth,
  *                      `false` for 18-bit (262K colors, 3 transfer) color depth
+ *                      NOTE: set color depth via `ILI9341_setColorDepth()`
  */
 void ILI9341_write1px(uint8_t red, uint8_t green, uint8_t blue, bool is_16bit);
 
