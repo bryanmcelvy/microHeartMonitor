@@ -14,7 +14,7 @@ if(OPT_TESTING)
 endif()
 
 # Main Target Declaration
-set(MAIN_TARGET ${CMAKE_PROJECT_NAME}.elf)
+set(MAIN_TARGET main.elf)
 
 add_executable(${MAIN_TARGET} 
                     main.c
