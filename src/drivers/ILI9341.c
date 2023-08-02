@@ -46,7 +46,7 @@ Preprocessor Directives
 #define MADCTL      (uint8_t) 0x36      /// Memory Access Control
 #define VSCRSADD    (uint8_t) 0x37      /// Vertical Scrolling Start Address
 #define PIXSET      (uint8_t) 0x3A      /// Pixel Format Set
-#define FRMCTR1     (uint8_t) 0xB1      /// Frame Control Set (Normal Mode)
+#define FRMCTR1     (uint8_t) 0xB1      /// Frame Rate Control Set (Normal Mode)
 #define PRCTR       (uint8_t) 0xB5      /// Blanking Porch Control
 #define IFCTL       (uint8_t) 0xF6      /// Interface Control
 
@@ -61,6 +61,8 @@ Preprocessor Directives
 #define WRDISBV                 (uint8_t) 0x51          /// Write Display Brightness
 #define RDDISBV                 (uint8_t) 0x52          /// Read Display Brightness
 #define IFMODE                  (uint8_t) 0xB0          /// RGB Interface Signal Control (i.e. Interface Mode Control)
+#define FRMCTR2                 (uint8_t) 0xB2          /// Frame Rate Control Set (Idle Mode)
+#define FRMCTR3                 (uint8_t) 0xB3          /// Frame Rate Control Set (Partial Mode)
 #define INVTR                   (uint8_t) 0xB4          /// Display Inversion Control
 */
 
