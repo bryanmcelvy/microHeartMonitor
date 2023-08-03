@@ -9,16 +9,16 @@
 
 /******************************************************************************
 SECTIONS
-        Preprocessor Directives
-        Initialization/Configuration
-        Drawing Area
-        Color
-        Drawing
-        Scrolling
+        1) Preprocessor Directives
+        2) Initialization/Configuration
+        3) Drawing Area
+        4) Color
+        5) Drawing
+        6) Scrolling
 *******************************************************************************/
 
 /******************************************************************************
-Preprocessor Directives
+1) Preprocessor Directives
 *******************************************************************************/
 
 // Dependencies
@@ -30,6 +30,7 @@ Preprocessor Directives
 #include "tm4c123gh6pm.h"
 
 #include <stdint.h>
+#include <stdbool.h>
 
 // Dimensions
 #define X_MAX           NUM_ROWS
@@ -46,7 +47,7 @@ Preprocessor Directives
 #define LCD_WHITE       (LCD_RED + LCD_BLUE + LCD_GREEN)
 
 /******************************************************************************
-Initialization/Configuration
+2) Initialization/Configuration
 *******************************************************************************/
 
 /**
@@ -70,7 +71,7 @@ void LCD_toggleInversion(void);
 void LCD_toggleColorDepth(void);
 
 /******************************************************************************
-Drawing Area
+3) Drawing Area
 *******************************************************************************/
 
 /**
@@ -105,7 +106,7 @@ void LCD_setX(uint16_t x1_new, uint16_t x2_new);
 void LCD_setY(uint16_t y1_new, uint16_t y2_new);
 
 /******************************************************************************
-Color
+4) Color
 *******************************************************************************/
 
 /**
@@ -129,7 +130,7 @@ void LCD_setColor(uint8_t R_val, uint8_t G_val, uint8_t B_val);
 void LCD_setColor_3bit(uint8_t color_code);
 
 /******************************************************************************
-Drawing
+5) Drawing
 *******************************************************************************/
 
 /**
@@ -176,8 +177,7 @@ void LCD_drawRectangle( uint16_t x1, uint16_t y1,
                         bool is_filled);
 
 /******************************************************************************
-Scrolling
+6) Scrolling
 *******************************************************************************/
-// void LCD_setScrollArea
 
 #endif

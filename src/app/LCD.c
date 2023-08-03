@@ -6,16 +6,16 @@
 
 /******************************************************************************
 SECTIONS
-    Preprocessor Directives
-    Initialization/Configuration
-    Drawing Area
-    Color
-    Drawing
-    Scrolling
+        1) Preprocessor Directives & Declarations
+        2) Initialization/Configuration
+        3) Drawing Area
+        4) Color
+        5) Drawing
+        6) Scrolling
 *******************************************************************************/
 
 /******************************************************************************
-Preprocessor Directives
+1) Preprocessor Directives & Declarations
 *******************************************************************************/
 #include "LCD.h"
 
@@ -28,10 +28,6 @@ Preprocessor Directives
 
 #include <stdint.h>
 #include <stdbool.h>
-
-/******************************************************************************
-Declarations
-*******************************************************************************/
 
 /// @brief Updates `lcd`'s `numPixels` parameter after changing rows/columns
 static void LCD_updateNumPixels(void);
@@ -84,7 +80,7 @@ static LCD_t lcd = {
 };
 
 /******************************************************************************
-Initialization/Configuration
+2) Initialization/Configuration
 *******************************************************************************/
 
 void LCD_Init(void) {
@@ -118,7 +114,7 @@ void LCD_toggleColorDepth(void) {
 }
 
 /******************************************************************************
-Drawing Area
+3) Drawing Area
 *******************************************************************************/
 
 static void LCD_updateNumPixels(void) {
@@ -163,7 +159,7 @@ void LCD_setY(uint16_t y1, uint16_t y2) {
 }
 
 /******************************************************************************
-Color
+4) Color
 *******************************************************************************/
 
 void LCD_setColor(uint8_t R_val, uint8_t G_val, uint8_t B_val) {
@@ -197,7 +193,7 @@ void LCD_setColor_3bit(uint8_t color_code) {
 }
 
 /******************************************************************************
-Drawing
+5) Drawing
 *******************************************************************************/
 
 void LCD_draw(void) {
@@ -290,5 +286,5 @@ void LCD_drawRectangle( uint16_t x1, uint16_t y1,
 }
 
 /******************************************************************************
-Scrolling
+6) Scrolling
 *******************************************************************************/
