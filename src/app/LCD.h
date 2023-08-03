@@ -31,15 +31,19 @@ Preprocessor Directives
 
 #include <stdint.h>
 
-// Defines
-#define LCD_RED     (uint8_t) 0x04
-#define LCD_GREEN   (uint8_t) 0x02
-#define LCD_BLUE    (uint8_t) 0x01
+// Defines (Colors)
+#define LCD_RED         (uint8_t) 0x04
+#define LCD_GREEN       (uint8_t) 0x02
+#define LCD_BLUE        (uint8_t) 0x01
 
-#define LCD_YELLOW  (LCD_RED + LCD_GREEN)
-#define LCD_CYAN    (LCD_BLUE + LCD_GREEN)
-#define LCD_PURPLE  (LCD_RED + LCD_BLUE)
-#define LCD_WHITE   (LCD_RED + LCD_BLUE + LCD_GREEN)
+#define LCD_YELLOW      (LCD_RED + LCD_GREEN)
+#define LCD_CYAN        (LCD_BLUE + LCD_GREEN)
+#define LCD_PURPLE      (LCD_RED + LCD_BLUE)
+#define LCD_WHITE       (LCD_RED + LCD_BLUE + LCD_GREEN)
+
+// Defines (Dimensions)
+#define X_MAX           NUM_ROWS
+#define Y_MAX           NUM_COLS
 
 /******************************************************************************
 Initialization/Configuration
