@@ -213,7 +213,7 @@ static void LCD_drawLine(uint16_t center, uint16_t lineWidth, bool is_horizontal
     uint16_t padding;
     uint16_t MAX_NUM;
 
-    MAX_NUM = (is_horizontal) ? X_MAX : Y_MAX;
+    MAX_NUM = (is_horizontal) ? Y_MAX : X_MAX;
 
     // ensure `lineWidth` is odd and positive
     lineWidth = (lineWidth > 0) ? lineWidth : 1;
@@ -232,10 +232,10 @@ static void LCD_drawLine(uint16_t center, uint16_t lineWidth, bool is_horizontal
     start = center - padding;
     end = center + padding;
     if (is_horizontal) {
-        LCD_setArea(start, end, 0, (Y_MAX-1));
+        LCD_setArea(0, (X_MAX-1), start, end);
     }
     else {
-        LCD_setArea(0, (X_MAX-1), start, end);
+        LCD_setArea(start, end, 0, (Y_MAX-1));
     }
     LCD_draw();
 }
