@@ -14,9 +14,6 @@
 
 #define OFFSET (uint16_t) 24
 
-enum colors {   red=LCD_RED, yellow=LCD_YELLOW, green=LCD_GREEN, cyan=LCD_CYAN, 
-                blue=LCD_BLUE, purple=LCD_PURPLE, white=LCD_WHITE};
-
 int main(void) {
     // uint16_t color;
 
@@ -28,17 +25,17 @@ int main(void) {
 
     ILI9341_setScrollArea(OFFSET, X_MAX-OFFSET, 0);
 
-    LCD_setColor_3bit(red); LCD_drawRectangle(0, 0, 40, Y_MAX, 1);
-    LCD_setColor_3bit(yellow); LCD_drawRectangle(40, 0, 40, Y_MAX, 1);
-    LCD_setColor_3bit(green); LCD_drawRectangle(80, 0, 40, Y_MAX, 1);
-    LCD_setColor_3bit(cyan); LCD_drawRectangle(120, 0, 40, Y_MAX, 1);
-    LCD_setColor_3bit(blue); LCD_drawRectangle(160, 0, 40, Y_MAX, 1);
-    LCD_setColor_3bit(purple); LCD_drawRectangle(200, 0, 40, Y_MAX, 1);
-    LCD_setColor_3bit(white); LCD_drawRectangle(240, 0, 40, Y_MAX, 1);
+    LCD_setColor_3bit(LCD_RED); LCD_drawRectangle(0, 0, 40, Y_MAX, 1);
+    LCD_setColor_3bit(LCD_YELLOW); LCD_drawRectangle(40, 0, 40, Y_MAX, 1);
+    LCD_setColor_3bit(LCD_GREEN); LCD_drawRectangle(80, 0, 40, Y_MAX, 1);
+    LCD_setColor_3bit(LCD_CYAN); LCD_drawRectangle(120, 0, 40, Y_MAX, 1);
+    LCD_setColor_3bit(LCD_BLUE); LCD_drawRectangle(160, 0, 40, Y_MAX, 1);
+    LCD_setColor_3bit(LCD_PURPLE); LCD_drawRectangle(200, 0, 40, Y_MAX, 1);
+    LCD_setColor_3bit(LCD_WHITE); LCD_drawRectangle(240, 0, 40, Y_MAX, 1);
 
     // ILI9341_setScrollStart(240);
 
-    LCD_toggleStatus();                         // display ON
+    LCD_toggleOutput();                         // display ON
     GPIO_PF_LED_Toggle(0x08);
     int i = 0;
     while(1) {

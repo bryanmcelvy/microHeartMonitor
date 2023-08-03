@@ -21,7 +21,7 @@ SECTIONS
 Preprocessor Directives
 *******************************************************************************/
 
-// Includes
+// Dependencies
 #include "ILI9341.h"
 
 #include "SPI.h"
@@ -31,7 +31,11 @@ Preprocessor Directives
 
 #include <stdint.h>
 
-// Defines (Colors)
+// Dimensions
+#define X_MAX           NUM_ROWS
+#define Y_MAX           NUM_COLS
+
+// 3-bit Color Codes
 #define LCD_RED         (uint8_t) 0x04
 #define LCD_GREEN       (uint8_t) 0x02
 #define LCD_BLUE        (uint8_t) 0x01
@@ -41,30 +45,28 @@ Preprocessor Directives
 #define LCD_PURPLE      (LCD_RED + LCD_BLUE)
 #define LCD_WHITE       (LCD_RED + LCD_BLUE + LCD_GREEN)
 
-// Defines (Dimensions)
-#define X_MAX           NUM_ROWS
-#define Y_MAX           NUM_COLS
-
 /******************************************************************************
 Initialization/Configuration
 *******************************************************************************/
+
+/**
+ * @brief       Initialize the LCD driver and its internal independencies.
+ * 
+ */
 void LCD_Init(void);
 
 /**
- * @brief   Toggle the display ON or OFF (ON by default)
+ * @brief       Toggle display output `ON` or `OFF` (`OFF` by default).
+ *              Turning output `OFF` prevents the LCD driver from refreshing the
+ *              display, which can prevent abnormalities like screen tearing
+ *              while attempting to update the image.
  */
-void LCD_toggleStatus(void);
+void LCD_toggleOutput(void);
 
-/**
- * @brief   Toggle display inversion ON or OFF (OFF by default)
- * 
- */
+/// @brief      Toggle color inversion `ON` or `OFF` (`OFF` by default).
 void LCD_toggleInversion(void);
 
-/**
- * @brief   Toggle 16-bit or 18-bit color depth (16-bit by default)
- * 
- */
+/// @brief      Toggle 16-bit or 18-bit color depth (16-bit by default).
 void LCD_toggleColorDepth(void);
 
 /******************************************************************************
@@ -72,43 +74,49 @@ Drawing Area
 *******************************************************************************/
 
 /**
- * @brief           Set the area of the display to be written to.
+ * @brief               Set the area of the display to be written to.
+ *                      `0 <= x1 <= x2 < X_MAX`
+ *                      `0 <= y1 <= y2 < Y_MAX`
  * 
- * @param rowStart  index of top-most row; `0 <= rowStart <= rowEnd`
- * @param rowEnd    index of bottom-most row; `rowStart <= rowEnd < NUM_ROWS`
- * @param colStart  index of left-most column; `0 <= colStart <= colEnd`
- * @param colEnd    index of right-most column; `colStart <= colEnd < NUM_COLS`
+ * @param x1_new        left-most x-coordinate
+ * @param x2_new        right-most x-coordinate
+ * @param y1_new        lowest y-coordinate
+ * @param y2_new        highest y-coordinate
  */
-void LCD_setArea(   uint16_t rowStart, uint16_t rowEnd,
-                    uint16_t colStart, uint16_t colEnd);
+void LCD_setArea(       uint16_t x1_new, uint16_t x2_new,
+                        uint16_t y1_new, uint16_t y2_new);
 
 /**
- * @brief           Set only the rows to be written to.
+ * @brief               Set only new x-coordinates to be written to.
+ *                      `0 <= x1 <= x2 < X_MAX`
  * 
- * @param rowStart  index of top-most row; `0 <= rowStart <= rowEnd`
- * @param rowEnd    index of bottom-most row; `rowStart <= rowEnd < NUM_ROWS`
+ * @param x1_new        left-most x-coordinate
+ * @param x2_new        right-most x-coordinate
  */
-void LCD_setRow(uint16_t rowStart, uint16_t rowEnd);
+void LCD_setX(uint16_t x1_new, uint16_t x2_new);
 
 /**
- * @brief           Set only the columns to be written to.
+ * @brief               Set only new y-coordinates to be written to.
+ *                      `0 <= y1 <= y2 < Y_MAX`
  * 
- * @param colStart  index of left-most column; `0 <= colStart <= colEnd`
- * @param colEnd    index of right-most column; `colStart <= colEnd < NUM_COLS`
+ * @param y1_new        lowest y-coordinate
+ * @param y2_new        highest y-coordinate
  */
-void LCD_setCol(uint16_t colStart, uint16_t colEnd);
+void LCD_setY(uint16_t y1_new, uint16_t y2_new);
 
 /******************************************************************************
 Color
 *******************************************************************************/
 
 /**
- * @brief           Set the current color value for the display.
- *                  Only the first 5-6 bits are used.
+ * @brief               Set the current color value for the display.
+ *                      Only the first 5-6 bits of each inputted value are used.
  * 
- * @param   R_val   5-bit (0-31) R value; 6-bit (0-63) if color depth is 18-bit
- * @param   G_val   6-bit (0-63) G value
- * @param   B_val   5-bit (0-31) B value; 6-bit (0-63) if color depth is 18-bit
+ * @param   R_val       5-bit (`[0-31]`) R value;
+                        6-bit (`[0-63]`) if color depth is 18-bit
+ * @param   G_val       6-bit (`[0-63]`) G value
+ * @param   B_val       5-bit (`[0-31]`) B value;
+                        6-bit (`[0-63]`) if color depth is 18-bit
  */
 void LCD_setColor(uint8_t R_val, uint8_t G_val, uint8_t B_val);
 
@@ -133,7 +141,7 @@ Drawing
 void LCD_draw(void);
 
 /**
- * @brief           Draw a horizontal line onto the display.
+ * @brief           Draw a horizontal line across the entire display.
  * 
  * @param yCenter   y-coordinate to center the line on        
  * @param lineWidth width of the line; should be a positive, odd number
@@ -141,7 +149,7 @@ void LCD_draw(void);
 void LCD_drawHLine(uint16_t yCenter, uint16_t lineWidth);
 
 /**
- * @brief           Draw a vertical line onto the display.
+ * @brief           Draw a vertical line across the entire display.
  * 
  * @param xCenter   x-coordinate to center the line on        
  * @param lineWidth width of the line; should be a positive, odd number

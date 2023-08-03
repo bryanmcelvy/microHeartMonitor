@@ -6,12 +6,12 @@
 
 /******************************************************************************
 SECTIONS
-        Preprocessor Directives
-        Initialization/Configuration
-        Drawing Area
-        Color
-        Drawing
-        Scrolling
+    Preprocessor Directives
+    Initialization/Configuration
+    Drawing Area
+    Color
+    Drawing
+    Scrolling
 *******************************************************************************/
 
 /******************************************************************************
@@ -36,6 +36,14 @@ Declarations
 /// @brief Updates `lcd`'s `numPixels` parameter after changing rows/columns
 static void LCD_updateNumPixels(void);
 
+/**
+ * @brief                   Set new `x` or `y` parameters, and optionally update `numPixels`.
+ * 
+ * @param d1                start index of selected dimension
+ * @param d2                end index of selected dimension
+ * @param is_x              `true` if dimension is `x`, `false` if `y`
+ * @param update_num_pixels `true` to update `lcd.numPixels`, `false` if not
+ */
 static void LCD_setDim(uint16_t d1, uint16_t d2, bool is_x, bool update_num_pixels);
 
 /**
@@ -63,9 +71,9 @@ typedef struct {
 } LCD_t;
 
 static LCD_t lcd = {  
-    0, (NUM_ROWS-1),                // entire area
-    0, (NUM_COLS-1),                // colStart, colEnd
-    (NUM_ROWS * NUM_COLS),          // numPixels
+    0, (X_MAX-1),                // entire area
+    0, (Y_MAX-1),                // colStart, colEnd
+    (X_MAX * Y_MAX),          // numPixels
 
     255, 0, 0,                      // write color is red
 
@@ -90,7 +98,7 @@ void LCD_Init(void) {
     }
 }
 
-void LCD_toggleStatus(void) {
+void LCD_toggleOutput(void) {
     lcd.is_ON = !(lcd.is_ON);
     ILI9341_setDispOutput(lcd.is_ON);
 }
@@ -120,7 +128,7 @@ static void LCD_updateNumPixels(void) {
 
 static void LCD_setDim(uint16_t d1, uint16_t d2, bool is_x, bool update_num_pixels) {
     uint16_t DIM_MAX;
-    
+
     // ensure the dim numbers meet the restrictions
     DIM_MAX = (is_x) ? X_MAX : Y_MAX;
     d2 = (d2 < DIM_MAX) ? d2 : (DIM_MAX - 1);
@@ -129,28 +137,28 @@ static void LCD_setDim(uint16_t d1, uint16_t d2, bool is_x, bool update_num_pixe
     if(is_x) {
         lcd.x1 = d1;
         lcd.x2 = d2;
-    ILI9341_setRowAddress(lcd.x1, lcd.x2);
+        ILI9341_setRowAddress(lcd.x1, lcd.x2);
     }
     else {
         lcd.y1 = d1;
         lcd.y2 = d2;
-    ILI9341_setColAddress(lcd.y1, lcd.y2);
-}
+        ILI9341_setColAddress(lcd.y1, lcd.y2);
+    }
 
     if (update_num_pixels) { LCD_updateNumPixels(); }
 }
-    
+
 void LCD_setArea(   uint16_t x1, uint16_t x2,
                     uint16_t y1, uint16_t y2) {
     LCD_setDim(x1, x2, true, false);
     LCD_setDim(y1, y2, false, true);
 }
 
-void LCD_setRow(uint16_t x1, uint16_t x2) {
+void LCD_setX(uint16_t x1, uint16_t x2) {
     LCD_setDim(x1, x2, true, true);
 }
-    
-void LCD_setCol(uint16_t y1, uint16_t y2) {
+
+void LCD_setY(uint16_t y1, uint16_t y2) {
     LCD_setDim(y1, y2, false, false);
 }
 
@@ -204,7 +212,7 @@ static void LCD_drawLine(uint16_t center, uint16_t lineWidth, bool is_horizontal
     uint16_t padding;
     uint16_t MAX_NUM;
 
-    MAX_NUM = (is_horizontal) ? NUM_ROWS : NUM_COLS;
+    MAX_NUM = (is_horizontal) ? X_MAX : Y_MAX;
 
     // ensure `lineWidth` is odd and positive
     lineWidth = (lineWidth > 0) ? lineWidth : 1;
@@ -223,10 +231,10 @@ static void LCD_drawLine(uint16_t center, uint16_t lineWidth, bool is_horizontal
     start = center - padding;
     end = center + padding;
     if (is_horizontal) {
-        LCD_setArea(start, end, 0, (NUM_COLS-1));
+        LCD_setArea(start, end, 0, (Y_MAX-1));
     }
     else {
-        LCD_setArea(0, (NUM_ROWS-1), start, end);
+        LCD_setArea(0, (X_MAX-1), start, end);
     }
     LCD_draw();
 }
@@ -246,15 +254,15 @@ void LCD_drawRectangle( uint16_t x1, uint16_t y1,
     uint16_t y2;
     
     // ensure startRow and startCol are less than their max numbers
-    x1 = (x1 < NUM_ROWS) ? x1 : (NUM_ROWS - 1);
-    y1 = (y1 < NUM_COLS) ? y1 : (NUM_COLS - 1);
+    x1 = (x1 < X_MAX) ? x1 : (X_MAX - 1);
+    y1 = (y1 < Y_MAX) ? y1 : (Y_MAX - 1);
 
     // ensure lines don't go out of bounds
-    if ( (x1 + dx) > NUM_ROWS ) {
-        dx = (NUM_ROWS - x1 - 1);
+    if ( (x1 + dx) > X_MAX ) {
+        dx = (X_MAX - x1 - 1);
     }
-    if ( (y1 + dy) > NUM_COLS ) {
-        dy = (NUM_COLS - y1 - 1);
+    if ( (y1 + dy) > Y_MAX ) {
+        dy = (Y_MAX - y1 - 1);
     }
 
     // draw rectangle based on `is_filled`
@@ -274,7 +282,6 @@ void LCD_drawRectangle( uint16_t x1, uint16_t y1,
         LCD_setArea(x2, x2, y1, y2);          // right side
         LCD_draw();
     }
-
 }
 
 /******************************************************************************
