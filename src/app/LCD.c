@@ -207,6 +207,11 @@ void LCD_draw(void) {
     }
 }
 
+void LCD_fill(void) {
+    LCD_setArea(0, X_MAX, 0, Y_MAX);
+    LCD_draw();
+}
+
 static void LCD_drawLine(uint16_t center, uint16_t lineWidth, bool is_horizontal) {
     uint16_t start, end;
     uint16_t padding;

@@ -133,38 +133,43 @@ Drawing
 *******************************************************************************/
 
 /**
- * @brief   Draw on the LCD display. This function should be called after
- *          setting the drawable area via `LCD_setArea()`, or after 
- *          individually setting the row and column areas using `LCD_setRow`
- *          and `LCD_setCol`, respectively.
+ * @brief       Draw on the LCD display. 
+ *              Call this function after setting the drawable area via 
+ *              `LCD_setArea()`, or after individually calling `LCD_setX()`
+ *              and/or `LCD_setY()`.
  */
 void LCD_draw(void);
 
+/** 
+ * @brief               Fill the display with a single color.
+ */
+void LCD_fill(void);
+
 /**
- * @brief           Draw a horizontal line across the entire display.
+ * @brief               Draw a horizontal line across the entire display.
  * 
- * @param yCenter   y-coordinate to center the line on        
- * @param lineWidth width of the line; should be a positive, odd number
+ * @param yCenter       y-coordinate to center the line on        
+ * @param lineWidth     width of the line; should be a positive, odd number
  */
 void LCD_drawHLine(uint16_t yCenter, uint16_t lineWidth);
 
 /**
- * @brief           Draw a vertical line across the entire display.
+ * @brief               Draw a vertical line across the entire display.
  * 
- * @param xCenter   x-coordinate to center the line on        
- * @param lineWidth width of the line; should be a positive, odd number
+ * @param xCenter       x-coordinate to center the line on        
+ * @param lineWidth     width of the line; should be a positive, odd number
  */
 void LCD_drawVLine(uint16_t xCenter, uint16_t lineWidth);
 
 /**
- * @brief           Draw an `l` x `h` rectangle on the display.
- *                  The bottom-left corner will be located at `(x1, y1)`.
+ * @brief               Draw an `l` x `h` rectangle on the display.
+ *                      The bottom-left corner will be located at `(x1, y1)`.
  * 
- * @param x1        x-coordinate of bottom-left corner
- * @param y1        y-coordinate of bottom-left corner
- * @param dx        AKA `l`; length (horizontal distance) of the rectangle
- * @param dy        AKA `h`; height (vertical distance) of the rectangle
- * @param is_filled `true` to fill the rectangle, `false` to leave it unfilled
+ * @param x1            x-coordinate of bottom-left corner
+ * @param y1            y-coordinate of bottom-left corner
+ * @param dx            AKA `l`; length (horizontal distance) of the rectangle
+ * @param dy            AKA `h`; height (vertical distance) of the rectangle
+ * @param is_filled     `true` to fill the rectangle, `false` to leave it unfilled
  */
 void LCD_drawRectangle( uint16_t x1, uint16_t y1,
                         uint16_t dx, uint16_t dy,
