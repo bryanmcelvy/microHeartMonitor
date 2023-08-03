@@ -5,8 +5,6 @@ File:           test/CMakeLists.txt
 Description:    Adds executables for test scripts.
 **************************************************************************************************  ]]
 
-add_subdirectory(ili9341)
-
 #[[***********************************************************************************************
 # Driver Tests
 **************************************************************************************************  ]]  
@@ -144,6 +142,24 @@ target_link_libraries(  test_uart_la.elf
                             UART
 )
 
+# Blink Display Test
+add_executable(test_ili9341_blinkdisplay.elf 
+                    test_ili9341_blinkdisplay.c
+                    ${PROJECT_SOURCE_DIR}/src/device/startup_gcc.c
+                )
+
+target_include_directories(test_ili9341_blinkdisplay.elf 
+                            PRIVATE 
+                                ${PROJECT_SOURCE_DIR}/src/drivers
+                                ${PROJECT_SOURCE_DIR}/src/device
+                            )
+
+target_link_libraries(test_ili9341_blinkdisplay.elf
+                        PRIVATE
+                            PLL
+                            ILI9341
+                            GPIO)
+
 #*****************************************************************************
 # Application SW Tests
 #*****************************************************************************
@@ -166,5 +182,25 @@ target_link_libraries(  test_userctrl.elf
                         PRIVATE 
                             UserCtrl
 )
+
+# LCD Color Test
+add_executable(test_lcd_color.elf 
+                    test_lcd_color.c
+                    ${PROJECT_SOURCE_DIR}/src/device/startup_gcc.c
+                )
+
+target_include_directories(test_lcd_color.elf 
+                            PRIVATE 
+                            ${PROJECT_SOURCE_DIR}/src/app
+                            ${PROJECT_SOURCE_DIR}/src/drivers
+                            ${PROJECT_SOURCE_DIR}/src/device
+                            )
+
+target_link_libraries(test_lcd_color.elf
+                        PRIVATE
+                            PLL
+                            LCD
+                            GPIO
+                            Timer)
 
 endif(OPT_TESTING)

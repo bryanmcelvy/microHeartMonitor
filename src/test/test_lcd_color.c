@@ -4,6 +4,7 @@
  * @brief   Test script for writing different colors on the LCD>
  */
 
+#include "ILI9341.h"
 #include "LCD.h"
 
 #include "PLL.h"
@@ -15,29 +16,21 @@
 
 int main(void) {
     
-    // uint8_t colorOutput[3] = {0, 0, 0};
-    // uint8_t color_idx1 = 0;
-    // uint8_t color_idx2 = 2;
-
     PLL_Init();
     Timer0A_Init();
     GPIO_PF_LED_Init();
+
+    /*
+    TFA = VSA = BFA = 80
+    setArea(x1 = x2 = 0, y1 = 80, y2 = 160)
+
+    */
+
     LCD_Init();
 
-    LCD_setColor_3bit(LCD_WHITE);
-    LCD_draw();
-
     LCD_setColor_3bit(LCD_RED);
-    LCD_drawRectangle(0, 0, 40, 40, false);
-
-    LCD_setColor_3bit(LCD_BLUE);
-    LCD_drawRectangle(0, 199, 40, 40, false);
-
-    LCD_setColor_3bit(LCD_GREEN);
-    LCD_drawRectangle(279, 0, 40, 40, false);
-
-    LCD_setColor_3bit(LCD_PURPLE);
-    LCD_drawRectangle(279, 199, 40, 40, false);
+    LCD_setArea(0, NUM_ROWS, 0, 79); LCD_draw();
+    LCD_setArea(0, NUM_ROWS-1, 160, NUM_COLS-1); LCD_draw();
 
     LCD_toggleStatus();                         // display ON
     while(1) {
