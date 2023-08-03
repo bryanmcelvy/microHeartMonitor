@@ -36,6 +36,8 @@ Declarations
 /// @brief Updates `lcd`'s `numPixels` parameter after changing rows/columns
 static void LCD_updateNumPixels(void);
 
+static void LCD_setDim(uint16_t d1, uint16_t d2, bool is_x, bool update_num_pixels);
+
 /**
  * @brief               Helper function for drawing straight lines.
  * 
@@ -116,43 +118,40 @@ static void LCD_updateNumPixels(void) {
                     * ((lcd.y2 - lcd.y1) + 1);
 }
 
-void LCD_setArea(   uint16_t x1New, uint16_t x2New,
-                    uint16_t y1New, uint16_t y2New) {
+static void LCD_setDim(uint16_t d1, uint16_t d2, bool is_x, bool update_num_pixels) {
+    uint16_t DIM_MAX;
     
-    // ensure the row numbers meet the restrictions
-    lcd.x2 = (x2New < NUM_ROWS) ? x2New : (NUM_ROWS - 1);
-    lcd.x1 = (x1New < x2New) ? x1New : (x2New);
+    // ensure the dim numbers meet the restrictions
+    DIM_MAX = (is_x) ? X_MAX : Y_MAX;
+    d2 = (d2 < DIM_MAX) ? d2 : (DIM_MAX - 1);
+    lcd.x1 = (d1 <= d2) ? d1 : d2;
 
-    // ensure the column numbers meet the restrictions
-    lcd.y2 = (y2New < NUM_COLS) ? y2New : (NUM_COLS - 1);
-    lcd.y1 = (y1New < y2New) ? y1New : (y2New);
-
+    if(is_x) {
+        lcd.x1 = d1;
+        lcd.x2 = d2;
     ILI9341_setRowAddress(lcd.x1, lcd.x2);
+    }
+    else {
+        lcd.y1 = d1;
+        lcd.y2 = d2;
     ILI9341_setColAddress(lcd.y1, lcd.y2);
-
-    LCD_updateNumPixels();
 }
 
-void LCD_setRow(uint16_t x1New, uint16_t x2New) {
+    if (update_num_pixels) { LCD_updateNumPixels(); }
+}
     
-    // ensure the row numbers meet the restrictions
-    lcd.x2 = (x2New < NUM_ROWS) ? x2New : (NUM_ROWS - 1);
-    lcd.x1 = (x1New < x2New) ? x1New : (x2New);
-
-    ILI9341_setRowAddress(lcd.x1, lcd.x2);
-
-    LCD_updateNumPixels();
+void LCD_setArea(   uint16_t x1, uint16_t x2,
+                    uint16_t y1, uint16_t y2) {
+    LCD_setDim(x1, x2, true, false);
+    LCD_setDim(y1, y2, false, true);
 }
 
-void LCD_setCol(uint16_t y1New, uint16_t y2New) {
+void LCD_setRow(uint16_t x1, uint16_t x2) {
+    LCD_setDim(x1, x2, true, true);
+}
     
-    // ensure the column numbers meet the restrictions
-    lcd.y2 = (y2New < NUM_COLS) ? y2New : (NUM_COLS - 1);
-    lcd.y1 = (y1New < y2New) ? y1New : (y2New);
-    
-    ILI9341_setColAddress(lcd.y1, lcd.y2);
-
-    LCD_updateNumPixels();
+void LCD_setCol(uint16_t y1, uint16_t y2) {
+    LCD_setDim(y1, y2, false, false);
 }
 
 /******************************************************************************
