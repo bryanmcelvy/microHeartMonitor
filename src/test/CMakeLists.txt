@@ -184,19 +184,19 @@ target_link_libraries(  test_userctrl.elf
 )
 
 # LCD Color Test
-add_executable(test_lcd_color.elf 
-                    test_lcd_color.c
+add_executable(test_lcd_scroll.elf 
+                    test_lcd_scroll.c
                     ${PROJECT_SOURCE_DIR}/src/device/startup_gcc.c
                 )
 
-target_include_directories(test_lcd_color.elf 
+target_include_directories(test_lcd_scroll.elf 
                             PRIVATE 
                             ${PROJECT_SOURCE_DIR}/src/app
                             ${PROJECT_SOURCE_DIR}/src/drivers
                             ${PROJECT_SOURCE_DIR}/src/device
                             )
 
-target_link_libraries(test_lcd_color.elf
+target_link_libraries(test_lcd_scroll.elf
                         PRIVATE
                             PLL
                             LCD
