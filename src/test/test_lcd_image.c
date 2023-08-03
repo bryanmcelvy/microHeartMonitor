@@ -11,8 +11,8 @@
 
 #include "tm4c123gh6pm.h"
 
-#include "stdint.h"
-#include "stdbool.h"
+#include <stdint.h>
+#include <stdbool.h>
 
 int main(void) {
     PLL_Init();

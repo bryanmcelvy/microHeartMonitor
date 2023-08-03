@@ -203,7 +203,7 @@ target_link_libraries(test_lcd_scroll.elf
                             GPIO
                             Timer)
 
-# LCD Color Test
+# LCD Image Test
 add_executable(test_lcd_image.elf 
                     test_lcd_image.c
                     ${PROJECT_SOURCE_DIR}/src/device/startup_gcc.c

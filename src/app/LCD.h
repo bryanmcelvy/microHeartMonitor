@@ -134,10 +134,10 @@ void LCD_setColor_3bit(uint8_t color_code);
 *******************************************************************************/
 
 /**
- * @brief       Draw on the LCD display. 
- *              Call this function after setting the drawable area via 
- *              `LCD_setArea()`, or after individually calling `LCD_setX()`
- *              and/or `LCD_setY()`.
+ * @brief               Draw on the LCD display. 
+ *                      Call this function after setting the drawable area via 
+ *                      `LCD_setArea()`, or after individually calling
+ *                      `LCD_setX()` and/or `LCD_setY()`.
  */
 void LCD_draw(void);
 
