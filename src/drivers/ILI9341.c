@@ -153,12 +153,12 @@ void ILI9341_setScrollArea( uint16_t top_fixed,
     uint8_t param_sequence[6];
 
     // ensure parameters sum together
-    while( (top_fixed + vert_scroll + bottom_fixed) < NUM_ROWS ) {
-        vert_scroll += 1;
-    }
-    while( (top_fixed + vert_scroll + bottom_fixed) > NUM_ROWS ) {
-        vert_scroll -= 1;
-    }
+    // while( (top_fixed + vert_scroll + bottom_fixed) < NUM_ROWS ) {
+    //     vert_scroll += 1;
+    // }
+    // while( (top_fixed + vert_scroll + bottom_fixed) > NUM_ROWS ) {
+    //     vert_scroll -= 1;
+    // }
 
     // configure and send command sequence
     param_sequence[0] = (uint8_t) ((top_fixed & 0xFF00) >> 8);
