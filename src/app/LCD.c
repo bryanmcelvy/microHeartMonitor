@@ -67,11 +67,11 @@ typedef struct {
 } LCD_t;
 
 static LCD_t lcd = {  
-    0, (X_MAX-1),                // entire area
-    0, (Y_MAX-1),                // colStart, colEnd
-    (X_MAX * Y_MAX),          // numPixels
+    0, (X_MAX-1),                   // entire area
+    0, (Y_MAX-1),                   // colStart, colEnd
+    (X_MAX * Y_MAX),                // numPixels
 
-    255, 0, 0,                      // write color is red
+    255, 255, 255,                  // default write color is white
 
     false,                          // display is on
     false,                          // not inverted
@@ -92,6 +92,7 @@ void LCD_Init(void) {
 
         lcd.is_init = true;
     }
+    LCD_drawRectangle(0, 0, X_MAX, Y_MAX, true);
 }
 
 void LCD_toggleOutput(void) {
