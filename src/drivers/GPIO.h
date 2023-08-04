@@ -15,6 +15,16 @@
 
 #include <stdint.h>
 
+// Bitmasks
+#define LED_RED         (uint8_t) 0x02
+#define LED_GREEN       (uint8_t) 0x08
+#define LED_BLUE        (uint8_t) 0x04
+
+#define LED_YELLOW      (LED_RED + LED_GREEN)
+#define LED_CYAN        (LED_BLUE + LED_GREEN)
+#define LED_PURPLE      (LED_RED + LED_BLUE)
+#define LED_WHITE       (LED_RED + LED_BLUE + LED_GREEN)
+
 /**
  * @brief   Initialize GPIO Port F.
  * 
