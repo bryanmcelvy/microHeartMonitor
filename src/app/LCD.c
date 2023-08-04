@@ -88,11 +88,12 @@ void LCD_Init(void) {
         ILI9341_Init();
         ILI9341_setSleepMode(false);
         ILI9341_setMemAccessCtrl(1, 0, 0, 0, 1, 0);
-        ILI9341_setColorDepth(1);
+        ILI9341_setColorDepth(true);
+        ILI9341_setDispMode(true, false);
 
         lcd.is_init = true;
     }
-    LCD_drawRectangle(0, 0, X_MAX, Y_MAX, true);
+    LCD_fill();
 }
 
 void LCD_toggleOutput(void) {

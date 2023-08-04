@@ -68,13 +68,19 @@ Configuration
 void ILI9341_setSleepMode(bool is_sleeping);
 
 /**
- * @brief       Set the display to normal mode or partial mode. The LCD driver
- *              starts out in normal mode. Calling with either possible value
- *              exits scrolling mode.
+ * @brief       Set the display area and color expression. 
+ *
+ *              Normal mode is the default and allows output to the full 
+ *              display area. Partial mode should be activated after calling 
+ *              `ILI9341_setPartialArea()`.
  * 
- * @param       is_normal 'true' for normal mode, 'false' for partial mode
+ *              Setting `is_full_colors` to `false` restricts the color expression
+ *              to 8 colors, determined by the MSB of the R/G/B values.
+ *
+ * @param       is_normal       `true` for normal mode, `false` for partial mode
+ * @param       is_full_colors  'true` for full colors, `false` for 8 colors
  */
-void ILI9341_setDispMode(bool is_normal);
+void ILI9341_setDispMode(bool is_normal, bool is_full_colors);
 
 /**
  * @brief       Set the partial display area for partial mode.

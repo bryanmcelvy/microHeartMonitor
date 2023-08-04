@@ -27,8 +27,8 @@ Preprocessor Directives
 #include <stdint.h>
 #include <stdbool.h>
 
-// Selected commands from the datasheet
-// NOTE: NUM_COLS and NUM_ROWS are defined in the header
+/// Selected commands from the datasheet
+/// NOTE: NUM_COLS and NUM_ROWS are defined in the header file
 #define NOP         (uint8_t) 0x00      /// No Operation
 #define SWRESET     (uint8_t) 0x01      /// Software Reset
 #define SPLIN       (uint8_t) 0x10      /// Enter Sleep Mode
@@ -46,12 +46,14 @@ Preprocessor Directives
 #define VSCRDEF     (uint8_t) 0x33      /// Vertical Scrolling Definition
 #define MADCTL      (uint8_t) 0x36      /// Memory Access Control
 #define VSCRSADD    (uint8_t) 0x37      /// Vertical Scrolling Start Address
+#define IDMOFF      (uint8_t) 0x38      /// Idle Mode OFF
+#define IDMON       (uint8_t) 0x39      /// Idle Mode ON
 #define PIXSET      (uint8_t) 0x3A      /// Pixel Format Set
 #define FRMCTR1     (uint8_t) 0xB1      /// Frame Rate Control Set (Normal Mode)
 #define PRCTR       (uint8_t) 0xB5      /// Blanking Porch Control
 #define IFCTL       (uint8_t) 0xF6      /// Interface Control
 
-/* Currently unused commands
+/** Currently unused commands
 #define RDDST                   (uint8_t) 0x09          /// Read Display Status
 #define RDDMADCTL               (uint8_t) 0x0B          /// Read Display MADCTL
 #define RDDCOLMOD               (uint8_t) 0x0C          /// Read Display Pixel Format
@@ -65,7 +67,7 @@ Preprocessor Directives
 #define FRMCTR2                 (uint8_t) 0xB2          /// Frame Rate Control Set (Idle Mode)
 #define FRMCTR3                 (uint8_t) 0xB3          /// Frame Rate Control Set (Partial Mode)
 #define INVTR                   (uint8_t) 0xB4          /// Display Inversion Control
-*/
+ */
 
 // Function Prototypes
 static void ILI9341_setAddress(
@@ -119,9 +121,12 @@ void ILI9341_setSleepMode(bool is_sleeping) {
     Timer2A_Wait1ms(120);
 }
 
-void ILI9341_setDispMode(bool is_normal) {
+void ILI9341_setDispMode(bool is_normal, bool is_full_colors) {
     if (is_normal) { SPI_WriteCmd(NORON); }
     else { SPI_WriteCmd(PTLON); }       // call after ILI9341_setPartialArea()
+
+    if (is_full_colors) { SPI_WriteCmd(IDMON); }
+    else { SPI_WriteCmd(IDMOFF); }
 }
 
 void ILI9341_setPartialArea(uint16_t rowStart, uint16_t rowEnd) {
