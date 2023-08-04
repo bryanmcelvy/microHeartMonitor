@@ -119,7 +119,7 @@ void LCD_toggleColorDepth(void) {
 *******************************************************************************/
 
 static void LCD_updateNumPixels(void) {
-    lcd.numPixels = ((lcd.x2 - lcd.x1) + 1) 
+    lcd.numPixels = (uint32_t) ((lcd.x2 - lcd.x1) + 1) 
                     * ((lcd.y2 - lcd.y1) + 1);
 }
 
@@ -129,7 +129,7 @@ static void LCD_setDim(uint16_t d1, uint16_t d2, bool is_x, bool update_num_pixe
     // ensure the dim numbers meet the restrictions
     DIM_MAX = (is_x) ? X_MAX : Y_MAX;
     d2 = (d2 < DIM_MAX) ? d2 : (DIM_MAX - 1);
-    lcd.x1 = (d1 <= d2) ? d1 : d2;
+    d1 = (d1 <= d2) ? d1 : d2;
 
     if(is_x) {
         lcd.x1 = d1;
@@ -199,7 +199,7 @@ void LCD_setColor_3bit(uint8_t color_code) {
 
 void LCD_draw(void) {
     ILI9341_writeMemCmd();
-    for (int count = 0; count < lcd.numPixels; count ++) {
+    for (int count = 0; count < lcd.numPixels; count++) {
         ILI9341_write1px(lcd.R_val, lcd.G_val, lcd.B_val, lcd.is_16bit);
     }
 }
