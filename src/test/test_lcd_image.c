@@ -9,19 +9,45 @@
 #include "PLL.h"
 #include "Timer.h"
 
+#include "ILI9341.h"
+
 #include "tm4c123gh6pm.h"
 
 #include <stdint.h>
 #include <stdbool.h>
 
+#define X_OFFSET        (uint16_t) 0
+#define SIZE            (uint16_t) 16
+
+const uint8_t COLOR_ARR[6] = {LCD_RED, LCD_YELLOW, LCD_GREEN, LCD_CYAN, LCD_BLUE, LCD_PURPLE};
+uint8_t color_idx;
+
 int main(void) {
+    uint16_t x, y;
+    
     PLL_Init();
     Timer0A_Init();
     GPIO_PF_LED_Init();
     LCD_Init();
 
-    GPIO_PF_LED_Write(0x04, 1);
+    x = 0; y = 0;
+    color_idx = 0;
+    LCD_setColor_3bit( COLOR_ARR[color_idx] );
+    LCD_toggleOutput();
+    
+    GPIO_PF_LED_Toggle(LED_GREEN);
     while(1) {
-        
+
+        while(Timer0A_isCounting());
+        LCD_drawRectangle(x, y, SIZE, SIZE, true);
+        Timer0A_Start(10);
+
+        x = ( x < (Y_MAX - SIZE - 1) ) ? (x + SIZE) : 0;
+        y = ( y < (Y_MAX - SIZE - 1) ) ? (y + SIZE) : 0;
+
+        if (x == 0) {
+            color_idx = (color_idx < 5) ? (color_idx + 1) : 0;
+            LCD_setColor_3bit( COLOR_ARR[color_idx] );
+        }
     }
 }
