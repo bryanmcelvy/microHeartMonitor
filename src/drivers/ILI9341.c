@@ -42,6 +42,7 @@ Preprocessor Directives
 #define RAMWR       (uint8_t) 0x2C      /// Memory Write
 #define DISPOFF     (uint8_t) 0x28      /// Display OFF
 #define DISPON      (uint8_t) 0x29      /// Display ON
+#define PLTAR       (uint8_t) 0x30      /// Partial Area
 #define VSCRDEF     (uint8_t) 0x33      /// Vertical Scrolling Definition
 #define MADCTL      (uint8_t) 0x36      /// Memory Access Control
 #define VSCRSADD    (uint8_t) 0x37      /// Vertical Scrolling Start Address
@@ -124,14 +125,20 @@ void ILI9341_setDispMode(bool is_normal) {
 }
 
 void ILI9341_setPartialArea(uint16_t rowStart, uint16_t rowEnd) {
-    ///TODO: Implement
+    uint8_t cmd_sequence[4];
 
-    /*
-    cmd_sequence[0] = (uint8_t) ((start_address & 0xFF00) >> 8);
-    cmd_sequence[1] = (uint8_t) (start_address & 0x00FF);
-    cmd_sequence[2] = (uint8_t) ((end_address & 0xFF00) >> 8);
-    cmd_sequence[3] = (uint8_t) (end_address & 0x00FF);
-    */
+    // ensure `rowStart` and `rowEnd` meet restrictions.
+    rowEnd = (rowEnd > 0) ? rowEnd : 1;
+    rowEnd = (rowEnd < NUM_ROWS) ? rowEnd : (NUM_ROWS - 1);
+    rowStart = (rowStart > 0) ? rowStart : 1;
+    rowStart = (rowStart < rowEnd) ? rowStart : rowEnd;
+    
+    // configure and send command sequence
+    cmd_sequence[0] = (uint8_t) ((rowStart & 0xFF00) >> 8);
+    cmd_sequence[1] = (uint8_t) (rowStart & 0x00FF);
+    cmd_sequence[2] = (uint8_t) ((rowEnd & 0xFF00) >> 8);
+    cmd_sequence[3] = (uint8_t) (rowEnd & 0x00FF);
+    SPI_WriteSequence(PLTAR, cmd_sequence, 4);
 }
 
 void ILI9341_setDispInversion(bool is_ON) {
