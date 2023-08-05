@@ -1,10 +1,10 @@
 /**
+ * @addtogroup  spi
+ * @{
+ *
  * @file
  * @author  Bryan McElvy
  * @brief   Driver module for using the serial peripheral interface (SPI) protocol.
- * 
- * @addtogroup  spi
- * @{
  */
 
 #ifndef __SPI_H___

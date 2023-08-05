@@ -4,7 +4,7 @@
  * 
  * @file
  * @author      Bryan McElvy
- * @brief       Driver module for analog-to-digital conversion (ADC)
+ * @brief       Driver module for analog-to-digital conversion (ADC).
  */
 
 #ifndef __ADC_H___

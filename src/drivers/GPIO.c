@@ -1,3 +1,13 @@
+/**
+ * @addtogroup  gpio
+ * @{
+ * 
+ * @file
+ * @author      Bryan McElvy
+ * @brief       Source code for GPIO module.
+ * 
+ */
+
 #include "GPIO.h"
 
 #include "tm4c123gh6pm.h"
@@ -69,3 +79,5 @@ void GPIO_PF_Interrupt_Init(void) {
 	NVIC_PRI7_R &= ~(0xE00000);				// priority 0
 	NVIC_EN0_R |= (1 << 30);				// enable Port F interrupts in NVIC
 }
+
+/** @} */

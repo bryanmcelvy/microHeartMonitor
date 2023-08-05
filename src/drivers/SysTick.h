@@ -1,10 +1,10 @@
 /**
+ * @addtogroup  systick
+ * @{
+ *
  * @file
  * @author      Bryan McElvy
  * @brief       Driver module for using SysTick-based timing and/or interrupts.
- * 
- * @addtogroup  systick
- * @{
  */
 
 #ifndef __SYSTICK_H___

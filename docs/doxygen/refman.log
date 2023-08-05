@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.7.25)  4 AUG 2023 22:59
-=======
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.9.23)  22 JUL 2023 23:17
->>>>>>> doxygen_groups2
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.7.25)  5 AUG 2023 12:35
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -860,33 +856,24 @@ LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 (Font)              scaled to size 8.99994pt on input line 201.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 (Font)              scaled to size 6.29996pt on input line 201.
- [1] [2]
-Package hyperref Info: Option `pageanchor' set `true' on input line 203.
  [1]
+Package hyperref Info: Option `pageanchor' set `true' on input line 203.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 (Font)              scaled to size 12.9599pt on input line 205.
-
-(./modules.tex
+ (./modules.tex
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 (Font)              scaled to size 10.79993pt on input line 1.
-<<<<<<< HEAD
-) (./annotated.tex) (./files.tex [1]
-=======
-) (./annotated.tex) (./files.tex [2]
->>>>>>> doxygen_groups2
+
+[1]) (./annotated.tex) (./files.tex [2]
 LaTeX Font Info:    Trying to load font information for TS1+phv on input line 1
-3.
+2.
 
 (/usr/local/texlive/2023basic/texmf-dist/tex/latex/psnfss/ts1phv.fd
 File: ts1phv.fd 2020/03/25 scalable font definitions for TS1/phv.
 )
 LaTeX Font Info:    Font shape `TS1/phv/b/n' will be
-(Font)              scaled to size 8.99994pt on input line 13.
-<<<<<<< HEAD
- [2])
-=======
+(Font)              scaled to size 8.99994pt on input line 12.
  [3])
->>>>>>> doxygen_groups2
 (./group__driver.tex
 LaTeX Font Info:    Font shape `TS1/phv/m/n' will be
 (Font)              scaled to size 8.99994pt on input line 11.
@@ -897,947 +884,505 @@ LaTeX Font Info:    Font shape `T1/phv/m/it' in size <9> not available
 LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
 (Font)              scaled to size 8.09995pt on input line 12.
 LaTeX Font Info:    Font shape `T1/phv/m/it' in size <7> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 23.
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 14.
 LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
-(Font)              scaled to size 6.29996pt on input line 23.
-<<<<<<< HEAD
- (./group__adc.tex) (./group__gpio.tex [3]
-=======
- (./group__adc.tex) (./group__gpio.tex [4]
->>>>>>> doxygen_groups2
+(Font)              scaled to size 6.29996pt on input line 14.
 LaTeX Font Info:    Font shape `TS1/phv/m/it' in size <9> not available
-(Font)              Font shape `TS1/phv/m/sl' tried instead on input line 12.
+(Font)              Font shape `TS1/phv/m/sl' tried instead on input line 14.
 LaTeX Font Info:    Font shape `TS1/phv/m/sl' will be
-(Font)              scaled to size 8.09995pt on input line 12.
+(Font)              scaled to size 8.09995pt on input line 14.
+ (./group__adc.tex) (./group__gpio.tex [4]
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 7.19995pt on input line 64.
-LaTeX Font Info:    Trying to load font information for T1+pcr on input line 64
+(Font)              scaled to size 7.19995pt on input line 66.
+LaTeX Font Info:    Trying to load font information for T1+pcr on input line 66
 .
 
 (/usr/local/texlive/2023basic/texmf-dist/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
 LaTeX Font Info:    Font shape `T1/pcr/m/it' in size <8> not available
-<<<<<<< HEAD
-(Font)              Font shape `T1/pcr/m/sl' tried instead on input line 64.
- [4] <./group__gpio_ga107800b3932ed507ed6443da6f2d2251_cgraph.pdf>
-<group__gpio_ga107800b3932ed507ed6443da6f2d2251_cgraph.pdf, id=592, 446.66875pt
-=======
-(Font)              Font shape `T1/pcr/m/sl' tried instead on input line 40.
- <./group__gpio_ga107800b3932ed507ed6443da6f2d2251_cgraph.pdf>
-<group__gpio_ga107800b3932ed507ed6443da6f2d2251_cgraph.pdf, id=556, 446.66875pt
->>>>>>> doxygen_groups2
- x 118.4425pt>
-File: group__gpio_ga107800b3932ed507ed6443da6f2d2251_cgraph.pdf Graphic file (t
-ype pdf)
-<use group__gpio_ga107800b3932ed507ed6443da6f2d2251_cgraph.pdf>
-Package pdftex.def Info: group__gpio_ga107800b3932ed507ed6443da6f2d2251_cgraph.
-pdf  used on input line 85.
-(pdftex.def)             Requested size: 350.0pt x 92.81128pt.
-<<<<<<< HEAD
- <./group__gpio_ga9ba33f48f79c2e47d6bf10cde8c040f9_cgraph.pdf>
-<group__gpio_ga9ba33f48f79c2e47d6bf10cde8c040f9_cgraph.pdf, id=600, 297.11pt x 
-=======
- [5] <./group__gpio_ga9ba33f48f79c2e47d6bf10cde8c040f9_cgraph.pdf>
-<group__gpio_ga9ba33f48f79c2e47d6bf10cde8c040f9_cgraph.pdf, id=582, 297.11pt x 
->>>>>>> doxygen_groups2
-99.37125pt>
-File: group__gpio_ga9ba33f48f79c2e47d6bf10cde8c040f9_cgraph.pdf Graphic file (t
-ype pdf)
-<use group__gpio_ga9ba33f48f79c2e47d6bf10cde8c040f9_cgraph.pdf>
-Package pdftex.def Info: group__gpio_ga9ba33f48f79c2e47d6bf10cde8c040f9_cgraph.
-pdf  used on input line 103.
-(pdftex.def)             Requested size: 296.0pt x 99.00406pt.
+(Font)              Font shape `T1/pcr/m/sl' tried instead on input line 66.
+ <./group__gpio_ga8464f7dda07b28e5447b2a4d58975bab_icgraph.pdf>
+<group__gpio_ga8464f7dda07b28e5447b2a4d58975bab_icgraph.pdf, id=542, 452.69125p
+t x 150.5625pt>
+File: group__gpio_ga8464f7dda07b28e5447b2a4d58975bab_icgraph.pdf Graphic file (
+type pdf)
+<use group__gpio_ga8464f7dda07b28e5447b2a4d58975bab_icgraph.pdf>
+Package pdftex.def Info: group__gpio_ga8464f7dda07b28e5447b2a4d58975bab_icgraph
+.pdf  used on input line 77.
+(pdftex.def)             Requested size: 350.0pt x 116.40672pt.
+ [5]
 LaTeX Font Info:    Font shape `T1/pcr/m/it' in size <7> not available
-<<<<<<< HEAD
-(Font)              Font shape `T1/pcr/m/sl' tried instead on input line 110.
- [5] <./group__gpio_gab0d2cf11561dc380096f1d2c5c6846a8_cgraph.pdf>
-<group__gpio_gab0d2cf11561dc380096f1d2c5c6846a8_cgraph.pdf, id=623, 292.09125pt
-=======
-(Font)              Font shape `T1/pcr/m/sl' tried instead on input line 86.
- [6] <./group__gpio_gab0d2cf11561dc380096f1d2c5c6846a8_cgraph.pdf>
-<group__gpio_gab0d2cf11561dc380096f1d2c5c6846a8_cgraph.pdf, id=603, 292.09125pt
->>>>>>> doxygen_groups2
- x 99.37125pt>
-File: group__gpio_gab0d2cf11561dc380096f1d2c5c6846a8_cgraph.pdf Graphic file (t
-ype pdf)
-<use group__gpio_gab0d2cf11561dc380096f1d2c5c6846a8_cgraph.pdf>
-Package pdftex.def Info: group__gpio_gab0d2cf11561dc380096f1d2c5c6846a8_cgraph.
-pdf  used on input line 153.
-(pdftex.def)             Requested size: 291.0pt x 99.0086pt.
-<<<<<<< HEAD
-) (./group__lcd.tex [6]
+(Font)              Font shape `T1/pcr/m/sl' tried instead on input line 104.
+ [6] <./group__gpio_gab0d2cf11561dc380096f1d2c5c6846a8_icgraph.pdf>
+<group__gpio_gab0d2cf11561dc380096f1d2c5c6846a8_icgraph.pdf, id=588, 333.245pt 
+x 99.37125pt>
+File: group__gpio_gab0d2cf11561dc380096f1d2c5c6846a8_icgraph.pdf Graphic file (
+type pdf)
+<use group__gpio_gab0d2cf11561dc380096f1d2c5c6846a8_icgraph.pdf>
+Package pdftex.def Info: group__gpio_gab0d2cf11561dc380096f1d2c5c6846a8_icgraph
+.pdf  used on input line 147.
+(pdftex.def)             Requested size: 332.0pt x 99.00708pt.
+) (./group__ili9341.tex [7]
 LaTeX Font Info:    Font shape `T1/pcr/m/it' in size <9> not available
-(Font)              Font shape `T1/pcr/m/sl' tried instead on input line 40.
- [7] <./group__lcd_gae3189956bff2c38d86483ab842950d92_cgraph.pdf>
-<group__lcd_gae3189956bff2c38d86483ab842950d92_cgraph.pdf, id=692, 450.68375pt 
-x 136.51pt>
-File: group__lcd_gae3189956bff2c38d86483ab842950d92_cgraph.pdf Graphic file (ty
-pe pdf)
-<use group__lcd_gae3189956bff2c38d86483ab842950d92_cgraph.pdf>
-Package pdftex.def Info: group__lcd_gae3189956bff2c38d86483ab842950d92_cgraph.p
-df  used on input line 92.
-(pdftex.def)             Requested size: 350.0pt x 106.0191pt.
- <./group__lcd_gae71e69626502ee0c07b61fbd5efd67d1_cgraph.pdf>
-<group__lcd_gae71e69626502ee0c07b61fbd5efd67d1_cgraph.pdf, id=700, 447.6725pt x
- 154.5775pt>
-File: group__lcd_gae71e69626502ee0c07b61fbd5efd67d1_cgraph.pdf Graphic file (ty
-pe pdf)
-<use group__lcd_gae71e69626502ee0c07b61fbd5efd67d1_cgraph.pdf>
-Package pdftex.def Info: group__lcd_gae71e69626502ee0c07b61fbd5efd67d1_cgraph.p
-df  used on input line 110.
-(pdftex.def)             Requested size: 350.0pt x 120.85535pt.
- [8] <./group__lcd_ga82fb489f3098763b37429eb0cec02d32_cgraph.pdf>
-<group__lcd_ga82fb489f3098763b37429eb0cec02d32_cgraph.pdf, id=719, 315.1775pt x
- 136.51pt>
-File: group__lcd_ga82fb489f3098763b37429eb0cec02d32_cgraph.pdf Graphic file (ty
-pe pdf)
-<use group__lcd_ga82fb489f3098763b37429eb0cec02d32_cgraph.pdf>
-Package pdftex.def Info: group__lcd_ga82fb489f3098763b37429eb0cec02d32_cgraph.p
-df  used on input line 163.
-(pdftex.def)             Requested size: 314.0pt x 136.00766pt.
- [9] <./group__lcd_ga954ce368c8f02029765526290f01190a_cgraph.pdf>
-<group__lcd_ga954ce368c8f02029765526290f01190a_cgraph.pdf, id=736, 325.215pt x 
-99.37125pt>
-File: group__lcd_ga954ce368c8f02029765526290f01190a_cgraph.pdf Graphic file (ty
-pe pdf)
-<use group__lcd_ga954ce368c8f02029765526290f01190a_cgraph.pdf>
-Package pdftex.def Info: group__lcd_ga954ce368c8f02029765526290f01190a_cgraph.p
-df  used on input line 186.
-(pdftex.def)             Requested size: 324.0pt x 99.00708pt.
- [10] <./group__lcd_ga6730f816d69beb8a4dd59d1ee2e28de5_cgraph.pdf>
-<group__lcd_ga6730f816d69beb8a4dd59d1ee2e28de5_cgraph.pdf, id=756, 310.15875pt 
-x 99.37125pt>
-File: group__lcd_ga6730f816d69beb8a4dd59d1ee2e28de5_cgraph.pdf Graphic file (ty
-pe pdf)
-<use group__lcd_ga6730f816d69beb8a4dd59d1ee2e28de5_cgraph.pdf>
-Package pdftex.def Info: group__lcd_ga6730f816d69beb8a4dd59d1ee2e28de5_cgraph.p
-df  used on input line 218.
+(Font)              Font shape `T1/pcr/m/sl' tried instead on input line 110.
+ [8] <./group__ili9341_gae3189956bff2c38d86483ab842950d92_icgraph.pdf>
+<group__ili9341_gae3189956bff2c38d86483ab842950d92_icgraph.pdf, id=671, 371.387
+5pt x 99.37125pt>
+File: group__ili9341_gae3189956bff2c38d86483ab842950d92_icgraph.pdf Graphic fil
+e (type pdf)
+<use group__ili9341_gae3189956bff2c38d86483ab842950d92_icgraph.pdf>
+Package pdftex.def Info: group__ili9341_gae3189956bff2c38d86483ab842950d92_icgr
+aph.pdf  used on input line 161.
+(pdftex.def)             Requested size: 350.0pt x 93.65007pt.
+ [9] [10] <./group__ili9341_ga82fb489f3098763b37429eb0cec02d32_icgraph.pdf>
+<group__ili9341_ga82fb489f3098763b37429eb0cec02d32_icgraph.pdf, id=707, 351.312
+5pt x 136.51pt>
+File: group__ili9341_ga82fb489f3098763b37429eb0cec02d32_icgraph.pdf Graphic fil
+e (type pdf)
+<use group__ili9341_ga82fb489f3098763b37429eb0cec02d32_icgraph.pdf>
+Package pdftex.def Info: group__ili9341_ga82fb489f3098763b37429eb0cec02d32_icgr
+aph.pdf  used on input line 224.
+(pdftex.def)             Requested size: 350.0pt x 136.00974pt.
+ <./group__ili9341_ga954ce368c8f02029765526290f01190a_icgraph.pdf>
+<group__ili9341_ga954ce368c8f02029765526290f01190a_icgraph.pdf, id=715, 352.316
+25pt x 99.37125pt>
+File: group__ili9341_ga954ce368c8f02029765526290f01190a_icgraph.pdf Graphic fil
+e (type pdf)
+<use group__ili9341_ga954ce368c8f02029765526290f01190a_icgraph.pdf>
+Package pdftex.def Info: group__ili9341_ga954ce368c8f02029765526290f01190a_icgr
+aph.pdf  used on input line 247.
+(pdftex.def)             Requested size: 350.0pt x 98.71748pt.
+ [11] <./group__ili9341_ga6730f816d69beb8a4dd59d1ee2e28de5_icgraph.pdf>
+<group__ili9341_ga6730f816d69beb8a4dd59d1ee2e28de5_icgraph.pdf, id=736, 283.057
+5pt x 99.37125pt>
+File: group__ili9341_ga6730f816d69beb8a4dd59d1ee2e28de5_icgraph.pdf Graphic fil
+e (type pdf)
+<use group__ili9341_ga6730f816d69beb8a4dd59d1ee2e28de5_icgraph.pdf>
+Package pdftex.def Info: group__ili9341_ga6730f816d69beb8a4dd59d1ee2e28de5_icgr
+aph.pdf  used on input line 279.
+(pdftex.def)             Requested size: 282.0pt x 99.0086pt.
+ <./group__ili9341_ga92927c1b63042452a3d566b5e761acae_icgraph.pdf>
+<group__ili9341_ga92927c1b63042452a3d566b5e761acae_icgraph.pdf, id=744, 331.237
+5pt x 99.37125pt>
+File: group__ili9341_ga92927c1b63042452a3d566b5e761acae_icgraph.pdf Graphic fil
+e (type pdf)
+<use group__ili9341_ga92927c1b63042452a3d566b5e761acae_icgraph.pdf>
+Package pdftex.def Info: group__ili9341_ga92927c1b63042452a3d566b5e761acae_icgr
+aph.pdf  used on input line 302.
+(pdftex.def)             Requested size: 330.0pt x 99.00406pt.
+ [12] <./group__ili9341_ga96d94a4a6d65157a22f3663edd006863_icgraph.pdf>
+<group__ili9341_ga96d94a4a6d65157a22f3663edd006863_icgraph.pdf, id=763, 380.421
+25pt x 99.37125pt>
+File: group__ili9341_ga96d94a4a6d65157a22f3663edd006863_icgraph.pdf Graphic fil
+e (type pdf)
+<use group__ili9341_ga96d94a4a6d65157a22f3663edd006863_icgraph.pdf>
+Package pdftex.def Info: group__ili9341_ga96d94a4a6d65157a22f3663edd006863_icgr
+aph.pdf  used on input line 356.
+(pdftex.def)             Requested size: 350.0pt x 91.4272pt.
+ [13] <./group__ili9341_gaafde0bbd9f2a2503fa52d06c9324eb8a_icgraph.pdf>
+<group__ili9341_gaafde0bbd9f2a2503fa52d06c9324eb8a_icgraph.pdf, id=781, 310.158
+75pt x 99.37125pt>
+File: group__ili9341_gaafde0bbd9f2a2503fa52d06c9324eb8a_icgraph.pdf Graphic fil
+e (type pdf)
+<use group__ili9341_gaafde0bbd9f2a2503fa52d06c9324eb8a_icgraph.pdf>
+Package pdftex.def Info: group__ili9341_gaafde0bbd9f2a2503fa52d06c9324eb8a_icgr
+aph.pdf  used on input line 410.
 (pdftex.def)             Requested size: 309.0pt x 98.99951pt.
- <./group__lcd_ga92927c1b63042452a3d566b5e761acae_cgraph.pdf>
-<group__lcd_ga92927c1b63042452a3d566b5e761acae_cgraph.pdf, id=764, 315.1775pt x
- 99.37125pt>
-File: group__lcd_ga92927c1b63042452a3d566b5e761acae_cgraph.pdf Graphic file (ty
-pe pdf)
-<use group__lcd_ga92927c1b63042452a3d566b5e761acae_cgraph.pdf>
-Package pdftex.def Info: group__lcd_ga92927c1b63042452a3d566b5e761acae_cgraph.p
-df  used on input line 241.
-(pdftex.def)             Requested size: 314.0pt x 99.00557pt.
- [11] <./group__lcd_ga96d94a4a6d65157a22f3663edd006863_cgraph.pdf>
-<group__lcd_ga96d94a4a6d65157a22f3663edd006863_cgraph.pdf, id=783, 443.6575pt x
- 136.51pt>
-File: group__lcd_ga96d94a4a6d65157a22f3663edd006863_cgraph.pdf Graphic file (ty
-pe pdf)
-<use group__lcd_ga96d94a4a6d65157a22f3663edd006863_cgraph.pdf>
-Package pdftex.def Info: group__lcd_ga96d94a4a6d65157a22f3663edd006863_cgraph.p
-df  used on input line 295.
-(pdftex.def)             Requested size: 350.0pt x 107.69173pt.
- [12] <./group__lcd_gaafde0bbd9f2a2503fa52d06c9324eb8a_cgraph.pdf>
-<group__lcd_gaafde0bbd9f2a2503fa52d06c9324eb8a_cgraph.pdf, id=801, 336.25626pt 
-x 136.51pt>
-File: group__lcd_gaafde0bbd9f2a2503fa52d06c9324eb8a_cgraph.pdf Graphic file (ty
-pe pdf)
-<use group__lcd_gaafde0bbd9f2a2503fa52d06c9324eb8a_cgraph.pdf>
-Package pdftex.def Info: group__lcd_gaafde0bbd9f2a2503fa52d06c9324eb8a_cgraph.p
-df  used on input line 349.
-(pdftex.def)             Requested size: 335.0pt x 136.0014pt.
- <./group__lcd_ga0ead1f4b48ee42b8fcef2191b32f6ee4_cgraph.pdf>
-<group__lcd_ga0ead1f4b48ee42b8fcef2191b32f6ee4_cgraph.pdf, id=809, 453.695pt x 
-136.51pt>
-File: group__lcd_ga0ead1f4b48ee42b8fcef2191b32f6ee4_cgraph.pdf Graphic file (ty
-pe pdf)
-<use group__lcd_ga0ead1f4b48ee42b8fcef2191b32f6ee4_cgraph.pdf>
-Package pdftex.def Info: group__lcd_ga0ead1f4b48ee42b8fcef2191b32f6ee4_cgraph.p
-df  used on input line 374.
-(pdftex.def)             Requested size: 350.0pt x 105.3109pt.
- [13] <./group__lcd_gaac8c04d6c5fa3fc07042c8eec8b1f252_cgraph.pdf>
-<group__lcd_gaac8c04d6c5fa3fc07042c8eec8b1f252_cgraph.pdf, id=827, 450.68375pt 
-x 136.51pt>
-File: group__lcd_gaac8c04d6c5fa3fc07042c8eec8b1f252_cgraph.pdf Graphic file (ty
-pe pdf)
-<use group__lcd_gaac8c04d6c5fa3fc07042c8eec8b1f252_cgraph.pdf>
-Package pdftex.def Info: group__lcd_gaac8c04d6c5fa3fc07042c8eec8b1f252_cgraph.p
-df  used on input line 421.
-(pdftex.def)             Requested size: 350.0pt x 106.0191pt.
- [14] <./group__lcd_ga2d612ded517b341db82016debca9ae12_cgraph.pdf>
-<group__lcd_ga2d612ded517b341db82016debca9ae12_cgraph.pdf, id=845, 451.6875pt x
- 136.51pt>
-File: group__lcd_ga2d612ded517b341db82016debca9ae12_cgraph.pdf Graphic file (ty
-pe pdf)
-<use group__lcd_ga2d612ded517b341db82016debca9ae12_cgraph.pdf>
-Package pdftex.def Info: group__lcd_ga2d612ded517b341db82016debca9ae12_cgraph.p
-df  used on input line 444.
-(pdftex.def)             Requested size: 350.0pt x 105.78374pt.
- <./group__lcd_gaa7c7d9e21a411344d89dad6978ee0be2_cgraph.pdf>
-<group__lcd_gaa7c7d9e21a411344d89dad6978ee0be2_cgraph.pdf, id=853, 470.75874pt 
-x 154.5775pt>
-File: group__lcd_gaa7c7d9e21a411344d89dad6978ee0be2_cgraph.pdf Graphic file (ty
-pe pdf)
-<use group__lcd_gaa7c7d9e21a411344d89dad6978ee0be2_cgraph.pdf>
-Package pdftex.def Info: group__lcd_gaa7c7d9e21a411344d89dad6978ee0be2_cgraph.p
-df  used on input line 469.
-(pdftex.def)             Requested size: 350.0pt x 114.92567pt.
- [15]
-Overfull \vbox (5.47pt too high) has occurred while \output is active []
 
- [16] <./group__lcd_gadcd7b4954b7c477988b936d3d8ba5326_cgraph.pdf>
-<group__lcd_gadcd7b4954b7c477988b936d3d8ba5326_cgraph.pdf, id=887, 428.60126pt 
-x 136.51pt>
-File: group__lcd_gadcd7b4954b7c477988b936d3d8ba5326_cgraph.pdf Graphic file (ty
-pe pdf)
-<use group__lcd_gadcd7b4954b7c477988b936d3d8ba5326_cgraph.pdf>
-Package pdftex.def Info: group__lcd_gadcd7b4954b7c477988b936d3d8ba5326_cgraph.p
-df  used on input line 534.
-(pdftex.def)             Requested size: 350.0pt x 111.47649pt.
- <./group__lcd_gabdc8507774e954a61b47ffd21430a1ef_cgraph.pdf>
-<group__lcd_gabdc8507774e954a61b47ffd21430a1ef_cgraph.pdf, id=898, 316.18124pt 
-x 99.37125pt>
-File: group__lcd_gabdc8507774e954a61b47ffd21430a1ef_cgraph.pdf Graphic file (ty
-pe pdf)
-<use group__lcd_gabdc8507774e954a61b47ffd21430a1ef_cgraph.pdf>
-Package pdftex.def Info: group__lcd_gabdc8507774e954a61b47ffd21430a1ef_cgraph.p
-df  used on input line 552.
-(pdftex.def)             Requested size: 315.0pt x 99.00708pt.
+Overfull \vbox (16.57408pt too high) has occurred while \output is active []
 
-Overfull \hbox (66.69417pt too wide) in paragraph at lines 547--554
+
+[14] [15] <./group__ili9341_gaa7c7d9e21a411344d89dad6978ee0be2_icgraph.pdf>
+<group__ili9341_gaa7c7d9e21a411344d89dad6978ee0be2_icgraph.pdf, id=809, 288.076
+25pt x 99.37125pt>
+File: group__ili9341_gaa7c7d9e21a411344d89dad6978ee0be2_icgraph.pdf Graphic fil
+e (type pdf)
+<use group__ili9341_gaa7c7d9e21a411344d89dad6978ee0be2_icgraph.pdf>
+Package pdftex.def Info: group__ili9341_gaa7c7d9e21a411344d89dad6978ee0be2_icgr
+aph.pdf  used on input line 506.
+(pdftex.def)             Requested size: 287.0pt x 99.00406pt.
+
+[16] <./group__ili9341_gadcd7b4954b7c477988b936d3d8ba5326_icgraph.pdf>
+<group__ili9341_gadcd7b4954b7c477988b936d3d8ba5326_icgraph.pdf, id=830, 550.055
+pt x 154.5775pt>
+File: group__ili9341_gadcd7b4954b7c477988b936d3d8ba5326_icgraph.pdf Graphic fil
+e (type pdf)
+<use group__ili9341_gadcd7b4954b7c477988b936d3d8ba5326_icgraph.pdf>
+Package pdftex.def Info: group__ili9341_gadcd7b4954b7c477988b936d3d8ba5326_icgr
+aph.pdf  used on input line 571.
+(pdftex.def)             Requested size: 350.0pt x 98.36081pt.
+ <./group__ili9341_gabdc8507774e954a61b47ffd21430a1ef_icgraph.pdf>
+<group__ili9341_gabdc8507774e954a61b47ffd21430a1ef_icgraph.pdf, id=848, 577.156
+25pt x 154.5775pt>
+File: group__ili9341_gabdc8507774e954a61b47ffd21430a1ef_icgraph.pdf Graphic fil
+e (type pdf)
+<use group__ili9341_gabdc8507774e954a61b47ffd21430a1ef_icgraph.pdf>
+Package pdftex.def Info: group__ili9341_gabdc8507774e954a61b47ffd21430a1ef_icgr
+aph.pdf  used on input line 589.
+(pdftex.def)             Requested size: 350.0pt x 93.74255pt.
+
+Overfull \hbox (66.69417pt too wide) in paragraph at lines 584--591
 []\T1/phv/m/n/10 Should be called af-ter set-ting the row ([]) and/or and/or co
 l-umn ([])
  []
 
-) (./group__pll.tex) (./group__spi.tex [17] [18]
-Underfull \hbox (badness 10000) detected at line 74
-[][][]
- []
-
-[19] <./group__spi_ga7c47fbe56513c893a8f12361430917b1_cgraph.pdf>
-<group__spi_ga7c47fbe56513c893a8f12361430917b1_cgraph.pdf, id=950, 302.12875pt 
-x 136.51pt>
-File: group__spi_ga7c47fbe56513c893a8f12361430917b1_cgraph.pdf Graphic file (ty
-pe pdf)
-<use group__spi_ga7c47fbe56513c893a8f12361430917b1_cgraph.pdf>
-Package pdftex.def Info: group__spi_ga7c47fbe56513c893a8f12361430917b1_cgraph.p
-df  used on input line 131.
-(pdftex.def)             Requested size: 301.0pt x 135.99933pt.
-)
-(./group__systick.tex [20]) (./group__timer.tex [21]
-Underfull \hbox (badness 10000) detected at line 62
-[][][]
- []
-
- <./group__timer_gad4343e2be665620f4f7e59c1c823c2cd_cgraph.pdf>
-<group__timer_gad4343e2be665620f4f7e59c1c823c2cd_cgraph.pdf, id=1003, 318.18875
-pt x 136.51pt>
-=======
-) (./group__ili9341.tex) (./group__pll.tex [7])
-(./group__spi.tex) (./group__systick.tex [8]) (./group__timer.tex [9]
-Underfull \hbox (badness 10000) detected at line 56
-[][][]
- []
-
- <./group__timer_gad4343e2be665620f4f7e59c1c823c2cd_cgraph.pdf>
-<group__timer_gad4343e2be665620f4f7e59c1c823c2cd_cgraph.pdf, id=668, 318.18875p
-t x 136.51pt>
->>>>>>> doxygen_groups2
-File: group__timer_gad4343e2be665620f4f7e59c1c823c2cd_cgraph.pdf Graphic file (
-type pdf)
-<use group__timer_gad4343e2be665620f4f7e59c1c823c2cd_cgraph.pdf>
-Package pdftex.def Info: group__timer_gad4343e2be665620f4f7e59c1c823c2cd_cgraph
-<<<<<<< HEAD
-.pdf  used on input line 100.
-(pdftex.def)             Requested size: 317.0pt x 135.99933pt.
- [22]
-Underfull \hbox (badness 10000) detected at line 123
-[][][]
- []
-
-[23] <./group__timer_gaaf2dacdf31e995dfe9311646f1d7c1a4_cgraph.pdf>
-<group__timer_gaaf2dacdf31e995dfe9311646f1d7c1a4_cgraph.pdf, id=1034, 318.18875
-pt x 136.51pt>
-File: group__timer_gaaf2dacdf31e995dfe9311646f1d7c1a4_cgraph.pdf Graphic file (
-type pdf)
-<use group__timer_gaaf2dacdf31e995dfe9311646f1d7c1a4_cgraph.pdf>
-Package pdftex.def Info: group__timer_gaaf2dacdf31e995dfe9311646f1d7c1a4_cgraph
-.pdf  used on input line 161.
-(pdftex.def)             Requested size: 317.0pt x 135.99933pt.
-)
-(./group__uart.tex [24]
-Underfull \hbox (badness 10000) detected at line 61
-[][][]
- []
-
-[25] [26] <./group__uart_gae6e8fe840f122d50b50302db8439e0f1_cgraph.pdf>
-<group__uart_gae6e8fe840f122d50b50302db8439e0f1_cgraph.pdf, id=1084, 304.13625p
-t x 99.37125pt>
-=======
-.pdf  used on input line 94.
-(pdftex.def)             Requested size: 317.0pt x 135.99933pt.
- [10])
-(./group__uart.tex [11]
-Underfull \hbox (badness 10000) detected at line 53
-[][][]
- []
-
- <./group__uart_gae6e8fe840f122d50b50302db8439e0f1_cgraph.pdf>
-<group__uart_gae6e8fe840f122d50b50302db8439e0f1_cgraph.pdf, id=710, 304.13625pt
+) (./group__pll.tex [17]) (./group__spi.tex [18] <./group__spi_ga292196e767158c
+66f03cbcc244fc802b_icgraph.pdf>
+<group__spi_ga292196e767158c66f03cbcc244fc802b_icgraph.pdf, id=903, 326.21875pt
  x 99.37125pt>
->>>>>>> doxygen_groups2
-File: group__uart_gae6e8fe840f122d50b50302db8439e0f1_cgraph.pdf Graphic file (t
+File: group__spi_ga292196e767158c66f03cbcc244fc802b_icgraph.pdf Graphic file (t
 ype pdf)
-<use group__uart_gae6e8fe840f122d50b50302db8439e0f1_cgraph.pdf>
-Package pdftex.def Info: group__uart_gae6e8fe840f122d50b50302db8439e0f1_cgraph.
-pdf  used on input line 99.
-(pdftex.def)             Requested size: 303.0pt x 99.00253pt.
+<use group__spi_ga292196e767158c66f03cbcc244fc802b_icgraph.pdf>
+Package pdftex.def Info: group__spi_ga292196e767158c66f03cbcc244fc802b_icgraph.
+pdf  used on input line 76.
+(pdftex.def)             Requested size: 325.0pt x 99.0086pt.
 
-Underfull \hbox (badness 10000) detected at line 128
+Underfull \hbox (badness 10000) detected at line 89
 [][][]
  []
 
-[27] <./group__uart_gaf303675d70178c93bc5dea8b6d7036c3_cgraph.pdf>
-<group__uart_gaf303675d70178c93bc5dea8b6d7036c3_cgraph.pdf, id=1103, 304.13625p
-t x 99.37125pt>
-File: group__uart_gaf303675d70178c93bc5dea8b6d7036c3_cgraph.pdf Graphic file (t
+[19] <./group__spi_ga4af5374bd5bd835b362adca35fab1217_icgraph.pdf>
+<group__spi_ga4af5374bd5bd835b362adca35fab1217_icgraph.pdf, id=924, 897.3525pt 
+x 586.19pt>
+File: group__spi_ga4af5374bd5bd835b362adca35fab1217_icgraph.pdf Graphic file (t
 ype pdf)
-<use group__uart_gaf303675d70178c93bc5dea8b6d7036c3_cgraph.pdf>
-Package pdftex.def Info: group__uart_gaf303675d70178c93bc5dea8b6d7036c3_cgraph.
-pdf  used on input line 166.
+<use group__spi_ga4af5374bd5bd835b362adca35fab1217_icgraph.pdf>
+Package pdftex.def Info: group__spi_ga4af5374bd5bd835b362adca35fab1217_icgraph.
+pdf  used on input line 112.
+(pdftex.def)             Requested size: 350.0pt x 228.63106pt.
+ <./group__spi_gab05978905b571422f5d88afef9727241_icgraph.pdf>
+<group__spi_gab05978905b571422f5d88afef9727241_icgraph.pdf, id=939, 879.285pt x
+ 347.2975pt>
+File: group__spi_gab05978905b571422f5d88afef9727241_icgraph.pdf Graphic file (t
+ype pdf)
+<use group__spi_gab05978905b571422f5d88afef9727241_icgraph.pdf>
+Package pdftex.def Info: group__spi_gab05978905b571422f5d88afef9727241_icgraph.
+pdf  used on input line 135.
+(pdftex.def)             Requested size: 350.0pt x 138.23822pt.
+ [20] <./group__spi_ga7c47fbe56513c893a8f12361430917b1_icgraph.pdf>
+<group__spi_ga7c47fbe56513c893a8f12361430917b1_icgraph.pdf, id=964, 715.67375pt
+ x 247.92625pt>
+File: group__spi_ga7c47fbe56513c893a8f12361430917b1_icgraph.pdf Graphic file (t
+ype pdf)
+<use group__spi_ga7c47fbe56513c893a8f12361430917b1_icgraph.pdf>
+Package pdftex.def Info: group__spi_ga7c47fbe56513c893a8f12361430917b1_icgraph.
+pdf  used on input line 162.
+(pdftex.def)             Requested size: 350.0pt x 121.25037pt.
+) (./group__systick.tex [21])
+(./group__timer.tex [22]
+Underfull \hbox (badness 10000) detected at line 64
+[][][]
+ []
+
+ <./group__timer_ga066b05a60ebf248eac0f2ccd64810584_icgraph.pdf>
+<group__timer_ga066b05a60ebf248eac0f2ccd64810584_icgraph.pdf, id=1019, 318.1887
+5pt x 99.37125pt>
+File: group__timer_ga066b05a60ebf248eac0f2ccd64810584_icgraph.pdf Graphic file 
+(type pdf)
+<use group__timer_ga066b05a60ebf248eac0f2ccd64810584_icgraph.pdf>
+Package pdftex.def Info: group__timer_ga066b05a60ebf248eac0f2ccd64810584_icgrap
+h.pdf  used on input line 72.
+(pdftex.def)             Requested size: 317.0pt x 98.99951pt.
+ [23] <./group__timer_ga3c8af05821c04b557e4ae782e2051f1f_icgraph.pdf>
+<group__timer_ga3c8af05821c04b557e4ae782e2051f1f_icgraph.pdf, id=1046, 292.0912
+5pt x 99.37125pt>
+File: group__timer_ga3c8af05821c04b557e4ae782e2051f1f_icgraph.pdf Graphic file 
+(type pdf)
+<use group__timer_ga3c8af05821c04b557e4ae782e2051f1f_icgraph.pdf>
+Package pdftex.def Info: group__timer_ga3c8af05821c04b557e4ae782e2051f1f_icgrap
+h.pdf  used on input line 95.
+(pdftex.def)             Requested size: 291.0pt x 99.0086pt.
+ [24] [25] <./group__timer_gac2f9f902f3e29b50083689098614e224_icgraph.pdf>
+<group__timer_gac2f9f902f3e29b50083689098614e224_icgraph.pdf, id=1069, 347.2975
+pt x 99.37125pt>
+File: group__timer_gac2f9f902f3e29b50083689098614e224_icgraph.pdf Graphic file 
+(type pdf)
+<use group__timer_gac2f9f902f3e29b50083689098614e224_icgraph.pdf>
+Package pdftex.def Info: group__timer_gac2f9f902f3e29b50083689098614e224_icgrap
+h.pdf  used on input line 143.
+(pdftex.def)             Requested size: 346.0pt x 99.00406pt.
+
+Underfull \hbox (badness 10000) detected at line 156
+[][][]
+ []
+
+ <./group__timer_gaa7cb3bb5a13e5f732c07f6971f917916_icgraph.pdf>
+<group__timer_gaa7cb3bb5a13e5f732c07f6971f917916_icgraph.pdf, id=1077, 694.595p
+t x 155.58125pt>
+File: group__timer_gaa7cb3bb5a13e5f732c07f6971f917916_icgraph.pdf Graphic file 
+(type pdf)
+<use group__timer_gaa7cb3bb5a13e5f732c07f6971f917916_icgraph.pdf>
+Package pdftex.def Info: group__timer_gaa7cb3bb5a13e5f732c07f6971f917916_icgrap
+h.pdf  used on input line 164.
+(pdftex.def)             Requested size: 350.0pt x 78.39816pt.
+ [26] <./group__timer_ga431cf27c5a62eedb779ab88c2488f661_icgraph.pdf>
+<group__timer_ga431cf27c5a62eedb779ab88c2488f661_icgraph.pdf, id=1097, 668.4975
+pt x 155.58125pt>
+File: group__timer_ga431cf27c5a62eedb779ab88c2488f661_icgraph.pdf Graphic file 
+(type pdf)
+<use group__timer_ga431cf27c5a62eedb779ab88c2488f661_icgraph.pdf>
+Package pdftex.def Info: group__timer_ga431cf27c5a62eedb779ab88c2488f661_icgrap
+h.pdf  used on input line 187.
+(pdftex.def)             Requested size: 350.0pt x 81.4582pt.
+ <./group__timer_gaaf2dacdf31e995dfe9311646f1d7c1a4_icgraph.pdf>
+<group__timer_gaaf2dacdf31e995dfe9311646f1d7c1a4_icgraph.pdf, id=1106, 553.0662
+5pt x 155.58125pt>
+File: group__timer_gaaf2dacdf31e995dfe9311646f1d7c1a4_icgraph.pdf Graphic file 
+(type pdf)
+<use group__timer_gaaf2dacdf31e995dfe9311646f1d7c1a4_icgraph.pdf>
+Package pdftex.def Info: group__timer_gaaf2dacdf31e995dfe9311646f1d7c1a4_icgrap
+h.pdf  used on input line 210.
+(pdftex.def)             Requested size: 350.0pt x 98.45587pt.
+) (./group__uart.tex [27]
+Underfull \hbox (badness 10000) detected at line 68
+[][][]
+ []
+
+[28] <./group__uart_ga29a1bec42b8d7e1147999e5f82c47a75_icgraph.pdf>
+<group__uart_ga29a1bec42b8d7e1147999e5f82c47a75_icgraph.pdf, id=1152, 304.13625
+pt x 99.37125pt>
+File: group__uart_ga29a1bec42b8d7e1147999e5f82c47a75_icgraph.pdf Graphic file (
+type pdf)
+<use group__uart_ga29a1bec42b8d7e1147999e5f82c47a75_icgraph.pdf>
+Package pdftex.def Info: group__uart_ga29a1bec42b8d7e1147999e5f82c47a75_icgraph
+.pdf  used on input line 91.
 (pdftex.def)             Requested size: 303.0pt x 99.00253pt.
-))
-<<<<<<< HEAD
-(./group__app.tex) (./group__thread.tex [28]) (./struct_f_i_f_o__buffer.tex
-[29]) (./struct_l_c_d__t.tex) (./_debug_8h.tex <./_debug_8h__incl.pdf>
-<_debug_8h__incl.pdf, id=1145, 177.66376pt x 210.7875pt>
+ [29]
+Underfull \hbox (badness 10000) detected at line 135
+[][][]
+ []
+
+ <./group__uart_ga8bafa567d8326f32337fda388d8430a0_icgraph.pdf>
+<group__uart_ga8bafa567d8326f32337fda388d8430a0_icgraph.pdf, id=1173, 304.13625
+pt x 99.37125pt>
+File: group__uart_ga8bafa567d8326f32337fda388d8430a0_icgraph.pdf Graphic file (
+type pdf)
+<use group__uart_ga8bafa567d8326f32337fda388d8430a0_icgraph.pdf>
+Package pdftex.def Info: group__uart_ga8bafa567d8326f32337fda388d8430a0_icgraph
+.pdf  used on input line 158.
+(pdftex.def)             Requested size: 303.0pt x 99.00253pt.
+ [30]))
+(./group__app.tex (./group__debug.tex) (./group__filt.tex [31])
+(./group__lcd.tex [32] <./group__lcd_gac468a09503eb9e737f7be9164b17d6a2_icgraph
+.pdf>
+<group__lcd_gac468a09503eb9e737f7be9164b17d6a2_icgraph.pdf, id=1251, 377.41pt x
+ 136.51pt>
+File: group__lcd_gac468a09503eb9e737f7be9164b17d6a2_icgraph.pdf Graphic file (t
+ype pdf)
+<use group__lcd_gac468a09503eb9e737f7be9164b17d6a2_icgraph.pdf>
+Package pdftex.def Info: group__lcd_gac468a09503eb9e737f7be9164b17d6a2_icgraph.
+pdf  used on input line 112.
+(pdftex.def)             Requested size: 350.0pt x 126.59471pt.
+ [33] [34] [35] <./group__lcd_ga0928c893230d575f898694261c1aee24_icgraph.pdf>
+<group__lcd_ga0928c893230d575f898694261c1aee24_icgraph.pdf, id=1311, 392.46625p
+t x 173.64874pt>
+File: group__lcd_ga0928c893230d575f898694261c1aee24_icgraph.pdf Graphic file (t
+ype pdf)
+<use group__lcd_ga0928c893230d575f898694261c1aee24_icgraph.pdf>
+Package pdftex.def Info: group__lcd_ga0928c893230d575f898694261c1aee24_icgraph.
+pdf  used on input line 237.
+(pdftex.def)             Requested size: 350.0pt x 154.87015pt.
+ <./group__lcd_ga29f3b17f84b0231e3600ed69ce4a781e_icgraph.pdf>
+<group__lcd_ga29f3b17f84b0231e3600ed69ce4a781e_icgraph.pdf, id=1326, 439.6425pt
+ x 99.37125pt>
+File: group__lcd_ga29f3b17f84b0231e3600ed69ce4a781e_icgraph.pdf Graphic file (t
+ype pdf)
+<use group__lcd_ga29f3b17f84b0231e3600ed69ce4a781e_icgraph.pdf>
+Package pdftex.def Info: group__lcd_ga29f3b17f84b0231e3600ed69ce4a781e_icgraph.
+pdf  used on input line 264.
+(pdftex.def)             Requested size: 350.0pt x 79.11197pt.
+ [36] <./group__lcd_ga67d417ceae903b7f1d0a72bd412b07cb_icgraph.pdf>
+<group__lcd_ga67d417ceae903b7f1d0a72bd412b07cb_icgraph.pdf, id=1344, 325.215pt 
+x 99.37125pt>
+File: group__lcd_ga67d417ceae903b7f1d0a72bd412b07cb_icgraph.pdf Graphic file (t
+ype pdf)
+<use group__lcd_ga67d417ceae903b7f1d0a72bd412b07cb_icgraph.pdf>
+Package pdftex.def Info: group__lcd_ga67d417ceae903b7f1d0a72bd412b07cb_icgraph.
+pdf  used on input line 308.
+(pdftex.def)             Requested size: 324.0pt x 99.00708pt.
+ [37]) (./group__qrs.tex)
+(./group__userctrl.tex)) (./group__thread.tex [38]) (./struct_l_c_d__t.tex)
+(./_debug_8h.tex <./_debug_8h__incl.pdf>
+<_debug_8h__incl.pdf, id=1380, 177.66376pt x 210.7875pt>
 File: _debug_8h__incl.pdf Graphic file (type pdf)
 <use _debug_8h__incl.pdf>
 Package pdftex.def Info: _debug_8h__incl.pdf  used on input line 15.
 (pdftex.def)             Requested size: 177.0pt x 210.0054pt.
- [30] <./_debug_8h__dep__incl.pdf>
-<_debug_8h__dep__incl.pdf, id=1176, 133.49875pt x 155.58125pt>
-=======
-(./group__app.tex [12] (./group__debug.tex) (./group__filt.tex)
-(./group__lcd.tex) (./group__qrs.tex) (./group__userctrl.tex [13]))
-(./group__thread.tex [14]) (./struct_f_i_f_o__buffer.tex
-Overfull \vbox (47.0336pt too high) has occurred while \output is active []
-
-
-[15]) (./_debug_8h.tex <./_debug_8h__incl.pdf>
-<_debug_8h__incl.pdf, id=794, 171.64125pt x 210.7875pt>
-File: _debug_8h__incl.pdf Graphic file (type pdf)
-<use _debug_8h__incl.pdf>
-Package pdftex.def Info: _debug_8h__incl.pdf  used on input line 14.
-(pdftex.def)             Requested size: 171.0pt x 209.99898pt.
- <./_debug_8h__dep__incl.pdf>
-<_debug_8h__dep__incl.pdf, id=802, 133.49875pt x 155.58125pt>
->>>>>>> doxygen_groups2
+ [39] <./_debug_8h__dep__incl.pdf>
+<_debug_8h__dep__incl.pdf, id=1408, 133.49875pt x 155.58125pt>
 File: _debug_8h__dep__incl.pdf Graphic file (type pdf)
 <use _debug_8h__dep__incl.pdf>
 Package pdftex.def Info: _debug_8h__dep__incl.pdf  used on input line 23.
 (pdftex.def)             Requested size: 133.0pt x 155.01584pt.
 
-<<<<<<< HEAD
 Underfull \hbox (badness 10000) detected at line 31
 [][][]
  []
 
 ) (./_filter_8h.tex <./_filter_8h__dep__incl.pdf>
-<_filter_8h__dep__incl.pdf, id=1184, 151.56625pt x 210.7875pt>
-=======
-Underfull \hbox (badness 10000) detected at line 30
-[][][]
- []
-
-) (./_filter_8h.tex [16] <./_filter_8h__incl.pdf>
-<_filter_8h__incl.pdf, id=817, 192.72pt x 210.7875pt>
-File: _filter_8h__incl.pdf Graphic file (type pdf)
-<use _filter_8h__incl.pdf>
-Package pdftex.def Info: _filter_8h__incl.pdf  used on input line 14.
-(pdftex.def)             Requested size: 192.0pt x 209.99898pt.
- <./_filter_8h__dep__incl.pdf>
-<_filter_8h__dep__incl.pdf, id=833, 151.56625pt x 210.7875pt>
->>>>>>> doxygen_groups2
+<_filter_8h__dep__incl.pdf, id=1416, 151.56625pt x 210.7875pt>
 File: _filter_8h__dep__incl.pdf Graphic file (type pdf)
 <use _filter_8h__dep__incl.pdf>
 Package pdftex.def Info: _filter_8h__dep__incl.pdf  used on input line 13.
 (pdftex.def)             Requested size: 151.0pt x 210.00218pt.
-<<<<<<< HEAD
- [31]
+ [40]
 Underfull \hbox (badness 10000) detected at line 21
-=======
-
-Underfull \hbox (badness 10000) detected at line 30
->>>>>>> doxygen_groups2
 [][][]
  []
 
 ) (./_l_c_d_8c.tex <./_l_c_d_8c__incl.pdf>
-<<<<<<< HEAD
-<_l_c_d_8c__incl.pdf, id=1199, 413.545pt x 321.2pt>
+<_l_c_d_8c__incl.pdf, id=1431, 413.545pt x 321.2pt>
 File: _l_c_d_8c__incl.pdf Graphic file (type pdf)
 <use _l_c_d_8c__incl.pdf>
 Package pdftex.def Info: _l_c_d_8c__incl.pdf  used on input line 20.
 (pdftex.def)             Requested size: 350.0pt x 271.84993pt.
- [32] [33]
-Underfull \hbox (badness 10000) detected at line 71
+ [41] [42]
+Underfull \hbox (badness 10000) detected at line 66
 [][][]
  []
 
-[34] <./_l_c_d_8c_a974090cdb9d680233910e47dc8cb4a4a_cgraph.pdf>
-<_l_c_d_8c_a974090cdb9d680233910e47dc8cb4a4a_cgraph.pdf, id=1263, 697.60625pt x
- 155.58125pt>
-File: _l_c_d_8c_a974090cdb9d680233910e47dc8cb4a4a_cgraph.pdf Graphic file (type
- pdf)
-<use _l_c_d_8c_a974090cdb9d680233910e47dc8cb4a4a_cgraph.pdf>
-Package pdftex.def Info: _l_c_d_8c_a974090cdb9d680233910e47dc8cb4a4a_cgraph.pdf
-  used on input line 123.
-(pdftex.def)             Requested size: 350.0pt x 78.05869pt.
- <./_l_c_d_8c_ae5fcfd4f5e2fb9be9a946688536a4eed_cgraph.pdf>
-<_l_c_d_8c_ae5fcfd4f5e2fb9be9a946688536a4eed_cgraph.pdf, id=1271, 596.2275pt x 
-212.795pt>
-File: _l_c_d_8c_ae5fcfd4f5e2fb9be9a946688536a4eed_cgraph.pdf Graphic file (type
- pdf)
-<use _l_c_d_8c_ae5fcfd4f5e2fb9be9a946688536a4eed_cgraph.pdf>
-Package pdftex.def Info: _l_c_d_8c_ae5fcfd4f5e2fb9be9a946688536a4eed_cgraph.pdf
-  used on input line 158.
-(pdftex.def)             Requested size: 350.0pt x 124.91478pt.
- [35] <./_l_c_d_8c_aa53c9d40f3aa552a9974cd55ac510cb3_cgraph.pdf>
-<_l_c_d_8c_aa53c9d40f3aa552a9974cd55ac510cb3_cgraph.pdf, id=1288, 881.2925pt x 
-443.6575pt>
-File: _l_c_d_8c_aa53c9d40f3aa552a9974cd55ac510cb3_cgraph.pdf Graphic file (type
- pdf)
-<use _l_c_d_8c_aa53c9d40f3aa552a9974cd55ac510cb3_cgraph.pdf>
-Package pdftex.def Info: _l_c_d_8c_aa53c9d40f3aa552a9974cd55ac510cb3_cgraph.pdf
-  used on input line 194.
-(pdftex.def)             Requested size: 350.0pt x 176.19392pt.
- [36] [37] <./_l_c_d_8c_a67d417ceae903b7f1d0a72bd412b07cb_cgraph.pdf>
-<_l_c_d_8c_a67d417ceae903b7f1d0a72bd412b07cb_cgraph.pdf, id=1325, 295.1025pt x 
-99.37125pt>
-File: _l_c_d_8c_a67d417ceae903b7f1d0a72bd412b07cb_cgraph.pdf Graphic file (type
- pdf)
-<use _l_c_d_8c_a67d417ceae903b7f1d0a72bd412b07cb_cgraph.pdf>
-Package pdftex.def Info: _l_c_d_8c_a67d417ceae903b7f1d0a72bd412b07cb_cgraph.pdf
-  used on input line 278.
-(pdftex.def)             Requested size: 294.0pt x 99.00253pt.
-) (./_l_c_d_8h.tex [38] <./_l_c_d_8h__incl.pdf>
-<_l_c_d_8h__incl.pdf, id=1344, 361.35pt x 265.99374pt>
+) (./_l_c_d_8h.tex <./_l_c_d_8h__incl.pdf>
+<_l_c_d_8h__incl.pdf, id=1470, 361.35pt x 265.99374pt>
 File: _l_c_d_8h__incl.pdf Graphic file (type pdf)
 <use _l_c_d_8h__incl.pdf>
 Package pdftex.def Info: _l_c_d_8h__incl.pdf  used on input line 19.
 (pdftex.def)             Requested size: 350.0pt x 257.64021pt.
  <./_l_c_d_8h__dep__incl.pdf>
-<_l_c_d_8h__dep__incl.pdf, id=1352, 125.46875pt x 155.58125pt>
+<_l_c_d_8h__dep__incl.pdf, id=1478, 125.46875pt x 155.58125pt>
 File: _l_c_d_8h__dep__incl.pdf Graphic file (type pdf)
 <use _l_c_d_8h__dep__incl.pdf>
 Package pdftex.def Info: _l_c_d_8h__dep__incl.pdf  used on input line 27.
 (pdftex.def)             Requested size: 125.0pt x 155.00873pt.
- [39]
-Underfull \hbox (badness 10000) detected at line 106
-[][][]
- []
 
-[40] <./_l_c_d_8h_a974090cdb9d680233910e47dc8cb4a4a_cgraph.pdf>
-<_l_c_d_8h_a974090cdb9d680233910e47dc8cb4a4a_cgraph.pdf, id=1409, 697.60625pt x
- 155.58125pt>
-File: _l_c_d_8h_a974090cdb9d680233910e47dc8cb4a4a_cgraph.pdf Graphic file (type
- pdf)
-<use _l_c_d_8h_a974090cdb9d680233910e47dc8cb4a4a_cgraph.pdf>
-Package pdftex.def Info: _l_c_d_8h_a974090cdb9d680233910e47dc8cb4a4a_cgraph.pdf
-  used on input line 158.
-(pdftex.def)             Requested size: 350.0pt x 78.05869pt.
- [41] <./_l_c_d_8h_ae5fcfd4f5e2fb9be9a946688536a4eed_cgraph.pdf>
-<_l_c_d_8h_ae5fcfd4f5e2fb9be9a946688536a4eed_cgraph.pdf, id=1428, 596.2275pt x 
-212.795pt>
-File: _l_c_d_8h_ae5fcfd4f5e2fb9be9a946688536a4eed_cgraph.pdf Graphic file (type
- pdf)
-<use _l_c_d_8h_ae5fcfd4f5e2fb9be9a946688536a4eed_cgraph.pdf>
-Package pdftex.def Info: _l_c_d_8h_ae5fcfd4f5e2fb9be9a946688536a4eed_cgraph.pdf
-  used on input line 193.
-(pdftex.def)             Requested size: 350.0pt x 124.91478pt.
- [42] <./_l_c_d_8h_aa53c9d40f3aa552a9974cd55ac510cb3_cgraph.pdf>
-<_l_c_d_8h_aa53c9d40f3aa552a9974cd55ac510cb3_cgraph.pdf, id=1446, 881.2925pt x 
-443.6575pt>
-File: _l_c_d_8h_aa53c9d40f3aa552a9974cd55ac510cb3_cgraph.pdf Graphic file (type
- pdf)
-<use _l_c_d_8h_aa53c9d40f3aa552a9974cd55ac510cb3_cgraph.pdf>
-Package pdftex.def Info: _l_c_d_8h_aa53c9d40f3aa552a9974cd55ac510cb3_cgraph.pdf
-  used on input line 229.
-(pdftex.def)             Requested size: 350.0pt x 176.19392pt.
-
-Overfull \vbox (31.08542pt too high) has occurred while \output is active []
-
-
-[43] <./_l_c_d_8h_a67d417ceae903b7f1d0a72bd412b07cb_cgraph.pdf>
-<_l_c_d_8h_a67d417ceae903b7f1d0a72bd412b07cb_cgraph.pdf, id=1473, 295.1025pt x 
-99.37125pt>
-File: _l_c_d_8h_a67d417ceae903b7f1d0a72bd412b07cb_cgraph.pdf Graphic file (type
- pdf)
-<use _l_c_d_8h_a67d417ceae903b7f1d0a72bd412b07cb_cgraph.pdf>
-Package pdftex.def Info: _l_c_d_8h_a67d417ceae903b7f1d0a72bd412b07cb_cgraph.pdf
-  used on input line 313.
-(pdftex.def)             Requested size: 294.0pt x 99.00253pt.
- [44])
-(./_q_r_s_8h.tex <./_q_r_s_8h__incl.pdf>
-<_q_r_s_8h__incl.pdf, id=1492, 126.4725pt x 155.58125pt>
-=======
-<_l_c_d_8c__incl.pdf, id=841, 188.705pt x 321.2pt>
-File: _l_c_d_8c__incl.pdf Graphic file (type pdf)
-<use _l_c_d_8c__incl.pdf>
-Package pdftex.def Info: _l_c_d_8c__incl.pdf  used on input line 14.
-(pdftex.def)             Requested size: 188.0pt x 319.99844pt.
- [17]
-Underfull \hbox (badness 10000) detected at line 27
-[][][]
- []
-
-) (./_l_c_d_8h.tex <./_l_c_d_8h__incl.pdf>
-<_l_c_d_8h__incl.pdf, id=857, 188.705pt x 265.99374pt>
-File: _l_c_d_8h__incl.pdf Graphic file (type pdf)
-<use _l_c_d_8h__incl.pdf>
-Package pdftex.def Info: _l_c_d_8h__incl.pdf  used on input line 14.
-(pdftex.def)             Requested size: 188.0pt x 264.99869pt.
- [18] <./_l_c_d_8h__dep__incl.pdf>
-<_l_c_d_8h__dep__incl.pdf, id=872, 125.46875pt x 155.58125pt>
-File: _l_c_d_8h__dep__incl.pdf Graphic file (type pdf)
-<use _l_c_d_8h__dep__incl.pdf>
-Package pdftex.def Info: _l_c_d_8h__dep__incl.pdf  used on input line 22.
-(pdftex.def)             Requested size: 125.0pt x 155.00873pt.
-
-[19]
-Underfull \hbox (badness 10000) detected at line 35
+[43] [44]
+Underfull \hbox (badness 10000) detected at line 91
 [][][]
  []
 
 ) (./_q_r_s_8h.tex <./_q_r_s_8h__incl.pdf>
-<_q_r_s_8h__incl.pdf, id=888, 192.72pt x 265.99374pt>
->>>>>>> doxygen_groups2
+<_q_r_s_8h__incl.pdf, id=1514, 126.4725pt x 155.58125pt>
 File: _q_r_s_8h__incl.pdf Graphic file (type pdf)
 <use _q_r_s_8h__incl.pdf>
 Package pdftex.def Info: _q_r_s_8h__incl.pdf  used on input line 14.
 (pdftex.def)             Requested size: 126.0pt x 155.00397pt.
  <./_q_r_s_8h__dep__incl.pdf>
-<<<<<<< HEAD
-<_q_r_s_8h__dep__incl.pdf, id=1500, 126.4725pt x 155.58125pt>
-=======
-<_q_r_s_8h__dep__incl.pdf, id=903, 126.4725pt x 155.58125pt>
->>>>>>> doxygen_groups2
+<_q_r_s_8h__dep__incl.pdf, id=1522, 126.4725pt x 155.58125pt>
 File: _q_r_s_8h__dep__incl.pdf Graphic file (type pdf)
 <use _q_r_s_8h__dep__incl.pdf>
 Package pdftex.def Info: _q_r_s_8h__dep__incl.pdf  used on input line 22.
 (pdftex.def)             Requested size: 126.0pt x 155.00397pt.
-<<<<<<< HEAD
- [45]
-=======
 
-[20]
->>>>>>> doxygen_groups2
+[45]
 Underfull \hbox (badness 10000) detected at line 30
 [][][]
  []
 
 ) (./_user_ctrl_8h.tex <./_user_ctrl_8h__incl.pdf>
-<<<<<<< HEAD
-<_user_ctrl_8h__incl.pdf, id=1517, 238.8925pt x 210.7875pt>
-=======
-<_user_ctrl_8h__incl.pdf, id=918, 196.735pt x 210.7875pt>
->>>>>>> doxygen_groups2
+<_user_ctrl_8h__incl.pdf, id=1536, 238.8925pt x 210.7875pt>
 File: _user_ctrl_8h__incl.pdf Graphic file (type pdf)
 <use _user_ctrl_8h__incl.pdf>
 Package pdftex.def Info: _user_ctrl_8h__incl.pdf  used on input line 15.
 (pdftex.def)             Requested size: 238.0pt x 209.99898pt.
  <./_user_ctrl_8h__dep__incl.pdf>
-<<<<<<< HEAD
-<_user_ctrl_8h__dep__incl.pdf, id=1525, 141.52875pt x 155.58125pt>
-=======
-<_user_ctrl_8h__dep__incl.pdf, id=926, 141.52875pt x 155.58125pt>
->>>>>>> doxygen_groups2
+<_user_ctrl_8h__dep__incl.pdf, id=1544, 141.52875pt x 155.58125pt>
 File: _user_ctrl_8h__dep__incl.pdf Graphic file (type pdf)
 <use _user_ctrl_8h__dep__incl.pdf>
 Package pdftex.def Info: _user_ctrl_8h__dep__incl.pdf  used on input line 23.
 (pdftex.def)             Requested size: 141.0pt x 155.01347pt.
-<<<<<<< HEAD
  [46]
-=======
- [21]
->>>>>>> doxygen_groups2
 Underfull \hbox (badness 10000) detected at line 36
 [][][]
  []
 
-) (./fifo__buff_8c.tex <./fifo__buff_8c__incl.pdf>
-<<<<<<< HEAD
-<fifo__buff_8c__incl.pdf, id=1542, 140.525pt x 210.7875pt>
-File: fifo__buff_8c__incl.pdf Graphic file (type pdf)
-<use fifo__buff_8c__incl.pdf>
-Package pdftex.def Info: fifo__buff_8c__incl.pdf  used on input line 14.
-(pdftex.def)             Requested size: 140.0pt x 210.01184pt.
- [47]
-=======
-<fifo__buff_8c__incl.pdf, id=942, 192.72pt x 210.7875pt>
-File: fifo__buff_8c__incl.pdf Graphic file (type pdf)
-<use fifo__buff_8c__incl.pdf>
-Package pdftex.def Info: fifo__buff_8c__incl.pdf  used on input line 14.
-(pdftex.def)             Requested size: 192.0pt x 209.99898pt.
- [22]
->>>>>>> doxygen_groups2
-Underfull \hbox (badness 10000) detected at line 40
-[][][]
- []
-
-
-Underfull \hbox (badness 10000) detected at line 63
-[][][]
- []
-
-<<<<<<< HEAD
-[48]
-=======
-[23]
->>>>>>> doxygen_groups2
-Underfull \hbox (badness 10000) detected at line 81
-[][][]
- []
-
-
-Underfull \hbox (badness 10000) detected at line 99
-[][][]
- []
-
-
-Underfull \hbox (badness 10000) detected at line 117
-[][][]
- []
-
-<<<<<<< HEAD
-[49]) (./fifo__buff_8h.tex <./fifo__buff_8h__incl.pdf>
-<fifo__buff_8h__incl.pdf, id=1601, 140.525pt x 155.58125pt>
-=======
-[24]) (./fifo__buff_8h.tex <./fifo__buff_8h__incl.pdf>
-<fifo__buff_8h__incl.pdf, id=1002, 192.72pt x 155.58125pt>
->>>>>>> doxygen_groups2
-File: fifo__buff_8h__incl.pdf Graphic file (type pdf)
-<use fifo__buff_8h__incl.pdf>
-Package pdftex.def Info: fifo__buff_8h__incl.pdf  used on input line 14.
-(pdftex.def)             Requested size: 140.0pt x 155.00873pt.
- <./fifo__buff_8h__dep__incl.pdf>
-<<<<<<< HEAD
-<fifo__buff_8h__dep__incl.pdf, id=1616, 140.525pt x 155.58125pt>
-File: fifo__buff_8h__dep__incl.pdf Graphic file (type pdf)
-<use fifo__buff_8h__dep__incl.pdf>
-Package pdftex.def Info: fifo__buff_8h__dep__incl.pdf  used on input line 22.
-(pdftex.def)             Requested size: 140.0pt x 155.00873pt.
- [50]
-=======
-<fifo__buff_8h__dep__incl.pdf, id=1017, 228.855pt x 265.99374pt>
-File: fifo__buff_8h__dep__incl.pdf Graphic file (type pdf)
-<use fifo__buff_8h__dep__incl.pdf>
-Package pdftex.def Info: fifo__buff_8h__dep__incl.pdf  used on input line 23.
-(pdftex.def)             Requested size: 228.0pt x 265.01086pt.
- [25]
-Underfull \hbox (badness 10000) detected at line 44
-[][][]
- []
-
-
-Underfull \hbox (badness 10000) detected at line 67
-[][][]
- []
-
-[26]
-Underfull \hbox (badness 10000) detected at line 85
-[][][]
- []
-
-
-Underfull \hbox (badness 10000) detected at line 103
-[][][]
- []
-
-
-Underfull \hbox (badness 10000) detected at line 121
-[][][]
- []
-
-[27]) (./_a_d_c_8c.tex <./_a_d_c_8c__incl.pdf>
-<_a_d_c_8c__incl.pdf, id=1073, 171.64125pt x 210.7875pt>
-File: _a_d_c_8c__incl.pdf Graphic file (type pdf)
-<use _a_d_c_8c__incl.pdf>
-Package pdftex.def Info: _a_d_c_8c__incl.pdf  used on input line 9.
-(pdftex.def)             Requested size: 171.0pt x 209.99898pt.
-
-Underfull \hbox (badness 10000) detected at line 15
-[][][]
- []
-
-) (./_a_d_c_8h.tex <./_a_d_c_8h__incl.pdf>
-<_a_d_c_8h__incl.pdf, id=1081, 171.64125pt x 155.58125pt>
-File: _a_d_c_8h__incl.pdf Graphic file (type pdf)
-<use _a_d_c_8h__incl.pdf>
-Package pdftex.def Info: _a_d_c_8h__incl.pdf  used on input line 14.
-(pdftex.def)             Requested size: 171.0pt x 154.99922pt.
- <./_a_d_c_8h__dep__incl.pdf>
-<_a_d_c_8h__dep__incl.pdf, id=1089, 190.7125pt x 155.58125pt>
-File: _a_d_c_8h__dep__incl.pdf Graphic file (type pdf)
-<use _a_d_c_8h__dep__incl.pdf>
-Package pdftex.def Info: _a_d_c_8h__dep__incl.pdf  used on input line 22.
-(pdftex.def)             Requested size: 190.0pt x 155.00635pt.
-
-[28]
-Underfull \hbox (badness 10000) detected at line 30
-[][][]
- []
-
-) (./_g_p_i_o_8h.tex <./_g_p_i_o_8h__incl.pdf>
-<_g_p_i_o_8h__incl.pdf, id=1105, 171.64125pt x 155.58125pt>
-File: _g_p_i_o_8h__incl.pdf Graphic file (type pdf)
-<use _g_p_i_o_8h__incl.pdf>
-Package pdftex.def Info: _g_p_i_o_8h__incl.pdf  used on input line 14.
-(pdftex.def)             Requested size: 171.0pt x 154.99922pt.
- <./_g_p_i_o_8h__dep__incl.pdf>
-<_g_p_i_o_8h__dep__incl.pdf, id=1113, 141.52875pt x 210.7875pt>
-File: _g_p_i_o_8h__dep__incl.pdf Graphic file (type pdf)
-<use _g_p_i_o_8h__dep__incl.pdf>
-Package pdftex.def Info: _g_p_i_o_8h__dep__incl.pdf  used on input line 22.
-(pdftex.def)             Requested size: 141.0pt x 210.01826pt.
-
-[29]
-Underfull \hbox (badness 10000) detected at line 45
-[][][]
- []
-
-) (./_i_l_i9341_8h.tex <./_i_l_i9341_8h__incl.pdf>
-<_i_l_i9341_8h__incl.pdf, id=1135, 188.705pt x 210.7875pt>
-File: _i_l_i9341_8h__incl.pdf Graphic file (type pdf)
-<use _i_l_i9341_8h__incl.pdf>
-Package pdftex.def Info: _i_l_i9341_8h__incl.pdf  used on input line 15.
-(pdftex.def)             Requested size: 188.0pt x 209.99898pt.
- [30] <./_i_l_i9341_8h__dep__incl.pdf>
-<_i_l_i9341_8h__dep__incl.pdf, id=1150, 188.705pt x 210.7875pt>
-File: _i_l_i9341_8h__dep__incl.pdf Graphic file (type pdf)
-<use _i_l_i9341_8h__dep__incl.pdf>
-Package pdftex.def Info: _i_l_i9341_8h__dep__incl.pdf  used on input line 23.
-(pdftex.def)             Requested size: 188.0pt x 209.99898pt.
-
-Underfull \hbox (badness 10000) detected at line 31
-[][][]
- []
-
-) (./isr_8c.tex [31] <./isr_8c__dep__incl.pdf>
-<isr_8c__dep__incl.pdf, id=1165, 125.46875pt x 155.58125pt>
-File: isr_8c__dep__incl.pdf Graphic file (type pdf)
-<use isr_8c__dep__incl.pdf>
-Package pdftex.def Info: isr_8c__dep__incl.pdf  used on input line 13.
-(pdftex.def)             Requested size: 125.0pt x 155.00873pt.
-
-Underfull \hbox (badness 10000) detected at line 30
-[][][]
- []
-
-) (./_p_l_l_8c.tex <./_p_l_l_8c__incl.pdf>
-<_p_l_l_8c__incl.pdf, id=1176, 171.64125pt x 210.7875pt>
-File: _p_l_l_8c__incl.pdf Graphic file (type pdf)
-<use _p_l_l_8c__incl.pdf>
-Package pdftex.def Info: _p_l_l_8c__incl.pdf  used on input line 14.
-(pdftex.def)             Requested size: 171.0pt x 209.99898pt.
- [32]
-Underfull \hbox (badness 10000) detected at line 27
-[][][]
- []
-
-) (./_p_l_l_8h.tex <./_p_l_l_8h__incl.pdf>
-<_p_l_l_8h__incl.pdf, id=1193, 171.64125pt x 155.58125pt>
-File: _p_l_l_8h__incl.pdf Graphic file (type pdf)
-<use _p_l_l_8h__incl.pdf>
-Package pdftex.def Info: _p_l_l_8h__incl.pdf  used on input line 14.
-(pdftex.def)             Requested size: 171.0pt x 154.99922pt.
- <./_p_l_l_8h__dep__incl.pdf>
-<_p_l_l_8h__dep__incl.pdf, id=1201, 184.69pt x 155.58125pt>
-File: _p_l_l_8h__dep__incl.pdf Graphic file (type pdf)
-<use _p_l_l_8h__dep__incl.pdf>
-Package pdftex.def Info: _p_l_l_8h__dep__incl.pdf  used on input line 22.
-(pdftex.def)             Requested size: 184.0pt x 155.0016pt.
-
-[33]
-Underfull \hbox (badness 10000) detected at line 35
-[][][]
- []
-
-) (./_s_p_i_8h.tex <./_s_p_i_8h__incl.pdf>
-<_s_p_i_8h__incl.pdf, id=1218, 171.64125pt x 155.58125pt>
-File: _s_p_i_8h__incl.pdf Graphic file (type pdf)
-<use _s_p_i_8h__incl.pdf>
-Package pdftex.def Info: _s_p_i_8h__incl.pdf  used on input line 14.
-(pdftex.def)             Requested size: 171.0pt x 154.99922pt.
- <./_s_p_i_8h__dep__incl.pdf>
-<_s_p_i_8h__dep__incl.pdf, id=1226, 188.705pt x 265.99374pt>
-File: _s_p_i_8h__dep__incl.pdf Graphic file (type pdf)
-<use _s_p_i_8h__dep__incl.pdf>
-Package pdftex.def Info: _s_p_i_8h__dep__incl.pdf  used on input line 22.
-(pdftex.def)             Requested size: 188.0pt x 264.99869pt.
-
-[34]
-Underfull \hbox (badness 10000) detected at line 30
-[][][]
- []
-
-) (./_sys_tick_8c.tex <./_sys_tick_8c__incl.pdf>
-<_sys_tick_8c__incl.pdf, id=1242, 171.64125pt x 210.7875pt>
-File: _sys_tick_8c__incl.pdf Graphic file (type pdf)
-<use _sys_tick_8c__incl.pdf>
-Package pdftex.def Info: _sys_tick_8c__incl.pdf  used on input line 14.
-(pdftex.def)             Requested size: 171.0pt x 209.99898pt.
- [35]
-Underfull \hbox (badness 10000) detected at line 31
-[][][]
- []
-
-) (./_sys_tick_8h.tex <./_sys_tick_8h__incl.pdf>
-<_sys_tick_8h__incl.pdf, id=1259, 171.64125pt x 155.58125pt>
-File: _sys_tick_8h__incl.pdf Graphic file (type pdf)
-<use _sys_tick_8h__incl.pdf>
-Package pdftex.def Info: _sys_tick_8h__incl.pdf  used on input line 14.
-(pdftex.def)             Requested size: 171.0pt x 154.99922pt.
- [36] <./_sys_tick_8h__dep__incl.pdf>
-<_sys_tick_8h__dep__incl.pdf, id=1274, 140.525pt x 155.58125pt>
-File: _sys_tick_8h__dep__incl.pdf Graphic file (type pdf)
-<use _sys_tick_8h__dep__incl.pdf>
-Package pdftex.def Info: _sys_tick_8h__dep__incl.pdf  used on input line 22.
-(pdftex.def)             Requested size: 140.0pt x 155.00873pt.
-
-Underfull \hbox (badness 10000) detected at line 39
-[][][]
- []
-
-) (./_timer_8c.tex <./_timer_8c__incl.pdf>
-<_timer_8c__incl.pdf, id=1284, 171.64125pt x 210.7875pt>
-File: _timer_8c__incl.pdf Graphic file (type pdf)
-<use _timer_8c__incl.pdf>
-Package pdftex.def Info: _timer_8c__incl.pdf  used on input line 14.
-(pdftex.def)             Requested size: 171.0pt x 209.99898pt.
- [37]
-Underfull \hbox (badness 10000) detected at line 35
-[][][]
- []
-
-) (./_timer_8h.tex <./_timer_8h__incl.pdf>
-<_timer_8h__incl.pdf, id=1306, 171.64125pt x 155.58125pt>
-File: _timer_8h__incl.pdf Graphic file (type pdf)
-<use _timer_8h__incl.pdf>
-Package pdftex.def Info: _timer_8h__incl.pdf  used on input line 14.
-(pdftex.def)             Requested size: 171.0pt x 154.99922pt.
- [38] <./_timer_8h__dep__incl.pdf>
-<_timer_8h__dep__incl.pdf, id=1321, 283.0575pt x 265.99374pt>
-File: _timer_8h__dep__incl.pdf Graphic file (type pdf)
-<use _timer_8h__dep__incl.pdf>
-Package pdftex.def Info: _timer_8h__dep__incl.pdf  used on input line 22.
-(pdftex.def)             Requested size: 282.0pt x 265.02304pt.
-
-[39]
->>>>>>> doxygen_groups2
-Underfull \hbox (badness 10000) detected at line 43
-[][][]
- []
-
-<<<<<<< HEAD
-
-Underfull \hbox (badness 10000) detected at line 66
-[][][]
- []
-
-
-Underfull \hbox (badness 10000) detected at line 84
-[][][]
- []
-
-[51]
-Underfull \hbox (badness 10000) detected at line 102
-[][][]
- []
-
-
-Underfull \hbox (badness 10000) detected at line 120
-[][][]
- []
-
 ) (./_a_d_c_8c.tex <./_a_d_c_8c__incl.pdf>
-<_a_d_c_8c__incl.pdf, id=1663, 241.90375pt x 210.7875pt>
+<_a_d_c_8c__incl.pdf, id=1561, 241.90375pt x 210.7875pt>
 File: _a_d_c_8c__incl.pdf Graphic file (type pdf)
 <use _a_d_c_8c__incl.pdf>
-Package pdftex.def Info: _a_d_c_8c__incl.pdf  used on input line 11.
+Package pdftex.def Info: _a_d_c_8c__incl.pdf  used on input line 16.
 (pdftex.def)             Requested size: 241.0pt x 210.00862pt.
- [52]
-Underfull \hbox (badness 10000) detected at line 17
+ [47]
+Underfull \hbox (badness 10000) detected at line 24
 [][][]
  []
 
 ) (./_a_d_c_8h.tex <./_a_d_c_8h__incl.pdf>
-<_a_d_c_8h__incl.pdf, id=1681, 238.8925pt x 155.58125pt>
+<_a_d_c_8h__incl.pdf, id=1579, 238.8925pt x 155.58125pt>
 File: _a_d_c_8h__incl.pdf Graphic file (type pdf)
 <use _a_d_c_8h__incl.pdf>
 Package pdftex.def Info: _a_d_c_8h__incl.pdf  used on input line 15.
 (pdftex.def)             Requested size: 238.0pt x 154.99922pt.
  <./_a_d_c_8h__dep__incl.pdf>
-<_a_d_c_8h__dep__incl.pdf, id=1689, 190.7125pt x 155.58125pt>
+<_a_d_c_8h__dep__incl.pdf, id=1587, 190.7125pt x 155.58125pt>
 File: _a_d_c_8h__dep__incl.pdf Graphic file (type pdf)
 <use _a_d_c_8h__dep__incl.pdf>
 Package pdftex.def Info: _a_d_c_8h__dep__incl.pdf  used on input line 23.
 (pdftex.def)             Requested size: 190.0pt x 155.00635pt.
 
-[53]
+[48]
 Underfull \hbox (badness 10000) detected at line 31
 [][][]
  []
 
+) (./_g_p_i_o_8c.tex <./_g_p_i_o_8c__incl.pdf>
+<_g_p_i_o_8c__incl.pdf, id=1602, 242.9075pt x 210.7875pt>
+File: _g_p_i_o_8c__incl.pdf Graphic file (type pdf)
+<use _g_p_i_o_8c__incl.pdf>
+Package pdftex.def Info: _g_p_i_o_8c__incl.pdf  used on input line 16.
+(pdftex.def)             Requested size: 242.0pt x 209.99898pt.
+ [49]
+Underfull \hbox (badness 10000) detected at line 39
+[][][]
+ []
+
 ) (./_g_p_i_o_8h.tex <./_g_p_i_o_8h__incl.pdf>
-<_g_p_i_o_8h__incl.pdf, id=1705, 238.8925pt x 155.58125pt>
+<_g_p_i_o_8h__incl.pdf, id=1623, 238.8925pt x 155.58125pt>
 File: _g_p_i_o_8h__incl.pdf Graphic file (type pdf)
 <use _g_p_i_o_8h__incl.pdf>
 Package pdftex.def Info: _g_p_i_o_8h__incl.pdf  used on input line 15.
 (pdftex.def)             Requested size: 238.0pt x 154.99922pt.
  <./_g_p_i_o_8h__dep__incl.pdf>
-<_g_p_i_o_8h__dep__incl.pdf, id=1713, 141.52875pt x 210.7875pt>
+<_g_p_i_o_8h__dep__incl.pdf, id=1631, 208.78pt x 210.7875pt>
 File: _g_p_i_o_8h__dep__incl.pdf Graphic file (type pdf)
 <use _g_p_i_o_8h__dep__incl.pdf>
 Package pdftex.def Info: _g_p_i_o_8h__dep__incl.pdf  used on input line 23.
-(pdftex.def)             Requested size: 141.0pt x 210.01826pt.
+(pdftex.def)             Requested size: 208.0pt x 210.01184pt.
 
-[54]
+[50]
 Underfull \hbox (badness 10000) detected at line 63
 [][][]
  []
 
 ) (./_i_l_i9341_8c.tex <./_i_l_i9341_8c__incl.pdf>
-<_i_l_i9341_8c__incl.pdf, id=1734, 361.35pt x 265.99374pt>
+<_i_l_i9341_8c__incl.pdf, id=1652, 361.35pt x 265.99374pt>
 File: _i_l_i9341_8c__incl.pdf Graphic file (type pdf)
 <use _i_l_i9341_8c__incl.pdf>
 Package pdftex.def Info: _i_l_i9341_8c__incl.pdf  used on input line 19.
 (pdftex.def)             Requested size: 350.0pt x 257.64021pt.
- [55] [56] [57]
-Underfull \hbox (badness 10000) detected at line 141
+ [51] [52] [53]
+Underfull \hbox (badness 10000) detected at line 119
 [][][]
  []
 
 ) (./_i_l_i9341_8h.tex <./_i_l_i9341_8h__incl.pdf>
-<_i_l_i9341_8h__incl.pdf, id=1805, 334.24875pt x 210.7875pt>
+<_i_l_i9341_8h__incl.pdf, id=1700, 334.24875pt x 210.7875pt>
 File: _i_l_i9341_8h__incl.pdf Graphic file (type pdf)
 <use _i_l_i9341_8h__incl.pdf>
 Package pdftex.def Info: _i_l_i9341_8h__incl.pdf  used on input line 18.
 (pdftex.def)             Requested size: 333.0pt x 210.01826pt.
  <./_i_l_i9341_8h__dep__incl.pdf>
-<_i_l_i9341_8h__dep__incl.pdf, id=1813, 301.125pt x 210.7875pt>
+<_i_l_i9341_8h__dep__incl.pdf, id=1708, 301.125pt x 210.7875pt>
 File: _i_l_i9341_8h__dep__incl.pdf Graphic file (type pdf)
 <use _i_l_i9341_8h__dep__incl.pdf>
 Package pdftex.def Info: _i_l_i9341_8h__dep__incl.pdf  used on input line 26.
 (pdftex.def)             Requested size: 300.0pt x 210.01826pt.
- [58] [59]
+ [54] [55]
 Underfull \hbox (badness 10000) detected at line 84
 [][][]
  []
 
-) (./isr_8c.tex
-Underfull \hbox (badness 10000) detected at line 22
-[][][]
- []
-
-) (./_p_l_l_8c.tex [60] <./_p_l_l_8c__incl.pdf>
-<_p_l_l_8c__incl.pdf, id=1863, 240.9pt x 210.7875pt>
+) (./_p_l_l_8c.tex <./_p_l_l_8c__incl.pdf>
+<_p_l_l_8c__incl.pdf, id=1747, 240.9pt x 210.7875pt>
 File: _p_l_l_8c__incl.pdf Graphic file (type pdf)
 <use _p_l_l_8c__incl.pdf>
 Package pdftex.def Info: _p_l_l_8c__incl.pdf  used on input line 16.
@@ -1848,13 +1393,13 @@ Underfull \hbox (badness 10000) detected at line 29
  []
 
 ) (./_p_l_l_8h.tex <./_p_l_l_8h__incl.pdf>
-<_p_l_l_8h__incl.pdf, id=1872, 238.8925pt x 155.58125pt>
+<_p_l_l_8h__incl.pdf, id=1756, 238.8925pt x 155.58125pt>
 File: _p_l_l_8h__incl.pdf Graphic file (type pdf)
 <use _p_l_l_8h__incl.pdf>
 Package pdftex.def Info: _p_l_l_8h__incl.pdf  used on input line 15.
 (pdftex.def)             Requested size: 238.0pt x 154.99922pt.
- [61] <./_p_l_l_8h__dep__incl.pdf>
-<_p_l_l_8h__dep__incl.pdf, id=1887, 184.69pt x 155.58125pt>
+ [56] <./_p_l_l_8h__dep__incl.pdf>
+<_p_l_l_8h__dep__incl.pdf, id=1771, 184.69pt x 155.58125pt>
 File: _p_l_l_8h__dep__incl.pdf Graphic file (type pdf)
 <use _p_l_l_8h__dep__incl.pdf>
 Package pdftex.def Info: _p_l_l_8h__dep__incl.pdf  used on input line 23.
@@ -1865,62 +1410,53 @@ Underfull \hbox (badness 10000) detected at line 36
  []
 
 ) (./_s_p_i_8c.tex <./_s_p_i_8c__incl.pdf>
-<_s_p_i_8c__incl.pdf, id=1896, 240.9pt x 210.7875pt>
+<_s_p_i_8c__incl.pdf, id=1780, 240.9pt x 210.7875pt>
 File: _s_p_i_8c__incl.pdf Graphic file (type pdf)
 <use _s_p_i_8c__incl.pdf>
 Package pdftex.def Info: _s_p_i_8c__incl.pdf  used on input line 16.
 (pdftex.def)             Requested size: 240.0pt x 210.0054pt.
- [62]
+ [57]
 Underfull \hbox (badness 10000) detected at line 37
 [][][]
  []
 
 ) (./_s_p_i_8h.tex <./_s_p_i_8h__incl.pdf>
-<_s_p_i_8h__incl.pdf, id=1917, 238.8925pt x 155.58125pt>
+<_s_p_i_8h__incl.pdf, id=1802, 238.8925pt x 155.58125pt>
 File: _s_p_i_8h__incl.pdf Graphic file (type pdf)
 <use _s_p_i_8h__incl.pdf>
 Package pdftex.def Info: _s_p_i_8h__incl.pdf  used on input line 15.
 (pdftex.def)             Requested size: 238.0pt x 154.99922pt.
- [63] <./_s_p_i_8h__dep__incl.pdf>
-<_s_p_i_8h__dep__incl.pdf, id=1933, 398.48875pt x 265.99374pt>
+ [58] <./_s_p_i_8h__dep__incl.pdf>
+<_s_p_i_8h__dep__incl.pdf, id=1817, 398.48875pt x 265.99374pt>
 File: _s_p_i_8h__dep__incl.pdf Graphic file (type pdf)
 <use _s_p_i_8h__dep__incl.pdf>
 Package pdftex.def Info: _s_p_i_8h__dep__incl.pdf  used on input line 23.
 (pdftex.def)             Requested size: 350.0pt x 233.63687pt.
 
-[64]
+[59]
 Underfull \hbox (badness 10000) detected at line 44
 [][][]
  []
 
 ) (./_sys_tick_8c.tex <./_sys_tick_8c__incl.pdf>
-<_sys_tick_8c__incl.pdf, id=1955, 245.91875pt x 210.7875pt>
+<_sys_tick_8c__incl.pdf, id=1839, 245.91875pt x 210.7875pt>
 File: _sys_tick_8c__incl.pdf Graphic file (type pdf)
 <use _sys_tick_8c__incl.pdf>
 Package pdftex.def Info: _sys_tick_8c__incl.pdf  used on input line 16.
 (pdftex.def)             Requested size: 245.0pt x 210.00862pt.
 
-=======
-) (./_u_a_r_t_8c.tex <./_u_a_r_t_8c__incl.pdf>
-<_u_a_r_t_8c__incl.pdf, id=1342, 171.64125pt x 210.7875pt>
-File: _u_a_r_t_8c__incl.pdf Graphic file (type pdf)
-<use _u_a_r_t_8c__incl.pdf>
-Package pdftex.def Info: _u_a_r_t_8c__incl.pdf  used on input line 14.
-(pdftex.def)             Requested size: 171.0pt x 209.99898pt.
- [40]
->>>>>>> doxygen_groups2
 Underfull \hbox (badness 10000) detected at line 33
 [][][]
  []
 
 ) (./_sys_tick_8h.tex <./_sys_tick_8h__incl.pdf>
-<_sys_tick_8h__incl.pdf, id=1965, 238.8925pt x 155.58125pt>
+<_sys_tick_8h__incl.pdf, id=1849, 238.8925pt x 155.58125pt>
 File: _sys_tick_8h__incl.pdf Graphic file (type pdf)
 <use _sys_tick_8h__incl.pdf>
 Package pdftex.def Info: _sys_tick_8h__incl.pdf  used on input line 15.
 (pdftex.def)             Requested size: 238.0pt x 154.99922pt.
- [65] <./_sys_tick_8h__dep__incl.pdf>
-<_sys_tick_8h__dep__incl.pdf, id=1980, 140.525pt x 155.58125pt>
+ [60] <./_sys_tick_8h__dep__incl.pdf>
+<_sys_tick_8h__dep__incl.pdf, id=1864, 140.525pt x 155.58125pt>
 File: _sys_tick_8h__dep__incl.pdf Graphic file (type pdf)
 <use _sys_tick_8h__dep__incl.pdf>
 Package pdftex.def Info: _sys_tick_8h__dep__incl.pdf  used on input line 23.
@@ -1930,8 +1466,8 @@ Underfull \hbox (badness 10000) detected at line 40
 [][][]
  []
 
-) (./_timer_8c.tex [66] <./_timer_8c__incl.pdf>
-<_timer_8c__incl.pdf, id=1998, 242.9075pt x 210.7875pt>
+) (./_timer_8c.tex [61] <./_timer_8c__incl.pdf>
+<_timer_8c__incl.pdf, id=1882, 242.9075pt x 210.7875pt>
 File: _timer_8c__incl.pdf Graphic file (type pdf)
 <use _timer_8c__incl.pdf>
 Package pdftex.def Info: _timer_8c__incl.pdf  used on input line 16.
@@ -1941,95 +1477,82 @@ Underfull \hbox (badness 10000) detected at line 45
 [][][]
  []
 
-) (./_timer_8h.tex [67] <./_timer_8h__incl.pdf>
-<_timer_8h__incl.pdf, id=2022, 238.8925pt x 155.58125pt>
+) (./_timer_8h.tex [62] <./_timer_8h__incl.pdf>
+<_timer_8h__incl.pdf, id=1907, 238.8925pt x 155.58125pt>
 File: _timer_8h__incl.pdf Graphic file (type pdf)
 <use _timer_8h__incl.pdf>
 Package pdftex.def Info: _timer_8h__incl.pdf  used on input line 15.
 (pdftex.def)             Requested size: 238.0pt x 154.99922pt.
  <./_timer_8h__dep__incl.pdf>
-<_timer_8h__dep__incl.pdf, id=2031, 388.45125pt x 265.99374pt>
+<_timer_8h__dep__incl.pdf, id=1915, 388.45125pt x 265.99374pt>
 File: _timer_8h__dep__incl.pdf Graphic file (type pdf)
 <use _timer_8h__dep__incl.pdf>
 Package pdftex.def Info: _timer_8h__dep__incl.pdf  used on input line 23.
 (pdftex.def)             Requested size: 350.0pt x 239.66814pt.
 
-[68]
+[63]
 Underfull \hbox (badness 10000) detected at line 52
 [][][]
  []
 
 ) (./_u_a_r_t_8c.tex <./_u_a_r_t_8c__incl.pdf>
-<_u_a_r_t_8c__incl.pdf, id=2056, 177.66376pt x 210.7875pt>
+<_u_a_r_t_8c__incl.pdf, id=1940, 177.66376pt x 210.7875pt>
 File: _u_a_r_t_8c__incl.pdf Graphic file (type pdf)
 <use _u_a_r_t_8c__incl.pdf>
 Package pdftex.def Info: _u_a_r_t_8c__incl.pdf  used on input line 15.
 (pdftex.def)             Requested size: 177.0pt x 210.0054pt.
- [69]
+ [64]
 Underfull \hbox (badness 10000) detected at line 42
 [][][]
  []
 
 ) (./_u_a_r_t_8h.tex <./_u_a_r_t_8h__incl.pdf>
-<<<<<<< HEAD
-<_u_a_r_t_8h__incl.pdf, id=2078, 171.64125pt x 155.58125pt>
-=======
-<_u_a_r_t_8h__incl.pdf, id=1361, 171.64125pt x 155.58125pt>
->>>>>>> doxygen_groups2
+<_u_a_r_t_8h__incl.pdf, id=1962, 171.64125pt x 155.58125pt>
 File: _u_a_r_t_8h__incl.pdf Graphic file (type pdf)
 <use _u_a_r_t_8h__incl.pdf>
 Package pdftex.def Info: _u_a_r_t_8h__incl.pdf  used on input line 14.
 (pdftex.def)             Requested size: 171.0pt x 154.99922pt.
  <./_u_a_r_t_8h__dep__incl.pdf>
-<<<<<<< HEAD
-<_u_a_r_t_8h__dep__incl.pdf, id=2086, 202.7575pt x 210.7875pt>
-=======
-<_u_a_r_t_8h__dep__incl.pdf, id=1369, 202.7575pt x 210.7875pt>
->>>>>>> doxygen_groups2
+<_u_a_r_t_8h__dep__incl.pdf, id=1970, 202.7575pt x 210.7875pt>
 File: _u_a_r_t_8h__dep__incl.pdf Graphic file (type pdf)
 <use _u_a_r_t_8h__dep__incl.pdf>
 Package pdftex.def Info: _u_a_r_t_8h__dep__incl.pdf  used on input line 22.
 (pdftex.def)             Requested size: 202.0pt x 210.0054pt.
 
-<<<<<<< HEAD
-[70]
+[65]
 Underfull \hbox (badness 10000) detected at line 49
-=======
-[41]
-Underfull \hbox (badness 10000) detected at line 41
->>>>>>> doxygen_groups2
 [][][]
  []
 
 ) (./main_8c.tex <./main_8c__incl.pdf>
-<<<<<<< HEAD
-<main_8c__incl.pdf, id=2110, 700.6175pt x 265.99374pt>
+<main_8c__incl.pdf, id=1994, 700.6175pt x 265.99374pt>
 File: main_8c__incl.pdf Graphic file (type pdf)
 <use main_8c__incl.pdf>
 Package pdftex.def Info: main_8c__incl.pdf  used on input line 20.
 (pdftex.def)             Requested size: 350.0pt x 132.88289pt.
- [71]
-Underfull \hbox (badness 10000) detected at line 33
+ [66]
+Underfull \hbox (badness 10000) detected at line 39
 [][][]
  []
 
-) [72] (./refman.ind [73
+) [67] [68
 
+] (./refman.ind [69
 
-] [74] [75
+] [70] [71
 
 ]) (./refman.aux)
 Package rerunfilecheck Info: File `refman.out' has not changed.
-(rerunfilecheck)             Checksum: B529F6BBEDB8E3ED38165C3A4F3465F5;15904.
+(rerunfilecheck)             Checksum: 6E8DE418E492E6A0A12AFEF041F463CA;14078.
  ) 
 Here is how much of TeX's memory you used:
- 19673 strings out of 477476
- 343056 string characters out of 5824244
- 1884388 words of memory out of 5000000
- 38869 multiletter control sequences out of 15000+600000
+ 19525 strings out of 477476
+ 339356 string characters out of 5824244
+ 1883388 words of memory out of 5000000
+ 38790 multiletter control sequences out of 15000+600000
  561185 words of font info for 105 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
- 101i,16n,117p,593b,742s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 101i,16n,117p,599b,742s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2023basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi1
 0.pfb></usr/local/texlive/2023basic/texmf-dist/fonts/type1/public/amsfonts/cm/c
 mmi7.pfb></usr/local/texlive/2023basic/texmf-dist/fonts/type1/public/amsfonts/c
@@ -2044,61 +1567,10 @@ r/ucrro8a.pfb></usr/local/texlive/2023basic/texmf-dist/fonts/type1/urw/helvetic
 hvb8ac.pfb></usr/local/texlive/2023basic/texmf-dist/fonts/type1/urw/helvetic/uh
 vr8a.pfb></usr/local/texlive/2023basic/texmf-dist/fonts/type1/urw/helvetic/uhvr
 o8a.pfb>
-Output written on refman.pdf (78 pages, 856249 bytes).
+Output written on refman.pdf (73 pages, 811787 bytes).
 PDF statistics:
- 2544 PDF objects out of 2984 (max. 8388607)
- 2181 compressed objects within 22 object streams
- 626 named destinations out of 1000 (max. 500000)
- 1000 words of extra memory for PDF output out of 10000 (max. 10000000)
-=======
-<main_8c__incl.pdf, id=1389, 572.1375pt x 321.2pt>
-File: main_8c__incl.pdf Graphic file (type pdf)
-<use main_8c__incl.pdf>
-Package pdftex.def Info: main_8c__incl.pdf  used on input line 21.
-(pdftex.def)             Requested size: 350.0pt x 196.49043pt.
- [42]
-Underfull \hbox (badness 10000) detected at line 34
-[][][]
- []
-
-) [43] [44
-
-] (./refman.ind [45
-
-] [46
-
-]) (./refman.aux)
-Package rerunfilecheck Info: File `refman.out' has not changed.
-(rerunfilecheck)             Checksum: 82252FC4A81858E5755D44DDD6A6CE43;15158.
- ) 
-Here is how much of TeX's memory you used:
- 18913 strings out of 478268
- 313531 string characters out of 5846347
- 626182 words of memory out of 5000000
- 36352 multiletter control sequences out of 15000+600000
- 516799 words of font info for 97 fonts, out of 8000000 for 9000
- 1141 hyphenation exceptions out of 8191
- 99i,16n,117p,503b,634s stack positions out of 10000i,1000n,20000p,200000b,200000s
-{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
-exlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/te
-xlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texl
-ive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texliv
-e/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/texlive/
-2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/20
-22/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2022/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2022/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2022/tex
-mf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2022/texmf-dist/
-fonts/type1/urw/courier/ucrro8a.pfb></usr/local/texlive/2022/texmf-dist/fonts/t
-ype1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/ur
-w/helvetic/uhvb8ac.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/urw/helv
-etic/uhvr8a.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/urw/helvetic/uh
-vro8a.pfb>
-Output written on refman.pdf (48 pages, 541010 bytes).
-PDF statistics:
- 1672 PDF objects out of 1728 (max. 8388607)
- 1431 compressed objects within 15 object streams
- 348 named destinations out of 1000 (max. 500000)
- 859 words of extra memory for PDF output out of 10000 (max. 10000000)
->>>>>>> doxygen_groups2
+ 2383 PDF objects out of 2487 (max. 8388607)
+ 2039 compressed objects within 21 object streams
+ 551 named destinations out of 1000 (max. 500000)
+ 940 words of extra memory for PDF output out of 10000 (max. 10000000)
 

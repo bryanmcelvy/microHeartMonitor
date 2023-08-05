@@ -1,4 +1,7 @@
 /**
+ * @addtogroup systick
+ * @{
+ *
  * @file    SysTick.c
  * @author  Bryan McElvy
  * @brief   Implementation details for SysTick functions.
@@ -36,3 +39,5 @@ void SysTick_Interrupt_Init(uint32_t time_ms) {
     NVIC_SYS_PRI3_R |= (2 << 29);                           // priority 2          
     NVIC_ST_CTRL_R |= 0x07;                                 // enable SysTick with core clock and interrupts
 }
+
+/** @} */

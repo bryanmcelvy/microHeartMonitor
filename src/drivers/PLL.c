@@ -1,4 +1,7 @@
 /**
+ * @addtogroup pll
+ * @{
+ *
  * @file
  * @author  Bryan McElvy
  * @brief   Implementation details for phase-lock-loop (PLL) functions.
@@ -35,17 +38,4 @@ void PLL_Init(void) {
 
 }
 
-/*
-The PLL is configured using direct register writes to the RCC/RCC2 register.
-If the RCC2 register is being used, the USERCC2 bit must be set and the appropriate RCC2 bit/field is used.
-The steps required to successfully change the PLL-based sys. clk are:
-1. Bypass PLL and sys. clk divider by setting the BYPASS bit and clearing the USESYS bit in RCC, thus configuring the MCU to 
-    run off a "raw" clk source and allowing for the new PLL config to be validated before switching the sys. clk to the PLL.
-2. Select the XTAL value and oscillator source (OSCSRC), and clear the PWRDN bit in RCC/RCC2. 
-    Setting the XTAL field automatically pulls valid PLL config data for the appropriate XTAL, 
-    and clearing the PWRDN bit powers and enables the PLL and its output.
-3. Select the desired sys. divider (SYSDIV) in RCC/RCC2 and set the USESYS bit in RCC. 
-    The SYSDIV field determines the sys. frequency for the microcontroller.
-4. Wait for the PLL to lock by polling the PLLLRIS bit in the Raw Interrupt Status (RIS) register.
-5. Enable use of the PLL by clearing the BYPASS bit in RCC/RCC2.
-*/
+/** @} */

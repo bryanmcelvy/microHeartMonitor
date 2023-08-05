@@ -1,16 +1,16 @@
 /**
+ * @addtogroup  uart
+ * @{
+ *
  * @file        UART.h
  * @author      Bryan McElvy
  * @brief       Driver module for serial communication via UART0 and UART 1.
  * 
- *              UART0 uses PA0 and PA1, which are not broken out but do connect
+ *              UART0 uses PA0 and PA1, which are not broken out but can connect
  *              to a PC's serial port via USB.
  * 
  *              UART1 uses PB0 (Rx) and PB1 (Tx), which are not broken out but
  *              do not connect to a serial port.
- * 
- * @addtogroup  uart
- * @{
  */
 
 #ifndef __UART_H___

@@ -2,7 +2,7 @@
  * @addtogroup  gpio
  * @{
  * 
- * @file        GPIO.h
+ * @file
  * @author      Bryan McElvy
  * @brief       Driver module for using the LaunchPad's onboard switches and RGB LEDs for GPIO and interrupts.
  * 

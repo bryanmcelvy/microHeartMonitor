@@ -1,4 +1,7 @@
 /**
+ * @addtogroup  ili9341
+ * @{
+ *
  * @file
  * @author  Bryan McElvy
  * @brief   Source code for ILI9341 module.
@@ -27,8 +30,8 @@ Preprocessor Directives
 #include <stdint.h>
 #include <stdbool.h>
 
-/// Selected commands from the datasheet
-/// NOTE: NUM_COLS and NUM_ROWS are defined in the header file
+// Selected commands from the datasheet
+// NOTE: NUM_COLS and NUM_ROWS are defined in the header file
 #define NOP         (uint8_t) 0x00      /// No Operation
 #define SWRESET     (uint8_t) 0x01      /// Software Reset
 #define SPLIN       (uint8_t) 0x10      /// Enter Sleep Mode
@@ -383,3 +386,5 @@ void ILI9341_write1px(uint8_t red, uint8_t green, uint8_t blue, bool is_16bit) {
         SPI_WriteSequence(0, data, 3);
     }
 }
+
+/** @} */

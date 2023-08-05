@@ -1,4 +1,7 @@
 /**
+ * @addtogroup uart
+ * @{
+ *
  * @file
  * @author  Bryan McElvy
  * @brief   Source code for UART module.
@@ -17,13 +20,13 @@ void UART0_Init(void) {
      *  @details
      *  Given the bus frequency (`f_bus`) and desired baud rate (`BR`),
      *  the baud rate divisor (`BRD`) can be calculated:
-     *      \f$BRD = f_{bus}/(16*BR)\f$
+     *      \f$ BRD = f_{bus}/(16*BR) \f$
      * 
      *  The integer BRD (`IBRD`) is simply the integer part of the BRD:
-     *      \f$IBRD = int( BRD )\f$
+     *      \f$ IBRD = int( BRD ) \f$
      * 
      *  The fractional BRD (`FBRD`) is calculated using the fractional part (`mod(BRD,1)`) of the BRD:
-     *      \f$FBRD = int( ( mod(BRD,1) * 64 ) + 0.5 )\f$
+     *      \f$ FBRD = int( ( mod(BRD,1) * 64 ) + 0.5 ) \f$
      */
     
     SYSCTL_RCGCUART_R |= 0x01;                  // activate clock for UART0
@@ -143,3 +146,5 @@ void UART1_WriteStr(unsigned char * str_ptr) {
         str_ptr += 1;
     }
 }
+
+/** @} */

@@ -173,19 +173,19 @@ void LCD_setColor(uint8_t R_val, uint8_t G_val, uint8_t B_val) {
 
 void LCD_setColor_3bit(uint8_t color_code) {
     /**
-        This is simply a convenience function for `LCD_setColor()`.
-        The following table shows what the output color will be:
+     *  This is simply a convenience function for setting the color using the
+     *  macros defined in the header file.
 
-        hex     | binary | macro
-        --------|--------|------------
-        0x00    |  000   | LCD_BLACK
-        0x04    |  100   | LCD_RED
-        0x06    |  110   | LCD_YELLOW
-        0x02    |  010   | LCD_GREEN
-        0x03    |  011   | LCD_CYAN
-        0x01    |  001   | LCD_BLUE
-        0x05    |  101   | LCD_PURPLE
-        0x07    |  111   | LCD_WHITE
+     *  hex     | binary | macro
+     *  --------|--------|------------
+     *  0x00    |  000   | LCD_BLACK
+     *  0x01    |  001   | LCD_BLUE
+     *  0x02    |  010   | LCD_GREEN
+     *  0x03    |  011   | LCD_CYAN
+     *  0x04    |  100   | LCD_RED
+     *  0x05    |  101   | LCD_PURPLE
+     *  0x06    |  110   | LCD_YELLOW
+     *  0x07    |  111   | LCD_WHITE
      */
     
     if(color_code == LCD_BLACK) {
@@ -203,6 +203,7 @@ void LCD_setColor_3bit(uint8_t color_code) {
 *******************************************************************************/
 
 void LCD_draw(void) {
+    /// @showrefs
     ILI9341_writeMemCmd();
     for (int count = 0; count < lcd.numPixels; count++) {
         ILI9341_write1px(lcd.R_val, lcd.G_val, lcd.B_val, lcd.is_16bit);

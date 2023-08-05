@@ -1,10 +1,10 @@
 /**
+ * @addtogroup pll
+ * @{
+ *
  * @file
  * @author      Bryan McElvy
  * @brief       Driver module for activating the phase-locked-loop (PLL).
- * 
- * @addtogroup  pll
- * @{
  */
 
 #ifndef __PLL_H___

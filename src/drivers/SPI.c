@@ -1,4 +1,7 @@
 /**
+ * @addtogroup spi
+ * @{
+ *
  * @file 
  * @author  Bryan McElvy
  * @brief   Source code for SPI module.
@@ -29,13 +32,13 @@ void SPI_Init(void) {
      *  The bit rate `BR` is set using the clock prescale divisor `CPSDVSR`
      *  and `SCR` field in the SSI Control 0 (`CR0`) register:
      * 
-     *  $\fBR = f_{bus} / ( CPSDVSR * (1 + SCR) )$\f
+     *  \f$ BR = f_{bus} / ( CPSDVSR * (1 + SCR) ) \f$
      * 
-     *  The ILI9341 driver has a min. write cycle of 100 [ns],
-     *  and a min. write cycle of 150 [ns].
-     *  Thus, this function sets the bit rate `BR` to be the bus frequency
-     *  ($\ff_{bus} = 80 [MHz]$\f) divided by 12, allowing a bit rate of 6.67 [MHz],
-     *  or a period of 150 [ns].
+     *  The ILI9341 driver has a min. read cycle of 150 [ns]
+     *  and a min. write cycle of 100 [ns], so the bit rate `BR` is set to be 
+     *  equal to the bus frequency
+     *  (\f$ f_{bus} = 80 [MHz] \f$) divided by 12, allowing a bit rate of 
+     *  6.67 [MHz], or a period of 150 [ns].
      */
 
     SYSCTL_RCGCSSI_R |= 0x01;                       // enable SSI0 clk.
@@ -85,3 +88,5 @@ void SPI_WriteSequence(uint8_t cmd, uint8_t * param_sequence, uint8_t num_params
         SPI_WriteData( *(param_sequence+i) );
     }
 }
+
+/** @} */
