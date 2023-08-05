@@ -12,7 +12,7 @@
 
 #include <stdint.h>
 
-typedef struct FIFO FIFO_t;
+typedef struct FIFO_t FIFO_t;
 
 /**
  * @brief           Initialize a FIFO buffer of length `N`.
