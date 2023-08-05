@@ -11,7 +11,7 @@ find_package(LATEX
                     PDFLATEX
                 )
 
-if( (DOXYGEN_FOUND AND LATEX_FOUND) AND OPT_GEN_DOC )
+if( (DOXYGEN_FOUND AND LATEX_FOUND) )
     
     set(LATEX_OUTPUT_DIR ${PROJECT_BINARY_DIR}/docs/latex)
     add_custom_target(  gen_docs
@@ -27,7 +27,13 @@ if( (DOXYGEN_FOUND AND LATEX_FOUND) AND OPT_GEN_DOC )
                         # copy new pdf and log to `docs` directory
                         COMMAND ${CMAKE_COMMAND} -E copy_if_different ${LATEX_OUTPUT_DIR}/refman.pdf ${PROJECT_SOURCE_DIR}/docs
                         COMMAND ${CMAKE_COMMAND} -E copy ${LATEX_OUTPUT_DIR}/refman.log ${PROJECT_SOURCE_DIR}/docs/doxygen
+                        
                         VERBATIM
                         )
+    if (OPT_GEN_DOC)
+        set_target_properties(  gen_docs
+                                    PROPERTIES
+                                        EXCLUDE_FROM_ALL    FALSE)
+    endif()
 
 endif()
