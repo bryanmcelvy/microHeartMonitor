@@ -41,7 +41,7 @@ int main(void) {
     while(1) {
 
         while(Timer0A_isCounting());
-        LCD_drawRectangle(x, y, SIZE, SIZE, true);
+        LCD_drawRectangle(x, SIZE, y, SIZE, true);
         Timer0A_Start(10);
 
         x = ( (x + SIZE) < X_MAX ) ? (x + SIZE) : 0;
