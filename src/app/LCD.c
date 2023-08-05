@@ -60,7 +60,7 @@ typedef struct {
 
     uint8_t R_val; uint8_t G_val; uint8_t B_val;
 
-    bool is_ON;
+    bool is_outputON;
     bool is_inverted;
     bool is_16bit;
     bool is_init;
@@ -73,8 +73,8 @@ static LCD_t lcd = {
 
     255, 255, 255,                  // default write color is white
 
-    false,                          // display is on
-    false,                          // not inverted
+    false,                          // display output OFF
+    false,                          // color inversion OFF
     true,                           // 16-bit color depth
     false                           // not initialized
 };
@@ -97,8 +97,8 @@ void LCD_Init(void) {
 }
 
 void LCD_toggleOutput(void) {
-    lcd.is_ON = !(lcd.is_ON);
-    ILI9341_setDispOutput(lcd.is_ON);
+    lcd.is_outputON = !(lcd.is_outputON);
+    ILI9341_setDispOutput(lcd.is_outputON);
 }
 
 void LCD_toggleInversion(void) {
