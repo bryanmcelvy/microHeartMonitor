@@ -301,7 +301,7 @@ static void ILI9341_setAddress(
     and `end_address` cannot be greater than the max number of rows/columns.
     */
     
-    uint8_t cmd_sequence[4];
+    uint8_t param_sequence[4];
 
     uint8_t cmd = (is_row) ? PASET : CASET;
     uint16_t max_num = (is_row) ? NUM_ROWS : NUM_COLS;
@@ -311,11 +311,11 @@ static void ILI9341_setAddress(
     start_address = (start_address < end_address) ? start_address : end_address;
 
     // configure send command sequence
-    cmd_sequence[0] = (uint8_t) ((start_address & 0xFF00) >> 8);
-    cmd_sequence[1] = (uint8_t) (start_address & 0x00FF);
-    cmd_sequence[2] = (uint8_t) ((end_address & 0xFF00) >> 8);
-    cmd_sequence[3] = (uint8_t) (end_address & 0x00FF);
-    SPI_WriteSequence(cmd, cmd_sequence, 4);
+    param_sequence[0] = (uint8_t) ((start_address & 0xFF00) >> 8);
+    param_sequence[1] = (uint8_t) (start_address & 0x00FF);
+    param_sequence[2] = (uint8_t) ((end_address & 0xFF00) >> 8);
+    param_sequence[3] = (uint8_t) (end_address & 0x00FF);
+    SPI_WriteSequence(cmd, param_sequence, 4);
 }
 
 void ILI9341_setRowAddress(uint16_t start_row, uint16_t end_row) {
