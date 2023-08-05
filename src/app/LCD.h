@@ -182,4 +182,19 @@ void LCD_drawRectangle( uint16_t x1, uint16_t dx,
 6) Scrolling
 *******************************************************************************/
 
+/**
+ * @brief               Draw a rectangle of size `dx` x `dy` and blank out all
+ *                      other pixels between `y_min` and `y_max`.
+ *
+ * @param x1            lowest (left-most) x-coordinate
+ * @param dx            length (horizontal distance) of the column
+ * @param y1            y-coordinate of the pixel's bottom side
+ * @param dy            height (vertical distance) of the pixel
+ * @param y_min         lowest (bottom-most) y-coordinate
+ * @param y_max         highest (top-most) y-coordinate
+ * @param color_code    3-bit color code
+ */
+void LCD_drawRectBlank( uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy, 
+                        uint16_t y_min, uint16_t y_max, uint16_t color_code);
+
 #endif

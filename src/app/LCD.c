@@ -293,3 +293,47 @@ void LCD_drawRectangle( uint16_t x1, uint16_t dx,
 /******************************************************************************
 6) Scrolling
 *******************************************************************************/
+
+void LCD_drawRectBlank( uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy, 
+                        uint16_t y_min, uint16_t y_max, uint16_t color_code) {
+    ///TODO: Write description
+    
+    uint16_t x2;
+    uint16_t y2;
+    uint16_t numPixels;
+    
+    // set area of display to write to
+    x2 = (x1 + dx) - 1;
+    y2 = (y1 + dy) - 1;
+    LCD_setArea(x1, x2, y_min, y_max);
+    
+    ILI9341_writeMemCmd();
+
+    // write column by column
+    for(int x_i = 0; x_i < dx; x_i ++) {
+
+        // write blank pixels from `(x1 + x_i, y_min)` to `(x1 + x_i, y1 - 1)
+        LCD_setColor_3bit(LCD_WHITE);
+
+        numPixels = y1 - y_min;
+        for(int y_i = 0; y_i < numPixels; y_i++) {
+            ILI9341_write1px(lcd.R_val, lcd.G_val, lcd.B_val, true);
+        }
+
+        // write colored pixels from `(x1 + x_i, y1)` to `(x1 + x_i, y2)`
+        LCD_setColor_3bit(color_code);
+
+        numPixels = dy;
+        for(int y_i = 0; y_i < numPixels; y_i++) {
+            ILI9341_write1px(lcd.R_val, lcd.G_val, lcd.B_val, true);
+        }
+
+        // write blank pixels from `(x1 + x_i, y2 + 1)` to `(x1 + x_i, y_max)`
+        LCD_setColor_3bit(LCD_WHITE);
+
+        numPixels = y_max - (y2 + 1) + 1;
+        for(int y_i = 0; y_i < numPixels; y_i++) {
+            ILI9341_write1px(lcd.R_val, lcd.G_val, lcd.B_val, true);
+        }
+    }
+}
