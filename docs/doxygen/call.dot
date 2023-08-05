@@ -1,0 +1,56 @@
+digraph {
+    labelloc="t";
+    label="ECG-HRM";
+    ranksep=1;
+    nodesep=1;
+    center=true;
+    
+    main -> {PLL, UserCtrl, ADC, Filter, QRS, LCD, Debug};
+    
+    // App. Software
+    subgraph cluster_app {
+        label="App. Software";
+        labeljust="l"
+        {rank=same; Debug, LCD, Filter, QRS, UserCtrl};
+    };
+
+    QRS -> Filter;
+    LCD -> ILI9341;
+    UserCtrl -> GPIO[dir=both];
+    UserCtrl -> Timer;
+    Debug -> UART;
+
+    // Drivers
+    subgraph cluster_drivers {
+        label="Drivers";
+        labeljust="l"
+        ILI9341;
+        {rank=same; ADC, GPIO, PLL, SPI, Timer, UART};
+    };
+
+    ILI9341 -> {SPI, Timer};
+    SPI -> PA27;
+
+    ADC -> PE23;
+    ADC -> Timer[style="dashed", dir="both"];
+
+    GPIO -> PF04[dir=both];
+
+    UART -> PA01[dir=both];
+
+    
+    // Hardware
+    subgraph cluster_hw {
+        label="Hardware";
+        labeljust="l"
+        shape="square";
+        {rank=same; shape=square; PA01, PE23, PF04, PA27[shape=square]};
+    }
+
+    PA01[label="PA0/1"]
+    PA27[label="PA2-7"];
+    PE23[label="PE2/3"];
+    PF04[label="PF0/4"];
+
+    
+}
