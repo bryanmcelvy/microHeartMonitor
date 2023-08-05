@@ -1,4 +1,7 @@
 /**
+ * @addtogroup  timer
+ * @{
+ * 
  * @file
  * @author      Bryan McElvy
  * @brief       Driver module for general-purpose timer modules.
@@ -15,6 +18,8 @@
 #define __TIMER_H___
 
 #include "tm4c123gh6pm.h"
+
+#include <stdint.h>
 
 /**********************************************************************
 Timer0A
@@ -108,3 +113,5 @@ Timer3A
 void Timer3A_Init(uint32_t time_ms);
 
 #endif
+
+/** @} */

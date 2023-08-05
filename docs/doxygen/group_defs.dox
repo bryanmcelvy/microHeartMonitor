@@ -1,0 +1,80 @@
+/** 
+ * @defgroup    driver      Device Drivers
+ * @brief       Device driver modules.
+ * @{
+ */
+
+    /** @defgroup   adc         ADC     
+     *  @brief      Analog-to-digital conversion module.
+     */
+
+    /** @defgroup   gpio        GPIO     
+     *  @brief      GPIO Port F module.
+     */
+
+    /** @defgroup   ili9341         ILI9341     
+     *  @brief      Module for interfacing ILI9341-based RGB LCD via @ref spi.
+     */
+
+    /** @defgroup   pll         PLL     
+     *  @brief      Phase-locked loop module.
+     */
+
+    /** @defgroup   spi         SPI     
+     *  @brief      Serial peripheral interface module.
+     */
+
+    /** @defgroup   systick     SysTick     
+     *  @brief      SysTick timing module.
+     */
+
+    /** @defgroup   timer       Timer     
+     *  @brief      Timer0A module.
+     */
+
+    /** @defgroup   uart        UART     
+     *  @brief      UART0 module.
+     */
+
+/** @} */
+
+//************************************************************************************************
+
+/** 
+ * @defgroup    app         Application Software
+ * @brief       Application-specific modules.
+ * @{
+ */
+
+   /** @defgroup   debug         Debug     
+     *  @brief      Debug module.
+     */
+
+   /** @defgroup   filt        Filter     
+     *  @brief      Filter module.
+     */
+
+   /** @defgroup   lcd         LCD     
+     *  @brief      Module for displaying graphs on an LCD via the @ref ili9341 module.
+     */
+
+   /** @defgroup   qrs         QRS     
+     *  @brief      QRS detection algorithm.
+     */
+
+   /** @defgroup   userctrl         UserCtrl     
+     *  @brief      User control module.
+     */
+
+/** @} */
+//************************************************************************************************
+
+/** 
+ * @defgroup    thread      Program Threads
+ * @brief       Program Threads
+ * @{
+ */
+
+/** @} */
+
+//************************************************************************************************

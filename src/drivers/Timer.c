@@ -1,10 +1,16 @@
 /**
- * @file    Timer.h
+ * @file
  * @author  Bryan McElvy
  * @brief   Implementation for timer module.
+ * 
+ * @ingroup timer
  */
 
 #include "Timer.h"
+
+#include "tm4c123gh6pm.h"
+
+#include <stdint.h>
 
 /**********************************************************************
 Timer0A

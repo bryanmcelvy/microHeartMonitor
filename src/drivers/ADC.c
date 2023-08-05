@@ -5,6 +5,10 @@
 
 #include "ADC.h"
 
+#include "tm4c123gh6pm.h"
+
+#include <stdint.h>
+
 void ADC_Init(void) {
     SYSCTL_RCGCADC_R |= 0x01;               // enable clock to ADC0
     SYSCTL_RCGCGPIO_R |= 0x10;              // enable clock to GPIO Port E
