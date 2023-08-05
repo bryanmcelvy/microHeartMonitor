@@ -1,5 +1,5 @@
 /**
- * @addtogroup  lcd
+ * @addtogroup  ili9341
  * @{
  * 
  * @file

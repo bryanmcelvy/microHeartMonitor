@@ -12,7 +12,7 @@
      *  @brief      GPIO Port F module.
      */
 
-    /** @defgroup   lcd         ILI9341     
+    /** @defgroup   ili9341         ILI9341     
      *  @brief      Module for interfacing ILI9341-based RGB LCD via @ref spi.
      */
 
@@ -43,8 +43,30 @@
 /** 
  * @defgroup    app         Application Software
  * @brief       Application-specific modules.
+ * @{
  */
 
+   /** @defgroup   debug         Debug     
+     *  @brief      Debug module.
+     */
+
+   /** @defgroup   filt        Filter     
+     *  @brief      Filter module.
+     */
+
+   /** @defgroup   lcd         LCD     
+     *  @brief      Module for displaying graphs on an LCD via the @ref ili9341 module.
+     */
+
+   /** @defgroup   qrs         QRS     
+     *  @brief      QRS detection algorithm.
+     */
+
+   /** @defgroup   userctrl         UserCtrl     
+     *  @brief      User control module.
+     */
+
+/** @} */
 //************************************************************************************************
 
 /** 

@@ -56,8 +56,6 @@ Timer1A
  * 
  * @param   time_ms Time in [ms] between interrupts.
  *                  Must be <= 53 seconds.
- * 
- * @ingroup thread
  */
 void Timer1A_Init(uint32_t time_ms);
 
