@@ -1,1 +1,1 @@
-add_library(FIFO_Buffer STATIC fifo_buff.h fifo_buff.c)
+add_library(FIFO STATIC FIFO.c FIFO.h)
