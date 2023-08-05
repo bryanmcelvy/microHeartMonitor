@@ -175,23 +175,26 @@ void LCD_setColor_3bit(uint8_t color_code) {
         This is simply a convenience function for `LCD_setColor()`.
         The following table shows what the output color will be:
 
-        hex     | binary | pixel color
+        hex     | binary | macro
         --------|--------|------------
-        0x04    |  100   |    red 
-        0x06    |  110   |    yellow 
-        0x02    |  010   |    green 
-        0x03    |  011   |    cyan 
-        0x01    |  001   |    blue 
-        0x05    |  101   |    purple 
-        0x07    |  111   |    white 
+        0x00    |  000   | LCD_BLACK
+        0x04    |  100   | LCD_RED
+        0x06    |  110   | LCD_YELLOW
+        0x02    |  010   | LCD_GREEN
+        0x03    |  011   | LCD_CYAN
+        0x01    |  001   | LCD_BLUE
+        0x05    |  101   | LCD_PURPLE
+        0x07    |  111   | LCD_WHITE
      */
     
-    // use white if `color_code` == 0
-    color_code = (color_code > 0) ? (color_code & 0x07) : 0x07;
-
-    LCD_setColor(   255 * (color_code & 0x04), 
-                    255 * (color_code & 0x02),
-                    255 * (color_code & 0x01)   );
+    if(color_code == LCD_BLACK) {
+        LCD_setColor(1, 1, 1);
+    }
+    else {
+        LCD_setColor(   0x3F * (color_code & 0x04), 
+                        0x3F * (color_code & 0x02),
+                        0x3F * (color_code & 0x01)   );
+    }
 }
 
 /******************************************************************************

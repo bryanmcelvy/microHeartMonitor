@@ -37,14 +37,16 @@ SECTIONS
 #define Y_MAX           NUM_COLS
 
 // 3-bit Color Codes
+#define LCD_BLACK       (uint8_t) 0x00
+
 #define LCD_RED         (uint8_t) 0x04
 #define LCD_GREEN       (uint8_t) 0x02
 #define LCD_BLUE        (uint8_t) 0x01
 
-#define LCD_YELLOW      (LCD_RED + LCD_GREEN)
-#define LCD_CYAN        (LCD_BLUE + LCD_GREEN)
-#define LCD_PURPLE      (LCD_RED + LCD_BLUE)
-#define LCD_WHITE       (LCD_RED + LCD_BLUE + LCD_GREEN)
+#define LCD_YELLOW      (uint8_t) 0x06 // LCD_RED + LCD_GREEN
+#define LCD_CYAN        (uint8_t) 0x03 // LCD_BLUE + LCD_GREEN
+#define LCD_PURPLE      (uint8_t) 0x05 // LCD_RED + LCD_BLUE
+#define LCD_WHITE       (uint8_t) 0x07 // LCD_RED + LCD_BLUE + LCD_GREEN
 
 /******************************************************************************
 2) Initialization/Configuration
