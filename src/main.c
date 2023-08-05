@@ -1,6 +1,10 @@
 /**
- * @brief   Main program file for ECG-HRM
- * @author  Bryan McElvy
+ * @file
+ * @brief       Main program file for ECG-HRM
+ * @author      Bryan McElvy
+ * 
+ * @addtogroup  thread
+ * @{
  */
 
 // Driver Libraries
@@ -41,3 +45,5 @@ void ADC0_SS3_Handler(void) {
 void Timer1A_Handler(void) {
 
 }
+
+/** @} */

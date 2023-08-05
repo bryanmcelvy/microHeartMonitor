@@ -6,6 +6,10 @@
 
 #include "SysTick.h"
 
+#include "tm4c123gh6pm.h"
+
+#include <stdint.h>
+
 void SysTick_Timer_Init(void) {
     NVIC_ST_CTRL_R &= ~0x01;                                // disable SysTick
     NVIC_ST_RELOAD_R = 79999;                               // t = 1[ms]

@@ -1,5 +1,9 @@
 #include "GPIO.h"
 
+#include "tm4c123gh6pm.h"
+
+#include <stdint.h>
+
 void GPIO_PF_Init(void) {
     SYSCTL_RCGCGPIO_R |= 0x20;              // start clock for Port F
 
