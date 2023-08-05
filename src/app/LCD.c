@@ -157,7 +157,7 @@ void LCD_setX(uint16_t x1, uint16_t x2) {
 }
 
 void LCD_setY(uint16_t y1, uint16_t y2) {
-    LCD_setDim(y1, y2, false, false);
+    LCD_setDim(y1, y2, false, true);
 }
 
 /******************************************************************************
