@@ -253,8 +253,8 @@ void LCD_drawVLine(uint16_t xCenter, uint16_t lineWidth) {
     LCD_drawLine(xCenter, lineWidth, false);
 }
 
-void LCD_drawRectangle( uint16_t x1, uint16_t y1,
-                        uint16_t dx, uint16_t dy,
+void LCD_drawRectangle( uint16_t x1, uint16_t dx,
+                        uint16_t y1, uint16_t dy,
                         bool is_filled) {
     uint16_t x2;
     uint16_t y2;
@@ -279,13 +279,13 @@ void LCD_drawRectangle( uint16_t x1, uint16_t y1,
         LCD_draw();
     }
     else {
-        LCD_setArea(x1, x2, y1, y1);      // left side
+        LCD_setArea(x1, x2, y1, y1);    // left side
         LCD_draw();
-        LCD_setArea(x1, x2, y2, y2);          // right side
+        LCD_setArea(x1, x2, y2, y2);    // right side
         LCD_draw();
-        LCD_setArea(x1, x1, y1, y2);      // top side
+        LCD_setArea(x1, x1, y1, y2);    // top side
         LCD_draw();
-        LCD_setArea(x2, x2, y1, y2);          // right side
+        LCD_setArea(x2, x2, y1, y2);    // right side
         LCD_draw();
     }
 }

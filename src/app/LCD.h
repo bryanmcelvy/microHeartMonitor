@@ -165,17 +165,17 @@ void LCD_drawHLine(uint16_t yCenter, uint16_t lineWidth);
 void LCD_drawVLine(uint16_t xCenter, uint16_t lineWidth);
 
 /**
- * @brief               Draw an `l` x `h` rectangle on the display.
+ * @brief               Draw a rectangle of size `dx` x `dy` onto the display.
  *                      The bottom-left corner will be located at `(x1, y1)`.
  * 
- * @param x1            x-coordinate of bottom-left corner
- * @param y1            y-coordinate of bottom-left corner
- * @param dx            AKA `l`; length (horizontal distance) of the rectangle
- * @param dy            AKA `h`; height (vertical distance) of the rectangle
+ * @param x1            lowest (left-most) x-coordinate
+ * @param dx            length (horizontal distance) of the rectangle
+ * @param y1            lowest (bottom-most) y-coordinate
+ * @param dy            height (vertical distance) of the rectangle
  * @param is_filled     `true` to fill the rectangle, `false` to leave it unfilled
  */
-void LCD_drawRectangle( uint16_t x1, uint16_t y1,
-                        uint16_t dx, uint16_t dy,
+void LCD_drawRectangle( uint16_t x1, uint16_t dx,
+                        uint16_t y1, uint16_t dy,
                         bool is_filled);
 
 /******************************************************************************
