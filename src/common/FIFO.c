@@ -12,8 +12,8 @@
 #include <stdint.h>
 
 struct FIFO {
-    uint16_t * start_ptr;
-    uint16_t N;
+    uint16_t * const start_ptr;
+    const uint16_t N;
     uint16_t read_idx;
     uint16_t write_idx;
 };
