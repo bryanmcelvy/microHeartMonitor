@@ -1,7 +1,7 @@
 /**
  * @file
  * @author  Bryan McElvy
- * @brief   Test script for writing different colors on the LCD>
+ * @brief   Test script for writing different colors on the LCD.
  */
 
 #include "ILI9341.h"
@@ -12,42 +12,50 @@
 #include "Timer.h"
 #include <stdint.h>
 
-#define OFFSET (uint16_t) 24
+#define TOP_LINE_OFFSET     (uint16_t) 180
+#define TOP_LINE_THICKNESS  (uint16_t) 5
+
+#define DX                  (uint16_t) 5
+#define DY                  (uint16_t) 10
+#define COL_Y_MIN           (uint16_t) 0
+#define COL_Y_MAX           (uint16_t) 177
 
 int main(void) {
-    uint16_t x_start;
-    bool is_increasing;
-
+    uint16_t x1, y1;
+    bool is_y_increasing;
+    
     PLL_Init();
     Timer0A_Init();
     GPIO_PF_LED_Init();
-
     LCD_Init();
 
-    ILI9341_setScrollArea(0, X_MAX, 0);
+    LCD_toggleInversion();
+    LCD_setColor_3bit(LCD_BLACK);
+    LCD_drawHLine(TOP_LINE_OFFSET, TOP_LINE_THICKNESS);
 
-    LCD_setColor_3bit(LCD_RED);     LCD_drawRectangle(0, 0, 45, Y_MAX, 1);
-    LCD_setColor_3bit(LCD_YELLOW);  LCD_drawRectangle(45, 0, 45, Y_MAX, 1);
-    LCD_setColor_3bit(LCD_GREEN);   LCD_drawRectangle(90, 0, 45, Y_MAX, 1);
-    LCD_setColor_3bit(LCD_CYAN);    LCD_drawRectangle(135, 0, 45, Y_MAX, 1);
-    LCD_setColor_3bit(LCD_BLUE);    LCD_drawRectangle(180, 0, 45, Y_MAX, 1);
-    LCD_setColor_3bit(LCD_PURPLE);  LCD_drawRectangle(225, 0, 45, Y_MAX, 1);
-    LCD_setColor_3bit(LCD_WHITE);   LCD_drawRectangle(270, 0, 50, Y_MAX, 1);
+    x1 = 0;
+    y1 = 0;
+    is_y_increasing = true;
 
-    // ILI9341_setScrollStart(240);
-
-    LCD_toggleOutput();                         // display ON
-    GPIO_PF_LED_Toggle(0x08);
-
-    x_start = 0;
-    is_increasing = true;
+    LCD_toggleOutput();
+    GPIO_PF_LED_Toggle(LED_GREEN);
     while(1) {
-        ILI9341_setScrollStart(x_start);
+        // draw pixel
+        while(Timer0A_isCounting());
+        LCD_drawRectBlank(x1, DX*2, y1, DY, COL_Y_MIN, COL_Y_MAX, (LCD_WHITE-LCD_RED));
+        Timer0A_Start(33);
 
-        x_start = ( is_increasing ) ? (x_start + 1) : (x_start - 1);
-        if( x_start == (X_MAX - 1) ) { is_increasing = false; }
-        else if(x_start == 0) { is_increasing = true; }
+        // update x1 and y1
+        x1 = (x1 + DX < X_MAX) ? (x1 + DX) : 0;
+        y1 = (is_y_increasing) ? (y1 + DY) : (y1 - DY);
+        y1 = (y1 + DY < COL_Y_MAX) ? y1 : (COL_Y_MAX - DY + 1);
 
-        Timer0A_Wait1ms(10);
+        // change direction as needed
+        if (y1 + DY > COL_Y_MAX) {
+            is_y_increasing = false;
+        }
+        if (y1 < DY) {
+            is_y_increasing = true;
+        }
     }
 }
