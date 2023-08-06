@@ -5,6 +5,12 @@ File:           test/CMakeLists.txt
 Description:    Adds executables for test scripts.
 **************************************************************************************************  ]]
 
+# FIFO Buffer
+add_executable(test_fifo.elf test_fifo.c)
+
+target_include_directories(test_fifo.elf PRIVATE ${PROJECT_SOURCE_DIR}/src/common)
+
+target_link_libraries(test_fifo.elf FIFO)
 #[[***********************************************************************************************
 # Driver Tests
 **************************************************************************************************  ]]  
