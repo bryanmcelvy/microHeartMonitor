@@ -17,6 +17,7 @@
 /**********************************************************************
 Timer0A
 ***********************************************************************/
+/** @name Timer0A */ ///@{
 
 /**
  * @brief   Initialize timer 0 as 32-bit, one-shot, countdown timer.
@@ -47,9 +48,12 @@ uint8_t Timer0A_isCounting(void);
  */
 void Timer0A_Wait1ms(uint32_t time_ms);
 
+///@}
+
 /**********************************************************************
 Timer1A
 ***********************************************************************/
+/** @name Timer1A */ ///@{
 
 /**
  * @brief   Initialize timer 1 as a 32-bit, periodic, countdown timer with interrupts.
@@ -59,9 +63,12 @@ Timer1A
  */
 void Timer1A_Init(uint32_t time_ms);
 
+///@}
+
 /**********************************************************************
 Timer2A
 ***********************************************************************/
+/** @name Timer2A */ ///@{
 
 /**
  * @brief   Initialize timer 2 as 32-bit, one-shot, countdown timer.
@@ -92,6 +99,7 @@ uint8_t Timer2A_isCounting(void);
  */
 void Timer2A_Wait1ms(uint32_t time_ms);
 
+///@}
 
 #endif
 

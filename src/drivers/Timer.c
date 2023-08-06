@@ -1,9 +1,11 @@
 /**
+ * @addtogroup timer
+ * @{
+ *
  * @file
  * @author  Bryan McElvy
  * @brief   Implementation for timer module.
  * 
- * @ingroup timer
  */
 
 #include "Timer.h"
@@ -15,6 +17,7 @@
 /**********************************************************************
 Timer0A
 ***********************************************************************/
+
 void Timer0A_Init(void) {
     SYSCTL_RCGCTIMER_R |= 0x01;             // enable clock for timer 0
     TIMER0_CTL_R &= ~(0x101);               // disable both subtimers
@@ -69,6 +72,7 @@ void Timer1A_Init(uint32_t time_ms) {
 /**********************************************************************
 Timer2A
 ***********************************************************************/
+
 void Timer2A_Init(void) {
     SYSCTL_RCGCTIMER_R |= 0x04;             // enable clock for timer 2
     TIMER2_CTL_R &= ~(0x101);               // disable both subtimers
@@ -96,3 +100,5 @@ void Timer2A_Wait1ms(uint32_t time_ms) {
     Timer2A_Start(time_ms);
     while (Timer2A_isCounting()) {}
 }
+
+/** @} */

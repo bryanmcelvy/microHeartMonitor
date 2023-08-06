@@ -54,6 +54,7 @@ SECTIONS
 /******************************************************************************
 2) Initialization/Configuration
 *******************************************************************************/
+/** @name Init./Config. Functions */ /// @{
 
 /**
  * @brief       Initialize the LCD driver and its internal independencies.
@@ -75,14 +76,17 @@ void LCD_toggleInversion(void);
 /// @brief      Toggle 16-bit or 18-bit color depth (16-bit by default).
 void LCD_toggleColorDepth(void);
 
+///@}
+
 /******************************************************************************
 3) Drawing Area
 *******************************************************************************/
+/** @name Drawing Area Definition Functions */ /// @{
 
 /**
- * @brief               Set the area of the display to be written to.
- *                      `0 <= x1 <= x2 < X_MAX`
- *                      `0 <= y1 <= y2 < Y_MAX`
+ * @brief               Set the area of the display to be written to.   \n
+ *                      \f$ 0 <= x_1 <= x_2 < X_{MAX} \f$               \n
+ *                      \f$ 0 <= y_1 <= y_2 < Y_{MAX} \f$
  * 
  * @param x1_new        left-most x-coordinate
  * @param x2_new        right-most x-coordinate
@@ -94,7 +98,7 @@ void LCD_setArea(       uint16_t x1_new, uint16_t x2_new,
 
 /**
  * @brief               Set only new x-coordinates to be written to.
- *                      `0 <= x1 <= x2 < X_MAX`
+ *                      \f$ 0 <= x_1 <= x_2 < X_{MAX} \f$
  * 
  * @param x1_new        left-most x-coordinate
  * @param x2_new        right-most x-coordinate
@@ -103,16 +107,19 @@ void LCD_setX(uint16_t x1_new, uint16_t x2_new);
 
 /**
  * @brief               Set only new y-coordinates to be written to.
- *                      `0 <= y1 <= y2 < Y_MAX`
+ *                      \f$ 0 <= y_1 <= y_2 < Y_{MAX} \f$
  * 
  * @param y1_new        lowest y-coordinate
  * @param y2_new        highest y-coordinate
  */
 void LCD_setY(uint16_t y1_new, uint16_t y2_new);
 
+///@}
+
 /******************************************************************************
 4) Color
 *******************************************************************************/
+/** @name Color Setting Functions */ /// @{
 
 /**
  * @brief               Set the current color value for the display.
@@ -134,9 +141,12 @@ void LCD_setColor(uint8_t R_val, uint8_t G_val, uint8_t B_val);
  */
 void LCD_setColor_3bit(uint8_t color_code);
 
+///@}
+
 /******************************************************************************
 5) Drawing
 *******************************************************************************/
+/** @name Drawing Functions */ /// @{
 
 /**
  * @brief               Draw on the LCD display. 
@@ -181,10 +191,6 @@ void LCD_drawRectangle( uint16_t x1, uint16_t dx,
                         uint16_t y1, uint16_t dy,
                         bool is_filled);
 
-/******************************************************************************
-6) Scrolling
-*******************************************************************************/
-
 /**
  * @brief               Draw a rectangle of size `dx` x `dy` and blank out all
  *                      other pixels between `y_min` and `y_max`.
@@ -199,5 +205,9 @@ void LCD_drawRectangle( uint16_t x1, uint16_t dx,
  */
 void LCD_drawRectBlank( uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy, 
                         uint16_t y_min, uint16_t y_max, uint16_t color_code);
+
+///@}
+
+/** @} */
 
 #endif
