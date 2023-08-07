@@ -5,48 +5,82 @@
  */
 
 #include "FIFO.h"
+#include "PLL.h"
+#include "UART.h"
+#include "GPIO.h"
+#include "Timer.h"
 
+#include "stdbool.h"
 #include <stdint.h>
-#include <stdio.h>
 #include <stdlib.h>
 
 #define FIFO_LEN 10
+
+void FIFO_reportStatus(FIFO_t * fifo_ptr);
 
 int main(void) {
     uint16_t buffer[FIFO_LEN];
     FIFO_t * fifo_ptr = 0;
     uint16_t print_buffer[FIFO_LEN];
-    uint16_t tmp_val;
+
+    PLL_Init();
+    GPIO_PF_LED_Init();
+    Timer0A_Init();
+    UART0_Init();
+    UART0_WriteStr((unsigned char *) "\nTransmission started...\r\n");
 
     srand(42);
 
     // Initialize FIFO buffer
     fifo_ptr = FIFO_Init(buffer, FIFO_LEN);
-
+    FIFO_reportStatus(fifo_ptr);
+    
     // Add random numbers to the buffer
-    printf("Placing random values into buffer...");
+    UART0_WriteStr((unsigned char *) "Placing random values into buffer...");
     for (int i = 0; i < FIFO_LEN - 1; i++) {
         FIFO_Put(fifo_ptr, rand());
     }
-    printf("done!\n");
-    
+    UART0_WriteStr((unsigned char *) "done!\n");
+    FIFO_reportStatus(fifo_ptr);
+
+    // Show contents of buffer
+    UART0_WriteStr((unsigned char *) "Current contents: ");
+    UART0_WriteChar('\n');
+
     FIFO_Peek(fifo_ptr, print_buffer);
     for (int i = 0; i < FIFO_LEN - 1; i++) {
-        printf("%d\n", print_buffer[i]);
+        UART0_WriteInt(print_buffer[i]);
+        UART0_WriteChar('\n');
     }
 
     // Remove one at a time
-    printf("\nRemoving values...\n");
+    UART0_WriteStr((unsigned char *) "Removing values...\n");
+    FIFO_reportStatus(fifo_ptr);
     for (int i = 0; i < FIFO_LEN - 1; i++) {
-        tmp_val = FIFO_Get(fifo_ptr);
-        printf("%d\n", tmp_val);
+        uint16_t tmp_val = FIFO_Get(fifo_ptr);
+        UART0_WriteInt(tmp_val);
+        UART0_WriteChar('\n');
+        FIFO_reportStatus(fifo_ptr);
     }
-    printf("...done!");
+    UART0_WriteStr((unsigned char *) "Done!\n");
+
+    // Blink
+    while(1) {
+        GPIO_PF_LED_Toggle(LED_GREEN);
+        Timer0A_Wait1ms(500);
+    }
 }
 
-/*
-cppcheck --clang=/usr/local/opt/llvm/bin/clang --enable=all -Isrc/common src/test/test_fifo.c src/common/FIFO.c
-gcc -Wall -g -Isrc/common src/test/test_fifo.c src/common/FIFO.c -o build/src/test/test_fifo.o
-chmod +x test_fifo_dir/test_fifo.o
-./test_fifo_dir/test_fifo.o
-*/
+void FIFO_reportStatus(FIFO_t * fifo_ptr) {
+    if (FIFO_isEmpty(fifo_ptr)) {
+        UART0_WriteStr((unsigned char *) "FIFO is empty.");
+    }
+    else if (FIFO_isFull(fifo_ptr)) {
+        UART0_WriteStr((unsigned char *) "FIFO is full.");
+    }
+    else {
+        UART0_WriteStr((unsigned char *) "Current size: ");
+        UART0_WriteInt(FIFO_getCurrSize(fifo_ptr));
+    }
+    UART0_WriteChar('\n');
+}
