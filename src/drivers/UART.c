@@ -79,6 +79,20 @@ void UART0_WriteStr(unsigned char * str_ptr) {
     }
 }
 
+void UART0_WriteInt(uint32_t n) {
+    uint32_t nearestPowOf10 = 1;
+
+    while( (n / (nearestPowOf10 * 10) ) > 0) {
+        nearestPowOf10 *= 10;
+    }
+
+    while(nearestPowOf10 > 0) {
+        UART0_WriteChar( 0x30 + (n / nearestPowOf10) );
+        n %= nearestPowOf10;
+        nearestPowOf10 /= 10;
+    }
+}
+
 /**********************************************************************
 UART1
 ***********************************************************************/

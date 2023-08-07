@@ -31,7 +31,7 @@ void UART0_Init(void);
 /**
  * @brief   Read a single character from UART0.
  * 
- * @return  input_char
+ * @return  input_char input character
  */
 unsigned char UART0_ReadChar(void);
 
@@ -48,6 +48,13 @@ void UART0_WriteChar(unsigned char input_char);
  * @param   str_ptr pointer to C string
  */
 void UART0_WriteStr(unsigned char * str_ptr);
+
+/**
+ * @brief               Write a 32-bit unsigned integer to UART0.
+ * 
+ * @param n             32-bit unsigned integer to be converted and transmitted
+ */
+void UART0_WriteInt(uint32_t n);
 
 /**********************************************************************
 UART1
