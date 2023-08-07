@@ -6,11 +6,14 @@ Description:    Adds executables for test scripts.
 **************************************************************************************************  ]]
 
 # FIFO Buffer
-add_executable(test_fifo.elf test_fifo.c)
+add_custom_target(test_fifo.elf
+                    ALL
+                    VERBATIM
+                    SOURCES ${PROJECT_SOURCE_DIR}/src/common/FIFO.c ${PROJECT_SOURCE_DIR}/src/common/FIFO.h ${PROJECT_SOURCE_DIR}/src/test/test_fifo.c
+                    COMMAND gcc -Wall -g -I${PROJECT_SOURCE_DIR}/src/common ${PROJECT_SOURCE_DIR}/src/common/FIFO.c ${PROJECT_SOURCE_DIR}/src/test/test_fifo.c -o ${PROJECT_BINARY_DIR}/src/test/test_fifo.o
+                    BYPRODUCTS ${PROJECT_BINARY_DIR}/src/test/test_fifo.o)
+add_dependencies(test_fifo.elf FIFO)
 
-target_include_directories(test_fifo.elf PRIVATE ${PROJECT_SOURCE_DIR}/src/common)
-
-target_link_libraries(test_fifo.elf FIFO)
 #[[***********************************************************************************************
 # Driver Tests
 **************************************************************************************************  ]]  
