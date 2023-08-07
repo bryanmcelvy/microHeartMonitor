@@ -20,7 +20,7 @@ add_subdirectory(docs)                              # datasheets and generated c
 find_program(CMAKE_C_CPPCHECK NAMES cppcheck)
 if(CMAKE_C_CPPCHECK)
     set(CPPCHECK_FLAGS "--enable=all" "--error-exitcode=1" "--quiet")
-    list(APPEND CPPCHECK_FLAGS "--suppress=unusedFunction" "--suppress=missingIncludeSystem" "--suppress=*:src/device/startup_gcc.c")
+    list(APPEND CPPCHECK_FLAGS "--suppress=missingIncludeSystem" "--suppress=*:src/device/startup_gcc.c")
     list(APPEND CPPCHECK_FLAGS "--cppcheck-build-dir=${PROJECT_BINARY_DIR}/cppcheck" "--project=${PROJECT_BINARY_DIR}/compile_commands.json" "src")
 
     add_custom_target(lint 
@@ -32,6 +32,6 @@ if(CMAKE_C_CPPCHECK)
     if(OPT_CPPCHECK)
         set_target_properties(lint PROPERTIES EXCLUDE_FROM_ALL FALSE)
     else()
-        set_target_properties(lint PROPERTIES EXCLUDE_FROM_ALL FALSE)
+        set_target_properties(lint PROPERTIES EXCLUDE_FROM_ALL TRUE)
     endif()
 endif()
