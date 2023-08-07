@@ -11,7 +11,6 @@
 
 #include <stdint.h>
 #include <stdbool.h>
-#include <assert.h>
 
 #ifndef FIFO_POOL_SIZE      // defined @ compile-time (i.e. arm-none-eabi-gcc -DFIFO_POOL_SIZE=<VALUE>)
 #define FIFO_POOL_SIZE 3    // default val
@@ -38,7 +37,6 @@ FIFO_t * FIFO_Init(uint16_t buffer[], uint16_t N) {
         fifo_ptr->front_idx = 0;
         fifo_ptr->back_idx = 0;
     }
-    assert(fifo_ptr);
 
     return fifo_ptr;
 }
