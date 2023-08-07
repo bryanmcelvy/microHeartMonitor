@@ -302,7 +302,6 @@ void LCD_drawRectBlank( uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy,
     
     uint16_t x2;
     uint16_t y2;
-    uint16_t numPixels;
     
     // set area of display to write to
     x2 = (x1 + dx) - 1;
@@ -313,6 +312,7 @@ void LCD_drawRectBlank( uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy,
 
     // write column by column
     for(int x_i = 0; x_i < dx; x_i ++) {
+        uint16_t numPixels;                 // declared in this loop to get cppcheck to stop complaining
 
         // write blank pixels from `(x1 + x_i, y_min)` to `(x1 + x_i, y1 - 1)
         LCD_setColor_3bit(LCD_WHITE);
