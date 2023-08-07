@@ -13,8 +13,8 @@
 #include <stdbool.h>
 #include <assert.h>
 
-#ifndef FIFO_POOL_SIZE
-#define FIFO_POOL_SIZE 3
+#ifndef FIFO_POOL_SIZE      // defined @ compile-time (i.e. arm-none-eabi-gcc -DFIFO_POOL_SIZE=<VALUE>)
+#define FIFO_POOL_SIZE 3    // default val
 #endif
 
 struct FIFO_t { 
@@ -24,15 +24,15 @@ struct FIFO_t {
     uint16_t back_idx;      ///< idx of back of FIFO
 };
 
-static FIFO_t buffer_pool[FIFO_POOL_SIZE] = {0};
-static uint8_t free_buffers = FIFO_POOL_SIZE;
+static FIFO_t buffer_pool[FIFO_POOL_SIZE] = {0};        ///< pre-allocated based on preprocessor directive
+static uint8_t free_buffers = FIFO_POOL_SIZE;           ///< no. of remaining buffers
 
 FIFO_t * FIFO_Init(uint16_t buffer[], uint16_t N) {
+    ///TODO: Add details
     FIFO_t * fifo_ptr = 0;
+
     if(free_buffers > 0) {
-        free_buffers -= 1;
-        fifo_ptr = &( buffer_pool[free_buffers] );
-        
+        fifo_ptr = &( buffer_pool[--free_buffers] );
         fifo_ptr->buffer = buffer;
         fifo_ptr->N = N;
         fifo_ptr->front_idx = 0;
