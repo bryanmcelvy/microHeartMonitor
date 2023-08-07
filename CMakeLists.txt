@@ -19,13 +19,13 @@ add_subdirectory(docs)                              # datasheets and generated c
 # cppcheck Configuration
 find_program(CMAKE_C_CPPCHECK NAMES cppcheck)
 if(CMAKE_C_CPPCHECK)
-    set(CPPCHECK_FLAGS "--enable=all" "--error-exitcode=1" "--quiet")
-    list(APPEND CPPCHECK_FLAGS "--suppress=missingIncludeSystem" "--suppress=*:src/device/startup_gcc.c")
-    list(APPEND CPPCHECK_FLAGS "--cppcheck-build-dir=${PROJECT_BINARY_DIR}/cppcheck" "--project=${PROJECT_BINARY_DIR}/compile_commands.json" "src")
+    set(CPPCHECK_FOLDER ${PROJECT_SOURCE_DIR}/cppcheck)
+    set(CPPCHECK_FLAGS "--enable=all" "--error-exitcode=1" "--quiet" "--suppressions-list=${CPPCHECK_FOLDER}/suppressions.txt" "--template=gcc")
+    list(APPEND CPPCHECK_FLAGS "--relative-paths=${PROJECT_SOURCE_DIR}" "--cppcheck-build-dir=${CPPCHECK_FOLDER}" "--project=${PROJECT_BINARY_DIR}/compile_commands.json" "${PROJECT_SOURCE_DIR}/src")
 
     add_custom_target(lint 
                         COMMENT             "Running cppcheck:"
-                        WORKING_DIRECTORY   ${PROJECT_SOURCE_DIR}/src
+                        WORKING_DIRECTORY   ${PROJECT_SOURCE_DIR}
                         COMMAND             ${CMAKE_C_CPPCHECK} ${CPPCHECK_FLAGS}
                         VERBATIM)
 

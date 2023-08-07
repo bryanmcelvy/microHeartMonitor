@@ -1,0 +1,7 @@
+*:src/device/startup_gcc.c
+
+badBitmaskCheck:src/drivers/*
+
+constParameterPointer
+missingIncludeSystem
+unusedFunction
