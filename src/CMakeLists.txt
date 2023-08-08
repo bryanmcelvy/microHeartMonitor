@@ -6,12 +6,8 @@ Description:    Adds subdirectories and main target executable
 # Subdirectories
 add_subdirectory(app)
 add_subdirectory(common)
-# add_subdirectory(device)
 add_subdirectory(drivers)
-
-if(OPT_TESTING)
-    add_subdirectory(test)
-endif()
+add_subdirectory(test)
 
 # Main Target Declaration
 set(MAIN_TARGET main.elf)
@@ -31,6 +27,6 @@ target_include_directories( ${MAIN_TARGET}
 
 target_link_libraries(  ${MAIN_TARGET} 
                         PRIVATE 
-                            Debug   Filter      QRS     UserCtrl    # app libraries
-                            ADC     ILI9341     PLL                 # driver libraries
+                            Debug   Filter  LCD   QRS   UserCtrl    # app libraries
+                            ADC     PLL                             # driver libraries
                         )

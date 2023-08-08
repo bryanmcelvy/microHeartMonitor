@@ -1,7 +1,5 @@
-if(OPT_TESTING)
-
 #[[***********************************************************************************************
-File:           test/CMakeLists.txt
+File:           src/test/CMakeLists.txt
 Description:    Adds executables for test scripts.
 **************************************************************************************************  ]]
 
@@ -225,5 +223,3 @@ target_link_libraries(test_lcd_image.elf
                             LCD
                             GPIO
                             Timer)
-
-endif(OPT_TESTING)
