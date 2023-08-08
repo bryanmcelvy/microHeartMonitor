@@ -11,7 +11,7 @@ PointerAlignment: Middle
 
 AllowAllArgumentsOnNextLine: true
 AllowShortBlocksOnASingleLine: Empty
-AllowShortFunctionsOnASingleLine: All
+AllowShortFunctionsOnASingleLine: Empty
 AllowShortIfStatementsOnASingleLine: true
 AlignConsecutiveMacros: AcrossEmptyLinesAndComments
 AllowShortCaseLabelsOnASingleLine: true
@@ -31,8 +31,9 @@ SpaceBeforeParens: Never
 SpaceBeforeSquareBrackets: false
 SpaceInEmptyBlock: false
 SpacesInCStyleCastParentheses: false
-
 SpacesBeforeTrailingComments: 20
+
+SeparateDefinitionBlocks: Always
 
 # ReflowComments: false
 # SpacesInLineCommentPrefix:

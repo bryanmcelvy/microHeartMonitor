@@ -13,16 +13,14 @@
 #include <stdbool.h>
 
 struct FIFO_t {
-    uint16_t * buffer;                      ///< (pointer to) array to use as FIFO buffer
-    uint16_t N;                             ///< length of `buffer`
-    uint16_t front_idx;                     ///< idx of front of FIFO
-    uint16_t back_idx;                      ///< idx of back of FIFO
+    uint16_t * buffer;                     ///< (pointer to) array to use as FIFO buffer
+    uint16_t N;                            ///< length of `buffer`
+    uint16_t front_idx;                    ///< idx of front of FIFO
+    uint16_t back_idx;                     ///< idx of back of FIFO
 };
 
-static FIFO_t buffer_pool[FIFO_POOL_SIZE] = {
-    0
-};                                          ///< pre-allocated based on preprocessor directive
-static uint8_t free_buffers = FIFO_POOL_SIZE;                    ///< no. of remaining buffers
+static FIFO_t buffer_pool[FIFO_POOL_SIZE] = { 0 };                    ///< pre-allocated buffer pool
+static uint8_t free_buffers = FIFO_POOL_SIZE;                         ///< no. of remaining buffers
 
 FIFO_t * FIFO_Init(uint16_t buffer[], uint16_t N) {
     /// TODO: Add details
@@ -61,12 +59,6 @@ uint16_t FIFO_Get(FIFO_t * fifo_ptr) {
     return ret_val;
 }
 
-void FIFO_Transfer(FIFO_t * src_fifo_ptr, FIFO_t * dest_fifo_ptr) {
-    while((FIFO_isEmpty(src_fifo_ptr) == false) && (FIFO_isFull(dest_fifo_ptr) == false)) {
-        FIFO_Put(dest_fifo_ptr, FIFO_Get(src_fifo_ptr));
-    }
-}
-
 void FIFO_Flush(FIFO_t * fifo_ptr, uint16_t output_buffer[]) {
     uint16_t idx = 0;
 
@@ -74,6 +66,12 @@ void FIFO_Flush(FIFO_t * fifo_ptr, uint16_t output_buffer[]) {
         output_buffer[idx++] = fifo_ptr->buffer[fifo_ptr->front_idx];
         fifo_ptr->front_idx =
             (fifo_ptr->front_idx + 1) % fifo_ptr->N;                    // wrap around to end
+    }
+}
+
+void FIFO_Transfer(FIFO_t * src_fifo_ptr, FIFO_t * dest_fifo_ptr) {
+    while((FIFO_isEmpty(src_fifo_ptr) == false) && (FIFO_isFull(dest_fifo_ptr) == false)) {
+        FIFO_Put(dest_fifo_ptr, FIFO_Get(src_fifo_ptr));
     }
 }
 

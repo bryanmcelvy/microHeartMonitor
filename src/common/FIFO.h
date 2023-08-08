@@ -7,17 +7,33 @@
  * @brief   FIFO buffer data structure.
  */
 
+/******************************************************************************
+SECTIONS
+        Preprocessor Directives
+        Basic Operations
+        Bulk Removal
+        Status Checks
+*******************************************************************************/
+
+/******************************************************************************
+Preprocessor Directives
+*******************************************************************************/
+
 #ifndef __FIFO_H__
 #define __FIFO_H__
 
 #include <stdint.h>
 #include <stdbool.h>
+
 // Number of pre-allocated FIFO buffer structs can be defined at compile-time
 // (i.e. "gcc -DFIFO_POOL_SIZE=<VALUE> ...")
 #ifndef FIFO_POOL_SIZE
 #define FIFO_POOL_SIZE 3                    // default val
 #endif
 
+/******************************************************************************
+Basic Operations
+*******************************************************************************/
 
 typedef struct FIFO_t FIFO_t;
 
@@ -46,6 +62,19 @@ void FIFO_Put(FIFO_t * fifo_ptr, uint16_t val);
  */
 uint16_t FIFO_Get(FIFO_t * fifo_ptr);
 
+/******************************************************************************
+Bulk Removal
+*******************************************************************************/
+
+/**
+ * @brief               Empty the FIFO buffer's contents into an array.
+ *
+ * @param fifo_ptr      Pointer to source FIFO buffer.
+ * @param output_buffer Array to output values to.
+ *                      Should be the same length as the FIFO buffer.
+ */
+void FIFO_Flush(FIFO_t * fifo_ptr, uint16_t output_buffer[]);
+
 /**
  * @brief               Transfer the contents of one FIFO buffer to another.
  *
@@ -54,14 +83,9 @@ uint16_t FIFO_Get(FIFO_t * fifo_ptr);
  */
 void FIFO_Transfer(FIFO_t * src_fifo_ptr, FIFO_t * dest_fifo_ptr);
 
-/**
- * @brief               Empty the FIFO buffer's contents.
- *
- * @param fifo_ptr      Pointer to FIFO object
- * @param output_buffer Array to output values to.
- *                      Should be the same length as the FIFO buffer.
- */
-void FIFO_Flush(FIFO_t * fifo_ptr, uint16_t output_buffer[]);
+/******************************************************************************
+Status Checks
+*******************************************************************************/
 
 /**
  * @brief               See the FIFO buffer's contents without removing them.
