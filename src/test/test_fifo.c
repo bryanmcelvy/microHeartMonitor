@@ -34,10 +34,10 @@ int main(void) {
     // Initialize FIFO buffer
     fifo_ptr = FIFO_Init(buffer, FIFO_LEN);
     FIFO_reportStatus(fifo_ptr);
-    
+
     // Add random numbers to the buffer
     UART0_WriteStr((unsigned char *) "Placing random values into buffer...");
-    for (int i = 0; i < FIFO_LEN - 1; i++) {
+    for(int i = 0; i < FIFO_LEN - 1; i++) {
         FIFO_Put(fifo_ptr, rand());
     }
     UART0_WriteStr((unsigned char *) "done!\n");
@@ -48,7 +48,7 @@ int main(void) {
     UART0_WriteChar('\n');
 
     FIFO_Peek(fifo_ptr, print_buffer);
-    for (int i = 0; i < FIFO_LEN - 1; i++) {
+    for(int i = 0; i < FIFO_LEN - 1; i++) {
         UART0_WriteInt(print_buffer[i]);
         UART0_WriteChar('\n');
     }
@@ -56,7 +56,7 @@ int main(void) {
     // Remove one at a time
     UART0_WriteStr((unsigned char *) "Removing values...\n");
     FIFO_reportStatus(fifo_ptr);
-    for (int i = 0; i < FIFO_LEN - 1; i++) {
+    for(int i = 0; i < FIFO_LEN - 1; i++) {
         uint16_t tmp_val = FIFO_Get(fifo_ptr);
         UART0_WriteInt(tmp_val);
         UART0_WriteChar('\n');
@@ -72,10 +72,10 @@ int main(void) {
 }
 
 void FIFO_reportStatus(FIFO_t * fifo_ptr) {
-    if (FIFO_isEmpty(fifo_ptr)) {
+    if(FIFO_isEmpty(fifo_ptr)) {
         UART0_WriteStr((unsigned char *) "FIFO is empty.");
     }
-    else if (FIFO_isFull(fifo_ptr)) {
+    else if(FIFO_isFull(fifo_ptr)) {
         UART0_WriteStr((unsigned char *) "FIFO is full.");
     }
     else {

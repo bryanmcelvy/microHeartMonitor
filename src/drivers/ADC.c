@@ -1,7 +1,7 @@
 /**
- * @addtogroup  adc 
+ * @addtogroup  adc
  * @{
- * 
+ *
  * @file
  * @author      Bryan McElvy
  * @brief       Source code for ADC module.

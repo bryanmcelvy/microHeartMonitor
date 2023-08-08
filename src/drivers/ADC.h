@@ -1,7 +1,7 @@
 /**
- * @addtogroup  adc 
+ * @addtogroup  adc
  * @{
- * 
+ *
  * @file
  * @author      Bryan McElvy
  * @brief       Driver module for analog-to-digital conversion (ADC).
