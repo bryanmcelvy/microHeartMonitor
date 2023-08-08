@@ -67,6 +67,12 @@ uint16_t FIFO_Get(FIFO_t * fifo_ptr) {
     return ret_val;
 }
 
+void FIFO_Transfer(FIFO_t * src_fifo_ptr, FIFO_t * dest_fifo_ptr) {
+    while((FIFO_isEmpty(src_fifo_ptr) == false) && (FIFO_isFull(dest_fifo_ptr) == false)) {
+        FIFO_Put(dest_fifo_ptr, FIFO_Get(src_fifo_ptr));
+    }
+}
+
 void FIFO_Flush(FIFO_t * fifo_ptr, uint16_t output_buffer[]) {
     uint16_t idx = 0;
 

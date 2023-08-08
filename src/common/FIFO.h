@@ -41,6 +41,14 @@ void FIFO_Put(FIFO_t * fifo_ptr, uint16_t val);
 uint16_t FIFO_Get(FIFO_t * fifo_ptr);
 
 /**
+ * @brief               Transfer the contents of one FIFO buffer to another.
+ *
+ * @param src_fifo_ptr  Pointer to source FIFO buffer.
+ * @param dest_fifo_ptr Pointer to destination FIFO buffer.
+ */
+void FIFO_Transfer(FIFO_t * src_fifo_ptr, FIFO_t * dest_fifo_ptr);
+
+/**
  * @brief               Empty the FIFO buffer's contents.
  *
  * @param fifo_ptr      Pointer to FIFO object
