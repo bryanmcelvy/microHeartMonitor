@@ -27,7 +27,7 @@ Preprocessor Directives
 #include <stdbool.h>
 
 // Number of pre-allocated FIFO buffer structs can be defined at compile-time
-// (i.e. "gcc -DFIFO_POOL_SIZE=<VALUE> ...")
+// (i.e. "arm-none-eabi-gcc -DFIFO_POOL_SIZE=<VALUE> ...")
 #ifndef FIFO_POOL_SIZE
 #define FIFO_POOL_SIZE 3                    // default val
 #endif
@@ -67,6 +67,14 @@ void FIFO_Put(FIFO_t * fifo_ptr, uint16_t val);
  */
 uint16_t FIFO_Get(FIFO_t * fifo_ptr);
 
+/**
+ * @brief               Transfer a value from one FIFO buffer to another.
+ *
+ * @param src_fifo_ptr  Pointer to source FIFO buffer.
+ * @param dest_fifo_ptr Pointer to destination FIFO buffer.
+ */
+void FIFO_TransferOne(FIFO_t * src_fifo_ptr, FIFO_t * dest_fifo_ptr);
+
 /******************************************************************************
 Bulk Removal
 *******************************************************************************/
@@ -86,7 +94,7 @@ void FIFO_Flush(FIFO_t * fifo_ptr, uint16_t output_buffer[]);
  * @param src_fifo_ptr  Pointer to source FIFO buffer.
  * @param dest_fifo_ptr Pointer to destination FIFO buffer.
  */
-void FIFO_Transfer(FIFO_t * src_fifo_ptr, FIFO_t * dest_fifo_ptr);
+void FIFO_TransferAll(FIFO_t * src_fifo_ptr, FIFO_t * dest_fifo_ptr);
 
 /******************************************************************************
 Status Checks
