@@ -12,11 +12,6 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#ifndef FIFO_POOL_SIZE                      // defined @ compile-time (i.e. arm-none-eabi-gcc
-                                            // -DFIFO_POOL_SIZE=<VALUE>)
-#define FIFO_POOL_SIZE 3                    // default val
-#endif
-
 struct FIFO_t {
     uint16_t * buffer;                      ///< (pointer to) array to use as FIFO buffer
     uint16_t N;                             ///< length of `buffer`
