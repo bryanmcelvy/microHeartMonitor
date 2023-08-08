@@ -10,6 +10,7 @@
 /******************************************************************************
 SECTIONS
         Preprocessor Directives
+        Type Declaration + Initialization
         Basic Operations
         Bulk Removal
         Status Checks
@@ -32,7 +33,7 @@ Preprocessor Directives
 #endif
 
 /******************************************************************************
-Basic Operations
+Type Declaration + Initialization
 *******************************************************************************/
 
 typedef struct FIFO_t FIFO_t;
@@ -45,6 +46,10 @@ typedef struct FIFO_t FIFO_t;
  * @return              pointer to the FIFO buffer
  */
 FIFO_t * FIFO_Init(uint16_t buffer[], uint16_t N);
+
+/******************************************************************************
+Basic Operations
+*******************************************************************************/
 
 /**
  * @brief               Add a value to the end of the buffer.

@@ -7,10 +7,27 @@
  * @brief   Source code for FIFO buffer module.
  */
 
+/******************************************************************************
+SECTIONS
+        Preprocessor Directives
+        Type Declaration + Initialization
+        Basic Operations
+        Bulk Removal
+        Status Checks
+*******************************************************************************/
+
+/******************************************************************************
+Preprocessor Directives
+*******************************************************************************/
+
 #include "FIFO.h"
 
 #include <stdint.h>
 #include <stdbool.h>
+
+/******************************************************************************
+Type Declaration + Initialization
+*******************************************************************************/
 
 struct FIFO_t {
     uint16_t * buffer;                     ///< (pointer to) array to use as FIFO buffer
@@ -37,6 +54,10 @@ FIFO_t * FIFO_Init(uint16_t buffer[], uint16_t N) {
     return fifo_ptr;
 }
 
+/******************************************************************************
+Basic Operations
+*******************************************************************************/
+
 void FIFO_Put(FIFO_t * fifo_ptr, uint16_t val) {
     if(FIFO_isFull(fifo_ptr) == false) {                      // ensure FIFO isn't full
         fifo_ptr->buffer[fifo_ptr->back_idx] = val;
@@ -59,6 +80,10 @@ uint16_t FIFO_Get(FIFO_t * fifo_ptr) {
     return ret_val;
 }
 
+/******************************************************************************
+Bulk Removal
+*******************************************************************************/
+
 void FIFO_Flush(FIFO_t * fifo_ptr, uint16_t output_buffer[]) {
     uint16_t idx = 0;
 
@@ -75,6 +100,10 @@ void FIFO_Transfer(FIFO_t * src_fifo_ptr, FIFO_t * dest_fifo_ptr) {
     }
 }
 
+/******************************************************************************
+Status Checks
+*******************************************************************************/
+
 void FIFO_Peek(FIFO_t * fifo_ptr, uint16_t output_buffer[]) {
     uint16_t temp_front_idx = fifo_ptr->front_idx;
     uint16_t idx = 0;
@@ -82,7 +111,7 @@ void FIFO_Peek(FIFO_t * fifo_ptr, uint16_t output_buffer[]) {
     while(FIFO_isEmpty(fifo_ptr) == false) {
         output_buffer[idx++] = fifo_ptr->buffer[temp_front_idx];
         temp_front_idx =
-            (temp_front_idx + 1) % fifo_ptr->N;                         // wrap around to end
+            (temp_front_idx + 1) % fifo_ptr->N;                    // wrap around to end
     }
 }
 
