@@ -8,6 +8,6 @@
 #ifndef __FILTER_H__
 #define __FILTER_H__
 
-// #include "fifo_buff.h"
+#include "FIFO.h"
 
 #endif
