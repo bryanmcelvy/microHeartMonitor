@@ -12,7 +12,7 @@
 
 /**
  * @brief Initializes the UserCtrl module and its dependencies (Timer0B and GPIO_PortF)
- * 
+ *
  */
 void UserCtrl_Init();
 
