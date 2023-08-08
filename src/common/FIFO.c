@@ -40,8 +40,7 @@ FIFO_t * FIFO_Init(uint16_t buffer[], uint16_t N) {
 }
 
 void FIFO_Put(FIFO_t * fifo_ptr, uint16_t val) {
-    if((fifo_ptr->back_idx + 1) % 10 !=
-       fifo_ptr->front_idx) {                                 // ensure FIFO isn't full
+    if(FIFO_isFull(fifo_ptr) == false) {                      // ensure FIFO isn't full
         fifo_ptr->buffer[fifo_ptr->back_idx] = val;
         fifo_ptr->back_idx = (fifo_ptr->back_idx + 1) %
                              fifo_ptr->N;                     // modulo causes wrap around to 0
@@ -82,7 +81,7 @@ void FIFO_Peek(FIFO_t * fifo_ptr, uint16_t output_buffer[]) {
     uint16_t temp_front_idx = fifo_ptr->front_idx;
     uint16_t idx = 0;
 
-    while((temp_front_idx != fifo_ptr->back_idx)) {
+    while(FIFO_isEmpty(fifo_ptr) == false) {
         output_buffer[idx++] = fifo_ptr->buffer[temp_front_idx];
         temp_front_idx =
             (temp_front_idx + 1) % fifo_ptr->N;                         // wrap around to end
@@ -93,7 +92,9 @@ bool FIFO_isFull(FIFO_t * fifo_ptr) {
     return ((fifo_ptr->back_idx + 1) % fifo_ptr->N) == fifo_ptr->front_idx;
 }
 
-bool FIFO_isEmpty(FIFO_t * fifo_ptr) { return fifo_ptr->front_idx == fifo_ptr->back_idx; }
+bool FIFO_isEmpty(FIFO_t * fifo_ptr) {
+    return fifo_ptr->front_idx == fifo_ptr->back_idx;
+}
 
 uint16_t FIFO_getCurrSize(FIFO_t * fifo_ptr) {
     uint16_t size;
