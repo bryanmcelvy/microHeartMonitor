@@ -35,7 +35,7 @@ static void LCD_updateNumPixels(void);
 
 /**
  * @brief                   Set new `x` or `y` parameters, and optionally update `numPixels`.
- * 
+ *
  * @param d1                start index of selected dimension
  * @param d2                end index of selected dimension
  * @param is_x              `true` if dimension is `x`, `false` if `y`
@@ -45,7 +45,7 @@ static void LCD_setDim(uint16_t d1, uint16_t d2, bool is_x, bool update_num_pixe
 
 /**
  * @brief               Helper function for drawing straight lines.
- * 
+ *
  * @param center        Row or column that the line is centered on.
  *                      `center` is increased or decreased if the line to be
  *                      written would have gone out of bounds.
@@ -55,11 +55,15 @@ static void LCD_setDim(uint16_t d1, uint16_t d2, bool is_x, bool update_num_pixe
 static void LCD_drawLine(uint16_t center, uint16_t lineWidth, bool is_horizontal);
 
 typedef struct {
-    uint16_t x1; uint16_t x2;
-    uint16_t y1; uint16_t y2;
+    uint16_t x1;
+    uint16_t x2;
+    uint16_t y1;
+    uint16_t y2;
     uint32_t numPixels;
 
-    uint8_t R_val; uint8_t G_val; uint8_t B_val;
+    uint8_t R_val;
+    uint8_t G_val;
+    uint8_t B_val;
 
     bool is_outputON;
     bool is_inverted;
@@ -67,17 +71,21 @@ typedef struct {
     bool is_init;
 } LCD_t;
 
-static LCD_t lcd = {  
-    0, (X_MAX-1),                   // entire area
-    0, (Y_MAX-1),                   // colStart, colEnd
-    (X_MAX * Y_MAX),                // numPixels
+static LCD_t lcd = {
+    0,
+    (X_MAX - 1),                        // entire area
+    0,                                  // colStart
+    (Y_MAX - 1),                        // colEnd
+    (X_MAX * Y_MAX),                    // numPixels
 
-    255, 255, 255,                  // default write color is white
+    255,
+    255,
+    255,                                // default write color is white
 
-    false,                          // display output OFF
-    false,                          // color inversion OFF
-    true,                           // 16-bit color depth
-    false                           // not initialized
+    false,                              // display output OFF
+    false,                              // color inversion OFF
+    true,                               // 16-bit color depth
+    false                               // not initialized
 };
 
 /******************************************************************************
@@ -85,7 +93,7 @@ static LCD_t lcd = {
 *******************************************************************************/
 
 void LCD_Init(void) {
-    if (lcd.is_init == false) {
+    if(lcd.is_init == false) {
         ILI9341_Init();
         ILI9341_setSleepMode(false);
         ILI9341_setMemAccessCtrl(1, 0, 0, 0, 1, 0);
@@ -110,7 +118,7 @@ void LCD_toggleInversion(void) {
 void LCD_toggleColorDepth(void) {
     lcd.is_16bit = !(lcd.is_16bit);
     ILI9341_setColorDepth(lcd.is_16bit);
-    if (lcd.is_16bit) {                     // convert R and B to 5-bits
+    if(lcd.is_16bit) {                    // convert R and B to 5-bits
         lcd.R_val |= 0x1F;
         lcd.B_val |= 0x1F;
     }
@@ -121,8 +129,7 @@ void LCD_toggleColorDepth(void) {
 *******************************************************************************/
 
 static void LCD_updateNumPixels(void) {
-    lcd.numPixels = (uint32_t) ((lcd.x2 - lcd.x1) + 1) 
-                    * ((lcd.y2 - lcd.y1) + 1);
+    lcd.numPixels = (uint32_t) ((lcd.x2 - lcd.x1) + 1) * ((lcd.y2 - lcd.y1) + 1);
 }
 
 static void LCD_setDim(uint16_t d1, uint16_t d2, bool is_x, bool update_num_pixels) {
@@ -144,22 +151,19 @@ static void LCD_setDim(uint16_t d1, uint16_t d2, bool is_x, bool update_num_pixe
         ILI9341_setColAddress(lcd.y1, lcd.y2);
     }
 
-    if (update_num_pixels) { LCD_updateNumPixels(); }
+    if(update_num_pixels) {
+        LCD_updateNumPixels();
+    }
 }
 
-void LCD_setArea(   uint16_t x1, uint16_t x2,
-                    uint16_t y1, uint16_t y2) {
+void LCD_setArea(uint16_t x1, uint16_t x2, uint16_t y1, uint16_t y2) {
     LCD_setDim(x1, x2, true, false);
     LCD_setDim(y1, y2, false, true);
 }
 
-void LCD_setX(uint16_t x1, uint16_t x2) {
-    LCD_setDim(x1, x2, true, true);
-}
+void LCD_setX(uint16_t x1, uint16_t x2) { LCD_setDim(x1, x2, true, true); }
 
-void LCD_setY(uint16_t y1, uint16_t y2) {
-    LCD_setDim(y1, y2, false, true);
-}
+void LCD_setY(uint16_t y1, uint16_t y2) { LCD_setDim(y1, y2, false, true); }
 
 /******************************************************************************
 4) Color
@@ -172,29 +176,30 @@ void LCD_setColor(uint8_t R_val, uint8_t G_val, uint8_t B_val) {
 }
 
 void LCD_setColor_3bit(uint8_t color_code) {
+    // clang-format off
     /**
-        This is simply a convenience function for `LCD_setColor()`.
-        The following table shows what the output color will be:
+     *  This is simply a convenience function for setting the color using the
+     *  macros defined in the header file.
 
-        hex     | binary | macro
-        --------|--------|------------
-        0x00    |  000   | LCD_BLACK
-        0x04    |  100   | LCD_RED
-        0x06    |  110   | LCD_YELLOW
-        0x02    |  010   | LCD_GREEN
-        0x03    |  011   | LCD_CYAN
-        0x01    |  001   | LCD_BLUE
-        0x05    |  101   | LCD_PURPLE
-        0x07    |  111   | LCD_WHITE
+     *  hex     | binary | macro
+     *  --------|--------|------------
+     *  0x00    |  000   | LCD_BLACK
+     *  0x01    |  001   | LCD_BLUE
+     *  0x02    |  010   | LCD_GREEN
+     *  0x03    |  011   | LCD_CYAN
+     *  0x04    |  100   | LCD_RED
+     *  0x05    |  101   | LCD_PURPLE
+     *  0x06    |  110   | LCD_YELLOW
+     *  0x07    |  111   | LCD_WHITE
      */
-    
+    // clang-format on
+
     if(color_code == LCD_BLACK) {
         LCD_setColor(1, 1, 1);
     }
     else {
-        LCD_setColor(   0x3F * (color_code & 0x04), 
-                        0x3F * (color_code & 0x02),
-                        0x3F * (color_code & 0x01)   );
+        LCD_setColor(0x3F * (color_code & 0x04), 0x3F * (color_code & 0x02),
+                     0x3F * (color_code & 0x01));
     }
 }
 
@@ -203,8 +208,9 @@ void LCD_setColor_3bit(uint8_t color_code) {
 *******************************************************************************/
 
 void LCD_draw(void) {
+    /// @showrefs
     ILI9341_writeMemCmd();
-    for (int count = 0; count < lcd.numPixels; count++) {
+    for(int count = 0; count < lcd.numPixels; count++) {
         ILI9341_write1px(lcd.R_val, lcd.G_val, lcd.B_val, lcd.is_16bit);
     }
 }
@@ -224,69 +230,65 @@ static void LCD_drawLine(uint16_t center, uint16_t lineWidth, bool is_horizontal
     // ensure `lineWidth` is odd and positive
     lineWidth = (lineWidth > 0) ? lineWidth : 1;
     lineWidth = ((lineWidth % 2) == 0) ? lineWidth : (lineWidth - 1);
-    padding = ( (lineWidth - 1) / 2 );
+    padding = ((lineWidth - 1) / 2);
 
     // ensure line does not go out-of-bounds
-    if (center < padding) {
+    if(center < padding) {
         center = padding + 1;
     }
-    else if ( center >= (MAX_NUM - padding) ) {
+    else if(center >= (MAX_NUM - padding)) {
         center = (MAX_NUM - padding) - 1;
     }
 
     // set start and end row/column, and draw
     start = center - padding;
     end = center + padding;
-    if (is_horizontal) {
-        LCD_setArea(0, (X_MAX-1), start, end);
+    if(is_horizontal) {
+        LCD_setArea(0, (X_MAX - 1), start, end);
     }
     else {
-        LCD_setArea(start, end, 0, (Y_MAX-1));
+        LCD_setArea(start, end, 0, (Y_MAX - 1));
     }
     LCD_draw();
 }
 
-void LCD_drawHLine(uint16_t yCenter, uint16_t lineWidth) {
-    LCD_drawLine(yCenter, lineWidth, true);
-}
+void LCD_drawHLine(uint16_t yCenter, uint16_t lineWidth) { LCD_drawLine(yCenter, lineWidth, true); }
 
 void LCD_drawVLine(uint16_t xCenter, uint16_t lineWidth) {
     LCD_drawLine(xCenter, lineWidth, false);
 }
 
-void LCD_drawRectangle( uint16_t x1, uint16_t dx,
-                        uint16_t y1, uint16_t dy,
-                        bool is_filled) {
+void LCD_drawRectangle(uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy, bool is_filled) {
     uint16_t x2;
     uint16_t y2;
-    
+
     // ensure startRow and startCol are less than their max numbers
     x1 = (x1 < X_MAX) ? x1 : (X_MAX - 1);
     y1 = (y1 < Y_MAX) ? y1 : (Y_MAX - 1);
 
     // ensure lines don't go out of bounds
-    if ( (x1 + dx) > X_MAX ) {
+    if((x1 + dx) > X_MAX) {
         dx = (X_MAX - x1 - 1);
     }
-    if ( (y1 + dy) > Y_MAX ) {
+    if((y1 + dy) > Y_MAX) {
         dy = (Y_MAX - y1 - 1);
     }
 
     // draw rectangle based on `is_filled`
     x2 = (x1 + dx) - 1;
     y2 = (y1 + dy) - 1;
-    if (is_filled) {
+    if(is_filled) {
         LCD_setArea(x1, x2, y1, y2);
         LCD_draw();
     }
     else {
-        LCD_setArea(x1, x2, y1, y1);    // left side
+        LCD_setArea(x1, x2, y1, y1);                    // left side
         LCD_draw();
-        LCD_setArea(x1, x2, y2, y2);    // right side
+        LCD_setArea(x1, x2, y2, y2);                    // right side
         LCD_draw();
-        LCD_setArea(x1, x1, y1, y2);    // top side
+        LCD_setArea(x1, x1, y1, y2);                    // top side
         LCD_draw();
-        LCD_setArea(x2, x2, y1, y2);    // right side
+        LCD_setArea(x2, x2, y1, y2);                    // right side
         LCD_draw();
     }
 }
@@ -295,23 +297,24 @@ void LCD_drawRectangle( uint16_t x1, uint16_t dx,
 6) Scrolling
 *******************************************************************************/
 
-void LCD_drawRectBlank( uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy, 
-                        uint16_t y_min, uint16_t y_max, uint16_t color_code) {
-    ///TODO: Write description
-    
+void LCD_drawRectBlank(uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy, uint16_t y_min,
+                       uint16_t y_max, uint16_t color_code) {
+    /// TODO: Write description
+
     uint16_t x2;
     uint16_t y2;
-    uint16_t numPixels;
-    
+
     // set area of display to write to
     x2 = (x1 + dx) - 1;
     y2 = (y1 + dy) - 1;
     LCD_setArea(x1, x2, y_min, y_max);
-    
+
     ILI9341_writeMemCmd();
 
     // write column by column
-    for(int x_i = 0; x_i < dx; x_i ++) {
+    for(int x_i = 0; x_i < dx; x_i++) {
+        uint16_t numPixels;                    // declared in this loop to get cppcheck to stop
+                                               // complaining
 
         // write blank pixels from `(x1 + x_i, y_min)` to `(x1 + x_i, y1 - 1)
         LCD_setColor_3bit(LCD_WHITE);

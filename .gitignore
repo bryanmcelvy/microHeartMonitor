@@ -3,3 +3,5 @@
 /build
 /ecg_hrm.code-workspace
 /.cache
+cppcheck/*
+!cppcheck/suppressions.txt

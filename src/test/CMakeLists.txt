@@ -1,9 +1,29 @@
-if(OPT_TESTING)
-
 #[[***********************************************************************************************
-File:           test/CMakeLists.txt
+File:           src/test/CMakeLists.txt
 Description:    Adds executables for test scripts.
 **************************************************************************************************  ]]
+
+# FIFO Buffer
+add_executable(test_fifo.elf 
+                    test_fifo.c
+                    ${PROJECT_SOURCE_DIR}/src/device/startup_gcc.c
+                )
+
+target_include_directories(test_fifo.elf 
+                            PRIVATE 
+                                ${PROJECT_SOURCE_DIR}/src/common
+                                ${PROJECT_SOURCE_DIR}/src/drivers
+                                ${PROJECT_SOURCE_DIR}/src/device
+                            )
+
+target_link_libraries(  test_fifo.elf 
+                        PRIVATE 
+                            FIFO
+                            GPIO
+                            PLL
+                            Timer
+                            UART
+                        )
 
 #[[***********************************************************************************************
 # Driver Tests
@@ -164,25 +184,6 @@ target_link_libraries(test_ili9341_blinkdisplay.elf
 # Application SW Tests
 #*****************************************************************************
 
-# UserCtrl
-add_executable(test_userctrl.elf 
-                    test_userctrl.c 
-                    ${PROJECT_SOURCE_DIR}/src/drivers/isr.c
-                    ${PROJECT_SOURCE_DIR}/src/device/startup_gcc.c
-                    )
-
-target_include_directories(test_userctrl.elf 
-                            PRIVATE 
-                                ${PROJECT_SOURCE_DIR}/src/app
-                                ${PROJECT_SOURCE_DIR}/src/drivers
-                                ${PROJECT_SOURCE_DIR}/src/device
-                            )
-
-target_link_libraries(  test_userctrl.elf 
-                        PRIVATE 
-                            UserCtrl
-)
-
 # LCD Color Test
 add_executable(test_lcd_scroll.elf 
                     test_lcd_scroll.c
@@ -222,5 +223,3 @@ target_link_libraries(test_lcd_image.elf
                             LCD
                             GPIO
                             Timer)
-
-endif(OPT_TESTING)

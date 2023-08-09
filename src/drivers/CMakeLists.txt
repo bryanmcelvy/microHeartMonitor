@@ -1,7 +1,6 @@
 #[[***********************************************************************************************
-File:           drivers/CMakeLists.txt
-Description:    Adds subdirectories and main target executable; links static
-                libraries to main target and test scripts
+File:           src/drivers/CMakeLists.txt
+Description:    Adds static libraries for low-level device drivers and links as needed.
 **************************************************************************************************  ]]
 
 include_directories(${CMAKE_SOURCE_DIR}/src/device)

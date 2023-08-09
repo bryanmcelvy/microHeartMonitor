@@ -4,36 +4,36 @@
  * @{
  */
 
-    /** @defgroup   adc         ADC     
-     *  @brief      Analog-to-digital conversion module.
+    /** @defgroup   adc       ADC
+     *  @brief      Functions for differential-input analog-to-digital conversion.
      */
 
-    /** @defgroup   gpio        GPIO     
-     *  @brief      GPIO Port F module.
+    /** @defgroup   gpio      GPIO
+     *  @brief      Functions for interfacing the LaunchPad's RGB LEDs (PF1-3) and switches (PF0/4).
      */
 
-    /** @defgroup   ili9341         ILI9341     
-     *  @brief      Module for interfacing ILI9341-based RGB LCD via @ref spi.
+    /** @defgroup   ili9341   ILI9341
+     *  @brief      Functions for interfacing an ILI9341-based 240RGBX320 LCD via @ref spi.
      */
 
-    /** @defgroup   pll         PLL     
-     *  @brief      Phase-locked loop module.
+    /** @defgroup   pll       PLL
+     *  @brief      Function for initializing the phase-locked loop.
      */
 
-    /** @defgroup   spi         SPI     
-     *  @brief      Serial peripheral interface module.
+    /** @defgroup   spi       SPI
+     *  @brief      Functions for SPI-based communication via SSI0 peripheral.
      */
 
-    /** @defgroup   systick     SysTick     
-     *  @brief      SysTick timing module.
+    /** @defgroup   systick   SysTick
+     *  @brief      Functions for timing and periodic interrupts via SysTick.
      */
 
-    /** @defgroup   timer       Timer     
-     *  @brief      Timer0A module.
+    /** @defgroup   timer     Timer
+     *  @brief      Functions for timing and periodic interrupts via general-purpose timer modules (GPTM).
      */
 
-    /** @defgroup   uart        UART     
-     *  @brief      UART0 module.
+    /** @defgroup   uart      UART
+     *  @brief      Functions for UART-based communication.
      */
 
 /** @} */
@@ -46,35 +46,32 @@
  * @{
  */
 
-   /** @defgroup   debug         Debug     
-     *  @brief      Debug module.
-     */
+    /** @defgroup   debug       Debug
+      *  @brief      Debug module.
+      */
 
-   /** @defgroup   filt        Filter     
-     *  @brief      Filter module.
-     */
+    /** @defgroup   filt        Filter
+      *  @brief      Filter module.
+      */
 
-   /** @defgroup   lcd         LCD     
-     *  @brief      Module for displaying graphs on an LCD via the @ref ili9341 module.
-     */
+    /** @defgroup   lcd         LCD
+      *  @brief      Module for displaying graphs on an LCD via the @ref ili9341 module.
+      */
 
-   /** @defgroup   qrs         QRS     
-     *  @brief      QRS detection algorithm.
-     */
+    /** @defgroup   qrs         QRS
+      *  @brief      QRS detection algorithm.
+      */
 
-   /** @defgroup   userctrl         UserCtrl     
-     *  @brief      User control module.
-     */
+    /** @defgroup   userctrl         UserCtrl
+      *  @brief      User control module.
+      */
 
 /** @} */
 //************************************************************************************************
 
 /** 
  * @defgroup    thread      Program Threads
- * @brief       Program Threads
- * @{
+ * @brief       Primary threads of execution.
  */
-
-/** @} */
 
 //************************************************************************************************

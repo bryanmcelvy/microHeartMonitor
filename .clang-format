@@ -1,0 +1,54 @@
+---
+Language: Cpp
+BasedOnStyle: LLVM
+
+IndentWidth: 4
+UseTab: Never
+ColumnLimit: 100
+
+DerivePointerAlignment: false
+PointerAlignment: Middle
+
+AllowAllArgumentsOnNextLine: true
+AllowShortBlocksOnASingleLine: Empty
+AllowShortFunctionsOnASingleLine: Empty
+AllowShortIfStatementsOnASingleLine: true
+AlignConsecutiveMacros: AcrossEmptyLinesAndComments
+AllowShortCaseLabelsOnASingleLine: true
+AlignTrailingComments:
+  Kind: Always
+  OverEmptyLines: 100
+
+BreakBeforeBraces: Custom
+BraceWrapping:
+    BeforeElse: true
+
+MaxEmptyLinesToKeep: 1
+
+SpaceAfterCStyleCast: true
+SpacesInCStyleCastParentheses: false
+SpaceBeforeParens: Never
+SpaceBeforeSquareBrackets: false
+SpaceInEmptyBlock: false
+SpacesInCStyleCastParentheses: false
+SpacesBeforeTrailingComments: 20
+
+SeparateDefinitionBlocks: Always
+
+# ReflowComments: false
+# SpacesInLineCommentPrefix:
+#   Minimum: 1
+#   Maximum: 1
+
+Cpp11BracedListStyle: false
+
+# AlignConsecutiveShortCaseStatements:
+#   Enabled: true
+#   AcrossEmptyLines: true
+#   AcrossComments: true
+#   AlignCaseColons: false
+
+InsertNewlineAtEOF: true
+
+SortIncludes: Never
+---
