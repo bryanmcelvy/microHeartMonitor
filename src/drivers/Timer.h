@@ -4,7 +4,14 @@
  *
  * @file
  * @author      Bryan McElvy
- * @brief       Driver module for timing (Timer0) and interrupts (Timer1).
+ * @brief       Driver module for general-purpose timer modules.
+
+                Timer | Function
+                ---------------------
+                0A      Debouncing
+                1A      LCD Interrupts
+                2A      ILI9341 Resets
+                3A      ADC Interrupts
  */
 
 #ifndef __TIMER_H___
@@ -91,6 +98,19 @@ uint8_t Timer2A_isCounting(void);
  *                  Must be <= 53 seconds.
  */
 void Timer2A_Wait1ms(uint32_t time_ms);
+
+/**********************************************************************
+Timer3A
+***********************************************************************/
+
+/**
+ * @brief   Initialize Timer3A as a 32-bit, periodic, countdown timer
+ *          that triggers ADC sample capture.
+ *
+ * @param   time_ms     Time in [ms] to load into Timer3A.
+ *                      Must be <= 53 seconds.
+ */
+void Timer3A_Init(uint32_t time_ms);
 
 #endif
 

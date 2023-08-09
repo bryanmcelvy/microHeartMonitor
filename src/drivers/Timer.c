@@ -96,3 +96,28 @@ void Timer2A_Wait1ms(uint32_t time_ms) {
     Timer2A_Start(time_ms);
     while(Timer2A_isCounting()) {}
 }
+
+/**********************************************************************
+Timer3A
+***********************************************************************/
+
+void Timer3A_Init(uint32_t time_ms) {
+    
+    // Calculate reload value
+    uint32_t reload_val;
+    
+    time_ms = (time_ms <= 53000) ? ((uint32_t) time_ms) : 53000;
+    reload_val = (80000 * time_ms) - 1;
+
+    // Initialize Timer3A
+    SYSCTL_RCGCTIMER_R |= 0x08;             // enable clock for Timer3
+
+    TIMER3_CTL_R &= ~(0x101);               // disable both subtimers
+
+    TIMER3_CTL_R |= 0x20;                   // trigger ADC interrupts
+    TIMER3_CFG_R &= ~(0x07);                // 32-bit timer configuration
+    TIMER3_TAMR_R |= 0x02;                  // periodic mode, countdown
+    TIMER3_TAILR_R = reload_val;
+
+    TIMER3_CTL_R |= 0x101;                  // enable both subtimers
+}
