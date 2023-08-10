@@ -30,12 +30,10 @@
 #include <limits.h>
 #include <math.h>
 
-
 /**
  * @addtogroup LogSumExp
  * @{
  */
-
 
 /**
  * @brief Dot product with log arithmetic
@@ -50,17 +48,13 @@
  *
  */
 
-
-float32_t arm_logsumexp_dot_prod_f32(const float32_t * pSrcA,
-  const float32_t * pSrcB,
-  uint32_t blockSize,
-  float32_t *pTmpBuffer)
-{
+float32_t arm_logsumexp_dot_prod_f32(const float32_t * pSrcA, const float32_t * pSrcB,
+                                     uint32_t blockSize, float32_t * pTmpBuffer) {
     float32_t result;
-    arm_add_f32((float32_t*)pSrcA, (float32_t*)pSrcB, pTmpBuffer, blockSize);
+    arm_add_f32((float32_t *) pSrcA, (float32_t *) pSrcB, pTmpBuffer, blockSize);
 
     result = arm_logsumexp_f32(pTmpBuffer, blockSize);
-    return(result);
+    return (result);
 }
 
 /**

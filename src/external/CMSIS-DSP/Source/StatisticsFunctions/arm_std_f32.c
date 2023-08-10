@@ -49,8 +49,8 @@
   <pre>
       Result = sqrt((sumOfSquares - sum<sup>2</sup> / blockSize) / (blockSize - 1))
 
-      sumOfSquares = pSrc[0] * pSrc[0] + pSrc[1] * pSrc[1] + ... + pSrc[blockSize-1] * pSrc[blockSize-1]
-      sum = pSrc[0] + pSrc[1] + pSrc[2] + ... + pSrc[blockSize-1]
+      sumOfSquares = pSrc[0] * pSrc[0] + pSrc[1] * pSrc[1] + ... + pSrc[blockSize-1] *
+  pSrc[blockSize-1] sum = pSrc[0] + pSrc[1] + pSrc[2] + ... + pSrc[blockSize-1]
   </pre>
 
   There are separate functions for floating point, Q31, and Q15 data types.
@@ -68,14 +68,10 @@
   @param[out]    pResult    standard deviation value returned here
   @return        none
  */
-void arm_std_f32(
-  const float32_t * pSrc,
-        uint32_t blockSize,
-        float32_t * pResult)
-{
-  float32_t var;
-  arm_var_f32(pSrc,blockSize,&var);
-  arm_sqrt_f32(var, pResult);
+void arm_std_f32(const float32_t * pSrc, uint32_t blockSize, float32_t * pResult) {
+    float32_t var;
+    arm_var_f32(pSrc, blockSize, &var);
+    arm_sqrt_f32(var, pResult);
 }
 
 /**

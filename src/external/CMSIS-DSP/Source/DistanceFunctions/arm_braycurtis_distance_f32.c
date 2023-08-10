@@ -31,13 +31,10 @@
 #include <limits.h>
 #include <math.h>
 
-
-
 /**
   @addtogroup braycurtis
   @{
  */
-
 
 /**
  * @brief        Bray-Curtis distance between two vectors
@@ -51,18 +48,17 @@
 
 #include "arm_helium_utils.h"
 
-float32_t arm_braycurtis_distance_f32(const float32_t *pA,const float32_t *pB, uint32_t blockSize)
-{
-    float32_t       accumDiff = 0.0f, accumSum = 0.0f;
-    uint32_t        blkCnt;
-    f32x4_t         a, b, c, accumDiffV, accumSumV;
-
+float32_t arm_braycurtis_distance_f32(const float32_t * pA, const float32_t * pB,
+                                      uint32_t blockSize) {
+    float32_t accumDiff = 0.0f, accumSum = 0.0f;
+    uint32_t blkCnt;
+    f32x4_t a, b, c, accumDiffV, accumSumV;
 
     accumDiffV = vdupq_n_f32(0.0f);
     accumSumV = vdupq_n_f32(0.0f);
 
     blkCnt = blockSize >> 2;
-    while (blkCnt > 0) {
+    while(blkCnt > 0) {
         a = vld1q(pA);
         b = vld1q(pB);
 
@@ -79,8 +75,8 @@ float32_t arm_braycurtis_distance_f32(const float32_t *pA,const float32_t *pB, u
     }
 
     blkCnt = blockSize & 3;
-    if (blkCnt > 0U) {
-        mve_pred16_t    p0 = vctp32q(blkCnt);
+    if(blkCnt > 0U) {
+        mve_pred16_t p0 = vctp32q(blkCnt);
 
         a = vldrwq_z_f32(pA, p0);
         b = vldrwq_z_f32(pB, p0);
@@ -107,81 +103,76 @@ float32_t arm_braycurtis_distance_f32(const float32_t *pA,const float32_t *pB, u
 
 #include "NEMath.h"
 
-float32_t arm_braycurtis_distance_f32(const float32_t *pA,const float32_t *pB, uint32_t blockSize)
-{
-   float32_t accumDiff=0.0f, accumSum=0.0f;
-   uint32_t blkCnt;
-   float32x4_t a,b,c,accumDiffV, accumSumV;
-   float32x2_t accumV2;
+float32_t arm_braycurtis_distance_f32(const float32_t * pA, const float32_t * pB,
+                                      uint32_t blockSize) {
+    float32_t accumDiff = 0.0f, accumSum = 0.0f;
+    uint32_t blkCnt;
+    float32x4_t a, b, c, accumDiffV, accumSumV;
+    float32x2_t accumV2;
 
-   accumDiffV = vdupq_n_f32(0.0f);
-   accumSumV = vdupq_n_f32(0.0f);
+    accumDiffV = vdupq_n_f32(0.0f);
+    accumSumV = vdupq_n_f32(0.0f);
 
-   blkCnt = blockSize >> 2;
-   while(blkCnt > 0)
-   {
+    blkCnt = blockSize >> 2;
+    while(blkCnt > 0) {
         a = vld1q_f32(pA);
         b = vld1q_f32(pB);
 
-        c = vabdq_f32(a,b);
-        accumDiffV = vaddq_f32(accumDiffV,c);
+        c = vabdq_f32(a, b);
+        accumDiffV = vaddq_f32(accumDiffV, c);
 
-        c = vaddq_f32(a,b);
+        c = vaddq_f32(a, b);
         c = vabsq_f32(c);
-        accumSumV = vaddq_f32(accumSumV,c);
+        accumSumV = vaddq_f32(accumSumV, c);
 
         pA += 4;
         pB += 4;
-        blkCnt --;
-   }
-   accumV2 = vpadd_f32(vget_low_f32(accumDiffV),vget_high_f32(accumDiffV));
-   accumDiff = vget_lane_f32(accumV2, 0) + vget_lane_f32(accumV2, 1);
+        blkCnt--;
+    }
+    accumV2 = vpadd_f32(vget_low_f32(accumDiffV), vget_high_f32(accumDiffV));
+    accumDiff = vget_lane_f32(accumV2, 0) + vget_lane_f32(accumV2, 1);
 
-   accumV2 = vpadd_f32(vget_low_f32(accumSumV),vget_high_f32(accumSumV));
-   accumSum = vget_lane_f32(accumV2, 0) + vget_lane_f32(accumV2, 1);
+    accumV2 = vpadd_f32(vget_low_f32(accumSumV), vget_high_f32(accumSumV));
+    accumSum = vget_lane_f32(accumV2, 0) + vget_lane_f32(accumV2, 1);
 
-   blkCnt = blockSize & 3;
-   while(blkCnt > 0)
-   {
-      accumDiff += fabsf(*pA - *pB);
-      accumSum += fabsf(*pA++ + *pB++);
-      blkCnt --;
-   }
-   /*
+    blkCnt = blockSize & 3;
+    while(blkCnt > 0) {
+        accumDiff += fabsf(*pA - *pB);
+        accumSum += fabsf(*pA++ + *pB++);
+        blkCnt--;
+    }
+    /*
 
-   It is assumed that accumSum is not zero. Since it is the sum of several absolute
-   values it would imply that all of them are zero. It is very unlikely for long vectors.
+    It is assumed that accumSum is not zero. Since it is the sum of several absolute
+    values it would imply that all of them are zero. It is very unlikely for long vectors.
 
-   */
-   return(accumDiff / accumSum);
+    */
+    return (accumDiff / accumSum);
 }
 
 #else
-float32_t arm_braycurtis_distance_f32(const float32_t *pA,const float32_t *pB, uint32_t blockSize)
-{
-   float32_t accumDiff=0.0f, accumSum=0.0f, tmpA, tmpB;
+float32_t arm_braycurtis_distance_f32(const float32_t * pA, const float32_t * pB,
+                                      uint32_t blockSize) {
+    float32_t accumDiff = 0.0f, accumSum = 0.0f, tmpA, tmpB;
 
-   while(blockSize > 0)
-   {
-      tmpA = *pA++;
-      tmpB = *pB++;
-      accumDiff += fabsf(tmpA - tmpB);
-      accumSum += fabsf(tmpA + tmpB);
-      blockSize --;
-   }
-   /*
+    while(blockSize > 0) {
+        tmpA = *pA++;
+        tmpB = *pB++;
+        accumDiff += fabsf(tmpA - tmpB);
+        accumSum += fabsf(tmpA + tmpB);
+        blockSize--;
+    }
+    /*
 
-   It is assumed that accumSum is not zero. Since it is the sum of several absolute
-   values it would imply that all of them are zero. It is very unlikely for long vectors.
+    It is assumed that accumSum is not zero. Since it is the sum of several absolute
+    values it would imply that all of them are zero. It is very unlikely for long vectors.
 
-   */
-   return(accumDiff / accumSum);
+    */
+    return (accumDiff / accumSum);
 }
 #endif
 #endif /* defined(ARM_MATH_MVEF) && !defined(ARM_MATH_AUTOVECTORIZE) */
 
-
 /**
  * @} end of braycurtis group
  */
-

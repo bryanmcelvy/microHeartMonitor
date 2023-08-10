@@ -29,18 +29,15 @@
 #include "dsp/window_functions.h"
 #include "dsp/fast_math_functions.h"
 #include <math.h>
+
 /**
   @ingroup groupWindow
  */
-
-
-
 
 /**
   @addtogroup WindowNormal
   @{
  */
-
 
 /**
   @ingroup WindowBLACKMAN_HARRIS_92DB
@@ -51,9 +48,9 @@
   @param[out]    pDst       points to the output generated window
   @param[in]     blockSize  number of samples in the window
   @return        none
- 
+
   @par Parameters of the window
-  
+
   | Parameter                             | Value              |
   | ------------------------------------: | -----------------: |
   | Peak sidelobe level                   |           92.0 dB  |
@@ -64,26 +61,18 @@
 
  */
 
+void arm_blackman_harris_92db_f64(float64_t * pDst, uint32_t blockSize) {
+    float64_t k = 2. / ((float64_t) blockSize);
+    float64_t w;
 
+    for(uint32_t i = 0; i < blockSize; i++) {
+        w = PI_F64 * i * k;
+        w = 0.35875 - 0.48829 * cos(w) + 0.14128 * cos(2 * w) - 0.01168 * cos(3 * w);
 
-void arm_blackman_harris_92db_f64(
-        float64_t * pDst,
-        uint32_t blockSize)
-{
-   float64_t k = 2. / ((float64_t) blockSize);
-   float64_t w;
-
-   for(uint32_t i=0;i<blockSize;i++)
-   {
-     w = PI_F64 * i * k;
-     w = 0.35875 - 0.48829 * cos (w) +
-    0.14128 * cos (2 * w) - 0.01168 * cos (3 * w);
-        
-     pDst[i] = w;
-   }
+        pDst[i] = w;
+    }
 }
 
 /**
   @} end of WindowNormal group
  */
-

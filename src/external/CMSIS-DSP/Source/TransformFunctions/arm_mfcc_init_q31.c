@@ -30,21 +30,16 @@
  * @defgroup MFCCQ31 MFCC Q31
  */
 
-
 /**
   @ingroup MFCC
  */
-
 
 /**
   @addtogroup MFCCQ31
   @{
  */
 
-
 #include "dsp/transform_functions.h"
-
-
 
 /**
   @brief         Generic initialization of the MFCC Q31 instance structure
@@ -73,108 +68,86 @@
 
                    The folder Scripts is containing a Python script which can be used
                    to generate the filter, dct and window arrays.
-  @par          
-                This function should be used only if you don't know the FFT sizes that 
-                you'll need at build time. The use of this function will prevent the 
-                linker from removing the FFT tables that are not needed and the library 
+  @par
+                This function should be used only if you don't know the FFT sizes that
+                you'll need at build time. The use of this function will prevent the
+                linker from removing the FFT tables that are not needed and the library
                 code size will be bigger than needed.
 
-  @par          
-                If you use CMSIS-DSP as a static library, and if you know the MFCC sizes 
+  @par
+                If you use CMSIS-DSP as a static library, and if you know the MFCC sizes
                 that you need at build time, then it is better to use the initialization
                 functions defined for each MFCC size.
 
 
  */
 
-arm_status arm_mfcc_init_q31(
-  arm_mfcc_instance_q31 * S,
-  uint32_t fftLen,
-  uint32_t nbMelFilters,
-  uint32_t nbDctOutputs,
-  const q31_t *dctCoefs,
-  const uint32_t *filterPos,
-  const uint32_t *filterLengths,
-  const q31_t *filterCoefs,
-  const q31_t *windowCoefs
-  )
-{
- arm_status status;
+arm_status arm_mfcc_init_q31(arm_mfcc_instance_q31 * S, uint32_t fftLen, uint32_t nbMelFilters,
+                             uint32_t nbDctOutputs, const q31_t * dctCoefs,
+                             const uint32_t * filterPos, const uint32_t * filterLengths,
+                             const q31_t * filterCoefs, const q31_t * windowCoefs) {
+    arm_status status;
 
- S->fftLen=fftLen;
- S->nbMelFilters=nbMelFilters;
- S->nbDctOutputs=nbDctOutputs;
- S->dctCoefs=dctCoefs;
- S->filterPos=filterPos;
- S->filterLengths=filterLengths;
- S->filterCoefs=filterCoefs;
- S->windowCoefs=windowCoefs;
+    S->fftLen = fftLen;
+    S->nbMelFilters = nbMelFilters;
+    S->nbDctOutputs = nbDctOutputs;
+    S->dctCoefs = dctCoefs;
+    S->filterPos = filterPos;
+    S->filterLengths = filterLengths;
+    S->filterCoefs = filterCoefs;
+    S->windowCoefs = windowCoefs;
 
- #if defined(ARM_MFCC_CFFT_BASED)
- status=arm_cfft_init_q31(&(S->cfft),fftLen);
- #else
- status=arm_rfft_init_q31(&(S->rfft),fftLen,0,1);
- #endif
- 
- return(status);
+#if defined(ARM_MFCC_CFFT_BASED)
+    status = arm_cfft_init_q31(&(S->cfft), fftLen);
+#else
+    status = arm_rfft_init_q31(&(S->rfft), fftLen, 0, 1);
+#endif
+
+    return (status);
 }
 
 #if defined(ARM_MFCC_CFFT_BASED)
-#define MFCC_INIT_Q31(LEN)                    \
-arm_status arm_mfcc_init_##LEN##_q31(         \
-  arm_mfcc_instance_q31 * S,                  \
-  uint32_t nbMelFilters,                      \
-  uint32_t nbDctOutputs,                      \
-  const q31_t *dctCoefs,                      \
-  const uint32_t *filterPos,                  \
-  const uint32_t *filterLengths,              \
-  const q31_t *filterCoefs,                   \
-  const q31_t *windowCoefs                    \
-  )                                           \
-{                                             \
- arm_status status;                           \
-                                              \
- S->fftLen=LEN;                               \
- S->nbMelFilters=nbMelFilters;                \
- S->nbDctOutputs=nbDctOutputs;                \
- S->dctCoefs=dctCoefs;                        \
- S->filterPos=filterPos;                      \
- S->filterLengths=filterLengths;              \
- S->filterCoefs=filterCoefs;                  \
- S->windowCoefs=windowCoefs;                  \
-                                              \
- status=arm_cfft_init_##LEN##_q31(&(S->cfft));\
-                                              \
- return(status);                              \
-}
+#define MFCC_INIT_Q31(LEN)                                                                         \
+    arm_status arm_mfcc_init_##LEN##_q31(                                                          \
+        arm_mfcc_instance_q31 * S, uint32_t nbMelFilters, uint32_t nbDctOutputs,                   \
+        const q31_t * dctCoefs, const uint32_t * filterPos, const uint32_t * filterLengths,        \
+        const q31_t * filterCoefs, const q31_t * windowCoefs) {                                    \
+        arm_status status;                                                                         \
+                                                                                                   \
+        S->fftLen = LEN;                                                                           \
+        S->nbMelFilters = nbMelFilters;                                                            \
+        S->nbDctOutputs = nbDctOutputs;                                                            \
+        S->dctCoefs = dctCoefs;                                                                    \
+        S->filterPos = filterPos;                                                                  \
+        S->filterLengths = filterLengths;                                                          \
+        S->filterCoefs = filterCoefs;                                                              \
+        S->windowCoefs = windowCoefs;                                                              \
+                                                                                                   \
+        status = arm_cfft_init_##LEN##_q31(&(S->cfft));                                            \
+                                                                                                   \
+        return (status);                                                                           \
+    }
 #else
-#define MFCC_INIT_Q31(LEN)                        \
-arm_status arm_mfcc_init_##LEN##_q31(             \
-  arm_mfcc_instance_q31 * S,                      \
-  uint32_t nbMelFilters,                          \
-  uint32_t nbDctOutputs,                          \
-  const q31_t *dctCoefs,                          \
-  const uint32_t *filterPos,                      \
-  const uint32_t *filterLengths,                  \
-  const q31_t *filterCoefs,                       \
-  const q31_t *windowCoefs                        \
-  )                                               \
-{                                                 \
- arm_status status;                               \
-                                                  \
- S->fftLen=LEN;                                   \
- S->nbMelFilters=nbMelFilters;                    \
- S->nbDctOutputs=nbDctOutputs;                    \
- S->dctCoefs=dctCoefs;                            \
- S->filterPos=filterPos;                          \
- S->filterLengths=filterLengths;                  \
- S->filterCoefs=filterCoefs;                      \
- S->windowCoefs=windowCoefs;                      \
-                                                  \
- status=arm_rfft_init_##LEN##_q31(&(S->rfft),0,1);\
-                                                  \
- return(status);                                  \
-}
+#define MFCC_INIT_Q31(LEN)                                                                         \
+    arm_status arm_mfcc_init_##LEN##_q31(                                                          \
+        arm_mfcc_instance_q31 * S, uint32_t nbMelFilters, uint32_t nbDctOutputs,                   \
+        const q31_t * dctCoefs, const uint32_t * filterPos, const uint32_t * filterLengths,        \
+        const q31_t * filterCoefs, const q31_t * windowCoefs) {                                    \
+        arm_status status;                                                                         \
+                                                                                                   \
+        S->fftLen = LEN;                                                                           \
+        S->nbMelFilters = nbMelFilters;                                                            \
+        S->nbDctOutputs = nbDctOutputs;                                                            \
+        S->dctCoefs = dctCoefs;                                                                    \
+        S->filterPos = filterPos;                                                                  \
+        S->filterLengths = filterLengths;                                                          \
+        S->filterCoefs = filterCoefs;                                                              \
+        S->windowCoefs = windowCoefs;                                                              \
+                                                                                                   \
+        status = arm_rfft_init_##LEN##_q31(&(S->rfft), 0, 1);                                      \
+                                                                                                   \
+        return (status);                                                                           \
+    }
 #endif
 
 /**

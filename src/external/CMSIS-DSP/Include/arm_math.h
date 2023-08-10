@@ -29,7 +29,7 @@
    * \section intro Introduction
    *
    * This user manual describes the CMSIS DSP software library,
-   * a suite of common compute processing functions for use on Cortex-M and Cortex-A processor 
+   * a suite of common compute processing functions for use on Cortex-M and Cortex-A processor
    * based devices.
    *
    * The library is divided into a number of functions each covering a specific category:
@@ -62,26 +62,32 @@
    *
    * CMSIS-DSP pack is containing an optional project : The CMSIS-DSP
    * Compute Graph. The documentation for this project is available
-   * on the <a href="https://github.com/ARM-software/CMSIS-DSP/blob/main/ComputeGraph/README.md">CMSIS-DSP github repository.</a> 
+   * on the <a
+   href="https://github.com/ARM-software/CMSIS-DSP/blob/main/ComputeGraph/README.md">CMSIS-DSP
+   github repository.</a>
    *
    * A Python wrapper is also available with a Python API as close as possible
    * to the C one. It can be used to start developing and testing an algorithm with NumPy and
-   * SciPy before writing the C version. Is is available on <a href="https://pypi.org/project/cmsisdsp/">PyPI.org</a>.
+   * SciPy before writing the C version. Is is available on <a
+   href="https://pypi.org/project/cmsisdsp/">PyPI.org</a>.
    * It can be installed with : pip install cmsisdsp
-   * 
-   * 
+   *
+   *
    * \section using Using the Library
    *
-   * The library is released in source form. It is strongly advised to compile the library using -Ofast to
+   * The library is released in source form. It is strongly advised to compile the library using
+   -Ofast to
    * have the best performances.
    *
-   * The library functions are declared in the public file `arm_math.h` which is placed in the `Include` folder.
+   * The library functions are declared in the public file `arm_math.h` which is placed in the
+   `Include` folder.
    * Simply include this file. If you don't want to include everything, you can also rely
    * on headers in `Include/dsp` folder and use only what you need.
    *
    * \section example Examples
    *
-   * The library ships with a number of examples which demonstrate how to use the library functions. Please refer to \ref groupExamples.
+   * The library ships with a number of examples which demonstrate how to use the library functions.
+   Please refer to \ref groupExamples.
    *
    * \section toolchain Toolchain Support
    *
@@ -94,7 +100,8 @@
    * Each library project has different preprocessor macros.
    *
    * - `ARM_MATH_BIG_ENDIAN`:
-   *  - Define macro ARM_MATH_BIG_ENDIAN to build the library for big endian targets. By default library builds for little endian targets.
+   *  - Define macro ARM_MATH_BIG_ENDIAN to build the library for big endian targets. By default
+   library builds for little endian targets.
    * .
    * - `ARM_MATH_MATRIX_CHECK`:
    *  - Define macro ARM_MATH_MATRIX_CHECK for checking on the input and output sizes of matrices
@@ -107,11 +114,11 @@
    * .
    * - `ARM_MATH_NEON`:
    *  - Define macro ARM_MATH_NEON to enable Neon versions of the DSP functions.
-   * It is not enabled by default when Neon is available because performances are 
+   * It is not enabled by default when Neon is available because performances are
    * dependent on the compiler and target architecture.
    * .
    * - `ARM_MATH_NEON_EXPERIMENTAL`:
-   *  - Define macro ARM_MATH_NEON_EXPERIMENTAL to enable experimental Neon versions of 
+   *  - Define macro ARM_MATH_NEON_EXPERIMENTAL to enable experimental Neon versions of
    * of some DSP functions. Experimental Neon versions currently do not have better
    * performances than the scalar versions.
    * .
@@ -119,7 +126,8 @@
    *  - It implies the flags ARM_MATH_MVEF and ARM_MATH_MVEI and ARM_MATH_MVE_FLOAT16.
    * .
    * - `ARM_MATH_HELIUM_EXPERIMENTAL`:
-   *  - Only taken into account when ARM_MATH_MVEF, ARM_MATH_MVEI or ARM_MATH_MVE_FLOAT16 are defined.
+   *  - Only taken into account when ARM_MATH_MVEF, ARM_MATH_MVEI or ARM_MATH_MVE_FLOAT16 are
+   defined.
    * Enable some vector versions which may have worse performance than scalar
    * depending on the core / compiler configuration.
    * .
@@ -145,45 +153,33 @@
    *
    * \section pack CMSIS-DSP in ARM::CMSIS Pack
    *
-   * The following files relevant to CMSIS-DSP are present in the <b>ARM::CMSIS</b> Pack directories:
-   * |File/Folder                      |Content                                                                 |
+   * The following files relevant to CMSIS-DSP are present in the <b>ARM::CMSIS</b> Pack
+   directories:
+   * |File/Folder                      |Content |
    * |---------------------------------|------------------------------------------------------------------------|
-   * |\b CMSIS\\Documentation\\DSP     | This documentation                                                     |
-   * |\b CMSIS\\DSP\\Examples          | Example projects demonstrating the usage of the library functions      |
+   * |\b CMSIS\\Documentation\\DSP     | This documentation |
+   * |\b CMSIS\\DSP\\Examples          | Example projects demonstrating the usage of the library
+   functions      |
    * |\b CMSIS\\DSP\\ComputeLibrary    | Small Neon kernels when building on Cortex-A
    * |\b CMSIS\\DSP\\Include           | include files for using and building the lib
-   * |\b CMSIS\\DSP\\PrivateInclude    | private include files for building the lib                                               |
-   * |\b CMSIS\\DSP\\Source            | source files                                                   |
+   * |\b CMSIS\\DSP\\PrivateInclude    | private include files for building the lib |
+   * |\b CMSIS\\DSP\\Source            | source files |
    *
    * \section rev Revision History of CMSIS-DSP
    * Please refer to \ref ChangeLog_pg.
    *
    * \section license License
-   * 
-   * The CMSIS-DSP is provided free of charge under the <a href="LICENSE.txt">Apache 2.0 License</a>.
+   *
+   * The CMSIS-DSP is provided free of charge under the <a href="LICENSE.txt">Apache 2.0
+   License</a>.
    */
-
-
-
-
-
-
-
-
-
-
 
 /**
  * @defgroup groupExamples Examples
  */
 
-
-
-
-
 #ifndef _ARM_MATH_H
 #define _ARM_MATH_H
-
 
 #include "arm_math_types.h"
 #include "arm_math_memory.h"
@@ -191,7 +187,7 @@
 #include "dsp/none.h"
 #include "dsp/utils.h"
 
-#include "dsp/basic_math_functions.h"  
+#include "dsp/basic_math_functions.h"
 #include "dsp/interpolation_functions.h"
 #include "dsp/bayes_functions.h"
 #include "dsp/matrix_functions.h"
@@ -207,27 +203,16 @@
 #include "dsp/quaternion_math_functions.h"
 #include "dsp/window_functions.h"
 
-
-
-#ifdef   __cplusplus
-extern "C"
-{
+#ifdef __cplusplus
+extern "C" {
 #endif
 
+// #define TABLE_SPACING_Q31     0x400000
+// #define TABLE_SPACING_Q15     0x80
 
-
-
-//#define TABLE_SPACING_Q31     0x400000
-//#define TABLE_SPACING_Q15     0x80
-
-
-
-
-
-#ifdef   __cplusplus
+#ifdef __cplusplus
 }
 #endif
-
 
 #endif /* _ARM_MATH_H */
 

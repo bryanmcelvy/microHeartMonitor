@@ -32,14 +32,10 @@
   @ingroup groupWindow
  */
 
-
-
-
 /**
   @addtogroup WindowNormal
   @{
  */
-
 
 /**
   @ingroup WindowBARTLETT
@@ -50,9 +46,9 @@
   @param[out]    pDst       points to the output generated window
   @param[in]     blockSize  number of samples in the window
   @return        none
- 
+
   @par Parameters of the window
-  
+
   | Parameter                             | Value              |
   | ------------------------------------: | -----------------: |
   | Peak sidelobe level                   |           26.5 dB  |
@@ -63,27 +59,19 @@
 
  */
 
+void arm_bartlett_f64(float64_t * pDst, uint32_t blockSize) {
+    float64_t k = 2. / ((float64_t) blockSize);
+    float64_t w;
 
-
-void arm_bartlett_f64(
-        float64_t * pDst,
-        uint32_t blockSize)
-{
-   float64_t k = 2. / ((float64_t) blockSize);
-   float64_t w;
-
-   for(uint32_t i=0;i<blockSize;i++)
-   {
-     w = i * k ;
-     if (i * k > 1.0)
-     {
-       w = 2.0 - w;
-     }
-     pDst[i] = w;
-   }
+    for(uint32_t i = 0; i < blockSize; i++) {
+        w = i * k;
+        if(i * k > 1.0) {
+            w = 2.0 - w;
+        }
+        pDst[i] = w;
+    }
 }
 
 /**
   @} end of WindowNormal group
  */
-

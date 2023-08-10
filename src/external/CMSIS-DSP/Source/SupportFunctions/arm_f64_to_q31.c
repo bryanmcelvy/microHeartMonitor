@@ -32,7 +32,6 @@
   @ingroup groupSupport
  */
 
-
 /**
   @addtogroup f64_to_x
   @{
@@ -60,97 +59,88 @@
                    defined in the preprocessor section of project options.
  */
 
-
-void arm_f64_to_q31(
-  const float64_t * pSrc,
-        q31_t * pDst,
-        uint32_t blockSize)
-{
-        uint32_t blkCnt;                               /* Loop counter */
-  const float64_t *pIn = pSrc;                         /* Source pointer */
+void arm_f64_to_q31(const float64_t * pSrc, q31_t * pDst, uint32_t blockSize) {
+    uint32_t blkCnt;              /* Loop counter */
+    const float64_t * pIn = pSrc; /* Source pointer */
 
 #ifdef ARM_MATH_ROUNDING
-        float64_t in;
-#endif /* #ifdef ARM_MATH_ROUNDING */
+    float64_t in;
+#endif                            /* #ifdef ARM_MATH_ROUNDING */
 
-#if defined (ARM_MATH_LOOPUNROLL)
+#if defined(ARM_MATH_LOOPUNROLL)
 
-  /* Loop unrolling: Compute 4 outputs at a time */
-  blkCnt = blockSize >> 2U;
+    /* Loop unrolling: Compute 4 outputs at a time */
+    blkCnt = blockSize >> 2U;
 
-  while (blkCnt > 0U)
-  {
-    /* C = A * 2147483648 */
+    while(blkCnt > 0U) {
+        /* C = A * 2147483648 */
 
-    /* convert from float to Q31 and store result in destination buffer */
+        /* convert from float to Q31 and store result in destination buffer */
 #ifdef ARM_MATH_ROUNDING
 
-    in = (*pIn++ * 2147483648.0);
-    in += in > 0.0 ? 0.5 : -0.5;
-    *pDst++ = clip_q63_to_q31((q63_t) (in));
+        in = (*pIn++ * 2147483648.0);
+        in += in > 0.0 ? 0.5 : -0.5;
+        *pDst++ = clip_q63_to_q31((q63_t) (in));
 
-    in = (*pIn++ * 2147483648.0);
-    in += in > 0.0 ? 0.5 : -0.5;
-    *pDst++ = clip_q63_to_q31((q63_t) (in));
+        in = (*pIn++ * 2147483648.0);
+        in += in > 0.0 ? 0.5 : -0.5;
+        *pDst++ = clip_q63_to_q31((q63_t) (in));
 
-    in = (*pIn++ * 2147483648.0);
-    in += in > 0.0 ? 0.5 : -0.5;
-    *pDst++ = clip_q63_to_q31((q63_t) (in));
+        in = (*pIn++ * 2147483648.0);
+        in += in > 0.0 ? 0.5 : -0.5;
+        *pDst++ = clip_q63_to_q31((q63_t) (in));
 
-    in = (*pIn++ * 2147483648.0);
-    in += in > 0.0 ? 0.5 : -0.5;
-    *pDst++ = clip_q63_to_q31((q63_t) (in));
+        in = (*pIn++ * 2147483648.0);
+        in += in > 0.0 ? 0.5 : -0.5;
+        *pDst++ = clip_q63_to_q31((q63_t) (in));
 
 #else
 
-    /* C = A * 2147483648 */
-    /* Convert from float to Q31 and then store the results in the destination buffer */
-    *pDst++ = clip_q63_to_q31((q63_t) (*pIn++ * 2147483648.0));
-    *pDst++ = clip_q63_to_q31((q63_t) (*pIn++ * 2147483648.0));
-    *pDst++ = clip_q63_to_q31((q63_t) (*pIn++ * 2147483648.0));
-    *pDst++ = clip_q63_to_q31((q63_t) (*pIn++ * 2147483648.0));
+        /* C = A * 2147483648 */
+        /* Convert from float to Q31 and then store the results in the destination buffer */
+        *pDst++ = clip_q63_to_q31((q63_t) (*pIn++ * 2147483648.0));
+        *pDst++ = clip_q63_to_q31((q63_t) (*pIn++ * 2147483648.0));
+        *pDst++ = clip_q63_to_q31((q63_t) (*pIn++ * 2147483648.0));
+        *pDst++ = clip_q63_to_q31((q63_t) (*pIn++ * 2147483648.0));
 
 #endif /* #ifdef ARM_MATH_ROUNDING */
 
-    /* Decrement loop counter */
-    blkCnt--;
-  }
+        /* Decrement loop counter */
+        blkCnt--;
+    }
 
-  /* Loop unrolling: Compute remaining outputs */
-  blkCnt = blockSize % 0x4U;
+    /* Loop unrolling: Compute remaining outputs */
+    blkCnt = blockSize % 0x4U;
 
 #else
 
-  /* Initialize blkCnt with number of samples */
-  blkCnt = blockSize;
+    /* Initialize blkCnt with number of samples */
+    blkCnt = blockSize;
 
 #endif /* #if defined (ARM_MATH_LOOPUNROLL) */
 
-  while (blkCnt > 0U)
-  {
-    /* C = A * 2147483648 */
+    while(blkCnt > 0U) {
+        /* C = A * 2147483648 */
 
-    /* convert from float to Q31 and store result in destination buffer */
+        /* convert from float to Q31 and store result in destination buffer */
 #ifdef ARM_MATH_ROUNDING
 
-    in = (*pIn++ * 2147483648.0);
-    in += in > 0.0 ? 0.5 : -0.5;
-    *pDst++ = clip_q63_to_q31((q63_t) (in));
+        in = (*pIn++ * 2147483648.0);
+        in += in > 0.0 ? 0.5 : -0.5;
+        *pDst++ = clip_q63_to_q31((q63_t) (in));
 
 #else
 
-    /* C = A * 2147483648 */
-    /* Convert from float to Q31 and then store the results in the destination buffer */
-    *pDst++ = clip_q63_to_q31((q63_t) (*pIn++ * 2147483648.0));
+        /* C = A * 2147483648 */
+        /* Convert from float to Q31 and then store the results in the destination buffer */
+        *pDst++ = clip_q63_to_q31((q63_t) (*pIn++ * 2147483648.0));
 
 #endif /* #ifdef ARM_MATH_ROUNDING */
 
-    /* Decrement loop counter */
-    blkCnt--;
-  }
-
+        /* Decrement loop counter */
+        blkCnt--;
+    }
 }
-
 
 /**
   @} end of f64_to_x group

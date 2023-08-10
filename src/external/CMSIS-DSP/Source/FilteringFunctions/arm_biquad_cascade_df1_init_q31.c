@@ -43,51 +43,45 @@
   @param[in]     numStages   number of 2nd order stages in the filter.
   @param[in]     pCoeffs     points to the filter coefficients.
   @param[in]     pState      points to the state buffer.
-  @param[in]     postShift   Shift to be applied after the accumulator.  Varies according to the coefficients format
+  @param[in]     postShift   Shift to be applied after the accumulator.  Varies according to the
+  coefficients format
   @return        none
 
   @par           Coefficient and State Ordering
-                   The coefficients are stored in the array <code>pCoeffs</code> in the following order:
-  <pre>
-      {b10, b11, b12, a11, a12, b20, b21, b22, a21, a22, ...}
+                   The coefficients are stored in the array <code>pCoeffs</code> in the following
+  order: <pre> {b10, b11, b12, a11, a12, b20, b21, b22, a21, a22, ...}
   </pre>
   @par
-                   where <code>b1x</code> and <code>a1x</code> are the coefficients for the first stage,
-                   <code>b2x</code> and <code>a2x</code> are the coefficients for the second stage,
-                   and so on.  The <code>pCoeffs</code> array contains a total of <code>5*numStages</code> values.
+                   where <code>b1x</code> and <code>a1x</code> are the coefficients for the first
+  stage, <code>b2x</code> and <code>a2x</code> are the coefficients for the second stage, and so on.
+  The <code>pCoeffs</code> array contains a total of <code>5*numStages</code> values.
   @par
                    The <code>pState</code> points to state variables array.
-                   Each Biquad stage has 4 state variables <code>x[n-1], x[n-2], y[n-1],</code> and <code>y[n-2]</code>.
-                   The state variables are arranged in the <code>pState</code> array as:
-  <pre>
+                   Each Biquad stage has 4 state variables <code>x[n-1], x[n-2], y[n-1],</code> and
+  <code>y[n-2]</code>. The state variables are arranged in the <code>pState</code> array as: <pre>
       {x[n-1], x[n-2], y[n-1], y[n-2]}
   </pre>
-                   The 4 state variables for stage 1 are first, then the 4 state variables for stage 2, and so on.
-                   The state array has a total length of <code>4*numStages</code> values.
-                   The state variables are updated after each block of data is processed; the coefficients are untouched.
+                   The 4 state variables for stage 1 are first, then the 4 state variables for stage
+  2, and so on. The state array has a total length of <code>4*numStages</code> values. The state
+  variables are updated after each block of data is processed; the coefficients are untouched.
  */
 
-void arm_biquad_cascade_df1_init_q31(
-        arm_biquad_casd_df1_inst_q31 * S,
-        uint8_t numStages,
-  const q31_t * pCoeffs,
-        q31_t * pState,
-        int8_t postShift)
-{
-  /* Assign filter stages */
-  S->numStages = numStages;
+void arm_biquad_cascade_df1_init_q31(arm_biquad_casd_df1_inst_q31 * S, uint8_t numStages,
+                                     const q31_t * pCoeffs, q31_t * pState, int8_t postShift) {
+    /* Assign filter stages */
+    S->numStages = numStages;
 
-  /* Assign postShift to be applied to the output */
-  S->postShift = postShift;
+    /* Assign postShift to be applied to the output */
+    S->postShift = postShift;
 
-  /* Assign coefficient pointer */
-  S->pCoeffs = pCoeffs;
+    /* Assign coefficient pointer */
+    S->pCoeffs = pCoeffs;
 
-  /* Clear state buffer and size is always 4 * numStages */
-  memset(pState, 0, (4U * (uint32_t) numStages) * sizeof(q31_t));
+    /* Clear state buffer and size is always 4 * numStages */
+    memset(pState, 0, (4U * (uint32_t) numStages) * sizeof(q31_t));
 
-  /* Assign state pointer */
-  S->pState = pState;
+    /* Assign state pointer */
+    S->pState = pState;
 }
 
 /**

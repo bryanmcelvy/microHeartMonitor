@@ -1,7 +1,8 @@
 /* ----------------------------------------------------------------------
  * Project:      CMSIS DSP Library
  * Title:        arm_biquad_cascade_df2T_init_f16.c
- * Description:  Initialization function for floating-point transposed direct form II Biquad cascade filter
+ * Description:  Initialization function for floating-point transposed direct form II Biquad cascade
+ * filter
  *
  * $Date:        23 April 2021
  * $Revision:    V1.9.0
@@ -39,7 +40,8 @@
  */
 
 /**
-  @brief         Initialization function for the floating-point transposed direct form II Biquad cascade filter.
+  @brief         Initialization function for the floating-point transposed direct form II Biquad
+  cascade filter.
   @param[in,out] S           points to an instance of the filter data structure.
   @param[in]     numStages   number of 2nd order stages in the filter.
   @param[in]     pCoeffs     points to the filter coefficients.
@@ -47,20 +49,17 @@
   @return        none
 
   @par           Coefficient and State Ordering
-                   The coefficients are stored in the array <code>pCoeffs</code> in the following order
-                   in the not Neon version.
-  <pre>
-      {b10, b11, b12, a11, a12, b20, b21, b22, a21, a22, ...}
+                   The coefficients are stored in the array <code>pCoeffs</code> in the following
+  order in the not Neon version. <pre> {b10, b11, b12, a11, a12, b20, b21, b22, a21, a22, ...}
   </pre>
-                   
-  @par
-                   where <code>b1x</code> and <code>a1x</code> are the coefficients for the first stage,
-                   <code>b2x</code> and <code>a2x</code> are the coefficients for the second stage,
-                   and so on.  The <code>pCoeffs</code> array contains a total of <code>5*numStages</code> values.
 
-                   For Neon version, this array is bigger. If numstages = 4x + y, then the array has size:
-                   32*x + 5*y
-                   and it must be initialized using the function
+  @par
+                   where <code>b1x</code> and <code>a1x</code> are the coefficients for the first
+  stage, <code>b2x</code> and <code>a2x</code> are the coefficients for the second stage, and so on.
+  The <code>pCoeffs</code> array contains a total of <code>5*numStages</code> values.
+
+                   For Neon version, this array is bigger. If numstages = 4x + y, then the array has
+  size: 32*x + 5*y and it must be initialized using the function
                    arm_biquad_cascade_df2T_compute_coefs_f16 which is taking the
                    standard array coefficient as parameters.
 
@@ -83,28 +82,24 @@
   @par
                    The <code>pState</code> is a pointer to state array.
                    Each Biquad stage has 2 state variables <code>d1,</code> and <code>d2</code>.
-                   The 2 state variables for stage 1 are first, then the 2 state variables for stage 2, and so on.
-                   The state array has a total length of <code>2*numStages</code> values.
-                   The state variables are updated after each block of data is processed; the coefficients are untouched.
+                   The 2 state variables for stage 1 are first, then the 2 state variables for stage
+  2, and so on. The state array has a total length of <code>2*numStages</code> values. The state
+  variables are updated after each block of data is processed; the coefficients are untouched.
  */
 
-void arm_biquad_cascade_df2T_init_f16(
-        arm_biquad_cascade_df2T_instance_f16 * S,
-        uint8_t numStages,
-  const float16_t * pCoeffs,
-        float16_t * pState)
-{
-  /* Assign filter stages */
-  S->numStages = numStages;
+void arm_biquad_cascade_df2T_init_f16(arm_biquad_cascade_df2T_instance_f16 * S, uint8_t numStages,
+                                      const float16_t * pCoeffs, float16_t * pState) {
+    /* Assign filter stages */
+    S->numStages = numStages;
 
-  /* Assign coefficient pointer */
-  S->pCoeffs = pCoeffs;
+    /* Assign coefficient pointer */
+    S->pCoeffs = pCoeffs;
 
-  /* Clear state buffer and size is always 2 * numStages */
-  memset(pState, 0, (2U * (uint32_t) numStages) * sizeof(float16_t));
+    /* Clear state buffer and size is always 2 * numStages */
+    memset(pState, 0, (2U * (uint32_t) numStages) * sizeof(float16_t));
 
-  /* Assign state pointer */
-  S->pState = pState;
+    /* Assign state pointer */
+    S->pState = pState;
 }
 
 /**

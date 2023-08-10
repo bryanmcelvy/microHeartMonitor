@@ -33,8 +33,6 @@
  * @ingroup groupMatrix
  */
 
-
-
 /**
  * @addtogroup MatrixVectMult
  * @{
@@ -47,18 +45,15 @@
  * @param[out]      *pDst points to the output vector
  */
 #if defined(ARM_MATH_MVEI) && !defined(ARM_MATH_AUTOVECTORIZE)
-void arm_mat_vec_mult_q31(
-    const arm_matrix_instance_q31 * pSrcMat,
-    const q31_t     *pSrcVec,
-    q31_t           *pDstVec)
-{
-    const q31_t *pMatSrc = pSrcMat->pData;
+void arm_mat_vec_mult_q31(const arm_matrix_instance_q31 * pSrcMat, const q31_t * pSrcVec,
+                          q31_t * pDstVec) {
+    const q31_t * pMatSrc = pSrcMat->pData;
     const q31_t *pMat0, *pMat1;
-    uint32_t     numRows = pSrcMat->numRows;
-    uint32_t     numCols = pSrcMat->numCols;
-    q31_t       *px;
-    int32_t      row;
-    uint16_t     blkCnt;           /* loop counters */
+    uint32_t numRows = pSrcMat->numRows;
+    uint32_t numCols = pSrcMat->numCols;
+    q31_t * px;
+    int32_t row;
+    uint16_t blkCnt; /* loop counters */
 
     row = numRows;
     px = pDstVec;
@@ -66,18 +61,17 @@ void arm_mat_vec_mult_q31(
     /*
      * compute 3x64-bit accumulators per loop
      */
-    while (row >= 3)
-    {
+    while(row >= 3) {
         q31_t const *pMat0Vec, *pMat1Vec, *pMat2Vec, *pVec;
-        const q31_t  *pMat2;
-        q31_t const  *pSrcVecPtr = pSrcVec;
-        q63_t         acc0, acc1, acc2;
-        q31x4_t     vecMatA0, vecMatA1, vecMatA2, vecIn;
-
+        const q31_t * pMat2;
+        q31_t const * pSrcVecPtr = pSrcVec;
+        q63_t acc0, acc1, acc2;
+        q31x4_t vecMatA0, vecMatA1, vecMatA2, vecIn;
 
         pVec = pSrcVec;
         /*
-         * Initialize the pointer pIn1 to point to the starting address of the column being processed
+         * Initialize the pointer pIn1 to point to the starting address of the column being
+         * processed
          */
         pMat0 = pMatSrc;
         pMat1 = pMat0 + numCols;
@@ -93,15 +87,14 @@ void arm_mat_vec_mult_q31(
         pVec = pSrcVecPtr;
 
         blkCnt = numCols >> 2;
-        while (blkCnt > 0U)
-        {
-            vecMatA0 = vld1q(pMat0Vec); 
+        while(blkCnt > 0U) {
+            vecMatA0 = vld1q(pMat0Vec);
             pMat0Vec += 4;
-            vecMatA1 = vld1q(pMat1Vec); 
+            vecMatA1 = vld1q(pMat1Vec);
             pMat1Vec += 4;
-            vecMatA2 = vld1q(pMat2Vec); 
+            vecMatA2 = vld1q(pMat2Vec);
             pMat2Vec += 4;
-            vecIn = vld1q(pVec);        
+            vecIn = vld1q(pVec);
             pVec += 4;
 
             acc0 = vmlaldavaq(acc0, vecIn, vecMatA0);
@@ -115,8 +108,7 @@ void arm_mat_vec_mult_q31(
          * (will be merged thru tail predication)
          */
         blkCnt = numCols & 3;
-        if (blkCnt > 0U)
-        {
+        if(blkCnt > 0U) {
             mve_pred16_t p0 = vctp32q(blkCnt);
 
             vecMatA0 = vld1q(pMat0Vec);
@@ -143,12 +135,11 @@ void arm_mat_vec_mult_q31(
     /*
      * process any remaining rows pair
      */
-    if (row >= 2)
-    {
+    if(row >= 2) {
         q31_t const *pMat0Vec, *pMat1Vec, *pVec;
-        q31_t const  *pSrcVecPtr = pSrcVec;
-        q63_t         acc0, acc1;
-        q31x4_t     vecMatA0, vecMatA1, vecIn;
+        q31_t const * pSrcVecPtr = pSrcVec;
+        q63_t acc0, acc1;
+        q31x4_t vecMatA0, vecMatA1, vecIn;
 
         /*
          * For every row wise process, the pInVec pointer is set
@@ -157,7 +148,8 @@ void arm_mat_vec_mult_q31(
         pVec = pSrcVec;
 
         /*
-         * Initialize the pointer pIn1 to point to the starting address of the column being processed
+         * Initialize the pointer pIn1 to point to the starting address of the column being
+         * processed
          */
         pMat0 = pMatSrc;
         pMat1 = pMat0 + numCols;
@@ -170,13 +162,12 @@ void arm_mat_vec_mult_q31(
         pVec = pSrcVecPtr;
 
         blkCnt = numCols >> 2;
-        while (blkCnt > 0U)
-        {
-            vecMatA0 = vld1q(pMat0Vec); 
+        while(blkCnt > 0U) {
+            vecMatA0 = vld1q(pMat0Vec);
             pMat0Vec += 4;
-            vecMatA1 = vld1q(pMat1Vec); 
+            vecMatA1 = vld1q(pMat1Vec);
             pMat1Vec += 4;
-            vecIn = vld1q(pVec);        
+            vecIn = vld1q(pVec);
             pVec += 4;
 
             acc0 = vmlaldavaq(acc0, vecIn, vecMatA0);
@@ -190,8 +181,7 @@ void arm_mat_vec_mult_q31(
          * (will be merged thru tail predication)
          */
         blkCnt = numCols & 3;
-        if (blkCnt > 0U)
-        {
+        if(blkCnt > 0U) {
             mve_pred16_t p0 = vctp32q(blkCnt);
 
             vecMatA0 = vld1q(pMat0Vec);
@@ -212,12 +202,11 @@ void arm_mat_vec_mult_q31(
         row -= 2;
     }
 
-    if (row >= 1)
-    {
+    if(row >= 1) {
         q31_t const *pMat0Vec, *pVec;
-        q31_t const  *pSrcVecPtr = pSrcVec;
-        q63_t         acc0;
-        q31x4_t     vecMatA0, vecIn;
+        q31_t const * pSrcVecPtr = pSrcVec;
+        q63_t acc0;
+        q31x4_t vecMatA0, vecIn;
 
         /*
          * For every row wise process, the pInVec pointer is set
@@ -226,7 +215,8 @@ void arm_mat_vec_mult_q31(
         pVec = pSrcVec;
 
         /*
-         * Initialize the pointer pIn1 to point to the starting address of the column being processed
+         * Initialize the pointer pIn1 to point to the starting address of the column being
+         * processed
          */
         pMat0 = pMatSrc;
 
@@ -236,11 +226,10 @@ void arm_mat_vec_mult_q31(
         pVec = pSrcVecPtr;
 
         blkCnt = numCols >> 2;
-        while (blkCnt > 0U)
-        {
-            vecMatA0 = vld1q(pMat0Vec); 
+        while(blkCnt > 0U) {
+            vecMatA0 = vld1q(pMat0Vec);
             pMat0Vec += 4;
-            vecIn = vld1q(pVec);        
+            vecIn = vld1q(pVec);
             pVec += 4;
             acc0 = vmlaldavaq(acc0, vecIn, vecMatA0);
             blkCnt--;
@@ -250,8 +239,7 @@ void arm_mat_vec_mult_q31(
          * (will be merged thru tail predication)
          */
         blkCnt = numCols & 3;
-        if (blkCnt > 0U)
-        {
+        if(blkCnt > 0U) {
             mve_pred16_t p0 = vctp32q(blkCnt);
 
             vecMatA0 = vld1q(pMat0Vec);
@@ -263,20 +251,19 @@ void arm_mat_vec_mult_q31(
     }
 }
 #else
-void arm_mat_vec_mult_q31(const arm_matrix_instance_q31 *pSrcMat, const q31_t *pVec, q31_t *pDst)
-{
+void arm_mat_vec_mult_q31(const arm_matrix_instance_q31 * pSrcMat, const q31_t * pVec,
+                          q31_t * pDst) {
     uint32_t numRows = pSrcMat->numRows;
     uint32_t numCols = pSrcMat->numCols;
-    const q31_t *pSrcA = pSrcMat->pData;
-    const q31_t *pInA1;      /* input data matrix pointer A of Q31 type */
-    const q31_t *pInA2;      /* input data matrix pointer A of Q31 type */
-    const q31_t *pInA3;      /* input data matrix pointer A of Q31 type */
-    const q31_t *pInA4;      /* input data matrix pointer A of Q31 type */
-    const q31_t *pInVec;     /* input data matrix pointer B of Q31 type */
-    q31_t *px;               /* Temporary output data matrix pointer */
+    const q31_t * pSrcA = pSrcMat->pData;
+    const q31_t * pInA1;     /* input data matrix pointer A of Q31 type */
+    const q31_t * pInA2;     /* input data matrix pointer A of Q31 type */
+    const q31_t * pInA3;     /* input data matrix pointer A of Q31 type */
+    const q31_t * pInA4;     /* input data matrix pointer A of Q31 type */
+    const q31_t * pInVec;    /* input data matrix pointer B of Q31 type */
+    q31_t * px;              /* Temporary output data matrix pointer */
     uint16_t i, row, colCnt; /* loop counters */
     q31_t matData, matData2, vecData, vecData2;
-
 
     /* Process 4 rows at a time */
     row = numRows >> 2;
@@ -285,7 +272,7 @@ void arm_mat_vec_mult_q31(const arm_matrix_instance_q31 *pSrcMat, const q31_t *p
 
     /* The following loop performs the dot-product of each row in pSrcA with the vector */
     /* row loop */
-    while (row > 0) {
+    while(row > 0) {
         /* Initialize accumulators */
         q63_t sum1 = 0;
         q63_t sum2 = 0;
@@ -305,31 +292,31 @@ void arm_mat_vec_mult_q31(const arm_matrix_instance_q31 *pSrcMat, const q31_t *p
         pInA3 = pInA2 + numCols;
         pInA4 = pInA3 + numCols;
 
-
         // Main loop: matrix-vector multiplication
-        while (colCnt > 0u) {
+        while(colCnt > 0u) {
             // Read 2 values from vector
             vecData = *(pInVec)++;
 
-            // Read 8 values from the matrix - 2 values from each of 4 rows, and do multiply accumulate
+            // Read 8 values from the matrix - 2 values from each of 4 rows, and do multiply
+            // accumulate
             matData = *(pInA1)++;
-            sum1 += (q63_t)matData * vecData;
+            sum1 += (q63_t) matData * vecData;
             matData = *(pInA2)++;
-            sum2 += (q63_t)matData * vecData;
+            sum2 += (q63_t) matData * vecData;
             matData = *(pInA3)++;
-            sum3 += (q63_t)matData * vecData;
+            sum3 += (q63_t) matData * vecData;
             matData = *(pInA4)++;
-            sum4 += (q63_t)matData * vecData;
+            sum4 += (q63_t) matData * vecData;
 
             // Decrement the loop counter
             colCnt--;
         }
 
         /* Saturate and store the result in the destination buffer */
-        *px++ = (q31_t)(sum1 >> 31);
-        *px++ = (q31_t)(sum2 >> 31);
-        *px++ = (q31_t)(sum3 >> 31);
-        *px++ = (q31_t)(sum4 >> 31);
+        *px++ = (q31_t) (sum1 >> 31);
+        *px++ = (q31_t) (sum2 >> 31);
+        *px++ = (q31_t) (sum3 >> 31);
+        *px++ = (q31_t) (sum4 >> 31);
 
         i = i + numCols * 4;
 
@@ -339,7 +326,7 @@ void arm_mat_vec_mult_q31(const arm_matrix_instance_q31 *pSrcMat, const q31_t *p
 
     /* process any remaining rows */
     row = numRows & 3u;
-    while (row > 0) {
+    while(row > 0) {
 
         q63_t sum = 0;
         pInVec = pVec;
@@ -347,24 +334,24 @@ void arm_mat_vec_mult_q31(const arm_matrix_instance_q31 *pSrcMat, const q31_t *p
 
         colCnt = numCols >> 1;
 
-        while (colCnt > 0) {
+        while(colCnt > 0) {
             vecData = *(pInVec)++;
             vecData2 = *(pInVec)++;
             matData = *(pInA1)++;
             matData2 = *(pInA1)++;
-            sum += (q63_t)matData * vecData;
-            sum += (q63_t)matData2 * vecData2;
+            sum += (q63_t) matData * vecData;
+            sum += (q63_t) matData2 * vecData2;
             colCnt--;
         }
 
         // process remainder of row
         colCnt = numCols & 1u;
-        while (colCnt > 0) {
-            sum += (q63_t)*pInA1++ * *pInVec++;
+        while(colCnt > 0) {
+            sum += (q63_t) *pInA1++ * *pInVec++;
             colCnt--;
         }
 
-        *px++ = (q31_t)(sum >> 31);
+        *px++ = (q31_t) (sum >> 31);
         i = i + numCols;
         row--;
     }

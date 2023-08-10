@@ -33,79 +33,73 @@
  */
 
 /**
-   * @defgroup BilinearInterpolate Bilinear Interpolation
-   *
-   * Bilinear interpolation is an extension of linear interpolation applied to a two dimensional grid.
-   * The underlying function <code>f(x, y)</code> is sampled on a regular grid and the interpolation process
-   * determines values between the grid points.
-   * Bilinear interpolation is equivalent to two step linear interpolation, first in the x-dimension and then in the y-dimension.
-   * Bilinear interpolation is often used in image processing to rescale images.
-   * The CMSIS DSP library provides bilinear interpolation functions for Q7, Q15, Q31, and floating-point data types.
-   *
-   * <b>Algorithm</b>
-   * \par
-   * The instance structure used by the bilinear interpolation functions describes a two dimensional data table.
-   * For floating-point, the instance structure is defined as:
-   * <pre>
-   *   typedef struct
-   *   {
-   *     uint16_t numRows;
-   *     uint16_t numCols;
-   *     const float32_t *pData;
-   * } arm_bilinear_interp_instance_f32;
-   * </pre>
-   *
-   * \par
-   * where <code>numRows</code> specifies the number of rows in the table;
-   * <code>numCols</code> specifies the number of columns in the table;
-   * and <code>pData</code> points to an array of size <code>numRows*numCols</code> values.
-   * The data table <code>pTable</code> is organized in row order and the supplied data values fall on integer indexes.
-   * That is, table element (x,y) is located at <code>pTable[x + y*numCols]</code> where x and y are integers.
-   *
-   * \par
-   * Let <code>(x, y)</code> specify the desired interpolation point.  Then define:
-   * <pre>
-   *     XF = floor(x)
-   *     YF = floor(y)
-   * </pre>
-   * \par
-   * The interpolated output point is computed as:
-   * <pre>
-   *  f(x, y) = f(XF, YF) * (1-(x-XF)) * (1-(y-YF))
-   *           + f(XF+1, YF) * (x-XF)*(1-(y-YF))
-   *           + f(XF, YF+1) * (1-(x-XF))*(y-YF)
-   *           + f(XF+1, YF+1) * (x-XF)*(y-YF)
-   * </pre>
-   * Note that the coordinates (x, y) contain integer and fractional components.
-   * The integer components specify which portion of the table to use while the
-   * fractional components control the interpolation processor.
-   *
-   * \par
-   * if (x,y) are outside of the table boundary, Bilinear interpolation returns zero output.
-   */
+ * @defgroup BilinearInterpolate Bilinear Interpolation
+ *
+ * Bilinear interpolation is an extension of linear interpolation applied to a two dimensional grid.
+ * The underlying function <code>f(x, y)</code> is sampled on a regular grid and the interpolation
+ * process determines values between the grid points. Bilinear interpolation is equivalent to two
+ * step linear interpolation, first in the x-dimension and then in the y-dimension. Bilinear
+ * interpolation is often used in image processing to rescale images. The CMSIS DSP library provides
+ * bilinear interpolation functions for Q7, Q15, Q31, and floating-point data types.
+ *
+ * <b>Algorithm</b>
+ * \par
+ * The instance structure used by the bilinear interpolation functions describes a two dimensional
+ * data table. For floating-point, the instance structure is defined as: <pre> typedef struct
+ *   {
+ *     uint16_t numRows;
+ *     uint16_t numCols;
+ *     const float32_t *pData;
+ * } arm_bilinear_interp_instance_f32;
+ * </pre>
+ *
+ * \par
+ * where <code>numRows</code> specifies the number of rows in the table;
+ * <code>numCols</code> specifies the number of columns in the table;
+ * and <code>pData</code> points to an array of size <code>numRows*numCols</code> values.
+ * The data table <code>pTable</code> is organized in row order and the supplied data values fall on
+ * integer indexes. That is, table element (x,y) is located at <code>pTable[x + y*numCols]</code>
+ * where x and y are integers.
+ *
+ * \par
+ * Let <code>(x, y)</code> specify the desired interpolation point.  Then define:
+ * <pre>
+ *     XF = floor(x)
+ *     YF = floor(y)
+ * </pre>
+ * \par
+ * The interpolated output point is computed as:
+ * <pre>
+ *  f(x, y) = f(XF, YF) * (1-(x-XF)) * (1-(y-YF))
+ *           + f(XF+1, YF) * (x-XF)*(1-(y-YF))
+ *           + f(XF, YF+1) * (1-(x-XF))*(y-YF)
+ *           + f(XF+1, YF+1) * (x-XF)*(y-YF)
+ * </pre>
+ * Note that the coordinates (x, y) contain integer and fractional components.
+ * The integer components specify which portion of the table to use while the
+ * fractional components control the interpolation processor.
+ *
+ * \par
+ * if (x,y) are outside of the table boundary, Bilinear interpolation returns zero output.
+ */
 
+/**
+ * @addtogroup BilinearInterpolate
+ * @{
+ */
 
-  /**
-   * @addtogroup BilinearInterpolate
-   * @{
-   */
-
-
-  /**
-  * @brief  Floating-point bilinear interpolation.
-  * @param[in,out] S  points to an instance of the interpolation structure.
-  * @param[in]     X  interpolation coordinate.
-  * @param[in]     Y  interpolation coordinate.
-  * @return out interpolated value.
-  */
-  float32_t arm_bilinear_interp_f32(
-  const arm_bilinear_interp_instance_f32 * S,
-  float32_t X,
-  float32_t Y)
-  {
+/**
+ * @brief  Floating-point bilinear interpolation.
+ * @param[in,out] S  points to an instance of the interpolation structure.
+ * @param[in]     X  interpolation coordinate.
+ * @param[in]     Y  interpolation coordinate.
+ * @return out interpolated value.
+ */
+float32_t arm_bilinear_interp_f32(const arm_bilinear_interp_instance_f32 * S, float32_t X,
+                                  float32_t Y) {
     float32_t out;
     float32_t f00, f01, f10, f11;
-    const float32_t *pData = S->pData;
+    const float32_t * pData = S->pData;
     int32_t xIndex, yIndex, index;
     float32_t xdiff, ydiff;
     float32_t b1, b2, b3, b4;
@@ -115,22 +109,19 @@
 
     /* Care taken for table outside boundary */
     /* Returns zero output when values are outside table boundary */
-    if (xIndex < 0 || xIndex > (S->numCols - 2) || yIndex < 0 || yIndex > (S->numRows - 2))
-    {
-      return (0);
+    if(xIndex < 0 || xIndex > (S->numCols - 2) || yIndex < 0 || yIndex > (S->numRows - 2)) {
+        return (0);
     }
 
     /* Calculation of index for two nearest points in X-direction */
-    index = (xIndex ) + (yIndex ) * S->numCols;
-
+    index = (xIndex) + (yIndex) *S->numCols;
 
     /* Read two nearest points in X-direction */
     f00 = pData[index];
     f01 = pData[index + 1];
 
     /* Calculation of index for two nearest points in Y-direction */
-    index = (xIndex ) + (yIndex+1) * S->numCols;
-
+    index = (xIndex) + (yIndex + 1) * S->numCols;
 
     /* Read two nearest points in Y-direction */
     f10 = pData[index];
@@ -153,9 +144,8 @@
 
     /* return to application */
     return (out);
-  }
+}
 
-  /**
-   * @} end of BilinearInterpolate group
-   */
-
+/**
+ * @} end of BilinearInterpolate group
+ */

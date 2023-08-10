@@ -46,51 +46,43 @@
   @return        none
 
   @par           Details
-                   <code>pCoeffs</code> points to the array of filter coefficients stored in time reversed order:
-  <pre>
-     {b[numTaps-1], b[numTaps-2], b[N-2], ..., b[1], b[0]}
+                   <code>pCoeffs</code> points to the array of filter coefficients stored in time
+  reversed order: <pre> {b[numTaps-1], b[numTaps-2], b[N-2], ..., b[1], b[0]}
   </pre>
-                   The initial filter coefficients serve as a starting point for the adaptive filter.
-                   <code>pState</code> points to the array of state variables and size of array is
-                   <code>numTaps+blockSize-1</code> samples, where <code>blockSize</code> is the number of input samples processed
-                   by each call to <code>arm_lms_norm_q15()</code>.
+                   The initial filter coefficients serve as a starting point for the adaptive
+  filter. <code>pState</code> points to the array of state variables and size of array is
+                   <code>numTaps+blockSize-1</code> samples, where <code>blockSize</code> is the
+  number of input samples processed by each call to <code>arm_lms_norm_q15()</code>.
  */
 
-void arm_lms_norm_init_q15(
-        arm_lms_norm_instance_q15 * S,
-        uint16_t numTaps,
-        q15_t * pCoeffs,
-        q15_t * pState,
-        q15_t mu,
-        uint32_t blockSize,
-        uint8_t postShift)
-{
-  /* Assign filter taps */
-  S->numTaps = numTaps;
+void arm_lms_norm_init_q15(arm_lms_norm_instance_q15 * S, uint16_t numTaps, q15_t * pCoeffs,
+                           q15_t * pState, q15_t mu, uint32_t blockSize, uint8_t postShift) {
+    /* Assign filter taps */
+    S->numTaps = numTaps;
 
-  /* Assign coefficient pointer */
-  S->pCoeffs = pCoeffs;
+    /* Assign coefficient pointer */
+    S->pCoeffs = pCoeffs;
 
-  /* Clear state buffer and size is always blockSize + numTaps - 1 */
-  memset(pState, 0, (numTaps + (blockSize - 1U)) * sizeof(q15_t));
+    /* Clear state buffer and size is always blockSize + numTaps - 1 */
+    memset(pState, 0, (numTaps + (blockSize - 1U)) * sizeof(q15_t));
 
-  /* Assign post Shift value applied to coefficients */
-  S->postShift = postShift;
+    /* Assign post Shift value applied to coefficients */
+    S->postShift = postShift;
 
-  /* Assign state pointer */
-  S->pState = pState;
+    /* Assign state pointer */
+    S->pState = pState;
 
-  /* Assign Step size value */
-  S->mu = mu;
+    /* Assign Step size value */
+    S->mu = mu;
 
-  /* Initialize reciprocal pointer table */
-  S->recipTable = (q15_t *) armRecipTableQ15;
+    /* Initialize reciprocal pointer table */
+    S->recipTable = (q15_t *) armRecipTableQ15;
 
-  /* Initialise Energy to zero */
-  S->energy = 0;
+    /* Initialise Energy to zero */
+    S->energy = 0;
 
-  /* Initialise x0 to zero */
-  S->x0 = 0;
+    /* Initialise x0 to zero */
+    S->x0 = 0;
 }
 
 /**

@@ -50,7 +50,6 @@
  * @{
  */
 
-
 /**
  * @brief        SVM linear instance init function
  *
@@ -68,24 +67,17 @@
  *
  */
 
-
-void arm_svm_linear_init_f32(arm_svm_linear_instance_f32 *S, 
-  uint32_t nbOfSupportVectors,
-  uint32_t vectorDimension,
-  float32_t intercept,
-  const float32_t *dualCoefficients,
-  const float32_t *supportVectors,
-  const int32_t *classes)
-{
-   S->nbOfSupportVectors = nbOfSupportVectors;
-   S->vectorDimension = vectorDimension;
-   S->intercept = intercept;
-   S->dualCoefficients = dualCoefficients;
-   S->supportVectors = supportVectors;
-   S->classes = classes;
+void arm_svm_linear_init_f32(arm_svm_linear_instance_f32 * S, uint32_t nbOfSupportVectors,
+                             uint32_t vectorDimension, float32_t intercept,
+                             const float32_t * dualCoefficients, const float32_t * supportVectors,
+                             const int32_t * classes) {
+    S->nbOfSupportVectors = nbOfSupportVectors;
+    S->vectorDimension = vectorDimension;
+    S->intercept = intercept;
+    S->dualCoefficients = dualCoefficients;
+    S->supportVectors = supportVectors;
+    S->classes = classes;
 }
-
-
 
 /**
  * @} end of linearsvm group

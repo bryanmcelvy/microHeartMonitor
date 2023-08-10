@@ -30,11 +30,9 @@
 
 #if defined(ARM_FLOAT16_SUPPORTED)
 
-
-#if (defined(ARM_MATH_NEON) || defined(ARM_MATH_MVEF)) && !defined(ARM_MATH_AUTOVECTORIZE)
+#if(defined(ARM_MATH_NEON) || defined(ARM_MATH_MVEF)) && !defined(ARM_MATH_AUTOVECTORIZE)
 #include <limits.h>
 #endif
-
 
 /**
   @ingroup groupStats
@@ -57,31 +55,26 @@
 #if defined(ARM_MATH_MVE_FLOAT16) && !defined(ARM_MATH_AUTOVECTORIZE)
 
 #include "arm_helium_utils.h"
-void arm_absmin_f16(
-  const float16_t * pSrc,
-        uint32_t blockSize,
-        float16_t * pResult,
-        uint32_t * pIndex)
-{
-    uint16_t  blkCnt;           /* loop counters */
+
+void arm_absmin_f16(const float16_t * pSrc, uint32_t blockSize, float16_t * pResult,
+                    uint32_t * pIndex) {
+    uint16_t blkCnt; /* loop counters */
     f16x8_t vecSrc;
-    float16_t const *pSrcVec;
+    float16_t const * pSrcVec;
     f16x8_t curExtremValVec = vdupq_n_f16(F16_ABSMAX);
     float16_t minValue = F16_ABSMAX;
-    uint16_t  idx = blockSize;
+    uint16_t idx = blockSize;
     uint16x8_t indexVec;
     uint16x8_t curExtremIdxVec;
     mve_pred16_t p0;
 
-
-    indexVec = vidupq_u16((uint32_t)0, 1);
+    indexVec = vidupq_u16((uint32_t) 0, 1);
     curExtremIdxVec = vdupq_n_u16(0);
 
     pSrcVec = (float16_t const *) pSrc;
     blkCnt = blockSize >> 3;
-    while (blkCnt > 0U)
-    {
-        vecSrc = vldrhq_f16(pSrcVec);  
+    while(blkCnt > 0U) {
+        vecSrc = vldrhq_f16(pSrcVec);
         pSrcVec += 8;
         vecSrc = vabsq(vecSrc);
         /*
@@ -92,7 +85,7 @@ void arm_absmin_f16(
         curExtremValVec = vpselq(vecSrc, curExtremValVec, p0);
         curExtremIdxVec = vpselq(indexVec, curExtremIdxVec, p0);
 
-        indexVec = indexVec +  8;
+        indexVec = indexVec + 8;
         /*
          * Decrement the blockSize loop counter
          */
@@ -103,11 +96,10 @@ void arm_absmin_f16(
      * (will be merged thru tail predication)
      */
     blkCnt = blockSize & 7;
-    if (blkCnt > 0U)
-    {
+    if(blkCnt > 0U) {
         p0 = vctp16q(blkCnt);
 
-        vecSrc = vldrhq_f16(pSrcVec);  
+        vecSrc = vldrhq_f16(pSrcVec);
         pSrcVec += 8;
         vecSrc = vabsq(vecSrc);
         /*
@@ -140,131 +132,111 @@ void arm_absmin_f16(
 
 #else
 #if defined(ARM_MATH_LOOPUNROLL)
-void arm_absmin_f16(
-  const float16_t * pSrc,
-        uint32_t blockSize,
-        float16_t * pResult,
-        uint32_t * pIndex)
-{
-        float16_t cur_absmin, out;                     /* Temporary variables to store the output value. */\
-        uint32_t blkCnt, outIndex;                     /* Loop counter */                                   \
-        uint32_t index;                                /* index of maximum value */                         \
-                                                                                                            \
-  /* Initialize index value to zero. */                                                                     \
-  outIndex = 0U;                                                                                            \
-  /* Load first input value that act as reference value for comparision */                                  \
-  out = *pSrc++;                                                                                            \
-  out = ((_Float16)out > 0.0f16) ? out : -(_Float16)out;                                                                             \
-  /* Initialize index of extrema value. */                                                                  \
-  index = 0U;                                                                                               \
-                                                                                                            \
-  /* Loop unrolling: Compute 4 outputs at a time */                                                         \
-  blkCnt = (blockSize - 1U) >> 2U;                                                                          \
-                                                                                                            \
-  while (blkCnt > 0U)                                                                                       \
-  {                                                                                                         \
-    /* Initialize cur_absmin to next consecutive values one by one */                                         \
-    cur_absmin = *pSrc++;                                                                                     \
-    cur_absmin = ((_Float16)cur_absmin > 0.0f16) ? cur_absmin : -(_Float16)cur_absmin;                                                                 \
-    /* compare for the extrema value */                                                                     \
-    if ((_Float16)cur_absmin < (_Float16)out)                                                                         \
-    {                                                                                                       \
-      /* Update the extrema value and it's index */                                                         \
-      out = cur_absmin;                                                                                       \
-      outIndex = index + 1U;                                                                                \
-    }                                                                                                       \
-                                                                                                            \
-    cur_absmin = *pSrc++;                                                                                     \
-    cur_absmin = ((_Float16)cur_absmin > 0.0f16) ? cur_absmin : -(_Float16)cur_absmin;                                                                 \
-    if ((_Float16)cur_absmin < (_Float16)out)                                                                         \
-    {                                                                                                       \
-      out = cur_absmin;                                                                                       \
-      outIndex = index + 2U;                                                                                \
-    }                                                                                                       \
-                                                                                                            \
-    cur_absmin = *pSrc++;                                                                                     \
-    cur_absmin = ((_Float16)cur_absmin > 0.0f16) ? cur_absmin : -(_Float16)cur_absmin;                                                                 \
-    if ((_Float16)cur_absmin < (_Float16)out)                                                                          \
-    {                                                                                                       \
-      out = cur_absmin;                                                                                       \
-      outIndex = index + 3U;                                                                                \
-    }                                                                                                       \
-                                                                                                            \
-    cur_absmin = *pSrc++;                                                                                     \
-    cur_absmin = ((_Float16)cur_absmin > 0.0f16) ? cur_absmin : -(_Float16)cur_absmin;                                                                 \
-    if ((_Float16)cur_absmin < (_Float16)out)                                                                          \
-    {                                                                                                       \
-      out = cur_absmin;                                                                                       \
-      outIndex = index + 4U;                                                                                \
-    }                                                                                                       \
-                                                                                                            \
-    index += 4U;                                                                                            \
-                                                                                                            \
-    /* Decrement loop counter */                                                                            \
-    blkCnt--;                                                                                               \
-  }                                                                                                         \
-                                                                                                            \
-  /* Loop unrolling: Compute remaining outputs */                                                           \
-  blkCnt = (blockSize - 1U) % 4U;                                                                           \
-                                                                                                            \
-                                                                                                            \
-  while (blkCnt > 0U)                                                                                       \
-  {                                                                                                         \
-    cur_absmin = *pSrc++;                                                                                     \
-    cur_absmin = ((_Float16)cur_absmin > 0.0f16) ? cur_absmin : -(_Float16)cur_absmin;                                                                 \
-    if ((_Float16)cur_absmin < (_Float16)out)                                                                         \
-    {                                                                                                       \
-      out = cur_absmin;                                                                                       \
-      outIndex = blockSize - blkCnt;                                                                        \
-    }                                                                                                       \
-                                                                                                            \
-    /* Decrement loop counter */                                                                            \
-    blkCnt--;                                                                                               \
-  }                                                                                                         \
-                                                                                                            \
-  /* Store the extrema value and it's index into destination pointers */                                    \
-  *pResult = out;                                                                                           \
-  *pIndex = outIndex;  
-}
-#else
-void arm_absmin_f16(
-  const float16_t * pSrc,
-        uint32_t blockSize,
-        float16_t * pResult,
-        uint32_t * pIndex)
-{
-        float16_t minVal, out;                         /* Temporary variables to store the output value. */
-        uint32_t blkCnt, outIndex;                     /* Loop counter */
+void arm_absmin_f16(const float16_t * pSrc, uint32_t blockSize, float16_t * pResult,
+                    uint32_t * pIndex) {
+    float16_t cur_absmin, out; /* Temporary variables to store the output value. */
+    uint32_t blkCnt, outIndex; /* Loop counter */
+    uint32_t index;            /* index of maximum value */
 
-  /* Initialise index value to zero. */
-  outIndex = 0U;
+        /* Initialize index value to zero. */
+    outIndex = 0U; /* Load first input value that act as reference value for comparision */
+    out = *pSrc++;
+    out =
+        ((_Float16) out > 0.0f16) ? out : -(_Float16) out; /* Initialize index of extrema value. */
+    index = 0U;
 
-  /* Load first input value that act as reference value for comparision */
-  out = (_Float16)fabsf((float32_t)*pSrc++);
+        /* Loop unrolling: Compute 4 outputs at a time */
+    blkCnt = (blockSize - 1U) >> 2U;
 
-  /* Initialize blkCnt with number of samples */
-  blkCnt = (blockSize - 1U);
+    while(blkCnt > 0U) { /* Initialize cur_absmin to next consecutive values one by one */
+        cur_absmin = *pSrc++;
+        cur_absmin = ((_Float16) cur_absmin > 0.0f16)
+                         ? cur_absmin
+                         : -(_Float16) cur_absmin;   /* compare for the extrema value */
+        if((_Float16) cur_absmin < (_Float16) out) { /* Update the extrema value and it's index */
+            out = cur_absmin;
+            outIndex = index + 1U;
+        }
 
-  while (blkCnt > 0U)
-  {
-    /* Initialize minVal to the next consecutive values one by one */
-    minVal = (_Float16)fabsf((float32_t)*pSrc++);
+        cur_absmin = *pSrc++;
+        cur_absmin = ((_Float16) cur_absmin > 0.0f16) ? cur_absmin : -(_Float16) cur_absmin;
+        if((_Float16) cur_absmin < (_Float16) out) {
+            out = cur_absmin;
+            outIndex = index + 2U;
+        }
 
-    /* compare for the minimum value */
-    if ((_Float16)out > (_Float16)minVal)
-    {
-      /* Update the minimum value and it's index */
-      out = minVal;
-      outIndex = blockSize - blkCnt;
+        cur_absmin = *pSrc++;
+        cur_absmin = ((_Float16) cur_absmin > 0.0f16) ? cur_absmin : -(_Float16) cur_absmin;
+        if((_Float16) cur_absmin < (_Float16) out) {
+            out = cur_absmin;
+            outIndex = index + 3U;
+        }
+
+        cur_absmin = *pSrc++;
+        cur_absmin = ((_Float16) cur_absmin > 0.0f16) ? cur_absmin : -(_Float16) cur_absmin;
+        if((_Float16) cur_absmin < (_Float16) out) {
+            out = cur_absmin;
+            outIndex = index + 4U;
+        }
+
+        index += 4U;
+
+            /* Decrement loop counter */
+        blkCnt--;
     }
 
-    /* Decrement loop counter */
-    blkCnt--;
-  }
+    /* Loop unrolling: Compute remaining outputs */
+    blkCnt = (blockSize - 1U) % 4U;
 
-  /* Store the minimum value and it's index into destination pointers */
-  *pResult = out;
-  *pIndex = outIndex;
+    while(blkCnt > 0U) {
+        cur_absmin = *pSrc++;
+        cur_absmin = ((_Float16) cur_absmin > 0.0f16) ? cur_absmin : -(_Float16) cur_absmin;
+        if((_Float16) cur_absmin < (_Float16) out) {
+            out = cur_absmin;
+            outIndex = blockSize - blkCnt;
+        }
+
+        /* Decrement loop counter */
+        blkCnt--;
+    }
+
+    /* Store the extrema value and it's index into destination pointers */
+    *pResult = out;
+    *pIndex = outIndex;
+}
+#else
+void arm_absmin_f16(const float16_t * pSrc, uint32_t blockSize, float16_t * pResult,
+                    uint32_t * pIndex) {
+    float16_t minVal, out;     /* Temporary variables to store the output value. */
+    uint32_t blkCnt, outIndex; /* Loop counter */
+
+    /* Initialise index value to zero. */
+    outIndex = 0U;
+
+    /* Load first input value that act as reference value for comparision */
+    out = (_Float16) fabsf((float32_t) *pSrc++);
+
+    /* Initialize blkCnt with number of samples */
+    blkCnt = (blockSize - 1U);
+
+    while(blkCnt > 0U) {
+        /* Initialize minVal to the next consecutive values one by one */
+        minVal = (_Float16) fabsf((float32_t) *pSrc++);
+
+        /* compare for the minimum value */
+        if((_Float16) out > (_Float16) minVal) {
+            /* Update the minimum value and it's index */
+            out = minVal;
+            outIndex = blockSize - blkCnt;
+        }
+
+        /* Decrement loop counter */
+        blkCnt--;
+    }
+
+    /* Store the minimum value and it's index into destination pointers */
+    *pResult = out;
+    *pIndex = outIndex;
 }
 #endif /* defined(ARM_MATH_LOOPUNROLL) */
 #endif /* defined(ARM_MATH_MVE_FLOAT16) && !defined(ARM_MATH_AUTOVECTORIZE) */
@@ -272,5 +244,4 @@ void arm_absmin_f16(
   @} end of AbsMin group
  */
 
-#endif /* #if defined(ARM_FLOAT16_SUPPORTED) */ 
-
+#endif /* #if defined(ARM_FLOAT16_SUPPORTED) */

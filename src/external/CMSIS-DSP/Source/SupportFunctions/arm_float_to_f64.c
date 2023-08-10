@@ -28,9 +28,6 @@
 
 #include "dsp/support_functions.h"
 
-
-
-
 /**
   @ingroup groupSupport
  */
@@ -49,37 +46,27 @@
 
  */
 
-void arm_float_to_f64(
-  const float32_t * pSrc,
-        float64_t * pDst,
-        uint32_t blockSize)
+void arm_float_to_f64(const float32_t * pSrc, float64_t * pDst, uint32_t blockSize)
 
 {
-    const float32_t *pIn = pSrc;      /* Src pointer */
-    uint32_t  blkCnt;           /* loop counter */
+    const float32_t * pIn = pSrc; /* Src pointer */
+    uint32_t blkCnt;              /* loop counter */
 
     /*
      * Loop over blockSize number of values
      */
     blkCnt = blockSize;
 
-    while (blkCnt > 0U)
-    {
+    while(blkCnt > 0U) {
 
-        *pDst++ = (float64_t) * pIn++;
+        *pDst++ = (float64_t) *pIn++;
         /*
          * Decrement the loop counter
          */
         blkCnt--;
     }
 }
-  
-
 
 /**
   @} end of float_to_x group
  */
-
-
-
-

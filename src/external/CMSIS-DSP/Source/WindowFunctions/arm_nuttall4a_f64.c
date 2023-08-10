@@ -34,14 +34,10 @@
   @ingroup groupWindow
  */
 
-
-
-
 /**
   @addtogroup WindowNormal
   @{
  */
-
 
 /**
   @ingroup WindowNUTTALL4A
@@ -52,9 +48,9 @@
   @param[out]    pDst       points to the output generated window
   @param[in]     blockSize  number of samples in the window
   @return        none
- 
+
   @par Parameters of the window
-  
+
   | Parameter                             | Value              |
   | ------------------------------------: | -----------------: |
   | Peak sidelobe level                   |           82.6 dB  |
@@ -65,26 +61,18 @@
 
  */
 
+void arm_nuttall4a_f64(float64_t * pDst, uint32_t blockSize) {
+    float64_t k = 2. / ((float64_t) blockSize);
+    float64_t w;
 
+    for(uint32_t i = 0; i < blockSize; i++) {
+        w = PI_F64 * i * k;
+        w = 0.338946 - 0.481973 * cos(w) + 0.161054 * cos(2 * w) - 0.018027 * cos(3 * w);
 
-void arm_nuttall4a_f64(
-        float64_t * pDst,
-        uint32_t blockSize)
-{
-   float64_t k = 2. / ((float64_t) blockSize);
-   float64_t w;
-
-   for(uint32_t i=0;i<blockSize;i++)
-   {
-     w = PI_F64 * i * k;
-        w = 0.338946 - 0.481973 * cos (w) +
-    0.161054 * cos (2 * w) - 0.018027 * cos (3 * w);
-        
-     pDst[i] = w;
-   }
+        pDst[i] = w;
+    }
 }
 
 /**
   @} end of WindowNormal group
  */
-

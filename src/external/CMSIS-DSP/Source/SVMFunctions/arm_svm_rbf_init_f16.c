@@ -37,13 +37,10 @@
   @ingroup groupSVM
  */
 
-
-
 /**
  * @addtogroup rbfsvm
  * @{
  */
-
 
 /**
  * @brief        SVM radial basis function instance init function
@@ -63,30 +60,21 @@
  *
  */
 
-void arm_svm_rbf_init_f16(arm_svm_rbf_instance_f16 *S, 
-  uint32_t nbOfSupportVectors,
-  uint32_t vectorDimension,
-  float16_t intercept,
-  const float16_t *dualCoefficients,
-  const float16_t *supportVectors,
-  const int32_t *classes,
-  float16_t gamma
-  )
-{
-   S->nbOfSupportVectors = nbOfSupportVectors;
-   S->vectorDimension = vectorDimension;
-   S->intercept = intercept;
-   S->dualCoefficients = dualCoefficients;
-   S->supportVectors = supportVectors;
-   S->classes = classes;
-   S->gamma = gamma;
+void arm_svm_rbf_init_f16(arm_svm_rbf_instance_f16 * S, uint32_t nbOfSupportVectors,
+                          uint32_t vectorDimension, float16_t intercept,
+                          const float16_t * dualCoefficients, const float16_t * supportVectors,
+                          const int32_t * classes, float16_t gamma) {
+    S->nbOfSupportVectors = nbOfSupportVectors;
+    S->vectorDimension = vectorDimension;
+    S->intercept = intercept;
+    S->dualCoefficients = dualCoefficients;
+    S->supportVectors = supportVectors;
+    S->classes = classes;
+    S->gamma = gamma;
 }
-
-
 
 /**
  * @} end of rbfsvm group
  */
 
-#endif /* #if defined(ARM_FLOAT16_SUPPORTED) */ 
-
+#endif /* #if defined(ARM_FLOAT16_SUPPORTED) */

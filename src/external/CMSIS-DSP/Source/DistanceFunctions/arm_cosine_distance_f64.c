@@ -31,13 +31,10 @@
 #include <limits.h>
 #include <math.h>
 
-
 /**
   @addtogroup CosineDist
   @{
  */
-
-
 
 /**
  * @brief        Cosine distance between two vectors
@@ -49,21 +46,17 @@
  *
  */
 
-float64_t arm_cosine_distance_f64(const float64_t *pA,const float64_t *pB, uint32_t blockSize)
-{
-    float64_t pwra,pwrb,dot,tmp;
+float64_t arm_cosine_distance_f64(const float64_t * pA, const float64_t * pB, uint32_t blockSize) {
+    float64_t pwra, pwrb, dot, tmp;
 
     arm_power_f64(pA, blockSize, &pwra);
     arm_power_f64(pB, blockSize, &pwrb);
 
-    arm_dot_prod_f64(pA,pB,blockSize,&dot);
+    arm_dot_prod_f64(pA, pB, blockSize, &dot);
 
     tmp = sqrt(pwra * pwrb);
-    return(1.0 - dot / tmp);
-
+    return (1.0 - dot / tmp);
 }
-
-
 
 /**
  * @} end of CosineDist group

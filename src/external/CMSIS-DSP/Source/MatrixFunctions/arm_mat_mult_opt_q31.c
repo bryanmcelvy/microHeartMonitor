@@ -49,18 +49,19 @@
 
   @par           Scaling and Overflow Behavior
                    The function is implemented using an internal 64-bit accumulator.
-                   The accumulator has a 2.62 format and maintains full precision of the intermediate
-                   multiplication results but provides only a single guard bit. There is no saturation
+                   The accumulator has a 2.62 format and maintains full precision of the
+  intermediate multiplication results but provides only a single guard bit. There is no saturation
                    on intermediate additions. Thus, if the accumulator overflows it wraps around and
-                   distorts the result. The input signals should be scaled down to avoid intermediate
-                   overflows. The input is thus scaled down by log2(numColsA) bits
-                   to avoid overflows, as a total of numColsA additions are performed internally.
-                   The 2.62 accumulator is right shifted by 31 bits and saturated to 1.31 format to yield the final result.
+                   distorts the result. The input signals should be scaled down to avoid
+  intermediate overflows. The input is thus scaled down by log2(numColsA) bits to avoid overflows,
+  as a total of numColsA additions are performed internally. The 2.62 accumulator is right shifted
+  by 31 bits and saturated to 1.31 format to yield the final result.
   @remark
-                   Refer to \ref arm_mat_mult_fast_q31() for a faster but less precise implementation of this function.
+                   Refer to \ref arm_mat_mult_fast_q31() for a faster but less precise
+  implementation of this function.
   @remark
-                   This function is a faster implementation of arm_mat_mult_q31 for MVE but it is requiring 
-                   additional storage for intermediate results.
+                   This function is a faster implementation of arm_mat_mult_q31 for MVE but it is
+  requiring additional storage for intermediate results.
  */
 #if defined(ARM_MATH_MVEI) && !defined(ARM_MATH_AUTOVECTORIZE)
 
@@ -68,23 +69,21 @@
 #define MATRIX_DIM3 3
 #define MATRIX_DIM4 4
 
-__STATIC_INLINE arm_status arm_mat_mult_opt_q31_2x2_mve(
-    const arm_matrix_instance_q31 * pSrcA,
-    const arm_matrix_instance_q31 * pSrcB,
-    arm_matrix_instance_q31 * pDst)
-{
-    q31_t       *pInB = pSrcB->pData;  /* input data matrix pointer B */
-    q31_t       *pInA = pSrcA->pData;  /* input data matrix pointer A */
-    q31_t       *pOut = pDst->pData;   /* output data matrix pointer */
-    uint32x4_t   vecColBOffs;
-    q31_t       *pInA0 = pInA;
-    q31_t       *pInA1 = pInA0 + MATRIX_DIM2;
-    q63_t        acc0, acc1;
-    q31x4_t      vecB, vecA0, vecA1;
+__STATIC_INLINE arm_status arm_mat_mult_opt_q31_2x2_mve(const arm_matrix_instance_q31 * pSrcA,
+                                                        const arm_matrix_instance_q31 * pSrcB,
+                                                        arm_matrix_instance_q31 * pDst) {
+    q31_t * pInB = pSrcB->pData; /* input data matrix pointer B */
+    q31_t * pInA = pSrcA->pData; /* input data matrix pointer A */
+    q31_t * pOut = pDst->pData;  /* output data matrix pointer */
+    uint32x4_t vecColBOffs;
+    q31_t * pInA0 = pInA;
+    q31_t * pInA1 = pInA0 + MATRIX_DIM2;
+    q63_t acc0, acc1;
+    q31x4_t vecB, vecA0, vecA1;
     /* enable predication to disable half of vector elements */
     mve_pred16_t p0 = vctp32q(MATRIX_DIM2);
 
-    vecColBOffs = vidupq_u32((uint32_t)0, 1);
+    vecColBOffs = vidupq_u32((uint32_t) 0, 1);
     vecColBOffs = vecColBOffs * MATRIX_DIM2;
 
     pInB = pSrcB->pData;
@@ -125,26 +124,22 @@ __STATIC_INLINE arm_status arm_mat_mult_opt_q31_2x2_mve(
     return (ARM_MATH_SUCCESS);
 }
 
-
-
-__STATIC_INLINE arm_status arm_mat_mult_opt_q31_3x3_mve(
-    const arm_matrix_instance_q31 * pSrcA,
-    const arm_matrix_instance_q31 * pSrcB,
-    arm_matrix_instance_q31 * pDst)
-{
-    q31_t       *pInB = pSrcB->pData;  /* input data matrix pointer B */
-    q31_t       *pInA = pSrcA->pData;  /* input data matrix pointer A */
-    q31_t       *pOut = pDst->pData;   /* output data matrix pointer */
-    uint32x4_t   vecColBOffs;
-    q31_t       *pInA0 = pInA;
-    q31_t       *pInA1 = pInA0 + MATRIX_DIM3;
-    q31_t       *pInA2 = pInA1 + MATRIX_DIM3;
-    q63_t        acc0, acc1, acc2;
-    q31x4_t      vecB, vecA;
+__STATIC_INLINE arm_status arm_mat_mult_opt_q31_3x3_mve(const arm_matrix_instance_q31 * pSrcA,
+                                                        const arm_matrix_instance_q31 * pSrcB,
+                                                        arm_matrix_instance_q31 * pDst) {
+    q31_t * pInB = pSrcB->pData; /* input data matrix pointer B */
+    q31_t * pInA = pSrcA->pData; /* input data matrix pointer A */
+    q31_t * pOut = pDst->pData;  /* output data matrix pointer */
+    uint32x4_t vecColBOffs;
+    q31_t * pInA0 = pInA;
+    q31_t * pInA1 = pInA0 + MATRIX_DIM3;
+    q31_t * pInA2 = pInA1 + MATRIX_DIM3;
+    q63_t acc0, acc1, acc2;
+    q31x4_t vecB, vecA;
     /* enable predication to disable last (4th) vector element */
     mve_pred16_t p0 = vctp32q(MATRIX_DIM3);
 
-    vecColBOffs = vidupq_u32((uint32_t)0, 1);
+    vecColBOffs = vidupq_u32((uint32_t) 0, 1);
     vecColBOffs = vecColBOffs * MATRIX_DIM3;
 
     pInB = pSrcB->pData;
@@ -213,23 +208,21 @@ __STATIC_INLINE arm_status arm_mat_mult_opt_q31_3x3_mve(
     return (ARM_MATH_SUCCESS);
 }
 
-__STATIC_INLINE arm_status arm_mat_mult_opt_q31_4x4_mve(
-    const arm_matrix_instance_q31 * pSrcA,
-    const arm_matrix_instance_q31 * pSrcB,
-    arm_matrix_instance_q31 * pDst)
-{
-    q31_t       *pInB = pSrcB->pData;  /* input data matrix pointer B */
-    q31_t       *pInA = pSrcA->pData;  /* input data matrix pointer A */
-    q31_t       *pOut = pDst->pData;   /* output data matrix pointer */
-    uint32x4_t   vecColBOffs;
-    q31_t       *pInA0 = pInA;
-    q31_t       *pInA1 = pInA0 + MATRIX_DIM4;
-    q31_t       *pInA2 = pInA1 + MATRIX_DIM4;
-    q31_t       *pInA3 = pInA2 + MATRIX_DIM4;
-    q63_t        acc0, acc1, acc2, acc3;
-    q31x4_t      vecB, vecA;
+__STATIC_INLINE arm_status arm_mat_mult_opt_q31_4x4_mve(const arm_matrix_instance_q31 * pSrcA,
+                                                        const arm_matrix_instance_q31 * pSrcB,
+                                                        arm_matrix_instance_q31 * pDst) {
+    q31_t * pInB = pSrcB->pData; /* input data matrix pointer B */
+    q31_t * pInA = pSrcA->pData; /* input data matrix pointer A */
+    q31_t * pOut = pDst->pData;  /* output data matrix pointer */
+    uint32x4_t vecColBOffs;
+    q31_t * pInA0 = pInA;
+    q31_t * pInA1 = pInA0 + MATRIX_DIM4;
+    q31_t * pInA2 = pInA1 + MATRIX_DIM4;
+    q31_t * pInA3 = pInA2 + MATRIX_DIM4;
+    q63_t acc0, acc1, acc2, acc3;
+    q31x4_t vecB, vecA;
 
-    vecColBOffs = vidupq_u32((uint32_t)0, 4);
+    vecColBOffs = vidupq_u32((uint32_t) 0, 4);
 
     pInB = pSrcB->pData;
 
@@ -336,55 +329,50 @@ __STATIC_INLINE arm_status arm_mat_mult_opt_q31_4x4_mve(
     return (ARM_MATH_SUCCESS);
 }
 
-
-arm_status arm_mat_mult_opt_q31(
-    const arm_matrix_instance_q31 * pSrcA,
-    const arm_matrix_instance_q31 * pSrcB,
-    arm_matrix_instance_q31 * pDst,
-    q31_t *pState)
-{
-    q31_t          *pInA = pSrcA->pData;        /* input data matrix pointer A */
-    q31_t          *pInB = pSrcB->pData;        /* input data matrix pointer B */
-    q31_t          *pInA2;
-    q31_t          *pInB2;
-    q31_t          *px;         /* Temporary output data matrix pointer */
-    q31_t          *px2;        /* Temporary output data matrix pointer */
-    uint32_t        numRowsA = pSrcA->numRows;  /* number of rows of input matrix A    */
-    uint32_t        numColsB = pSrcB->numCols;  /* number of columns of input matrix B */
-    uint32_t        numColsA = pSrcA->numCols;  /* number of columns of input matrix A */
-    uint32_t        numRowsB = pSrcB->numRows;  /* number of rows of input matrix A    */
-    uint32_t        col, i = 0u, j, row = numRowsB;     /* loop counters */
-    q31_t          *pSrcBT = pState;     /* input data matrix pointer for transpose */
-    uint32_t        blkCnt;     /* loop counters */
-    arm_status      status;                            /* Status of matrix multiplication */
+arm_status arm_mat_mult_opt_q31(const arm_matrix_instance_q31 * pSrcA,
+                                const arm_matrix_instance_q31 * pSrcB,
+                                arm_matrix_instance_q31 * pDst, q31_t * pState) {
+    q31_t * pInA = pSrcA->pData;             /* input data matrix pointer A */
+    q31_t * pInB = pSrcB->pData;             /* input data matrix pointer B */
+    q31_t * pInA2;
+    q31_t * pInB2;
+    q31_t * px;                              /* Temporary output data matrix pointer */
+    q31_t * px2;                             /* Temporary output data matrix pointer */
+    uint32_t numRowsA = pSrcA->numRows;      /* number of rows of input matrix A    */
+    uint32_t numColsB = pSrcB->numCols;      /* number of columns of input matrix B */
+    uint32_t numColsA = pSrcA->numCols;      /* number of columns of input matrix A */
+    uint32_t numRowsB = pSrcB->numRows;      /* number of rows of input matrix A    */
+    uint32_t col, i = 0u, j, row = numRowsB; /* loop counters */
+    q31_t * pSrcBT = pState;                 /* input data matrix pointer for transpose */
+    uint32_t blkCnt;                         /* loop counters */
+    arm_status status;                       /* Status of matrix multiplication */
     arm_matrix_instance_q31 BT;
 #ifdef ARM_MATH_MATRIX_CHECK
 
     /* Check for matrix mismatch condition */
-    if ((pSrcA->numCols != pSrcB->numRows) ||
-        (pSrcA->numRows != pDst->numRows) || (pSrcB->numCols != pDst->numCols)) {
+    if((pSrcA->numCols != pSrcB->numRows) || (pSrcA->numRows != pDst->numRows) ||
+       (pSrcB->numCols != pDst->numCols)) {
         /* Set status as ARM_MATH_SIZE_MISMATCH */
         status = ARM_MATH_SIZE_MISMATCH;
-    } else
-#endif                          /* #ifdef ARM_MATH_MATRIX_CHECK */
+    }
+    else
+#endif  /* #ifdef ARM_MATH_MATRIX_CHECK */
     {
 
-         /* small squared matrix specialized routines */
-    if(numRowsA == numColsB && numColsB == numColsA) {
-        if (numRowsA == 1)
-        {
-          q63_t sum =  (q63_t) *pInA * *pInB;
-          pDst->pData[0] = (q31_t)(sum >> 31);
-          return (ARM_MATH_SUCCESS);
+        /* small squared matrix specialized routines */
+        if(numRowsA == numColsB && numColsB == numColsA) {
+            if(numRowsA == 1) {
+                q63_t sum = (q63_t) *pInA * *pInB;
+                pDst->pData[0] = (q31_t) (sum >> 31);
+                return (ARM_MATH_SUCCESS);
+            }
+            else if(numRowsA == 2)
+                return arm_mat_mult_opt_q31_2x2_mve(pSrcA, pSrcB, pDst);
+            else if(numRowsA == 3)
+                return arm_mat_mult_opt_q31_3x3_mve(pSrcA, pSrcB, pDst);
+            else if(numRowsA == 4)
+                return arm_mat_mult_opt_q31_4x4_mve(pSrcA, pSrcB, pDst);
         }
-        else if(numRowsA == 2)
-            return arm_mat_mult_opt_q31_2x2_mve(pSrcA, pSrcB, pDst);
-        else if(numRowsA == 3)
-            return arm_mat_mult_opt_q31_3x3_mve(pSrcA, pSrcB, pDst);
-        else if (numRowsA == 4)
-            return arm_mat_mult_opt_q31_4x4_mve(pSrcA, pSrcB, pDst);
-    }
-
 
         /*
          * Matrix transpose
@@ -394,7 +382,6 @@ arm_status arm_mat_mult_opt_q31(
         BT.pData = pSrcBT;
 
         arm_mat_trans_q31(pSrcB, &BT);
-
 
         /*
          * Reset the variables for the usage in the following multiplication process
@@ -409,7 +396,7 @@ arm_status arm_mat_mult_opt_q31(
          * compute 2 x 2 output blocks
          * with dot products (Matrix A rows * Transposed MAtrix B rows)
          */
-        while (row > 0u) {
+        while(row > 0u) {
             /*
              * For every row wise process, the column loop counter is to be initiated
              * Compute 2 columns and 2 rows in parrallel
@@ -420,10 +407,10 @@ arm_status arm_mat_mult_opt_q31(
             /*
              * column pair loop
              */
-            while (col > 0u) {
-                q31_t const    *pSrcAVec, *pSrcBVec, *pSrcA2Vec, *pSrcB2Vec;
-                q31x4_t         vecA, vecA2, vecB, vecB2;
-                q63_t           acc0, acc1, acc2, acc3;
+            while(col > 0u) {
+                q31_t const *pSrcAVec, *pSrcBVec, *pSrcA2Vec, *pSrcB2Vec;
+                q31x4_t vecA, vecA2, vecB, vecB2;
+                q63_t acc0, acc1, acc2, acc3;
 
                 /*
                  * Initiate the pointers
@@ -434,7 +421,6 @@ arm_status arm_mat_mult_opt_q31(
                 pInA2 = pInA + numColsA;
                 pInB = pSrcBT + j;
                 pInB2 = pInB + numRowsB;
-
 
                 pSrcAVec = (q31_t const *) pInA;
                 pSrcA2Vec = (q31_t const *) pInA2;
@@ -451,7 +437,7 @@ arm_status arm_mat_mult_opt_q31(
                 pSrcAVec += 4;
 
                 blkCnt = (numColsA / 4);
-                while (blkCnt > 0U) {
+                while(blkCnt > 0U) {
                     vecB = vld1q(pSrcBVec);
                     pSrcBVec += 4;
                     acc0 = vrmlaldavhaq(acc0, vecA, vecB);
@@ -472,8 +458,8 @@ arm_status arm_mat_mult_opt_q31(
                  * (will be merged thru tail predication)
                  */
                 blkCnt = (numColsA & 3);
-                if (blkCnt > 0U) {
-                    mve_pred16_t    p0 = vctp32q(blkCnt);
+                if(blkCnt > 0U) {
+                    mve_pred16_t p0 = vctp32q(blkCnt);
                     vecB = vld1q(pSrcBVec);
                     acc0 = vrmlaldavhaq_p(acc0, vecA, vecB, p0);
                     vecA2 = vld1q(pSrcA2Vec);
@@ -501,7 +487,6 @@ arm_status arm_mat_mult_opt_q31(
                  * Decrement the column pair loop counter
                  */
                 col--;
-
             }
 
             i = i + numColsA * 2;
@@ -516,18 +501,18 @@ arm_status arm_mat_mult_opt_q31(
         /*
          * Compute remaining row and/or column below
          */
-        if (numColsB & 1u) {
-            row = numRowsA & (~0x1);    //avoid redundant computation
+        if(numColsB & 1u) {
+            row = numRowsA & (~0x1);                    // avoid redundant computation
             px = pDst->pData + numColsB - 1;
             i = 0;
 
             /*
              * row loop
              */
-            while (row > 0) {
-                q31_t const    *pSrcAVec, *pSrcBVec;
-                q31x4_t         vecA, vecB;
-                q63_t           acc0;
+            while(row > 0) {
+                q31_t const *pSrcAVec, *pSrcBVec;
+                q31x4_t vecA, vecB;
+                q63_t acc0;
 
                 /*
                  * point to last column in matrix B
@@ -541,7 +526,7 @@ arm_status arm_mat_mult_opt_q31(
                 /* single dot-product */
                 acc0 = 0LL;
                 blkCnt = (numColsA / 4);
-                while (blkCnt > 0U) {
+                while(blkCnt > 0U) {
                     vecA = vld1q(pSrcAVec);
                     pSrcAVec += 4;
                     vecB = vld1q(pSrcBVec);
@@ -555,8 +540,8 @@ arm_status arm_mat_mult_opt_q31(
                  * (will be merged thru tail predication)
                  */
                 blkCnt = (numColsA & 3);
-                if (blkCnt > 0U) {
-                    mve_pred16_t    p0 = vctp32q(blkCnt);
+                if(blkCnt > 0U) {
+                    mve_pred16_t p0 = vctp32q(blkCnt);
                     vecA = vld1q(pSrcAVec);
                     vecB = vld1q(pSrcBVec);
                     acc0 = vrmlaldavhaq_p(acc0, vecA, vecB, p0);
@@ -575,7 +560,7 @@ arm_status arm_mat_mult_opt_q31(
             }
         }
 
-        if (numRowsA & 1u) {
+        if(numRowsA & 1u) {
             col = numColsB;
             i = 0u;
             /*
@@ -585,10 +570,10 @@ arm_status arm_mat_mult_opt_q31(
             /*
              * col loop
              */
-            while (col > 0) {
-                q31_t const    *pSrcAVec, *pSrcBVec;
-                q31x4_t         vecA, vecB;
-                q63_t           acc0;
+            while(col > 0) {
+                q31_t const *pSrcAVec, *pSrcBVec;
+                q31x4_t vecA, vecB;
+                q63_t acc0;
 
                 /*
                  * point to last row in matrix A
@@ -604,7 +589,7 @@ arm_status arm_mat_mult_opt_q31(
                 acc0 = 0LL;
 
                 blkCnt = (numColsA / 4);
-                while (blkCnt > 0U) {
+                while(blkCnt > 0U) {
                     vecA = vld1q(pSrcAVec);
                     pSrcAVec += 4;
                     vecB = vld1q(pSrcBVec);
@@ -618,8 +603,8 @@ arm_status arm_mat_mult_opt_q31(
                  * (will be merged thru tail predication)
                  */
                 blkCnt = (numColsA & 3);
-                if (blkCnt > 0U) {
-                    mve_pred16_t    p0 = vctp32q(blkCnt);
+                if(blkCnt > 0U) {
+                    mve_pred16_t p0 = vctp32q(blkCnt);
                     vecA = vld1q(pSrcAVec);
                     vecB = vld1q(pSrcBVec);
                     acc0 = vrmlaldavhaq_p(acc0, vecA, vecB, p0);
@@ -645,137 +630,129 @@ arm_status arm_mat_mult_opt_q31(
 }
 
 #else
-arm_status arm_mat_mult_opt_q31(
-  const arm_matrix_instance_q31 * pSrcA,
-  const arm_matrix_instance_q31 * pSrcB,
-        arm_matrix_instance_q31 * pDst,
-        q31_t *pState)
-{
-  q31_t *pIn1 = pSrcA->pData;                    /* Input data matrix pointer A */
-  q31_t *pIn2 = pSrcB->pData;                    /* Input data matrix pointer B */
-  q31_t *pInA = pSrcA->pData;                    /* Input data matrix pointer A */
-  q31_t *pInB = pSrcB->pData;                    /* Input data matrix pointer B */
-  q31_t *pOut = pDst->pData;                     /* Output data matrix pointer */
-  q31_t *px;                                     /* Temporary output data matrix pointer */
-  q63_t sum;                                     /* Accumulator */
-  uint16_t numRowsA = pSrcA->numRows;            /* Number of rows of input matrix A */
-  uint16_t numColsB = pSrcB->numCols;            /* Number of columns of input matrix B */
-  uint16_t numColsA = pSrcA->numCols;            /* Number of columns of input matrix A */
-  uint32_t col, i = 0U, row = numRowsA, colCnt;  /* Loop counters */
-  arm_status status;                             /* Status of matrix multiplication */
-  (void)pState;
+arm_status arm_mat_mult_opt_q31(const arm_matrix_instance_q31 * pSrcA,
+                                const arm_matrix_instance_q31 * pSrcB,
+                                arm_matrix_instance_q31 * pDst, q31_t * pState) {
+    q31_t * pIn1 = pSrcA->pData;                  /* Input data matrix pointer A */
+    q31_t * pIn2 = pSrcB->pData;                  /* Input data matrix pointer B */
+    q31_t * pInA = pSrcA->pData;                  /* Input data matrix pointer A */
+    q31_t * pInB = pSrcB->pData;                  /* Input data matrix pointer B */
+    q31_t * pOut = pDst->pData;                   /* Output data matrix pointer */
+    q31_t * px;                                   /* Temporary output data matrix pointer */
+    q63_t sum;                                    /* Accumulator */
+    uint16_t numRowsA = pSrcA->numRows;           /* Number of rows of input matrix A */
+    uint16_t numColsB = pSrcB->numCols;           /* Number of columns of input matrix B */
+    uint16_t numColsA = pSrcA->numCols;           /* Number of columns of input matrix A */
+    uint32_t col, i = 0U, row = numRowsA, colCnt; /* Loop counters */
+    arm_status status;                            /* Status of matrix multiplication */
+    (void) pState;
 #ifdef ARM_MATH_MATRIX_CHECK
 
-  /* Check for matrix mismatch condition */
-  if ((pSrcA->numCols != pSrcB->numRows) ||
-      (pSrcA->numRows != pDst->numRows)  ||
-      (pSrcB->numCols != pDst->numCols)    )
-  {
-    /* Set status as ARM_MATH_SIZE_MISMATCH */
-    status = ARM_MATH_SIZE_MISMATCH;
-  }
-  else
+    /* Check for matrix mismatch condition */
+    if((pSrcA->numCols != pSrcB->numRows) || (pSrcA->numRows != pDst->numRows) ||
+       (pSrcB->numCols != pDst->numCols)) {
+        /* Set status as ARM_MATH_SIZE_MISMATCH */
+        status = ARM_MATH_SIZE_MISMATCH;
+    }
+    else
 
 #endif /* #ifdef ARM_MATH_MATRIX_CHECK */
 
-  {
-    /* The following loop performs the dot-product of each row in pSrcA with each column in pSrcB */
-    /* row loop */
-    do
     {
-      /* Output pointer is set to starting address of row being processed */
-      px = pOut + i;
+        /* The following loop performs the dot-product of each row in pSrcA with each column in
+         * pSrcB */
+        /* row loop */
+        do {
+            /* Output pointer is set to starting address of row being processed */
+            px = pOut + i;
 
-      /* For every row wise process, column loop counter is to be initiated */
-      col = numColsB;
+            /* For every row wise process, column loop counter is to be initiated */
+            col = numColsB;
 
-      /* For every row wise process, pIn2 pointer is set to starting address of pSrcB data */
-      pIn2 = pSrcB->pData;
+            /* For every row wise process, pIn2 pointer is set to starting address of pSrcB data */
+            pIn2 = pSrcB->pData;
 
-      /* column loop */
-      do
-      {
-        /* Set the variable sum, that acts as accumulator, to zero */
-        sum = 0;
+            /* column loop */
+            do {
+                /* Set the variable sum, that acts as accumulator, to zero */
+                sum = 0;
 
-        /* Initialize pointer pIn1 to point to starting address of column being processed */
-        pIn1 = pInA;
+                /* Initialize pointer pIn1 to point to starting address of column being processed */
+                pIn1 = pInA;
 
-#if defined (ARM_MATH_LOOPUNROLL)
+#if defined(ARM_MATH_LOOPUNROLL)
 
-        /* Loop unrolling: Compute 4 MACs at a time. */
-        colCnt = numColsA >> 2U;
+                /* Loop unrolling: Compute 4 MACs at a time. */
+                colCnt = numColsA >> 2U;
 
-        /* matrix multiplication */
-        while (colCnt > 0U)
-        {
-          /* c(m,n) = a(1,1) * b(1,1) + a(1,2) * b(2,1) + .... + a(m,p) * b(p,n) */
+                /* matrix multiplication */
+                while(colCnt > 0U) {
+                    /* c(m,n) = a(1,1) * b(1,1) + a(1,2) * b(2,1) + .... + a(m,p) * b(p,n) */
 
-          /* Perform the multiply-accumulates */
-          sum += (q63_t) *pIn1++ * *pIn2;
-          pIn2 += numColsB;
+                    /* Perform the multiply-accumulates */
+                    sum += (q63_t) *pIn1++ * *pIn2;
+                    pIn2 += numColsB;
 
-          sum += (q63_t) *pIn1++ * *pIn2;
-          pIn2 += numColsB;
+                    sum += (q63_t) *pIn1++ * *pIn2;
+                    pIn2 += numColsB;
 
-          sum += (q63_t) *pIn1++ * *pIn2;
-          pIn2 += numColsB;
+                    sum += (q63_t) *pIn1++ * *pIn2;
+                    pIn2 += numColsB;
 
-          sum += (q63_t) *pIn1++ * *pIn2;
-          pIn2 += numColsB;
+                    sum += (q63_t) *pIn1++ * *pIn2;
+                    pIn2 += numColsB;
 
-          /* Decrement loop counter */
-          colCnt--;
-        }
+                    /* Decrement loop counter */
+                    colCnt--;
+                }
 
-        /* Loop unrolling: Compute remaining MACs */
-        colCnt = numColsA % 0x4U;
+                /* Loop unrolling: Compute remaining MACs */
+                colCnt = numColsA % 0x4U;
 
 #else
 
-        /* Initialize cntCnt with number of columns */
-        colCnt = numColsA;
+                /* Initialize cntCnt with number of columns */
+                colCnt = numColsA;
 
 #endif /* #if defined (ARM_MATH_LOOPUNROLL) */
 
-        while (colCnt > 0U)
-        {
-          /* c(m,n) = a(1,1) * b(1,1) + a(1,2) * b(2,1) + .... + a(m,p) * b(p,n) */
+                while(colCnt > 0U) {
+                    /* c(m,n) = a(1,1) * b(1,1) + a(1,2) * b(2,1) + .... + a(m,p) * b(p,n) */
 
-          /* Perform the multiply-accumulates */
-          sum += (q63_t) *pIn1++ * *pIn2;
-          pIn2 += numColsB;
+                    /* Perform the multiply-accumulates */
+                    sum += (q63_t) *pIn1++ * *pIn2;
+                    pIn2 += numColsB;
 
-          /* Decrement loop counter */
-          colCnt--;
-        }
+                    /* Decrement loop counter */
+                    colCnt--;
+                }
 
-        /* Convert result from 2.62 to 1.31 format and store in destination buffer */
-        *px++ = (q31_t) (sum >> 31);
+                /* Convert result from 2.62 to 1.31 format and store in destination buffer */
+                *px++ = (q31_t) (sum >> 31);
 
-        /* Decrement column loop counter */
-        col--;
+                /* Decrement column loop counter */
+                col--;
 
-        /* Update pointer pIn2 to point to starting address of next column */
-        pIn2 = pInB + (numColsB - col);
+                /* Update pointer pIn2 to point to starting address of next column */
+                pIn2 = pInB + (numColsB - col);
 
-      } while (col > 0U);
+            } while(col > 0U);
 
-      /* Update pointer pInA to point to starting address of next row */
-      i = i + numColsB;
-      pInA = pInA + numColsA;
+            /* Update pointer pInA to point to starting address of next row */
+            i = i + numColsB;
+            pInA = pInA + numColsA;
 
-      /* Decrement row loop counter */
-      row--;
+            /* Decrement row loop counter */
+            row--;
 
-    } while (row > 0U);
+        } while(row > 0U);
 
-    /* Set status as ARM_MATH_SUCCESS */
-    status = ARM_MATH_SUCCESS;
-  }
+        /* Set status as ARM_MATH_SUCCESS */
+        status = ARM_MATH_SUCCESS;
+    }
 
-  /* Return to application */
-  return (status);
+    /* Return to application */
+    return (status);
 }
 #endif /* defined(ARM_MATH_MVEI) */
 

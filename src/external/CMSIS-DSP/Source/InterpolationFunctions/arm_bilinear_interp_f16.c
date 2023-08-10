@@ -30,34 +30,27 @@
 
 #if defined(ARM_FLOAT16_SUPPORTED)
 
-
 /**
   @ingroup groupInterpolation
  */
 
+/**
+ * @addtogroup BilinearInterpolate
+ * @{
+ */
 
-
-  /**
-   * @addtogroup BilinearInterpolate
-   * @{
-   */
-
-
-  /**
-  * @brief  Floating-point bilinear interpolation.
-  * @param[in,out] S  points to an instance of the interpolation structure.
-  * @param[in]     X  interpolation coordinate.
-  * @param[in]     Y  interpolation coordinate.
-  * @return out interpolated value.
-  */
-  float16_t arm_bilinear_interp_f16(
-  const arm_bilinear_interp_instance_f16 * S,
-  float16_t X,
-  float16_t Y)
-  {
+/**
+ * @brief  Floating-point bilinear interpolation.
+ * @param[in,out] S  points to an instance of the interpolation structure.
+ * @param[in]     X  interpolation coordinate.
+ * @param[in]     Y  interpolation coordinate.
+ * @return out interpolated value.
+ */
+float16_t arm_bilinear_interp_f16(const arm_bilinear_interp_instance_f16 * S, float16_t X,
+                                  float16_t Y) {
     float16_t out;
     float16_t f00, f01, f10, f11;
-    const float16_t *pData = S->pData;
+    const float16_t * pData = S->pData;
     int32_t xIndex, yIndex, index;
     float16_t xdiff, ydiff;
     float16_t b1, b2, b3, b4;
@@ -67,22 +60,19 @@
 
     /* Care taken for table outside boundary */
     /* Returns zero output when values are outside table boundary */
-    if (xIndex < 0 || xIndex > (S->numCols - 2) || yIndex < 0 || yIndex > (S->numRows - 2))
-    {
-      return (0);
+    if(xIndex < 0 || xIndex > (S->numCols - 2) || yIndex < 0 || yIndex > (S->numRows - 2)) {
+        return (0);
     }
 
     /* Calculation of index for two nearest points in X-direction */
-    index = (xIndex ) + (yIndex ) * S->numCols;
-
+    index = (xIndex) + (yIndex) *S->numCols;
 
     /* Read two nearest points in X-direction */
     f00 = pData[index];
     f01 = pData[index + 1];
 
     /* Calculation of index for two nearest points in Y-direction */
-    index = (xIndex ) + (yIndex+1) * S->numCols;
-
+    index = (xIndex) + (yIndex + 1) * S->numCols;
 
     /* Read two nearest points in Y-direction */
     f10 = pData[index];
@@ -90,28 +80,26 @@
 
     /* Calculation of intermediate values */
     b1 = f00;
-    b2 = (_Float16)f01 - (_Float16)f00;
-    b3 = (_Float16)f10 - (_Float16)f00;
-    b4 = (_Float16)f00 - (_Float16)f01 - (_Float16)f10 + (_Float16)f11;
+    b2 = (_Float16) f01 - (_Float16) f00;
+    b3 = (_Float16) f10 - (_Float16) f00;
+    b4 = (_Float16) f00 - (_Float16) f01 - (_Float16) f10 + (_Float16) f11;
 
     /* Calculation of fractional part in X */
-    xdiff = (_Float16)X - (_Float16)xIndex;
+    xdiff = (_Float16) X - (_Float16) xIndex;
 
     /* Calculation of fractional part in Y */
-    ydiff = (_Float16)Y - (_Float16)yIndex;
+    ydiff = (_Float16) Y - (_Float16) yIndex;
 
     /* Calculation of bi-linear interpolated output */
-    out = (_Float16)b1 + (_Float16)b2 * (_Float16)xdiff + 
-    (_Float16)b3 * (_Float16)ydiff + (_Float16)b4 * (_Float16)xdiff * (_Float16)ydiff;
+    out = (_Float16) b1 + (_Float16) b2 * (_Float16) xdiff + (_Float16) b3 * (_Float16) ydiff +
+          (_Float16) b4 * (_Float16) xdiff * (_Float16) ydiff;
 
     /* return to application */
     return (out);
-  }
+}
 
-  /**
-   * @} end of BilinearInterpolate group
-   */
+/**
+ * @} end of BilinearInterpolate group
+ */
 
-
-#endif /* #if defined(ARM_FLOAT16_SUPPORTED) */ 
-
+#endif /* #if defined(ARM_FLOAT16_SUPPORTED) */

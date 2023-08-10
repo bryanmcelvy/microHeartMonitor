@@ -29,48 +29,44 @@
 #include "dsp/support_functions.h"
 #include "arm_sorting.h"
 
-
-static void topDownMerge(float32_t * pA, uint32_t begin, uint32_t middle, uint32_t end, float32_t * pB, uint8_t dir)
-{
+static void topDownMerge(float32_t * pA, uint32_t begin, uint32_t middle, uint32_t end,
+                         float32_t * pB, uint8_t dir) {
     /* Left  array is pA[begin:middle-1]
-     * Right Array is pA[middle:end-1] 
+     * Right Array is pA[middle:end-1]
      * They are merged in pB
      */
 
     uint32_t i = begin;
     uint32_t j = middle;
     uint32_t k;
- 
+
     // Read all the elements in the sublist
-    for (k = begin; k < end; k++)
-    {
-	// Merge 
-        if (i < middle && (j >= end || dir==(pA[i] <= pA[j])) )
-        {
+    for(k = begin; k < end; k++) {
+        // Merge
+        if(i < middle && (j >= end || dir == (pA[i] <= pA[j]))) {
             pB[k] = pA[i];
             i++;
         }
-        else
-        {
+        else {
             pB[k] = pA[j];
             j++;
         }
     }
 }
 
-static void arm_merge_sort_core_f32(float32_t * pB, uint32_t begin, uint32_t end, float32_t * pA, uint8_t dir)
-{
-    if((int32_t)end - (int32_t)begin >= 2 )           // If run size != 1 divide
-    {                                 
-        int32_t middle = (end + begin) / 2;           // Take the middle point
+static void arm_merge_sort_core_f32(float32_t * pB, uint32_t begin, uint32_t end, float32_t * pA,
+                                    uint8_t dir) {
+    if((int32_t) end - (int32_t) begin >= 2)                    // If run size != 1 divide
+    {
+        int32_t middle = (end + begin) / 2;                     // Take the middle point
 
-        arm_merge_sort_core_f32(pA, begin,  middle, pB, dir);  // Sort the left part
-        arm_merge_sort_core_f32(pA, middle,    end, pB, dir);  // Sort the right part
+        arm_merge_sort_core_f32(pA, begin, middle, pB,
+                                dir);                           // Sort the left part
+        arm_merge_sort_core_f32(pA, middle, end, pB, dir);                    // Sort the right part
 
         topDownMerge(pB, begin, middle, end, pA, dir);
     }
 }
-
 
 /**
   @ingroup groupSupport
@@ -82,46 +78,41 @@ static void arm_merge_sort_core_f32(float32_t * pB, uint32_t begin, uint32_t end
  */
 
 /**
-   * @param[in]  S          points to an instance of the sorting structure.
-   * @param[in]  pSrc       points to the block of input data.
-   * @param[out] pDst       points to the block of output data
-   * @param[in]  blockSize  number of samples to process.
-   *
-   * @par        Algorithm
-   *               The merge sort algorithm is a comparison algorithm that
-   *               divide the input array in sublists and merge them to produce
-   *               longer sorted sublists until there is only one list remaining.
-   *
-   * @par          A work array is always needed. It must be allocated by the user 
-   *               linked to the instance at initialization time.
-   *
-   * @par          It's an in-place algorithm. In order to obtain an out-of-place
-   *               function, a memcpy of the source vector is performed
-   */
+ * @param[in]  S          points to an instance of the sorting structure.
+ * @param[in]  pSrc       points to the block of input data.
+ * @param[out] pDst       points to the block of output data
+ * @param[in]  blockSize  number of samples to process.
+ *
+ * @par        Algorithm
+ *               The merge sort algorithm is a comparison algorithm that
+ *               divide the input array in sublists and merge them to produce
+ *               longer sorted sublists until there is only one list remaining.
+ *
+ * @par          A work array is always needed. It must be allocated by the user
+ *               linked to the instance at initialization time.
+ *
+ * @par          It's an in-place algorithm. In order to obtain an out-of-place
+ *               function, a memcpy of the source vector is performed
+ */
 
-
-void arm_merge_sort_f32(
-  const arm_merge_sort_instance_f32 * S, 
-        float32_t *pSrc, 
-        float32_t *pDst, 
-        uint32_t blockSize)
-{
+void arm_merge_sort_f32(const arm_merge_sort_instance_f32 * S, float32_t * pSrc, float32_t * pDst,
+                        uint32_t blockSize) {
     float32_t * pA;
 
-    /* Out-of-place */ 
-    if(pSrc != pDst)
-    {
-        memcpy(pDst, pSrc, blockSize*sizeof(float32_t));
+    /* Out-of-place */
+    if(pSrc != pDst) {
+        memcpy(pDst, pSrc, blockSize * sizeof(float32_t));
         pA = pDst;
     }
     else
         pA = pSrc;
 
     /* A working buffer is needed */
-    memcpy(S->buffer, pSrc, blockSize*sizeof(float32_t));
+    memcpy(S->buffer, pSrc, blockSize * sizeof(float32_t));
 
     arm_merge_sort_core_f32(S->buffer, 0, blockSize, pA, S->dir);
 }
+
 /**
   @} end of Sorting group
  */

@@ -32,7 +32,6 @@
   @ingroup groupStats
  */
 
-
 /**
   @addtogroup Max
   @{
@@ -46,91 +45,71 @@
   @return        none
  */
 #if defined(ARM_MATH_NEON) && defined(__aarch64__)
-void arm_max_no_idx_f64(
-    const float64_t * pSrc,
-    uint32_t blockSize,
-    float64_t * pResult)
-{
-    float64_t maxVal , in;                         /* Temporary variables to store the output value. */
-    uint32_t blkCnt;                     /* Loop counter */
-    
+void arm_max_no_idx_f64(const float64_t * pSrc, uint32_t blockSize, float64_t * pResult) {
+    float64_t maxVal, in; /* Temporary variables to store the output value. */
+    uint32_t blkCnt;      /* Loop counter */
+
     float64x2_t maxV;
-    float64x2_t pSrcV ;
+    float64x2_t pSrcV;
     pSrcV = vld1q_f64(pSrc);
-    pSrc += 2 ;
+    pSrc += 2;
     maxV = pSrcV;
-    
-    
-    
-    
+
     /* Load first input value that act as reference value for comparision */
-    
-    
+
     /* Initialize blkCnt with number of samples */
     blkCnt = (blockSize - 2U) >> 1U;
-    
-    while (blkCnt > 0U)
-    {
+
+    while(blkCnt > 0U) {
         /* Initialize maxVal to the next consecutive values one by one */
         pSrcV = vld1q_f64(pSrc);
         maxV = vmaxq_f64(maxV, pSrcV);
-        
-        pSrc += 2 ;
-        
+
+        pSrc += 2;
+
         /* Decrement loop counter */
         blkCnt--;
     }
-    maxVal =vgetq_lane_f64(maxV, 0);
-    if(maxVal < vgetq_lane_f64(maxV, 1))
-    {
+    maxVal = vgetq_lane_f64(maxV, 0);
+    if(maxVal < vgetq_lane_f64(maxV, 1)) {
         maxVal = vgetq_lane_f64(maxV, 1);
     }
     blkCnt = (blockSize - 2U) & 1;
-    
-    while (blkCnt > 0U)
-    {
+
+    while(blkCnt > 0U) {
         /* Initialize maxVal to the next consecutive values one by one */
         in = *pSrc++;
-        
+
         /* compare for the maximum value */
-        if (maxVal < in)
-        {
+        if(maxVal < in) {
             /* Update the maximum value and it's index */
             maxVal = in;
         }
-        
+
         /* Decrement loop counter */
         blkCnt--;
     }
     *pResult = maxVal;
-    
-    
+
     /* Store the maximum value and it's index into destination pointers */
-    
 }
 #else
-void arm_max_no_idx_f64(
-    const float64_t *pSrc,
-    uint32_t   blockSize,
-    float64_t *pResult)
-{
-    float64_t   maxValue = F64_MIN;
-    float64_t   newVal;
-    
-    while (blockSize > 0U)
-    {
+void arm_max_no_idx_f64(const float64_t * pSrc, uint32_t blockSize, float64_t * pResult) {
+    float64_t maxValue = F64_MIN;
+    float64_t newVal;
+
+    while(blockSize > 0U) {
         newVal = *pSrc++;
-        
+
         /* compare for the maximum value */
-        if (maxValue < newVal)
-        {
+        if(maxValue < newVal) {
             /* Update the maximum value and it's index */
             maxValue = newVal;
         }
-        
-        blockSize --;
+
+        blockSize--;
     }
-    
+
     *pResult = maxValue;
 }
 #endif

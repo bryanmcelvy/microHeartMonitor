@@ -29,7 +29,6 @@
 #include "dsp/transform_functions.h"
 #include "arm_common_tables.h"
 
-
 /**
   @brief         In-place 64 bit reversal function.
   @param[in,out] pSrc        points to in-place buffer of unknown 64-bit data type
@@ -38,31 +37,26 @@
   @return        none
 */
 
-void arm_bitreversal_64(
-        uint64_t *pSrc,
-  const uint16_t bitRevLen,
-  const uint16_t *pBitRevTab)
-{
-  uint64_t a, b, tmp;
-  uint32_t i;
+void arm_bitreversal_64(uint64_t * pSrc, const uint16_t bitRevLen, const uint16_t * pBitRevTab) {
+    uint64_t a, b, tmp;
+    uint32_t i;
 
-  for (i = 0; i < bitRevLen; )
-  {
-     a = pBitRevTab[i    ] >> 2;
-     b = pBitRevTab[i + 1] >> 2;
+    for(i = 0; i < bitRevLen;) {
+        a = pBitRevTab[i] >> 2;
+        b = pBitRevTab[i + 1] >> 2;
 
-     //real
-     tmp = pSrc[a];
-     pSrc[a] = pSrc[b];
-     pSrc[b] = tmp;
+        // real
+        tmp = pSrc[a];
+        pSrc[a] = pSrc[b];
+        pSrc[b] = tmp;
 
-     //complex
-     tmp = pSrc[a+1];
-     pSrc[a+1] = pSrc[b+1];
-     pSrc[b+1] = tmp;
+        // complex
+        tmp = pSrc[a + 1];
+        pSrc[a + 1] = pSrc[b + 1];
+        pSrc[b + 1] = tmp;
 
-    i += 2;
-  }
+        i += 2;
+    }
 }
 
 /**
@@ -73,32 +67,26 @@ void arm_bitreversal_64(
   @return        none
 */
 
-void arm_bitreversal_32(
-        uint32_t *pSrc,
-  const uint16_t bitRevLen,
-  const uint16_t *pBitRevTab)
-{
-  uint32_t a, b, i, tmp;
+void arm_bitreversal_32(uint32_t * pSrc, const uint16_t bitRevLen, const uint16_t * pBitRevTab) {
+    uint32_t a, b, i, tmp;
 
-  for (i = 0; i < bitRevLen; )
-  {
-     a = pBitRevTab[i    ] >> 2;
-     b = pBitRevTab[i + 1] >> 2;
+    for(i = 0; i < bitRevLen;) {
+        a = pBitRevTab[i] >> 2;
+        b = pBitRevTab[i + 1] >> 2;
 
-     //real
-     tmp = pSrc[a];
-     pSrc[a] = pSrc[b];
-     pSrc[b] = tmp;
+        // real
+        tmp = pSrc[a];
+        pSrc[a] = pSrc[b];
+        pSrc[b] = tmp;
 
-     //complex
-     tmp = pSrc[a+1];
-     pSrc[a+1] = pSrc[b+1];
-     pSrc[b+1] = tmp;
+        // complex
+        tmp = pSrc[a + 1];
+        pSrc[a + 1] = pSrc[b + 1];
+        pSrc[b + 1] = tmp;
 
-    i += 2;
-  }
+        i += 2;
+    }
 }
-
 
 /**
   @brief         In-place 16 bit reversal function.
@@ -108,29 +96,24 @@ void arm_bitreversal_32(
   @return        none
 */
 
-void arm_bitreversal_16(
-        uint16_t *pSrc,
-  const uint16_t bitRevLen,
-  const uint16_t *pBitRevTab)
-{
-  uint16_t a, b, tmp;
-  uint32_t i;
+void arm_bitreversal_16(uint16_t * pSrc, const uint16_t bitRevLen, const uint16_t * pBitRevTab) {
+    uint16_t a, b, tmp;
+    uint32_t i;
 
-  for (i = 0; i < bitRevLen; )
-  {
-     a = pBitRevTab[i    ] >> 2;
-     b = pBitRevTab[i + 1] >> 2;
+    for(i = 0; i < bitRevLen;) {
+        a = pBitRevTab[i] >> 2;
+        b = pBitRevTab[i + 1] >> 2;
 
-     //real
-     tmp = pSrc[a];
-     pSrc[a] = pSrc[b];
-     pSrc[b] = tmp;
+        // real
+        tmp = pSrc[a];
+        pSrc[a] = pSrc[b];
+        pSrc[b] = tmp;
 
-     //complex
-     tmp = pSrc[a+1];
-     pSrc[a+1] = pSrc[b+1];
-     pSrc[b+1] = tmp;
+        // complex
+        tmp = pSrc[a + 1];
+        pSrc[a + 1] = pSrc[b + 1];
+        pSrc[b + 1] = tmp;
 
-    i += 2;
-  }
+        i += 2;
+    }
 }

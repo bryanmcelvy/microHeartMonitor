@@ -34,7 +34,6 @@
 #include <limits.h>
 #include <math.h>
 
-
 /**
   @ingroup FloatDist
  */
@@ -45,12 +44,10 @@
   Euclidean distance
  */
 
-
 /**
   @addtogroup Euclidean
   @{
  */
-
 
 /**
  * @brief        Euclidean distance between two vectors
@@ -64,16 +61,17 @@
 
 #include "arm_helium_utils.h"
 #include "arm_vec_math.h"
-float16_t arm_euclidean_distance_f16(const float16_t *pA,const float16_t *pB, uint32_t blockSize)
-{
-    uint32_t        blkCnt;
-    float16_t       tmp;
-    f16x8_t         a, b, accumV, tempV;
+
+float16_t arm_euclidean_distance_f16(const float16_t * pA, const float16_t * pB,
+                                     uint32_t blockSize) {
+    uint32_t blkCnt;
+    float16_t tmp;
+    f16x8_t a, b, accumV, tempV;
 
     accumV = vdupq_n_f16(0.0f);
 
     blkCnt = blockSize >> 3;
-    while (blkCnt > 0U) {
+    while(blkCnt > 0U) {
         a = vld1q(pA);
         b = vld1q(pB);
 
@@ -90,8 +88,8 @@ float16_t arm_euclidean_distance_f16(const float16_t *pA,const float16_t *pB, ui
      * (will be merged thru tail predication)
      */
     blkCnt = blockSize & 7;
-    if (blkCnt > 0U) {
-        mve_pred16_t    p0 = vctp16q(blkCnt);
+    if(blkCnt > 0U) {
+        mve_pred16_t p0 = vctp16q(blkCnt);
 
         a = vldrhq_z_f16(pA, p0);
         b = vldrhq_z_f16(pB, p0);
@@ -105,27 +103,24 @@ float16_t arm_euclidean_distance_f16(const float16_t *pA,const float16_t *pB, ui
 }
 
 #else
-float16_t arm_euclidean_distance_f16(const float16_t *pA,const float16_t *pB, uint32_t blockSize)
-{
-   _Float16 accum=0.0f,tmp;
-   float16_t result;
+float16_t arm_euclidean_distance_f16(const float16_t * pA, const float16_t * pB,
+                                     uint32_t blockSize) {
+    _Float16 accum = 0.0f, tmp;
+    float16_t result;
 
-   while(blockSize > 0)
-   {
-      tmp = (_Float16)*pA++ - (_Float16)*pB++;
-      accum += SQ(tmp);
-      blockSize --;
-   }
-   arm_sqrt_f16(accum,&result);
-   return(result);
+    while(blockSize > 0) {
+        tmp = (_Float16) *pA++ - (_Float16) *pB++;
+        accum += SQ(tmp);
+        blockSize--;
+    }
+    arm_sqrt_f16(accum, &result);
+    return (result);
 }
 
 #endif /* defined(ARM_MATH_MVEF) && !defined(ARM_MATH_AUTOVECTORIZE) */
-
 
 /**
  * @} end of Euclidean group
  */
 
-#endif /* #if defined(ARM_FLOAT16_SUPPORTED) */ 
-
+#endif /* #if defined(ARM_FLOAT16_SUPPORTED) */

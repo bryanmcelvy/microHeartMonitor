@@ -32,9 +32,6 @@
   @ingroup groupWindow
  */
 
-
-
-
 /**
   @addtogroup WindowNormal
   @{
@@ -54,9 +51,9 @@
   @param[out]    pDst       points to the output generated window
   @param[in]     blockSize  number of samples in the window
   @return        none
- 
+
   @par Parameters of the window
-  
+
   | Parameter                             | Value              |
   | ------------------------------------: | -----------------: |
   | Peak sidelobe level                   |           21.3 dB  |
@@ -67,24 +64,17 @@
 
  */
 
+void arm_welch_f32(float32_t * pDst, uint32_t blockSize) {
+    float32_t k = 2.0f / ((float32_t) blockSize);
+    float32_t w;
 
-
-void arm_welch_f32(
-        float32_t * pDst,
-        uint32_t blockSize)
-{
-   float32_t k = 2.0f / ((float32_t) blockSize);
-   float32_t w;
-
-   for(uint32_t i=0;i<blockSize;i++)
-   {
-     w = i * k - 1.0f;
-     w = 1.0f - w * w;
-     pDst[i] = w;
-   }
+    for(uint32_t i = 0; i < blockSize; i++) {
+        w = i * k - 1.0f;
+        w = 1.0f - w * w;
+        pDst[i] = w;
+    }
 }
 
 /**
   @} end of WindowNormal group
  */
-

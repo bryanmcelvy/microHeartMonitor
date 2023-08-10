@@ -49,7 +49,6 @@
  * @{
  */
 
-
 /**
  * @brief Dot product with log arithmetic
  *
@@ -63,22 +62,17 @@
  *
  */
 
-
-float16_t arm_logsumexp_dot_prod_f16(const float16_t * pSrcA,
-  const float16_t * pSrcB,
-  uint32_t blockSize,
-  float16_t *pTmpBuffer)
-{
+float16_t arm_logsumexp_dot_prod_f16(const float16_t * pSrcA, const float16_t * pSrcB,
+                                     uint32_t blockSize, float16_t * pTmpBuffer) {
     float16_t result;
-    arm_add_f16((float16_t*)pSrcA, (float16_t*)pSrcB, pTmpBuffer, blockSize);
+    arm_add_f16((float16_t *) pSrcA, (float16_t *) pSrcB, pTmpBuffer, blockSize);
 
     result = arm_logsumexp_f16(pTmpBuffer, blockSize);
-    return(result);
+    return (result);
 }
 
 /**
  * @} end of LogSumExp group
  */
 
-#endif /* #if defined(ARM_FLOAT16_SUPPORTED) */ 
-
+#endif /* #if defined(ARM_FLOAT16_SUPPORTED) */

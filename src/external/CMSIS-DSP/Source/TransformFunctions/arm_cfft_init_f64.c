@@ -26,10 +26,10 @@
  * limitations under the License.
  */
 
-#define FFTINIT(EXT,SIZE)                                           \
-  S->bitRevLength = arm_cfft_sR_##EXT##_len##SIZE.bitRevLength;        \
-  S->pBitRevTable = arm_cfft_sR_##EXT##_len##SIZE.pBitRevTable;         \
-  S->pTwiddle = arm_cfft_sR_##EXT##_len##SIZE.pTwiddle;
+#define FFTINIT(EXT, SIZE)                                                                         \
+    S->bitRevLength = arm_cfft_sR_##EXT##_len##SIZE.bitRevLength;                                  \
+    S->pBitRevTable = arm_cfft_sR_##EXT##_len##SIZE.pBitRevTable;                                  \
+    S->pTwiddle = arm_cfft_sR_##EXT##_len##SIZE.pTwiddle;
 
 /**
  * @defgroup ComplexFFTF64 Complex FFT F64
@@ -49,28 +49,25 @@
   @{
  */
 
-
 #include "dsp/transform_functions.h"
 #include "arm_common_tables.h"
 #include "arm_const_structs.h"
 
-
-#define CFFTINIT_F64(LEN)                                          \
-arm_status arm_cfft_init_##LEN##_f64(arm_cfft_instance_f64 * S)\
-{                                                              \
-    /*  Initialise the default arm status */                   \
-        arm_status status = ARM_MATH_SUCCESS;                  \
-                                                               \
-        /*  Initialise the FFT length */                       \
-        S->fftLen = LEN;                                       \
-                                                               \
-        /*  Initialise the Twiddle coefficient pointer */      \
-        S->pTwiddle = NULL;                                    \
-                                                               \
-        FFTINIT(f64,LEN);                                   \
-                                                               \
-        return (status);                                       \
-};
+#define CFFTINIT_F64(LEN)                                                                          \
+    arm_status arm_cfft_init_##LEN##_f64(arm_cfft_instance_f64 * S) {                              \
+        /*  Initialise the default arm status */                                                   \
+        arm_status status = ARM_MATH_SUCCESS;                                                      \
+                                                                                                   \
+        /*  Initialise the FFT length */                                                           \
+        S->fftLen = LEN;                                                                           \
+                                                                                                   \
+        /*  Initialise the Twiddle coefficient pointer */                                          \
+        S->pTwiddle = NULL;                                                                        \
+                                                                                                   \
+        FFTINIT(f64, LEN);                                                                         \
+                                                                                                   \
+        return (status);                                                                           \
+    };
 
 /**
   @brief         Initialization function for the cfft f64 function with 4096 samples
@@ -80,7 +77,7 @@ arm_status arm_cfft_init_##LEN##_f64(arm_cfft_instance_f64 * S)\
                    - \ref ARM_MATH_ARGUMENT_ERROR : an error is detected
 
   @par          Use of this function is mandatory only for the MVE version of the FFT.
-                Other versions can still initialize directly the data structure using 
+                Other versions can still initialize directly the data structure using
                 variables declared in arm_const_structs.h
  */
 CFFTINIT_F64(4096);
@@ -93,11 +90,10 @@ CFFTINIT_F64(4096);
                    - \ref ARM_MATH_ARGUMENT_ERROR : an error is detected
 
   @par          Use of this function is mandatory only for the MVE version of the FFT.
-                Other versions can still initialize directly the data structure using 
+                Other versions can still initialize directly the data structure using
                 variables declared in arm_const_structs.h
  */
 CFFTINIT_F64(2048);
- 
 
 /**
   @brief         Initialization function for the cfft f64 function with 1024 samples
@@ -107,7 +103,7 @@ CFFTINIT_F64(2048);
                    - \ref ARM_MATH_ARGUMENT_ERROR : an error is detected
 
   @par          Use of this function is mandatory only for the MVE version of the FFT.
-                Other versions can still initialize directly the data structure using 
+                Other versions can still initialize directly the data structure using
                 variables declared in arm_const_structs.h
  */
 CFFTINIT_F64(1024);
@@ -120,7 +116,7 @@ CFFTINIT_F64(1024);
                    - \ref ARM_MATH_ARGUMENT_ERROR : an error is detected
 
   @par          Use of this function is mandatory only for the MVE version of the FFT.
-                Other versions can still initialize directly the data structure using 
+                Other versions can still initialize directly the data structure using
                 variables declared in arm_const_structs.h
  */
 CFFTINIT_F64(512);
@@ -133,7 +129,7 @@ CFFTINIT_F64(512);
                    - \ref ARM_MATH_ARGUMENT_ERROR : an error is detected
 
   @par          Use of this function is mandatory only for the MVE version of the FFT.
-                Other versions can still initialize directly the data structure using 
+                Other versions can still initialize directly the data structure using
                 variables declared in arm_const_structs.h
  */
 CFFTINIT_F64(256);
@@ -146,7 +142,7 @@ CFFTINIT_F64(256);
                    - \ref ARM_MATH_ARGUMENT_ERROR : an error is detected
 
   @par          Use of this function is mandatory only for the MVE version of the FFT.
-                Other versions can still initialize directly the data structure using 
+                Other versions can still initialize directly the data structure using
                 variables declared in arm_const_structs.h
  */
 CFFTINIT_F64(128);
@@ -159,7 +155,7 @@ CFFTINIT_F64(128);
                    - \ref ARM_MATH_ARGUMENT_ERROR : an error is detected
 
   @par          Use of this function is mandatory only for the MVE version of the FFT.
-                Other versions can still initialize directly the data structure using 
+                Other versions can still initialize directly the data structure using
                 variables declared in arm_const_structs.h
  */
 CFFTINIT_F64(64);
@@ -172,7 +168,7 @@ CFFTINIT_F64(64);
                    - \ref ARM_MATH_ARGUMENT_ERROR : an error is detected
 
   @par          Use of this function is mandatory only for the MVE version of the FFT.
-                Other versions can still initialize directly the data structure using 
+                Other versions can still initialize directly the data structure using
                 variables declared in arm_const_structs.h
  */
 CFFTINIT_F64(32);
@@ -185,7 +181,7 @@ CFFTINIT_F64(32);
                    - \ref ARM_MATH_ARGUMENT_ERROR : an error is detected
 
   @par          Use of this function is mandatory only for the MVE version of the FFT.
-                Other versions can still initialize directly the data structure using 
+                Other versions can still initialize directly the data structure using
                 variables declared in arm_const_structs.h
  */
 CFFTINIT_F64(16);
@@ -199,84 +195,73 @@ CFFTINIT_F64(16);
                    - \ref ARM_MATH_ARGUMENT_ERROR : an error is detected
 
   @par          Use of this function is mandatory only for the MVE version of the FFT.
-                Other versions can still initialize directly the data structure using 
+                Other versions can still initialize directly the data structure using
                 variables declared in arm_const_structs.h
-  
-  @par          This function should be used only if you don't know the FFT sizes that 
-                you'll need at build time. The use of this function will prevent the 
-                linker from removing the FFT tables that are not needed and the library 
+
+  @par          This function should be used only if you don't know the FFT sizes that
+                you'll need at build time. The use of this function will prevent the
+                linker from removing the FFT tables that are not needed and the library
                 code size will be bigger than needed.
 
-  @par          If you use CMSIS-DSP as a static library, and if you know the FFT sizes 
+  @par          If you use CMSIS-DSP as a static library, and if you know the FFT sizes
                 that you need at build time, then it is better to use the initialization
                 functions defined for each FFT size.
-  
+
  */
-arm_status arm_cfft_init_f64(
-  arm_cfft_instance_f64 * S,
-  uint16_t fftLen)
-{
-        /*  Initialise the default arm status */
-        arm_status status = ARM_MATH_SUCCESS;
+arm_status arm_cfft_init_f64(arm_cfft_instance_f64 * S, uint16_t fftLen) {
+    /*  Initialise the default arm status */
+    arm_status status = ARM_MATH_SUCCESS;
 
-        /*  Initializations of Instance structure depending on the FFT length */
-        switch (fftLen) {
-            /*  Initializations of structure parameters for 4096 point FFT */
-        case 4096U:
-            /*  Initialise the bit reversal table modifier */
-            status = arm_cfft_init_4096_f64(S);
-            break;
+    /*  Initializations of Instance structure depending on the FFT length */
+    switch(fftLen) {
+        /*  Initializations of structure parameters for 4096 point FFT */
+    case 4096U:
+        /*  Initialise the bit reversal table modifier */
+        status = arm_cfft_init_4096_f64(S);
+        break;
 
-            /*  Initializations of structure parameters for 2048 point FFT */
-        case 2048U:
-            /*  Initialise the bit reversal table modifier */
-            status = arm_cfft_init_2048_f64(S);
+        /*  Initializations of structure parameters for 2048 point FFT */
+    case 2048U:
+        /*  Initialise the bit reversal table modifier */
+        status = arm_cfft_init_2048_f64(S);
 
-            break;
+        break;
 
-            /*  Initializations of structure parameters for 1024 point FFT */
-        case 1024U:
-            /*  Initialise the bit reversal table modifier */
-            status = arm_cfft_init_1024_f64(S);
+        /*  Initializations of structure parameters for 1024 point FFT */
+    case 1024U:
+        /*  Initialise the bit reversal table modifier */
+        status = arm_cfft_init_1024_f64(S);
 
-            break;
+        break;
 
-            /*  Initializations of structure parameters for 512 point FFT */
-        case 512U:
-            /*  Initialise the bit reversal table modifier */
-            status = arm_cfft_init_512_f64(S);
-            break;
+        /*  Initializations of structure parameters for 512 point FFT */
+    case 512U:
+        /*  Initialise the bit reversal table modifier */
+        status = arm_cfft_init_512_f64(S);
+        break;
 
-        case 256U:
-            status = arm_cfft_init_256_f64(S);
-            break;
+    case 256U: status = arm_cfft_init_256_f64(S); break;
 
-        case 128U:
-            status = arm_cfft_init_128_f64(S);
-            break;
+    case 128U: status = arm_cfft_init_128_f64(S); break;
 
-        case 64U:
-            status = arm_cfft_init_64_f64(S);
-            break;
+    case 64U: status = arm_cfft_init_64_f64(S); break;
 
-        case 32U:
-            status = arm_cfft_init_32_f64(S);
-            break;
+    case 32U: status = arm_cfft_init_32_f64(S); break;
 
-        case 16U:
-            /*  Initializations of structure parameters for 16 point FFT */
-            status = arm_cfft_init_16_f64(S);
-            break;
+    case 16U:
+        /*  Initializations of structure parameters for 16 point FFT */
+        status = arm_cfft_init_16_f64(S);
+        break;
 
-        default:
-            /*  Reporting argument error if fftSize is not valid value */
-            status = ARM_MATH_ARGUMENT_ERROR;
-            break;
-        }
+    default:
+        /*  Reporting argument error if fftSize is not valid value */
+        status = ARM_MATH_ARGUMENT_ERROR;
+        break;
+    }
 
-
-        return (status);
+    return (status);
 }
+
 /**
   @} end of ComplexFFTF64 group
  */

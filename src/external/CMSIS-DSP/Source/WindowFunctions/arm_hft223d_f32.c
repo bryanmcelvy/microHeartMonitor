@@ -29,12 +29,10 @@
 #include "dsp/window_functions.h"
 #include "dsp/fast_math_functions.h"
 #include <math.h>
+
 /**
   @ingroup groupWindow
  */
-
-
-
 
 /**
   @addtogroup WindowFlat
@@ -55,9 +53,9 @@
   @param[out]    pDst       points to the output generated window
   @param[in]     blockSize  number of samples in the window
   @return        none
- 
+
   @par Parameters of the window
-  
+
   | Parameter                             | Value              |
   | ------------------------------------: | -----------------: |
   | Peak sidelobe level                   |          223.0 dB  |
@@ -72,43 +70,31 @@ Gerhard Heinzel.
 @par Original article:
 Spectrum and spectral density estimation by the Discrete Fourier
 transform (DFT), including a comprehensive list of window
-functions and some new 
+functions and some new
 flat-top windows.
 
-@par Authors: 
+@par Authors:
 G. Heinzel, A. Rudiger and R. Schilling,
 Max-Planck-Institut fur Gravitationsphysik
 (Albert-Einstein-Institut)
 Teilinstitut Hannover
  */
 
+void arm_hft223d_f32(float32_t * pDst, uint32_t blockSize) {
+    float32_t k = 2.0f / ((float32_t) blockSize);
+    float32_t w;
 
-
-void arm_hft223d_f32(
-        float32_t * pDst,
-        uint32_t blockSize)
-{
-   float32_t k = 2.0f / ((float32_t) blockSize);
-   float32_t w;
-
-   for(uint32_t i=0;i<blockSize;i++)
-   {
+    for(uint32_t i = 0; i < blockSize; i++) {
         w = PI * (i * k);
-        w =
-    (1.0f -
-     1.98298997309f * cosf (w) +
-     1.75556083063f * cosf (2.f * w) -
-     1.19037717712f * cosf (3.f * w) +
-     0.56155440797f * cosf (4.f * w) -
-     0.17296769663f * cosf (5.f * w) +
-     0.03233247087f * cosf (6.f * w) -
-     0.00324954578f * cosf (7.f * w) +
-     0.00013801040f * cosf (8.f * w) - 0.00000132725f * cosf (9.f * w));
-     pDst[i] = w;
-   }
+        w = (1.0f - 1.98298997309f * cosf(w) + 1.75556083063f * cosf(2.f * w) -
+             1.19037717712f * cosf(3.f * w) + 0.56155440797f * cosf(4.f * w) -
+             0.17296769663f * cosf(5.f * w) + 0.03233247087f * cosf(6.f * w) -
+             0.00324954578f * cosf(7.f * w) + 0.00013801040f * cosf(8.f * w) -
+             0.00000132725f * cosf(9.f * w));
+        pDst[i] = w;
+    }
 }
 
 /**
   @} end of WindowFlat group
  */
-

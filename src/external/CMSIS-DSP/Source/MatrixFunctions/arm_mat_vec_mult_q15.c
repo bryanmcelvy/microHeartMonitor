@@ -33,8 +33,6 @@
  * @ingroup groupMatrix
  */
 
-
-
 /**
  * @addtogroup MatrixVectMult
  * @{
@@ -50,18 +48,15 @@
 
 #include "arm_helium_utils.h"
 
-void arm_mat_vec_mult_q15(
-    const arm_matrix_instance_q15 * pSrcMat,
-    const q15_t     *pSrcVec,
-    q15_t           *pDstVec)
-{
-    const q15_t *pMatSrc = pSrcMat->pData;
+void arm_mat_vec_mult_q15(const arm_matrix_instance_q15 * pSrcMat, const q15_t * pSrcVec,
+                          q15_t * pDstVec) {
+    const q15_t * pMatSrc = pSrcMat->pData;
     const q15_t *pMat0, *pMat1;
-    uint32_t     numRows = pSrcMat->numRows;
-    uint32_t     numCols = pSrcMat->numCols;
-    q15_t       *px;
-    int32_t      row;
-    uint16_t     blkCnt;           /* loop counters */
+    uint32_t numRows = pSrcMat->numRows;
+    uint32_t numCols = pSrcMat->numCols;
+    q15_t * px;
+    int32_t row;
+    uint16_t blkCnt; /* loop counters */
 
     row = numRows;
     px = pDstVec;
@@ -69,18 +64,17 @@ void arm_mat_vec_mult_q15(
     /*
      * compute 3x64-bit accumulators per loop
      */
-    while (row >= 3)
-    {
+    while(row >= 3) {
         q15_t const *pMat0Vec, *pMat1Vec, *pMat2Vec, *pVec;
-        const q15_t  *pMat2;
-        q15_t const  *pSrcVecPtr = pSrcVec;
-        q63_t         acc0, acc1, acc2;
-        q15x8_t     vecMatA0, vecMatA1, vecMatA2, vecIn;
-
+        const q15_t * pMat2;
+        q15_t const * pSrcVecPtr = pSrcVec;
+        q63_t acc0, acc1, acc2;
+        q15x8_t vecMatA0, vecMatA1, vecMatA2, vecIn;
 
         pVec = pSrcVec;
         /*
-         * Initialize the pointer pIn1 to point to the starting address of the column being processed
+         * Initialize the pointer pIn1 to point to the starting address of the column being
+         * processed
          */
         pMat0 = pMatSrc;
         pMat1 = pMat0 + numCols;
@@ -96,15 +90,14 @@ void arm_mat_vec_mult_q15(
         pVec = pSrcVecPtr;
 
         blkCnt = numCols >> 3;
-        while (blkCnt > 0U)
-        {
-            vecMatA0 = vld1q(pMat0Vec); 
+        while(blkCnt > 0U) {
+            vecMatA0 = vld1q(pMat0Vec);
             pMat0Vec += 8;
-            vecMatA1 = vld1q(pMat1Vec); 
+            vecMatA1 = vld1q(pMat1Vec);
             pMat1Vec += 8;
-            vecMatA2 = vld1q(pMat2Vec); 
+            vecMatA2 = vld1q(pMat2Vec);
             pMat2Vec += 8;
-            vecIn = vld1q(pVec);        
+            vecIn = vld1q(pVec);
             pVec += 8;
 
             acc0 = vmlaldavaq(acc0, vecIn, vecMatA0);
@@ -118,8 +111,7 @@ void arm_mat_vec_mult_q15(
          * (will be merged thru tail predication)
          */
         blkCnt = numCols & 7;
-        if (blkCnt > 0U)
-        {
+        if(blkCnt > 0U) {
             mve_pred16_t p0 = vctp16q(blkCnt);
 
             vecMatA0 = vld1q(pMat0Vec);
@@ -146,12 +138,11 @@ void arm_mat_vec_mult_q15(
     /*
      * process any remaining rows pair
      */
-    if (row >= 2)
-    {
+    if(row >= 2) {
         q15_t const *pMat0Vec, *pMat1Vec, *pVec;
-        q15_t const  *pSrcVecPtr = pSrcVec;
-        q63_t         acc0, acc1;
-        q15x8_t     vecMatA0, vecMatA1, vecIn;
+        q15_t const * pSrcVecPtr = pSrcVec;
+        q63_t acc0, acc1;
+        q15x8_t vecMatA0, vecMatA1, vecIn;
 
         /*
          * For every row wise process, the pInVec pointer is set
@@ -160,7 +151,8 @@ void arm_mat_vec_mult_q15(
         pVec = pSrcVec;
 
         /*
-         * Initialize the pointer pIn1 to point to the starting address of the column being processed
+         * Initialize the pointer pIn1 to point to the starting address of the column being
+         * processed
          */
         pMat0 = pMatSrc;
         pMat1 = pMat0 + numCols;
@@ -173,13 +165,12 @@ void arm_mat_vec_mult_q15(
         pVec = pSrcVecPtr;
 
         blkCnt = numCols >> 3;
-        while (blkCnt > 0U)
-        {
-            vecMatA0 = vld1q(pMat0Vec); 
+        while(blkCnt > 0U) {
+            vecMatA0 = vld1q(pMat0Vec);
             pMat0Vec += 8;
-            vecMatA1 = vld1q(pMat1Vec); 
+            vecMatA1 = vld1q(pMat1Vec);
             pMat1Vec += 8;
-            vecIn = vld1q(pVec);        
+            vecIn = vld1q(pVec);
             pVec += 8;
 
             acc0 = vmlaldavaq(acc0, vecIn, vecMatA0);
@@ -193,8 +184,7 @@ void arm_mat_vec_mult_q15(
          * (will be merged thru tail predication)
          */
         blkCnt = numCols & 7;
-        if (blkCnt > 0U)
-        {
+        if(blkCnt > 0U) {
             mve_pred16_t p0 = vctp16q(blkCnt);
 
             vecMatA0 = vld1q(pMat0Vec);
@@ -215,12 +205,11 @@ void arm_mat_vec_mult_q15(
         row -= 2;
     }
 
-    if (row >= 1)
-    {
+    if(row >= 1) {
         q15_t const *pMat0Vec, *pVec;
-        q15_t const  *pSrcVecPtr = pSrcVec;
-        q63_t         acc0;
-        q15x8_t     vecMatA0, vecIn;
+        q15_t const * pSrcVecPtr = pSrcVec;
+        q63_t acc0;
+        q15x8_t vecMatA0, vecIn;
 
         /*
          * For every row wise process, the pInVec pointer is set
@@ -229,7 +218,8 @@ void arm_mat_vec_mult_q15(
         pVec = pSrcVec;
 
         /*
-         * Initialize the pointer pIn1 to point to the starting address of the column being processed
+         * Initialize the pointer pIn1 to point to the starting address of the column being
+         * processed
          */
         pMat0 = pMatSrc;
 
@@ -239,11 +229,10 @@ void arm_mat_vec_mult_q15(
         pVec = pSrcVecPtr;
 
         blkCnt = numCols >> 3;
-        while (blkCnt > 0U)
-        {
-            vecMatA0 = vld1q(pMat0Vec); 
+        while(blkCnt > 0U) {
+            vecMatA0 = vld1q(pMat0Vec);
             pMat0Vec += 8;
-            vecIn = vld1q(pVec);        
+            vecIn = vld1q(pVec);
             pVec += 8;
             acc0 = vmlaldavaq(acc0, vecIn, vecMatA0);
             blkCnt--;
@@ -253,8 +242,7 @@ void arm_mat_vec_mult_q15(
          * (will be merged thru tail predication)
          */
         blkCnt = numCols & 7;
-        if (blkCnt > 0U)
-        {
+        if(blkCnt > 0U) {
             mve_pred16_t p0 = vctp16q(blkCnt);
 
             vecMatA0 = vld1q(pMat0Vec);
@@ -266,20 +254,19 @@ void arm_mat_vec_mult_q15(
 }
 
 #else
-void arm_mat_vec_mult_q15(const arm_matrix_instance_q15 *pSrcMat, const q15_t *pVec, q15_t *pDst)
-{
+void arm_mat_vec_mult_q15(const arm_matrix_instance_q15 * pSrcMat, const q15_t * pVec,
+                          q15_t * pDst) {
     uint32_t numRows = pSrcMat->numRows;
     uint32_t numCols = pSrcMat->numCols;
-    const q15_t *pSrcA = pSrcMat->pData;
-    const q15_t *pInA1;      /* input data matrix pointer A of Q15 type */
-    const q15_t *pInA2;      /* input data matrix pointer A of Q15 type */
-    const q15_t *pInA3;      /* input data matrix pointer A of Q15 type */
-    const q15_t *pInA4;      /* input data matrix pointer A of Q15 type */
-    const q15_t *pInVec;     /* input data matrix pointer B of Q15 type */
-    q15_t *px;               /* Temporary output data matrix pointer */
+    const q15_t * pSrcA = pSrcMat->pData;
+    const q15_t * pInA1;     /* input data matrix pointer A of Q15 type */
+    const q15_t * pInA2;     /* input data matrix pointer A of Q15 type */
+    const q15_t * pInA3;     /* input data matrix pointer A of Q15 type */
+    const q15_t * pInA4;     /* input data matrix pointer A of Q15 type */
+    const q15_t * pInVec;    /* input data matrix pointer B of Q15 type */
+    q15_t * px;              /* Temporary output data matrix pointer */
     uint16_t i, row, colCnt; /* loop counters */
     q31_t matData, matData2, vecData, vecData2;
-
 
     /* Process 4 rows at a time */
     row = numRows >> 2;
@@ -288,7 +275,7 @@ void arm_mat_vec_mult_q15(const arm_matrix_instance_q15 *pSrcMat, const q15_t *p
 
     /* The following loop performs the dot-product of each row in pSrcA with the vector */
     /* row loop */
-    while (row > 0) {
+    while(row > 0) {
         /* Initialize accumulators */
         q63_t sum1 = 0;
         q63_t sum2 = 0;
@@ -309,18 +296,19 @@ void arm_mat_vec_mult_q15(const arm_matrix_instance_q15 *pSrcMat, const q15_t *p
         pInA4 = pInA3 + numCols;
 
         // Main loop: matrix-vector multiplication
-        while (colCnt > 0u) {
+        while(colCnt > 0u) {
             // Read 2 values from vector
-            vecData = read_q15x2_ia (&pInVec);
+            vecData = read_q15x2_ia(&pInVec);
 
-            // Read 8 values from the matrix - 2 values from each of 4 rows, and do multiply accumulate
-            matData =  read_q15x2_ia (&pInA1);
+            // Read 8 values from the matrix - 2 values from each of 4 rows, and do multiply
+            // accumulate
+            matData = read_q15x2_ia(&pInA1);
             sum1 = __SMLALD(matData, vecData, sum1);
-            matData = read_q15x2_ia (&pInA2);
+            matData = read_q15x2_ia(&pInA2);
             sum2 = __SMLALD(matData, vecData, sum2);
-            matData = read_q15x2_ia (&pInA3);
+            matData = read_q15x2_ia(&pInA3);
             sum3 = __SMLALD(matData, vecData, sum3);
-            matData = read_q15x2_ia (&pInA4);
+            matData = read_q15x2_ia(&pInA4);
             sum4 = __SMLALD(matData, vecData, sum4);
 
             // Decrement the loop counter
@@ -329,19 +317,19 @@ void arm_mat_vec_mult_q15(const arm_matrix_instance_q15 *pSrcMat, const q15_t *p
 
         /* process any remaining columns */
         colCnt = numCols & 1u;
-        if (numCols & 1u) {
+        if(numCols & 1u) {
             vecData = *pInVec++;
-            sum1 += (q63_t)*pInA1++ * vecData;
-            sum2 += (q63_t)*pInA2++ * vecData;
-            sum3 += (q63_t)*pInA3++ * vecData;
-            sum4 += (q63_t)*pInA4++ * vecData;
+            sum1 += (q63_t) *pInA1++ * vecData;
+            sum2 += (q63_t) *pInA2++ * vecData;
+            sum3 += (q63_t) *pInA3++ * vecData;
+            sum4 += (q63_t) *pInA4++ * vecData;
         }
 
         /* Saturate and store the result in the destination buffer */
-        *px++ = (q15_t)(__SSAT((sum1 >> 15), 16));
-        *px++ = (q15_t)(__SSAT((sum2 >> 15), 16));
-        *px++ = (q15_t)(__SSAT((sum3 >> 15), 16));
-        *px++ = (q15_t)(__SSAT((sum4 >> 15), 16));
+        *px++ = (q15_t) (__SSAT((sum1 >> 15), 16));
+        *px++ = (q15_t) (__SSAT((sum2 >> 15), 16));
+        *px++ = (q15_t) (__SSAT((sum3 >> 15), 16));
+        *px++ = (q15_t) (__SSAT((sum4 >> 15), 16));
 
         i = i + numCols * 4;
 
@@ -351,7 +339,7 @@ void arm_mat_vec_mult_q15(const arm_matrix_instance_q15 *pSrcMat, const q15_t *p
 
     /* process any remaining rows */
     row = numRows & 3u;
-    while (row > 0) {
+    while(row > 0) {
 
         q63_t sum = 0;
         pInVec = pVec;
@@ -360,11 +348,11 @@ void arm_mat_vec_mult_q15(const arm_matrix_instance_q15 *pSrcMat, const q15_t *p
         // loop unrolling - process 4 elements at a time
         colCnt = numCols >> 2;
 
-        while (colCnt > 0) {
-            vecData = read_q15x2_ia (&pInVec);
-            vecData2 = read_q15x2_ia (&pInVec);
-            matData = read_q15x2_ia (&pInA1);
-            matData2 = read_q15x2_ia (&pInA1);
+        while(colCnt > 0) {
+            vecData = read_q15x2_ia(&pInVec);
+            vecData2 = read_q15x2_ia(&pInVec);
+            matData = read_q15x2_ia(&pInA1);
+            matData2 = read_q15x2_ia(&pInA1);
             sum = __SMLALD(matData, vecData, sum);
             sum = __SMLALD(matData2, vecData2, sum);
             colCnt--;
@@ -372,11 +360,11 @@ void arm_mat_vec_mult_q15(const arm_matrix_instance_q15 *pSrcMat, const q15_t *p
 
         // process remainder of row
         colCnt = numCols & 3u;
-        while (colCnt > 0) {
-            sum += (q63_t)*pInA1++ * *pInVec++;
+        while(colCnt > 0) {
+            sum += (q63_t) *pInA1++ * *pInVec++;
             colCnt--;
         }
-        *px++ = (q15_t)(__SSAT((sum >> 15), 16));
+        *px++ = (q15_t) (__SSAT((sum >> 15), 16));
         i = i + numCols;
         row--;
     }

@@ -60,13 +60,9 @@
 
 #include "arm_helium_utils.h"
 
-void arm_clip_f32(const float32_t * pSrc, 
-  float32_t * pDst, 
-  float32_t low, 
-  float32_t high, 
-  uint32_t numSamples)
-{
-    uint32_t  blkCnt;
+void arm_clip_f32(const float32_t * pSrc, float32_t * pDst, float32_t low, float32_t high,
+                  uint32_t numSamples) {
+    uint32_t blkCnt;
     f32x4_t curVec0, curVec1;
     f32x4_t vecLow, vecHigh;
 
@@ -81,8 +77,7 @@ void arm_clip_f32(const float32_t * pSrc,
      * stall free interleaving
      */
     blkCnt = numSamples >> 3;
-    while (blkCnt--)
-    {
+    while(blkCnt--) {
         curVec0 = vmaxnmq(curVec0, vecLow);
         curVec1 = vld1q(pSrc);
         pSrc += 4;
@@ -100,8 +95,7 @@ void arm_clip_f32(const float32_t * pSrc,
      * Tail handling
      */
     blkCnt = numSamples - ((numSamples >> 3) << 3);
-    if (blkCnt >= 4)
-    {
+    if(blkCnt >= 4) {
         curVec0 = vmaxnmq(curVec0, vecLow);
         curVec0 = vminnmq(curVec0, vecHigh);
         vst1q(pDst, curVec0);
@@ -110,8 +104,7 @@ void arm_clip_f32(const float32_t * pSrc,
         pSrc += 4;
     }
 
-    if (blkCnt > 0)
-    {
+    if(blkCnt > 0) {
         mve_pred16_t p0 = vctp32q(blkCnt & 3);
         curVec0 = vmaxnmq(curVec0, vecLow);
         curVec0 = vminnmq(curVec0, vecHigh);
@@ -120,21 +113,16 @@ void arm_clip_f32(const float32_t * pSrc,
 }
 
 #else
-void arm_clip_f32(const float32_t * pSrc, 
-  float32_t * pDst, 
-  float32_t low, 
-  float32_t high, 
-  uint32_t numSamples)
-{
+void arm_clip_f32(const float32_t * pSrc, float32_t * pDst, float32_t low, float32_t high,
+                  uint32_t numSamples) {
     uint32_t i;
-    for (i = 0; i < numSamples; i++)
-    {                                        
-        if (pSrc[i] > high)                  
-            pDst[i] = high;                  
-        else if (pSrc[i] < low)              
-            pDst[i] = low;                   
-        else                                 
-            pDst[i] = pSrc[i];               
+    for(i = 0; i < numSamples; i++) {
+        if(pSrc[i] > high)
+            pDst[i] = high;
+        else if(pSrc[i] < low)
+            pDst[i] = low;
+        else
+            pDst[i] = pSrc[i];
     }
 }
 #endif /* defined(ARM_MATH_MVEF) && !defined(ARM_MATH_AUTOVECTORIZE) */

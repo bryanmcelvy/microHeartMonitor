@@ -30,12 +30,10 @@
 #include <limits.h>
 #include <math.h>
 
-
 /**
   @ingroup barycenter
   @{
  */
-
 
 /**
  * @brief Barycenter
@@ -51,17 +49,13 @@
  */
 
 #if defined(ARM_MATH_MVEF) && !defined(ARM_MATH_AUTOVECTORIZE)
-void arm_barycenter_f32(const float32_t *in, 
-  const float32_t *weights, 
-  float32_t *out, 
-  uint32_t nbVectors,
-  uint32_t vecDim)
-{
+void arm_barycenter_f32(const float32_t * in, const float32_t * weights, float32_t * out,
+                        uint32_t nbVectors, uint32_t vecDim) {
     const float32_t *pIn, *pW;
     const float32_t *pIn1, *pIn2, *pIn3, *pIn4;
-    float32_t      *pOut;
-    uint32_t        blkCntVector, blkCntSample;
-    float32_t       accum, w;
+    float32_t * pOut;
+    uint32_t blkCntVector, blkCntSample;
+    float32_t accum, w;
 
     blkCntVector = nbVectors;
     blkCntSample = vecDim;
@@ -71,9 +65,7 @@ void arm_barycenter_f32(const float32_t *in,
     pW = weights;
     pIn = in;
 
-
     arm_fill_f32(0.0f, out, vecDim);
-
 
     /* Sum */
     pIn1 = pIn;
@@ -82,10 +74,9 @@ void arm_barycenter_f32(const float32_t *in,
     pIn4 = pIn3 + vecDim;
 
     blkCntVector = nbVectors >> 2;
-    while (blkCntVector > 0) 
-    {
-        f32x4_t         outV, inV1, inV2, inV3, inV4;
-        float32_t       w1, w2, w3, w4;
+    while(blkCntVector > 0) {
+        f32x4_t outV, inV1, inV2, inV3, inV4;
+        float32_t w1, w2, w3, w4;
 
         pOut = out;
         w1 = *pW++;
@@ -95,7 +86,7 @@ void arm_barycenter_f32(const float32_t *in,
         accum += w1 + w2 + w3 + w4;
 
         blkCntSample = vecDim >> 2;
-        while (blkCntSample > 0) {
+        while(blkCntSample > 0) {
             outV = vld1q((const float32_t *) pOut);
             inV1 = vld1q(pIn1);
             inV2 = vld1q(pIn2);
@@ -117,7 +108,7 @@ void arm_barycenter_f32(const float32_t *in,
         }
 
         blkCntSample = vecDim & 3;
-        while (blkCntSample > 0) {
+        while(blkCntSample > 0) {
             *pOut = *pOut + *pIn1++ * w1;
             *pOut = *pOut + *pIn2++ * w2;
             *pOut = *pOut + *pIn3++ * w3;
@@ -137,17 +128,15 @@ void arm_barycenter_f32(const float32_t *in,
     pIn = pIn1;
 
     blkCntVector = nbVectors & 3;
-    while (blkCntVector > 0) 
-    {
-        f32x4_t         inV, outV;
+    while(blkCntVector > 0) {
+        f32x4_t inV, outV;
 
         pOut = out;
         w = *pW++;
         accum += w;
 
         blkCntSample = vecDim >> 2;
-        while (blkCntSample > 0) 
-        {
+        while(blkCntSample > 0) {
             outV = vld1q_f32(pOut);
             inV = vld1q_f32(pIn);
             outV = vfmaq(outV, inV, w);
@@ -159,8 +148,7 @@ void arm_barycenter_f32(const float32_t *in,
         }
 
         blkCntSample = vecDim & 3;
-        while (blkCntSample > 0) 
-        {
+        while(blkCntSample > 0) {
             *pOut = *pOut + *pIn++ * w;
             pOut++;
             blkCntSample--;
@@ -174,9 +162,8 @@ void arm_barycenter_f32(const float32_t *in,
     accum = 1.0f / accum;
 
     blkCntSample = vecDim >> 2;
-    while (blkCntSample > 0) 
-    {
-        f32x4_t         tmp;
+    while(blkCntSample > 0) {
+        f32x4_t tmp;
 
         tmp = vld1q((const float32_t *) pOut);
         tmp = vmulq(tmp, accum);
@@ -186,8 +173,7 @@ void arm_barycenter_f32(const float32_t *in,
     }
 
     blkCntSample = vecDim & 3;
-    while (blkCntSample > 0) 
-    {
+    while(blkCntSample > 0) {
         *pOut = *pOut * accum;
         pOut++;
         blkCntSample--;
@@ -197,215 +183,200 @@ void arm_barycenter_f32(const float32_t *in,
 #if defined(ARM_MATH_NEON)
 
 #include "NEMath.h"
-void arm_barycenter_f32(const float32_t *in, const float32_t *weights, float32_t *out, uint32_t nbVectors,uint32_t vecDim)
-{
 
-   const float32_t *pIn,*pW, *pIn1, *pIn2, *pIn3, *pIn4;
-   float32_t *pOut;
-   uint32_t blkCntVector,blkCntSample;
-   float32_t accum, w,w1,w2,w3,w4;
+void arm_barycenter_f32(const float32_t * in, const float32_t * weights, float32_t * out,
+                        uint32_t nbVectors, uint32_t vecDim) {
 
-   float32x4_t tmp, inV,outV, inV1, inV2, inV3, inV4;
+    const float32_t *pIn, *pW, *pIn1, *pIn2, *pIn3, *pIn4;
+    float32_t * pOut;
+    uint32_t blkCntVector, blkCntSample;
+    float32_t accum, w, w1, w2, w3, w4;
 
-   blkCntVector = nbVectors;
-   blkCntSample = vecDim;
+    float32x4_t tmp, inV, outV, inV1, inV2, inV3, inV4;
 
-   accum = 0.0f;
+    blkCntVector = nbVectors;
+    blkCntSample = vecDim;
 
-   pW = weights;
-   pIn = in;
+    accum = 0.0f;
 
-   /* Set counters to 0 */
-   tmp = vdupq_n_f32(0.0f);
-   pOut = out;
+    pW = weights;
+    pIn = in;
 
-   blkCntSample = vecDim >> 2;
-   while(blkCntSample > 0)
-   {
-         vst1q_f32(pOut, tmp);
-         pOut += 4;
-         blkCntSample--;
-   }
+    /* Set counters to 0 */
+    tmp = vdupq_n_f32(0.0f);
+    pOut = out;
 
-   blkCntSample = vecDim & 3;
-   while(blkCntSample > 0)
-   {
-         *pOut = 0.0f;
-         pOut++;
-         blkCntSample--;
-   }
+    blkCntSample = vecDim >> 2;
+    while(blkCntSample > 0) {
+        vst1q_f32(pOut, tmp);
+        pOut += 4;
+        blkCntSample--;
+    }
 
-   /* Sum */
-  
-   pIn1 = pIn;
-   pIn2 = pIn1 + vecDim;
-   pIn3 = pIn2 + vecDim;
-   pIn4 = pIn3 + vecDim;
-   
-   blkCntVector = nbVectors >> 2;
-   while(blkCntVector > 0)
-   {
-      pOut = out;
-      w1 = *pW++;
-      w2 = *pW++;
-      w3 = *pW++;
-      w4 = *pW++;
-      accum += w1 + w2 + w3 + w4;
+    blkCntSample = vecDim & 3;
+    while(blkCntSample > 0) {
+        *pOut = 0.0f;
+        pOut++;
+        blkCntSample--;
+    }
 
-      blkCntSample = vecDim >> 2;
-      while(blkCntSample > 0)
-      {
-          outV = vld1q_f32(pOut);
-          inV1 = vld1q_f32(pIn1);
-          inV2 = vld1q_f32(pIn2);
-          inV3 = vld1q_f32(pIn3);
-          inV4 = vld1q_f32(pIn4);
-          outV = vmlaq_n_f32(outV,inV1,w1);
-          outV = vmlaq_n_f32(outV,inV2,w2);
-          outV = vmlaq_n_f32(outV,inV3,w3);
-          outV = vmlaq_n_f32(outV,inV4,w4);
-          vst1q_f32(pOut, outV);
-          pOut += 4;
-          pIn1 += 4;
-          pIn2 += 4;
-          pIn3 += 4;
-          pIn4 += 4;
+    /* Sum */
 
-          blkCntSample--;
-      }
+    pIn1 = pIn;
+    pIn2 = pIn1 + vecDim;
+    pIn3 = pIn2 + vecDim;
+    pIn4 = pIn3 + vecDim;
 
-      blkCntSample = vecDim & 3;
-      while(blkCntSample > 0)
-      {
-          *pOut = *pOut + *pIn1++ * w1;
-          *pOut = *pOut + *pIn2++ * w2;
-          *pOut = *pOut + *pIn3++ * w3;
-          *pOut = *pOut + *pIn4++ * w4;
-          pOut++;
-          blkCntSample--;
-      }
+    blkCntVector = nbVectors >> 2;
+    while(blkCntVector > 0) {
+        pOut = out;
+        w1 = *pW++;
+        w2 = *pW++;
+        w3 = *pW++;
+        w4 = *pW++;
+        accum += w1 + w2 + w3 + w4;
 
-      pIn1 += 3*vecDim;
-      pIn2 += 3*vecDim;
-      pIn3 += 3*vecDim;
-      pIn4 += 3*vecDim;
+        blkCntSample = vecDim >> 2;
+        while(blkCntSample > 0) {
+            outV = vld1q_f32(pOut);
+            inV1 = vld1q_f32(pIn1);
+            inV2 = vld1q_f32(pIn2);
+            inV3 = vld1q_f32(pIn3);
+            inV4 = vld1q_f32(pIn4);
+            outV = vmlaq_n_f32(outV, inV1, w1);
+            outV = vmlaq_n_f32(outV, inV2, w2);
+            outV = vmlaq_n_f32(outV, inV3, w3);
+            outV = vmlaq_n_f32(outV, inV4, w4);
+            vst1q_f32(pOut, outV);
+            pOut += 4;
+            pIn1 += 4;
+            pIn2 += 4;
+            pIn3 += 4;
+            pIn4 += 4;
 
-      blkCntVector--;
-   }
+            blkCntSample--;
+        }
 
-   pIn = pIn1;
+        blkCntSample = vecDim & 3;
+        while(blkCntSample > 0) {
+            *pOut = *pOut + *pIn1++ * w1;
+            *pOut = *pOut + *pIn2++ * w2;
+            *pOut = *pOut + *pIn3++ * w3;
+            *pOut = *pOut + *pIn4++ * w4;
+            pOut++;
+            blkCntSample--;
+        }
 
-   blkCntVector = nbVectors & 3;
-   while(blkCntVector > 0)
-   {
-      pOut = out;
-      w = *pW++;
-      accum += w;
+        pIn1 += 3 * vecDim;
+        pIn2 += 3 * vecDim;
+        pIn3 += 3 * vecDim;
+        pIn4 += 3 * vecDim;
 
-      blkCntSample = vecDim >> 2;
-      while(blkCntSample > 0)
-      {
-          outV = vld1q_f32(pOut);
-          inV = vld1q_f32(pIn);
-          outV = vmlaq_n_f32(outV,inV,w);
-          vst1q_f32(pOut, outV);
-          pOut += 4;
-          pIn += 4;
+        blkCntVector--;
+    }
 
-          blkCntSample--;
-      }
-      
-      blkCntSample = vecDim & 3;
-      while(blkCntSample > 0)
-      {
-          *pOut = *pOut + *pIn++ * w;
-          pOut++;
-          blkCntSample--;
-      }
+    pIn = pIn1;
 
-      blkCntVector--;
-   }
+    blkCntVector = nbVectors & 3;
+    while(blkCntVector > 0) {
+        pOut = out;
+        w = *pW++;
+        accum += w;
 
-   /* Normalize */
-   pOut = out;
-   accum = 1.0f / accum;
+        blkCntSample = vecDim >> 2;
+        while(blkCntSample > 0) {
+            outV = vld1q_f32(pOut);
+            inV = vld1q_f32(pIn);
+            outV = vmlaq_n_f32(outV, inV, w);
+            vst1q_f32(pOut, outV);
+            pOut += 4;
+            pIn += 4;
 
-   blkCntSample = vecDim >> 2;
-   while(blkCntSample > 0)
-   {
-         tmp = vld1q_f32(pOut);
-         tmp = vmulq_n_f32(tmp,accum);
-         vst1q_f32(pOut, tmp);
-         pOut += 4;
-         blkCntSample--;
-   }
+            blkCntSample--;
+        }
 
-   blkCntSample = vecDim & 3;
-   while(blkCntSample > 0)
-   {
-         *pOut = *pOut * accum;
-         pOut++;
-         blkCntSample--;
-   }
+        blkCntSample = vecDim & 3;
+        while(blkCntSample > 0) {
+            *pOut = *pOut + *pIn++ * w;
+            pOut++;
+            blkCntSample--;
+        }
 
+        blkCntVector--;
+    }
+
+    /* Normalize */
+    pOut = out;
+    accum = 1.0f / accum;
+
+    blkCntSample = vecDim >> 2;
+    while(blkCntSample > 0) {
+        tmp = vld1q_f32(pOut);
+        tmp = vmulq_n_f32(tmp, accum);
+        vst1q_f32(pOut, tmp);
+        pOut += 4;
+        blkCntSample--;
+    }
+
+    blkCntSample = vecDim & 3;
+    while(blkCntSample > 0) {
+        *pOut = *pOut * accum;
+        pOut++;
+        blkCntSample--;
+    }
 }
 #else
-void arm_barycenter_f32(const float32_t *in, const float32_t *weights, float32_t *out, uint32_t nbVectors,uint32_t vecDim)
-{
+void arm_barycenter_f32(const float32_t * in, const float32_t * weights, float32_t * out,
+                        uint32_t nbVectors, uint32_t vecDim) {
 
-   const float32_t *pIn,*pW;
-   float32_t *pOut;
-   uint32_t blkCntVector,blkCntSample;
-   float32_t accum, w;
+    const float32_t *pIn, *pW;
+    float32_t * pOut;
+    uint32_t blkCntVector, blkCntSample;
+    float32_t accum, w;
 
-   blkCntVector = nbVectors;
-   blkCntSample = vecDim;
+    blkCntVector = nbVectors;
+    blkCntSample = vecDim;
 
-   accum = 0.0f;
+    accum = 0.0f;
 
-   pW = weights;
-   pIn = in;
+    pW = weights;
+    pIn = in;
 
-   /* Set counters to 0 */
-   blkCntSample = vecDim;
-   pOut = out;
+    /* Set counters to 0 */
+    blkCntSample = vecDim;
+    pOut = out;
 
-   while(blkCntSample > 0)
-   {
-         *pOut = 0.0f;
-         pOut++;
-         blkCntSample--;
-   }
+    while(blkCntSample > 0) {
+        *pOut = 0.0f;
+        pOut++;
+        blkCntSample--;
+    }
 
-   /* Sum */
-   while(blkCntVector > 0)
-   {
-      pOut = out;
-      w = *pW++;
-      accum += w;
+    /* Sum */
+    while(blkCntVector > 0) {
+        pOut = out;
+        w = *pW++;
+        accum += w;
 
-      blkCntSample = vecDim;
-      while(blkCntSample > 0)
-      {
-          *pOut = *pOut + *pIn++ * w;
-          pOut++;
-          blkCntSample--;
-      }
+        blkCntSample = vecDim;
+        while(blkCntSample > 0) {
+            *pOut = *pOut + *pIn++ * w;
+            pOut++;
+            blkCntSample--;
+        }
 
-      blkCntVector--;
-   }
+        blkCntVector--;
+    }
 
-   /* Normalize */
-   blkCntSample = vecDim;
-   pOut = out;
+    /* Normalize */
+    blkCntSample = vecDim;
+    pOut = out;
 
-   while(blkCntSample > 0)
-   {
-         *pOut = *pOut / accum;
-         pOut++;
-         blkCntSample--;
-   }
-
+    while(blkCntSample > 0) {
+        *pOut = *pOut / accum;
+        pOut++;
+        blkCntSample--;
+    }
 }
 #endif
 #endif /* defined(ARM_MATH_MVEF) && !defined(ARM_MATH_AUTOVECTORIZE) */

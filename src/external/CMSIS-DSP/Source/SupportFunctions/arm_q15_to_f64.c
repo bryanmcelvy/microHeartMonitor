@@ -55,56 +55,48 @@
   </pre>
  */
 
-void arm_q15_to_f64(
-  const q15_t * pSrc,
-        float64_t * pDst,
-        uint32_t blockSize)
-{
-        uint32_t blkCnt;                               /* Loop counter */
-  const q15_t *pIn = pSrc;                             /* Source pointer */
+void arm_q15_to_f64(const q15_t * pSrc, float64_t * pDst, uint32_t blockSize) {
+    uint32_t blkCnt;          /* Loop counter */
+    const q15_t * pIn = pSrc; /* Source pointer */
 
-#if defined (ARM_MATH_LOOPUNROLL)
+#if defined(ARM_MATH_LOOPUNROLL)
 
-  /* Loop unrolling: Compute 4 outputs at a time */
-  blkCnt = blockSize >> 2U;
+    /* Loop unrolling: Compute 4 outputs at a time */
+    blkCnt = blockSize >> 2U;
 
-  while (blkCnt > 0U)
-  {
-    /* C = (float64_t) A / 32768 */
+    while(blkCnt > 0U) {
+        /* C = (float64_t) A / 32768 */
 
-    /* Convert from q15 to float and store result in destination buffer */
-    *pDst++ = ((float64_t) * pIn++ / 32768.0);
-    *pDst++ = ((float64_t) * pIn++ / 32768.0);
-    *pDst++ = ((float64_t) * pIn++ / 32768.0);
-    *pDst++ = ((float64_t) * pIn++ / 32768.0);
+        /* Convert from q15 to float and store result in destination buffer */
+        *pDst++ = ((float64_t) *pIn++ / 32768.0);
+        *pDst++ = ((float64_t) *pIn++ / 32768.0);
+        *pDst++ = ((float64_t) *pIn++ / 32768.0);
+        *pDst++ = ((float64_t) *pIn++ / 32768.0);
 
-    /* Decrement loop counter */
-    blkCnt--;
-  }
+        /* Decrement loop counter */
+        blkCnt--;
+    }
 
-  /* Loop unrolling: Compute remaining outputs */
-  blkCnt = blockSize % 0x4U;
+    /* Loop unrolling: Compute remaining outputs */
+    blkCnt = blockSize % 0x4U;
 
 #else
 
-  /* Initialize blkCnt with number of samples */
-  blkCnt = blockSize;
+    /* Initialize blkCnt with number of samples */
+    blkCnt = blockSize;
 
 #endif /* #if defined (ARM_MATH_LOOPUNROLL) */
 
-  while (blkCnt > 0U)
-  {
-    /* C = (float64_t) A / 32768 */
+    while(blkCnt > 0U) {
+        /* C = (float64_t) A / 32768 */
 
-    /* Convert from q15 to float and store result in destination buffer */
-    *pDst++ = ((float64_t) *pIn++ / 32768.0);
+        /* Convert from q15 to float and store result in destination buffer */
+        *pDst++ = ((float64_t) *pIn++ / 32768.0);
 
-    /* Decrement loop counter */
-    blkCnt--;
-  }
-
+        /* Decrement loop counter */
+        blkCnt--;
+    }
 }
-
 
 /**
   @} end of q15_to_x group

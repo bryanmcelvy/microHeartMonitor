@@ -32,7 +32,6 @@
   @ingroup groupStats
  */
 
-
 /**
   @addtogroup mean
   @{
@@ -48,66 +47,52 @@
 
 #if defined(ARM_MATH_NEON) && defined(__aarch64__)
 
-void arm_mean_f64(
-    const float64_t * pSrc,
-    uint32_t blockSize,
-    float64_t * pResult)
-{
-    uint32_t blkCnt;                               /* Loop counter */
+void arm_mean_f64(const float64_t * pSrc, uint32_t blockSize, float64_t * pResult) {
+    uint32_t blkCnt;    /* Loop counter */
     float64x2_t vSum = vdupq_n_f64(0.0);
-    float64_t sum = 0.;                            /* Temporary result storage */
-    float64x2_t afterLoad ;
+    float64_t sum = 0.; /* Temporary result storage */
+    float64x2_t afterLoad;
     /* Initialize blkCnt with number of samples */
     blkCnt = blockSize >> 1U;
-    
-    
-    while (blkCnt > 0U)
-    {
+
+    while(blkCnt > 0U) {
         /* C = (A[0] + A[1] + A[2] + ... + A[blockSize-1]) */
-        
+
         afterLoad = vld1q_f64(pSrc);
         vSum = vaddq_f64(vSum, afterLoad);
         pSrc += 2;
         /* Decrement loop counter */
         blkCnt--;
-        
-        
     }
     sum = vaddvq_f64(vSum);
-    
+
     blkCnt = blockSize & 1;
-    
-    while (blkCnt > 0U)
-    {
+
+    while(blkCnt > 0U) {
         /* C = (A[0] + A[1] + A[2] + ... + A[blockSize-1]) */
         sum += *pSrc++;
-        
+
         /* Decrement loop counter */
         blkCnt--;
     }
-    *pResult = (sum/blockSize);
+    *pResult = (sum / blockSize);
 }
 #else
-void arm_mean_f64(
-    const float64_t * pSrc,
-    uint32_t blockSize,
-    float64_t * pResult)
-{
-    uint32_t blkCnt;                               /* Loop counter */
-    float64_t sum = 0.;                            /* Temporary result storage */
-    
+void arm_mean_f64(const float64_t * pSrc, uint32_t blockSize, float64_t * pResult) {
+    uint32_t blkCnt;    /* Loop counter */
+    float64_t sum = 0.; /* Temporary result storage */
+
     /* Initialize blkCnt with number of samples */
     blkCnt = blockSize;
-    
-    while (blkCnt > 0U)
-    {
+
+    while(blkCnt > 0U) {
         /* C = (A[0] + A[1] + A[2] + ... + A[blockSize-1]) */
         sum += *pSrc++;
-        
+
         /* Decrement loop counter */
         blkCnt--;
     }
-    
+
     /* C = (A[0] + A[1] + A[2] + ... + A[blockSize-1]) / blockSize  */
     /* Store result to destination */
     *pResult = (sum / blockSize);

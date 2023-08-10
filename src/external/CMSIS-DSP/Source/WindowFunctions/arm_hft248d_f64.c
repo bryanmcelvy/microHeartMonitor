@@ -29,18 +29,15 @@
 #include "dsp/window_functions.h"
 #include "dsp/fast_math_functions.h"
 #include <math.h>
+
 /**
   @ingroup groupWindow
  */
-
-
-
 
 /**
   @addtogroup WindowFlat
   @{
  */
-
 
 /**
   @ingroup WindowHFT248D
@@ -51,9 +48,9 @@
   @param[out]    pDst       points to the output generated window
   @param[in]     blockSize  number of samples in the window
   @return        none
- 
+
   @par Parameters of the window
-  
+
   | Parameter                             | Value              |
   | ------------------------------------: | -----------------: |
   | Peak sidelobe level                   |          248.4 dB  |
@@ -68,45 +65,31 @@ Gerhard Heinzel.
 @par Original article:
 Spectrum and spectral density estimation by the Discrete Fourier
 transform (DFT), including a comprehensive list of window
-functions and some new 
+functions and some new
 flat-top windows.
 
-@par Authors: 
+@par Authors:
 G. Heinzel, A. Rudiger and R. Schilling,
 Max-Planck-Institut fur Gravitationsphysik
 (Albert-Einstein-Institut)
 Teilinstitut Hannover
  */
 
+void arm_hft248d_f64(float64_t * pDst, uint32_t blockSize) {
+    float64_t k = 2. / ((float64_t) blockSize);
+    float64_t w;
 
-
-void arm_hft248d_f64(
-        float64_t * pDst,
-        uint32_t blockSize)
-{
-   float64_t k = 2. / ((float64_t) blockSize);
-   float64_t w;
-
-   for(uint32_t i=0;i<blockSize;i++)
-   {
-    w = PI_F64 * (i * k);
-        w =
-    (1.0 -
-     1.985844164102 * cos (w) +
-     1.791176438506 * cos (2. * w) -
-     1.282075284005 * cos (3. * w) +
-     0.667777530266 * cos (4. * w) -
-     0.240160796576 * cos (5. * w) +
-     0.056656381764 * cos (6. * w) -
-     0.008134974479 * cos (7. * w) +
-     0.000624544650 * cos (8. * w) -
-     0.000019808998 * cos (9. * w) +
-     0.000000132974 * cos (10. * w));
-     pDst[i] = w;
-   }
+    for(uint32_t i = 0; i < blockSize; i++) {
+        w = PI_F64 * (i * k);
+        w = (1.0 - 1.985844164102 * cos(w) + 1.791176438506 * cos(2. * w) -
+             1.282075284005 * cos(3. * w) + 0.667777530266 * cos(4. * w) -
+             0.240160796576 * cos(5. * w) + 0.056656381764 * cos(6. * w) -
+             0.008134974479 * cos(7. * w) + 0.000624544650 * cos(8. * w) -
+             0.000019808998 * cos(9. * w) + 0.000000132974 * cos(10. * w));
+        pDst[i] = w;
+    }
 }
 
 /**
   @} end of WindowFlat group
  */
-

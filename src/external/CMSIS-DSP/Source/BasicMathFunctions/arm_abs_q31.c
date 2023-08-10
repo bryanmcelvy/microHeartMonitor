@@ -46,26 +46,22 @@
 
   @par           Scaling and Overflow Behavior
                    The function uses saturating arithmetic.
-                   The Q31 value -1 (0x80000000) will be saturated to the maximum allowable positive value 0x7FFFFFFF.
+                   The Q31 value -1 (0x80000000) will be saturated to the maximum allowable positive
+  value 0x7FFFFFFF.
  */
 
 #if defined(ARM_MATH_MVEI) && !defined(ARM_MATH_AUTOVECTORIZE)
 
 #include "arm_helium_utils.h"
 
-void arm_abs_q31(
-    const q31_t * pSrc,
-    q31_t * pDst,
-    uint32_t blockSize)
-{
-    uint32_t  blkCnt;           /* Loop counters */
+void arm_abs_q31(const q31_t * pSrc, q31_t * pDst, uint32_t blockSize) {
+    uint32_t blkCnt; /* Loop counters */
     q31x4_t vecSrc;
 
     /* Compute 4 outputs at a time */
     blkCnt = blockSize >> 2;
 
-    while (blkCnt > 0U)
-    {
+    while(blkCnt > 0U) {
         /*
          * C = |A|
          * Calculate absolute and then store the results in the destination buffer.
@@ -87,8 +83,7 @@ void arm_abs_q31(
      */
     blkCnt = blockSize & 3;
 
-    if (blkCnt > 0U)
-    {
+    if(blkCnt > 0U) {
         mve_pred16_t p0 = vctp32q(blkCnt);
         vecSrc = vld1q(pSrc);
         vstrwq_p(pDst, vqabsq(vecSrc), p0);
@@ -96,23 +91,18 @@ void arm_abs_q31(
 }
 
 #else
-void arm_abs_q31(
-  const q31_t * pSrc,
-        q31_t * pDst,
-        uint32_t blockSize)
-{
-        uint32_t blkCnt;                               /* Loop counter */
-        q31_t in;                                      /* Temporary variable */
+void arm_abs_q31(const q31_t * pSrc, q31_t * pDst, uint32_t blockSize) {
+    uint32_t blkCnt; /* Loop counter */
+    q31_t in;        /* Temporary variable */
 
 #if defined(ARM_MATH_NEON)
     int32x4_t vec1;
     int32x4_t res;
 
-    /* Compute 4 outputs at a time */  
+    /* Compute 4 outputs at a time */
     blkCnt = blockSize >> 2U;
 
-    while (blkCnt > 0U)
-    {
+    while(blkCnt > 0U) {
         /* C = |A| */
         /* Calculate absolute and then store the results in the destination buffer. */
 
@@ -123,7 +113,7 @@ void arm_abs_q31(
         /* Increment pointers */
         pSrc += 4;
         pDst += 4;
-        
+
         /* Decrement the blockSize loop counter */
         blkCnt--;
     }
@@ -132,75 +122,74 @@ void arm_abs_q31(
     blkCnt = blockSize & 0x3;
 
 #else
-#if defined (ARM_MATH_LOOPUNROLL)
+#if defined(ARM_MATH_LOOPUNROLL)
 
-  /* Loop unrolling: Compute 4 outputs at a time */
-  blkCnt = blockSize >> 2U;
+    /* Loop unrolling: Compute 4 outputs at a time */
+    blkCnt = blockSize >> 2U;
 
-  while (blkCnt > 0U)
-  {
-    /* C = |A| */
+    while(blkCnt > 0U) {
+        /* C = |A| */
 
-    /* Calculate absolute of input (if -1 then saturated to 0x7fffffff) and store result in destination buffer. */
-    in = *pSrc++;
-#if defined (ARM_MATH_DSP)
-    *pDst++ = (in > 0) ? in : (q31_t)__QSUB(0, in);
+        /* Calculate absolute of input (if -1 then saturated to 0x7fffffff) and store result in
+         * destination buffer. */
+        in = *pSrc++;
+#if defined(ARM_MATH_DSP)
+        *pDst++ = (in > 0) ? in : (q31_t) __QSUB(0, in);
 #else
-    *pDst++ = (in > 0) ? in : ((in == INT32_MIN) ? INT32_MAX : -in);
+        *pDst++ = (in > 0) ? in : ((in == INT32_MIN) ? INT32_MAX : -in);
 #endif
 
-    in = *pSrc++;
-#if defined (ARM_MATH_DSP)
-    *pDst++ = (in > 0) ? in : (q31_t)__QSUB(0, in);
+        in = *pSrc++;
+#if defined(ARM_MATH_DSP)
+        *pDst++ = (in > 0) ? in : (q31_t) __QSUB(0, in);
 #else
-    *pDst++ = (in > 0) ? in : ((in == INT32_MIN) ? INT32_MAX : -in);
+        *pDst++ = (in > 0) ? in : ((in == INT32_MIN) ? INT32_MAX : -in);
 #endif
 
-    in = *pSrc++;
-#if defined (ARM_MATH_DSP)
-    *pDst++ = (in > 0) ? in : (q31_t)__QSUB(0, in);
+        in = *pSrc++;
+#if defined(ARM_MATH_DSP)
+        *pDst++ = (in > 0) ? in : (q31_t) __QSUB(0, in);
 #else
-    *pDst++ = (in > 0) ? in : ((in == INT32_MIN) ? INT32_MAX : -in);
+        *pDst++ = (in > 0) ? in : ((in == INT32_MIN) ? INT32_MAX : -in);
 #endif
 
-    in = *pSrc++;
-#if defined (ARM_MATH_DSP)
-    *pDst++ = (in > 0) ? in : (q31_t)__QSUB(0, in);
+        in = *pSrc++;
+#if defined(ARM_MATH_DSP)
+        *pDst++ = (in > 0) ? in : (q31_t) __QSUB(0, in);
 #else
-    *pDst++ = (in > 0) ? in : ((in == INT32_MIN) ? INT32_MAX : -in);
+        *pDst++ = (in > 0) ? in : ((in == INT32_MIN) ? INT32_MAX : -in);
 #endif
 
-    /* Decrement loop counter */
-    blkCnt--;
-  }
+        /* Decrement loop counter */
+        blkCnt--;
+    }
 
-  /* Loop unrolling: Compute remaining outputs */
-  blkCnt = blockSize % 0x4U;
+    /* Loop unrolling: Compute remaining outputs */
+    blkCnt = blockSize % 0x4U;
 
 #else
 
-  /* Initialize blkCnt with number of samples */
-  blkCnt = blockSize;
+    /* Initialize blkCnt with number of samples */
+    blkCnt = blockSize;
 
 #endif /* #if defined (ARM_MATH_LOOPUNROLL) */
 #endif /* #if defined (ARM_MATH_NEON) */
 
-  while (blkCnt > 0U)
-  {
-    /* C = |A| */
+    while(blkCnt > 0U) {
+        /* C = |A| */
 
-    /* Calculate absolute of input (if -1 then saturated to 0x7fffffff) and store result in destination buffer. */
-    in = *pSrc++;
-#if defined (ARM_MATH_DSP)
-    *pDst++ = (in > 0) ? in : (q31_t)__QSUB(0, in);
+        /* Calculate absolute of input (if -1 then saturated to 0x7fffffff) and store result in
+         * destination buffer. */
+        in = *pSrc++;
+#if defined(ARM_MATH_DSP)
+        *pDst++ = (in > 0) ? in : (q31_t) __QSUB(0, in);
 #else
-    *pDst++ = (in > 0) ? in : ((in == INT32_MIN) ? INT32_MAX : -in);
+        *pDst++ = (in > 0) ? in : ((in == INT32_MIN) ? INT32_MAX : -in);
 #endif
 
-    /* Decrement loop counter */
-    blkCnt--;
-  }
-
+        /* Decrement loop counter */
+        blkCnt--;
+    }
 }
 #endif /* #if defined (ARM_MATH_MVEI) */
 /**

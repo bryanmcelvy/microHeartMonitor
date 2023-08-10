@@ -47,20 +47,20 @@
   @return        none
 
   @par           Details
-                   <code>pCoeffs</code> points to the array of filter coefficients stored in time reversed order:
-  <pre>
-      {b[numTaps-1], b[numTaps-2], b[N-2], ..., b[1], b[0]}
+                   <code>pCoeffs</code> points to the array of filter coefficients stored in time
+  reversed order: <pre> {b[numTaps-1], b[numTaps-2], b[N-2], ..., b[1], b[0]}
   </pre>
   @par
-                   <code>pState</code> points to the array of state variables and some working memory for the Helium version.
-                   <code>pState</code> is of length <code>numTaps+blockSize-1</code> samples (except for Helium - see below), where <code>blockSize</code> is the number of input samples processed by each call to <code>arm_fir_f32()</code>.
+                   <code>pState</code> points to the array of state variables and some working
+  memory for the Helium version. <code>pState</code> is of length <code>numTaps+blockSize-1</code>
+  samples (except for Helium - see below), where <code>blockSize</code> is the number of input
+  samples processed by each call to <code>arm_fir_f32()</code>.
   @par          Initialization of Helium version
-                 For Helium version the array of coefficients must be a multiple of 4 (4a) even if less
-                 then 4a coefficients are defined in the FIR. The additional coefficients 
-                 (4a - numTaps) must be set to 0.
-                 numTaps is still set to its right value in the init function. It means that
-                 the implementation may require to read more coefficients due to the vectorization and
-                 to avoid having to manage too many different cases in the code.
+                 For Helium version the array of coefficients must be a multiple of 4 (4a) even if
+  less then 4a coefficients are defined in the FIR. The additional coefficients (4a - numTaps) must
+  be set to 0. numTaps is still set to its right value in the init function. It means that the
+  implementation may require to read more coefficients due to the vectorization and to avoid having
+  to manage too many different cases in the code.
 
   @par          Helium state buffer
                  The state buffer must contain some additional temporary data
@@ -71,27 +71,22 @@
 
  */
 
-void arm_fir_init_f32(
-        arm_fir_instance_f32 * S,
-        uint16_t numTaps,
-  const float32_t * pCoeffs,
-        float32_t * pState,
-        uint32_t blockSize)
-{
-  /* Assign filter taps */
-  S->numTaps = numTaps;
+void arm_fir_init_f32(arm_fir_instance_f32 * S, uint16_t numTaps, const float32_t * pCoeffs,
+                      float32_t * pState, uint32_t blockSize) {
+    /* Assign filter taps */
+    S->numTaps = numTaps;
 
-  /* Assign coefficient pointer */
-  S->pCoeffs = pCoeffs;
+    /* Assign coefficient pointer */
+    S->pCoeffs = pCoeffs;
 
-  /* Clear state buffer. The size is always (blockSize + numTaps - 1) */
+    /* Clear state buffer. The size is always (blockSize + numTaps - 1) */
 #if defined(ARM_MATH_MVEF) && !defined(ARM_MATH_AUTOVECTORIZE)
-  memset(pState, 0, (numTaps + (blockSize - 1U) + blockSize) * sizeof(float32_t));
+    memset(pState, 0, (numTaps + (blockSize - 1U) + blockSize) * sizeof(float32_t));
 #else
-  memset(pState, 0, (numTaps + (blockSize - 1U)) * sizeof(float32_t));
+    memset(pState, 0, (numTaps + (blockSize - 1U)) * sizeof(float32_t));
 #endif
-  /* Assign state pointer */
-  S->pState = pState;
+    /* Assign state pointer */
+    S->pState = pState;
 }
 
 /**

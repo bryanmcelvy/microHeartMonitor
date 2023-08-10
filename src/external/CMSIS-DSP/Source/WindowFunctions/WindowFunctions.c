@@ -64,4 +64,3 @@
 #include "arm_hft223d_f64.c"
 #include "arm_hft248d_f32.c"
 #include "arm_hft248d_f64.c"
-

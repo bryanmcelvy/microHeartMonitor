@@ -100,5 +100,3 @@
 #include "arm_mse_f64.c"
 #include "arm_accumulate_f32.c"
 #include "arm_accumulate_f64.c"
-
-
