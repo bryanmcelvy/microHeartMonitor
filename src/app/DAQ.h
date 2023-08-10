@@ -12,9 +12,9 @@
 
 #include "ADC.h"
 #include "Timer.h"
+#include "filtering_functions_f16.h"
 
 #include "FIFO.h"
-#include "Filter.h"
 
 #include "tm4c123gh6pm.h"
 #include <stdint.h>
