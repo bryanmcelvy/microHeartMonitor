@@ -20,7 +20,7 @@ add_subdirectory(docs)                              # datasheets and generated c
 find_program(CMAKE_C_CPPCHECK NAMES cppcheck)
 if(CMAKE_C_CPPCHECK)
     set(CPPCHECK_DIR ${PROJECT_SOURCE_DIR}/cppcheck)
-    set(CPPCHECK_FLAGS          "--enable=all" "--error-exitcode=1" "--quiet")
+    set(CPPCHECK_FLAGS          "--enable=all" "--error-exitcode=1" "--quiet" "--force")
     list(APPEND CPPCHECK_FLAGS  "--suppressions-list=${CPPCHECK_DIR}/suppressions.txt" "--template=gcc")
     list(APPEND CPPCHECK_FLAGS  "--relative-paths=${PROJECT_SOURCE_DIR}" "--cppcheck-build-dir=${CPPCHECK_DIR}" "--project=${PROJECT_BINARY_DIR}/compile_commands.json")
 
