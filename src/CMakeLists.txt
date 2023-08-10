@@ -6,6 +6,7 @@ Description:    Adds subdirectories and main target executable
 # Subdirectories
 add_subdirectory(app)
 add_subdirectory(common)
+add_subdirectory(external/CMSIS-DSP)
 add_subdirectory(drivers)
 add_subdirectory(test)
 
