@@ -14,7 +14,7 @@ Preprocessor Directives
 
 #include "ADC.h"
 #include "Timer.h"
-#include "arm_math_types_f16.h"
+#include "arm_math_types.h"
 #include "dsp/filtering_functions.h"
 
 #include "FIFO.h"
@@ -28,7 +28,7 @@ Preprocessor Directives
 Input Filter Definition
 *******************************************************************************/
 typedef arm_biquad_casd_df1_inst_f32 filt_t;
-static volatile filt_t inputFilter = { 0 };
+static filt_t inputFilter = { 0 };
 static const float32_t COEFF_INPUT[10] = { (float32_t) 0.046582907, (float32_t) 0.093165815,
                                            (float32_t) 0.04658291,  (float32_t) -0.32897568,
                                            (float32_t) 0.06458765,  (float32_t) 1.0,
@@ -40,12 +40,19 @@ static float32_t stateBuffer_Input[8];
 Functions
 *******************************************************************************/
 void DAQ_Init(void) {
-    arm_biquad_cascade_df1_init_f32(&inputFilter, 2, COEFF_INPUT, stateBuffer_Input);
-
+    arm_biquad_cascade_df1_init_f32((arm_biquad_casd_df1_inst_f32 *) &inputFilter, 2, COEFF_INPUT,
+                                    stateBuffer_Input);
     ADC_Init();
     Timer3A_Init(SAMPLING_PERIOD_MS);
 }
 
-void DAQ_Filter(float32_t inputSample) {}
+float DAQ_Filter(float inputSample) {
+    float outputSample;
+
+    arm_biquad_cascade_df1_f32((const arm_biquad_casd_df1_inst_f32 *) &inputFilter,
+                               (const float32_t *) &inputSample, (float32_t *) &outputSample, 1);
+
+    return outputSample;
+}
 
 /** @} */

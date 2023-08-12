@@ -13,7 +13,6 @@
 #include "ADC.h"
 #include "Timer.h"
 #include "arm_math_types.h"
-#include "arm_math_types_f16.h"
 #include "dsp/filtering_functions.h"
 
 #include "FIFO.h"
@@ -23,6 +22,6 @@
 
 void DAQ_Init(void);
 
-void DAQ_Filter(float32_t inputSample);
+float32_t DAQ_Filter(float32_t inputSample);
 
 #endif
