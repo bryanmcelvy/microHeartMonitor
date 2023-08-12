@@ -11,6 +11,7 @@
 #define __ADC_H___
 
 #include "FIFO.h"
+#include "lookup.h"
 #include "Timer.h"
 
 #include "tm4c123gh6pm.h"
@@ -21,6 +22,14 @@
  *
  */
 void ADC_Init(void);
+
+/**
+ * @brief           Convert a raw ADC sample to voltage in [mV].
+ *
+ * @param sample    12-bit unsigned ADC value. `sample = [0, 0xFFF]`
+ * @return float    Voltage value in range `[-3.3, 3.3) [mV]`.
+ */
+float ADC_ConvertToVolts(uint16_t raw_sample);
 
 #endif
 
