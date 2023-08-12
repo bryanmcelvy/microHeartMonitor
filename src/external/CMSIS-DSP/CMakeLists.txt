@@ -13,4 +13,4 @@ target_include_directories(CMSIS-DSP-f16
                                     Include
                                     PrivateInclude
                                     Source
-                                    ../CMSIS/Core/Include)
+                                    ${CMAKE_SOURCE_DIR}/src/external/CMSIS/Core/Include)

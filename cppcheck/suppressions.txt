@@ -1,4 +1,5 @@
 *:src/device/startup_gcc.c
+*:src/external/*
 
 badBitmaskCheck:src/drivers/*
 

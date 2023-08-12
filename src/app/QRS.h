@@ -10,6 +10,6 @@
 #ifndef __QRS_H__
 #define __QRS_H__
 
-#include "filtering_functions_f16.h"
+#include "dsp/filtering_functions_f16.h"
 
 #endif

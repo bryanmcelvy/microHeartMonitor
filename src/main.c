@@ -13,8 +13,8 @@
 #include "PLL.h"
 
 // App. Software Functions
+#include "DAQ.h"
 #include "Debug.h"
-#include "Filter.h"
 #include "QRS.h"
 #include "UserCtrl.h"
 

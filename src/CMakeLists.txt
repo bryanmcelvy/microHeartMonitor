@@ -24,10 +24,14 @@ target_include_directories( ${MAIN_TARGET}
                                 ${CMAKE_SOURCE_DIR}/src/common
                                 ${CMAKE_SOURCE_DIR}/src/device 
                                 ${CMAKE_SOURCE_DIR}/src/drivers
+                                ${CMAKE_SOURCE_DIR}/src/external/CMSIS-DSP/Include
+                                ${CMAKE_SOURCE_DIR}/src/external/CMSIS-DSP/PrivateInclude
+                                ${CMAKE_SOURCE_DIR}/src/external/CMSIS-DSP/Source
+                                ${CMAKE_SOURCE_DIR}/src/external/CMSIS/Core/Include
                             )
 
 target_link_libraries(  ${MAIN_TARGET} 
                         PRIVATE 
-                            Debug   Filter  LCD   QRS   UserCtrl    # app libraries
+                            DAQ   Debug  LCD   QRS   UserCtrl       # app libraries
                             ADC     PLL                             # driver libraries
                         )
