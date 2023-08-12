@@ -26,6 +26,7 @@ if(CMAKE_C_CPPCHECK)
 
     add_custom_target(lint 
                         COMMENT             "Running cppcheck:"
+                        DEPENDS all
                         WORKING_DIRECTORY   ${PROJECT_SOURCE_DIR}
                         COMMAND             ${CMAKE_C_CPPCHECK} ${CPPCHECK_FLAGS} ${PROJECT_SOURCE_DIR}/src
                         VERBATIM)
