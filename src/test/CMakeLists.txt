@@ -180,6 +180,28 @@ target_link_libraries(test_ili9341_blinkdisplay.elf
                             ILI9341
                             GPIO)
 
+# ADC Test
+add_executable(test_adc.elf 
+                    test_adc.c
+                    ${PROJECT_SOURCE_DIR}/src/device/startup_gcc.c
+                )
+
+target_include_directories(test_adc.elf 
+                            PRIVATE 
+                                ${PROJECT_SOURCE_DIR}/src/common
+                                ${PROJECT_SOURCE_DIR}/src/drivers
+                                ${PROJECT_SOURCE_DIR}/src/device
+                            )
+
+target_link_libraries(test_adc.elf
+                        PRIVATE
+                            PLL
+                            ADC
+                            FIFO
+                            Lookup
+                            Timer
+                            UART)
+
 #*****************************************************************************
 # Application SW Tests
 #*****************************************************************************
