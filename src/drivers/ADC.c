@@ -14,7 +14,7 @@
 #include "tm4c123gh6pm.h"
 #include <stdint.h>
 
-static const double * ADC_LOOKUP;
+static const double * ADC_LOOKUP = 0;
 
 void ADC_Init(void) {
     SYSCTL_RCGCADC_R |= 0x01;                       // enable clock to ADC0
@@ -41,8 +41,6 @@ void ADC_Init(void) {
     NVIC_EN0_R |= (1 << 17);                     // enable ADC0 SS3 interrupt in NVIC
 
     ADC0_ACTSS_R |= 0x08;                        // enable SS3
-
-    Timer3A_Init(5);                             // start sampling @ 200 [Hz]
 
     ADC_LOOKUP = Lookup_GetPtr_ADC();
 }
