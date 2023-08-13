@@ -10,6 +10,10 @@
 #include "UART.h"
 
 #include "tm4c123gh6pm.h"
+#include <stdbool.h>
+#include <stdint.h>
+
+#define ASCII_CONVERSION 0x30
 
 /**********************************************************************
 UART0
@@ -90,9 +94,48 @@ void UART0_WriteInt(uint32_t n) {
     }
 
     while(nearestPowOf10 > 0) {
-        UART0_WriteChar(0x30 + (n / nearestPowOf10));
+        UART0_WriteChar(ASCII_CONVERSION + (n / nearestPowOf10));
         n %= nearestPowOf10;
         nearestPowOf10 /= 10;
+    }
+}
+
+void UART0_WriteFloat(float n, uint8_t num_decimals) {
+    int32_t integer_part, decimal_part, decimal_multiplier;
+    bool is_neg;
+
+    is_neg = (n < 0) ? true : false;
+    n = (is_neg) ? (n * -1) : n;
+
+    switch(num_decimals) {
+        case 1: decimal_multiplier = 10; break;
+        case 2: decimal_multiplier = 100; break;
+        case 3: decimal_multiplier = 1000; break;
+        case 4: decimal_multiplier = 10000; break;
+        case 5: decimal_multiplier = 100000; break;
+        case 6: decimal_multiplier = 1000000; break;
+        default:
+            decimal_multiplier = 1;
+            for(uint8_t count = 0; count < num_decimals; count++) {
+                decimal_multiplier *= 10;
+            }
+    }
+
+    integer_part = n / (int32_t) 1;
+    decimal_part = (n - integer_part) * decimal_multiplier;
+
+    if(is_neg) {
+        UART0_WriteChar('-');
+    }
+    UART0_WriteInt(integer_part);
+    UART0_WriteChar('.');
+    if(decimal_part > 0) {
+        UART0_WriteInt(decimal_part);
+    }
+    else {
+        for(uint8_t count = 0; count < num_decimals; count++) {
+            UART0_WriteChar('0');
+        }
     }
 }
 
@@ -122,12 +165,12 @@ void UART1_Init(void) {
     }
 
     UART1_CTL_R &= ~(0x01);                           // disable UART1
-    UART1_IBRD_R |=
-        43;                    /// NOTE: LCRH must be accessed *AFTER* setting the `BRD` register
+    UART1_IBRD_R |= 43;                       /// NOTE: LCRH must be accessed *AFTER* setting the
+                                              /// `BRD` register
     UART1_FBRD_R |= 26;
-    UART1_LCRH_R |= 0x70;                             // 8-bit length, FIFO
-    UART1_CC_R &= ~(0x0F);                            // system clock source
-    UART1_CTL_R |= 0x01;                              // re-enable UART0
+    UART1_LCRH_R |= 0x70;                     // 8-bit length, FIFO
+    UART1_CC_R &= ~(0x0F);                    // system clock source
+    UART1_CTL_R |= 0x01;                      // re-enable UART0
 
     GPIO_PORTB_AFSEL_R |= 0x03;                       // alt. mode for PB0/1
     GPIO_PORTB_PCTL_R |= 0x11;                        // UART mode for PB0/1
