@@ -23,6 +23,8 @@ BreakBeforeBraces: Custom
 BraceWrapping:
     BeforeElse: true
 
+IndentCaseLabels: true
+
 MaxEmptyLinesToKeep: 1
 
 SpaceAfterCStyleCast: true
