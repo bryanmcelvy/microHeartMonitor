@@ -45,9 +45,9 @@ void UART0_WriteChar(unsigned char input_char);
 /**
  * @brief   Write a C string to UART0.
  *
- * @param   str_ptr pointer to C string
+ * @param   C string
  */
-void UART0_WriteStr(unsigned char * str_ptr);
+void UART0_WriteStr(void * input_str);
 
 /**
  * @brief               Write a 32-bit unsigned integer to UART0.
@@ -83,9 +83,9 @@ void UART1_WriteChar(unsigned char input_char);
 /**
  * @brief   Write a C string to UART1.
  *
- * @param   str_ptr pointer to C string
+ * @param   C string
  */
-void UART1_WriteStr(unsigned char * str_ptr);
+void UART1_WriteStr(void * input_str);
 
 #endif
 

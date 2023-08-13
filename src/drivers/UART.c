@@ -68,13 +68,14 @@ void UART0_WriteChar(unsigned char input_char) {
     UART0_DR_R = input_char;
 }
 
-void UART0_WriteStr(unsigned char * str_ptr) {
+void UART0_WriteStr(void * input_str) {
     /**
      * This function uses UART0_WriteChar() function
      * to write a C string to UART0. The function writes
      * until either the entire string has been written or
      * a null-terminated character has been reached.
      */
+    unsigned char * str_ptr = input_str;
     while(*str_ptr != '\0') {
         UART0_WriteChar(*str_ptr);
         str_ptr += 1;
@@ -84,12 +85,12 @@ void UART0_WriteStr(unsigned char * str_ptr) {
 void UART0_WriteInt(uint32_t n) {
     uint32_t nearestPowOf10 = 1;
 
-    while( (n / (nearestPowOf10 * 10) ) > 0) {
+    while((n / (nearestPowOf10 * 10)) > 0) {
         nearestPowOf10 *= 10;
     }
 
     while(nearestPowOf10 > 0) {
-        UART0_WriteChar( 0x30 + (n / nearestPowOf10) );
+        UART0_WriteChar(0x30 + (n / nearestPowOf10));
         n %= nearestPowOf10;
         nearestPowOf10 /= 10;
     }
@@ -153,13 +154,14 @@ void UART1_WriteChar(unsigned char input_char) {
     UART1_DR_R = input_char;
 }
 
-void UART1_WriteStr(unsigned char * str_ptr) {
+void UART1_WriteStr(void * input_str) {
     /**
      * This function uses UART1_WriteChar() function
-     * to write a C string to UART0. The function writes
+     * to write a C string to UART1. The function writes
      * until either the entire string has been written or
      * a null-terminated character has been reached.
      */
+    unsigned char * str_ptr = input_str;
     while(*str_ptr != '\0') {
         UART1_WriteChar(*str_ptr);
         str_ptr += 1;
