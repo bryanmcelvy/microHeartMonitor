@@ -19,9 +19,9 @@
 void FIFO_reportStatus(FIFO_t * fifo_ptr);
 
 int main(void) {
-    uint16_t buffer[FIFO_LEN];
+    uint32_t buffer[FIFO_LEN];
     FIFO_t * fifo_ptr = 0;
-    uint16_t print_buffer[FIFO_LEN];
+    uint32_t print_buffer[FIFO_LEN];
 
     PLL_Init();
     GPIO_PF_LED_Init();
@@ -57,7 +57,7 @@ int main(void) {
     UART0_WriteStr((unsigned char *) "Removing values...\n");
     FIFO_reportStatus(fifo_ptr);
     for(int i = 0; i < FIFO_LEN - 1; i++) {
-        uint16_t tmp_val = FIFO_Get(fifo_ptr);
+        uint32_t tmp_val = FIFO_Get(fifo_ptr);
         UART0_WriteInt(tmp_val);
         UART0_WriteChar('\n');
         FIFO_reportStatus(fifo_ptr);

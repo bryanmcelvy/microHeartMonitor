@@ -45,7 +45,7 @@ typedef struct FIFO_t FIFO_t;
  * @param N             Length of `buffer`. Usable length is `N - 1`.
  * @return              pointer to the FIFO buffer
  */
-FIFO_t * FIFO_Init(uint16_t buffer[], uint16_t N);
+FIFO_t * FIFO_Init(uint32_t buffer[], uint32_t N);
 
 /******************************************************************************
 Basic Operations
@@ -57,7 +57,7 @@ Basic Operations
  * @param fifo_ptr      Pointer to FIFO object
  * @param val           last value in the buffer
  */
-void FIFO_Put(FIFO_t * fifo_ptr, uint16_t val);
+void FIFO_Put(FIFO_t * fifo_ptr, uint32_t val);
 
 /**
  * @brief               Remove the first value of the buffer.
@@ -65,7 +65,7 @@ void FIFO_Put(FIFO_t * fifo_ptr, uint16_t val);
  * @param fifo_ptr      Pointer to FIFO object
  * @return              First sample in the FIFO.
  */
-uint16_t FIFO_Get(FIFO_t * fifo_ptr);
+uint32_t FIFO_Get(FIFO_t * fifo_ptr);
 
 /**
  * @brief               Transfer a value from one FIFO buffer to another.
@@ -86,7 +86,7 @@ Bulk Removal
  * @param output_buffer Array to output values to.
  *                      Should be the same length as the FIFO buffer.
  */
-void FIFO_Flush(FIFO_t * fifo_ptr, uint16_t output_buffer[]);
+void FIFO_Flush(FIFO_t * fifo_ptr, uint32_t output_buffer[]);
 
 /**
  * @brief               Transfer the contents of one FIFO buffer to another.
@@ -107,7 +107,7 @@ Status Checks
  * @param output_buffer Array to output values to.
  *                      Should be the same length as the FIFO buffer.
  */
-void FIFO_Peek(FIFO_t * fifo_ptr, uint16_t output_buffer[]);
+void FIFO_Peek(FIFO_t * fifo_ptr, uint32_t output_buffer[]);
 
 /**
  * @brief               Check if the FIFO buffer is full.
@@ -132,7 +132,7 @@ bool FIFO_isEmpty(FIFO_t * fifo_ptr);
  *
  * @param fifo_ptr      Pointer to the FIFO buffer.
  */
-uint16_t FIFO_getCurrSize(FIFO_t * fifo_ptr);
+uint32_t FIFO_getCurrSize(FIFO_t * fifo_ptr);
 
 #endif                    // __FIFO_H__
 
