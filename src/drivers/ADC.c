@@ -46,10 +46,7 @@ void ADC_Init(void) {
 }
 
 float ADC_ConvertToVolts(uint16_t raw_sample) {
-    float voltage_V;
-
-    voltage_V = (float) ADC_LOOKUP[raw_sample];
-    return voltage_V;
+    return (float) ADC_LOOKUP[raw_sample];
 }
 
 /** @} */
