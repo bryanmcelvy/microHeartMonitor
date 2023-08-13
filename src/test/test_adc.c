@@ -29,11 +29,13 @@ int main(void) {
 }
 
 void ADC0_SS3_Handler(void) {
-    uint16_t sample;
+    // uint16_t sample;
+    float sample;
 
-    sample = ADC0_SSFIFO3_R & 0xFFF;
+    sample = ADC_ConvertToVolts(ADC0_SSFIFO3_R & 0xFFF);
 
-    UART0_WriteInt(sample);
+    // UART0_WriteInt(sample);
+    UART0_WriteFloat(sample, 6);
     UART0_WriteChar('\n');
 
     ADC0_ISC_R |= 0x08;                    // clear interrupt flag to acknowledge
