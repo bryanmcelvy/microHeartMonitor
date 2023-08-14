@@ -62,7 +62,7 @@ void UART0_WriteInt(uint32_t n);
  * @param n             Floating-point number to be converted and transmitted.
  * @param num_decimals  Number of digits after the decimal point to include.
  */
-void UART0_WriteFloat(float n, uint8_t num_decimals);
+void UART0_WriteFloat(double n, uint8_t num_decimals);
 
 /**********************************************************************
 UART1

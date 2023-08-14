@@ -89,52 +89,39 @@ void UART0_WriteStr(void * input_str) {
 void UART0_WriteInt(uint32_t n) {
     uint32_t nearestPowOf10 = 1;
 
-    while((n / (nearestPowOf10 * 10)) > 0) {
-        nearestPowOf10 *= 10;
-    }
-
-    while(nearestPowOf10 > 0) {
+    if(n < 10) {
         UART0_WriteChar(ASCII_CONVERSION + (n / nearestPowOf10));
-        n %= nearestPowOf10;
-        nearestPowOf10 /= 10;
+    }
+    else {
+        while((n / (nearestPowOf10 * 10)) > 0) {
+            nearestPowOf10 *= 10;
+        }
+
+        while(nearestPowOf10 > 0) {
+            UART0_WriteChar(ASCII_CONVERSION + (n / nearestPowOf10));
+            n %= nearestPowOf10;
+            nearestPowOf10 /= 10;
+        }
     }
 }
 
-void UART0_WriteFloat(float n, uint8_t num_decimals) {
-    int32_t integer_part, decimal_part, decimal_multiplier;
-    bool is_neg;
+void UART0_WriteFloat(double n, uint8_t num_decimals) {
+    int32_t b;
 
-    is_neg = (n < 0) ? true : false;
-    n = (is_neg) ? (n * -1) : n;
-
-    switch(num_decimals) {
-        case 1: decimal_multiplier = 10; break;
-        case 2: decimal_multiplier = 100; break;
-        case 3: decimal_multiplier = 1000; break;
-        case 4: decimal_multiplier = 10000; break;
-        case 5: decimal_multiplier = 100000; break;
-        case 6: decimal_multiplier = 1000000; break;
-        default:
-            decimal_multiplier = 1;
-            for(uint8_t count = 0; count < num_decimals; count++) {
-                decimal_multiplier *= 10;
-            }
-    }
-
-    integer_part = n / (int32_t) 1;
-    decimal_part = (n - integer_part) * decimal_multiplier;
-
-    if(is_neg) {
+    if(n < 0) {
         UART0_WriteChar('-');
+        n *= -1;
     }
-    UART0_WriteInt(integer_part);
-    UART0_WriteChar('.');
-    if(decimal_part > 0) {
-        UART0_WriteInt(decimal_part);
-    }
-    else {
+
+    b = n / (int32_t) 1;
+    UART0_WriteInt(b);
+
+    if(num_decimals > 0) {
+        UART0_WriteChar('.');
         for(uint8_t count = 0; count < num_decimals; count++) {
-            UART0_WriteChar('0');
+            n = (n - b) * (double) 10;
+            b = n / (int32_t) 1;
+            UART0_WriteChar(ASCII_CONVERSION + b);
         }
     }
 }
