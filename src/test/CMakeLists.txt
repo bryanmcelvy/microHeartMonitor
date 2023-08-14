@@ -198,10 +198,12 @@ target_link_libraries(test_adc.elf
                             PLL
                             ADC
                             FIFO
-                            Lookup
+                            GPIO
                             Timer
-                            UART)
+                            # UART
+                        )
 
+target_compile_definitions(test_adc.elf PUBLIC FIFO_POOL_SIZE=1)
 #*****************************************************************************
 # Application SW Tests
 #*****************************************************************************
