@@ -29,28 +29,21 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#define SPI_BUFFER_SIZE    600
-#define SSI0_INTERRUPT_BIT (1 << 7)
+// Macros
+#define SPI_INT_ENABLE()  (NVIC_EN0_R |= (1 << 7))
+#define SPI_INT_DISABLE() (NVIC_DIS0_R |= (1 << 7))
+
+#define SPI_SET_DC()      (GPIO_PORTA_DATA_R |= 0x40)
+#define SPI_CLEAR_DC()    (GPIO_PORTA_DATA_R &= ~(0x40))
+
+#define SPI_IS_BUSY       (SSI0_SR_R & 0x10)
+#define SPI_TX_ISNOTFULL  (SSI0_SR_R & 0x02)
+
+#define SPI_BUFFER_SIZE   8                    // needs to be >8
 
 static bool SPI_usingInterrupts = SPI_USING_INTERRUPTS;
 static uint32_t SPI_Buffer[SPI_BUFFER_SIZE];
 static FIFO_t * SPI_FIFO = 0;
-
-inline static void SSI0_enableInterrupt(void) {
-    NVIC_EN0_R |= SSI0_INTERRUPT_BIT;
-}
-
-inline static void SSI0_disableInterrupt(void) {
-    NVIC_DIS0_R |= SSI0_INTERRUPT_BIT;
-}
-
-inline static bool SSI0_isBusy(void) {
-    return SSI0_SR_R & 0x10;
-}
-
-inline static bool SSI0_TxFIFO_hasSpace(void) {
-    return SSI0_SR_R & 0x02;
-}
 
 void SPI_Init(void) {
     /**
@@ -88,13 +81,12 @@ void SPI_Init(void) {
     SSI0_CR0_R &= ~(0xFFFF);                          // clk. phase = 0, clk. polarity = 0, SPI mode
     SSI0_CR0_R |= 0x0107;                             // SCR = 1, 8-bit data
 
-    if(SPI_usingInterrupts) {
+    // configure interrupt
         SPI_FIFO = FIFO_Init(SPI_Buffer, SPI_BUFFER_SIZE);
-        SSI0_IM_R |= 0x08;                            // interrupt when TX is half-empty
-        NVIC_PRI1_R |= (3 << 29);                     // priority 3
-    }
+    SSI0_IM_R |= 0x08;                           // interrupt when TX is half-empty
+    NVIC_PRI1_R |= (3 << 29);                    // priority 3
 
-    SSI0_CR1_R |= 0x02;                               // re-enable SSI0
+    SSI0_CR1_R |= 0x02;                          // re-enable SSI0
 }
 
 uint8_t SPI_Read(void) {
@@ -103,33 +95,37 @@ uint8_t SPI_Read(void) {
 }
 
 void SPI_WriteCmd(uint8_t cmd) {
-    if(SPI_usingInterrupts) {
+    /* polling-based implementation */
+    // while(SSI0_SR_R & 0x10) {}                               // wait until SSI0 is ready
+    // GPIO_PORTA_DATA_R &= ~(0x40);                            // clear D/C to write command
+    // SSI0_DR_R = cmd;                                         // write command
+    // while(SSI0_SR_R & 0x10) {}                               // wait until transmission is
+    // finished
+
+    /* interrupt-based implementation */
         while(FIFO_isFull(SPI_FIFO)) {}
-        SSI0_disableInterrupt();
         FIFO_Put(SPI_FIFO, cmd);
-        GPIO_PORTA_DATA_R &= ~(0x40);                        // clear D/C to write command
-        SSI0_enableInterrupt();
-    }
-    else {
-        while(SSI0_SR_R & 0x10) {}                           // wait until SSI0 is ready
-        GPIO_PORTA_DATA_R &= ~(0x40);                        // clear D/C to write command
-        SSI0_DR_R = cmd;                                     // write command
-        while(SSI0_SR_R & 0x10) {}                           // wait until transmission is finished
+
+    if(FIFO_isFull(SPI_FIFO)) {
+        SPI_INT_ENABLE();
     }
 }
 
 void SPI_WriteData(uint8_t data) {
-    if(SPI_usingInterrupts) {
+    /* polling-based implementation */
+    // while((SSI0_SR_R & 0x02) == 0) {}                    // wait until Tx FIFO isn't full
+    // GPIO_PORTA_DATA_R |= 0x40;                           // set D/C to write data
+    // SSI0_DR_R += data;                                   // write command
+
+    /* interrupt-based implementation */
+    uint16_t param;
+    param = ((uint16_t) data) | 0x100;                    // set bit 8 to signal as data
+
         while(FIFO_isFull(SPI_FIFO)) {}
-        SSI0_disableInterrupt();
-        FIFO_Put(SPI_FIFO, data);
-        GPIO_PORTA_DATA_R |= 0x40;                           // set D/C to write data
-        SSI0_enableInterrupt();
-    }
-    else {
-        while((SSI0_SR_R & 0x02) == 0) {}                    // wait until Tx FIFO isn't full
-        GPIO_PORTA_DATA_R |= 0x40;                           // set D/C to write data
-        SSI0_DR_R += data;                                   // write command
+    FIFO_Put(SPI_FIFO, param);
+
+    if(FIFO_isFull(SPI_FIFO)) {
+        SPI_INT_ENABLE();
     }
 }
 
@@ -142,15 +138,36 @@ void SPI_WriteData(uint8_t data) {
 //     }
 // }
 
+/**
+ * @brief   Sends parameters (data or commands) over SPI via SSI0.
+ *
+ *          The interrupt is enabled in the NVIC and triggered when the Tx FIFO
+ *          is half-empty. The handler determines whether to signal for data or
+ *          a command via the D/C pin, and then writes to the data register.
+ *
+ *          The interrupt flag is cleared automatically when the Tx FIFO is
+ *          more than half-full.
+ */
 void SSI0_Handler(void) {
-    uint8_t data = FIFO_Get(SPI_FIFO);
-
-    while(SSI0_isBusy()) {}
-    SSI0_DR_R += data;
-
     if(FIFO_isEmpty(SPI_FIFO)) {
-        SSI0_disableInterrupt();
+        SPI_INT_DISABLE();                           // disable interrupt in NVIC
     }
+    else {
+        while(SPI_TX_ISNOTFULL && (FIFO_isEmpty(SPI_FIFO) == false)) {
+            uint16_t param = FIFO_Get(SPI_FIFO);
+
+            if((param & 0x100)) {                    // check bit 8
+                SPI_SET_DC();                        // signal data
+            }
+            else {
+                SPI_CLEAR_DC();                      // signal incoming command
+            }
+
+            SSI0_DR_R += (uint8_t) param;
+        }
+    }
+
+    // no need to acknowledge the interrupt (i.e. clear interrupt flag)
 }
 
 /** @} */
