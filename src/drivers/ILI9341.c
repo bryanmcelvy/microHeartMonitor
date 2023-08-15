@@ -56,6 +56,7 @@ Preprocessor Directives
 #define PRCTR    (uint8_t) 0xB5                    /// Blanking Porch Control
 #define IFCTL    (uint8_t) 0xF6                    /// Interface Control
 
+// clang-format off
 /** Currently unused commands
 #define RDDST                   (uint8_t) 0x09          /// Read Display Status
 #define RDDMADCTL               (uint8_t) 0x0B          /// Read Display MADCTL
@@ -66,15 +67,15 @@ Preprocessor Directives
 #define READ_MEMORY_CONTINUE    (uint8_t) 0x3E          /// Read_Memory_Continue
 #define WRDISBV                 (uint8_t) 0x51          /// Write Display Brightness
 #define RDDISBV                 (uint8_t) 0x52          /// Read Display Brightness
-#define IFMODE                  (uint8_t) 0xB0          /// RGB Interface Signal Control (i.e.
-Interface Mode Control) #define FRMCTR2                 (uint8_t) 0xB2          /// Frame Rate
-Control Set (Idle Mode) #define FRMCTR3                 (uint8_t) 0xB3          /// Frame Rate
-Control Set (Partial Mode) #define INVTR                   (uint8_t) 0xB4          /// Display
-Inversion Control
+#define IFMODE                  (uint8_t) 0xB0          /// RGB Interface Signal Control (i.e. Interface Mode Control)
+#define FRMCTR2                 (uint8_t) 0xB2          /// Frame Rate Control Set (Idle Mode)
+#define FRMCTR3                 (uint8_t) 0xB3          /// Frame Rate Control Set (Partial Mode)
+#define INVTR                   (uint8_t) 0xB4          /// Display Inversion Control
  */
+// clang-format on
 
 // Function Prototypes
-static void ILI9341_setAddress(uint16_t start_address, uint16_t end_address, bool is_row);
+inline static void ILI9341_setAddress(uint16_t start_address, uint16_t end_address, bool is_row);
 
 /******************************************************************************
 Initialization/Reset
@@ -145,7 +146,7 @@ void ILI9341_setDispMode(bool is_normal, bool is_full_colors) {
 }
 
 void ILI9341_setPartialArea(uint16_t rowStart, uint16_t rowEnd) {
-    uint8_t cmd_sequence[4];
+    uint8_t param_sequence[4];
 
     // ensure `rowStart` and `rowEnd` meet restrictions.
     rowEnd = (rowEnd > 0) ? rowEnd : 1;
@@ -154,11 +155,15 @@ void ILI9341_setPartialArea(uint16_t rowStart, uint16_t rowEnd) {
     rowStart = (rowStart < rowEnd) ? rowStart : rowEnd;
 
     // configure and send command sequence
-    cmd_sequence[0] = (uint8_t) ((rowStart & 0xFF00) >> 8);
-    cmd_sequence[1] = (uint8_t) (rowStart & 0x00FF);
-    cmd_sequence[2] = (uint8_t) ((rowEnd & 0xFF00) >> 8);
-    cmd_sequence[3] = (uint8_t) (rowEnd & 0x00FF);
-    SPI_WriteSequence(PLTAR, cmd_sequence, 4);
+    param_sequence[0] = (uint8_t) ((rowStart & 0xFF00) >> 8);
+    param_sequence[1] = (uint8_t) (rowStart & 0x00FF);
+    param_sequence[2] = (uint8_t) ((rowEnd & 0xFF00) >> 8);
+    param_sequence[3] = (uint8_t) (rowEnd & 0x00FF);
+    // SPI_WriteSequence(PLTAR, cmd_sequence, 4);
+    SPI_WriteCmd(PLTAR);
+    for(uint8_t param_num = 0; param_num < 4; param_num++) {
+        SPI_WriteData(param_sequence[param_num]);
+    }
 }
 
 void ILI9341_setDispInversion(bool is_ON) {
@@ -201,7 +206,11 @@ void ILI9341_setScrollArea(uint16_t top_fixed, uint16_t vert_scroll, uint16_t bo
     param_sequence[4] = (uint8_t) ((bottom_fixed & 0xFF00) >> 8);
     param_sequence[5] = (uint8_t) (bottom_fixed & 0x00FF);
 
-    SPI_WriteSequence(VSCRDEF, param_sequence, 6);
+    // SPI_WriteSequence(VSCRDEF, param_sequence, 6);
+    SPI_WriteCmd(VSCRDEF);
+    for(uint8_t param_num = 0; param_num < 6; param_num++) {
+        SPI_WriteData(param_sequence[param_num]);
+    }
 }
 
 void ILI9341_setScrollStart(uint16_t startRow) {
@@ -210,7 +219,11 @@ void ILI9341_setScrollStart(uint16_t startRow) {
     param_sequence[0] = (uint8_t) ((startRow & 0xFF00) >> 8);
     param_sequence[1] = (uint8_t) (startRow & 0x00FF);
 
-    SPI_WriteSequence(VSCRSADD, param_sequence, 2);
+    // SPI_WriteSequence(VSCRSADD, param_sequence, 2);
+    SPI_WriteCmd(VSCRSADD);
+    for(uint8_t param_num = 0; param_num < 2; param_num++) {
+        SPI_WriteData(param_sequence[param_num]);
+    }
 }
 
 void ILI9341_setMemAccessCtrl(bool areRowsFlipped, bool areColsFlipped, bool areRowsColsSwitched,
@@ -260,7 +273,9 @@ void ILI9341_setColorDepth(bool is_16bit) {
     SPI_WriteData(param);
 }
 
-void ILI9341_NoOpCmd(void) { SPI_WriteCmd(NOP); }
+void ILI9341_NoOpCmd(void) {
+    SPI_WriteCmd(NOP);
+}
 
 void ILI9341_setFrameRate(uint8_t div_ratio, uint8_t clocks_per_line) {
     /// TODO: Write
@@ -299,14 +314,19 @@ void ILI9341_setInterface(void) {
      */
 
     const uint8_t param_sequence[3] = { 0x00, 0x00, 0x00 };
-    SPI_WriteSequence(IFCTL, (uint8_t(*)) param_sequence, 3);
+
+    // SPI_WriteSequence(IFCTL, (uint8_t(*)) param_sequence, 3);
+    SPI_WriteData(IFCTL);
+    for(uint8_t param_num = 0; param_num < 3; param_num++) {
+        SPI_WriteData(param_sequence[param_num]);
+    }
 }
 
 /******************************************************************************
 Memory Writing
 *******************************************************************************/
 
-static void ILI9341_setAddress(uint16_t start_address, uint16_t end_address, bool is_row) {
+inline static void ILI9341_setAddress(uint16_t start_address, uint16_t end_address, bool is_row) {
     /**
     This function implements the "Column Address Set" (`CASET`) and "Page
     Address Set" (`PASET`) commands from p. 110-113 of the ILI9341 datasheet.
@@ -332,7 +352,12 @@ static void ILI9341_setAddress(uint16_t start_address, uint16_t end_address, boo
     param_sequence[1] = (uint8_t) (start_address & 0x00FF);
     param_sequence[2] = (uint8_t) ((end_address & 0xFF00) >> 8);
     param_sequence[3] = (uint8_t) (end_address & 0x00FF);
-    SPI_WriteSequence(cmd, param_sequence, 4);
+    // SPI_WriteSequence(cmd, param_sequence, 4);
+
+    SPI_WriteCmd(cmd);
+    for(uint8_t idx = 0; idx < 4; idx++) {
+        SPI_WriteData(*(param_sequence + idx));
+    }
 }
 
 void ILI9341_setRowAddress(uint16_t start_row, uint16_t end_row) {
@@ -342,7 +367,7 @@ void ILI9341_setRowAddress(uint16_t start_row, uint16_t end_row) {
         `end_row` cannot be greater than the max row number (default 320).
     */
 
-    ILI9341_setAddress(start_row, end_row, 1);
+    ILI9341_setAddress(start_row, end_row, true);
 }
 
 void ILI9341_setColAddress(uint16_t start_col, uint16_t end_col) {
@@ -352,10 +377,12 @@ void ILI9341_setColAddress(uint16_t start_col, uint16_t end_col) {
         `end_col` cannot be greater than the max column number (default 240).
     */
 
-    ILI9341_setAddress(start_col, end_col, 0);
+    ILI9341_setAddress(start_col, end_col, false);
 }
 
-void ILI9341_writeMemCmd(void) { SPI_WriteCmd(RAMWR); }
+void ILI9341_writeMemCmd(void) {
+    SPI_WriteCmd(RAMWR);
+}
 
 void ILI9341_write1px(uint8_t red, uint8_t green, uint8_t blue, bool is_16bit) {
     // clang-format off
@@ -383,19 +410,27 @@ void ILI9341_write1px(uint8_t red, uint8_t green, uint8_t blue, bool is_16bit) {
     // clang-format on
 
     static uint8_t data[3] = { 0 };
+    uint8_t num_params;
 
     if(is_16bit) {
+        num_params = 2;
         data[0] = ((red & 0x1F) << 3) | ((green & 0x38) >> 3);
         data[1] = ((green & 0x07) << 5) | (blue & 0x1F);
-        SPI_WriteSequence(0, data, 2);
+        // SPI_WriteSequence(0, data, 2);
     }
     else {
+        num_params = 3;
+
         // bits 1 and 0 are set to prevent the TM4C from
         // attempting to right-justify the RGB data
         data[0] = ((red & 0x3F) << 2) + 0x03;
         data[1] = ((green & 0x3F) << 2) + 0x03;
         data[2] = ((blue & 0x3F) << 2) + 0x03;
-        SPI_WriteSequence(0, data, 3);
+        // SPI_WriteSequence(0, data, 3);
+    }
+
+    for(uint8_t idx = 0; idx < num_params; idx++) {
+        SPI_WriteData(data[idx]);
     }
 }
 

@@ -41,7 +41,7 @@ static void LCD_updateNumPixels(void);
  * @param is_x              `true` if dimension is `x`, `false` if `y`
  * @param update_num_pixels `true` to update `lcd.numPixels`, `false` if not
  */
-static void LCD_setDim(uint16_t d1, uint16_t d2, bool is_x, bool update_num_pixels);
+inline static void LCD_setDim(uint16_t d1, uint16_t d2, bool is_x, bool update_num_pixels);
 
 /**
  * @brief               Helper function for drawing straight lines.
@@ -52,7 +52,7 @@ static void LCD_setDim(uint16_t d1, uint16_t d2, bool is_x, bool update_num_pixe
  * @param lineWidth     Width of the line. Should be a positive, odd number.
  * @param is_row        `true` for horizontal line, `false` for vertical line
  */
-static void LCD_drawLine(uint16_t center, uint16_t lineWidth, bool is_horizontal);
+inline static void LCD_drawLine(uint16_t center, uint16_t lineWidth, bool is_horizontal);
 
 typedef struct {
     uint16_t x1;
@@ -106,12 +106,12 @@ void LCD_Init(void) {
 }
 
 void LCD_toggleOutput(void) {
-    lcd.is_outputON = !(lcd.is_outputON);
+    lcd.is_outputON = (lcd.is_outputON) ? false : true;
     ILI9341_setDispOutput(lcd.is_outputON);
 }
 
 void LCD_toggleInversion(void) {
-    lcd.is_inverted = !(lcd.is_inverted);
+    lcd.is_inverted = (lcd.is_inverted) ? false : true;
     ILI9341_setDispInversion(lcd.is_inverted);
 }
 
@@ -132,7 +132,7 @@ static void LCD_updateNumPixels(void) {
     lcd.numPixels = (uint32_t) ((lcd.x2 - lcd.x1) + 1) * ((lcd.y2 - lcd.y1) + 1);
 }
 
-static void LCD_setDim(uint16_t d1, uint16_t d2, bool is_x, bool update_num_pixels) {
+inline static void LCD_setDim(uint16_t d1, uint16_t d2, bool is_x, bool update_num_pixels) {
     uint16_t DIM_MAX;
 
     // ensure the dim numbers meet the restrictions
@@ -161,9 +161,13 @@ void LCD_setArea(uint16_t x1, uint16_t x2, uint16_t y1, uint16_t y2) {
     LCD_setDim(y1, y2, false, true);
 }
 
-void LCD_setX(uint16_t x1, uint16_t x2) { LCD_setDim(x1, x2, true, true); }
+void LCD_setX(uint16_t x1, uint16_t x2) {
+    LCD_setDim(x1, x2, true, true);
+}
 
-void LCD_setY(uint16_t y1, uint16_t y2) { LCD_setDim(y1, y2, false, true); }
+void LCD_setY(uint16_t y1, uint16_t y2) {
+    LCD_setDim(y1, y2, false, true);
+}
 
 /******************************************************************************
 4) Color
@@ -216,11 +220,13 @@ void LCD_draw(void) {
 }
 
 void LCD_fill(void) {
-    LCD_setArea(0, X_MAX, 0, Y_MAX);
+    // LCD_setArea(0, X_MAX, 0, Y_MAX);
+    LCD_setDim(0, X_MAX, true, false);
+    LCD_setDim(0, Y_MAX, false, true);
     LCD_draw();
 }
 
-static void LCD_drawLine(uint16_t center, uint16_t lineWidth, bool is_horizontal) {
+inline static void LCD_drawLine(uint16_t center, uint16_t lineWidth, bool is_horizontal) {
     uint16_t start, end;
     uint16_t padding;
     uint16_t MAX_NUM;
@@ -244,15 +250,21 @@ static void LCD_drawLine(uint16_t center, uint16_t lineWidth, bool is_horizontal
     start = center - padding;
     end = center + padding;
     if(is_horizontal) {
-        LCD_setArea(0, (X_MAX - 1), start, end);
+        // NOTE: this is split into separate func calls to reduce call stack usage
+        LCD_setDim(0, (X_MAX - 1), true, false);
+        LCD_setDim(start, end, false, true);
     }
     else {
-        LCD_setArea(start, end, 0, (Y_MAX - 1));
+        // NOTE: see above comment
+        LCD_setDim(start, end, true, false);
+        LCD_setDim(0, (Y_MAX - 1), false, true);
     }
     LCD_draw();
 }
 
-void LCD_drawHLine(uint16_t yCenter, uint16_t lineWidth) { LCD_drawLine(yCenter, lineWidth, true); }
+void LCD_drawHLine(uint16_t yCenter, uint16_t lineWidth) {
+    LCD_drawLine(yCenter, lineWidth, true);
+}
 
 void LCD_drawVLine(uint16_t xCenter, uint16_t lineWidth) {
     LCD_drawLine(xCenter, lineWidth, false);
@@ -278,17 +290,28 @@ void LCD_drawRectangle(uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy, bool 
     x2 = (x1 + dx) - 1;
     y2 = (y1 + dy) - 1;
     if(is_filled) {
-        LCD_setArea(x1, x2, y1, y2);
+        // LCD_setArea(x1, x2, y1, y2);
+        LCD_setDim(x1, x2, true, false);
+        LCD_setDim(y1, y2, false, true);
         LCD_draw();
     }
     else {
-        LCD_setArea(x1, x2, y1, y1);                    // left side
+        // left side
+        LCD_setDim(x1, x2, true, false);
+        LCD_setDim(y1, y1, false, true);
         LCD_draw();
-        LCD_setArea(x1, x2, y2, y2);                    // right side
+
+        // right side
+        LCD_setDim(y2, y2, false, true);
         LCD_draw();
-        LCD_setArea(x1, x1, y1, y2);                    // top side
+
+        // top side
+        LCD_setDim(x1, x1, true, false);
+        LCD_setDim(y1, y2, false, true);
         LCD_draw();
-        LCD_setArea(x2, x2, y1, y2);                    // right side
+
+        // right side
+        LCD_setDim(x2, x2, true, true);
         LCD_draw();
     }
 }
@@ -307,7 +330,9 @@ void LCD_drawRectBlank(uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy, uint1
     // set area of display to write to
     x2 = (x1 + dx) - 1;
     y2 = (y1 + dy) - 1;
-    LCD_setArea(x1, x2, y_min, y_max);
+    // LCD_setArea(x1, x2, y_min, y_max);
+    LCD_setDim(x1, x2, true, false);
+    LCD_setDim(y_min, y_max, false, true);
 
     ILI9341_writeMemCmd();
 
