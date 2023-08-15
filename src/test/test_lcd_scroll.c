@@ -4,7 +4,6 @@
  * @brief   Test script for writing different colors on the LCD.
  */
 
-#include "ILI9341.h"
 #include "LCD.h"
 
 #include "PLL.h"
