@@ -47,7 +47,7 @@ int main(void) {
     UART0_WriteStr((unsigned char *) "Current contents: ");
     UART0_WriteChar('\n');
 
-    FIFO_Peek(fifo_ptr, print_buffer);
+    FIFO_PeekAll(fifo_ptr, print_buffer);
     for(int i = 0; i < FIFO_LEN - 1; i++) {
         UART0_WriteInt(print_buffer[i]);
         UART0_WriteChar('\n');

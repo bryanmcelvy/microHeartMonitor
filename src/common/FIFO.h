@@ -101,13 +101,21 @@ Status Checks
 *******************************************************************************/
 
 /**
+ * @brief               See the first element in the FIFO without removing it.
+ *
+ * @param fifo_ptr      Pointer to FIFO object
+ * @return              First sample in the FIFO.
+ */
+uint32_t FIFO_PeekOne(FIFO_t * fifo_ptr);
+
+/**
  * @brief               See the FIFO buffer's contents without removing them.
  *
  * @param fifo_ptr      Pointer to FIFO object
  * @param output_buffer Array to output values to.
  *                      Should be the same length as the FIFO buffer.
  */
-void FIFO_Peek(FIFO_t * fifo_ptr, uint32_t output_buffer[]);
+void FIFO_PeekAll(FIFO_t * fifo_ptr, uint32_t output_buffer[]);
 
 /**
  * @brief               Check if the FIFO buffer is full.

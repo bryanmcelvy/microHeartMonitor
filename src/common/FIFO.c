@@ -111,7 +111,20 @@ void FIFO_TransferAll(FIFO_t * src_fifo_ptr, FIFO_t * dest_fifo_ptr) {
 Status Checks
 *******************************************************************************/
 
-void FIFO_Peek(FIFO_t * fifo_ptr, uint32_t output_buffer[]) {
+uint32_t FIFO_PeekOne(FIFO_t * fifo_ptr) {
+    uint32_t ret_val;
+
+    if(FIFO_isEmpty(fifo_ptr)) {
+        ret_val = 0;
+    }
+    else {
+        ret_val = fifo_ptr->buffer[fifo_ptr->front_idx];
+    }
+
+    return ret_val;
+}
+
+void FIFO_PeekAll(FIFO_t * fifo_ptr, uint32_t output_buffer[]) {
     uint32_t temp_front_idx = fifo_ptr->front_idx;
     uint32_t idx = 0;
 
