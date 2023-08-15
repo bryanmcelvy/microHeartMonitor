@@ -4,3 +4,4 @@ Diagnostics:
   Suppress: -Wincompatible-pointer-types-discards-qualifiers
   ClangTidy:
     Add: [bugprone*, misc*]
+    Remove: bugprone-easily-swappable-parameters
