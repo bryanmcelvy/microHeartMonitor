@@ -21,6 +21,19 @@
  *  Clk. Phase     =   rising clock edge (0)    <br>
  */
 
+/******************************************************************************
+SECTIONS
+        Preprocessor Directives
+        Initialization
+        Basic Operations
+        Interrupt Handler
+*******************************************************************************/
+
+/******************************************************************************
+Preprocessor Directives
+*******************************************************************************/
+
+// Includes
 #include "SPI.h"
 
 #include "FIFO.h"
@@ -41,7 +54,10 @@
 
 #define SPI_BUFFER_SIZE   8                    // needs to be >8
 
-static bool SPI_usingInterrupts = SPI_USING_INTERRUPTS;
+/******************************************************************************
+Initialization
+*******************************************************************************/
+
 static uint32_t SPI_Buffer[SPI_BUFFER_SIZE];
 static FIFO_t * SPI_FIFO = 0;
 
@@ -82,16 +98,20 @@ void SPI_Init(void) {
     SSI0_CR0_R |= 0x0107;                             // SCR = 1, 8-bit data
 
     // configure interrupt
-        SPI_FIFO = FIFO_Init(SPI_Buffer, SPI_BUFFER_SIZE);
+    SPI_FIFO = FIFO_Init(SPI_Buffer, SPI_BUFFER_SIZE);
     SSI0_IM_R |= 0x08;                           // interrupt when TX is half-empty
     NVIC_PRI1_R |= (3 << 29);                    // priority 3
 
     SSI0_CR1_R |= 0x02;                          // re-enable SSI0
 }
 
+/******************************************************************************
+Basic Operations
+*******************************************************************************/
+
 uint8_t SPI_Read(void) {
-    while(SSI0_SR_R & 0x04) {}                        // wait until Rx FIFO is empty
-    return (uint8_t) (SSI0_DR_R & 0xFF);                     // return data from data register
+    while(SSI0_SR_R & 0x04) {}                              // wait until Rx FIFO is empty
+    return (uint8_t) (SSI0_DR_R & 0xFF);                    // return data from data register
 }
 
 void SPI_WriteCmd(uint8_t cmd) {
@@ -103,8 +123,8 @@ void SPI_WriteCmd(uint8_t cmd) {
     // finished
 
     /* interrupt-based implementation */
-        while(FIFO_isFull(SPI_FIFO)) {}
-        FIFO_Put(SPI_FIFO, cmd);
+    while(FIFO_isFull(SPI_FIFO)) {}
+    FIFO_Put(SPI_FIFO, cmd);
 
     if(FIFO_isFull(SPI_FIFO)) {
         SPI_INT_ENABLE();
@@ -121,7 +141,7 @@ void SPI_WriteData(uint8_t data) {
     uint16_t param;
     param = ((uint16_t) data) | 0x100;                    // set bit 8 to signal as data
 
-        while(FIFO_isFull(SPI_FIFO)) {}
+    while(FIFO_isFull(SPI_FIFO)) {}
     FIFO_Put(SPI_FIFO, param);
 
     if(FIFO_isFull(SPI_FIFO)) {
@@ -137,6 +157,10 @@ void SPI_WriteData(uint8_t data) {
 //         SPI_WriteData(*(param_sequence + i));
 //     }
 // }
+
+/******************************************************************************
+Interrupt Handler
+*******************************************************************************/
 
 /**
  * @brief   Sends parameters (data or commands) over SPI via SSI0.

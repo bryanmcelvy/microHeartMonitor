@@ -10,6 +10,17 @@
 #ifndef __SPI_H___
 #define __SPI_H___
 
+/******************************************************************************
+SECTIONS
+        Preprocessor Directives
+        Initialization
+        Basic Operations
+*******************************************************************************/
+
+/******************************************************************************
+Preprocessor Directives
+*******************************************************************************/
+
 #include "tm4c123gh6pm.h"
 
 #include "FIFO.h"
@@ -17,15 +28,19 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#ifndef SPI_USING_INTERRUPTS
-#define SPI_USING_INTERRUPTS false
-#endif
+/******************************************************************************
+Initialization
+*******************************************************************************/
 
 /**
  * @brief   Initialize SSI0 to act as an SPI Controller (AKA Master) in mode 0.
  *
  */
 void SPI_Init(void);
+
+/******************************************************************************
+Basic Operations
+*******************************************************************************/
 
 /**
  * @brief   Read data from peripheral.
