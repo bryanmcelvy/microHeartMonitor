@@ -23,9 +23,34 @@
 
 #include "SPI.h"
 
-#include "tm4c123gh6pm.h"
+#include "FIFO.h"
 
+#include "tm4c123gh6pm.h"
+#include <stdbool.h>
 #include <stdint.h>
+
+#define SPI_BUFFER_SIZE    600
+#define SSI0_INTERRUPT_BIT (1 << 7)
+
+static bool SPI_usingInterrupts = SPI_USING_INTERRUPTS;
+static uint32_t SPI_Buffer[SPI_BUFFER_SIZE];
+static FIFO_t * SPI_FIFO = 0;
+
+inline static void SSI0_enableInterrupt(void) {
+    NVIC_EN0_R |= SSI0_INTERRUPT_BIT;
+}
+
+inline static void SSI0_disableInterrupt(void) {
+    NVIC_DIS0_R |= SSI0_INTERRUPT_BIT;
+}
+
+inline static bool SSI0_isBusy(void) {
+    return SSI0_SR_R & 0x10;
+}
+
+inline static bool SSI0_TxFIFO_hasSpace(void) {
+    return SSI0_SR_R & 0x02;
+}
 
 void SPI_Init(void) {
     /**
@@ -56,30 +81,56 @@ void SPI_Init(void) {
     GPIO_PORTA_DATA_R |= 0x80;                        // set `RESET` signal `HIGH` (active `LOW`)
 
     SSI0_CR1_R &= ~(0x02);                            // disable SSI0
-    SSI0_CR1_R &= ~(0x04);                            // controller (M) mode
+    SSI0_CR1_R &= ~(0x15);                            /* controller (M) mode, interrupt when Tx
+                                                        FIFO is half-empty, no loopback to RX */
     SSI0_CC_R &= ~(0x0F);                             // system clock
     SSI0_CPSR_R |= 0x06;
     SSI0_CR0_R &= ~(0xFFFF);                          // clk. phase = 0, clk. polarity = 0, SPI mode
     SSI0_CR0_R |= 0x0107;                             // SCR = 1, 8-bit data
+
+    if(SPI_usingInterrupts) {
+        SPI_FIFO = FIFO_Init(SPI_Buffer, SPI_BUFFER_SIZE);
+        SSI0_IM_R |= 0x08;                            // interrupt when TX is half-empty
+        NVIC_PRI1_R |= (3 << 29);                     // priority 3
+    }
+
     SSI0_CR1_R |= 0x02;                               // re-enable SSI0
 }
 
 uint8_t SPI_Read(void) {
     while(SSI0_SR_R & 0x04) {}                        // wait until Rx FIFO is empty
-    return (uint8_t) (SSI0_DR_R & 0xFF);                    // return data from data register
+    return (uint8_t) (SSI0_DR_R & 0xFF);                     // return data from data register
 }
 
 void SPI_WriteCmd(uint8_t cmd) {
-    while(SSI0_SR_R & 0x10) {}                              // wait until SSI0 is ready
-    GPIO_PORTA_DATA_R &= ~(0x40);                           // clear D/C to write command
-    SSI0_DR_R = cmd;                                        // write command
-    while(SSI0_SR_R & 0x10) {}                              // wait until transmission is finished
+    if(SPI_usingInterrupts) {
+        while(FIFO_isFull(SPI_FIFO)) {}
+        SSI0_disableInterrupt();
+        FIFO_Put(SPI_FIFO, cmd);
+        GPIO_PORTA_DATA_R &= ~(0x40);                        // clear D/C to write command
+        SSI0_enableInterrupt();
+    }
+    else {
+        while(SSI0_SR_R & 0x10) {}                           // wait until SSI0 is ready
+        GPIO_PORTA_DATA_R &= ~(0x40);                        // clear D/C to write command
+        SSI0_DR_R = cmd;                                     // write command
+        while(SSI0_SR_R & 0x10) {}                           // wait until transmission is finished
+    }
 }
 
 void SPI_WriteData(uint8_t data) {
-    while((SSI0_SR_R & 0x02) == 0) {}                       // wait until Tx FIFO isn't full
-    GPIO_PORTA_DATA_R |= 0x40;                              // set D/C to write data
-    SSI0_DR_R += data;                                      // write command
+    if(SPI_usingInterrupts) {
+        while(FIFO_isFull(SPI_FIFO)) {}
+        SSI0_disableInterrupt();
+        FIFO_Put(SPI_FIFO, data);
+        GPIO_PORTA_DATA_R |= 0x40;                           // set D/C to write data
+        SSI0_enableInterrupt();
+    }
+    else {
+        while((SSI0_SR_R & 0x02) == 0) {}                    // wait until Tx FIFO isn't full
+        GPIO_PORTA_DATA_R |= 0x40;                           // set D/C to write data
+        SSI0_DR_R += data;                                   // write command
+    }
 }
 
 void SPI_WriteSequence(uint8_t cmd, uint8_t * param_sequence, uint8_t num_params) {
@@ -88,6 +139,17 @@ void SPI_WriteSequence(uint8_t cmd, uint8_t * param_sequence, uint8_t num_params
     }
     for(uint8_t i = 0; i < num_params; i++) {
         SPI_WriteData(*(param_sequence + i));
+    }
+}
+
+void SSI0_Handler(void) {
+    uint8_t data = FIFO_Get(SPI_FIFO);
+
+    while(SSI0_isBusy()) {}
+    SSI0_DR_R += data;
+
+    if(FIFO_isEmpty(SPI_FIFO)) {
+        SSI0_disableInterrupt();
     }
 }
 

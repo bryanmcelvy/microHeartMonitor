@@ -12,7 +12,14 @@
 
 #include "tm4c123gh6pm.h"
 
+#include "FIFO.h"
+
+#include <stdbool.h>
 #include <stdint.h>
+
+#ifndef SPI_USING_INTERRUPTS
+#define SPI_USING_INTERRUPTS false
+#endif
 
 /**
  * @brief   Initialize SSI0 to act as an SPI Controller (AKA Master) in mode 0.
