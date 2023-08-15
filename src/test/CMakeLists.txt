@@ -170,6 +170,7 @@ add_executable(test_ili9341_blinkdisplay.elf
 
 target_include_directories(test_ili9341_blinkdisplay.elf 
                             PRIVATE 
+                                ${PROJECT_SOURCE_DIR}/src/common
                                 ${PROJECT_SOURCE_DIR}/src/drivers
                                 ${PROJECT_SOURCE_DIR}/src/device
                             )
@@ -217,6 +218,7 @@ add_executable(test_lcd_scroll.elf
 target_include_directories(test_lcd_scroll.elf 
                             PRIVATE 
                             ${PROJECT_SOURCE_DIR}/src/app
+                            ${PROJECT_SOURCE_DIR}/src/common
                             ${PROJECT_SOURCE_DIR}/src/drivers
                             ${PROJECT_SOURCE_DIR}/src/device
                             )
@@ -228,6 +230,12 @@ target_link_libraries(test_lcd_scroll.elf
                             GPIO
                             Timer)
 
+target_compile_definitions(test_lcd_scroll.elf
+                            PUBLIC 
+                                SPI_USING_INTERRUPTS=true
+                                FIFO_POOL_SIZE=1
+)
+
 # LCD Image Test
 add_executable(test_lcd_image.elf 
                     test_lcd_image.c
@@ -237,6 +245,7 @@ add_executable(test_lcd_image.elf
 target_include_directories(test_lcd_image.elf 
                             PRIVATE 
                             ${PROJECT_SOURCE_DIR}/src/app
+                            ${PROJECT_SOURCE_DIR}/src/common
                             ${PROJECT_SOURCE_DIR}/src/drivers
                             ${PROJECT_SOURCE_DIR}/src/device
                             )
