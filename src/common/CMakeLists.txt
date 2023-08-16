@@ -4,5 +4,5 @@ Description:    Adds static libraries used by both application software and devi
 #***********************************************************************************************    ]]
 add_library(FIFO STATIC FIFO.c FIFO.h)
 
-add_library(Lookup INTERFACE lookup.c lookup.h)
-target_sources(Lookup INTERFACE lookup.c lookup.h)
+add_library(Lookup STATIC lookup.c lookup.h)
+target_include_directories(Lookup PRIVATE ${CMSIS_DIRS})
