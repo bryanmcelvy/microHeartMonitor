@@ -25,7 +25,8 @@
 SECTIONS
         Preprocessor Directives
         Initialization
-        Basic Operations
+        Basic Operations (Polling-based)
+        Basic Operations (Interrupt-based)
         Interrupt Handler
 *******************************************************************************/
 
@@ -59,7 +60,7 @@ Initialization
 *******************************************************************************/
 
 static uint32_t SPI_Buffer[SPI_BUFFER_SIZE];
-static FIFO_t * SPI_FIFO = 0;
+static FIFO_t * SPI_fifo = 0;
 
 void SPI_Init(void) {
     /**
@@ -87,7 +88,7 @@ void SPI_Init(void) {
 
     GPIO_PORTA_AMSEL_R &= ~(0xFC);                    // disable analog for PA2-7
     GPIO_PORTA_DEN_R |= 0xFC;                         // enable digital IO for PA2-7
-    GPIO_PORTA_DATA_R |= 0x80;                        // set `RESET` signal `HIGH` (active `LOW`)
+    GPIO_PORTA_DATA_R |= 0x80;                        // set `RESET` pin `HIGH` (active `LOW`)
 
     SSI0_CR1_R &= ~(0x02);                            // disable SSI0
     SSI0_CR1_R &= ~(0x15);                            /* controller (M) mode, interrupt when Tx
@@ -98,7 +99,7 @@ void SPI_Init(void) {
     SSI0_CR0_R |= 0x0107;                             // SCR = 1, 8-bit data
 
     // configure interrupt
-    SPI_FIFO = FIFO_Init(SPI_Buffer, SPI_BUFFER_SIZE);
+    SPI_fifo = FIFO_Init(SPI_Buffer, SPI_BUFFER_SIZE);
     SSI0_IM_R |= 0x08;                           // interrupt when TX is half-empty
     NVIC_PRI1_R |= (3 << 29);                    // priority 3
 
@@ -106,7 +107,7 @@ void SPI_Init(void) {
 }
 
 /******************************************************************************
-Basic Operations
+Basic Operations (Polling-based)
 *******************************************************************************/
 
 uint8_t SPI_Read(void) {
@@ -115,53 +116,59 @@ uint8_t SPI_Read(void) {
 }
 
 void SPI_WriteCmd(uint8_t cmd) {
-    /* polling-based implementation */
-    // while(SSI0_SR_R & 0x10) {}                               // wait until SSI0 is ready
-    // GPIO_PORTA_DATA_R &= ~(0x40);                            // clear D/C to write command
-    // SSI0_DR_R = cmd;                                         // write command
-    // while(SSI0_SR_R & 0x10) {}                               // wait until transmission is
-    // finished
-
-    /* interrupt-based implementation */
-    while(FIFO_isFull(SPI_FIFO)) {}
-    FIFO_Put(SPI_FIFO, cmd);
-
-    if(FIFO_isFull(SPI_FIFO)) {
-        SPI_INT_ENABLE();
-    }
+    while(SPI_IS_BUSY) {}
+    SPI_CLEAR_DC();                                         // signal incoming command to peripheral
+    SSI0_DR_R += cmd;
+    while(SPI_IS_BUSY) {}                                   // wait for transmission to finish
 }
 
 void SPI_WriteData(uint8_t data) {
-    /* polling-based implementation */
-    // while((SSI0_SR_R & 0x02) == 0) {}                    // wait until Tx FIFO isn't full
-    // GPIO_PORTA_DATA_R |= 0x40;                           // set D/C to write data
-    // SSI0_DR_R += data;                                   // write command
+    while(SPI_TX_ISNOTFULL == 0) {}
+    SPI_SET_DC();                                           // signal incoming data to peripheral
+    SSI0_DR_R += data;                                      // write command
+}
 
-    /* interrupt-based implementation */
-    uint16_t param;
-    param = ((uint16_t) data) | 0x100;                    // set bit 8 to signal as data
+/*
+NOTE: unused due to increasing call stack usage without much benefit
 
-    while(FIFO_isFull(SPI_FIFO)) {}
-    FIFO_Put(SPI_FIFO, param);
+void SPI_WriteSequence(uint8_t cmd, uint8_t * param_sequence, uint8_t num_params) {
+    if(cmd != 0) {
+        SPI_WriteCmd(cmd);
+    }
+    for(uint8_t i = 0; i < num_params; i++) {
+        SPI_WriteData(*(param_sequence + i));
+    }
+}
+*/
 
-    if(FIFO_isFull(SPI_FIFO)) {
+/******************************************************************************
+Basic Operations (Interrupt-based)
+*******************************************************************************/
+
+void SPI_IRQ_WriteCmd(uint8_t cmd) {
+    while(FIFO_isFull(SPI_fifo)) {}
+    FIFO_Put(SPI_fifo, cmd);
+
+    if(FIFO_isFull(SPI_fifo)) {
         SPI_INT_ENABLE();
     }
 }
 
-void SPI_StartWriting(void) {
-    SPI_INT_ENABLE();
+void SPI_IRQ_WriteData(uint8_t data) {
+    uint16_t param;
+    param = ((uint16_t) data) | 0x100;                    // set bit 8 to signal as data
+
+    while(FIFO_isFull(SPI_fifo)) {}
+    FIFO_Put(SPI_fifo, param);
+
+    if(FIFO_isFull(SPI_fifo)) {
+        SPI_INT_ENABLE();
+    }
 }
 
-/* NOTE: unused due to increasing call stack usage without much benefit */
-// void SPI_WriteSequence(uint8_t cmd, uint8_t * param_sequence, uint8_t num_params) {
-//     if(cmd != 0) {
-//         SPI_WriteCmd(cmd);
-//     }
-//     for(uint8_t i = 0; i < num_params; i++) {
-//         SPI_WriteData(*(param_sequence + i));
-//     }
-// }
+void SPI_IRQ_StartWriting(void) {
+    SPI_INT_ENABLE();
+}
 
 /******************************************************************************
 Interrupt Handler
@@ -178,12 +185,12 @@ Interrupt Handler
  *          more than half-full.
  */
 void SSI0_Handler(void) {
-    if(FIFO_isEmpty(SPI_FIFO)) {
+    if(FIFO_isEmpty(SPI_fifo)) {
         SPI_INT_DISABLE();                           // disable interrupt in NVIC
     }
     else {
-        while(SPI_TX_ISNOTFULL && (FIFO_isEmpty(SPI_FIFO) == false)) {
-            uint16_t param = FIFO_Get(SPI_FIFO);
+        while(SPI_TX_ISNOTFULL && (FIFO_isEmpty(SPI_fifo) == false)) {
+            uint16_t param = FIFO_Get(SPI_fifo);
 
             if((param & 0x100)) {                    // check bit 8
                 SPI_SET_DC();                        // signal data
