@@ -256,3 +256,26 @@ target_link_libraries(test_lcd_image.elf
                             LCD
                             GPIO
                             Timer)
+
+# DAQ Image Test
+add_executable(test_daq.elf 
+                    test_daq.c
+                    ${PROJECT_SOURCE_DIR}/src/device/startup_gcc.c
+                )
+
+target_include_directories(test_daq.elf 
+                            PRIVATE 
+                            ${PROJECT_SOURCE_DIR}/src/app
+                            ${PROJECT_SOURCE_DIR}/src/common
+                            ${PROJECT_SOURCE_DIR}/src/drivers
+                            ${PROJECT_SOURCE_DIR}/src/device
+                            ${CMSIS_DIRS}
+                            )
+
+target_link_libraries(test_daq.elf
+                        PRIVATE
+                            ADC
+                            PLL
+                            LCD
+                            GPIO
+                            Timer)
