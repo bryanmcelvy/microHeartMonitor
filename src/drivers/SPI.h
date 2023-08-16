@@ -43,25 +43,37 @@ Basic Operations
 *******************************************************************************/
 
 /**
- * @brief   Read data from peripheral.
+ * @brief                   Read data from the peripheral.
  *
- * @return  uint8_t
+ * @return                  uint8_t
  */
 uint8_t SPI_Read(void);
 
 /**
- * @brief   Write an 8-bit command to the peripheral.
+ * @brief                   Write an 8-bit command to the peripheral.
+ *                          If no data or other command is written, should
+ *                          directly precede a call to `SPI_StartWriting()`.
  *
- * @param   cmd command for peripheral
+ * @param cmd               command for peripheral
  */
 void SPI_WriteCmd(uint8_t cmd);
 
 /**
- * @brief   Write 8-bit data to the peripheral.
+ * @brief                   Write 8-bit data to the peripheral.
+ *                          Should directly precede either another call to the
+ *                          same function or a call to `SPI_StartWriting()`.
  *
- * @param   data input data for peripheral
+ * @param data              input data for peripheral
  */
 void SPI_WriteData(uint8_t data);
+
+/**
+ * @brief                   Start writing data to the Tx FIFO.
+ *                          Should be used after 1+ calls to `SPI_WriteCmd()`
+ *                          and/or `SPI_WriteData()`. If unused, the write will
+ *                          start when the SPI module's FIFO buffer is full.
+ */
+void SPI_StartWriting(void);
 
 /**
  * @brief                   Write a sequence of data to the peripheral,

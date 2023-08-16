@@ -149,6 +149,11 @@ void SPI_WriteData(uint8_t data) {
     }
 }
 
+void SPI_StartWriting(void) {
+    SPI_INT_ENABLE();
+}
+
+/* NOTE: unused due to increasing call stack usage without much benefit */
 // void SPI_WriteSequence(uint8_t cmd, uint8_t * param_sequence, uint8_t num_params) {
 //     if(cmd != 0) {
 //         SPI_WriteCmd(cmd);

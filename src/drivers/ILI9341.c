@@ -102,6 +102,7 @@ void ILI9341_resetHard(void) {
 
 void ILI9341_resetSoft(void) {
     SPI_WriteCmd(SWRESET);
+    SPI_StartWriting();
     Timer2A_Wait1ms(5);                    /// the driver needs 5 [ms] before another command
 }
 
@@ -125,6 +126,7 @@ void ILI9341_setSleepMode(bool is_sleeping) {
     else {
         SPI_WriteCmd(SPLOUT);
     }
+    SPI_StartWriting();
 
     Timer2A_Wait1ms(120);
 }
@@ -143,6 +145,7 @@ void ILI9341_setDispMode(bool is_normal, bool is_full_colors) {
     else {
         SPI_WriteCmd(IDMOFF);
     }
+    SPI_StartWriting();
 }
 
 void ILI9341_setPartialArea(uint16_t rowStart, uint16_t rowEnd) {
@@ -164,6 +167,7 @@ void ILI9341_setPartialArea(uint16_t rowStart, uint16_t rowEnd) {
     for(uint8_t param_num = 0; param_num < 4; param_num++) {
         SPI_WriteData(param_sequence[param_num]);
     }
+    SPI_StartWriting();
 }
 
 void ILI9341_setDispInversion(bool is_ON) {
@@ -174,6 +178,7 @@ void ILI9341_setDispInversion(bool is_ON) {
     else {
         SPI_WriteCmd(DINVOFF);
     }
+    SPI_StartWriting();
 }
 
 void ILI9341_setDispOutput(bool is_ON) {
@@ -184,6 +189,7 @@ void ILI9341_setDispOutput(bool is_ON) {
     else {
         SPI_WriteCmd(DISPOFF);
     }
+    SPI_StartWriting();
 }
 
 void ILI9341_setScrollArea(uint16_t top_fixed, uint16_t vert_scroll, uint16_t bottom_fixed) {
@@ -211,6 +217,7 @@ void ILI9341_setScrollArea(uint16_t top_fixed, uint16_t vert_scroll, uint16_t bo
     for(uint8_t param_num = 0; param_num < 6; param_num++) {
         SPI_WriteData(param_sequence[param_num]);
     }
+    SPI_StartWriting();
 }
 
 void ILI9341_setScrollStart(uint16_t startRow) {
@@ -224,6 +231,7 @@ void ILI9341_setScrollStart(uint16_t startRow) {
     for(uint8_t param_num = 0; param_num < 2; param_num++) {
         SPI_WriteData(param_sequence[param_num]);
     }
+    SPI_StartWriting();
 }
 
 void ILI9341_setMemAccessCtrl(bool areRowsFlipped, bool areColsFlipped, bool areRowsColsSwitched,
@@ -261,6 +269,7 @@ void ILI9341_setMemAccessCtrl(bool areRowsFlipped, bool areColsFlipped, bool are
 
     SPI_WriteCmd(MADCTL);
     SPI_WriteData(param);
+    SPI_StartWriting();
 }
 
 void ILI9341_setColorDepth(bool is_16bit) {
@@ -271,10 +280,12 @@ void ILI9341_setColorDepth(bool is_16bit) {
     uint8_t param = (is_16bit) ? 0x55 : 0x66;
     SPI_WriteCmd(PIXSET);
     SPI_WriteData(param);
+    SPI_StartWriting();
 }
 
 void ILI9341_NoOpCmd(void) {
     SPI_WriteCmd(NOP);
+    SPI_StartWriting();
 }
 
 void ILI9341_setFrameRate(uint8_t div_ratio, uint8_t clocks_per_line) {
@@ -320,6 +331,7 @@ void ILI9341_setInterface(void) {
     for(uint8_t param_num = 0; param_num < 3; param_num++) {
         SPI_WriteData(param_sequence[param_num]);
     }
+    SPI_StartWriting();
 }
 
 /******************************************************************************
@@ -356,8 +368,9 @@ inline static void ILI9341_setAddress(uint16_t start_address, uint16_t end_addre
 
     SPI_WriteCmd(cmd);
     for(uint8_t idx = 0; idx < 4; idx++) {
-        SPI_WriteData(*(param_sequence + idx));
+        SPI_WriteData(param_sequence[idx]);
     }
+    SPI_StartWriting();
 }
 
 void ILI9341_setRowAddress(uint16_t start_row, uint16_t end_row) {
@@ -382,6 +395,7 @@ void ILI9341_setColAddress(uint16_t start_col, uint16_t end_col) {
 
 void ILI9341_writeMemCmd(void) {
     SPI_WriteCmd(RAMWR);
+    // no call to `SPI_StartWriting()`; should be used right before `ILI9341_write1px()`.
 }
 
 void ILI9341_write1px(uint8_t red, uint8_t green, uint8_t blue, bool is_16bit) {
@@ -432,6 +446,7 @@ void ILI9341_write1px(uint8_t red, uint8_t green, uint8_t blue, bool is_16bit) {
     for(uint8_t idx = 0; idx < num_params; idx++) {
         SPI_WriteData(data[idx]);
     }
+    SPI_StartWriting();
 }
 
 /** @} */
