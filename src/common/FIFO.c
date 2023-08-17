@@ -67,8 +67,8 @@ void FIFO_Put(FIFO_t * fifo_ptr, const uint32_t val) {
     }
 }
 
-uint32_t FIFO_Get(FIFO_t * fifo_ptr) {
-    uint32_t ret_val;
+volatile uint32_t FIFO_Get(FIFO_t * fifo_ptr) {
+    volatile uint32_t ret_val;
 
     // NOTE: not using FIFO_isEmpty() here to reduce call stack usage
     if(fifo_ptr->front_idx == fifo_ptr->back_idx) {
@@ -138,11 +138,11 @@ void FIFO_PeekAll(FIFO_t * fifo_ptr, uint32_t output_buffer[]) {
 }
 
 bool FIFO_isFull(FIFO_t * fifo_ptr) {
-    return ((fifo_ptr->back_idx + 1) % fifo_ptr->N) == fifo_ptr->front_idx;
+    return (bool) (((fifo_ptr->back_idx + 1) % fifo_ptr->N) == fifo_ptr->front_idx);
 }
 
 bool FIFO_isEmpty(FIFO_t * fifo_ptr) {
-    return fifo_ptr->front_idx == fifo_ptr->back_idx;
+    return (bool) (fifo_ptr->front_idx == fifo_ptr->back_idx);
 }
 
 uint32_t FIFO_getCurrSize(FIFO_t * fifo_ptr) {

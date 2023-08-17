@@ -57,7 +57,7 @@ Basic Operations
  * @param fifo_ptr      Pointer to FIFO object
  * @param val           last value in the buffer
  */
-void FIFO_Put(FIFO_t * fifo_ptr, uint32_t val);
+void FIFO_Put(FIFO_t * fifo_ptr, const uint32_t val);
 
 /**
  * @brief               Remove the first value of the buffer.
@@ -65,7 +65,7 @@ void FIFO_Put(FIFO_t * fifo_ptr, uint32_t val);
  * @param fifo_ptr      Pointer to FIFO object
  * @return              First sample in the FIFO.
  */
-uint32_t FIFO_Get(FIFO_t * fifo_ptr);
+volatile uint32_t FIFO_Get(FIFO_t * fifo_ptr);
 
 /**
  * @brief               Transfer a value from one FIFO buffer to another.
