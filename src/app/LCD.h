@@ -12,16 +12,16 @@
 
 /******************************************************************************
 SECTIONS
-        1) Preprocessor Directives
-        2) Initialization/Configuration
-        3) Drawing Area
-        4) Color
-        5) Drawing
-        6) Scrolling
+        Preprocessor Directives
+        Initialization/Configuration
+        Drawing Area
+        Color
+        Drawing
+        Scrolling
 *******************************************************************************/
 
 /******************************************************************************
-1) Preprocessor Directives
+Preprocessor Directives
 *******************************************************************************/
 
 // Dependencies
@@ -52,7 +52,7 @@ SECTIONS
 #define LCD_WHITE  (uint8_t) 0x07                    // LCD_RED + LCD_BLUE + LCD_GREEN
 
 /******************************************************************************
-2) Initialization/Configuration
+Initialization/Configuration
 *******************************************************************************/
 
 /**
@@ -76,7 +76,7 @@ void LCD_toggleInversion(void);
 void LCD_toggleColorDepth(void);
 
 /******************************************************************************
-3) Drawing Area
+Drawing Area
 *******************************************************************************/
 
 /**
@@ -110,7 +110,7 @@ void LCD_setX(uint16_t x1_new, uint16_t x2_new);
 void LCD_setY(uint16_t y1_new, uint16_t y2_new);
 
 /******************************************************************************
-4) Color
+Color
 *******************************************************************************/
 
 /**
@@ -134,7 +134,7 @@ void LCD_setColor(uint8_t R_val, uint8_t G_val, uint8_t B_val);
 void LCD_setColor_3bit(uint8_t color_code);
 
 /******************************************************************************
-5) Drawing
+Drawing
 *******************************************************************************/
 
 /**
@@ -179,7 +179,7 @@ void LCD_drawVLine(uint16_t xCenter, uint16_t lineWidth);
 void LCD_drawRectangle(uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy, bool is_filled);
 
 /******************************************************************************
-6) Scrolling
+Scrolling
 *******************************************************************************/
 
 /**
@@ -194,7 +194,7 @@ void LCD_drawRectangle(uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy, bool 
  * @param y_max         highest (top-most) y-coordinate
  * @param color_code    3-bit color code
  */
-void LCD_drawRectBlank(uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy, uint16_t y_min,
-                       uint16_t y_max, uint16_t color_code);
+void LCD_graphSample(uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy, uint16_t y_min,
+                     uint16_t y_max, uint16_t color_code);
 
 #endif

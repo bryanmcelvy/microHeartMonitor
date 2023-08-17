@@ -41,7 +41,7 @@ int main(void) {
     while(1) {
         // draw pixel
         while(Timer0A_isCounting()) {}
-        LCD_drawRectBlank(x1, DX * 2, y1, DY, COL_Y_MIN, COL_Y_MAX, (LCD_WHITE - LCD_RED));
+        LCD_graphSample(x1, DX * 2, y1, DY, COL_Y_MIN, COL_Y_MAX, (LCD_WHITE - LCD_RED));
         Timer0A_Start(33);
 
         // update x1 and y1

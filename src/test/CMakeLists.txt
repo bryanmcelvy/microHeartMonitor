@@ -257,7 +257,7 @@ target_link_libraries(test_lcd_image.elf
                             GPIO
                             Timer)
 
-# DAQ Image Test
+# DAQ Test
 add_executable(test_daq.elf 
                     test_daq.c
                     ${PROJECT_SOURCE_DIR}/src/device/startup_gcc.c

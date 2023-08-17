@@ -7,17 +7,19 @@
 
 /******************************************************************************
 SECTIONS
-        1) Preprocessor Directives & Declarations
-        2) Initialization/Configuration
-        3) Drawing Area
-        4) Color
-        5) Drawing
-        6) Scrolling
+        Preprocessor Directives
+        Declarations
+        Initialization/Configuration
+        Drawing Area
+        Color
+        Drawing
+        Scrolling
 *******************************************************************************/
 
 /******************************************************************************
-1) Preprocessor Directives & Declarations
+Preprocessor Directives
 *******************************************************************************/
+
 #include "LCD.h"
 
 #include "ILI9341.h"
@@ -30,8 +32,12 @@ SECTIONS
 #include <stdint.h>
 #include <stdbool.h>
 
+/******************************************************************************
+Declarations
+*******************************************************************************/
+
 /// @brief Updates `lcd`'s `numPixels` parameter after changing rows/columns
-static void LCD_updateNumPixels(void);
+inline static void LCD_updateNumPixels(void);
 
 /**
  * @brief                   Set new `x` or `y` parameters, and optionally update `numPixels`.
@@ -54,42 +60,45 @@ inline static void LCD_setDim(uint16_t d1, uint16_t d2, bool is_x, bool update_n
  */
 inline static void LCD_drawLine(uint16_t center, uint16_t lineWidth, bool is_horizontal);
 
+// clang-format off
 typedef struct {
-    uint16_t x1;
-    uint16_t x2;
-    uint16_t y1;
-    uint16_t y2;
-    uint32_t numPixels;
+    uint16_t x1;            ///< starting x-value in range [0, x2]
+    uint16_t x2;            ///< ending x-value in range [0, NUM_ROWS)
+    uint16_t y1;            ///< starting y-value in range [0, y2]
+    uint16_t y2;            ///< ending x-value in range [0, NUM_COLS)
+    uint32_t numPixels;     ///< number of pixels to write to; `= (x2 - x1 + 1) * (y2 - y1 + 1)`
 
-    uint8_t R_val;
-    uint8_t G_val;
-    uint8_t B_val;
+    uint8_t R_val;          ///< 5 or 6-bit R value
+    uint8_t G_val;          ///< 6-bit G value
+    uint8_t B_val;          ///< 5 or 6-bit B value
 
-    bool is_outputON;
-    bool is_inverted;
-    bool is_16bit;
-    bool is_init;
+    bool is_outputON;       ///< if `true`, the LCD driver is writing from its memory to display
+    bool is_inverted;       ///< if `true`, the display's colors are inverted
+    bool is_16bit;          ///< `true` for 16-bit color depth (65K colors, 2 transfers), `false` for 18-bit
+    bool is_init;           ///< if `true`, LCD has been initialized
 } LCD_t;
 
 static LCD_t lcd = {
     0,
-    (X_MAX - 1),                        // entire area
-    0,                                  // colStart
-    (Y_MAX - 1),                        // colEnd
-    (X_MAX * Y_MAX),                    // numPixels
+    (X_MAX - 1),
+    0,
+    (Y_MAX - 1),
+    (X_MAX * Y_MAX),
 
     255,
     255,
-    255,                                // default write color is white
+    255,                                
 
-    false,                              // display output OFF
-    false,                              // color inversion OFF
-    true,                               // 16-bit color depth
-    false                               // not initialized
+    false,                              
+    false,                              
+    true,                               
+    false                               
 };
 
+// clang-format on
+
 /******************************************************************************
-2) Initialization/Configuration
+Initialization/Configuration
 *******************************************************************************/
 
 void LCD_Init(void) {
@@ -125,10 +134,10 @@ void LCD_toggleColorDepth(void) {
 }
 
 /******************************************************************************
-3) Drawing Area
+Drawing Area
 *******************************************************************************/
 
-static void LCD_updateNumPixels(void) {
+inline static void LCD_updateNumPixels(void) {
     lcd.numPixels = (uint32_t) ((lcd.x2 - lcd.x1) + 1) * ((lcd.y2 - lcd.y1) + 1);
 }
 
@@ -170,7 +179,7 @@ void LCD_setY(uint16_t y1, uint16_t y2) {
 }
 
 /******************************************************************************
-4) Color
+Color
 *******************************************************************************/
 
 void LCD_setColor(uint8_t R_val, uint8_t G_val, uint8_t B_val) {
@@ -208,7 +217,7 @@ void LCD_setColor_3bit(uint8_t color_code) {
 }
 
 /******************************************************************************
-5) Drawing
+Drawing
 *******************************************************************************/
 
 void LCD_draw(void) {
@@ -317,11 +326,11 @@ void LCD_drawRectangle(uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy, bool 
 }
 
 /******************************************************************************
-6) Scrolling
+Scrolling
 *******************************************************************************/
 
-void LCD_drawRectBlank(uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy, uint16_t y_min,
-                       uint16_t y_max, uint16_t color_code) {
+void LCD_graphSample(uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy, uint16_t y_min,
+                     uint16_t y_max, uint16_t color_code) {
     /// TODO: Write description
 
     uint16_t x2;
@@ -330,16 +339,14 @@ void LCD_drawRectBlank(uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy, uint1
     // set area of display to write to
     x2 = (x1 + dx) - 1;
     y2 = (y1 + dy) - 1;
-    // LCD_setArea(x1, x2, y_min, y_max);
-    LCD_setDim(x1, x2, true, false);
-    LCD_setDim(y_min, y_max, false, true);
+    LCD_setDim(x1, x2, true, false);                          // using setDim() instead of
+    LCD_setDim(y_min, y_max, false, true);                    // setArea() to reduce stack usage
 
     ILI9341_writeMemCmd();
 
     // write column by column
     for(int x_i = 0; x_i < dx; x_i++) {
-        uint16_t numPixels;                    // declared in this loop to get cppcheck to stop
-                                               // complaining
+        uint16_t numPixels;
 
         // write blank pixels from `(x1 + x_i, y_min)` to `(x1 + x_i, y1 - 1)
         LCD_setColor_3bit(LCD_WHITE);
