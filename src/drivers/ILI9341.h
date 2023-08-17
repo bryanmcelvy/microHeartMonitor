@@ -156,8 +156,11 @@ void ILI9341_setColorDepth(bool is_16bit);
  */
 void ILI9341_NoOpCmd(void);
 
-/// TODO: Write
-void ILI9341_setFrameRate(uint8_t div_ratio, uint8_t clocks_per_line);
+/// TODO: Write brief
+void ILI9341_setFrameRateNorm(uint8_t div_ratio, uint8_t clocks_per_line);
+
+/// TODO: Write brief
+void ILI9341_setFrameRateIdle(uint8_t div_ratio, uint8_t clocks_per_line);
 
 /// TODO: Write
 void ILI9341_setBlankingPorch(uint8_t vpf, uint8_t vbp, uint8_t hfp, uint8_t hbp);

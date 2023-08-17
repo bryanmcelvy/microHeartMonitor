@@ -108,6 +108,7 @@ void LCD_Init(void) {
         ILI9341_setMemAccessCtrl(1, 0, 0, 0, 1, 0);
         ILI9341_setColorDepth(true);
         ILI9341_setDispMode(true, false);
+        ILI9341_setFrameRateIdle(2, 27);
 
         lcd.is_init = true;
     }
@@ -142,12 +143,12 @@ inline static void LCD_updateNumPixels(void) {
 }
 
 inline static void LCD_setDim(uint16_t d1, uint16_t d2, bool is_x, bool update_num_pixels) {
-    uint16_t DIM_MAX;
+    // uint16_t DIM_MAX;
 
     // ensure the dim numbers meet the restrictions
-    DIM_MAX = (is_x) ? X_MAX : Y_MAX;
-    d2 = (d2 < DIM_MAX) ? d2 : (DIM_MAX - 1);
-    d1 = (d1 <= d2) ? d1 : d2;
+    // DIM_MAX = (is_x) ? X_MAX : Y_MAX;
+    // d2 = (d2 < DIM_MAX) ? d2 : (DIM_MAX - 1);
+    // d1 = (d1 <= d2) ? d1 : d2;
 
     if(is_x) {
         lcd.x1 = d1;
@@ -342,9 +343,8 @@ void LCD_graphSample(uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy, uint16_
     LCD_setDim(x1, x2, true, false);                          // using setDim() instead of
     LCD_setDim(y_min, y_max, false, true);                    // setArea() to reduce stack usage
 
-    ILI9341_writeMemCmd();
-
     // write column by column
+    ILI9341_writeMemCmd();
     for(int x_i = 0; x_i < dx; x_i++) {
         uint16_t numPixels;
 

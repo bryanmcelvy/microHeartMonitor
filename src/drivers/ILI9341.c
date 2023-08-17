@@ -32,34 +32,36 @@ Preprocessor Directives
 
 // Selected commands from the datasheet
 // NOTE: NUM_COLS and NUM_ROWS are defined in the header file
-#define NOP      (uint8_t) 0x00                    /// No Operation
-#define SWRESET  (uint8_t) 0x01                    /// Software Reset
-#define SPLIN    (uint8_t) 0x10                    /// Enter Sleep Mode
-#define SPLOUT   (uint8_t) 0x11                    /// Sleep Out (i.e. Exit Sleep Mode)
-#define PTLON    (uint8_t) 0x12                    /// Partial Display Mode ON
-#define NORON    (uint8_t) 0x13                    /// Normal Display Mode ON
-#define DINVOFF  (uint8_t) 0x20                    /// Display Inversion OFF
-#define DINVON   (uint8_t) 0x21                    /// Display Inversion ON
-#define CASET    (uint8_t) 0x2A                    /// Column Address Set
-#define PASET    (uint8_t) 0x2B                    /// Page Address Set
-#define RAMWR    (uint8_t) 0x2C                    /// Memory Write
-#define DISPOFF  (uint8_t) 0x28                    /// Display OFF
-#define DISPON   (uint8_t) 0x29                    /// Display ON
-#define PLTAR    (uint8_t) 0x30                    /// Partial Area
-#define VSCRDEF  (uint8_t) 0x33                    /// Vertical Scrolling Definition
-#define MADCTL   (uint8_t) 0x36                    /// Memory Access Control
-#define VSCRSADD (uint8_t) 0x37                    /// Vertical Scrolling Start Address
-#define IDMOFF   (uint8_t) 0x38                    /// Idle Mode OFF
-#define IDMON    (uint8_t) 0x39                    /// Idle Mode ON
-#define PIXSET   (uint8_t) 0x3A                    /// Pixel Format Set
-#define FRMCTR1  (uint8_t) 0xB1                    /// Frame Rate Control Set (Normal Mode)
-#define PRCTR    (uint8_t) 0xB5                    /// Blanking Porch Control
-#define IFCTL    (uint8_t) 0xF6                    /// Interface Control
+#define CMD_NOP      (uint8_t) 0x00                    /// No Operation
+#define CMD_SWRESET  (uint8_t) 0x01                    /// Software Reset
+#define CMD_SPLIN    (uint8_t) 0x10                    /// Enter Sleep Mode
+#define CMD_SPLOUT   (uint8_t) 0x11                    /// Sleep Out (i.e. Exit Sleep Mode)
+#define CMD_PTLON    (uint8_t) 0x12                    /// Partial Display Mode ON
+#define CMD_NORON    (uint8_t) 0x13                    /// Normal Display Mode ON
+#define CMD_DINVOFF  (uint8_t) 0x20                    /// Display Inversion OFF
+#define CMD_DINVON   (uint8_t) 0x21                    /// Display Inversion ON
+#define CMD_CASET    (uint8_t) 0x2A                    /// Column Address Set
+#define CMD_PASET    (uint8_t) 0x2B                    /// Page Address Set
+#define CMD_RAMWR    (uint8_t) 0x2C                    /// Memory Write
+#define CMD_DISPOFF  (uint8_t) 0x28                    /// Display OFF
+#define CMD_DISPON   (uint8_t) 0x29                    /// Display ON
+#define CMD_PLTAR    (uint8_t) 0x30                    /// Partial Area
+#define CMD_VSCRDEF  (uint8_t) 0x33                    /// Vertical Scrolling Definition
+#define CMD_MADCTL   (uint8_t) 0x36                    /// Memory Access Control
+#define CMD_VSCRSADD (uint8_t) 0x37                    /// Vertical Scrolling Start Address
+#define CMD_IDMOFF   (uint8_t) 0x38                    /// Idle Mode OFF
+#define CMD_IDMON    (uint8_t) 0x39                    /// Idle Mode ON
+#define CMD_PIXSET   (uint8_t) 0x3A                    /// Pixel Format Set
+#define CMD_FRMCTR1  (uint8_t) 0xB1                    /// Frame Rate Control Set (Normal Mode)
+#define CMD_FRMCTR2  (uint8_t) 0xB2                    /// Frame Rate Control Set (Idle Mode)
+#define CMD_FRMCTR3  (uint8_t) 0xB3                    /// Frame Rate Control Set (Partial Mode)
+#define CMD_PRCTR    (uint8_t) 0xB5                    /// Blanking Porch Control
+#define CMD_IFCTL    (uint8_t) 0xF6                    /// Interface Control
 
 // clang-format off
 /** Currently unused commands
 #define RDDST                   (uint8_t) 0x09          /// Read Display Status
-#define RDDMADCTL               (uint8_t) 0x0B          /// Read Display MADCTL
+#define RDDMADCTL               (uint8_t) 0x0B          /// Read Display CMD_MADCTL
 #define RDDCOLMOD               (uint8_t) 0x0C          /// Read Display Pixel Format
 #define RGBSET                  (uint8_t) 0x2D          /// Color Set
 #define RAMRD                   (uint8_t) 0x2E          /// Memory Read
@@ -68,8 +70,6 @@ Preprocessor Directives
 #define WRDISBV                 (uint8_t) 0x51          /// Write Display Brightness
 #define RDDISBV                 (uint8_t) 0x52          /// Read Display Brightness
 #define IFMODE                  (uint8_t) 0xB0          /// RGB Interface Signal Control (i.e. Interface Mode Control)
-#define FRMCTR2                 (uint8_t) 0xB2          /// Frame Rate Control Set (Idle Mode)
-#define FRMCTR3                 (uint8_t) 0xB3          /// Frame Rate Control Set (Partial Mode)
 #define INVTR                   (uint8_t) 0xB4          /// Display Inversion Control
  */
 // clang-format on
@@ -101,7 +101,7 @@ void ILI9341_resetHard(void) {
 }
 
 void ILI9341_resetSoft(void) {
-    SPI_IRQ_WriteCmd(SWRESET);
+    SPI_IRQ_WriteCmd(CMD_SWRESET);
     SPI_IRQ_StartWriting();
     Timer2A_Wait1ms(5);                    /// the driver needs 5 [ms] before another command
 }
@@ -117,14 +117,14 @@ void ILI9341_setSleepMode(bool is_sleeping) {
      *      before sending further commands.
      *
      *      It's also necessary to wait 120 [ms] before
-     *      sending `SPLOUT` after sending `SPLIN` or a reset,
+     *      sending `CMD_SPLOUT` after sending `CMD_SPLIN` or a reset,
      *      so this function waits 120 [ms] regardless of the preceding event.
      */
     if(is_sleeping) {
-        SPI_IRQ_WriteCmd(SPLIN);
+        SPI_IRQ_WriteCmd(CMD_SPLIN);
     }
     else {
-        SPI_IRQ_WriteCmd(SPLOUT);
+        SPI_IRQ_WriteCmd(CMD_SPLOUT);
     }
     SPI_IRQ_StartWriting();
 
@@ -133,17 +133,17 @@ void ILI9341_setSleepMode(bool is_sleeping) {
 
 void ILI9341_setDispMode(bool is_normal, bool is_full_colors) {
     if(is_normal) {
-        SPI_IRQ_WriteCmd(NORON);
+        SPI_IRQ_WriteCmd(CMD_NORON);
     }
     else {
-        SPI_IRQ_WriteCmd(PTLON);
+        SPI_IRQ_WriteCmd(CMD_PTLON);
     }                    // call after ILI9341_setPartialArea()
 
     if(is_full_colors) {
-        SPI_IRQ_WriteCmd(IDMON);
+        SPI_IRQ_WriteCmd(CMD_IDMON);
     }
     else {
-        SPI_IRQ_WriteCmd(IDMOFF);
+        SPI_IRQ_WriteCmd(CMD_IDMOFF);
     }
     SPI_IRQ_StartWriting();
 }
@@ -162,8 +162,8 @@ void ILI9341_setPartialArea(uint16_t rowStart, uint16_t rowEnd) {
     param_sequence[1] = (uint8_t) (rowStart & 0x00FF);
     param_sequence[2] = (uint8_t) ((rowEnd & 0xFF00) >> 8);
     param_sequence[3] = (uint8_t) (rowEnd & 0x00FF);
-    // SPI_WriteSequence(PLTAR, cmd_sequence, 4);
-    SPI_IRQ_WriteCmd(PLTAR);
+    // SPI_WriteSequence(CMD_PLTAR, cmd_sequence, 4);
+    SPI_IRQ_WriteCmd(CMD_PLTAR);
     for(uint8_t param_num = 0; param_num < 4; param_num++) {
         SPI_IRQ_WriteData(param_sequence[param_num]);
     }
@@ -173,10 +173,10 @@ void ILI9341_setPartialArea(uint16_t rowStart, uint16_t rowEnd) {
 void ILI9341_setDispInversion(bool is_ON) {
     /// TODO: Write description
     if(is_ON) {
-        SPI_IRQ_WriteCmd(DINVON);
+        SPI_IRQ_WriteCmd(CMD_DINVON);
     }
     else {
-        SPI_IRQ_WriteCmd(DINVOFF);
+        SPI_IRQ_WriteCmd(CMD_DINVOFF);
     }
     SPI_IRQ_StartWriting();
 }
@@ -184,10 +184,10 @@ void ILI9341_setDispInversion(bool is_ON) {
 void ILI9341_setDispOutput(bool is_ON) {
     /// TODO: Write description
     if(is_ON) {
-        SPI_IRQ_WriteCmd(DISPON);
+        SPI_IRQ_WriteCmd(CMD_DISPON);
     }
     else {
-        SPI_IRQ_WriteCmd(DISPOFF);
+        SPI_IRQ_WriteCmd(CMD_DISPOFF);
     }
     SPI_IRQ_StartWriting();
 }
@@ -212,8 +212,8 @@ void ILI9341_setScrollArea(uint16_t top_fixed, uint16_t vert_scroll, uint16_t bo
     param_sequence[4] = (uint8_t) ((bottom_fixed & 0xFF00) >> 8);
     param_sequence[5] = (uint8_t) (bottom_fixed & 0x00FF);
 
-    // SPI_WriteSequence(VSCRDEF, param_sequence, 6);
-    SPI_IRQ_WriteCmd(VSCRDEF);
+    // SPI_WriteSequence(CMD_VSCRDEF, param_sequence, 6);
+    SPI_IRQ_WriteCmd(CMD_VSCRDEF);
     for(uint8_t param_num = 0; param_num < 6; param_num++) {
         SPI_IRQ_WriteData(param_sequence[param_num]);
     }
@@ -226,8 +226,8 @@ void ILI9341_setScrollStart(uint16_t startRow) {
     param_sequence[0] = (uint8_t) ((startRow & 0xFF00) >> 8);
     param_sequence[1] = (uint8_t) (startRow & 0x00FF);
 
-    // SPI_WriteSequence(VSCRSADD, param_sequence, 2);
-    SPI_IRQ_WriteCmd(VSCRSADD);
+    // SPI_WriteSequence(CMD_VSCRSADD, param_sequence, 2);
+    SPI_IRQ_WriteCmd(CMD_VSCRSADD);
     for(uint8_t param_num = 0; param_num < 2; param_num++) {
         SPI_IRQ_WriteData(param_sequence[param_num]);
     }
@@ -238,7 +238,7 @@ void ILI9341_setMemAccessCtrl(bool areRowsFlipped, bool areColsFlipped, bool are
                               bool isVertRefreshFlipped, bool isColorOrderFlipped,
                               bool isHorRefreshFlipped) {
     /**
-     *   This function implements the "Memory Access Control" (`MADCTL`) command from
+     *   This function implements the "Memory Access Control" (`CMD_MADCTL`) command from
      *   p. 127-128 of the ILI9341 datasheet, which controls how the LCD driver
      *   displays data upon writing to memory.
      *
@@ -267,7 +267,7 @@ void ILI9341_setMemAccessCtrl(bool areRowsFlipped, bool areColsFlipped, bool are
     param = (isColorOrderFlipped) ? (param | 0x08) : param;
     param = (isHorRefreshFlipped) ? (param | 0x04) : param;
 
-    SPI_IRQ_WriteCmd(MADCTL);
+    SPI_IRQ_WriteCmd(CMD_MADCTL);
     SPI_IRQ_WriteData(param);
     SPI_IRQ_StartWriting();
 }
@@ -278,18 +278,38 @@ void ILI9341_setColorDepth(bool is_16bit) {
      *  18-bit requires 3 transfers and allows for 262K colors.
      */
     uint8_t param = (is_16bit) ? 0x55 : 0x66;
-    SPI_IRQ_WriteCmd(PIXSET);
+    SPI_IRQ_WriteCmd(CMD_PIXSET);
     SPI_IRQ_WriteData(param);
     SPI_IRQ_StartWriting();
 }
 
 void ILI9341_NoOpCmd(void) {
-    SPI_IRQ_WriteCmd(NOP);
+    SPI_IRQ_WriteCmd(CMD_NOP);
     SPI_IRQ_StartWriting();
 }
 
-void ILI9341_setFrameRate(uint8_t div_ratio, uint8_t clocks_per_line) {
-    /// TODO: Write
+void ILI9341_setFrameRateNorm(uint8_t div_ratio, uint8_t clocks_per_line) {
+    /// TODO: Write description
+
+    div_ratio &= 0x03;
+    clocks_per_line &= 0x1F;
+
+    SPI_IRQ_WriteCmd(CMD_FRMCTR1);
+    SPI_IRQ_WriteData(div_ratio);
+    SPI_IRQ_WriteData(clocks_per_line);
+    SPI_IRQ_StartWriting();
+}
+
+void ILI9341_setFrameRateIdle(uint8_t div_ratio, uint8_t clocks_per_line) {
+    /// TODO: Write description
+
+    div_ratio &= 0x03;
+    clocks_per_line &= 0x1F;
+
+    SPI_IRQ_WriteCmd(CMD_FRMCTR2);
+    SPI_IRQ_WriteData(div_ratio);
+    SPI_IRQ_WriteData(clocks_per_line);
+    SPI_IRQ_StartWriting();
 }
 
 void ILI9341_setBlankingPorch(uint8_t vpf, uint8_t vbp, uint8_t hfp, uint8_t hbp) {
@@ -298,16 +318,16 @@ void ILI9341_setBlankingPorch(uint8_t vpf, uint8_t vbp, uint8_t hfp, uint8_t hbp
 
 void ILI9341_setInterface(void) {
     /**
-     *   This function implements the "Interface Control" `IFCTL` command from
+     *   This function implements the "Interface Control" `CMD_IFCTL` command from
      *   p. 192-194 of the ILI9341 datasheet, which controls how the LCD driver
      *   handles 16-bit data and what interfaces (internal or external) are used.
      *
      *   Name     | Bit # | Param # | Effect when set = `1`
      *   ---------|-------|---------|-------------------------------------------
-     *   MY_EOR   |  7    |    0    | flips value of corresponding MADCTL bit
-     *   MX_EOR   |  6    |    ^    | flips value of corresponding MADCTL bit
-     *   MV_EOR   |  5    |    ^    | flips value of corresponding MADCTL bit
-     *   BGR_EOR  |  3    |    ^    | flips value of corresponding MADCTL bit
+     *   MY_EOR   |  7    |    0    | flips value of corresponding CMD_MADCTL bit
+     *   MX_EOR   |  6    |    ^    | flips value of corresponding CMD_MADCTL bit
+     *   MV_EOR   |  5    |    ^    | flips value of corresponding CMD_MADCTL bit
+     *   BGR_EOR  |  3    |    ^    | flips value of corresponding CMD_MADCTL bit
      *   WEMODE   |  0    |    ^    | overflowing pixel data is not ignored
      *   EPF[1:0] |  5:4  |    1    | controls 16 to 18-bit pixel data conversion
      *   MDT[1:0] |  1:0  |    ^    | controls display data transfer method
@@ -316,7 +336,7 @@ void ILI9341_setInterface(void) {
      *   RM       |  1    |    ^    | selects GRAM interface mode
      *   RIM      |  0    |    ^    | specifies RGB interface-specific details
      *
-     *   The first param's bits are cleared so that the corresponding MADCTL bits
+     *   The first param's bits are cleared so that the corresponding CMD_MADCTL bits
      *   (ILI9341_setMemoryAccessCtrl()) are unaffected and overflowing pixel
      *   data is ignored. The EPF bits are cleared so that the LSB of the
      *   R and B values is copied from the MSB when using 16-bit color depth.
@@ -326,8 +346,8 @@ void ILI9341_setInterface(void) {
 
     const uint8_t param_sequence[3] = { 0x00, 0x00, 0x00 };
 
-    // SPI_WriteSequence(IFCTL, (uint8_t(*)) param_sequence, 3);
-    SPI_IRQ_WriteData(IFCTL);
+    // SPI_WriteSequence(CMD_IFCTL, (uint8_t(*)) param_sequence, 3);
+    SPI_IRQ_WriteData(CMD_IFCTL);
     for(uint8_t param_num = 0; param_num < 3; param_num++) {
         SPI_IRQ_WriteData(param_sequence[param_num]);
     }
@@ -340,8 +360,8 @@ Memory Writing
 
 inline static void ILI9341_setAddress(uint16_t start_address, uint16_t end_address, bool is_row) {
     /**
-    This function implements the "Column Address Set" (`CASET`) and "Page
-    Address Set" (`PASET`) commands from p. 110-113 of the ILI9341 datasheet.
+    This function implements the "Column Address Set" (`CMD_CASET`) and "Page
+    Address Set" (`CMD_PASET`) commands from p. 110-113 of the ILI9341 datasheet.
 
     The input parameters represent the first and last addresses to be written
     to when ILI9341_write1px() is called.
@@ -352,7 +372,7 @@ inline static void ILI9341_setAddress(uint16_t start_address, uint16_t end_addre
 
     uint8_t param_sequence[4];
 
-    uint8_t cmd = (is_row) ? PASET : CASET;
+    uint8_t cmd = (is_row) ? CMD_PASET : CMD_CASET;
     uint16_t max_num = (is_row) ? NUM_ROWS : NUM_COLS;
 
     // ensure `start_address` and `end_address` meet restrictions
@@ -394,7 +414,7 @@ void ILI9341_setColAddress(uint16_t start_col, uint16_t end_col) {
 }
 
 void ILI9341_writeMemCmd(void) {
-    SPI_IRQ_WriteCmd(RAMWR);
+    SPI_IRQ_WriteCmd(CMD_RAMWR);
     // no call to `SPI_StartWriting()`; should be used right before `ILI9341_write1px()`.
 }
 
