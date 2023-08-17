@@ -26,10 +26,10 @@ Preprocessor Directives
 #include <stdint.h>
 #include <stdbool.h>
 
-// Number of pre-allocated FIFO buffer structs can be defined at compile-time
-// (i.e. "arm-none-eabi-gcc -DFIFO_POOL_SIZE=<VALUE> ...")
+// Number of pre-allocated FIFO buffer can be defined at compile-time
+// (i.e. "arm-none-eabi-gcc -DFIFO_POOL_SIZE=<VALUE> ...") or hard-coded
 #ifndef FIFO_POOL_SIZE
-#define FIFO_POOL_SIZE 3                    // default val
+#define FIFO_POOL_SIZE 5                    // default val
 #endif
 
 /******************************************************************************
