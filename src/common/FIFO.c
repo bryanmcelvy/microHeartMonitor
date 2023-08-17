@@ -30,10 +30,10 @@ Type Declaration + Initialization
 *******************************************************************************/
 
 struct FIFO_t {
-    uint32_t * buffer;                     ///< (pointer to) array to use as FIFO buffer
-    uint32_t N;                            ///< length of `buffer`
-    uint32_t front_idx;                    ///< idx of front of FIFO
-    uint32_t back_idx;                     ///< idx of back of FIFO
+    volatile uint32_t * buffer;                     ///< (pointer to) array to use as FIFO buffer
+    volatile uint32_t N;                            ///< length of `buffer`
+    volatile uint32_t front_idx;                    ///< idx of front of FIFO
+    volatile uint32_t back_idx;                     ///< idx of back of FIFO
 };
 
 static FIFO_t buffer_pool[FIFO_POOL_SIZE] = { 0 };                    ///< pre-allocated buffer pool
