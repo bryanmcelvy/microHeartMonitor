@@ -23,6 +23,10 @@
  */
 void ADC_Init(void);
 
+void ADC_InterruptEnable(void);
+
+void ADC_InterruptDisable(void);
+
 /**
  * @brief           Convert a raw ADC sample to voltage in [mV].
  *

@@ -14,6 +14,9 @@
 #include "tm4c123gh6pm.h"
 #include <stdint.h>
 
+#define ADC_INT_ENABLE()  (NVIC_EN0_R |= (1 << 17))
+#define ADC_INT_DISABLE() (NVIC_DIS0_R |= (1 << 17))
+
 static const float32_t * ADC_LOOKUP = 0;
 
 void ADC_Init(void) {
@@ -38,12 +41,19 @@ void ADC_Init(void) {
     ADC0_IM_R |= 0x08;                           // enable SS3 interrupt
 
     NVIC_PRI4_R |= (1 << 13);                    // priority 1 for interrupt 17 (ADC0 SS3)
-    NVIC_EN0_R |= (1 << 17);                     // enable ADC0 SS3 interrupt in NVIC
+    ADC_INT_ENABLE();                            // enable ADC0 SS3 interrupt in NVIC
 
     ADC0_ACTSS_R |= 0x08;                        // enable SS3
 
     ADC_LOOKUP = Lookup_GetPtr_ADC();
 }
+
+void ADC_InterruptEnable(void) {
+    ADC_INT_ENABLE();
+}
+
+void ADC_InterruptDisable(void) {
+    ADC_INT_DISABLE();
 }
 
 float32_t ADC_ConvertToVolts(uint16_t raw_sample) {
