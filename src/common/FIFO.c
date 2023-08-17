@@ -58,18 +58,20 @@ FIFO_t * FIFO_Init(uint32_t buffer[], uint32_t N) {
 Basic Operations
 *******************************************************************************/
 
-void FIFO_Put(FIFO_t * fifo_ptr, uint32_t val) {
-    if(FIFO_isFull(fifo_ptr) == false) {                      // ensure FIFO isn't full
+void FIFO_Put(FIFO_t * fifo_ptr, const uint32_t val) {
+    // NOTE: not using FIFO_isFull() here to reduce call stack usage
+    if(((fifo_ptr->back_idx + 1) % fifo_ptr->N) != fifo_ptr->front_idx) {
         fifo_ptr->buffer[fifo_ptr->back_idx] = val;
         fifo_ptr->back_idx = (fifo_ptr->back_idx + 1) %
-                             fifo_ptr->N;                     // modulo causes wrap around to 0
+                             fifo_ptr->N;                    // modulo causes wrap around to 0
     }
 }
 
 uint32_t FIFO_Get(FIFO_t * fifo_ptr) {
     uint32_t ret_val;
 
-    if(FIFO_isEmpty(fifo_ptr)) {
+    // NOTE: not using FIFO_isEmpty() here to reduce call stack usage
+    if(fifo_ptr->front_idx == fifo_ptr->back_idx) {
         ret_val = 0;
     }
     else {
