@@ -184,9 +184,15 @@ Color
 *******************************************************************************/
 
 void LCD_setColor(uint8_t R_val, uint8_t G_val, uint8_t B_val) {
-    lcd.R_val = (lcd.is_16bit) ? (R_val & 0x1F) : (R_val & 0x3F);
-    lcd.G_val = G_val & 0x3F;
-    lcd.B_val = (lcd.is_16bit) ? (B_val & 0x1F) : (B_val & 0x3F);
+    if(lcd.is_16bit) {
+        lcd.R_val = 0x1F * (R_val & 0x04);
+        lcd.B_val = 0x1F * (B_val & 0x01);
+    }
+    else {
+        lcd.R_val = 0x3F * (R_val & 0x04);
+        lcd.B_val = 0x3F * (B_val & 0x01);
+    }
+    lcd.G_val = 0x3F * (G_val & 0x02);
 }
 
 void LCD_setColor_3bit(uint8_t color_code) {
@@ -194,7 +200,11 @@ void LCD_setColor_3bit(uint8_t color_code) {
     /**
      *  This is simply a convenience function for setting the color using the
      *  macros defined in the header file.
-
+     * 
+     *  When the display is inverted, a chosen color can be selected by
+     *  subtracting it's macro from `LCD_WHITE` (e.g. to select red, the
+     *  `color_code` argument should be `LCD_WHITE - LCD_RED`).
+     *
      *  hex     | binary | macro
      *  --------|--------|------------
      *  0x00    |  000   | LCD_BLACK
@@ -209,11 +219,20 @@ void LCD_setColor_3bit(uint8_t color_code) {
     // clang-format on
 
     if(color_code == LCD_BLACK) {
-        LCD_setColor(1, 1, 1);
+        lcd.R_val = 1;
+        lcd.G_val = 1;
+        lcd.B_val = 1;
     }
     else {
-        LCD_setColor(0x3F * (color_code & 0x04), 0x3F * (color_code & 0x02),
-                     0x3F * (color_code & 0x01));
+        if(lcd.is_16bit) {
+            lcd.R_val = 0x1F * (color_code & 0x04);
+            lcd.B_val = 0x1F * (color_code & 0x01);
+        }
+        else {
+            lcd.R_val = 0x3F * (color_code & 0x04);
+            lcd.B_val = 0x3F * (color_code & 0x01);
+        }
+        lcd.G_val = 0x3F * (color_code & 0x02);
     }
 }
 
