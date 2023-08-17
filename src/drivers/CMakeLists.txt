@@ -20,7 +20,8 @@ add_library(SPI STATIC SPI.c SPI.h)
 target_link_libraries(SPI PRIVATE FIFO)
 
 add_library(ADC STATIC ADC.c ADC.h)
-target_link_libraries(ADC PRIVATE FIFO Timer) # Lookup
+target_link_libraries(ADC PRIVATE FIFO Lookup Timer)
+target_include_directories(ADC PRIVATE ${CMSIS_DIRS})
 
 add_library(ILI9341 STATIC ILI9341.c ILI9341.h)
 target_link_libraries(ILI9341 PRIVATE SPI Timer)

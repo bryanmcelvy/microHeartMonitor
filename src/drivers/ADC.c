@@ -7,14 +7,14 @@
  * @brief       Source code for ADC module.
  */
 
-// #include "FIFO.h"
-// #include "lookup.h"
+#include "lookup.h"
 #include "Timer.h"
 
+#include "arm_math_types.h"
 #include "tm4c123gh6pm.h"
 #include <stdint.h>
 
-// static const double * ADC_LOOKUP = 0;
+static const float32_t * ADC_LOOKUP = 0;
 
 void ADC_Init(void) {
     SYSCTL_RCGCADC_R |= 0x01;                       // enable clock to ADC0
@@ -42,11 +42,12 @@ void ADC_Init(void) {
 
     ADC0_ACTSS_R |= 0x08;                        // enable SS3
 
-    // ADC_LOOKUP = Lookup_GetPtr_ADC();
+    ADC_LOOKUP = Lookup_GetPtr_ADC();
+}
 }
 
-// double ADC_ConvertToVolts(uint16_t raw_sample) {
-//     return ADC_LOOKUP[raw_sample];
-// }
+float32_t ADC_ConvertToVolts(uint16_t raw_sample) {
+    return ADC_LOOKUP[raw_sample];
+}
 
 /** @} */
