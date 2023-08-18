@@ -59,8 +59,8 @@ Preprocessor Directives
 Initialization
 *******************************************************************************/
 
-static uint32_t SPI_Buffer[SPI_BUFFER_SIZE];
-static FIFO_t * SPI_fifo = 0;
+static volatile uint32_t SPI_Buffer[SPI_BUFFER_SIZE];
+static volatile FIFO_t * SPI_fifo = 0;
 
 void SPI_Init(void) {
     /**
