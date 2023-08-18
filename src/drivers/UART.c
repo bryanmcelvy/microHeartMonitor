@@ -17,6 +17,8 @@
 
 #define ASCII_CONVERSION    0x30
 
+#define UART0_TX_FULL       (UART0_FR_R & 0x20)
+
 #define UART0_BUFFER_SIZE   16
 #define UART0_INTERRUPT_NUM 5
 /**********************************************************************
@@ -143,15 +145,37 @@ UART0 (Interrupt)
 ***********************************************************************/
 
 void UART0_IRQ_AddChar(unsigned char input_char) {
-    /// TODO: Implement
+    FIFO_Put(UART_fifo_ptr, input_char);
+    if(FIFO_isFull(UART_fifo_ptr)) {
+        UART0_IRQ_Start();
+    }
 }
 
-void UART0_IRQ_AddStr(unsigned char * input_str) {
-    /// TODO: Implement
+void UART0_IRQ_AddStr(void * input_str) {
+    unsigned char * str_ptr = input_str;
+    while(*str_ptr != '\0') {
+        UART0_IRQ_AddChar(*str_ptr);
+        str_ptr += 1;
+    }
 }
 
-void UART0_IRQ_AddInt(int32_t n) {
-    /// TODO: Implement
+void UART0_IRQ_AddInt(uint32_t n) {
+    uint32_t nearestPowOf10 = 1;
+
+    if(n < 10) {
+        UART0_IRQ_AddChar(ASCII_CONVERSION + (n / nearestPowOf10));
+    }
+    else {
+        while((n / (nearestPowOf10 * 10)) > 0) {
+            nearestPowOf10 *= 10;
+        }
+
+        while(nearestPowOf10 > 0) {
+            UART0_IRQ_AddChar(ASCII_CONVERSION + (n / nearestPowOf10));
+            n %= nearestPowOf10;
+            nearestPowOf10 /= 10;
+        }
+    }
 }
 
 void UART0_IRQ_Start(void) {
@@ -164,7 +188,11 @@ void UART0_IRQ_Start(void) {
 }
 
 void UART0_Handler(void) {
-    /// TODO: Implement
+    while(FIFO_isEmpty(UART_fifo_ptr) == false) {
+        unsigned char output_char = FIFO_Get(UART_fifo_ptr);
+        while(UART0_TX_FULL) {}
+        UART0_DR_R += output_char;
+    }
 }
 
 /**********************************************************************

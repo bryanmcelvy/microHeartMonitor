@@ -82,14 +82,14 @@ void UART0_IRQ_AddChar(unsigned char input_char);
  *
  * @param input_str     (Pointer to) array of ASCII characters.
  */
-void UART0_IRQ_AddStr(unsigned char * input_str);
+void UART0_IRQ_AddStr(void * input_str);
 
 /**
  * @brief               Add an integer to UART0's FIFO.
  *
  * @param n             32-bit integer to be converted and transmitted.
  */
-void UART0_IRQ_AddInt(int32_t n);
+void UART0_IRQ_AddInt(uint32_t n);
 
 /// @brief              Transmit the UART0's FIFO's contents via interrupt.
 void UART0_IRQ_Start(void);
