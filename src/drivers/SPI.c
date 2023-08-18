@@ -72,8 +72,8 @@ void SPI_Init(void) {
      *  The ILI9341 driver has a min. read cycle of 150 [ns]
      *  and a min. write cycle of 100 [ns], so the bit rate `BR` is set to be
      *  equal to the bus frequency
-     *  (\f$ f_{bus} = 80 [MHz] \f$) divided by 12, allowing a bit rate of
-     *  6.67 [MHz], or a period of 150 [ns].
+     *  (\f$ f_{bus} = 80 [MHz] \f$) divided by 8, allowing a bit rate of
+     *  10 [MHz], or a period of 100 [ns].
      */
 
     SYSCTL_RCGCSSI_R |= 0x01;                         // enable SSI0 clk.
@@ -94,8 +94,8 @@ void SPI_Init(void) {
     SSI0_CR1_R &= ~(0x15);                            /* controller (M) mode, interrupt when Tx
                                                         FIFO is half-empty, no loopback to RX */
     SSI0_CC_R &= ~(0x0F);                             // system clock
-    SSI0_CPSR_R |= 0x06;
-    SSI0_CR0_R &= ~(0xFFFF);                          // clk. phase = 0, clk. polarity = 0, SPI mode
+    SSI0_CPSR_R = (SSI0_CPSR_R & ~(0xFF)) | 4;
+    SSI0_CR0_R &= ~(0xFFFF);                    // clk. phase = 0, clk. polarity = 0, SPI mode
     SSI0_CR0_R |= 0x0107;                             // SCR = 1, 8-bit data
 
     // configure interrupt
