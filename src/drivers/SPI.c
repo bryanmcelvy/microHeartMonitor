@@ -44,8 +44,8 @@ Preprocessor Directives
 #include <stdint.h>
 
 // Macros
-#define SPI_INT_ENABLE()    (SSI0_IM_R |= 0x08)
-#define SPI_INT_DISABLE()   (SSI0_IM_R &= ~(0x08))
+#define SPI_INT_ENABLE()  (SSI0_IM_R |= 0x08)
+#define SPI_INT_DISABLE() (SSI0_IM_R &= ~(0x08))
 
 #define SPI_SET_DC()      (GPIO_PORTA_DATA_R |= 0x40)
 #define SPI_CLEAR_DC()    (GPIO_PORTA_DATA_R &= ~(0x40))
@@ -64,8 +64,8 @@ static volatile FIFO_t * SPI_fifo = 0;
 
 void SPI_Init(void) {
     /**
-     *  The bit rate `BR` is set using the clock prescale divisor `CPSDVSR`
-     *  and `SCR` field in the SSI Control 0 (`CR0`) register:
+     *  The bit rate `BR` is set using the (positive, even-numbered) clock
+     *  prescale divisor `CPSDVSR` and the `SCR` field in the SSI Control 0 (`CR0`) register:
      *
      *  \f$ BR = f_{bus} / ( CPSDVSR * (1 + SCR) ) \f$
      *
@@ -81,6 +81,7 @@ void SPI_Init(void) {
         SYSCTL_RCGCGPIO_R |= 0x01;                    // enable GPIO Port A clk.
     }
 
+    // configure GPIO pins
     GPIO_PORTA_AFSEL_R |= 0x3C;                       // alt. mode for PA2-5
     GPIO_PORTA_PCTL_R |= 0x3C;                        // SSI mode for PA2-5
 
@@ -90,13 +91,14 @@ void SPI_Init(void) {
     GPIO_PORTA_DEN_R |= 0xFC;                         // enable digital IO for PA2-7
     GPIO_PORTA_DATA_R |= 0x80;                        // set `RESET` pin `HIGH` (active `LOW`)
 
-    SSI0_CR1_R &= ~(0x02);                            // disable SSI0
-    SSI0_CR1_R &= ~(0x15);                            /* controller (M) mode, interrupt when Tx
-                                                        FIFO is half-empty, no loopback to RX */
-    SSI0_CC_R &= ~(0x0F);                             // system clock
+    // configure SSI0
+    SSI0_CR1_R &= ~(0x02);                      // disable SSI0
+    SSI0_CR1_R &= ~(0x15);                      /* controller (M) mode, interrupt when Tx
+                                                  FIFO is half-empty, no loopback to RX */
+    SSI0_CC_R &= ~(0x0F);                       // system clock
     SSI0_CPSR_R = (SSI0_CPSR_R & ~(0xFF)) | 4;
     SSI0_CR0_R &= ~(0xFFFF);                    // clk. phase = 0, clk. polarity = 0, SPI mode
-    SSI0_CR0_R |= 0x0107;                             // SCR = 1, 8-bit data
+    SSI0_CR0_R |= 0x0107;                       // SCR = 1, 8-bit data
 
     // configure interrupt
     SPI_fifo = FIFO_Init(SPI_Buffer, SPI_BUFFER_SIZE);
