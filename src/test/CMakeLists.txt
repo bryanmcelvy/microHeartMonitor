@@ -162,6 +162,27 @@ target_link_libraries(  test_uart_la.elf
                             UART
 )
 
+# UART (Logic Analyzer)
+add_executable(test_uart_interrupt.elf 
+                    test_uart_interrupt.c 
+                    ${PROJECT_SOURCE_DIR}/src/device/startup_gcc.c
+                    )
+
+target_include_directories(test_uart_interrupt.elf
+                            PRIVATE
+                                ${PROJECT_SOURCE_DIR}/src/common
+                                ${PROJECT_SOURCE_DIR}/src/device
+                                ${PROJECT_SOURCE_DIR}/src/drivers
+                            )
+
+target_link_libraries(  test_uart_interrupt.elf
+                        PRIVATE 
+                            PLL
+                            GPIO
+                            Timer
+                            UART
+)
+
 # Blink Display Test
 add_executable(test_ili9341_blinkdisplay.elf 
                     test_ili9341_blinkdisplay.c
