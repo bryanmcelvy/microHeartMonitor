@@ -9,15 +9,22 @@
 
 #include "UART.h"
 
+#include "FIFO.h"
+
 #include "tm4c123gh6pm.h"
 #include <stdbool.h>
 #include <stdint.h>
 
-#define ASCII_CONVERSION 0x30
+#define ASCII_CONVERSION    0x30
 
+#define UART0_BUFFER_SIZE   16
+#define UART0_INTERRUPT_NUM 5
 /**********************************************************************
 UART0
 ***********************************************************************/
+
+static volatile uint32_t UART_buffer[UART0_BUFFER_SIZE] = { 0 };
+static volatile FIFO_t * UART_fifo_ptr = 0;
 
 void UART0_Init(void) {
     // clang-format off
@@ -47,11 +54,16 @@ void UART0_Init(void) {
     UART0_CC_R &= ~(0x0F);                    // system clock source
     UART0_CTL_R |= 0x01;                      // re-enable UART0
 
-    GPIO_PORTA_AFSEL_R |= 0x03;                       // alt. mode for PA0/1
-    GPIO_PORTA_PCTL_R |= 0x11;                        // UART mode for PA0/1
-    GPIO_PORTA_DR8R_R |= 0x03;                        // 8 [ma] drive strength
-    GPIO_PORTA_AMSEL_R &= ~(0x03);                    // disable analog
-    GPIO_PORTA_DEN_R |= 0x03;                         // enable digital I/O
+    GPIO_PORTA_AFSEL_R |= 0x03;                                  // alt. mode for PA0/1
+    GPIO_PORTA_PCTL_R |= 0x11;                                   // UART mode for PA0/1
+    GPIO_PORTA_DR8R_R |= 0x03;                                   // 8 [ma] drive strength
+    GPIO_PORTA_AMSEL_R &= ~(0x03);                               // disable analog
+    GPIO_PORTA_DEN_R |= 0x03;                                    // enable digital I/O
+
+    UART_fifo_ptr = FIFO_Init(UART_buffer, UART0_BUFFER_SIZE);
+
+    NVIC_PRI1_R |= (1 << 13);                                    // priority 1
+    NVIC_EN0_R |= (1 << UART0_INTERRUPT_NUM);                    // enable UART0 interrupts in NVIC
 }
 
 unsigned char UART0_ReadChar(void) {
@@ -124,6 +136,35 @@ void UART0_WriteFloat(double n, uint8_t num_decimals) {
             UART0_WriteChar(ASCII_CONVERSION + b);
         }
     }
+}
+
+/**********************************************************************
+UART0 (Interrupt)
+***********************************************************************/
+
+void UART0_IRQ_AddChar(unsigned char input_char) {
+    /// TODO: Implement
+}
+
+void UART0_IRQ_AddStr(unsigned char * input_str) {
+    /// TODO: Implement
+}
+
+void UART0_IRQ_AddInt(int32_t n) {
+    /// TODO: Implement
+}
+
+void UART0_IRQ_Start(void) {
+    /**
+     * This function writes to the Software Trigger Interrupt (`SWTRIG`)
+     * register to activate the `UART0_Handler()` function rather than
+     * relying on the TM4C123's built-in UART0 interrupt sources.
+     */
+    NVIC_SW_TRIG_R |= UART0_INTERRUPT_NUM;
+}
+
+void UART0_Handler(void) {
+    /// TODO: Implement
 }
 
 /**********************************************************************

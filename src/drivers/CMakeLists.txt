@@ -3,8 +3,8 @@ File:           src/drivers/CMakeLists.txt
 Description:    Adds static libraries for low-level device drivers and links as needed.
 **************************************************************************************************  ]]
 
-include_directories(${CMAKE_SOURCE_DIR}/src/device
-                    ${CMAKE_SOURCE_DIR}/src/common)
+include_directories(${CMAKE_SOURCE_DIR}/src/common
+                    ${CMAKE_SOURCE_DIR}/src/device)
 
 add_library(PLL STATIC PLL.c PLL.h)
 
@@ -15,6 +15,7 @@ add_library(Timer STATIC Timer.c Timer.h)
 add_library(GPIO STATIC GPIO.c GPIO.h)
 
 add_library(UART STATIC UART.c UART.h)
+target_link_libraries(UART PRIVATE FIFO)
 
 add_library(SPI STATIC SPI.c SPI.h)
 target_link_libraries(SPI PRIVATE FIFO)

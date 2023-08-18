@@ -16,6 +16,8 @@
 #ifndef __UART_H___
 #define __UART_H___
 
+#include "FIFO.h"
+
 #include "tm4c123gh6pm.h"
 
 /**********************************************************************
@@ -23,29 +25,29 @@ UART0
 ***********************************************************************/
 
 /**
- * @brief   Initialize UART0 to a baud rate of 115200,
- *          8-bit data length, 1 start bit, and 1 stop bit.
+ * @brief               Initialize UART0 to a baud rate of 115200,
+ *                      8-bit data length, 1 start bit, and 1 stop bit.
  */
 void UART0_Init(void);
 
 /**
- * @brief   Read a single character from UART0.
+ * @brief               Read a single character from UART0.
  *
- * @return  input_char
+ * @return              input_char
  */
 unsigned char UART0_ReadChar(void);
 
 /**
- * @brief   Write a single character to UART0.
+ * @brief               Write a single character to UART0.
  *
- * @param   input_char
+ * @param               input_char
  */
 void UART0_WriteChar(unsigned char input_char);
 
 /**
- * @brief   Write a C string to UART0.
+ * @brief               Write a C string to UART0.
  *
- * @param   C string
+ * @param   input_str   (Pointer to) array of ASCII characters.
  */
 void UART0_WriteStr(void * input_str);
 
@@ -63,6 +65,34 @@ void UART0_WriteInt(uint32_t n);
  * @param num_decimals  Number of digits after the decimal point to include.
  */
 void UART0_WriteFloat(double n, uint8_t num_decimals);
+
+/**********************************************************************
+UART0 (Interrupt)
+***********************************************************************/
+
+/**
+ * @brief               Add a single character to UART0's FIFO.
+ *
+ * @param input_char    ASCII character.
+ */
+void UART0_IRQ_AddChar(unsigned char input_char);
+
+/**
+ * @brief               Add a string to UART0's FIFO.
+ *
+ * @param input_str     (Pointer to) array of ASCII characters.
+ */
+void UART0_IRQ_AddStr(unsigned char * input_str);
+
+/**
+ * @brief               Add an integer to UART0's FIFO.
+ *
+ * @param n             32-bit integer to be converted and transmitted.
+ */
+void UART0_IRQ_AddInt(int32_t n);
+
+/// @brief              Transmit the UART0's FIFO's contents via interrupt.
+void UART0_IRQ_Start(void);
 
 /**********************************************************************
 UART1
