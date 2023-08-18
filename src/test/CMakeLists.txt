@@ -300,3 +300,24 @@ target_link_libraries(test_daq.elf
                             LCD
                             GPIO
                             Timer)
+
+# Debug Module Test
+add_executable(test_debug.elf
+                    test_debug.c
+                    ${PROJECT_SOURCE_DIR}/src/device/startup_gcc.c
+                )
+
+target_include_directories(test_debug.elf
+                            PRIVATE
+                            ${PROJECT_SOURCE_DIR}/src/app
+                            ${PROJECT_SOURCE_DIR}/src/common
+                            ${PROJECT_SOURCE_DIR}/src/drivers
+                            ${PROJECT_SOURCE_DIR}/src/device
+                            )
+
+target_link_libraries(test_debug.elf
+                        PRIVATE
+                            Debug
+                            PLL
+                            GPIO
+                            Timer)
