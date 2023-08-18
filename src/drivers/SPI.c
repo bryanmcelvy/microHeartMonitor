@@ -44,8 +44,8 @@ Preprocessor Directives
 #include <stdint.h>
 
 // Macros
-#define SPI_INT_ENABLE()  (NVIC_EN0_R |= (1 << 7))
-#define SPI_INT_DISABLE() (NVIC_DIS0_R |= (1 << 7))
+#define SPI_INT_ENABLE()    (SSI0_IM_R |= 0x08)
+#define SPI_INT_DISABLE()   (SSI0_IM_R &= ~(0x08))
 
 #define SPI_SET_DC()      (GPIO_PORTA_DATA_R |= 0x40)
 #define SPI_CLEAR_DC()    (GPIO_PORTA_DATA_R &= ~(0x40))
@@ -101,7 +101,8 @@ void SPI_Init(void) {
     // configure interrupt
     SPI_fifo = FIFO_Init(SPI_Buffer, SPI_BUFFER_SIZE);
     SSI0_IM_R |= 0x08;                           // interrupt when TX is half-empty
-    NVIC_PRI1_R |= (3 << 29);                    // priority 3
+    NVIC_PRI1_R |= (2 << 29);                    // priority 2
+    NVIC_EN0_R |= (1 << 7);
 
     SSI0_CR1_R |= 0x02;                          // re-enable SSI0
 }
