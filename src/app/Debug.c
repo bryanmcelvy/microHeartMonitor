@@ -22,3 +22,8 @@ void Debug_SendMsg(void * message) {
 void Debug_SendFromList(uint8_t msg_idx) {
     Debug_SendMsg(MSG_LIST[msg_idx]);
 }
+
+void Debug_WriteFloat(float64_t value) {
+    UART0_WriteFloat(value, 3);
+    UART0_WriteStr("\r\n");
+}

@@ -16,6 +16,7 @@ target_include_directories(QRS PRIVATE ${CMSIS_DIRS})
 
 add_library(Debug STATIC Debug.c Debug.h)
 target_link_libraries(Debug PRIVATE UART)
+target_include_directories(Debug PRIVATE ${CMSIS_DIRS})
 
 add_library(LCD STATIC LCD.c LCD.h)
 target_link_libraries(LCD PRIVATE ILI9341)

@@ -9,7 +9,9 @@
 
 #include "UART.h"
 
+#include "arm_math_types.h"
 #include "tm4c123gh6pm.h"
+#include <stdbool.h>
 
 enum messages { START_MSG, DAQ_INIT, QRS_INIT, LCD_INIT };
 
@@ -32,5 +34,7 @@ void Debug_Init(void);
 void Debug_SendMsg(void * message);
 
 void Debug_SendFromList(uint8_t msg_idx);
+
+void Debug_WriteFloat(float64_t value);
 
 #endif
