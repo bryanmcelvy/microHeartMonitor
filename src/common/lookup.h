@@ -9,6 +9,8 @@
 
 #include "arm_math_types.h"
 
+#define LOOKUP_ADC_MAX (float32_t) 3.3
+
 /**
  * @brief   Return a pointer to the ADC lookup table.
  *
