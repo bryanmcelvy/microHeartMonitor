@@ -33,7 +33,7 @@ void ADC_Init(void) {
     ADC0_EMUX_R |= 0x5000;                                  // set trigger source to Timer3A
     ADC0_SSMUX3_R &= ~(0x0F);                               // differential pair 0 (Ain0 and Ain1)
     ADC0_SSCTL3_R |= 0x07;                  // disable temp. sensor, enable differential input,
-                                                 // enable interrupts
+                                            // enable interrupts
     ADC0_ISC_R |= 0x08;                     // clear SS3 interrupt flag
     ADC0_IM_R |= 0x08;                      // enable SS3 interrupt
 
@@ -53,8 +53,8 @@ void ADC_InterruptDisable(void) {
     ADC0_IM_R &= ~(0x08);
 }
 
-float32_t ADC_ConvertToVolts(uint16_t raw_sample) {
-    return ADC_LOOKUP[raw_sample];
+volatile float32_t ADC_ConvertToVolts(uint16_t raw_sample) {
+    return (volatile float32_t) ADC_LOOKUP[raw_sample];
 }
 
 /** @} */
