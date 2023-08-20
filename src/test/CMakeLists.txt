@@ -296,9 +296,10 @@ target_include_directories(test_daq.elf
 target_link_libraries(test_daq.elf
                         PRIVATE
                             ADC
-                            PLL
-                            LCD
+                            Debug
                             GPIO
+                            LCD
+                            PLL
                             Timer)
 
 # Debug Module Test
