@@ -11,7 +11,7 @@ int main(void) {
 
     PLL_Init();
     ILI9341_Init();
-    Timer0A_Init();                    // Timer2A is reserved for the ILI9341 module
+    Timer0A_Init();               // Timer2A is reserved for the ILI9341 module
     GPIO_PF_LED_Init();
     ILI9341_setRowAddress(0, NUM_ROWS - 1);
     ILI9341_setColAddress(0, NUM_COLS - 1);
@@ -21,24 +21,24 @@ int main(void) {
     while(1) {
         // Determine next color
         switch(color) {
-        case RED:
-            red_val = 0;
-            green_val = 255;
-            blue_val = 0;
-            color = GREEN;
-            break;
-        case GREEN:
-            red_val = 0;
-            green_val = 0;
-            blue_val = 255;
-            color = BLUE;
-            break;
-        case BLUE:
-            red_val = 255;
-            green_val = 0;
-            blue_val = 0;
-            color = RED;
-            break;
+            case RED:
+                red_val = 0;
+                green_val = 255;
+                blue_val = 0;
+                color = GREEN;
+                break;
+            case GREEN:
+                red_val = 0;
+                green_val = 0;
+                blue_val = 255;
+                color = BLUE;
+                break;
+            case BLUE:
+                red_val = 255;
+                green_val = 0;
+                blue_val = 0;
+                color = RED;
+                break;
         }
         while(Timer0A_isCounting()) {}
 

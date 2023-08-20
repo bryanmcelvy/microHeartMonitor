@@ -32,31 +32,31 @@ Preprocessor Directives
 
 // Selected commands from the datasheet
 // NOTE: NUM_COLS and NUM_ROWS are defined in the header file
-#define CMD_NOP      (uint8_t) 0x00                    /// No Operation
-#define CMD_SWRESET  (uint8_t) 0x01                    /// Software Reset
-#define CMD_SPLIN    (uint8_t) 0x10                    /// Enter Sleep Mode
-#define CMD_SPLOUT   (uint8_t) 0x11                    /// Sleep Out (i.e. Exit Sleep Mode)
-#define CMD_PTLON    (uint8_t) 0x12                    /// Partial Display Mode ON
-#define CMD_NORON    (uint8_t) 0x13                    /// Normal Display Mode ON
-#define CMD_DINVOFF  (uint8_t) 0x20                    /// Display Inversion OFF
-#define CMD_DINVON   (uint8_t) 0x21                    /// Display Inversion ON
-#define CMD_CASET    (uint8_t) 0x2A                    /// Column Address Set
-#define CMD_PASET    (uint8_t) 0x2B                    /// Page Address Set
-#define CMD_RAMWR    (uint8_t) 0x2C                    /// Memory Write
-#define CMD_DISPOFF  (uint8_t) 0x28                    /// Display OFF
-#define CMD_DISPON   (uint8_t) 0x29                    /// Display ON
-#define CMD_PLTAR    (uint8_t) 0x30                    /// Partial Area
-#define CMD_VSCRDEF  (uint8_t) 0x33                    /// Vertical Scrolling Definition
-#define CMD_MADCTL   (uint8_t) 0x36                    /// Memory Access Control
-#define CMD_VSCRSADD (uint8_t) 0x37                    /// Vertical Scrolling Start Address
-#define CMD_IDMOFF   (uint8_t) 0x38                    /// Idle Mode OFF
-#define CMD_IDMON    (uint8_t) 0x39                    /// Idle Mode ON
-#define CMD_PIXSET   (uint8_t) 0x3A                    /// Pixel Format Set
-#define CMD_FRMCTR1  (uint8_t) 0xB1                    /// Frame Rate Control Set (Normal Mode)
-#define CMD_FRMCTR2  (uint8_t) 0xB2                    /// Frame Rate Control Set (Idle Mode)
-#define CMD_FRMCTR3  (uint8_t) 0xB3                    /// Frame Rate Control Set (Partial Mode)
-#define CMD_PRCTR    (uint8_t) 0xB5                    /// Blanking Porch Control
-#define CMD_IFCTL    (uint8_t) 0xF6                    /// Interface Control
+#define CMD_NOP      (uint8_t) 0x00               /// No Operation
+#define CMD_SWRESET  (uint8_t) 0x01               /// Software Reset
+#define CMD_SPLIN    (uint8_t) 0x10               /// Enter Sleep Mode
+#define CMD_SPLOUT   (uint8_t) 0x11               /// Sleep Out (i.e. Exit Sleep Mode)
+#define CMD_PTLON    (uint8_t) 0x12               /// Partial Display Mode ON
+#define CMD_NORON    (uint8_t) 0x13               /// Normal Display Mode ON
+#define CMD_DINVOFF  (uint8_t) 0x20               /// Display Inversion OFF
+#define CMD_DINVON   (uint8_t) 0x21               /// Display Inversion ON
+#define CMD_CASET    (uint8_t) 0x2A               /// Column Address Set
+#define CMD_PASET    (uint8_t) 0x2B               /// Page Address Set
+#define CMD_RAMWR    (uint8_t) 0x2C               /// Memory Write
+#define CMD_DISPOFF  (uint8_t) 0x28               /// Display OFF
+#define CMD_DISPON   (uint8_t) 0x29               /// Display ON
+#define CMD_PLTAR    (uint8_t) 0x30               /// Partial Area
+#define CMD_VSCRDEF  (uint8_t) 0x33               /// Vertical Scrolling Definition
+#define CMD_MADCTL   (uint8_t) 0x36               /// Memory Access Control
+#define CMD_VSCRSADD (uint8_t) 0x37               /// Vertical Scrolling Start Address
+#define CMD_IDMOFF   (uint8_t) 0x38               /// Idle Mode OFF
+#define CMD_IDMON    (uint8_t) 0x39               /// Idle Mode ON
+#define CMD_PIXSET   (uint8_t) 0x3A               /// Pixel Format Set
+#define CMD_FRMCTR1  (uint8_t) 0xB1               /// Frame Rate Control Set (Normal Mode)
+#define CMD_FRMCTR2  (uint8_t) 0xB2               /// Frame Rate Control Set (Idle Mode)
+#define CMD_FRMCTR3  (uint8_t) 0xB3               /// Frame Rate Control Set (Partial Mode)
+#define CMD_PRCTR    (uint8_t) 0xB5               /// Blanking Porch Control
+#define CMD_IFCTL    (uint8_t) 0xF6               /// Interface Control
 
 // clang-format off
 /** Currently unused commands
@@ -94,16 +94,16 @@ void ILI9341_resetHard(void) {
      *  signal for >= 10 [us] and an additional 5 [ms] before further commands
      *  can be sent.
      */
-    GPIO_PORTA_DATA_R &= ~(0x80);                    // clear PA7 to init. reset
+    GPIO_PORTA_DATA_R &= ~(0x80);               // clear PA7 to init. reset
     Timer2A_Wait1ms(1);
-    GPIO_PORTA_DATA_R |= 0x80;                       // set PA7 to end reset pulse
+    GPIO_PORTA_DATA_R |= 0x80;                  // set PA7 to end reset pulse
     Timer2A_Wait1ms(5);
 }
 
 void ILI9341_resetSoft(void) {
     SPI_IRQ_WriteCmd(CMD_SWRESET);
     SPI_IRQ_StartWriting();
-    Timer2A_Wait1ms(5);                    /// the driver needs 5 [ms] before another command
+    Timer2A_Wait1ms(5);                         /// the driver needs 5 [ms] before another command
 }
 
 /******************************************************************************
@@ -137,7 +137,7 @@ void ILI9341_setDispMode(bool is_normal, bool is_full_colors) {
     }
     else {
         SPI_IRQ_WriteCmd(CMD_PTLON);
-    }                    // call after ILI9341_setPartialArea()
+    }               // call after ILI9341_setPartialArea()
 
     if(is_full_colors) {
         SPI_IRQ_WriteCmd(CMD_IDMON);

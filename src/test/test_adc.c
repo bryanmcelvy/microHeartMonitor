@@ -69,5 +69,5 @@ void ADC0_SS3_Handler(void) {
     // UART0_WriteFloat(sample, 2);
     // UART0_WriteChar('\n');
 
-    ADC0_ISC_R |= 0x08;                    // clear interrupt flag to acknowledge
+    ADC0_ISC_R |= 0x08;               // clear interrupt flag to acknowledge
 }

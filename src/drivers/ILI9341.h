@@ -78,7 +78,7 @@ void ILI9341_setSleepMode(bool is_sleeping);
  *              to 8 colors, determined by the MSB of the R/G/B values.
  *
  * @param       is_normal       `true` for normal mode, `false` for partial mode
- * @param       is_full_colors  'true` for full colors, `false` for 8 colors
+ * @param       is_full_colors  `true` for full colors, `false` for 8 colors
  */
 void ILI9341_setDispMode(bool is_normal, bool is_full_colors);
 

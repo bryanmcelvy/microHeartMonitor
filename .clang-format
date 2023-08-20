@@ -33,7 +33,7 @@ SpaceBeforeParens: Never
 SpaceBeforeSquareBrackets: false
 SpaceInEmptyBlock: false
 SpacesInCStyleCastParentheses: false
-SpacesBeforeTrailingComments: 20
+SpacesBeforeTrailingComments: 15
 
 SeparateDefinitionBlocks: Always
 

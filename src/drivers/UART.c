@@ -44,28 +44,28 @@ void UART0_Init(void) {
      */
     // clang-format on
 
-    SYSCTL_RCGCUART_R |= 0x01;                        // activate clock for UART0
+    SYSCTL_RCGCUART_R |= 0x01;                   // activate clock for UART0
     if((SYSCTL_RCGCGPIO_R & 0x01) == 0) {
-        SYSCTL_RCGCGPIO_R |= 0x01;                    // activate clock for GPIO Port A
+        SYSCTL_RCGCGPIO_R |= 0x01;               // activate clock for GPIO Port A
     }
 
-    UART0_CTL_R &= ~(0x01);                           // disable UART0
+    UART0_CTL_R &= ~(0x01);                      // disable UART0
     UART0_IBRD_R |= 43;
     UART0_FBRD_R |= 26;
-    UART0_LCRH_R |= 0x70;                     // 8-bit length, FIFO (NOTE: access *AFTER* `BRD`)
-    UART0_CC_R &= ~(0x0F);                    // system clock source
-    UART0_CTL_R |= 0x01;                      // re-enable UART0
+    UART0_LCRH_R |= 0x70;                        // 8-bit length, FIFO (NOTE: access *AFTER* `BRD`)
+    UART0_CC_R &= ~(0x0F);                       // system clock source
+    UART0_CTL_R |= 0x01;                         // re-enable UART0
 
-    GPIO_PORTA_AFSEL_R |= 0x03;                                  // alt. mode for PA0/1
-    GPIO_PORTA_PCTL_R |= 0x11;                                   // UART mode for PA0/1
-    GPIO_PORTA_DR8R_R |= 0x03;                                   // 8 [ma] drive strength
-    GPIO_PORTA_AMSEL_R &= ~(0x03);                               // disable analog
-    GPIO_PORTA_DEN_R |= 0x03;                                    // enable digital I/O
+    GPIO_PORTA_AFSEL_R |= 0x03;                  // alt. mode for PA0/1
+    GPIO_PORTA_PCTL_R |= 0x11;                   // UART mode for PA0/1
+    GPIO_PORTA_DR8R_R |= 0x03;                   // 8 [ma] drive strength
+    GPIO_PORTA_AMSEL_R &= ~(0x03);               // disable analog
+    GPIO_PORTA_DEN_R |= 0x03;                    // enable digital I/O
 
     UART_fifo_ptr = FIFO_Init(UART_buffer, UART0_BUFFER_SIZE);
 
-    NVIC_PRI1_R |= (1 << 13);                                    // priority 1
-    NVIC_EN0_R |= (1 << UART0_INTERRUPT_NUM);                    // enable UART0 interrupts in NVIC
+    NVIC_PRI1_R |= (1 << 13);                    // priority 1
+    NVIC_EN0_R |= (1 << UART0_INTERRUPT_NUM);               // enable UART0 interrupts in NVIC
 }
 
 unsigned char UART0_ReadChar(void) {
@@ -73,7 +73,7 @@ unsigned char UART0_ReadChar(void) {
      * This function uses busy-wait synchronization
      * to read a character from UART0.
      */
-    while((UART0_FR_R & 0x10) != 0) {}                    // wait until Rx FIFO is empty
+    while((UART0_FR_R & 0x10) != 0) {}               // wait until Rx FIFO is empty
     return (unsigned char) (UART0_DR_R & 0xFF);
 }
 
@@ -82,7 +82,7 @@ void UART0_WriteChar(unsigned char input_char) {
      * This function uses busy-wait synchronization
      * to write a character to UART0.
      */
-    while((UART0_FR_R & 0x20) != 0) {}                    // wait until Tx FIFO is no longer full
+    while((UART0_FR_R & 0x20) != 0) {}               // wait until Tx FIFO is no longer full
     UART0_DR_R = input_char;
 }
 
@@ -215,24 +215,24 @@ void UART1_Init(void) {
      */
     // clang-format on
 
-    SYSCTL_RCGCUART_R |= 0x02;                        // activate clock for UART1
+    SYSCTL_RCGCUART_R |= 0x02;                   // activate clock for UART1
     if((SYSCTL_RCGCGPIO_R & 0x02) == 0) {
-        SYSCTL_RCGCGPIO_R |= 0x02;                    // activate clock for GPIO Port B
+        SYSCTL_RCGCGPIO_R |= 0x02;               // activate clock for GPIO Port B
     }
 
-    UART1_CTL_R &= ~(0x01);                           // disable UART1
-    UART1_IBRD_R |= 43;                       /// NOTE: LCRH must be accessed *AFTER* setting the
-                                              /// `BRD` register
+    UART1_CTL_R &= ~(0x01);                      // disable UART1
+    UART1_IBRD_R |= 43;                          /// NOTE: LCRH must be accessed *AFTER* setting the
+                                                 /// `BRD` register
     UART1_FBRD_R |= 26;
-    UART1_LCRH_R |= 0x70;                     // 8-bit length, FIFO
-    UART1_CC_R &= ~(0x0F);                    // system clock source
-    UART1_CTL_R |= 0x01;                      // re-enable UART0
+    UART1_LCRH_R |= 0x70;                        // 8-bit length, FIFO
+    UART1_CC_R &= ~(0x0F);                       // system clock source
+    UART1_CTL_R |= 0x01;                         // re-enable UART0
 
-    GPIO_PORTB_AFSEL_R |= 0x03;                       // alt. mode for PB0/1
-    GPIO_PORTB_PCTL_R |= 0x11;                        // UART mode for PB0/1
-    GPIO_PORTB_DR8R_R |= 0x03;                        // 8 [ma] drive strength
-    GPIO_PORTB_AMSEL_R &= ~(0x03);                    // disable analog
-    GPIO_PORTB_DEN_R |= 0x03;                         // enable digital I/O
+    GPIO_PORTB_AFSEL_R |= 0x03;                  // alt. mode for PB0/1
+    GPIO_PORTB_PCTL_R |= 0x11;                   // UART mode for PB0/1
+    GPIO_PORTB_DR8R_R |= 0x03;                   // 8 [ma] drive strength
+    GPIO_PORTB_AMSEL_R &= ~(0x03);               // disable analog
+    GPIO_PORTB_DEN_R |= 0x03;                    // enable digital I/O
 }
 
 unsigned char UART1_ReadChar(void) {
@@ -240,7 +240,7 @@ unsigned char UART1_ReadChar(void) {
      * This function uses busy-wait synchronization
      * to read a character from UART1.
      */
-    while((UART1_FR_R & 0x10) != 0) {}                    // wait until Rx FIFO is empty
+    while((UART1_FR_R & 0x10) != 0) {}               // wait until Rx FIFO is empty
     return (unsigned char) (UART1_DR_R & 0xFF);
 }
 
@@ -249,7 +249,7 @@ void UART1_WriteChar(unsigned char input_char) {
      * This function uses busy-wait synchronization
      * to write a character to UART1.
      */
-    while((UART1_FR_R & 0x20) != 0) {}                    // wait until Tx FIFO is no longer full
+    while((UART1_FR_R & 0x20) != 0) {}               // wait until Tx FIFO is no longer full
     UART1_DR_R = input_char;
 }
 

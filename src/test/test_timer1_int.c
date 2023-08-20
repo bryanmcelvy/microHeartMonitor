@@ -17,7 +17,7 @@ int main() {
     PLL_Init();
     Timer1A_Init(200);
     GPIO_PF_LED_Init();
-    GPIO_PF_LED_Write(0x0E, 0);                        // turn off all LEDs
+    GPIO_PF_LED_Write(0x0E, 0);                   // turn off all LEDs
 
     InterruptGlobal_Enable();
 
@@ -29,7 +29,7 @@ void Timer1A_Handler(void) {
     static uint8_t color_idx = 0;
 
     if(is_led_on) {
-        GPIO_PF_LED_Write(0x0E, 0);                    // turn off all LEDs
+        GPIO_PF_LED_Write(0x0E, 0);               // turn off all LEDs
     }
     else {
         color_idx = (color_idx < 5) ? (color_idx + 1) : 0;
@@ -37,5 +37,5 @@ void Timer1A_Handler(void) {
     }
     is_led_on = !is_led_on;
 
-    TIMER1_ICR_R |= 0x01;                              // acknowledge interrupt
+    TIMER1_ICR_R |= 0x01;                         // acknowledge interrupt
 }
