@@ -112,7 +112,6 @@ void LCD_Init(void) {
 
         lcd.is_init = true;
     }
-    LCD_fill();
 }
 
 void LCD_toggleOutput(void) {
@@ -128,7 +127,7 @@ void LCD_toggleInversion(void) {
 void LCD_toggleColorDepth(void) {
     lcd.is_16bit = !(lcd.is_16bit);
     ILI9341_setColorDepth(lcd.is_16bit);
-    if(lcd.is_16bit) {                    // convert R and B to 5-bits
+    if(lcd.is_16bit) {               // convert R and B to 5-bits
         lcd.R_val |= 0x1F;
         lcd.B_val |= 0x1F;
     }
@@ -359,8 +358,8 @@ void LCD_graphSample(uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy, uint16_
     // set area of display to write to
     x2 = (x1 + dx) - 1;
     y2 = (y1 + dy) - 1;
-    LCD_setDim(x1, x2, true, false);                          // using setDim() instead of
-    LCD_setDim(y_min, y_max, false, true);                    // setArea() to reduce stack usage
+    LCD_setDim(x1, x2, true, false);                     // using setDim() instead of
+    LCD_setDim(y_min, y_max, false, true);               // setArea() to reduce stack usage
 
     // write column by column
     ILI9341_writeMemCmd();
