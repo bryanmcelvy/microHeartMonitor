@@ -44,16 +44,16 @@ Preprocessor Directives
 #include <stdint.h>
 
 // Macros
-#define SPI_INT_ENABLE()  (SSI0_IM_R |= 0x08)
-#define SPI_INT_DISABLE() (SSI0_IM_R &= ~(0x08))
+#define NVIC_SSI0_NUM    7               ///< SSI0's interrupt number
+#define SPI_INT_START()  (NVIC_SW_TRIG_R = (NVIC_SW_TRIG_R & ~(0xFF)) | NVIC_SSI0_NUM)
 
-#define SPI_SET_DC()      (GPIO_PORTA_DATA_R |= 0x40)
-#define SPI_CLEAR_DC()    (GPIO_PORTA_DATA_R &= ~(0x40))
+#define SPI_SET_DC()     (GPIO_PORTA_DATA_R |= 0x40)
+#define SPI_CLEAR_DC()   (GPIO_PORTA_DATA_R &= ~(0x40))
 
-#define SPI_IS_BUSY       (SSI0_SR_R & 0x10)
-#define SPI_TX_ISNOTFULL  (SSI0_SR_R & 0x02)
+#define SPI_IS_BUSY      (SSI0_SR_R & 0x10)
+#define SPI_TX_ISNOTFULL ((bool) (SSI0_SR_R & 0x02))
 
-#define SPI_BUFFER_SIZE   8                    // needs to be >8
+#define SPI_BUFFER_SIZE  8               // needs to be >8
 
 /******************************************************************************
 Initialization
@@ -76,37 +76,36 @@ void SPI_Init(void) {
      *  10 [MHz], or a period of 100 [ns].
      */
 
-    SYSCTL_RCGCSSI_R |= 0x01;                         // enable SSI0 clk.
+    SYSCTL_RCGCSSI_R |= 0x01;                    // enable SSI0 clk.
     if((SYSCTL_RCGCGPIO_R & 0x01) == 0) {
-        SYSCTL_RCGCGPIO_R |= 0x01;                    // enable GPIO Port A clk.
+        SYSCTL_RCGCGPIO_R |= 0x01;               // enable GPIO Port A clk.
     }
 
     // configure GPIO pins
-    GPIO_PORTA_AFSEL_R |= 0x3C;                       // alt. mode for PA2-5
-    GPIO_PORTA_PCTL_R |= 0x3C;                        // SSI mode for PA2-5
+    GPIO_PORTA_AFSEL_R |= 0x3C;                  // alt. mode for PA2-5
+    GPIO_PORTA_PCTL_R |= 0x3C;                   // SSI mode for PA2-5
 
-    GPIO_PORTA_DIR_R |= 0xC0;                         // use PA6/7 as output pins
+    GPIO_PORTA_DIR_R |= 0xC0;                    // use PA6/7 as output pins
 
-    GPIO_PORTA_AMSEL_R &= ~(0xFC);                    // disable analog for PA2-7
-    GPIO_PORTA_DEN_R |= 0xFC;                         // enable digital IO for PA2-7
-    GPIO_PORTA_DATA_R |= 0x80;                        // set `RESET` pin `HIGH` (active `LOW`)
+    GPIO_PORTA_AMSEL_R &= ~(0xFC);               // disable analog for PA2-7
+    GPIO_PORTA_DEN_R |= 0xFC;                    // enable digital IO for PA2-7
+    GPIO_PORTA_DATA_R |= 0x80;                   // set `RESET` pin `HIGH` (active `LOW`)
 
     // configure SSI0
-    SSI0_CR1_R &= ~(0x02);                      // disable SSI0
-    SSI0_CR1_R &= ~(0x15);                      /* controller (M) mode, interrupt when Tx
-                                                  FIFO is half-empty, no loopback to RX */
-    SSI0_CC_R &= ~(0x0F);                       // system clock
+    SSI0_CR1_R &= ~(0x02);                 // disable SSI0
+    SSI0_CR1_R &= ~(0x15);                 /* controller (M) mode, interrupt when Tx
+                                             FIFO is half-empty, no loopback to RX */
+    SSI0_CC_R &= ~(0x0F);                  // system clock
     SSI0_CPSR_R = (SSI0_CPSR_R & ~(0xFF)) | 4;
-    SSI0_CR0_R &= ~(0xFFFF);                    // clk. phase = 0, clk. polarity = 0, SPI mode
-    SSI0_CR0_R |= 0x0107;                       // SCR = 1, 8-bit data
+    SSI0_CR0_R &= ~(0xFFFF);               // clk. phase = 0, clk. polarity = 0, SPI mode
+    SSI0_CR0_R |= 0x0107;                  // SCR = 1, 8-bit data
 
     // configure interrupt
     SPI_fifo = FIFO_Init(SPI_Buffer, SPI_BUFFER_SIZE);
-    SSI0_IM_R |= 0x08;                           // interrupt when TX is half-empty
-    NVIC_PRI1_R |= (2 << 29);                    // priority 2
-    NVIC_EN0_R |= (1 << 7);
+    NVIC_PRI1_R |= (1 << 29);               // priority 2
+    NVIC_EN0_R |= (1 << NVIC_SSI0_NUM);
 
-    SSI0_CR1_R |= 0x02;                          // re-enable SSI0
+    SSI0_CR1_R |= 0x02;                     // re-enable SSI0
 }
 
 /******************************************************************************
@@ -114,21 +113,21 @@ Basic Operations (Polling-based)
 *******************************************************************************/
 
 uint8_t SPI_Read(void) {
-    while(SSI0_SR_R & 0x04) {}                              // wait until Rx FIFO is empty
-    return (uint8_t) (SSI0_DR_R & 0xFF);                    // return data from data register
+    while(SSI0_SR_R & 0x04) {}                         // wait until Rx FIFO is empty
+    return (uint8_t) (SSI0_DR_R & 0xFF);               // return data from data register
 }
 
 void SPI_WriteCmd(uint8_t cmd) {
     while(SPI_IS_BUSY) {}
-    SPI_CLEAR_DC();                                         // signal incoming command to peripheral
+    SPI_CLEAR_DC();                                    // signal incoming command to peripheral
     SSI0_DR_R += cmd;
-    while(SPI_IS_BUSY) {}                                   // wait for transmission to finish
+    while(SPI_IS_BUSY) {}                              // wait for transmission to finish
 }
 
 void SPI_WriteData(uint8_t data) {
     while(SPI_TX_ISNOTFULL == 0) {}
-    SPI_SET_DC();                                           // signal incoming data to peripheral
-    SSI0_DR_R += data;                                      // write command
+    SPI_SET_DC();                                      // signal incoming data to peripheral
+    SSI0_DR_R += data;                                 // write command
 }
 
 /*
@@ -153,24 +152,24 @@ void SPI_IRQ_WriteCmd(uint8_t cmd) {
     FIFO_Put(SPI_fifo, cmd);
 
     if(FIFO_isFull(SPI_fifo)) {
-        SPI_INT_ENABLE();
+        SPI_INT_START();
     }
 }
 
 void SPI_IRQ_WriteData(uint8_t data) {
     uint16_t param;
-    param = ((uint16_t) data) | 0x100;                    // set bit 8 to signal as data
+    param = ((uint16_t) data) | 0x100;               // set bit 8 to signal as data
 
     while(FIFO_isFull(SPI_fifo)) {}
     FIFO_Put(SPI_fifo, param);
 
     if(FIFO_isFull(SPI_fifo)) {
-        SPI_INT_ENABLE();
+        SPI_INT_START();
     }
 }
 
 void SPI_IRQ_StartWriting(void) {
-    SPI_INT_ENABLE();
+    SPI_INT_START();
 }
 
 /******************************************************************************
@@ -188,25 +187,20 @@ Interrupt Handler
  *          more than half-full.
  */
 void SSI0_Handler(void) {
-    if(FIFO_isEmpty(SPI_fifo)) {
-        SPI_INT_DISABLE();                           // disable interrupt in NVIC
-    }
-    else {
-        while(SPI_TX_ISNOTFULL && (FIFO_isEmpty(SPI_fifo) == false)) {
-            uint16_t param = FIFO_Get(SPI_fifo);
+    NVIC_UNPEND0_R |= (1 << NVIC_SSI0_NUM);               // acknowledge interrupt
 
-            if((param & 0x100)) {                    // check bit 8
-                SPI_SET_DC();                        // signal data
-            }
-            else {
-                SPI_CLEAR_DC();                      // signal incoming command
-            }
+    while(FIFO_isEmpty(SPI_fifo) == false) {
+        uint16_t param = FIFO_Get(SPI_fifo);
 
-            SSI0_DR_R += (uint8_t) param;
+        if((param & 0x100)) {                             // check bit 8
+            SPI_SET_DC();                                 // signal data
         }
+        else {
+            SPI_CLEAR_DC();                               // signal incoming command
+        }
+        while(SPI_IS_BUSY) {}
+        SSI0_DR_R += (uint8_t) param;
     }
-
-    // no need to acknowledge the interrupt (i.e. clear interrupt flag)
 }
 
 /** @} */
