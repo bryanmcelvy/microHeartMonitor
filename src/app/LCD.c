@@ -108,7 +108,7 @@ void LCD_Init(void) {
         ILI9341_setMemAccessCtrl(1, 0, 0, 0, 1, 0);
         ILI9341_setColorDepth(true);
         ILI9341_setDispMode(true, false);
-        ILI9341_setFrameRateIdle(2, 27);
+        // ILI9341_setFrameRateIdle(2, 27);               // frame rate = 35 Hz
 
         lcd.is_init = true;
     }
