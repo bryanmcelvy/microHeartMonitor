@@ -22,6 +22,6 @@
 
 void DAQ_Init(void);
 
-float32_t DAQ_Filter(float32_t inputSample);
+volatile float32_t DAQ_Filter(volatile float32_t inputSample);
 
 #endif
