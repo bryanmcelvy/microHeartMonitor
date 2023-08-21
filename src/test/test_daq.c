@@ -7,22 +7,28 @@
 /********************************************************************************/
 
 // Includes
+#include "DAQ.h"
 #include "Debug.h"
 #include "LCD.h"
 
 #include "ADC.h"
-#include "GPIO.h"
 #include "PLL.h"
-#include "Timer.h"
 
 #include "FIFO.h"
 
 #include "arm_math_types.h"
+#include "lookup.h"
 #include <stdbool.h>
 #include <stdint.h>
 
 // Declarations
-#define DAQ_BUFFER_SIZE 16
+#define DAQ_BUFFER_SIZE   128
+
+#define LCD_TOP_LINE      (Y_MAX - 48)
+#define LCD_NUM_Y_VALS    128
+#define LCD_X_AXIS_OFFSET 32
+#define LCD_Y_MIN         (0 + LCD_X_AXIS_OFFSET)
+#define LCD_Y_MAX         (LCD_NUM_Y_VALS + LCD_X_AXIS_OFFSET)
 
 volatile FIFO_t * input_fifo_ptr = 0;
 volatile uint32_t input_buffer[DAQ_BUFFER_SIZE] = { 0 };
@@ -35,20 +41,24 @@ int main(void) {
     volatile float32_t sample;
 
     PLL_Init();
-    Debug_Init();
+    // Debug_Init();
 
     // Initialize/configure LCD
     LCD_Init();
     LCD_toggleInversion();
+
+    LCD_setArea(0, X_MAX, 0, Y_MAX);
+    LCD_draw();
+
+    LCD_setColor_3bit(LCD_WHITE - LCD_WHITE);
+    LCD_drawHLine(LCD_TOP_LINE, 1);
+
     LCD_setColor_3bit(LCD_WHITE - LCD_RED);
     LCD_toggleOutput();
 
     // Init. ADC
     input_fifo_ptr = FIFO_Init(input_buffer, DAQ_BUFFER_SIZE);
-    ADC_Init();
-    Timer3A_Init(5);
-
-    GPIO_PF_LED_Init();
+    DAQ_Init();
 
     x = 0;
     while(1) {
@@ -60,17 +70,19 @@ int main(void) {
         sampleReady = !FIFO_isEmpty(input_fifo_ptr);
         ADC_InterruptEnable();
 
-        Debug_WriteFloat(sample);
+        // apply low-pass filter
+        // sample = DAQ_Filter(sample);
 
         // plot sample
-        y = (uint16_t) ((sample / LOOKUP_ADC_MAX) * (Y_MAX - 1));
+        y = LCD_X_AXIS_OFFSET + ((uint16_t) (((sample / LOOKUP_ADC_MAX) + 1) * LCD_NUM_Y_VALS));
         LCD_drawRectangle(x, 1, y, 1, true);
         x = (x + 1) % X_MAX;
 
         // reset display upon wrapping around to x = 0
         if(x == 0) {
             LCD_setColor_3bit(LCD_WHITE - LCD_BLACK);
-            LCD_fill();
+            LCD_setArea(0, X_MAX - 1, LCD_Y_MIN, LCD_Y_MAX);
+            LCD_draw();
             LCD_setColor_3bit(LCD_WHITE - LCD_RED);
         }
     }

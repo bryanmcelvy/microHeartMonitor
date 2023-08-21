@@ -295,12 +295,12 @@ target_include_directories(test_daq.elf
 
 target_link_libraries(test_daq.elf
                         PRIVATE
-                            ADC
+                            DAQ
                             Debug
-                            GPIO
+                            FIFO
                             LCD
                             PLL
-                            Timer)
+                            )
 
 # Debug Module Test
 add_executable(test_debug.elf
