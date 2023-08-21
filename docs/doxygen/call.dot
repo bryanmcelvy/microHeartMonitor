@@ -1,56 +1,63 @@
 digraph {
     labelloc="t";
     label="ECG-HRM";
-    ranksep=1;
-    nodesep=1;
-    center=true;
-    
-    main -> {PLL, UserCtrl, ADC, Filter, QRS, LCD, Debug};
-    
-    // App. Software
-    subgraph cluster_app {
-        label="App. Software";
-        labeljust="l"
-        {rank=same; Debug, LCD, Filter, QRS, UserCtrl};
+    labeljust="c";
+    newrank=true;
+    node[shape=ellipse, height=0.25];
+
+    // subgraphs
+    subgraph invis_ranks{
+        node[style=invis, shape=none, width=0, height=0];
+        rank_main -> rank_app -> rank_filt -> rank_middle -> rank_driver -> rank_hw[style=invis];
     };
 
-    QRS -> Filter;
-    LCD -> ILI9341;
-    UserCtrl -> GPIO[dir=both];
-    UserCtrl -> Timer;
-    Debug -> UART;
-
-    // Drivers
-    subgraph cluster_drivers {
-        label="Drivers";
+    subgraph cluster_app{
+        label="src/app";
         labeljust="l"
-        ILI9341;
-        {rank=same; ADC, GPIO, PLL, SPI, Timer, UART};
+        style="dashed";
+
+        DAQ, QRS, LCD, UserCtrl, Debug;
     };
 
-    ILI9341 -> {SPI, Timer};
-    SPI -> PA27;
+    subgraph cluster_driver{
+        label="src/drivers";
+        labeljust="l"
+        style="dashed";
 
-    ADC -> PE23;
-    ADC -> Timer[style="dashed", dir="both"];
+        ADC, GPIO, ILI9341, PLL, SPI, Timer0A, Timer2A, Timer3A, UART;
+    };
 
-    GPIO -> PF04[dir=both];
-
-    UART -> PA01[dir=both];
-
-    
-    // Hardware
-    subgraph cluster_hw {
+    subgraph cluster_hw{
         label="Hardware";
-        labeljust="l"
-        shape="square";
-        {rank=same; shape=square; PA01, PE23, PF04, PA27[shape=square]};
-    }
+        style="dashed";
 
-    PA01[label="PA0/1"]
-    PA27[label="PA2-7"];
-    PE23[label="PE2/3"];
-    PF04[label="PF0/4"];
+        node[shape=rect; height=0.25; length=4];
+        PA01[label="PA0/1"]
+        PA27[label="PA2-7"];
+        PE23[label="PE2/3"];
+        PF04[label="PF0/4"];
+    };
 
-    
+    // row orientation
+    {rank=source; rank_main, main};
+    {rank=same; rank_app, DAQ, QRS, LCD, UserCtrl, Debug};
+    {rank=same; rank_filt, CMSIS}
+    {rank=same; rank_middle, ILI9341};
+    {rank=same; rank_driver, ADC, GPIO, PLL, SPI, UART,Timer0A, Timer2A, Timer3A};
+    {rank=same; rank_hw, PA01, PE23, PF04, PA27};
+
+    // connections
+    main -> {DAQ, QRS, LCD, UserCtrl, Debug, PLL};
+    DAQ -> ADC[dir=both];
+    DAQ -> {CMSIS, Timer3A};
+    QRS -> CMSIS;
+    LCD -> ILI9341 -> SPI -> PA27;
+    UserCtrl -> Timer0A;
+    UserCtrl -> GPIO -> PF04;
+    Debug -> UART -> PA01;
+
+    ILI9341 -> Timer2A;
+
+    ADC -> {PE23};
+    ADC -> Timer3A[dir=back];
 }

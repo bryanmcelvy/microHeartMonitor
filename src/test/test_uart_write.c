@@ -24,19 +24,13 @@ int main() {
     counter = 0;
     while(1) {
         in_char = UART0_ReadChar();
-        switch (in_char) {
-            case ((unsigned char) 'r'):
-            case ((unsigned char) 'R'):
-                GPIO_PF_LED_Toggle(0x02);
-                break;
-            case ((unsigned char) 'g'):
-            case ((unsigned char) 'G'):
-                GPIO_PF_LED_Toggle(0x08);
-                break;
-            case ((unsigned char) 'b'):
-            case ((unsigned char) 'B'):
-                GPIO_PF_LED_Toggle(0x04);
-                break;
+        switch(in_char) {
+            case((unsigned char) 'r'):
+            case((unsigned char) 'R'): GPIO_PF_LED_Toggle(0x02); break;
+            case((unsigned char) 'g'):
+            case((unsigned char) 'G'): GPIO_PF_LED_Toggle(0x08); break;
+            case((unsigned char) 'b'):
+            case((unsigned char) 'B'): GPIO_PF_LED_Toggle(0x04); break;
         }
         UART0_WriteChar(in_char);
         counter += 1;

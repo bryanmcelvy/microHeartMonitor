@@ -1,7 +1,7 @@
 #[[*********************************************************************************************
 File:           CMakeLists.txt
 Description:    Sets minimum CMake version, links toolchain file, declares
-                project, and adds subdirectories
+                project, adds subdirectories, and configures cppcheck
 #***********************************************************************************************    ]]
 cmake_minimum_required(VERSION 3.20)
 set(CMAKE_TOOLCHAIN_FILE "tm4c123g.cmake")          # must be placed before project()
@@ -19,19 +19,20 @@ add_subdirectory(docs)                              # datasheets and generated c
 # cppcheck Configuration
 find_program(CMAKE_C_CPPCHECK NAMES cppcheck)
 if(CMAKE_C_CPPCHECK)
-    set(CPPCHECK_FLAGS "--enable=all" "--error-exitcode=1" "--quiet")
-    list(APPEND CPPCHECK_FLAGS "--suppress=unusedFunction" "--suppress=missingIncludeSystem" "--suppress=*:src/device/startup_gcc.c")
-    list(APPEND CPPCHECK_FLAGS "--cppcheck-build-dir=${PROJECT_BINARY_DIR}/cppcheck" "--project=${PROJECT_BINARY_DIR}/compile_commands.json" "src")
+    set(CPPCHECK_DIR ${PROJECT_SOURCE_DIR}/cppcheck)
+    set(CPPCHECK_FLAGS          "--enable=all" "--error-exitcode=1" "--quiet" "--force")
+    list(APPEND CPPCHECK_FLAGS  "--suppressions-list=${CPPCHECK_DIR}/suppressions.txt" "--template=gcc")
+    list(APPEND CPPCHECK_FLAGS  "--relative-paths=${PROJECT_SOURCE_DIR}" "--cppcheck-build-dir=${CPPCHECK_DIR}" "--project=${PROJECT_BINARY_DIR}/compile_commands.json")
 
     add_custom_target(lint 
                         COMMENT             "Running cppcheck:"
-                        WORKING_DIRECTORY   ${PROJECT_SOURCE_DIR}/src
-                        COMMAND             ${CMAKE_C_CPPCHECK} ${CPPCHECK_FLAGS}
+                        WORKING_DIRECTORY   ${PROJECT_SOURCE_DIR}
+                        COMMAND             ${CMAKE_C_CPPCHECK} ${CPPCHECK_FLAGS} ${PROJECT_SOURCE_DIR}/src
                         VERBATIM)
 
     if(OPT_CPPCHECK)
         set_target_properties(lint PROPERTIES EXCLUDE_FROM_ALL FALSE)
     else()
-        set_target_properties(lint PROPERTIES EXCLUDE_FROM_ALL FALSE)
+        set_target_properties(lint PROPERTIES EXCLUDE_FROM_ALL TRUE)
     endif()
 endif()

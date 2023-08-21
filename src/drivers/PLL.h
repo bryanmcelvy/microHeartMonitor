@@ -15,7 +15,7 @@
 #include <stdint.h>
 /**
  * @brief Initializes the phase-locked-loop (PLL), allowing a bus frequency of 80[MHz].
- * 
+ *
  */
 void PLL_Init(void);
 

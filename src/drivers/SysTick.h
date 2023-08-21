@@ -16,7 +16,7 @@
 
 /**
  * @brief   Initialize SysTick for timing purposes.
- * 
+ *
  */
 void SysTick_Timer_Init(void);
 
@@ -28,7 +28,7 @@ void SysTick_Wait1ms(uint32_t delay_ms);
 
 /**
  * @brief   Initialize SysTick for interrupts.
- * 
+ *
  * @param time_ms Time in [ms] between interrupts. Cannot be more than 200[ms].
  */
 void SysTick_Interrupt_Init(uint32_t time_ms);
