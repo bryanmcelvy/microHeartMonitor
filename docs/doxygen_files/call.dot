@@ -5,12 +5,13 @@ digraph {
     newrank=true;
     node[shape=ellipse, height=0.25];
 
-    // subgraphs
-    subgraph invis_ranks{
+    // Invisible Rows
+    subgraph invis_rows{
         node[style=invis, shape=none, width=0, height=0];
         rank_main -> rank_app -> rank_filt -> rank_middle -> rank_driver -> rank_hw[style=invis];
     };
 
+    // Application Software
     subgraph cluster_app{
         label="src/app";
         labeljust="l"
@@ -19,6 +20,7 @@ digraph {
         DAQ, QRS, LCD, UserCtrl, Debug;
     };
 
+    // Device Drivers
     subgraph cluster_driver{
         label="src/drivers";
         labeljust="l"
@@ -27,6 +29,7 @@ digraph {
         ADC, GPIO, ILI9341, PLL, SPI, Timer0A, Timer2A, Timer3A, UART;
     };
 
+    // Hardware
     subgraph cluster_hw{
         label="Hardware";
         style="dashed";
@@ -38,7 +41,7 @@ digraph {
         PF04[label="PF0/4"];
     };
 
-    // row orientation
+    // Row Orientation
     {rank=source; rank_main, main};
     {rank=same; rank_app, DAQ, QRS, LCD, UserCtrl, Debug};
     {rank=same; rank_filt, CMSIS}
@@ -46,7 +49,7 @@ digraph {
     {rank=same; rank_driver, ADC, GPIO, PLL, SPI, UART,Timer0A, Timer2A, Timer3A};
     {rank=same; rank_hw, PA01, PE23, PF04, PA27};
 
-    // connections
+    // Connections
     main -> {DAQ, QRS, LCD, UserCtrl, Debug, PLL};
     DAQ -> ADC[dir=both];
     DAQ -> {CMSIS, Timer3A};

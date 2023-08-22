@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.7.25)  22 AUG 2023 13:39
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.7.25)  22 AUG 2023 16:29
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1472,7 +1472,7 @@ helvetic/uhvb8a.pfb></usr/local/texlive/2023basic/texmf-dist/fonts/type1/urw/he
 lvetic/uhvb8ac.pfb></usr/local/texlive/2023basic/texmf-dist/fonts/type1/urw/hel
 vetic/uhvr8a.pfb></usr/local/texlive/2023basic/texmf-dist/fonts/type1/urw/helve
 tic/uhvro8a.pfb>
-Output written on refman.pdf (74 pages, 460755 bytes).
+Output written on refman.pdf (74 pages, 460745 bytes).
 PDF statistics:
  2508 PDF objects out of 2984 (max. 8388607)
  2276 compressed objects within 23 object streams

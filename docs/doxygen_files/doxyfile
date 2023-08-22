@@ -943,9 +943,8 @@ WARN_LOGFILE           =
 # spaces. See also FILE_PATTERNS and EXTENSION_MAPPING
 # Note: If this tag is empty the current directory is searched.
 
-INPUT                  = /Users/bryanmcelvy/Documents/project_dir/ecg_hrm/src \
-                         . \
-                         ../../src/common
+INPUT                  = . \
+                         ../../src
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding. Doxygen uses
@@ -1045,9 +1044,9 @@ RECURSIVE              = YES
 # Note that relative paths are relative to the directory from which doxygen is
 # run.
 
-EXCLUDE                = /Users/bryanmcelvy/Documents/project_dir/ecg_hrm/src/test \
-                         /Users/bryanmcelvy/Documents/project_dir/ecg_hrm/src/device \
-                         ../../src/external
+EXCLUDE                = ../../src/external \
+                         ../../src/device \
+                         ../../src/test
 
 # The EXCLUDE_SYMLINKS tag can be used to select whether or not files or
 # directories that are symbolic links (a Unix file system feature) are excluded
