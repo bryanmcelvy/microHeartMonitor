@@ -9,7 +9,7 @@
  *              UART0 uses PA0 and PA1, which are not broken out but can connect
  *              to a PC's serial port via USB.
  *
- *              UART1 uses PB0 (Rx) and PB1 (Tx), which are not broken out but
+ *              UART1 uses PB0 (Rx) and PB1 (Tx), which are broken out but
  *              do not connect to a serial port.
  */
 
@@ -119,9 +119,9 @@ unsigned char UART1_ReadChar(void);
 void UART1_WriteChar(unsigned char input_char);
 
 /**
- * @brief   Write a C string to UART1.
+ * @brief               Write a C string to UART1.
  *
- * @param   C string
+ * @param input_str     C string
  */
 void UART1_WriteStr(void * input_str);
 

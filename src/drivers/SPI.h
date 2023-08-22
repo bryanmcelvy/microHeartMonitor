@@ -64,7 +64,7 @@ void SPI_WriteCmd(uint8_t cmd);
  */
 void SPI_WriteData(uint8_t data);
 
-/**
+/*
  * @brief                   Write a sequence of data to the peripheral,
  *                          with or without a preceding command.
  *

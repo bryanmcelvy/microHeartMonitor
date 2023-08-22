@@ -44,7 +44,7 @@ Preprocessor Directives
 #include <stdint.h>
 
 // Macros
-#define NVIC_SSI0_NUM    7               ///< SSI0's interrupt number
+#define NVIC_SSI0_NUM    7               /// SSI0's interrupt number
 #define SPI_INT_START()  (NVIC_SW_TRIG_R = (NVIC_SW_TRIG_R & ~(0xFF)) | NVIC_SSI0_NUM)
 
 #define SPI_SET_DC()     (GPIO_PORTA_DATA_R |= 0x40)
@@ -53,7 +53,7 @@ Preprocessor Directives
 #define SPI_IS_BUSY      (SSI0_SR_R & 0x10)
 #define SPI_TX_ISNOTFULL ((bool) (SSI0_SR_R & 0x02))
 
-#define SPI_BUFFER_SIZE  8               // needs to be >8
+#define SPI_BUFFER_SIZE  9               // needs to be >8
 
 /******************************************************************************
 Initialization
@@ -102,7 +102,7 @@ void SPI_Init(void) {
 
     // configure interrupt
     SPI_fifo = FIFO_Init(SPI_Buffer, SPI_BUFFER_SIZE);
-    NVIC_PRI1_R |= (1 << 29);               // priority 2
+    NVIC_PRI1_R |= (1 << 29);               // priority 1
     NVIC_EN0_R |= (1 << NVIC_SSI0_NUM);
 
     SSI0_CR1_R |= 0x02;                     // re-enable SSI0
@@ -179,12 +179,11 @@ Interrupt Handler
 /**
  * @brief   Sends parameters (data or commands) over SPI via SSI0.
  *
- *          The interrupt is enabled in the NVIC and triggered when the Tx FIFO
- *          is half-empty. The handler determines whether to signal for data or
- *          a command via the D/C pin, and then writes to the data register.
+ *      The interrupt is enabled by the `SPI_Init()` function and triggered by
+ *      a call to `SPI_IRQ_StartWriting()`. The handler determines whether to
+ *      signal for data or a command via the D/C pin, and then writes to the data register.
  *
- *          The interrupt flag is cleared automatically when the Tx FIFO is
- *          more than half-full.
+ *      The interrupt is unpended at the start of the function.
  */
 void SSI0_Handler(void) {
     NVIC_UNPEND0_R |= (1 << NVIC_SSI0_NUM);               // acknowledge interrupt

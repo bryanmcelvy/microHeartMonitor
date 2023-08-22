@@ -29,7 +29,7 @@ Preprocessor Directives
 // Number of pre-allocated FIFO buffer can be defined at compile-time
 // (i.e. "arm-none-eabi-gcc -DFIFO_POOL_SIZE=<VALUE> ...") or hard-coded
 #ifndef FIFO_POOL_SIZE
-#define FIFO_POOL_SIZE 5                    // default val
+#define FIFO_POOL_SIZE 5               // default val
 #endif
 
 /******************************************************************************
@@ -50,6 +50,7 @@ volatile FIFO_t * FIFO_Init(volatile uint32_t buffer[], const uint32_t N);
 /******************************************************************************
 Basic Operations
 *******************************************************************************/
+/** @name Basic Operations */               /// @{
 
 /**
  * @brief               Add a value to the end of the buffer.
@@ -75,9 +76,12 @@ volatile uint32_t FIFO_Get(volatile FIFO_t * fifo_ptr);
  */
 void FIFO_TransferOne(volatile FIFO_t * src_fifo_ptr, volatile FIFO_t * dest_fifo_ptr);
 
+///@}
+
 /******************************************************************************
 Bulk Removal
 *******************************************************************************/
+/** @name Bulk Removal */               /// @{
 
 /**
  * @brief               Empty the FIFO buffer's contents into an array.
@@ -96,9 +100,12 @@ void FIFO_Flush(volatile FIFO_t * fifo_ptr, uint32_t output_buffer[]);
  */
 void FIFO_TransferAll(volatile FIFO_t * src_fifo_ptr, volatile FIFO_t * dest_fifo_ptr);
 
+///@}
+
 /******************************************************************************
 Status Checks
 *******************************************************************************/
+/** @name Status Checks */               /// @{
 
 /**
  * @brief               See the first element in the FIFO without removing it.
@@ -142,6 +149,8 @@ bool FIFO_isEmpty(volatile FIFO_t * fifo_ptr);
  */
 uint32_t FIFO_getCurrSize(volatile FIFO_t * fifo_ptr);
 
-#endif                    // __FIFO_H__
+///@}
+
+#endif               // __FIFO_H__
 
 /** @} */
