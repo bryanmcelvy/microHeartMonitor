@@ -242,7 +242,7 @@ Drawing
 void LCD_draw(void) {
     /// @showrefs
     ILI9341_writeMemCmd();
-    for(int count = 0; count < lcd.numPixels; count++) {
+    for(uint32_t count = 0; count < lcd.numPixels; count++) {
         ILI9341_write1px(lcd.R_val, lcd.G_val, lcd.B_val, lcd.is_16bit);
     }
 }
