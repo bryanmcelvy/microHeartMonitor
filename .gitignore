@@ -1,8 +1,10 @@
 *.DS_Store
-/.vscode
-/build
 /ecg_hrm.code-workspace
+/.vscode
+
+/build
 /.cache
-cppcheck/*
-!cppcheck/suppressions.txt
+/cppcheck/*
+!/cppcheck/suppressions.txt
 /scratch
+/tools/*pycache*
