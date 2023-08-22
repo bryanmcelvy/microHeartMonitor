@@ -1,77 +1,80 @@
-/** 
+// clang-format off
+
+/**
  * @defgroup    driver      Device Drivers
- * @brief       Device driver modules.
+ * Device driver modules.
  * @{
  */
 
-    /** @defgroup   adc       ADC
-     *  @brief      Functions for differential-input analog-to-digital conversion.
-     */
+        /** @defgroup   adc       Analog-to-Digital Conversion (ADC)
+        * Functions for differential-input analog-to-digital conversion.
+        */
 
-    /** @defgroup   gpio      GPIO
-     *  @brief      Functions for interfacing the LaunchPad's RGB LEDs (PF1-3) and switches (PF0/4).
-     */
+        /** @defgroup   gpio      GPIO
+        * Functions for interfacing the LaunchPad's RGB LEDs (PF1-3) and switches (PF0/4).
+        */
 
-    /** @defgroup   ili9341   ILI9341
-     *  @brief      Functions for interfacing an ILI9341-based 240RGBX320 LCD via @ref spi.
-     */
+        /** @defgroup   ili9341   ILI9341
+        * Functions for interfacing an ILI9341-based 240RGBx320 LCD via @ref spi.
+        */
 
-    /** @defgroup   pll       PLL
-     *  @brief      Function for initializing the phase-locked loop.
-     */
+        /** @defgroup   pll       Phase-Locked Loop (PLL)
+        * Function for initializing the phase-locked loop.
+        */
 
-    /** @defgroup   spi       SPI
-     *  @brief      Functions for SPI-based communication via SSI0 peripheral.
-     */
+        /** @defgroup   spi       Serial Peripheral Interface (SPI)
+        * Functions for SPI-based communication via SSI0 peripheral.
+        */
 
-    /** @defgroup   systick   SysTick
-     *  @brief      Functions for timing and periodic interrupts via SysTick.
-     */
+        /** @defgroup   systick   System Tick (SysTick)
+        * Functions for timing and periodic interrupts via SysTick.
+        */
 
-    /** @defgroup   timer     Timer
-     *  @brief      Functions for timing and periodic interrupts via general-purpose timer modules (GPTM).
-     */
+        /** @defgroup   timer     Timer
+        * Functions for timing and periodic interrupts via general-purpose timer modules
+        * (GPTM).
+        */
 
-    /** @defgroup   uart      UART
-     *  @brief      Functions for UART-based communication.
-     */
+        /** @defgroup   uart      Universal Asynchronous Receiver/Transmitter (UART)
+        * Functions for UART-based communication.
+        */
 
 /** @} */
 
 //************************************************************************************************
 
-/** 
+/**
  * @defgroup    app         Application Software
- * @brief       Application-specific modules.
+ * Application-specific software modules.
  * @{
  */
 
-    /** @defgroup   debug       Debug
-      *  @brief      Debug module.
-      */
+        /** @defgroup   daq         Data Acquisition (DAQ)
+        * Module for managing data acquisition (DAQ) functions.
+        */
 
-    /** @defgroup   filt        Filter
-      *  @brief      Filter module.
-      */
+        /** @defgroup   debug       Debug
+        * Module for debugging functions, including serial output and assertion.
+        */
 
-    /** @defgroup   lcd         LCD
-      *  @brief      Module for displaying graphs on an LCD via the @ref ili9341 module.
-      */
+        /** @defgroup   lcd         LCD
+        * Module for displaying graphs on an LCD via the @ref ili9341 module.
+        */
 
-    /** @defgroup   qrs         QRS
-      *  @brief      QRS detection algorithm.
-      */
+        /** @defgroup   qrs         QRS
+        * Module for analyzing ECG data to determine heart rate.
+        */
 
-    /** @defgroup   userctrl         UserCtrl
-      *  @brief      User control module.
-      */
+        /** @defgroup   userctrl         UserCtrl
+        * User control module.
+        */
 
 /** @} */
 //************************************************************************************************
 
-/** 
+/**
  * @defgroup    thread      Program Threads
- * @brief       Primary threads of execution.
+ * Primary threads of execution.
  */
 
 //************************************************************************************************

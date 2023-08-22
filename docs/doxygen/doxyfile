@@ -944,7 +944,8 @@ WARN_LOGFILE           =
 # Note: If this tag is empty the current directory is searched.
 
 INPUT                  = /Users/bryanmcelvy/Documents/project_dir/ecg_hrm/src \
-                         .
+                         . \
+                         ../../src/common
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding. Doxygen uses
@@ -1046,7 +1047,7 @@ RECURSIVE              = YES
 
 EXCLUDE                = /Users/bryanmcelvy/Documents/project_dir/ecg_hrm/src/test \
                          /Users/bryanmcelvy/Documents/project_dir/ecg_hrm/src/device \
-                         /Users/bryanmcelvy/Documents/project_dir/ecg_hrm/src/common
+                         ../../src/external
 
 # The EXCLUDE_SYMLINKS tag can be used to select whether or not files or
 # directories that are symbolic links (a Unix file system feature) are excluded
@@ -2560,7 +2561,7 @@ COLLABORATION_GRAPH    = NO
 # The default value is: YES.
 # This tag requires that the tag HAVE_DOT is set to YES.
 
-GROUP_GRAPHS           = NO
+GROUP_GRAPHS           = YES
 
 # If the UML_LOOK tag is set to YES, doxygen will generate inheritance and
 # collaboration diagrams in a style similar to the OMG's Unified Modeling
@@ -2620,7 +2621,7 @@ TEMPLATE_RELATIONS     = NO
 # The default value is: YES.
 # This tag requires that the tag HAVE_DOT is set to YES.
 
-INCLUDE_GRAPH          = YES
+INCLUDE_GRAPH          = NO
 
 # If the INCLUDED_BY_GRAPH, ENABLE_PREPROCESSING and SEARCH_INCLUDES tags are
 # set to YES then doxygen will generate a graph for each documented file showing
@@ -2629,7 +2630,7 @@ INCLUDE_GRAPH          = YES
 # The default value is: YES.
 # This tag requires that the tag HAVE_DOT is set to YES.
 
-INCLUDED_BY_GRAPH      = YES
+INCLUDED_BY_GRAPH      = NO
 
 # If the CALL_GRAPH tag is set to YES then doxygen will generate a call
 # dependency graph for every global function or class method.
@@ -2653,7 +2654,7 @@ CALL_GRAPH             = NO
 # The default value is: NO.
 # This tag requires that the tag HAVE_DOT is set to YES.
 
-CALLER_GRAPH           = YES
+CALLER_GRAPH           = NO
 
 # If the GRAPHICAL_HIERARCHY tag is set to YES then doxygen will graphical
 # hierarchy of all classes instead of a textual one.

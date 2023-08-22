@@ -2,12 +2,6 @@
 File:           src/CMakeLists.txt
 Description:    Adds subdirectories and main target executable
 **************************************************************************************************  ]]
-list(APPEND 
-        CMSIS_DIRS                  
-            "${CMAKE_SOURCE_DIR}/src/external/CMSIS-DSP/Include"
-            "${CMAKE_SOURCE_DIR}/src/external/CMSIS-DSP/PrivateInclude"
-            "${CMAKE_SOURCE_DIR}/src/external/CMSIS-DSP/Source"
-            "${CMAKE_SOURCE_DIR}/src/external/CMSIS/Core/Include")
 
 # Subdirectories
 add_subdirectory(app)
@@ -21,15 +15,15 @@ set(MAIN_TARGET main.elf)
 
 add_executable(${MAIN_TARGET} 
                     main.c
-                    ${PROJECT_SOURCE_DIR}/src/device/startup_gcc.c
+                    ${PATH_DEVICE}/startup_gcc.c
                 )
 
 target_include_directories( ${MAIN_TARGET} 
                             PRIVATE 
-                                ${CMAKE_SOURCE_DIR}/src/app
-                                ${CMAKE_SOURCE_DIR}/src/common
-                                ${CMAKE_SOURCE_DIR}/src/device 
-                                ${CMAKE_SOURCE_DIR}/src/drivers
+                                ${PATH_APP}
+                                ${PATH_COMMON}
+                                ${PATH_DEVICE}
+                                ${PATH_DRIVERS}
                                 ${CMSIS_DIRS}
                             )
 

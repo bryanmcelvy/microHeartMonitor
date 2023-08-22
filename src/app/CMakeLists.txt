@@ -2,9 +2,9 @@
 File:           src/app/CMakeLists.txt
 Description:    Adds application software libraries and link to driver libraries.
 #***********************************************************************************************    ]]
-include_directories(${CMAKE_SOURCE_DIR}/src/drivers
-                    ${CMAKE_SOURCE_DIR}/src/common
-                    ${CMAKE_SOURCE_DIR}/src/device)
+include_directories(${PATH_COMMON}
+                    ${PATH_DEVICE}
+                    ${PATH_DRIVERS})
 
 add_library(DAQ STATIC DAQ.c DAQ.h)
 target_link_libraries(DAQ PRIVATE ADC CMSIS-DSP-f32 FIFO)

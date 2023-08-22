@@ -3,17 +3,19 @@ File:           src/test/CMakeLists.txt
 Description:    Adds executables for test scripts.
 **************************************************************************************************  ]]
 
+if(${OPT_TESTING})
+
 # FIFO Buffer
 add_executable(test_fifo.elf 
                     test_fifo.c
-                    ${PROJECT_SOURCE_DIR}/src/device/startup_gcc.c
+                    ${PATH_DEVICE}/startup_gcc.c
                 )
 
 target_include_directories(test_fifo.elf 
                             PRIVATE 
-                                ${PROJECT_SOURCE_DIR}/src/common
-                                ${PROJECT_SOURCE_DIR}/src/drivers
-                                ${PROJECT_SOURCE_DIR}/src/device
+                                ${PATH_COMMON}
+                                ${PATH_DRIVERS}
+                                ${PATH_DEVICE}
                             )
 
 target_link_libraries(  test_fifo.elf 
@@ -32,13 +34,13 @@ target_link_libraries(  test_fifo.elf
 # Phase-Lock-Loop (PLL)
 add_executable(test_pll.elf 
                     test_pll.c
-                    ${PROJECT_SOURCE_DIR}/src/device/startup_gcc.c
+                    ${PATH_DEVICE}/startup_gcc.c
                 )
 
 target_include_directories(test_pll.elf 
                             PRIVATE 
-                                ${PROJECT_SOURCE_DIR}/src/drivers
-                                ${PROJECT_SOURCE_DIR}/src/device
+                                ${PATH_DRIVERS}
+                                ${PATH_DEVICE}
                             )
 
 target_link_libraries(  test_pll.elf 
@@ -50,13 +52,13 @@ target_link_libraries(  test_pll.elf
 # SysTick Interrupts
 add_executable(test_systick_int.elf 
                     test_systick_int.c 
-                    ${PROJECT_SOURCE_DIR}/src/device/startup_gcc.c
+                    ${PATH_DEVICE}/startup_gcc.c
                     )
 
 target_include_directories(test_systick_int.elf 
                             PRIVATE 
-                                ${PROJECT_SOURCE_DIR}/src/drivers
-                                ${PROJECT_SOURCE_DIR}/src/device
+                                ${PATH_DRIVERS}
+                                ${PATH_DEVICE}
                             )
 
 target_link_libraries(  test_systick_int.elf 
@@ -68,13 +70,13 @@ target_link_libraries(  test_systick_int.elf
 # Timer 0
 add_executable(test_timer0.elf 
                     test_timer0.c 
-                    ${PROJECT_SOURCE_DIR}/src/device/startup_gcc.c
+                    ${PATH_DEVICE}/startup_gcc.c
                     )
 
 target_include_directories(test_timer0.elf
                             PRIVATE 
-                                ${PROJECT_SOURCE_DIR}/src/drivers
-                                ${PROJECT_SOURCE_DIR}/src/device
+                                ${PATH_DRIVERS}
+                                ${PATH_DEVICE}
                             )
 
 target_link_libraries(  test_timer0.elf
@@ -87,13 +89,13 @@ target_link_libraries(  test_timer0.elf
 # GPIO Interrupts
 add_executable(test_gpio_int.elf 
                     test_gpio_int.c 
-                    ${PROJECT_SOURCE_DIR}/src/device/startup_gcc.c
+                    ${PATH_DEVICE}/startup_gcc.c
                     )
 
 target_include_directories(test_gpio_int.elf 
                             PRIVATE 
-                                ${PROJECT_SOURCE_DIR}/src/drivers
-                                ${PROJECT_SOURCE_DIR}/src/device
+                                ${PATH_DRIVERS}
+                                ${PATH_DEVICE}
                             )
 
 target_link_libraries(  test_gpio_int.elf 
@@ -107,13 +109,13 @@ target_link_libraries(  test_gpio_int.elf
 # Timer 1 Interrupts
 add_executable(test_timer1_int.elf 
                     test_timer1_int.c 
-                    ${PROJECT_SOURCE_DIR}/src/device/startup_gcc.c
+                    ${PATH_DEVICE}/startup_gcc.c
                     )
 
 target_include_directories(test_timer1_int.elf
                             PRIVATE 
-                                ${PROJECT_SOURCE_DIR}/src/drivers
-                                ${PROJECT_SOURCE_DIR}/src/device
+                                ${PATH_DRIVERS}
+                                ${PATH_DEVICE}
                             )
 
 target_link_libraries(  test_timer1_int.elf
@@ -126,13 +128,13 @@ target_link_libraries(  test_timer1_int.elf
 # UART
 add_executable(test_uart_write.elf 
                     test_uart_write.c 
-                    ${PROJECT_SOURCE_DIR}/src/device/startup_gcc.c
+                    ${PATH_DEVICE}/startup_gcc.c
                     )
 
 target_include_directories(test_uart_write.elf
                             PRIVATE 
-                                ${PROJECT_SOURCE_DIR}/src/drivers
-                                ${PROJECT_SOURCE_DIR}/src/device
+                                ${PATH_DRIVERS}
+                                ${PATH_DEVICE}
                             )
 
 target_link_libraries(  test_uart_write.elf
@@ -146,13 +148,13 @@ target_link_libraries(  test_uart_write.elf
 # UART (Logic Analyzer)
 add_executable(test_uart_la.elf 
                     test_uart_la.c 
-                    ${PROJECT_SOURCE_DIR}/src/device/startup_gcc.c
+                    ${PATH_DEVICE}/startup_gcc.c
                     )
 
 target_include_directories(test_uart_la.elf
                             PRIVATE 
-                                ${PROJECT_SOURCE_DIR}/src/drivers
-                                ${PROJECT_SOURCE_DIR}/src/device
+                                ${PATH_DRIVERS}
+                                ${PATH_DEVICE}
                             )
 
 target_link_libraries(  test_uart_la.elf
@@ -165,14 +167,14 @@ target_link_libraries(  test_uart_la.elf
 # UART (Logic Analyzer)
 add_executable(test_uart_interrupt.elf 
                     test_uart_interrupt.c 
-                    ${PROJECT_SOURCE_DIR}/src/device/startup_gcc.c
+                    ${PATH_DEVICE}/startup_gcc.c
                     )
 
 target_include_directories(test_uart_interrupt.elf
                             PRIVATE
                                 ${PROJECT_SOURCE_DIR}/src/common
-                                ${PROJECT_SOURCE_DIR}/src/device
-                                ${PROJECT_SOURCE_DIR}/src/drivers
+                                ${PATH_DEVICE}
+                                ${PATH_DRIVERS}
                             )
 
 target_link_libraries(  test_uart_interrupt.elf
@@ -186,14 +188,14 @@ target_link_libraries(  test_uart_interrupt.elf
 # Blink Display Test
 add_executable(test_ili9341_blinkdisplay.elf 
                     test_ili9341_blinkdisplay.c
-                    ${PROJECT_SOURCE_DIR}/src/device/startup_gcc.c
+                    ${PATH_DEVICE}/startup_gcc.c
                 )
 
 target_include_directories(test_ili9341_blinkdisplay.elf 
                             PRIVATE 
                                 ${PROJECT_SOURCE_DIR}/src/common
-                                ${PROJECT_SOURCE_DIR}/src/drivers
-                                ${PROJECT_SOURCE_DIR}/src/device
+                                ${PATH_DRIVERS}
+                                ${PATH_DEVICE}
                             )
 
 target_link_libraries(test_ili9341_blinkdisplay.elf
@@ -205,14 +207,14 @@ target_link_libraries(test_ili9341_blinkdisplay.elf
 # ADC Test
 add_executable(test_adc.elf 
                     test_adc.c
-                    ${PROJECT_SOURCE_DIR}/src/device/startup_gcc.c
+                    ${PATH_DEVICE}/startup_gcc.c
                 )
 
 target_include_directories(test_adc.elf 
                             PRIVATE 
                                 ${PROJECT_SOURCE_DIR}/src/common
-                                ${PROJECT_SOURCE_DIR}/src/drivers
-                                ${PROJECT_SOURCE_DIR}/src/device
+                                ${PATH_DRIVERS}
+                                ${PATH_DEVICE}
                             )
 
 target_link_libraries(test_adc.elf
@@ -225,7 +227,6 @@ target_link_libraries(test_adc.elf
                             # UART
                         )
 
-target_compile_definitions(test_adc.elf PUBLIC FIFO_POOL_SIZE=1)
 #*****************************************************************************
 # Application SW Tests
 #*****************************************************************************
@@ -233,15 +234,15 @@ target_compile_definitions(test_adc.elf PUBLIC FIFO_POOL_SIZE=1)
 # LCD Color Test
 add_executable(test_lcd_scroll.elf 
                     test_lcd_scroll.c
-                    ${PROJECT_SOURCE_DIR}/src/device/startup_gcc.c
+                    ${PATH_DEVICE}/startup_gcc.c
                 )
 
 target_include_directories(test_lcd_scroll.elf 
                             PRIVATE 
                             ${PROJECT_SOURCE_DIR}/src/app
                             ${PROJECT_SOURCE_DIR}/src/common
-                            ${PROJECT_SOURCE_DIR}/src/drivers
-                            ${PROJECT_SOURCE_DIR}/src/device
+                            ${PATH_DRIVERS}
+                            ${PATH_DEVICE}
                             )
 
 target_link_libraries(test_lcd_scroll.elf
@@ -260,15 +261,15 @@ target_compile_definitions(test_lcd_scroll.elf
 # LCD Image Test
 add_executable(test_lcd_image.elf 
                     test_lcd_image.c
-                    ${PROJECT_SOURCE_DIR}/src/device/startup_gcc.c
+                    ${PATH_DEVICE}/startup_gcc.c
                 )
 
 target_include_directories(test_lcd_image.elf 
                             PRIVATE 
                             ${PROJECT_SOURCE_DIR}/src/app
                             ${PROJECT_SOURCE_DIR}/src/common
-                            ${PROJECT_SOURCE_DIR}/src/drivers
-                            ${PROJECT_SOURCE_DIR}/src/device
+                            ${PATH_DRIVERS}
+                            ${PATH_DEVICE}
                             )
 
 target_link_libraries(test_lcd_image.elf
@@ -281,15 +282,15 @@ target_link_libraries(test_lcd_image.elf
 # DAQ Test
 add_executable(test_daq.elf 
                     test_daq.c
-                    ${PROJECT_SOURCE_DIR}/src/device/startup_gcc.c
+                    ${PATH_DEVICE}/startup_gcc.c
                 )
 
 target_include_directories(test_daq.elf 
                             PRIVATE 
                             ${PROJECT_SOURCE_DIR}/src/app
                             ${PROJECT_SOURCE_DIR}/src/common
-                            ${PROJECT_SOURCE_DIR}/src/drivers
-                            ${PROJECT_SOURCE_DIR}/src/device
+                            ${PATH_DRIVERS}
+                            ${PATH_DEVICE}
                             ${CMSIS_DIRS}
                             )
 
@@ -305,15 +306,16 @@ target_link_libraries(test_daq.elf
 # Debug Module Test
 add_executable(test_debug.elf
                     test_debug.c
-                    ${PROJECT_SOURCE_DIR}/src/device/startup_gcc.c
+                    ${PATH_DEVICE}/startup_gcc.c
                 )
 
 target_include_directories(test_debug.elf
                             PRIVATE
                             ${PROJECT_SOURCE_DIR}/src/app
                             ${PROJECT_SOURCE_DIR}/src/common
-                            ${PROJECT_SOURCE_DIR}/src/drivers
-                            ${PROJECT_SOURCE_DIR}/src/device
+                            ${PATH_DRIVERS}
+                            ${PATH_DEVICE}
+                            ${CMSIS_DIRS}
                             )
 
 target_link_libraries(test_debug.elf
@@ -322,3 +324,5 @@ target_link_libraries(test_debug.elf
                             PLL
                             GPIO
                             Timer)
+
+endif(${OPT_TESTING})

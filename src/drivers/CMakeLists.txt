@@ -2,9 +2,8 @@
 File:           src/drivers/CMakeLists.txt
 Description:    Adds static libraries for low-level device drivers and links as needed.
 **************************************************************************************************  ]]
-
-include_directories(${CMAKE_SOURCE_DIR}/src/common
-                    ${CMAKE_SOURCE_DIR}/src/device)
+include_directories(${PATH_COMMON}
+                    ${PATH_DEVICE})
 
 add_library(PLL STATIC PLL.c PLL.h)
 
