@@ -13,6 +13,8 @@ option(OPT_CPPCHECK     "Run static code analysis (i.e. linting) via cppcheck wh
 option(OPT_TESTING      "Build test scripts when building `all`"                                        ON)
 
 # Useful Variables
+set(PATH_CPPCHECK ${PROJECT_SOURCE_DIR}/cppcheck)
+set(PATH_DOCS ${PROJECT_SOURCE_DIR}/docs)
 set(PATH_SRC ${PROJECT_SOURCE_DIR}/src)
 
 set(PATH_APP ${PATH_SRC}/app)
@@ -36,10 +38,9 @@ add_subdirectory(docs)                              # datasheets and generated c
 # Cppcheck Configuration
 find_program(CMAKE_C_CPPCHECK NAMES cppcheck)
 if(CMAKE_C_CPPCHECK)
-    set(CPPCHECK_DIR ${PROJECT_SOURCE_DIR}/cppcheck)
     set(CPPCHECK_FLAGS          "--enable=all" "--error-exitcode=1" "--quiet" "--force")
-    list(APPEND CPPCHECK_FLAGS  "--suppressions-list=${CPPCHECK_DIR}/suppressions.txt" "--template=gcc")
-    list(APPEND CPPCHECK_FLAGS  "--relative-paths=${PROJECT_SOURCE_DIR}" "--cppcheck-build-dir=${CPPCHECK_DIR}" "--project=${PROJECT_BINARY_DIR}/compile_commands.json")
+    list(APPEND CPPCHECK_FLAGS  "--suppressions-list=${PATH_CPPCHECK}/suppressions.txt" "--template=gcc")
+    list(APPEND CPPCHECK_FLAGS  "--relative-paths=${PROJECT_SOURCE_DIR}" "--cppcheck-build-dir=${PATH_CPPCHECK}" "--project=${PROJECT_BINARY_DIR}/compile_commands.json")
 
     add_custom_target(lint 
                         COMMENT             "Running cppcheck:"

@@ -1,5 +1,5 @@
 #[[***********************************************************************************************
-File:           src/external/CMSIS-DSP/CMakeLists.txt
+File:           /src/external/CMSIS-DSP/CMakeLists.txt
 Description:    Adds CMSIS-DSP function library
 **************************************************************************************************  ]]
 add_library(CMSIS-DSP-f32 STATIC
