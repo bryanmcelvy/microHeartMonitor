@@ -6,5 +6,6 @@
 /.cache
 /cppcheck/*
 !/cppcheck/suppressions.txt
+/docs/doxygen/refman.log
 /scratch
 /tools/*pycache*
