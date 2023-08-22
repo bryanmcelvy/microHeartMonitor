@@ -44,7 +44,7 @@ if(CMAKE_C_CPPCHECK)
     add_custom_target(lint 
                         COMMENT             "Running cppcheck:"
                         WORKING_DIRECTORY   ${PROJECT_SOURCE_DIR}
-                        COMMAND             ${CMAKE_C_CPPCHECK} ${CPPCHECK_FLAGS} ${PROJECT_SOURCE_DIR}/src
+                        COMMAND             ${CMAKE_C_CPPCHECK} ${CPPCHECK_FLAGS} -i${PATH_EXTERNAL} ${PATH_SRC}
                         VERBATIM)
 
     if(OPT_CPPCHECK)
