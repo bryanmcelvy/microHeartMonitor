@@ -27,7 +27,7 @@ set(CMAKE_OBJDUMP                               ${TOOLCHAIN_PREFIX}-objdump)
 # compiler/assembler/linker flags
 set(CPU_FLAGS                                   "-mcpu=cortex-m4 -mthumb")
 set(FPU_FLAGS                                   "-mfloat-abi=hard -mfpu=fpv4-sp-d16")
-set(COMMON_FLAGS                                "${CPU_FLAGS} ${FPU_FLAGS} -ffunction-sections -fdata-sections -Wall -Wdouble-promotion -pedantic -nostartfiles")
+set(COMMON_FLAGS                                "${CPU_FLAGS} ${FPU_FLAGS} -ffunction-sections -fdata-sections -Wall -Wextra -pedantic -nostartfiles")
 
 set(CMAKE_ASM_FLAGS                             "${COMMON_FLAGS}")
 set(CMAKE_C_FLAGS                               "${COMMON_FLAGS}")
