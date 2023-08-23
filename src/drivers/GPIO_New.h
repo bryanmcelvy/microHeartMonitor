@@ -4,31 +4,29 @@
 /******************************************************************************
 Preprocessor Directives
 *******************************************************************************/
+// Includes
 #include "tm4c123gh6pm.h"
 
 #include <assert.h>
 #include <stdbool.h>
 #include <stdint.h>
 
-#define GPIO_PIN0 ((uint32_t) 1)
-#define GPIO_PIN1 ((uint32_t) (1 << 1))
-#define GPIO_PIN2 ((uint32_t) (1 << 2))
-#define GPIO_PIN3 ((uint32_t) (1 << 3))
-#define GPIO_PIN4 ((uint32_t) (1 << 4))
-#define GPIO_PIN5 ((uint32_t) (1 << 5))
-#define GPIO_PIN6 ((uint32_t) (1 << 6))
-#define GPIO_PIN7 ((uint32_t) (1 << 7))
+// Bit masks
+#define GPIO_PIN0 ((uint8_t) 1)
+#define GPIO_PIN1 ((uint8_t) (1 << 1))
+#define GPIO_PIN2 ((uint8_t) (1 << 2))
+#define GPIO_PIN3 ((uint8_t) (1 << 3))
+#define GPIO_PIN4 ((uint8_t) (1 << 4))
+#define GPIO_PIN5 ((uint8_t) (1 << 5))
+#define GPIO_PIN6 ((uint8_t) (1 << 6))
+#define GPIO_PIN7 ((uint8_t) (1 << 7))
 
 /******************************************************************************
-Type Definitions
+Type Definitions + Initialization
 *******************************************************************************/
 enum port { A, B, C, D, E, F } PORT_NAMES;
 
 typedef struct GPIO_t GPIO_t;
-
-/******************************************************************************
-Initialization
-*******************************************************************************/
 
 /**
  * @brief           Initialize a GPIO Port and return a pointer to its `struct`.
