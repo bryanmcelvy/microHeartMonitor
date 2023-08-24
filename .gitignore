@@ -1,11 +1,23 @@
-*.DS_Store
-/ecg_hrm.code-workspace
-/.vscode
-
-/build
-/.cache
+# Cppcheck
 /cppcheck/*
 !/cppcheck/suppressions.txt
+
+# ECG dataset
+/data/*.csv
+!/data/101.csv
+/tools/data/mit-bih-arr/*
+!/tools/data/mit-bih-arr/101*
+
+# Signal Generator
+/tools/JDS6600/*
+!/tools/JDS6600/*jds6600.py
+
+# Misc.
+**/*pycache*
+**/.DS_Store
+/.cache
+/.vscode
+/build
 /docs/doxygen/refman.log
+/ecg_hrm.code-workspace
 /scratch
-/tools/*pycache*
