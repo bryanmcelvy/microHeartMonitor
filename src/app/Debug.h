@@ -14,7 +14,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-enum messages { START_MSG, DAQ_INIT, QRS_INIT, LCD_INIT };
+enum messages { START_MSG, DAQ_INIT, QRS_INIT, LCD_INIT, ASSERT_FALSE };
 
 /******************************************************************************
 Initialization
@@ -41,5 +41,17 @@ void Debug_SendMsg(void * message);
 void Debug_SendFromList(uint8_t msg_idx);
 
 void Debug_WriteFloat(float64_t value);
+
+/******************************************************************************
+Assertions
+*******************************************************************************/
+
+/**
+ * @brief           Stops program if `condition` is `true`.
+ *                  Useful for bug detection during debugging.
+ *
+ * @param condition
+ */
+void Debug_Assert(bool condition);
 
 #endif
