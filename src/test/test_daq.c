@@ -34,11 +34,16 @@ volatile FIFO_t * input_fifo_ptr = 0;
 volatile uint32_t input_buffer[DAQ_BUFFER_SIZE] = { 0 };
 volatile bool sampleReady = false;
 
+void LCD_plotNewSample(uint16_t x, volatile const float32_t sample);
+
 /********************************************************************************/
 
 int main(void) {
-    uint16_t x, y;
+    uint16_t x;
+    volatile uint16_t raw_sample;
     volatile float32_t sample;
+    float32_t prev_sample = 0;
+    float32_t intermediate_sample;
 
     PLL_Init();
     // Debug_Init();
@@ -50,13 +55,13 @@ int main(void) {
     LCD_setArea(0, X_MAX, 0, Y_MAX);
     LCD_draw();
 
-    LCD_setColor_3bit(LCD_WHITE - LCD_WHITE);
+    LCD_setColor_3bit(LCD_WHITE_INV);
     LCD_drawHLine(LCD_TOP_LINE, 1);
 
-    LCD_setColor_3bit(LCD_WHITE - LCD_RED);
+    LCD_setColor_3bit(LCD_RED_INV);
     LCD_toggleOutput();
 
-    // Init. ADC
+    // Initialize DAQ module
     input_fifo_ptr = FIFO_Init(input_buffer, DAQ_BUFFER_SIZE);
     DAQ_Init();
 
@@ -65,26 +70,21 @@ int main(void) {
         while(sampleReady == false) {}
 
         // collect sample
-        ADC_InterruptDisable();
-        sample = ADC_ConvertToVolts(FIFO_Get(input_fifo_ptr));
+        raw_sample = FIFO_Get(input_fifo_ptr);
         sampleReady = !FIFO_isEmpty(input_fifo_ptr);
-        ADC_InterruptEnable();
 
-        // apply low-pass filter
-        // sample = DAQ_Filter(sample);
+        // convert and filter
+        sample = ADC_ConvertToVolts(raw_sample);
+        sample = DAQ_Filter(sample);
 
-        // plot sample
-        y = LCD_X_AXIS_OFFSET + ((uint16_t) (((sample / LOOKUP_ADC_MAX) + 1) * LCD_NUM_Y_VALS));
-        LCD_drawRectangle(x, 1, y, 1, true);
+        intermediate_sample = prev_sample + ((sample - prev_sample) / 2);
+        LCD_plotNewSample(x, intermediate_sample);
         x = (x + 1) % X_MAX;
 
-        // reset display upon wrapping around to x = 0
-        if(x == 0) {
-            LCD_setColor_3bit(LCD_WHITE - LCD_BLACK);
-            LCD_setArea(0, X_MAX - 1, LCD_Y_MIN, LCD_Y_MAX);
-            LCD_draw();
-            LCD_setColor_3bit(LCD_WHITE - LCD_RED);
-        }
+        LCD_plotNewSample(x, sample);
+        x = (x + 1) % X_MAX;
+
+        prev_sample = sample;
     }
 }
 
@@ -94,4 +94,18 @@ void ADC0_SS3_Handler(void) {
     FIFO_Put(input_fifo_ptr, (volatile uint32_t)(ADC0_SSFIFO3_R & 0xFFF));
     sampleReady = true;
     ADC0_ISC_R |= 0x08;               // clear interrupt flag to acknowledge
+}
+
+void LCD_plotNewSample(uint16_t x, volatile const float32_t sample) {
+    uint16_t y;
+
+    // blank out column
+    LCD_setColor_3bit(LCD_BLACK_INV);
+    LCD_drawRectangle(x, 1, LCD_Y_MIN, LCD_NUM_Y_VALS, true);
+
+    // plot sample
+    LCD_setColor_3bit(LCD_RED_INV);
+    y = LCD_X_AXIS_OFFSET +
+        ((uint16_t) (((sample + LOOKUP_ADC_MAX) / (LOOKUP_ADC_MAX * 2)) * LCD_NUM_Y_VALS));
+    LCD_drawRectangle(x, 1, y, 1, true);
 }
