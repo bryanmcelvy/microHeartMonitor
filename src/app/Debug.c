@@ -7,10 +7,11 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-char * const MSG_LIST[] = { "Starting transmission...\r\nDebug module initialized.\r\n",
-                            "Data acquisition module initialized.\r\n",
-                            "QRS module initialized.\r\n", "LCD module initialized.\r\n",
-                            "Assert failed. Entering infinite loop.\r\n." };
+static const char * const MSG_LIST[] = {
+    "Starting transmission...\r\nDebug module initialized.\r\n",
+    "Data acquisition module initialized.\r\n", "QRS module initialized.\r\n",
+    "LCD module initialized.\r\n", "Assert failed. Entering infinite loop.\r\n."
+};
 
 static void Debug_AssertHandler(void);
 
