@@ -10,7 +10,8 @@
 
 # Signal Generator
 /tools/JDS6600/*
-!/tools/JDS6600/*jds6600.py
+!/tools/JDS6600/*.py
+!/tools/JDS6600/ecg*
 
 # Misc.
 **/*pycache*
