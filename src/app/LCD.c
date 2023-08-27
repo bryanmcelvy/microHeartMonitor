@@ -198,11 +198,8 @@ void LCD_setColor_3bit(uint8_t color_code) {
     // clang-format off
     /**
      *  This is simply a convenience function for setting the color using the
-     *  macros defined in the header file.
-     * 
-     *  When the display is inverted, a chosen color can be selected by
-     *  subtracting it's macro from `LCD_WHITE` (e.g. to select red, the
-     *  `color_code` argument should be `LCD_WHITE - LCD_RED`).
+     *  macros defined in the header file. The ones with the `_INV` suffix should
+     *  used when the display colors are inverted.
      *
      *  hex     | binary | macro
      *  --------|--------|------------
