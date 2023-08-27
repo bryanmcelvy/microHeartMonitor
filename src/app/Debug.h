@@ -12,11 +12,12 @@
 #include "arm_math_types.h"
 #include "tm4c123gh6pm.h"
 #include <stdbool.h>
+#include <stdint.h>
 
 enum messages { START_MSG, DAQ_INIT, QRS_INIT, LCD_INIT };
 
 /******************************************************************************
-[SECTION NAME]
+Initialization
 *******************************************************************************/
 
 /**
@@ -25,6 +26,10 @@ enum messages { START_MSG, DAQ_INIT, QRS_INIT, LCD_INIT };
  *
  */
 void Debug_Init(void);
+
+/******************************************************************************
+Serial Output
+*******************************************************************************/
 
 /**
  * @brief           Send a message to the serial port.
