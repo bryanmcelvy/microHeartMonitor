@@ -30,7 +30,7 @@ void ADC_InterruptDisable(void);
  * @brief               Convert a raw ADC sample to voltage in [mV].
  *
  * @param raw_sample    12-bit unsigned ADC value. `sample = [0, 0xFFF]`
- * @return double       Voltage value in range `[-3.3, 3.3) [mV]`.
+ * @return double       Voltage value in range `[-5.5, 5.5) [mV]`.
  */
 volatile float32_t ADC_ConvertToVolts(uint16_t raw_sample);
 
