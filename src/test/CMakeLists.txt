@@ -4,6 +4,8 @@ Description:    Adds executables for test scripts.
 **************************************************************************************************  ]]
 
 if(${OPT_TESTING})
+set_property(DIRECTORY PROPERTY EXCLUDE_FROM_ALL TRUE)
+endif(${OPT_TESTING})
 
 # FIFO Buffer
 add_executable(test_fifo.elf 
@@ -287,8 +289,8 @@ add_executable(test_daq.elf
 
 target_include_directories(test_daq.elf 
                             PRIVATE 
-                            ${PROJECT_SOURCE_DIR}/src/app
-                            ${PROJECT_SOURCE_DIR}/src/common
+                            ${PATH_APP}
+                            ${PATH_COMMON}
                             ${PATH_DRIVERS}
                             ${PATH_DEVICE}
                             ${CMSIS_DIRS}
@@ -324,5 +326,3 @@ target_link_libraries(test_debug.elf
                             PLL
                             GPIO
                             Timer)
-
-endif(${OPT_TESTING})
