@@ -1,6 +1,6 @@
 # Cppcheck
-/cppcheck/*
-!/cppcheck/suppressions.txt
+/tools/cppcheck/*
+!/tools/cppcheck/suppressions.txt
 
 # ECG dataset
 /data/*.csv
