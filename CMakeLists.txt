@@ -4,7 +4,7 @@ Description:    Sets minimum CMake version, links toolchain file, and declares p
                 adds subdirectories, options, and path variables; and configures Cppcheck.
 #***********************************************************************************************    ]]
 cmake_minimum_required(VERSION 3.20)
-set(CMAKE_TOOLCHAIN_FILE "tm4c123g.cmake")          # must be placed before project()
+set(CMAKE_TOOLCHAIN_FILE "src/device/tm4c123g.cmake")          # must be placed before project()
 project(ecg_hrm C)
 
 # Build Options
