@@ -8,7 +8,7 @@ Preprocessor Directives
 // Includes
 #include "tm4c123gh6pm.h"
 
-#include <assert.h>
+#include <NewAssert.h>
 #include <stdbool.h>
 #include <stdint.h>
 

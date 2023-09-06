@@ -5,7 +5,7 @@ Preprocessor Directives
 
 #include "tm4c123gh6pm.h"
 
-#include <assert.h>
+#include <NewAssert.h>
 #include <stdbool.h>
 #include <stdint.h>
 
@@ -57,7 +57,7 @@ static GPIO_Port_t GPIO_PTR_ARR[6] = {
 Initialization
 *******************************************************************************/
 GPIO_Port_t * GPIO_PortInit(GPIO_PortName_t portName) {
-    assert(portName < 5);
+    Assert(portName < GPIO_NUM_PORTS);
 
     GPIO_Port_t * gpio_ptr = &GPIO_PTR_ARR[portName];
     if(gpio_ptr->isInit == false) {
@@ -99,7 +99,7 @@ void GPIO_ConfigDriveSelect(GPIO_Port_t * gpioPort, uint8_t bitMask, uint8_t dri
         case 2: driveSelectRegister_Offset = GPIO_DR2R_R_OFFSET; break;
         case 4: driveSelectRegister_Offset = GPIO_DR4R_R_OFFSET; break;
         case 8: driveSelectRegister_Offset = GPIO_DR8R_R_OFFSET; break;
-        default: assert(false);
+        default: Assert(false);
     }
     *((register_t) (gpioPort->BASE_ADDRESS + driveSelectRegister_Offset)) |= bitMask;
 }

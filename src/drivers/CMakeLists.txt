@@ -5,6 +5,8 @@ Description:    Adds static libraries for low-level device drivers and links as 
 include_directories(${PATH_COMMON}
                     ${PATH_DEVICE})
 
+link_libraries(NewAssert)
+
 add_library(PLL STATIC PLL.c PLL.h)
 
 add_library(SysTick STATIC SysTick.c SysTick.h)
@@ -25,3 +27,6 @@ target_include_directories(ADC PRIVATE ${CMSIS_DIRS})
 
 add_library(ILI9341 STATIC ILI9341.c ILI9341.h)
 target_link_libraries(ILI9341 PRIVATE SPI Timer)
+
+add_library(GPIO_New STATIC GPIO_New.c GPIO_New.h)
+
