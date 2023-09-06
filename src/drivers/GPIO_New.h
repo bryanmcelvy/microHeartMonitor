@@ -37,12 +37,13 @@ typedef struct GPIO_Port_t GPIO_Port_t;
  * @param portName          Name of the chosen port.
  * @return GPIO_Port_t*     Pointer to the GPIO port's `struct`.
  */
-GPIO_Port_t * GPIO_PortInit(GPIO_PortName_t portName);
+GPIO_Port_t * GPIO_InitPort(GPIO_PortName_t portName);
 
+/// TODO: Add header comment
 bool GPIO_isPortInit(GPIO_Port_t * gpioPort);
 
 /******************************************************************************
-Configuration
+Configuration (Digital I/O)
 *******************************************************************************/
 
 /**
@@ -53,7 +54,17 @@ Configuration
  * @param gpioPort  Pointer to the specified GPIO port.
  * @param bitMask   Bit mask corresponding to the intended `OUTPUT` pin(s).
  */
-void GPIO_ConfigDir(GPIO_Port_t * gpioPort, uint8_t bitMask);
+void GPIO_ConfigDirOutput(GPIO_Port_t * gpioPort, uint8_t bitMask);
+
+/**
+ * @brief           Configure the specified GPIO pins as `INPUT` pins. All pins
+ *                  are configured to `INPUT` by default, so this function is
+ *                  technically unnecessary, but useful for code readability.
+ *
+ * @param gpioPort  Pointer to the specified GPIO port.
+ * @param bitMask   Bit mask corresponding to the intended `INPUT` pin(s).
+ */
+void GPIO_ConfigDirInput(GPIO_Port_t * gpioPort, uint8_t bitMask);
 
 /**
  * @brief           Activate the specified pins' internal pull-up resistors.
@@ -90,9 +101,17 @@ void GPIO_ConfigDriveSelect(GPIO_Port_t * gpioPort, uint8_t bitMask, uint8_t dri
  */
 void GPIO_EnableDigital(GPIO_Port_t * gpioPort, uint8_t bitMask);
 
+/**
+ * @brief           Disable digital I/O for the specified pins.
+ *
+ * @param gpioPort  Pointer to the specified GPIO port.
+ * @param bitMask   Bit mask corresponding to the intended pin(s).
+ */
+void GPIO_DisableDigital(GPIO_Port_t * gpioPort, uint8_t bitMask);
+
 /******************************************************************************
-Digital I/O
- *******************************************************************************/
+Basic Functions (Digital I/O)
+*******************************************************************************/
 
 /**
  * @brief           Read from the specified GPIO pin.
@@ -125,5 +144,18 @@ void GPIO_WriteLow(GPIO_Port_t * gpioPort, uint8_t bitMask);
  * @param bitMask   Bit mask corresponding to the intended pin(s).
  */
 void GPIO_Toggle(GPIO_Port_t * gpioPort, uint8_t bitMask);
+
+/******************************************************************************
+Configuration (Alternate/Analog Modes)
+*******************************************************************************/
+
+// TODO: Write header comment
+void GPIO_ConfigAltMode(GPIO_Port_t * gpioPort, uint8_t bitMask);
+
+// TODO: Write header comment
+void GPIO_ConfigPortCtrl(GPIO_Port_t * gpioPort, uint8_t bitMask, uint8_t fieldEncoding);
+
+// TODO: Write header comment
+void GPIO_ConfigAnalog(GPIO_Port_t * gpioPort, uint8_t bitMask);
 
 #endif               // __DEBUG_H__
