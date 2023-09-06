@@ -12,20 +12,21 @@ Preprocessor Directives
 #include <stdbool.h>
 #include <stdint.h>
 
-// Bit masks
-#define GPIO_PIN0     ((uint8_t) 1)
-#define GPIO_PIN1     ((uint8_t) (1 << 1))
-#define GPIO_PIN2     ((uint8_t) (1 << 2))
-#define GPIO_PIN3     ((uint8_t) (1 << 3))
-#define GPIO_PIN4     ((uint8_t) (1 << 4))
-#define GPIO_PIN5     ((uint8_t) (1 << 5))
-#define GPIO_PIN6     ((uint8_t) (1 << 6))
-#define GPIO_PIN7     ((uint8_t) (1 << 7))
-#define GPIO_ALL_PINS ((uint8_t) (0xFF))
-
 /******************************************************************************
 Type Definitions + Initialization
 *******************************************************************************/
+typedef enum {
+    GPIO_PIN0 = ((uint8_t) 1),
+    GPIO_PIN1 = ((uint8_t) (1 << 1)),
+    GPIO_PIN2 = ((uint8_t) (1 << 2)),
+    GPIO_PIN3 = ((uint8_t) (1 << 3)),
+    GPIO_PIN4 = ((uint8_t) (1 << 4)),
+    GPIO_PIN5 = ((uint8_t) (1 << 5)),
+    GPIO_PIN6 = ((uint8_t) (1 << 6)),
+    GPIO_PIN7 = ((uint8_t) (1 << 7)),
+    GPIO_ALL_PINS = ((uint8_t) (0xFF))
+} GPIO_Pin_t;               ///< bit masks for each GPIO pin. Can be `OR`ed together for funcs.
+
 typedef enum { A, B, C, D, E, F } GPIO_PortName_t;
 
 typedef struct GPIO_Port_t GPIO_Port_t;
