@@ -30,3 +30,5 @@ target_link_libraries(ILI9341 PRIVATE SPI Timer)
 
 add_library(GPIO_New STATIC GPIO_New.c GPIO_New.h)
 
+add_library(LED STATIC Led.c Led.h)
+target_link_libraries(LED PRIVATE GPIO_New)
