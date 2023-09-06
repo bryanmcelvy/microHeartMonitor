@@ -31,11 +31,11 @@ Initialization
 typedef struct Led_t Led_t;
 
 /**
- * @brief                   Initialize a light-emitting diode (LED) as an `Led_t`.
+ * @brief                       Initialize a light-emitting diode (LED) as an `Led_t`.
  *
- * @param[in] gpioPort_ptr  Pointer to a `struct` representing a GPIO port.
- * @param[in] pin           GPIO pin to use.
- * @param[out] Led_t*       Pointer to LED data structure.
+ * @param[in] gpioPort_ptr      Pointer to a `struct` representing a GPIO port.
+ * @param[in] pin               GPIO pin to use.
+ * @param[out] Led_t*           Pointer to LED data structure.
  */
 Led_t * Led_Init(GPIO_Port_t * gpioPort_ptr, GPIO_Pin_t pin);
 
@@ -73,20 +73,20 @@ Operations
 *******************************************************************************/
 
 /**
- * @brief                   Turn the LED `ON`.
- * @param[in] led_ptr       Pointer to LED data structure.
+ * @brief                       Turn the LED `ON`.
+ * @param[in] led_ptr           Pointer to LED data structure.
  */
 void Led_TurnOn(Led_t * led_ptr);
 
 /**
- * @brief                   Turn the LED `OFF`.
- * @param[in] led_ptr       Pointer to LED data structure.
+ * @brief                       Turn the LED `OFF`.
+ * @param[in] led_ptr           Pointer to LED data structure.
  */
 void Led_TurnOff(Led_t * led_ptr);
 
 /**
- * @brief                   Toggle the LED (i.e. `OFF` -> `ON` or `ON` -> `OFF`).
- * @param[in] led_ptr       Pointer to LED data structure.
+ * @brief                       Toggle the LED (i.e. `OFF` -> `ON` or `ON` -> `OFF`).
+ * @param[in] led_ptr           Pointer to LED data structure.
  */
 void Led_Toggle(Led_t * led_ptr);
 

@@ -32,10 +32,10 @@ typedef enum { A, B, C, D, E, F } GPIO_PortName_t;
 typedef struct GPIO_Port_t GPIO_Port_t;
 
 /**
- * @brief           Initialize a GPIO Port and return a pointer to its `struct`.
+ * @brief                   Initialize a GPIO Port and return a pointer to its `struct`.
  *
- * @param portName  Name of the chosen port. Should come from the `PORT_NAMES` enum.
- * @return GPIO_Port_t*  Pointer to the GPIO port's `struct`.
+ * @param portName          Name of the chosen port.
+ * @return GPIO_Port_t*     Pointer to the GPIO port's `struct`.
  */
 GPIO_Port_t * GPIO_PortInit(GPIO_PortName_t portName);
 

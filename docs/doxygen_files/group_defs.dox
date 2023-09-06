@@ -18,6 +18,10 @@
         * Functions for interfacing an ILI9341-based 240RGBx320 LCD via @ref spi.
         */
 
+        /** @defgroup   led       LED
+        * Functions for driving light-emitting diodes (LEDs) via @ref gpio.
+        */
+
         /** @defgroup   pll       Phase-Locked Loop (PLL)
         * Function for initializing the phase-locked loop.
         */
