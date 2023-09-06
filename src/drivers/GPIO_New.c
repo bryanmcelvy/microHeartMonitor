@@ -9,6 +9,8 @@ Preprocessor Directives
 #include <stdbool.h>
 #include <stdint.h>
 
+#define GPIO_NUM_PORTS          6
+
 // Base Addresses
 #define GPIO_PORTA_BASE_ADDRESS (uint32_t) 0x40004000
 #define GPIO_PORTB_BASE_ADDRESS (uint32_t) 0x40005000
@@ -76,6 +78,10 @@ GPIO_Port_t * GPIO_PortInit(GPIO_PortName_t portName) {
     return gpio_ptr;
 }
 
+bool GPIO_isPortInit(GPIO_Port_t * gpioPort) {
+    return gpioPort->isInit;
+}
+
 /******************************************************************************
 Configuration (Digital I/O)
 *******************************************************************************/
@@ -112,12 +118,21 @@ void GPIO_EnableDigital(GPIO_Port_t * gpioPort, uint8_t bitMask) {
 Basic Functions (Digital I/O)
 *******************************************************************************/
 
-void GPIO_WriteHigh(GPIO_Port_t * gpioPort, uint8_t bitMask) {
+uint8_t GPIO_ReadPins(GPIO_Port_t * gpioPort, uint8_t bitMask) {
+    return *((register_t) gpioPort->BASE_ADDRESS) & bitMask;
+}
 
+void GPIO_WriteHigh(GPIO_Port_t * gpioPort, uint8_t bitMask) {
     *((register_t) gpioPort->BASE_ADDRESS) |= bitMask;
+    return;
 }
 
 void GPIO_WriteLow(GPIO_Port_t * gpioPort, uint8_t bitMask) {
-
     *((register_t) gpioPort->BASE_ADDRESS) &= ~(bitMask);
+    return;
+}
+
+void GPIO_Toggle(GPIO_Port_t * gpioPort, uint8_t bitMask) {
+    *((register_t) gpioPort->BASE_ADDRESS) ^= bitMask;
+    return;
 }

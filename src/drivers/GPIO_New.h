@@ -39,6 +39,8 @@ typedef struct GPIO_Port_t GPIO_Port_t;
  */
 GPIO_Port_t * GPIO_PortInit(GPIO_PortName_t portName);
 
+bool GPIO_isPortInit(GPIO_Port_t * gpioPort);
+
 /******************************************************************************
 Configuration
 *******************************************************************************/
@@ -115,5 +117,13 @@ void GPIO_WriteHigh(GPIO_Port_t * gpioPort, uint8_t bitMask);
  * @param bitMask   Bit mask corresponding to the intended pin(s).
  */
 void GPIO_WriteLow(GPIO_Port_t * gpioPort, uint8_t bitMask);
+
+/**
+ * @brief           Toggle the specified GPIO pins.
+ *
+ * @param gpioPort  Pointer to the specified GPIO port.
+ * @param bitMask   Bit mask corresponding to the intended pin(s).
+ */
+void GPIO_Toggle(GPIO_Port_t * gpioPort, uint8_t bitMask);
 
 #endif               // __DEBUG_H__
