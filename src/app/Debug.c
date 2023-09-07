@@ -2,6 +2,8 @@
 
 #include "UART.h"
 
+#include "NewAssert.h"
+
 #include "arm_math_types.h"
 #include "tm4c123gh6pm.h"
 #include <stdbool.h>
@@ -12,8 +14,6 @@ static const char * const MSG_LIST[] = {
     "Data acquisition module initialized.\r\n", "QRS module initialized.\r\n",
     "LCD module initialized.\r\n", "Assert failed. Entering infinite loop.\r\n."
 };
-
-static void Debug_AssertHandler(void);
 
 /******************************************************************************
 Initialization
@@ -49,10 +49,6 @@ Assertions
 void Debug_Assert(bool condition) {
     if(condition == false) {
         Debug_SendFromList(ASSERT_FALSE);
-        Debug_AssertHandler();
+        Assert(false);
     }
-}
-
-void Debug_AssertHandler(void) {
-    while(1) {}
 }

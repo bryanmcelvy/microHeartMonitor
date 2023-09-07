@@ -9,6 +9,8 @@
 
 #include "UART.h"
 
+#include "NewAssert.h"
+
 #include "arm_math_types.h"
 #include "tm4c123gh6pm.h"
 #include <stdbool.h>
