@@ -21,9 +21,9 @@ enum {
     GPIO_PORTF_BASE_ADDRESS = (uint32_t) 0x40025000,
 };
 
-// Offsets
+// Register Offsets
 enum {
-    GPIO_DATA_R_OFFSET = (uint32_t) 0x0000,
+    GPIO_DATA_R_OFFSET = (uint32_t) 0x03FC,
     GPIO_DIR_R_OFFSET = (uint32_t) 0x0400,
     GPIO_IS_R_OFFSET = (uint32_t) 0x0404,
     GPIO_IBE_R_OFFSET = (uint32_t) 0x0408,
@@ -137,21 +137,21 @@ Basic Functions (Digital I/O)
 *******************************************************************************/
 
 uint8_t GPIO_ReadPins(GPIO_Port_t * gpioPort, uint8_t bitMask) {
-    return *((register_t) gpioPort->BASE_ADDRESS) & bitMask;
+    return *((register_t) (gpioPort->BASE_ADDRESS + GPIO_DATA_R_OFFSET)) & bitMask;
 }
 
 void GPIO_WriteHigh(GPIO_Port_t * gpioPort, uint8_t bitMask) {
-    *((register_t) gpioPort->BASE_ADDRESS) |= bitMask;
+    *((register_t) (gpioPort->BASE_ADDRESS + GPIO_DATA_R_OFFSET)) |= bitMask;
     return;
 }
 
 void GPIO_WriteLow(GPIO_Port_t * gpioPort, uint8_t bitMask) {
-    *((register_t) gpioPort->BASE_ADDRESS) &= ~(bitMask);
+    *((register_t) (gpioPort->BASE_ADDRESS + GPIO_DATA_R_OFFSET)) &= ~(bitMask);
     return;
 }
 
 void GPIO_Toggle(GPIO_Port_t * gpioPort, uint8_t bitMask) {
-    *((register_t) gpioPort->BASE_ADDRESS) ^= bitMask;
+    *((register_t) (gpioPort->BASE_ADDRESS + GPIO_DATA_R_OFFSET)) ^= bitMask;
     return;
 }
 
