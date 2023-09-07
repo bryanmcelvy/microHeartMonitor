@@ -43,8 +43,14 @@ static Led_t Led_ObjPool[LED_POOL_SIZE] = { 0 };
 static uint8_t num_free_leds = LED_POOL_SIZE;
 
 Led_t * Led_Init(GPIO_Port_t * gpioPort_ptr, GPIO_Pin_t pin) {
-    Assert(GPIO_isPortInit(gpioPort_ptr));
 
+    // Initialize GPIO port pin
+    Assert(GPIO_isPortInit(gpioPort_ptr));
+    GPIO_ConfigDirOutput(gpioPort_ptr, pin);
+    GPIO_ConfigPullDown(gpioPort_ptr, pin);
+    GPIO_EnableDigital(gpioPort_ptr, pin);
+
+    // Initialize LED struct
     Assert(num_free_leds > 0);
     num_free_leds -= 1;
 
