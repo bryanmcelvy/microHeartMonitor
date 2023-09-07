@@ -34,12 +34,18 @@ typedef struct GPIO_Port_t GPIO_Port_t;
 /**
  * @brief                   Initialize a GPIO Port and return a pointer to its `struct`.
  *
- * @param portName          Name of the chosen port.
+ * @param[in] portName          Name of the chosen port.
  * @return GPIO_Port_t*     Pointer to the GPIO port's `struct`.
  */
 GPIO_Port_t * GPIO_InitPort(GPIO_PortName_t portName);
 
-/// TODO: Add header comment
+/**
+ * @brief                   Check if the GPIO port is initialized.
+ *
+ * @param[in] gpioPort      Pointer to the specified GPIO port.
+ * @param[out] true         The GPIO port is initialized.
+ * @param[out] false        The GPIO port has not been initialized.
+ */
 bool GPIO_isPortInit(GPIO_Port_t * gpioPort);
 
 /******************************************************************************
@@ -51,8 +57,8 @@ Configuration (Digital I/O)
  *                  are configured to `INPUT` by default, so this function should
  *                  only be called to specify `OUTPUT` pins.
  *
- * @param gpioPort  Pointer to the specified GPIO port.
- * @param bitMask   Bit mask corresponding to the intended `OUTPUT` pin(s).
+ * @param[in] gpioPort  Pointer to the specified GPIO port.
+ * @param[in] bitMask   Bit mask corresponding to the intended `OUTPUT` pin(s).
  */
 void GPIO_ConfigDirOutput(GPIO_Port_t * gpioPort, uint8_t bitMask);
 
@@ -61,51 +67,51 @@ void GPIO_ConfigDirOutput(GPIO_Port_t * gpioPort, uint8_t bitMask);
  *                  are configured to `INPUT` by default, so this function is
  *                  technically unnecessary, but useful for code readability.
  *
- * @param gpioPort  Pointer to the specified GPIO port.
- * @param bitMask   Bit mask corresponding to the intended `INPUT` pin(s).
+ * @param[in] gpioPort  Pointer to the specified GPIO port.
+ * @param[in] bitMask   Bit mask corresponding to the intended `INPUT` pin(s).
  */
 void GPIO_ConfigDirInput(GPIO_Port_t * gpioPort, uint8_t bitMask);
 
 /**
  * @brief           Activate the specified pins' internal pull-up resistors.
  *
- * @param gpioPort  Pointer to the specified GPIO port.
- * @param bitMask   Bit mask corresponding to the intended pin(s).
+ * @param[in] gpioPort  Pointer to the specified GPIO port.
+ * @param[in] bitMask   Bit mask corresponding to the intended pin(s).
  */
 void GPIO_ConfigPullUp(GPIO_Port_t * gpioPort, uint8_t bitMask);
 
 /**
  * @brief           Activate the specified pins' internal pull-down resistors.
  *
- * @param gpioPort  Pointer to the specified GPIO port.
- * @param bitMask   Bit mask corresponding to the intended pin(s).
+ * @param[in] gpioPort  Pointer to the specified GPIO port.
+ * @param[in] bitMask   Bit mask corresponding to the intended pin(s).
  */
 void GPIO_ConfigPullDown(GPIO_Port_t * gpioPort, uint8_t bitMask);
 
 /**
  * @brief           Configure the specified pins' drive strength. Pins are
  *                  initialized with 2[mA] drive strength, so this is only
- *                  for a drive strength of 4[mA] or 8[mA].
+ *                  needed for a drive strength of 4[mA] or 8[mA].
  *
- * @param gpioPort  Pointer to the specified GPIO port.
- * @param bitMask   Bit mask corresponding to the intended pin(s).
- * @param drive_mA  Drive strength in [mA]. Should be 2, 4, or 8 [mA].
+ * @param[in] gpioPort  Pointer to the specified GPIO port.
+ * @param[in] bitMask   Bit mask corresponding to the intended pin(s).
+ * @param[in] drive_mA  Drive strength in [mA]. Should be 2, 4, or 8 [mA].
  */
 void GPIO_ConfigDriveSelect(GPIO_Port_t * gpioPort, uint8_t bitMask, uint8_t drive_mA);
 
 /**
  * @brief           Enable digital I/O for the specified pins.
  *
- * @param gpioPort  Pointer to the specified GPIO port.
- * @param bitMask   Bit mask corresponding to the intended pin(s).
+ * @param[in] gpioPort  Pointer to the specified GPIO port.
+ * @param[in] bitMask   Bit mask corresponding to the intended pin(s).
  */
 void GPIO_EnableDigital(GPIO_Port_t * gpioPort, uint8_t bitMask);
 
 /**
  * @brief           Disable digital I/O for the specified pins.
  *
- * @param gpioPort  Pointer to the specified GPIO port.
- * @param bitMask   Bit mask corresponding to the intended pin(s).
+ * @param[in] gpioPort  Pointer to the specified GPIO port.
+ * @param[in] bitMask   Bit mask corresponding to the intended pin(s).
  */
 void GPIO_DisableDigital(GPIO_Port_t * gpioPort, uint8_t bitMask);
 
@@ -116,32 +122,32 @@ Basic Functions (Digital I/O)
 /**
  * @brief           Read from the specified GPIO pin.
  *
- * @param gpioPort  Pointer to the specified GPIO port.
- * @param bitMask   Bit mask corresponding to the intended pin(s).
+ * @param[in] gpioPort  Pointer to the specified GPIO port.
+ * @param[in] bitMask   Bit mask corresponding to the intended pin(s).
  */
 uint8_t GPIO_ReadPins(GPIO_Port_t * gpioPort, uint8_t bitMask);
 
 /**
  * @brief           Write a `1` to the specified GPIO pins.
  *
- * @param gpioPort  Pointer to the specified GPIO port.
- * @param bitMask   Bit mask corresponding to the intended pin(s).
+ * @param[in] gpioPort  Pointer to the specified GPIO port.
+ * @param[in] bitMask   Bit mask corresponding to the intended pin(s).
  */
 void GPIO_WriteHigh(GPIO_Port_t * gpioPort, uint8_t bitMask);
 
 /**
  * @brief           Write a `0` to the specified GPIO pins.
  *
- * @param gpioPort  Pointer to the specified GPIO port.
- * @param bitMask   Bit mask corresponding to the intended pin(s).
+ * @param[in] gpioPort  Pointer to the specified GPIO port.
+ * @param[in] bitMask   Bit mask corresponding to the intended pin(s).
  */
 void GPIO_WriteLow(GPIO_Port_t * gpioPort, uint8_t bitMask);
 
 /**
  * @brief           Toggle the specified GPIO pins.
  *
- * @param gpioPort  Pointer to the specified GPIO port.
- * @param bitMask   Bit mask corresponding to the intended pin(s).
+ * @param[in] gpioPort  Pointer to the specified GPIO port.
+ * @param[in] bitMask   Bit mask corresponding to the intended pin(s).
  */
 void GPIO_Toggle(GPIO_Port_t * gpioPort, uint8_t bitMask);
 
