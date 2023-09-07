@@ -65,22 +65,9 @@ add_executable(test_adc.elf test_adc.c)
 target_include_directories(test_adc.elf PRIVATE ${PATH_COMMON})
 target_link_libraries(test_adc.elf PRIVATE ADC FIFO GPIO Timer)
 
-target_include_directories(test_adc.elf 
-                            PRIVATE 
-                                ${PATH_COMMON}
-                                ${PATH_DRIVERS}
-                                ${PATH_DEVICE}
-                            )
-
-target_link_libraries(test_adc.elf
-                        PRIVATE
-                            PLL
-                            ADC
-                            FIFO
-                            GPIO
-                            Timer
-                            # UART
-                        )
+# GPIO (New) Test
+add_executable(test_gpio_new.elf test_gpio_new.c)
+target_link_libraries(test_gpio_new.elf PRIVATE GPIO_New LED Timer)
 
 #*****************************************************************************
 # Application SW Tests
