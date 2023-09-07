@@ -1,28 +1,20 @@
-/*
-void Debug_Assert(bool condition) {
-    if(condition == false) {
-        Debug_SendFromList(ASSERT_FALSE);
-        Debug_AssertHandler();
-    }
-}
-
-void Debug_AssertHandler(void) {
-    while(1) {}
-}
-
-*/
+/**
+ * @file
+ * @author  Bryan McElvy
+ * @brief   Source code for custom `assert` implementation.
+ */
 
 #include "NewAssert.h"
 #include <stdbool.h>
 
-static void AssertHandler(void);
+static void Assert_Handler(void);
 
 void Assert(bool condition) {
     if(condition == false) {
-        AssertHandler();
+        Assert_Handler();
     }
 }
 
-static void AssertHandler(void) {
+static void Assert_Handler(void) {
     while(1) {}
 }
