@@ -4,6 +4,8 @@ Description:    Adds executables for test scripts.
 **************************************************************************************************  ]]
 
 if(${OPT_TESTING})
+set_property(DIRECTORY PROPERTY EXCLUDE_FROM_ALL FALSE)
+else()
 set_property(DIRECTORY PROPERTY EXCLUDE_FROM_ALL TRUE)
 endif(${OPT_TESTING})
 
