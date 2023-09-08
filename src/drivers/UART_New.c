@@ -53,7 +53,7 @@ void UART0_Init(void) {
     GPIO_Port_t * portA_ptr = GPIO_InitPort(A);
     GPIO_ConfigAltMode(portA_ptr, GPIO_PIN0 | GPIO_PIN1);
     GPIO_ConfigPortCtrl(portA_ptr, GPIO_PIN0 | GPIO_PIN1, 1);
-    GPIO_ConfigDriveSelect(portA_ptr, GPIO_PIN0 | GPIO_PIN1, 8);
+    GPIO_ConfigDriveStrength(portA_ptr, GPIO_PIN0 | GPIO_PIN1, 8);
     GPIO_EnableDigital(portA_ptr, GPIO_PIN0 | GPIO_PIN1);
 
     // configure UART0

@@ -10,7 +10,7 @@ add_subdirectory(drivers)
 add_subdirectory(external/CMSIS-DSP)
 add_subdirectory(test)
 
-# Startup file as Object Library
+# Add startup file as Object Library
 add_library(Startup OBJECT ${PATH_DEVICE}/startup_gcc.c)
 
 # Main Target Declaration
