@@ -30,14 +30,14 @@ Type Declaration + Initialization
 *******************************************************************************/
 
 struct FIFO_t {
-    volatile uint32_t * buffer;                     ///< (pointer to) array to use as FIFO buffer
-    volatile uint32_t N;                            ///< length of `buffer`
-    volatile uint32_t front_idx;                    ///< idx of front of FIFO
-    volatile uint32_t back_idx;                     ///< idx of back of FIFO
+    volatile uint32_t * buffer;                ///< (pointer to) array to use as FIFO buffer
+    volatile uint32_t N;                       ///< length of `buffer`
+    volatile uint32_t front_idx;               ///< idx of front of FIFO
+    volatile uint32_t back_idx;                ///< idx of back of FIFO
 };
 
-static FIFO_t buffer_pool[FIFO_POOL_SIZE] = { 0 };                    ///< pre-allocated buffer pool
-static uint8_t free_buffers = FIFO_POOL_SIZE;                         ///< no. of remaining buffers
+static FIFO_t buffer_pool[FIFO_POOL_SIZE] = { 0 };               ///< pre-allocated buffer pool
+static uint8_t free_buffers = FIFO_POOL_SIZE;                    ///< no. of remaining buffers
 
 volatile FIFO_t * FIFO_Init(volatile uint32_t buffer[], const uint32_t N) {
     /// TODO: Add details
@@ -62,12 +62,12 @@ void FIFO_Put(volatile FIFO_t * fifo_ptr, const uint32_t val) {
     // NOTE: not using FIFO_isFull() here to reduce call stack usage
     if(((fifo_ptr->back_idx + 1) % fifo_ptr->N) != fifo_ptr->front_idx) {
         fifo_ptr->buffer[fifo_ptr->back_idx] = val;
-        fifo_ptr->back_idx = (fifo_ptr->back_idx + 1) %
-                             fifo_ptr->N;                    // modulo causes wrap around to 0
+        fifo_ptr->back_idx =
+            (fifo_ptr->back_idx + 1) % fifo_ptr->N;               // modulo causes wrap around to 0
     }
 }
 
-volatile uint32_t FIFO_Get(volatile FIFO_t * fifo_ptr) {
+uint32_t FIFO_Get(volatile FIFO_t * fifo_ptr) {
     volatile uint32_t ret_val;
 
     // NOTE: not using FIFO_isEmpty() here to reduce call stack usage
@@ -76,8 +76,8 @@ volatile uint32_t FIFO_Get(volatile FIFO_t * fifo_ptr) {
     }
     else {
         ret_val = fifo_ptr->buffer[fifo_ptr->front_idx];
-        fifo_ptr->front_idx = (fifo_ptr->front_idx + 1) %
-                              fifo_ptr->N;                    // modulo causes wrap around to 0
+        fifo_ptr->front_idx =
+            (fifo_ptr->front_idx + 1) % fifo_ptr->N;               // modulo causes wrap around to 0
     }
 
     return ret_val;
@@ -99,7 +99,7 @@ void FIFO_Flush(volatile FIFO_t * fifo_ptr, uint32_t output_buffer[]) {
     while(FIFO_isEmpty(fifo_ptr) == false) {
         output_buffer[idx++] = fifo_ptr->buffer[fifo_ptr->front_idx];
         fifo_ptr->front_idx =
-            (fifo_ptr->front_idx + 1) % fifo_ptr->N;                    // wrap around to end
+            (fifo_ptr->front_idx + 1) % fifo_ptr->N;               // wrap around to end
     }
 }
 
@@ -132,8 +132,7 @@ void FIFO_PeekAll(volatile FIFO_t * fifo_ptr, uint32_t output_buffer[]) {
 
     while(temp_front_idx != fifo_ptr->back_idx) {
         output_buffer[idx++] = fifo_ptr->buffer[temp_front_idx];
-        temp_front_idx =
-            (temp_front_idx + 1) % fifo_ptr->N;                    // wrap around to end
+        temp_front_idx = (temp_front_idx + 1) % fifo_ptr->N;               // wrap around to end
     }
 }
 

@@ -66,7 +66,7 @@ void FIFO_Put(volatile FIFO_t * fifo_ptr, const uint32_t val);
  * @param fifo_ptr      Pointer to FIFO object
  * @return              First sample in the FIFO.
  */
-volatile uint32_t FIFO_Get(volatile FIFO_t * fifo_ptr);
+uint32_t FIFO_Get(volatile FIFO_t * fifo_ptr);
 
 /**
  * @brief               Transfer a value from one FIFO buffer to another.

@@ -46,7 +46,7 @@ void DAQ_Init(void) {
     Timer3A_Init(SAMPLING_PERIOD_MS);
 }
 
-volatile float32_t DAQ_Filter(volatile float32_t inputSample) {
+float32_t DAQ_Filter(volatile float32_t inputSample) {
     volatile float32_t outputSample;
 
     arm_biquad_cascade_df1_f32((const arm_biquad_casd_df1_inst_f32 *) &inputFilter,
