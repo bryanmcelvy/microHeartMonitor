@@ -19,6 +19,7 @@
 /.cache
 /.vscode
 /build
+/cpputest.cmake
 /docs/doxygen_files/refman.log
 /ecg_hrm.code-workspace
 /scratch
