@@ -16,9 +16,12 @@
 #ifndef __UART_H___
 #define __UART_H___
 
+#include "GPIO.h"
 #include "FIFO.h"
 
 #include "tm4c123gh6pm.h"
+#include <stdbool.h>
+#include <stdint.h>
 
 /**********************************************************************
 UART0

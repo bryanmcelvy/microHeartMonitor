@@ -37,8 +37,6 @@ Preprocessor Directives
 // Includes
 #include "SPI.h"
 
-#include "GPIO_New.h"
-
 #include "FIFO.h"
 
 #include "tm4c123gh6pm.h"
@@ -56,23 +54,6 @@ Preprocessor Directives
 #define SPI_TX_ISNOTFULL ((bool) (SSI0_SR_R & 0x02))
 
 #define SPI_BUFFER_SIZE  9               // needs to be >8
-
-enum {
-    // SSI0 pins
-    SPI_CLK_PIN = GPIO_PIN2,
-    SPI_CS_PIN = GPIO_PIN3,
-    SPI_RX_PIN = GPIO_PIN4,
-    SPI_TX_PIN = GPIO_PIN5,
-
-    // GPIO pins
-    SPI_DC_PIN = GPIO_PIN6,
-    SPI_RESET_PIN = GPIO_PIN7,
-
-    // pin groups
-    SPI_SSI0_PINS = (SPI_CLK_PIN | SPI_CS_PIN | SPI_RX_PIN | SPI_TX_PIN),
-    SPI_GPIO_PINS = (SPI_DC_PIN | SPI_RESET_PIN),
-    SPI_ALL_PINS = (SPI_SSI0_PINS | SPI_GPIO_PINS)
-};
 
 /******************************************************************************
 Initialization
@@ -95,20 +76,20 @@ void SPI_Init(void) {
      *  10 [MHz], or a period of 100 [ns].
      */
 
-    // activate SSI0 clock and wait for it to be ready
-    SYSCTL_RCGCSSI_R |= 1;
-    while((SYSCTL_PRSSI_R & 0x01) == 0) {}
+    SYSCTL_RCGCSSI_R |= 0x01;                    // enable SSI0 clk.
+    if((SYSCTL_RCGCGPIO_R & 0x01) == 0) {
+        SYSCTL_RCGCGPIO_R |= 0x01;               // enable GPIO Port A clk.
+    }
 
     // configure GPIO pins
-    GPIO_Port_t * port_ptr = GPIO_InitPort(A);
-    GPIO_ConfigAltMode(port_ptr, SPI_SSI0_PINS);                   // alt. mode for PA2-5
-    GPIO_ConfigPortCtrl(port_ptr, SPI_SSI0_PINS, 2);               // SSI mode for PA2-5
+    GPIO_PORTA_AFSEL_R |= 0x3C;                  // alt. mode for PA2-5
+    GPIO_PORTA_PCTL_R |= 0x3C;                   // SSI mode for PA2-5
 
-    GPIO_ConfigDirOutput(port_ptr, SPI_GPIO_PINS);                 // use PA6/7 as output pins
+    GPIO_PORTA_DIR_R |= 0xC0;                    // use PA6/7 as output pins
 
-    GPIO_EnableDigital(port_ptr, SPI_ALL_PINS);
-
-    GPIO_WriteHigh(port_ptr, SPI_RESET_PIN);               // hold `HIGH` (i.e. active `LOW`)
+    GPIO_PORTA_AMSEL_R &= ~(0xFC);               // disable analog for PA2-7
+    GPIO_PORTA_DEN_R |= 0xFC;                    // enable digital IO for PA2-7
+    GPIO_PORTA_DATA_R |= 0x80;                   // set `RESET` pin `HIGH` (active `LOW`)
 
     // configure SSI0
     SSI0_CR1_R &= ~(0x02);                 // disable SSI0

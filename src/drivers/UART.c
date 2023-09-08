@@ -9,6 +9,7 @@
 
 #include "UART.h"
 
+#include "GPIO.h"
 #include "FIFO.h"
 
 #include "tm4c123gh6pm.h"
@@ -44,27 +45,28 @@ void UART0_Init(void) {
      */
     // clang-format on
 
-    SYSCTL_RCGCUART_R |= 0x01;                   // activate clock for UART0
-    if((SYSCTL_RCGCGPIO_R & 0x01) == 0) {
-        SYSCTL_RCGCGPIO_R |= 0x01;               // activate clock for GPIO Port A
-    }
+    // activate clock for UART0 and wait for it to be ready
+    SYSCTL_RCGCUART_R |= 0x01;
+    while((SYSCTL_PRUART_R & 0x01) == 0) {}
 
-    UART0_CTL_R &= ~(0x01);                      // disable UART0
+    // initialize GPIO pins
+    GPIO_Port_t * portA_ptr = GPIO_InitPort(A);
+    GPIO_ConfigAltMode(portA_ptr, GPIO_PIN0 | GPIO_PIN1);
+    GPIO_ConfigPortCtrl(portA_ptr, GPIO_PIN0 | GPIO_PIN1, 1);
+    GPIO_ConfigDriveStrength(portA_ptr, GPIO_PIN0 | GPIO_PIN1, 8);
+    GPIO_EnableDigital(portA_ptr, GPIO_PIN0 | GPIO_PIN1);
+
+    // configure UART0
+    UART0_CTL_R &= ~(0x01);                 // disable UART0
     UART0_IBRD_R |= 43;
     UART0_FBRD_R |= 26;
-    UART0_LCRH_R |= 0x70;                        // 8-bit length, FIFO (NOTE: access *AFTER* `BRD`)
-    UART0_CC_R &= ~(0x0F);                       // system clock source
-    UART0_CTL_R |= 0x01;                         // re-enable UART0
-
-    GPIO_PORTA_AFSEL_R |= 0x03;                  // alt. mode for PA0/1
-    GPIO_PORTA_PCTL_R |= 0x11;                   // UART mode for PA0/1
-    GPIO_PORTA_DR8R_R |= 0x03;                   // 8 [ma] drive strength
-    GPIO_PORTA_AMSEL_R &= ~(0x03);               // disable analog
-    GPIO_PORTA_DEN_R |= 0x03;                    // enable digital I/O
+    UART0_LCRH_R |= 0x70;                   // 8-bit length, FIFO (NOTE: access *AFTER* `BRD`)
+    UART0_CC_R &= ~(0x0F);                  // system clock source
+    UART0_CTL_R |= 0x01;                    // re-enable UART0
 
     UART_fifo_ptr = FIFO_Init(UART_buffer, UART0_BUFFER_SIZE);
 
-    NVIC_PRI1_R |= (1 << 13);                    // priority 1
+    NVIC_PRI1_R |= (1 << 13);               // priority 1
     NVIC_EN0_R |= (1 << UART0_INTERRUPT_NUM);               // enable UART0 interrupts in NVIC
 }
 

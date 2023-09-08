@@ -11,6 +11,7 @@
 #define __ADC_H___
 
 #include "lookup.h"
+#include "GPIO.h"
 #include "Timer.h"
 
 #include "arm_math_types.h"
@@ -32,7 +33,7 @@ void ADC_InterruptDisable(void);
  * @param raw_sample    12-bit unsigned ADC value. `sample = [0, 0xFFF]`
  * @return double       Voltage value in range `[-5.5, 5.5) [mV]`.
  */
-volatile float32_t ADC_ConvertToVolts(uint16_t raw_sample);
+float32_t ADC_ConvertToVolts(uint16_t raw_sample);
 
 #endif
 

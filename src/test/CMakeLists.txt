@@ -36,7 +36,7 @@ target_link_libraries(test_timer0.elf PRIVATE GPIO Timer)
 
 # GPIO Interrupts
 add_executable(test_gpio_int.elf test_gpio_int.c )
-target_link_libraries(test_gpio_int.elf PRIVATE GPIO_New SysTick Timer)
+target_link_libraries(test_gpio_int.elf PRIVATE GPIO SysTick Timer)
 
 # Timer 1 Interrupts
 add_executable(test_timer1_int.elf test_timer1_int.c )
@@ -67,7 +67,7 @@ target_link_libraries(test_adc.elf PRIVATE ADC FIFO GPIO Timer)
 
 # GPIO (New) Test
 add_executable(test_gpio_new.elf test_gpio_new.c)
-target_link_libraries(test_gpio_new.elf PRIVATE GPIO_New LED Timer)
+target_link_libraries(test_gpio_new.elf PRIVATE GPIO LED Timer)
 
 #*****************************************************************************
 # Application SW Tests

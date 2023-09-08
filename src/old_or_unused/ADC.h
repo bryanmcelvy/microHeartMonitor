@@ -11,7 +11,6 @@
 #define __ADC_H___
 
 #include "lookup.h"
-#include "GPIO_New.h"
 #include "Timer.h"
 
 #include "arm_math_types.h"

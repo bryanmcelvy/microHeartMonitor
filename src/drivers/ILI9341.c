@@ -312,9 +312,9 @@ void ILI9341_setFrameRateIdle(uint8_t div_ratio, uint8_t clocks_per_line) {
     SPI_IRQ_StartWriting();
 }
 
-void ILI9341_setBlankingPorch(uint8_t vpf, uint8_t vbp, uint8_t hfp, uint8_t hbp) {
-    /// TODO: Write
-}
+// void ILI9341_setBlankingPorch(uint8_t vpf, uint8_t vbp, uint8_t hfp, uint8_t hbp) {
+//     /// TODO: Write
+// }
 
 void ILI9341_setInterface(void) {
     /**

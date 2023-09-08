@@ -22,10 +22,11 @@ SECTIONS
 Preprocessor Directives
 *******************************************************************************/
 
-#include "tm4c123gh6pm.h"
+#include "GPIO.h"
 
 #include "FIFO.h"
 
+#include "tm4c123gh6pm.h"
 #include <stdbool.h>
 #include <stdint.h>
 

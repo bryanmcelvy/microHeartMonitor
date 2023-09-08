@@ -16,6 +16,8 @@
 
 #define FIFO_LEN 10
 
+#define LED_PINS (GPIO_Pin_t)(GPIO_PIN1 | GPIO_PIN2 | GPIO_PIN3)
+
 void FIFO_reportStatus(FIFO_t * fifo_ptr);
 
 int main(void) {
@@ -24,8 +26,14 @@ int main(void) {
     uint32_t print_buffer[FIFO_LEN];
 
     PLL_Init();
-    GPIO_PF_LED_Init();
     Timer0A_Init();
+
+    // Init. LED pins
+    GPIO_Port_t * portF = GPIO_InitPort(F);
+    GPIO_ConfigDirOutput(portF, LED_PINS);
+    GPIO_ConfigDriveStrength(portF, LED_PINS, 8);
+    GPIO_EnableDigital(portF, LED_PINS);
+
     UART0_Init();
     UART0_WriteStr((unsigned char *) "\nTransmission started...\r\n");
 
@@ -66,7 +74,7 @@ int main(void) {
 
     // Blink
     while(1) {
-        GPIO_PF_LED_Toggle(LED_GREEN);
+        GPIO_Toggle(portF, LED_GREEN);
         Timer0A_Wait1ms(500);
     }
 }

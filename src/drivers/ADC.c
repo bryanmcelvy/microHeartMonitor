@@ -7,25 +7,29 @@
  * @brief       Source code for ADC module.
  */
 
+#include "ADC.h"
+
 #include "lookup.h"
+#include "GPIO.h"
 #include "Timer.h"
 
 #include "arm_math_types.h"
 #include "tm4c123gh6pm.h"
 #include <stdint.h>
 
-#define GPIO_PIN_5 ((uint8_t) (1 << 5))
-
 static const float32_t * ADC_LOOKUP = 0;
 
 void ADC_Init(void) {
-    SYSCTL_RCGCADC_R |= 0x01;                               // enable clock to ADC0
-    SYSCTL_RCGCGPIO_R |= 0x10;                              // enable clock to GPIO Port E
+    // enable clock to ADC0 and wait for it to be ready
+    SYSCTL_RCGCADC_R |= 0x01;
+    while((SYSCTL_PRADC_R & 0x01) == 0) {}
 
-    GPIO_PORTE_DIR_R &= ~(GPIO_PIN_5);                      // PE5 as input
-    GPIO_PORTE_AFSEL_R |= GPIO_PIN_5;                       // alt. mode for PE5
-    GPIO_PORTE_DEN_R &= ~(GPIO_PIN_5);                      // disable digital I/O for PE5
-    GPIO_PORTE_AMSEL_R |= GPIO_PIN_5;                       // enable analog mode
+    // configure GPIO port
+    GPIO_Port_t * portE_ptr = GPIO_InitPort(E);
+    GPIO_ConfigDirInput(portE_ptr, GPIO_PIN5);
+    GPIO_ConfigAltMode(portE_ptr, GPIO_PIN5);
+    GPIO_DisableDigital(portE_ptr, GPIO_PIN5);
+    GPIO_ConfigAnalog(portE_ptr, GPIO_PIN5);
 
     ADC0_ACTSS_R &= ~(0x0F);                                // disable all sequencers
     ADC0_PC_R = (ADC0_PC_R & ~(0x0F)) | 0x01;               // max f_s = 125 [Hz]
@@ -55,7 +59,7 @@ void ADC_InterruptDisable(void) {
     ADC0_IM_R &= ~(0x08);
 }
 
-volatile float32_t ADC_ConvertToVolts(uint16_t raw_sample) {
+float32_t ADC_ConvertToVolts(uint16_t raw_sample) {
     return (volatile float32_t) ADC_LOOKUP[raw_sample];
 }
 

@@ -15,7 +15,7 @@
 Preprocessor Directives
 *******************************************************************************/
 
-#include "GPIO_New.h"
+#include "GPIO.h"
 
 #include "NewAssert.h"
 
