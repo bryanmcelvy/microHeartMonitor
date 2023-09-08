@@ -36,7 +36,7 @@ target_link_libraries(test_timer0.elf PRIVATE GPIO Timer)
 
 # GPIO Interrupts
 add_executable(test_gpio_int.elf test_gpio_int.c )
-target_link_libraries(test_gpio_int.elf PRIVATE GPIO SysTick Timer)
+target_link_libraries(test_gpio_int.elf PRIVATE GPIO_New SysTick Timer)
 
 # Timer 1 Interrupts
 add_executable(test_timer1_int.elf test_timer1_int.c )
