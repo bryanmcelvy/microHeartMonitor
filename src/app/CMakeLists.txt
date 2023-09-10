@@ -22,6 +22,3 @@ target_link_libraries(Debug UART NewAssert)
 
 add_library(LCD STATIC LCD.c LCD.h)
 target_link_libraries(LCD ILI9341)
-
-add_library(UserCtrl STATIC UserCtrl.c UserCtrl.h)
-target_link_libraries(UserCtrl GPIO Timer)

@@ -34,9 +34,4 @@ target_include_directories( ${MAIN_TARGET}
                                 ${PATH_MIDDLEWARE}
                                 ${CMSIS_DIRS}
                             )
-target_link_libraries(  ${MAIN_TARGET} 
-                        PRIVATE 
-                            Startup
-                            DAQ   Debug  LCD   QRS   UserCtrl       # app libraries
-                            PLL                             # driver libraries
-                        )
+target_link_libraries(${MAIN_TARGET} Startup DAQ Debug LCD QRS PLL)

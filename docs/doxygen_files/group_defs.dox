@@ -69,10 +69,6 @@
         * Module for analyzing ECG data to determine heart rate.
         */
 
-        /** @defgroup   userctrl         UserCtrl
-        * User control module.
-        */
-
 /** @} */
 //************************************************************************************************
 
