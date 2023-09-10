@@ -11,3 +11,4 @@ set(CMAKE_CXX_FLAGS "-ffunction-sections -fdata-sections -Wall -Wextra -pedantic
 
 include(cpputest.cmake)
 add_subdirectory(src)
+add_subdirectory(mocks)
