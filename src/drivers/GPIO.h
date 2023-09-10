@@ -41,7 +41,7 @@ enum {
     LED_YELLOW = (LED_RED + LED_GREEN),
     LED_CYAN = (LED_BLUE + LED_GREEN),
     LED_PURPLE = (LED_RED + LED_BLUE),
-    LED_WHITE = (LED_RED + LED_BLUE + LED_GREEN),
+    LED_WHITE = (LED_RED + LED_BLUE + LED_GREEN)
 };
 
 typedef enum { A, B, C, D, E, F } GPIO_PortName_t;
@@ -213,13 +213,29 @@ void GPIO_Toggle(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask);
 Configuration (Alternate/Analog Modes)
 *******************************************************************************/
 
-// TODO: Write header comment
+/**
+ * @brief               Activate the alternate mode for the specified pins.
+ *
+ * @param[in] gpioPort  Pointer to the specified GPIO port.
+ * @param[in] pinMask   Bit mask corresponding to the intended pin(s).
+ */
 void GPIO_ConfigAltMode(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask);
 
-// TODO: Write header comment
+/**
+ * @brief               Specify the alternate mode to use for the specified pins.
+ *
+ * @param[in] gpioPort  Pointer to the specified GPIO port.
+ * @param[in] pinMask   Bit mask corresponding to the intended pin(s).
+ * @param[in] fieldEncoding Number corresponding to intended alternate mode.
+ */
 void GPIO_ConfigPortCtrl(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask, uint8_t fieldEncoding);
 
-// TODO: Write header comment
+/**
+ * @brief               Activate analog mode for the specified GPIO pins.
+ *
+ * @param[in] gpioPort  Pointer to the specified GPIO port.
+ * @param[in] pinMask   Bit mask corresponding to the intended pin(s).
+ */
 void GPIO_ConfigAnalog(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask);
 
 #endif               // __GPIO_H__
