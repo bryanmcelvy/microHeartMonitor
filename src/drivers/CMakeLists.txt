@@ -14,12 +14,19 @@ add_library(SysTick STATIC SysTick.c SysTick.h)
 add_library(Timer STATIC Timer.c Timer.h)
 
 add_library(GPIO STATIC GPIO.c GPIO.h)
+target_link_libraries(GPIO PUBLIC NewAssert)
 
 add_library(UART STATIC UART.c UART.h)
-target_link_libraries(UART PRIVATE FIFO GPIO)
+target_link_libraries(UART 
+                        PRIVATE GPIO
+                        PUBLIC FIFO)
+
 
 add_library(SPI STATIC SPI.c SPI.h)
-target_link_libraries(SPI PRIVATE FIFO GPIO)
+target_link_libraries(SPI 
+                        PRIVATE GPIO
+                        PUBLIC FIFO)
+
 
 add_library(ADC STATIC ADC.c ADC.h)
 target_include_directories(ADC PRIVATE ${CMSIS_DIRS})
