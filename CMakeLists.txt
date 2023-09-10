@@ -19,12 +19,18 @@ set(PATH_SRC ${PROJECT_SOURCE_DIR}/src)
 set(PATH_TOOLS ${PROJECT_SOURCE_DIR}/tools)
 set(PATH_CPPCHECK ${PATH_TOOLS}/cppcheck)
 
+set(PATH_APP ${PATH_SRC}/app)
+set(PATH_COMMON ${PATH_SRC}/common)
+set(PATH_DEVICE ${PATH_SRC}/device)
+set(PATH_DRIVERS ${PATH_SRC}/drivers)
+set(PATH_MIDDLEWARE ${PATH_SRC}/middleware)
+set(PATH_TEST_SCRIPTS ${PATH_SRC}/test)
+
 # Subdirectories
 add_subdirectory(${PATH_DOCS})                              # datasheets and generated code documentation
 add_subdirectory(${PATH_SRC})                               # source code, libraries, test scripts
-add_subdirectory(${PROJECT_SOURCE_DIR}/test)
-
-add_subdirectory(${PATH_EXTERNAL} ${PROJECT_BINARY_DIR}/external)                          # ARM CMSIS-DSP library
+add_subdirectory(${PROJECT_SOURCE_DIR}/test EXCLUDE_FROM_ALL)
+add_subdirectory(${PATH_EXTERNAL})                          # ARM CMSIS-DSP library
 
 # Cppcheck Configuration
 find_program(CMAKE_C_CPPCHECK NAMES cppcheck)

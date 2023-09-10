@@ -3,14 +3,6 @@ File:           /src/CMakeLists.txt
 Description:    Adds subdirectories and main target executable
 **************************************************************************************************  ]]
 
-# Path Variables
-set(PATH_APP ${PATH_SRC}/app)
-set(PATH_COMMON ${PATH_SRC}/common)
-set(PATH_DEVICE ${PATH_SRC}/device)
-set(PATH_DRIVERS ${PATH_SRC}/drivers)
-set(PATH_MIDDLEWARE ${PATH_SRC}/middleware)
-set(PATH_TEST ${PATH_SRC}/test)
-
 # Add startup file as Object Library
 add_library(Startup OBJECT ${PATH_DEVICE}/startup_gcc.c)
 
@@ -19,7 +11,7 @@ add_subdirectory(${PATH_APP})
 add_subdirectory(${PATH_COMMON})
 add_subdirectory(${PATH_DRIVERS})
 add_subdirectory(${PATH_MIDDLEWARE})
-add_subdirectory(${PATH_TEST})
+add_subdirectory(${PATH_TEST_SCRIPTS})
 
 # Main Target Declaration
 set(MAIN_TARGET main.elf)
