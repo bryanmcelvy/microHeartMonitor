@@ -1,12 +1,11 @@
 /**
+ * @addtogroup led
+ * @{
+ *
  * @file
  * @author  Bryan McElvy
  * @brief   Interface for LED module.
- * @ingroup led
  */
-
-/** @addtogroup led
- * @{ */
 
 #ifndef __LED_H__
 #define __LED_H__
@@ -22,7 +21,9 @@ Preprocessor Directives
 #include <stdbool.h>
 #include <stdint.h>
 
+#ifndef LED_POOL_SIZE
 #define LED_POOL_SIZE 3
+#endif
 
 /******************************************************************************
 Initialization
@@ -40,7 +41,7 @@ typedef struct Led_t Led_t;
 Led_t * Led_Init(GPIO_Port_t * gpioPort_ptr, GPIO_Pin_t pin);
 
 /******************************************************************************
-Configuration
+Status Checking
 *******************************************************************************/
 
 /**
