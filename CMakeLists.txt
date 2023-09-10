@@ -19,11 +19,6 @@ set(PATH_TOOLS ${PROJECT_SOURCE_DIR}/tools)
 set(PATH_CPPCHECK ${PATH_TOOLS}/cppcheck)
 
 set(PATH_SRC ${PROJECT_SOURCE_DIR}/src)
-set(PATH_APP ${PATH_SRC}/app)
-set(PATH_COMMON ${PATH_SRC}/common)
-set(PATH_DEVICE ${PATH_SRC}/device)
-set(PATH_DRIVERS ${PATH_SRC}/drivers)
-set(PATH_TEST ${PATH_SRC}/test)
 
 set(PATH_EXTERNAL ${PATH_SRC}/external)
 list(APPEND CMSIS_DIRS                  
