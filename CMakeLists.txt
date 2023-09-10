@@ -9,28 +9,22 @@ project(ecg_hrm C)
 
 # Build Options
 option(OPT_GEN_DOC      "Generate Doxygen documentation when building `all`"                            OFF)
-option(OPT_CPPCHECK     "Run static code analysis (i.e. linting) via cppcheck when building `all`"      ON)
+option(OPT_CPPCHECK     "Run static code analysis (i.e. linting) via cppcheck when building `all`"      OFF)
 option(OPT_TESTING      "Build test scripts when building `all`"                                        ON)
 
 # Useful Variables
 set(PATH_DOCS ${PROJECT_SOURCE_DIR}/docs)
-
+set(PATH_EXTERNAL ${PROJECT_SOURCE_DIR}/external)
+set(PATH_SRC ${PROJECT_SOURCE_DIR}/src)
 set(PATH_TOOLS ${PROJECT_SOURCE_DIR}/tools)
 set(PATH_CPPCHECK ${PATH_TOOLS}/cppcheck)
 
-set(PATH_SRC ${PROJECT_SOURCE_DIR}/src)
-
-set(PATH_EXTERNAL ${PATH_SRC}/external)
-list(APPEND CMSIS_DIRS                  
-                ${PATH_EXTERNAL}/CMSIS-DSP/Include
-                ${PATH_EXTERNAL}/CMSIS-DSP/PrivateInclude
-                ${PATH_EXTERNAL}/CMSIS-DSP/Source
-                ${PATH_EXTERNAL}/CMSIS/Core/Include)
-
 # Subdirectories
-add_subdirectory(${PATH_SRC})                               # source code, libraries, test scripts
 add_subdirectory(${PATH_DOCS})                              # datasheets and generated code documentation
+add_subdirectory(${PATH_SRC})                               # source code, libraries, test scripts
 add_subdirectory(${PROJECT_SOURCE_DIR}/test)
+
+add_subdirectory(${PATH_EXTERNAL} ${PROJECT_BINARY_DIR}/external)                          # ARM CMSIS-DSP library
 
 # Cppcheck Configuration
 find_program(CMAKE_C_CPPCHECK NAMES cppcheck)

@@ -18,7 +18,6 @@ add_library(Startup OBJECT ${PATH_DEVICE}/startup_gcc.c)
 add_subdirectory(${PATH_APP})
 add_subdirectory(${PATH_COMMON})
 add_subdirectory(${PATH_DRIVERS})
-add_subdirectory(${PATH_EXTERNAL}/CMSIS-DSP)
 add_subdirectory(${PATH_MIDDLEWARE})
 add_subdirectory(${PATH_TEST})
 
