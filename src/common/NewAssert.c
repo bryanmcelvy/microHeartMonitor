@@ -5,6 +5,7 @@
  */
 
 #include "NewAssert.h"
+
 #include <stdbool.h>
 
 static void Assert_Handler(void);
