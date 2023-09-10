@@ -4,7 +4,6 @@
 
 #include "NewAssert.h"
 
-#include "arm_math_types.h"
 #include "tm4c123gh6pm.h"
 #include <stdbool.h>
 #include <stdint.h>
@@ -37,7 +36,7 @@ void Debug_SendFromList(uint8_t msg_idx) {
     Debug_SendMsg(MSG_LIST[msg_idx]);
 }
 
-void Debug_WriteFloat(float64_t value) {
+void Debug_WriteFloat(double value) {
     UART0_WriteFloat(value, 3);
     UART0_WriteStr("\r\n");
 }

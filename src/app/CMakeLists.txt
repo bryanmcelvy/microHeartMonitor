@@ -6,7 +6,7 @@ include_directories(
                     ${PATH_COMMON}
                     ${PATH_DEVICE}
                     ${PATH_DRIVERS}
-                    ${PATH_MIDDLEWARE})
+                )
 
 add_library(DAQ STATIC DAQ.c DAQ.h)
 target_include_directories(DAQ PRIVATE ${CMSIS_DIRS})
@@ -17,8 +17,8 @@ target_include_directories(QRS PRIVATE ${CMSIS_DIRS})
 target_link_libraries(QRS CMSIS-DSP-f32 FIFO)
 
 add_library(Debug STATIC Debug.c Debug.h)
-target_include_directories(Debug PRIVATE ${CMSIS_DIRS})
 target_link_libraries(Debug UART NewAssert)
 
 add_library(LCD STATIC LCD.c LCD.h)
+target_include_directories(LCD PRIVATE ${PATH_MIDDLEWARE})
 target_link_libraries(LCD ILI9341)

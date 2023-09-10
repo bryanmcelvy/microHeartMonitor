@@ -27,7 +27,6 @@ target_link_libraries(SPI
                         PRIVATE GPIO
                         PUBLIC FIFO)
 
-
 add_library(ADC STATIC ADC.c ADC.h)
 target_include_directories(ADC PRIVATE ${CMSIS_DIRS})
 target_link_libraries(ADC
