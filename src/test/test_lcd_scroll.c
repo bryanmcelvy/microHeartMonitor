@@ -11,6 +11,8 @@
 #include "Timer.h"
 #include <stdint.h>
 
+#define LED_PINS           (GPIO_Pin_t)(GPIO_PIN1 | GPIO_PIN2 | GPIO_PIN3)
+
 #define TOP_LINE_OFFSET    (uint16_t) 180
 #define TOP_LINE_THICKNESS (uint16_t) 5
 
@@ -25,7 +27,13 @@ int main(void) {
 
     PLL_Init();
     Timer0A_Init();
-    GPIO_PF_LED_Init();
+
+    // Init. LED pins
+    GPIO_Port_t * portF = GPIO_InitPort(F);
+    GPIO_ConfigDirOutput(portF, LED_PINS);
+    GPIO_ConfigDriveStrength(portF, LED_PINS, 8);
+    GPIO_EnableDigital(portF, LED_PINS);
+
     LCD_Init();
 
     LCD_toggleInversion();
@@ -37,7 +45,7 @@ int main(void) {
     is_y_increasing = true;
 
     LCD_toggleOutput();
-    GPIO_PF_LED_Toggle(LED_GREEN);
+    GPIO_Toggle(portF, LED_GREEN);
     while(1) {
         // draw pixel
         while(Timer0A_isCounting()) {}

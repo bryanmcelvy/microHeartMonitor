@@ -16,6 +16,8 @@
 #include "tm4c123gh6pm.h"
 #include <stdint.h>
 
+#define LED_PINS           (GPIO_Pin_t)(GPIO_PIN1 | GPIO_PIN2 | GPIO_PIN3)
+
 #define SAMPLING_PERIOD_MS (uint32_t) 5
 #define NUM_SAMPLES        (uint32_t) 1000
 
@@ -34,8 +36,13 @@ int main(void) {
 
     fifo_ptr = FIFO_Init(fifo_buffer, NUM_SAMPLES);
 
-    GPIO_PF_LED_Init();
-    GPIO_PF_LED_Toggle(LED_RED);
+    // Init. LED pins
+    GPIO_Port_t * portF = GPIO_InitPort(F);
+    GPIO_ConfigDirOutput(portF, LED_PINS);
+    GPIO_ConfigDriveStrength(portF, LED_PINS, 8);
+    GPIO_EnableDigital(portF, LED_PINS);
+
+    GPIO_Toggle(portF, LED_RED);
 
     ADC_Init();
     Timer3A_Init(SAMPLING_PERIOD_MS);
@@ -45,7 +52,7 @@ int main(void) {
         else if(buffer_is_full) {
             // FIFO_Flush(fifo_ptr, samp_buffer);
             done_sampling = true;
-            GPIO_PF_LED_Toggle(LED_RED + LED_GREEN);
+            GPIO_Toggle(portF, LED_RED + LED_GREEN);
         }
     }
 }
