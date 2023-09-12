@@ -33,9 +33,9 @@ add_subdirectory(${PROJECT_SOURCE_DIR}/test EXCLUDE_FROM_ALL)
 add_subdirectory(${PATH_EXTERNAL})                          # ARM CMSIS-DSP library
 
 # Cppcheck Configuration
-find_program(CMAKE_C_CPPCHECK NAMES cppcheck)
-if(CMAKE_C_CPPCHECK)
-    list(APPEND CPPCHECK_FLAGS
+find_program(CPPCHECK_EXEC NAMES cppcheck)
+if(CPPCHECK_EXEC)
+    list(APPEND CMAKE_C_CPPCHECK
                     "--enable=all"
                     "--error-exitcode=1"
                     "--quiet"
@@ -45,16 +45,4 @@ if(CMAKE_C_CPPCHECK)
                     "--cppcheck-build-dir=${PATH_CPPCHECK}"
                     "--project=${PROJECT_BINARY_DIR}/compile_commands.json"
                     "-i${PATH_EXTERNAL}")
-
-    add_custom_target(lint 
-                        COMMENT             "Running cppcheck:"
-                        WORKING_DIRECTORY   ${PROJECT_SOURCE_DIR}
-                        COMMAND             ${CMAKE_C_CPPCHECK} ${CPPCHECK_FLAGS} ${PATH_SRC}
-                        VERBATIM)
-
-    if(OPT_CPPCHECK)
-        set_target_properties(lint PROPERTIES EXCLUDE_FROM_ALL FALSE)
-    else()
-        set_target_properties(lint PROPERTIES EXCLUDE_FROM_ALL TRUE)
-    endif()
 endif()
