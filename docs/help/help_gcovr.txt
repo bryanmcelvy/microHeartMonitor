@@ -1,0 +1,278 @@
+usage: gcovr [options] [search_paths...]
+
+A utility to run gcov and summarize the coverage in simple reports.
+
+Options:
+  -h, --help            Show this help message, then exit.
+  --version             Print the version number, then exit.
+  -v, --verbose         Print progress messages. Please include this output in
+                        bug reports.
+  -r ROOT, --root ROOT  The root directory of your source files. Defaults to
+                        '.', the current directory. File names are reported
+                        relative to this root. The --root is the default
+                        --filter.
+  -a ADD_TRACEFILE, --add-tracefile ADD_TRACEFILE
+                        Combine the coverage data from JSON files. Coverage
+                        files contains source files structure relative to root
+                        directory. Those structures are combined in the output
+                        relative to the current root directory. Unix style
+                        wildcards can be used to add the pathnames matching a
+                        specified pattern. In this case pattern must be set in
+                        double quotation marks. Option can be specified
+                        multiple times. When option is used gcov is not run to
+                        collect the new coverage data.
+  search_paths          Search these directories for coverage files. Defaults
+                        to --root and --object-directory. Config key: search-
+                        path.
+  --config CONFIG       Load that configuration file. Defaults to gcovr.cfg in
+                        the --root directory.
+  --no-markers          Turn off exclusion markers. Any exclusion markers
+                        specified in source files will be ignored.
+  --fail-under-line MIN
+                        Exit with a status of 2 if the total line coverage is
+                        less than MIN. Can be ORed with exit status of '--
+                        fail-under-branch' option.
+  --fail-under-branch MIN
+                        Exit with a status of 4 if the total branch coverage
+                        is less than MIN. Can be ORed with exit status of '--
+                        fail-under-line' option.
+  --source-encoding SOURCE_ENCODING
+                        Select the source file encoding. Defaults to the
+                        system default encoding (UTF-8).
+  --exclude-lines-by-pattern EXCLUDE_LINES_BY_PATTERN
+                        Exclude lines that match this regex.
+  --exclude-branches-by-pattern EXCLUDE_BRANCHES_BY_PATTERN
+                        Exclude branches that match this regex.
+  --exclude-pattern-prefix EXCLUDE_PATTERN_PREFIX
+                        Define the regex prefix used in markers / line
+                        exclusions (i.e ..._EXCL_START, ..._EXCL_START,
+                        ..._EXCL_STOP)
+
+Output Options:
+  Gcovr prints a text report by default, but can switch to XML or HTML.
+
+  -o OUTPUT, --output OUTPUT
+                        Print output to this filename. Defaults to stdout.
+                        Individual output formats can override this.
+  -b, --branches        Report the branch coverage instead of the line
+                        coverage. For text report only. Config key: txt-
+                        branch.
+  --decisions           Report the decision coverage. For HTML and JSON
+                        report.
+  --calls               Report the calls coverage. For HTML report.
+  -u, --sort-uncovered  Sort entries by increasing number of uncovered lines.
+                        For text and HTML report.
+  -p, --sort-percentage
+                        Sort entries by increasing percentage of uncovered
+                        lines. For text and HTML report.
+  --txt [OUTPUT]        Generate a text report. OUTPUT is optional and
+                        defaults to --output.
+  --cobertura [OUTPUT], -x [OUTPUT], --xml [OUTPUT]
+                        Generate a Cobertura XML report. OUTPUT is optional
+                        and defaults to --output.
+  --cobertura-pretty, --xml-pretty
+                        Pretty-print the Cobertura XML report. Implies
+                        --cobertura. Default: False.
+  --html [OUTPUT]       Generate a HTML report. OUTPUT is optional and
+                        defaults to --output.
+  --html-details [OUTPUT]
+                        Add annotated source code reports to the HTML report.
+                        Implies --html, can not be used together with --html-
+                        nested. OUTPUT is optional and defaults to --output.
+  --html-nested [OUTPUT]
+                        Add annotated source code reports to the HTML report.
+                        A page is created for each directory that summarize
+                        subdirectories with aggregated statistics. Implies
+                        --html, can not be used together with --html-details.
+                        OUTPUT is optional and defaults to --output.
+  --html-syntax-highlighting, --html-details-syntax-highlighting
+                        Use syntax highlighting in HTML source page. Enabled
+                        by default. Negation: --no-html-syntax-highlighting,
+                        --no-html-details-syntax-highlighting.
+  --html-theme THEME    Override the default color theme for the HTML report.
+                        Default is green.
+  --html-css CSS        Override the default style sheet for the HTML report.
+  --html-title TITLE    Use TITLE as title for the HTML report. Default is
+                        'GCC Code Coverage Report'.
+  --html-medium-threshold MEDIUM
+                        If the coverage is below MEDIUM, the value is marked
+                        as low coverage in the HTML report. MEDIUM has to be
+                        lower than or equal to value of --html-high-threshold
+                        and greater than 0. If MEDIUM is equal to value of
+                        --html-high-threshold the report has only high and low
+                        coverage. Default is 75.0.
+  --html-high-threshold HIGH
+                        If the coverage is below HIGH, the value is marked as
+                        medium coverage in the HTML report. HIGH has to be
+                        greater than or equal to value of --html-medium-
+                        threshold. If HIGH is equal to value of --html-medium-
+                        threshold the report has only high and low coverage.
+                        Default is 90.0.
+  --html-medium-threshold-branch MEDIUM_BRANCH
+                        If the coverage is below MEDIUM_BRANCH, the value is
+                        marked as low coverage in the HTML report.
+                        MEDIUM_BRANCH has to be lower than or equal to value
+                        of --html-high-threshold-branch and greater than 0. If
+                        MEDIUM_BRANCH is equal to value of --html-medium-
+                        threshold-branch the report has only high and low
+                        coverage. Default is taken from --html-medium-
+                        threshold.
+  --html-high-threshold-branch HIGH_BRANCH
+                        If the coverage is below HIGH_BRANCH, the value is
+                        marked as medium coverage in the HTML report.
+                        HIGH_BRANCH has to be greater than or equal to value
+                        of --html-medium-threshold-branch. If HIGH_BRANCH is
+                        equal to value of --html-medium-threshold-branch the
+                        report has only high and low coverage. Default is
+                        taken from --html-high-threshold.
+  --html-medium-threshold-line MEDIUM_LINE
+                        If the coverage is below MEDIUM_LINE, the value is
+                        marked as low coverage in the HTML report. MEDIUM_LINE
+                        has to be lower than or equal to value of --html-high-
+                        threshold-line and greater than 0. If MEDIUM_LINE is
+                        equal to value of --html-medium-threshold-line the
+                        report has only high and low coverage. Default is
+                        taken from --html-medium-threshold.
+  --html-high-threshold-line HIGH_LINE
+                        If the coverage is below HIGH_LINE, the value is
+                        marked as medium coverage in the HTML report.
+                        HIGH_LINE has to be greater than or equal to value of
+                        --html-medium-threshold-line. If HIGH_LINE is equal to
+                        value of --html-medium-threshold-line the report has
+                        only high and low coverage. Default is taken from
+                        --html-high-threshold.
+  --html-tab-size HTML_TAB_SIZE
+                        Used spaces for a tab in a source file. Default is 4
+  --html-absolute-paths
+                        Use absolute paths to link the --html-details reports.
+                        Defaults to relative links.
+  --html-encoding HTML_ENCODING
+                        Override the declared HTML report encoding. Defaults
+                        to UTF-8. See also --source-encoding.
+  --html-self-contained
+                        Control whether the HTML report bundles resources like
+                        CSS styles. Self-contained reports can be sent via
+                        email, but conflict with the Content Security Policy
+                        of some web servers. Defaults to self-contained
+                        reports unless --html-details is used. Negation: --no-
+                        html-self-contained.
+  -s, --print-summary   Print a small report to stdout with line & function &
+                        branch percentage coverage. This is in addition to
+                        other reports. Default: False.
+  --sonarqube [OUTPUT]  Generate sonarqube generic coverage report in this
+                        file name. OUTPUT is optional and defaults to
+                        --output.
+  --json [OUTPUT]       Generate a JSON report. OUTPUT is optional and
+                        defaults to --output.
+  --json-pretty         Pretty-print the JSON report. Implies --json. Default:
+                        False.
+  --json-summary [OUTPUT]
+                        Generate a JSON summary report. OUTPUT is optional and
+                        defaults to --output.
+  --json-summary-pretty
+                        Pretty-print the JSON SUMMARY report.Implies --json-
+                        summary. Default: False.
+  --json-base PATH      Prepend the given path to all file paths in JSON
+                        report.
+  --csv [OUTPUT]        Generate a CSV summary report. OUTPUT is optional and
+                        defaults to --output.
+  --coveralls [OUTPUT]  Generate Coveralls API coverage report in this file
+                        name. OUTPUT is optional and defaults to --output.
+  --coveralls-pretty    Pretty-print the coveralls report. Implies
+                        --coveralls. Default: False.
+  --timestamp TIMESTAMP
+                        Override current time for reproducible reports. Can
+                        use `YYYY-MM-DD hh:mm:ss` or epoch notation. Used by
+                        HTML, Coveralls, and Cobertura reports. Default:
+                        Environment variable SOURCE_DATE_EPOCH (see
+                        https://reproducible-builds.org/docs/source-date-
+                        epoch) or current time.
+
+Filter Options:
+  Filters decide which files are included in the report. Any filter must
+  match, and no exclude filter must match. A filter is a regular expression
+  that matches a path. Filter paths use forward slashes, even on Windows. If
+  the filter looks like an absolute path it is matched against an absolute
+  path. Otherwise, the filter is matched against a relative path, where that
+  path is relative to the current directory or if defined in a configuration
+  file to the directory of the file.
+
+  -f FILTER, --filter FILTER
+                        Keep only source files that match this filter. Can be
+                        specified multiple times. Relative filters are
+                        relative to the current working directory or if
+                        defined in a configuration file. If no filters are
+                        provided, defaults to --root.
+  -e EXCLUDE, --exclude EXCLUDE
+                        Exclude source files that match this filter. Can be
+                        specified multiple times.
+  --gcov-filter GCOV_FILTER
+                        Keep only gcov data files that match this filter. Can
+                        be specified multiple times.
+  --gcov-exclude GCOV_EXCLUDE
+                        Exclude gcov data files that match this filter. Can be
+                        specified multiple times.
+  --exclude-directories EXCLUDE_DIRS
+                        Exclude directories that match this regex while
+                        searching raw coverage files. Can be specified
+                        multiple times.
+
+GCOV Options:
+  The 'gcov' tool turns raw coverage files (.gcda and .gcno) into .gcov
+  files that are then processed by gcovr. The gcno files are generated by
+  the compiler. The gcda files are generated when the instrumented program
+  is executed.
+
+  --gcov-executable GCOV_CMD
+                        Use a particular gcov executable. Must match the
+                        compiler you are using, e.g. 'llvm-cov gcov' for
+                        Clang. Can include additional arguments. Defaults to
+                        the GCOV environment variable, or 'gcov': 'gcov'.
+  --include-internal-functions
+                        Include function coverage of compiler internal
+                        functions (starting with '__' or '_GLOBAL__sub_I_').
+  --exclude-unreachable-branches
+                        Exclude branch coverage from lines without useful
+                        source code (often, compiler-generated "dead" code).
+                        Default: False.
+  --exclude-function-lines
+                        Exclude coverage from lines defining a function.
+                        Default: False.
+  --merge-mode-functions MERGE_MODE
+                        The merge mode for functions coverage from different
+                        gcov files for same sourcefile.Default: strict.
+  --exclude-noncode-lines
+                        Exclude coverage from lines which seem to be non-code.
+                        Default: False. Negation: --no-exclude-noncode-lines.
+  --exclude-throw-branches
+                        For branch coverage, exclude branches that the
+                        compiler generates for exception handling. This often
+                        leads to more "sensible" coverage reports. Default:
+                        False.
+  -g, --use-gcov-files  Use existing gcov files for analysis. Default: False.
+  --gcov-ignore-errors [{all,no_working_dir_found}]
+                        Ignore errors from invoking GCOV command instead of
+                        exiting with an error. A report will be shown on
+                        stderr. Default: None.
+  --gcov-ignore-parse-errors [{all,negative_hits.warn,negative_hits.warn_once_per_file}]
+                        Skip lines with parse errors in GCOV files instead of
+                        exiting with an error. A report will be shown on
+                        stderr. Default: None.
+  --object-directory OBJDIR
+                        Override normal working directory detection. Gcovr
+                        needs to identify the path between gcda files and the
+                        directory where the compiler was originally run.
+                        Normally, gcovr can guess correctly. This option
+                        specifies either the path from gcc to the gcda file
+                        (i.e. gcc's '-o' option), or the path from the gcda
+                        file to gcc's working directory.
+  -k, --keep            Keep gcov files after processing. This applies both to
+                        files that were generated by gcovr, or were supplied
+                        via the --use-gcov-files option. Default: False.
+                        Config key: keep-gcov-files.
+  -d, --delete          Delete gcda files after processing. Default: False.
+                        Config key: delete-gcov-files.
+  -j [GCOV_PARALLEL]    Set the number of threads to use in parallel. Config
+                        key: gcov-parallel.
+
+See <http://gcovr.com/> for the full manual.
