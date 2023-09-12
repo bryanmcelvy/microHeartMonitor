@@ -42,60 +42,60 @@ struct Led_t {
 static Led_t Led_ObjPool[LED_POOL_SIZE] = { 0 };
 static uint8_t num_free_leds = LED_POOL_SIZE;
 
-Led_t * Led_Init(GPIO_Port_t * gpioPort_ptr, GPIO_Pin_t pin) {
+Led_t * Led_Init(GPIO_Port_t * gpioPort, GPIO_Pin_t pin) {
     // Initialize GPIO port pin
-    Assert(GPIO_isPortInit(gpioPort_ptr));
-    GPIO_ConfigDirOutput(gpioPort_ptr, pin);
-    GPIO_ConfigPullDown(gpioPort_ptr, pin);
-    GPIO_EnableDigital(gpioPort_ptr, pin);
+    Assert(GPIO_isPortInit(gpioPort));
+    GPIO_ConfigDirOutput(gpioPort, pin);
+    GPIO_ConfigPullDown(gpioPort, pin);
+    GPIO_EnableDigital(gpioPort, pin);
 
     // Initialize LED struct
     Assert(num_free_leds > 0);
     num_free_leds -= 1;
 
-    Led_t * led_ptr = &Led_ObjPool[num_free_leds];
-    led_ptr->GPIO_PORT_PTR = gpioPort_ptr;
-    led_ptr->GPIO_PIN = pin;
-    led_ptr->is_ON = false;
+    Led_t * led = &Led_ObjPool[num_free_leds];
+    led->GPIO_PORT_PTR = gpioPort;
+    led->GPIO_PIN = pin;
+    led->is_ON = false;
 
-    return led_ptr;
+    return led;
 }
 
 /******************************************************************************
 Configuration
 *******************************************************************************/
 
-GPIO_Port_t * Led_GetPort(Led_t * led_ptr) {
-    return led_ptr->GPIO_PORT_PTR;
+GPIO_Port_t * Led_GetPort(Led_t * led) {
+    return led->GPIO_PORT_PTR;
 }
 
-GPIO_Pin_t LED_GetPin(Led_t * led_ptr) {
-    return led_ptr->GPIO_PIN;
+GPIO_Pin_t Led_GetPin(Led_t * led) {
+    return led->GPIO_PIN;
 }
 
-bool Led_isOn(Led_t * led_ptr) {
-    return led_ptr->is_ON;
+bool Led_isOn(Led_t * led) {
+    return led->is_ON;
 }
 
 /******************************************************************************
 Operations
 *******************************************************************************/
 
-void Led_TurnOn(Led_t * led_ptr) {
-    GPIO_WriteHigh(led_ptr->GPIO_PORT_PTR, led_ptr->GPIO_PIN);
-    led_ptr->is_ON = true;
+void Led_TurnOn(Led_t * led) {
+    GPIO_WriteHigh(led->GPIO_PORT_PTR, led->GPIO_PIN);
+    led->is_ON = true;
     return;
 }
 
-void Led_TurnOff(Led_t * led_ptr) {
-    GPIO_WriteLow(led_ptr->GPIO_PORT_PTR, led_ptr->GPIO_PIN);
-    led_ptr->is_ON = false;
+void Led_TurnOff(Led_t * led) {
+    GPIO_WriteLow(led->GPIO_PORT_PTR, led->GPIO_PIN);
+    led->is_ON = false;
     return;
 }
 
-void Led_Toggle(Led_t * led_ptr) {
-    GPIO_Toggle(led_ptr->GPIO_PORT_PTR, led_ptr->GPIO_PIN);
-    led_ptr->is_ON = !led_ptr->is_ON;
+void Led_Toggle(Led_t * led) {
+    GPIO_Toggle(led->GPIO_PORT_PTR, led->GPIO_PIN);
+    led->is_ON = !led->is_ON;
     return;
 }
 
