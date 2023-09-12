@@ -10,7 +10,6 @@ extern "C" {
 #include "GPIO.h"
 #include <stdbool.h>
 #include <stdint.h>
-}
 
 GPIO_Port_t * GPIO_InitPort(GPIO_PortName_t portName) {
     return (GPIO_Port_t *) mock()
@@ -155,4 +154,5 @@ void GPIO_ConfigAnalog(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask) {
         .actualCall(__func__)
         .withParameter("gpioPort", gpioPort)
         .withParameter("pinMask", pinMask);
+}
 }
