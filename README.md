@@ -14,6 +14,9 @@
   - [References](#references)
 
 ## Navigation
+<details>
+<summary> Click to see navigation </summary>
+
 * `/cmake_files` - CMake-specific files for generating the build system.
 * `/data` - ECG sample data from the publically available  MIT-BIH Arrhythmia Database.
 * `/docs` - Documentation for both the project itself and resources used in creating it.
@@ -43,7 +46,9 @@
   * `filter_design` - Python scripts/notebooks used to design the digital filter used in this project.
   * `JDS6600` - Scripts for interfacing a JDS6600 DDS Signal Generator/Counter.
   * `lookup_table` - Script for generating the lookup table used in the ADC module.
----
+
+</details>
+
 ## Introduction 
 ### Background
 ### Motivation
