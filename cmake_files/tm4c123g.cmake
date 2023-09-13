@@ -1,9 +1,10 @@
-#[[
-Toolchain File for TM4C123GH6PM microcontroller.
-]]#
-
+#[[*********************************************************************************************
+File:           /cmake_files/tm4c123g.cmake
+Description:    Toolchain File for TM4C123GH6PM microcontroller.
+#***********************************************************************************************    ]]
 set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)   # stops CMake from testing the compiler
 set(CMAKE_C_COMPILER_WORKS 1)
+set(CMAKE_CXX_COMPILER_WORKS 1)
 
 # Describe target platform for cross-compilation
 set(CMAKE_SYSTEM_NAME Generic)
