@@ -103,6 +103,11 @@ void FIFO_Flush(volatile FIFO_t * fifo_ptr, uint32_t output_buffer[]) {
     }
 }
 
+void FIFO_Reset(volatile FIFO_t * fifo_ptr) {
+    fifo_ptr->back_idx = fifo_ptr->front_idx;
+    return;
+}
+
 void FIFO_TransferAll(volatile FIFO_t * src_fifo_ptr, volatile FIFO_t * dest_fifo_ptr) {
     while((FIFO_isEmpty(src_fifo_ptr) == false) && (FIFO_isFull(dest_fifo_ptr) == false)) {
         FIFO_Put(dest_fifo_ptr, FIFO_Get(src_fifo_ptr));

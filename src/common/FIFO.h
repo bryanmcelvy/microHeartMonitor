@@ -93,6 +93,13 @@ Bulk Removal
 void FIFO_Flush(volatile FIFO_t * fifo_ptr, uint32_t output_buffer[]);
 
 /**
+ * @brief               Reset the FIFO buffer.
+ *
+ * @param[in] fifo_ptr  Pointer to FIFO buffer.
+ */
+void FIFO_Reset(volatile FIFO_t * fifo_ptr);
+
+/**
  * @brief               Transfer the contents of one FIFO buffer to another.
  *
  * @param src_fifo_ptr  Pointer to source FIFO buffer.
