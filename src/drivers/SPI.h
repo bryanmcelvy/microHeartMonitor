@@ -11,6 +11,13 @@
 #define __SPI_H___
 
 /******************************************************************************
+TODO
+        – Refactor to use more generic interface OR create separate SSI module
+        as a dependency
+        – Refactor to remove dependency on FIFO module
+*******************************************************************************/
+
+/******************************************************************************
 SECTIONS
         Preprocessor Directives
         Initialization
