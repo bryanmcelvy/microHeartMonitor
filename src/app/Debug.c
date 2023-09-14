@@ -21,6 +21,7 @@ Initialization
 void Debug_Init(void) {
     UART0_Init();
     Debug_SendMsg(MSG_LIST[START_MSG]);
+    return;
 }
 
 /******************************************************************************
@@ -28,17 +29,19 @@ Serial Output
 *******************************************************************************/
 
 void Debug_SendMsg(void * message) {
-    UART0_IRQ_AddStr(message);
-    UART0_IRQ_Start();
+    UART0_WriteStr(message);
+    return;
 }
 
-void Debug_SendFromList(uint8_t msg_idx) {
-    Debug_SendMsg(MSG_LIST[msg_idx]);
+void Debug_SendFromList(msg_t msg) {
+    Debug_SendMsg(MSG_LIST[msg]);
+    return;
 }
 
 void Debug_WriteFloat(double value) {
     UART0_WriteFloat(value, 3);
     UART0_WriteStr("\r\n");
+    return;
 }
 
 /******************************************************************************
@@ -50,4 +53,5 @@ void Debug_Assert(bool condition) {
         Debug_SendFromList(ASSERT_FALSE);
         Assert(false);
     }
+    return;
 }
