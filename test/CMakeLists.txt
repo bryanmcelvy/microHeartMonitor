@@ -5,10 +5,10 @@ Description:    Subproject for on-host unit testing.
 project(ecg_hrm_unit_tests C CXX)
 
 set(CMAKE_C_COMPILER "gcc")
-set(CMAKE_C_FLAGS "-Wall -Wextra -pedantic -std=c99 --coverage")
+set(CMAKE_C_FLAGS "-Wall -Wextra -pedantic -std=c99")
 
 set(CMAKE_CXX_COMPILER "g++")
-set(CMAKE_CXX_FLAGS "-Wall -Wextra -pedantic -std=c++11 --coverage")
+set(CMAKE_CXX_FLAGS "-Wall -Wextra -pedantic -std=c++11")
 
 set(CMAKE_EXE_LINKER_FLAGS "")
 
