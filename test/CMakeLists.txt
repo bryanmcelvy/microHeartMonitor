@@ -30,7 +30,7 @@ add_custom_target(run_tests
                     VERBATIM
                     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/src
                     COMMENT "\n\n***************\nRunning unit tests...\n***************\n\n"
-                    COMMAND ./testRunner_All)
+                    COMMAND ./testRunner_All -v)
 
 # find_program(GCOVR NAMES gcovr)
 # if(GCOVR)
