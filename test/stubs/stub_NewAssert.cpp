@@ -6,20 +6,16 @@
 
 // NOLINTBEGIN
 
-#ifdef __cplusplus
+#include "CppUTest/TestHarness.h"
+
 extern "C" {
-#endif
 
 #include "NewAssert.h"
-
 #include <stdbool.h>
 
 void Assert(bool condition) {
     return;
 }
-
-#ifdef __cplusplus
 }
-#endif
 
 // NOLINTEND
