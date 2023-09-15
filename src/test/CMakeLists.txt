@@ -54,10 +54,12 @@ target_link_libraries(test_uart_write.elf GPIO Timer UART)
 add_executable(test_uart_la.elf test_uart_la.c )
 target_link_libraries(test_uart_la.elf Timer UART)
 
-# UART (Logic Analyzer)
+#[[ 
+UART (Interrupt) 
 add_executable(test_uart_interrupt.elf test_uart_interrupt.c )
 target_include_directories(test_uart_interrupt.elf PRIVATE ${PATH_COMMON})
 target_link_libraries(test_uart_interrupt.elf GPIO Timer UART)
+#]]
 
 # Blink Display Test
 add_executable(test_ili9341_blinkdisplay.elf test_ili9341_blinkdisplay.c)
