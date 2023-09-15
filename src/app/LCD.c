@@ -240,7 +240,7 @@ void LCD_draw(void) {
     /// @showrefs
     ILI9341_writeMemCmd();
     for(uint32_t count = 0; count < lcd.numPixels; count++) {
-        ILI9341_write1px(lcd.R_val, lcd.G_val, lcd.B_val, lcd.is_16bit);
+        ILI9341_writePixel(lcd.R_val, lcd.G_val, lcd.B_val, lcd.is_16bit);
     }
 }
 
@@ -368,7 +368,7 @@ void LCD_graphSample(uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy, uint16_
 
         numPixels = y1 - y_min;
         for(int y_i = 0; y_i < numPixels; y_i++) {
-            ILI9341_write1px(lcd.R_val, lcd.G_val, lcd.B_val, true);
+            ILI9341_writePixel(lcd.R_val, lcd.G_val, lcd.B_val, true);
         }
 
         // write colored pixels from `(x1 + x_i, y1)` to `(x1 + x_i, y2)`
@@ -376,7 +376,7 @@ void LCD_graphSample(uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy, uint16_
 
         numPixels = dy;
         for(int y_i = 0; y_i < numPixels; y_i++) {
-            ILI9341_write1px(lcd.R_val, lcd.G_val, lcd.B_val, true);
+            ILI9341_writePixel(lcd.R_val, lcd.G_val, lcd.B_val, true);
         }
 
         // write blank pixels from `(x1 + x_i, y2 + 1)` to `(x1 + x_i, y_max)`
@@ -384,7 +384,7 @@ void LCD_graphSample(uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy, uint16_
 
         numPixels = y_max - (y2 + 1) + 1;
         for(int y_i = 0; y_i < numPixels; y_i++) {
-            ILI9341_write1px(lcd.R_val, lcd.G_val, lcd.B_val, true);
+            ILI9341_writePixel(lcd.R_val, lcd.G_val, lcd.B_val, true);
         }
     }
 }

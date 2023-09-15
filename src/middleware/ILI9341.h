@@ -212,7 +212,7 @@ void ILI9341_setColAddress(uint16_t start_col, uint16_t end_col);
  *
  *      Should be called after setting the row (`ILI9341_setRowAddress()`) and/or
  *      and/or column (`ILI9341_setRowAddress()`) addresses, but before writing
- *      image data (`ILI9341_write1px()`).
+ *      image data (`ILI9341_writePixel()`).
  */
 void ILI9341_writeMemCmd(void);
 
@@ -228,7 +228,7 @@ void ILI9341_writeMemCmd(void);
  *                      `false` for 18-bit (262K colors, 3 transfer) color depth
  *                      NOTE: set color depth via `ILI9341_setColorDepth()`
  */
-void ILI9341_write1px(uint8_t red, uint8_t green, uint8_t blue, bool is_16bit);
+void ILI9341_writePixel(uint8_t red, uint8_t green, uint8_t blue, bool is_16bit);
 
 #endif
 
