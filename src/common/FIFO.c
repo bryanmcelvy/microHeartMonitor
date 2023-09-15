@@ -13,6 +13,7 @@ SECTIONS
         Type Declaration + Initialization
         Basic Operations
         Bulk Removal
+        Peeking
         Status Checks
 *******************************************************************************/
 
@@ -21,6 +22,8 @@ Preprocessor Directives
 *******************************************************************************/
 
 #include "FIFO.h"
+
+#include "NewAssert.h"
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -43,13 +46,12 @@ volatile FIFO_t * FIFO_Init(volatile uint32_t buffer[], const uint32_t N) {
     /// TODO: Add details
     volatile FIFO_t * fifo_ptr = 0;
 
-    if(free_buffers > 0) {
-        fifo_ptr = &(buffer_pool[--free_buffers]);
-        fifo_ptr->buffer = buffer;
-        fifo_ptr->N = N;
-        fifo_ptr->front_idx = 0;
-        fifo_ptr->back_idx = 0;
-    }
+    Assert(free_buffers > 0);
+    fifo_ptr = &(buffer_pool[--free_buffers]);
+    fifo_ptr->buffer = buffer;
+    fifo_ptr->N = N;
+    fifo_ptr->front_idx = 0;
+    fifo_ptr->back_idx = 0;
 
     return fifo_ptr;
 }
@@ -115,7 +117,7 @@ void FIFO_TransferAll(volatile FIFO_t * src_fifo_ptr, volatile FIFO_t * dest_fif
 }
 
 /******************************************************************************
-Status Checks
+Peeking
 *******************************************************************************/
 
 uint32_t FIFO_PeekOne(volatile FIFO_t * fifo_ptr) {
@@ -140,6 +142,10 @@ void FIFO_PeekAll(volatile FIFO_t * fifo_ptr, uint32_t output_buffer[]) {
         temp_front_idx = (temp_front_idx + 1) % fifo_ptr->N;               // wrap around to end
     }
 }
+
+/******************************************************************************
+Status Checks
+*******************************************************************************/
 
 bool FIFO_isFull(volatile FIFO_t * fifo_ptr) {
     return (bool) (((fifo_ptr->back_idx + 1) % fifo_ptr->N) == fifo_ptr->front_idx);
