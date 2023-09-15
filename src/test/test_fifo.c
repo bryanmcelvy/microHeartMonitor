@@ -18,6 +18,8 @@
 
 #define LED_PINS (GPIO_Pin_t)(GPIO_PIN1 | GPIO_PIN2 | GPIO_PIN3)
 
+UART_t * uart;
+
 void FIFO_reportStatus(FIFO_t * fifo_ptr);
 
 int main(void) {
@@ -34,8 +36,10 @@ int main(void) {
     GPIO_ConfigDriveStrength(portF, LED_PINS, 8);
     GPIO_EnableDigital(portF, LED_PINS);
 
-    UART0_Init();
-    UART0_WriteStr((unsigned char *) "\nTransmission started...\r\n");
+    GPIO_Port_t * portA = GPIO_InitPort(A);
+    uart = UART_Init(portA, UART0);
+
+    UART_WriteStr(uart, (unsigned char *) "\nTransmission started...\r\n");
 
     srand(42);
 
@@ -44,51 +48,51 @@ int main(void) {
     FIFO_reportStatus(fifo_ptr);
 
     // Add random numbers to the buffer
-    UART0_WriteStr((unsigned char *) "Placing random values into buffer...");
+    UART_WriteStr(uart, (unsigned char *) "Placing random values into buffer...");
     for(int i = 0; i < FIFO_LEN - 1; i++) {
         FIFO_Put(fifo_ptr, rand());
     }
-    UART0_WriteStr((unsigned char *) "done!\n");
+    UART_WriteStr(uart, (unsigned char *) "done!\n");
     FIFO_reportStatus(fifo_ptr);
 
     // Show contents of buffer
-    UART0_WriteStr((unsigned char *) "Current contents: ");
-    UART0_WriteChar('\n');
+    UART_WriteStr(uart, (unsigned char *) "Current contents: ");
+    UART_WriteChar(uart, '\n');
 
     FIFO_PeekAll(fifo_ptr, print_buffer);
     for(int i = 0; i < FIFO_LEN - 1; i++) {
-        UART0_WriteInt(print_buffer[i]);
-        UART0_WriteChar('\n');
+        UART_WriteInt(uart, print_buffer[i]);
+        UART_WriteChar(uart, '\n');
     }
 
     // Remove one at a time
-    UART0_WriteStr((unsigned char *) "Removing values...\n");
+    UART_WriteStr(uart, (unsigned char *) "Removing values...\n");
     FIFO_reportStatus(fifo_ptr);
     for(int i = 0; i < FIFO_LEN - 1; i++) {
         uint32_t tmp_val = FIFO_Get(fifo_ptr);
-        UART0_WriteInt(tmp_val);
-        UART0_WriteChar('\n');
+        UART_WriteInt(uart, tmp_val);
+        UART_WriteChar(uart, '\n');
         FIFO_reportStatus(fifo_ptr);
     }
-    UART0_WriteStr((unsigned char *) "Done!\n");
+    UART_WriteStr(uart, (unsigned char *) "Done!\n");
 
     // Blink
     while(1) {
-        GPIO_Toggle(portF, LED_GREEN);
+        GPIO_Toggle(portF, (GPIO_Pin_t) LED_GREEN);
         Timer0A_Wait1ms(500);
     }
 }
 
 void FIFO_reportStatus(FIFO_t * fifo_ptr) {
     if(FIFO_isEmpty(fifo_ptr)) {
-        UART0_WriteStr((unsigned char *) "FIFO is empty.");
+        UART_WriteStr(uart, (unsigned char *) "FIFO is empty.");
     }
     else if(FIFO_isFull(fifo_ptr)) {
-        UART0_WriteStr((unsigned char *) "FIFO is full.");
+        UART_WriteStr(uart, (unsigned char *) "FIFO is full.");
     }
     else {
-        UART0_WriteStr((unsigned char *) "Current size: ");
-        UART0_WriteInt(FIFO_getCurrSize(fifo_ptr));
+        UART_WriteStr(uart, (unsigned char *) "Current size: ");
+        UART_WriteInt(uart, FIFO_getCurrSize(fifo_ptr));
     }
-    UART0_WriteChar('\n');
+    UART_WriteChar(uart, '\n');
 }
