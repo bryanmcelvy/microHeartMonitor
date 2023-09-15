@@ -7,24 +7,16 @@
  * @{
  */
 
-// Driver Libraries
-#include "ADC.h"
-#include "ILI9341.h"
-#include "PLL.h"
-
 // App. Software Functions
 #include "DAQ.h"
 #include "Debug.h"
+#include "LCD.h"
 #include "QRS.h"
-#include "UserCtrl.h"
+
+// Driver Libraries
+#include "PLL.h"
 
 int main(void) {}
-
-/**
- * @brief   Interrupt service routine (ISR) for the UserCtrl module via GPIO Port F.
- *
- */
-void GPIO_PortF_Handler(void) {}
 
 /**
  * @brief   Interrupt service routine (ISR) for collecting ADC samples.

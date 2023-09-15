@@ -3,25 +3,38 @@
 #include "SysTick.h"
 #include "Timer.h"
 
+#include <stdbool.h>
+#include <stdint.h>
+
 volatile uint8_t color;
 
-int main() {
-    InterruptGlobal_Disable();
+#define LED_PINS (GPIO_Pin_t)(GPIO_PIN1 | GPIO_PIN2 | GPIO_PIN3)
+#define SW_PINS  (GPIO_Pin_t)(GPIO_PIN0 | GPIO_PIN4)
 
-    PLL_Init();                                    // set bus frequency to 80 MHz
-    SysTick_Timer_Init();                          // time delays
-    GPIO_PF_LED_Init();                            // LED output via PF1-3
-    GPIO_PF_Interrupt_Init();                      // edge-triggered interrupts via Sw1/2 (PF4/0)
-    Timer0A_Init();                                // debouncing
+int main(void) {
+    PLL_Init();                         // set bus frequency to 80 MHz
+    SysTick_Timer_Init();               // time delays
+    Timer0A_Init();                     // debouncing
+
+    // Init. LED pins
+    GPIO_Port_t * portF = GPIO_InitPort(F);
+    GPIO_ConfigDirOutput(portF, LED_PINS);
+    GPIO_ConfigDriveStrength(portF, LED_PINS, 8);
+    GPIO_EnableDigital(portF, LED_PINS);
+
+    // Init. Sw1/2
+    GPIO_ConfigDirInput(portF, SW_PINS);
+    GPIO_ConfigPullUp(portF, SW_PINS);
+    GPIO_ConfigInterrupts_Edge(portF, SW_PINS, false);
+    GPIO_ConfigNVIC(portF, 0);
+    GPIO_EnableDigital(portF, SW_PINS);
 
     color = 0x02;
-    InterruptGlobal_Enable();
-
     while(1) {
-        GPIO_PF_LED_Write(color, 1);               // turn on
-        SysTick_Wait1ms(500);
-        GPIO_PF_LED_Write(0x0E, 0);                // turn all off
-        SysTick_Wait1ms(500);
+        GPIO_WriteHigh(portF, color);
+        SysTick_Wait1ms(333);
+        GPIO_WriteLow(portF, LED_PINS);
+        SysTick_Wait1ms(333);
     }
 }
 
@@ -39,7 +52,7 @@ void GPIO_PortF_Handler(void) {
         switch(int_mask) {                // determine interrupt source
             case(0x11):                   // both pressed
             case(0x01):                   // Sw2 pressed (PF0)
-                color_idx = (color_idx < 5) ? (color_idx + 1) : 0;
+                color_idx = (color_idx + 1) % 6;
                 break;
             case(0x10):                   // Sw1 pressed (PF4)
                 color_idx = (color_idx > 0) ? (color_idx - 1) : 5;

@@ -1,9 +1,10 @@
-#[[
-Toolchain File for TM4C123GH6PM microcontroller.
-]]#
-
+#[[*********************************************************************************************
+File:           /cmake_files/tm4c123g.cmake
+Description:    Toolchain File for TM4C123GH6PM microcontroller.
+#***********************************************************************************************    ]]
 set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)   # stops CMake from testing the compiler
 set(CMAKE_C_COMPILER_WORKS 1)
+set(CMAKE_CXX_COMPILER_WORKS 1)
 
 # Describe target platform for cross-compilation
 set(CMAKE_SYSTEM_NAME Generic)
@@ -27,11 +28,11 @@ set(CMAKE_OBJDUMP                               ${TOOLCHAIN_PREFIX}-objdump)
 # compiler/assembler/linker flags
 set(CPU_FLAGS                                   "-mcpu=cortex-m4 -mthumb")
 set(FPU_FLAGS                                   "-mfloat-abi=hard -mfpu=fpv4-sp-d16")
-set(COMMON_FLAGS                                "${CPU_FLAGS} ${FPU_FLAGS} -ffunction-sections -fdata-sections -Wall -Wextra -pedantic -nostartfiles")
+set(COMMON_FLAGS                                "${CPU_FLAGS} ${FPU_FLAGS} -ffunction-sections -fdata-sections -Wall -Wextra -pedantic -nostartfiles --coverage")
 
 set(CMAKE_ASM_FLAGS                             "${COMMON_FLAGS}")
-set(CMAKE_C_FLAGS                               "${COMMON_FLAGS}")
-set(CMAKE_CXX_FLAGS                             "${COMMON_FLAGS} -fno-exceptions -fno-rtti")
+set(CMAKE_C_FLAGS                               "${COMMON_FLAGS} -std=c99")
+set(CMAKE_CXX_FLAGS                             "${COMMON_FLAGS} -std= c++11 -fno-exceptions -fno-rtti")
 
 set(CMAKE_SHARED_LIBRARY_LINK_C_FLAGS           "")
 set(CMAKE_SHARED_LIBRARY_LINK_CXX_FLAGS         "")

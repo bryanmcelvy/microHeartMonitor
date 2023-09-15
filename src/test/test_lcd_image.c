@@ -19,6 +19,8 @@
 #define X_OFFSET (uint16_t) 0
 #define SIZE     (uint16_t) 4
 
+#define LED_PINS (GPIO_Pin_t)(GPIO_PIN1 | GPIO_PIN2 | GPIO_PIN3)
+
 const uint8_t COLOR_ARR[6] = { LCD_RED, LCD_YELLOW, LCD_GREEN, LCD_CYAN, LCD_BLUE, LCD_PURPLE };
 uint8_t color_idx;
 
@@ -28,7 +30,13 @@ int main(void) {
 
     PLL_Init();
     Timer0A_Init();
-    GPIO_PF_LED_Init();
+
+    // Init. LED pins
+    GPIO_Port_t * portF = GPIO_InitPort(F);
+    GPIO_ConfigDirOutput(portF, LED_PINS);
+    GPIO_ConfigDriveStrength(portF, LED_PINS, 8);
+    GPIO_EnableDigital(portF, LED_PINS);
+
     LCD_Init();
 
     x = 0;
@@ -38,7 +46,7 @@ int main(void) {
     LCD_setColor_3bit(COLOR_ARR[color_idx]);
     LCD_toggleOutput();
 
-    GPIO_PF_LED_Toggle(LED_GREEN);
+    GPIO_Toggle(portF, LED_GREEN);
     while(1) {
 
         while(Timer0A_isCounting()) {}

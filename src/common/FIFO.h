@@ -13,6 +13,7 @@ SECTIONS
         Type Declaration + Initialization
         Basic Operations
         Bulk Removal
+        Peeking
         Status Checks
 *******************************************************************************/
 
@@ -23,8 +24,10 @@ Preprocessor Directives
 #ifndef __FIFO_H__
 #define __FIFO_H__
 
-#include <stdint.h>
+#include "NewAssert.h"
+
 #include <stdbool.h>
+#include <stdint.h>
 
 // Number of pre-allocated FIFO buffer can be defined at compile-time
 // (i.e. "arm-none-eabi-gcc -DFIFO_POOL_SIZE=<VALUE> ...") or hard-coded
@@ -66,7 +69,7 @@ void FIFO_Put(volatile FIFO_t * fifo_ptr, const uint32_t val);
  * @param fifo_ptr      Pointer to FIFO object
  * @return              First sample in the FIFO.
  */
-volatile uint32_t FIFO_Get(volatile FIFO_t * fifo_ptr);
+uint32_t FIFO_Get(volatile FIFO_t * fifo_ptr);
 
 /**
  * @brief               Transfer a value from one FIFO buffer to another.
@@ -93,6 +96,13 @@ Bulk Removal
 void FIFO_Flush(volatile FIFO_t * fifo_ptr, uint32_t output_buffer[]);
 
 /**
+ * @brief               Reset the FIFO buffer.
+ *
+ * @param[in] fifo_ptr  Pointer to FIFO buffer.
+ */
+void FIFO_Reset(volatile FIFO_t * fifo_ptr);
+
+/**
  * @brief               Transfer the contents of one FIFO buffer to another.
  *
  * @param src_fifo_ptr  Pointer to source FIFO buffer.
@@ -103,9 +113,9 @@ void FIFO_TransferAll(volatile FIFO_t * src_fifo_ptr, volatile FIFO_t * dest_fif
 ///@}
 
 /******************************************************************************
-Status Checks
+Peeking
 *******************************************************************************/
-/** @name Status Checks */               /// @{
+/** @name Peeking */               /// @{
 
 /**
  * @brief               See the first element in the FIFO without removing it.
@@ -123,6 +133,13 @@ uint32_t FIFO_PeekOne(volatile FIFO_t * fifo_ptr);
  *                      Should be the same length as the FIFO buffer.
  */
 void FIFO_PeekAll(volatile FIFO_t * fifo_ptr, uint32_t output_buffer[]);
+
+///@}
+
+/******************************************************************************
+Status Checks
+*******************************************************************************/
+/** @name Status Checks */               /// @{
 
 /**
  * @brief               Check if the FIFO buffer is full.

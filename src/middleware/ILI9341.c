@@ -8,8 +8,15 @@
  */
 
 /******************************************************************************
+TODO
+    – Refactor writing functions to use more generic SPI interface
+    – Add assertions
+*******************************************************************************/
+
+/******************************************************************************
 SECTIONS
         Preprocessor Directives
+        Static Declarations
         Initialization/Reset
         Configuration
         Memory Writing
@@ -24,6 +31,8 @@ Preprocessor Directives
 
 #include "SPI.h"
 #include "Timer.h"
+
+#include "FIFO.h"
 
 #include "tm4c123gh6pm.h"
 
@@ -74,7 +83,13 @@ Preprocessor Directives
  */
 // clang-format on
 
-// Function Prototypes
+/******************************************************************************
+Static Declarations
+*******************************************************************************/
+
+static uint32_t ILI9341_Buffer[8];
+static FIFO_t * ILI9341_Fifo;
+
 inline static void ILI9341_setAddress(uint16_t start_address, uint16_t end_address, bool is_row);
 
 /******************************************************************************
@@ -84,8 +99,12 @@ Initialization/Reset
 void ILI9341_Init(void) {
     SPI_Init();
     Timer2A_Init();
+
+    ILI9341_Fifo = FIFO_Init(ILI9341_Buffer, 8);
+
     ILI9341_resetHard();
     ILI9341_setInterface();
+    return;
 }
 
 void ILI9341_resetHard(void) {
@@ -98,12 +117,13 @@ void ILI9341_resetHard(void) {
     Timer2A_Wait1ms(1);
     GPIO_PORTA_DATA_R |= 0x80;                  // set PA7 to end reset pulse
     Timer2A_Wait1ms(5);
+    return;
 }
 
 void ILI9341_resetSoft(void) {
-    SPI_IRQ_WriteCmd(CMD_SWRESET);
-    SPI_IRQ_StartWriting();
+    SPI_WriteCmd(CMD_SWRESET);
     Timer2A_Wait1ms(5);                         /// the driver needs 5 [ms] before another command
+    return;
 }
 
 /******************************************************************************
@@ -121,31 +141,29 @@ void ILI9341_setSleepMode(bool is_sleeping) {
      *      so this function waits 120 [ms] regardless of the preceding event.
      */
     if(is_sleeping) {
-        SPI_IRQ_WriteCmd(CMD_SPLIN);
+        SPI_WriteCmd(CMD_SPLIN);
     }
     else {
-        SPI_IRQ_WriteCmd(CMD_SPLOUT);
+        SPI_WriteCmd(CMD_SPLOUT);
     }
-    SPI_IRQ_StartWriting();
 
     Timer2A_Wait1ms(120);
 }
 
 void ILI9341_setDispMode(bool is_normal, bool is_full_colors) {
     if(is_normal) {
-        SPI_IRQ_WriteCmd(CMD_NORON);
+        SPI_WriteCmd(CMD_NORON);
     }
     else {
-        SPI_IRQ_WriteCmd(CMD_PTLON);
+        SPI_WriteCmd(CMD_PTLON);
     }               // call after ILI9341_setPartialArea()
 
     if(is_full_colors) {
-        SPI_IRQ_WriteCmd(CMD_IDMON);
+        SPI_WriteCmd(CMD_IDMON);
     }
     else {
-        SPI_IRQ_WriteCmd(CMD_IDMOFF);
+        SPI_WriteCmd(CMD_IDMOFF);
     }
-    SPI_IRQ_StartWriting();
 }
 
 void ILI9341_setPartialArea(uint16_t rowStart, uint16_t rowEnd) {
@@ -162,34 +180,32 @@ void ILI9341_setPartialArea(uint16_t rowStart, uint16_t rowEnd) {
     param_sequence[1] = (uint8_t) (rowStart & 0x00FF);
     param_sequence[2] = (uint8_t) ((rowEnd & 0xFF00) >> 8);
     param_sequence[3] = (uint8_t) (rowEnd & 0x00FF);
-    // SPI_WriteSequence(CMD_PLTAR, cmd_sequence, 4);
-    SPI_IRQ_WriteCmd(CMD_PLTAR);
+
+    SPI_WriteCmd(CMD_PLTAR);
     for(uint8_t param_num = 0; param_num < 4; param_num++) {
-        SPI_IRQ_WriteData(param_sequence[param_num]);
+        SPI_WriteData(param_sequence[param_num]);
     }
-    SPI_IRQ_StartWriting();
+    return;
 }
 
 void ILI9341_setDispInversion(bool is_ON) {
     /// TODO: Write description
     if(is_ON) {
-        SPI_IRQ_WriteCmd(CMD_DINVON);
+        SPI_WriteCmd(CMD_DINVON);
     }
     else {
-        SPI_IRQ_WriteCmd(CMD_DINVOFF);
+        SPI_WriteCmd(CMD_DINVOFF);
     }
-    SPI_IRQ_StartWriting();
 }
 
 void ILI9341_setDispOutput(bool is_ON) {
     /// TODO: Write description
     if(is_ON) {
-        SPI_IRQ_WriteCmd(CMD_DISPON);
+        SPI_WriteCmd(CMD_DISPON);
     }
     else {
-        SPI_IRQ_WriteCmd(CMD_DISPOFF);
+        SPI_WriteCmd(CMD_DISPOFF);
     }
-    SPI_IRQ_StartWriting();
 }
 
 void ILI9341_setScrollArea(uint16_t top_fixed, uint16_t vert_scroll, uint16_t bottom_fixed) {
@@ -267,9 +283,9 @@ void ILI9341_setMemAccessCtrl(bool areRowsFlipped, bool areColsFlipped, bool are
     param = (isColorOrderFlipped) ? (param | 0x08) : param;
     param = (isHorRefreshFlipped) ? (param | 0x04) : param;
 
-    SPI_IRQ_WriteCmd(CMD_MADCTL);
-    SPI_IRQ_WriteData(param);
-    SPI_IRQ_StartWriting();
+    SPI_WriteCmd(CMD_MADCTL);
+    SPI_WriteData(param);
+    return;
 }
 
 void ILI9341_setColorDepth(bool is_16bit) {
@@ -278,14 +294,14 @@ void ILI9341_setColorDepth(bool is_16bit) {
      *  18-bit requires 3 transfers and allows for 262K colors.
      */
     uint8_t param = (is_16bit) ? 0x55 : 0x66;
-    SPI_IRQ_WriteCmd(CMD_PIXSET);
-    SPI_IRQ_WriteData(param);
-    SPI_IRQ_StartWriting();
+    SPI_WriteCmd(CMD_PIXSET);
+    SPI_WriteData(param);
+    return;
 }
 
 void ILI9341_NoOpCmd(void) {
-    SPI_IRQ_WriteCmd(CMD_NOP);
-    SPI_IRQ_StartWriting();
+    SPI_WriteCmd(CMD_NOP);
+    return;
 }
 
 void ILI9341_setFrameRateNorm(uint8_t div_ratio, uint8_t clocks_per_line) {
@@ -294,10 +310,10 @@ void ILI9341_setFrameRateNorm(uint8_t div_ratio, uint8_t clocks_per_line) {
     div_ratio &= 0x03;
     clocks_per_line &= 0x1F;
 
-    SPI_IRQ_WriteCmd(CMD_FRMCTR1);
-    SPI_IRQ_WriteData(div_ratio);
-    SPI_IRQ_WriteData(clocks_per_line);
-    SPI_IRQ_StartWriting();
+    SPI_WriteCmd(CMD_FRMCTR1);
+    SPI_WriteData(div_ratio);
+    SPI_WriteData(clocks_per_line);
+    return;
 }
 
 void ILI9341_setFrameRateIdle(uint8_t div_ratio, uint8_t clocks_per_line) {
@@ -306,15 +322,15 @@ void ILI9341_setFrameRateIdle(uint8_t div_ratio, uint8_t clocks_per_line) {
     div_ratio &= 0x03;
     clocks_per_line &= 0x1F;
 
-    SPI_IRQ_WriteCmd(CMD_FRMCTR2);
-    SPI_IRQ_WriteData(div_ratio);
-    SPI_IRQ_WriteData(clocks_per_line);
-    SPI_IRQ_StartWriting();
+    SPI_WriteCmd(CMD_FRMCTR2);
+    SPI_WriteData(div_ratio);
+    SPI_WriteData(clocks_per_line);
+    return;
 }
 
-void ILI9341_setBlankingPorch(uint8_t vpf, uint8_t vbp, uint8_t hfp, uint8_t hbp) {
-    /// TODO: Write
-}
+// void ILI9341_setBlankingPorch(uint8_t vpf, uint8_t vbp, uint8_t hfp, uint8_t hbp) {
+//     /// TODO: Write
+// }
 
 void ILI9341_setInterface(void) {
     /**
@@ -344,14 +360,11 @@ void ILI9341_setInterface(void) {
      *   bits are cleared and/or irrelevant since the RGB and VSYNC interfaces aren't used.
      */
 
-    const uint8_t param_sequence[3] = { 0x00, 0x00, 0x00 };
-
-    // SPI_WriteSequence(CMD_IFCTL, (uint8_t(*)) param_sequence, 3);
-    SPI_IRQ_WriteData(CMD_IFCTL);
-    for(uint8_t param_num = 0; param_num < 3; param_num++) {
-        SPI_IRQ_WriteData(param_sequence[param_num]);
-    }
-    SPI_IRQ_StartWriting();
+    SPI_WriteData(CMD_IFCTL);
+    SPI_WriteData(0);
+    SPI_WriteData(0);
+    SPI_WriteData(0);
+    return;
 }
 
 /******************************************************************************

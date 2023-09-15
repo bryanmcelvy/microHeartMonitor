@@ -19,6 +19,6 @@
 /.cache
 /.vscode
 /build
-/docs/doxygen/refman.log
+/docs/doxygen_files/refman.log
 /ecg_hrm.code-workspace
 /scratch
