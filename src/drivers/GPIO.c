@@ -97,6 +97,10 @@ bool GPIO_isPortInit(GPIO_Port_t * gpioPort) {
     return gpioPort->isInit;
 }
 
+uint32_t GPIO_getBaseAddr(GPIO_Port_t * gpioPort) {
+    return gpioPort->BASE_ADDRESS;
+}
+
 /******************************************************************************
 Configuration (Digital I/O)
 *******************************************************************************/

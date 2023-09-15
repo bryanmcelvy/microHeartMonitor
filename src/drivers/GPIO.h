@@ -56,6 +56,9 @@ typedef struct GPIO_Port_t GPIO_Port_t;
  */
 GPIO_Port_t * GPIO_InitPort(GPIO_PortName_t portName);
 
+// TODO: Write header
+uint32_t GPIO_getBaseAddr(GPIO_Port_t * gpioPort);
+
 /**
  * @brief                   Check if the GPIO port is initialized.
  *
