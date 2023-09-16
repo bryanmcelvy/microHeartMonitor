@@ -4,8 +4,8 @@
  * @brief   Functions to output debugging information to a serial port via UART.
  */
 
-#ifndef __DEBUG_H__
-#define __DEBUG_H__
+#ifndef DEBUG_H
+#define DEBUG_H
 
 #include "UART.h"
 
@@ -61,4 +61,4 @@ Assertions
  */
 void Debug_Assert(bool condition);
 
-#endif
+#endif               // DEBUG_H

@@ -21,8 +21,8 @@ SECTIONS
 Preprocessor Directives
 *******************************************************************************/
 
-#ifndef __FIFO_H__
-#define __FIFO_H__
+#ifndef FIFO_H
+#define FIFO_H
 
 #include "NewAssert.h"
 
@@ -168,6 +168,6 @@ uint32_t FIFO_getCurrSize(volatile FIFO_t * fifo_ptr);
 
 ///@}
 
-#endif               // __FIFO_H__
+#endif               // FIFO_H
 
 /** @} */

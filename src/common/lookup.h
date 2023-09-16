@@ -4,8 +4,8 @@
  * @author  Bryan McElvy
  */
 
-#ifndef __LOOKUP_H__
-#define __LOOKUP_H__
+#ifndef LOOKUP_H
+#define LOOKUP_H
 
 #include "arm_math_types.h"
 
@@ -18,4 +18,4 @@
  */
 const float32_t * Lookup_GetPtr_ADC(void);
 
-#endif
+#endif               // LOOKUP_H

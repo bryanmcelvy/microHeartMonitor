@@ -7,8 +7,8 @@
  * @brief       Driver module for activating the phase-locked-loop (PLL).
  */
 
-#ifndef __PLL_H___
-#define __PLL_H___
+#ifndef PLL_H
+#define PLL_H
 
 #include "tm4c123gh6pm.h"
 
@@ -19,6 +19,6 @@
  */
 void PLL_Init(void);
 
-#endif
+#endif               // PLL_H
 
 /** @} */

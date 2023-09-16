@@ -14,8 +14,8 @@
  *              protocol.
  */
 
-#ifndef __ILI9341_H__
-#define __ILI9341_H__
+#ifndef ILI9341_H
+#define ILI9341_H
 
 /******************************************************************************
 SECTIONS
@@ -230,6 +230,6 @@ void ILI9341_writeMemCmd(void);
  */
 void ILI9341_writePixel(uint8_t red, uint8_t green, uint8_t blue, bool is_16bit);
 
-#endif
+#endif               // ILI9341_H
 
 /** @} */
