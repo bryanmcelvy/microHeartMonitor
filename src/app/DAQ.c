@@ -40,8 +40,7 @@ static float32_t stateBuffer_Input[8];
 Functions
 *******************************************************************************/
 void DAQ_Init(void) {
-    arm_biquad_cascade_df1_init_f32((arm_biquad_casd_df1_inst_f32 *) &inputFilter, 2, COEFF_INPUT,
-                                    stateBuffer_Input);
+    arm_biquad_cascade_df1_init_f32((filt_t *) &inputFilter, 2, COEFF_INPUT, stateBuffer_Input);
     ADC_Init();
     Timer3A_Init(SAMPLING_PERIOD_MS);
 }
@@ -49,8 +48,8 @@ void DAQ_Init(void) {
 float32_t DAQ_Filter(volatile float32_t inputSample) {
     volatile float32_t outputSample;
 
-    arm_biquad_cascade_df1_f32((const arm_biquad_casd_df1_inst_f32 *) &inputFilter,
-                               (const float32_t *) &inputSample, (float32_t *) &outputSample, 1);
+    arm_biquad_cascade_df1_f32((const filt_t *) &inputFilter, (const float32_t *) &inputSample,
+                               (float32_t *) &outputSample, 1);
 
     return outputSample;
 }
