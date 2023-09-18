@@ -7,8 +7,8 @@
  * @brief   Application software for handling data acquision (DAQ) functions.
  */
 
-#ifndef __DAQ_H__
-#define __DAQ_H__
+#ifndef DAQ_H
+#define DAQ_H
 
 #include "ADC.h"
 #include "Timer.h"
@@ -24,6 +24,6 @@ void DAQ_Init(void);
 
 float32_t DAQ_Filter(volatile float32_t inputSample);
 
-#endif
+#endif               // DAQ_H
 
 /** @} */

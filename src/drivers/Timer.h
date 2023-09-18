@@ -14,8 +14,8 @@
                 3A      ADC Interrupts
  */
 
-#ifndef __TIMER_H___
-#define __TIMER_H___
+#ifndef TIMER_H
+#define TIMER_H
 
 #include "tm4c123gh6pm.h"
 
@@ -119,6 +119,6 @@ Timer3A
  */
 void Timer3A_Init(uint32_t time_ms);
 
-#endif
+#endif               // TIMER_H
 
 /** @} */

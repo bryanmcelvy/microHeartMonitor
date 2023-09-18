@@ -4,8 +4,8 @@
  * @brief   Header file for custom `assert` implementation.
  */
 
-#ifndef __NEW_ASSERT_H__
-#define __NEW_ASSERT_H__
+#ifndef NEW_ASSERT_H
+#define NEW_ASSERT_H
 
 #include <stdbool.h>
 
@@ -19,4 +19,4 @@
  */
 void Assert(bool condition);
 
-#endif               // __NEW_ASSERT_H__
+#endif               // NEW_ASSERT_H

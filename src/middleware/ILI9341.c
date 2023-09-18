@@ -377,7 +377,7 @@ inline static void ILI9341_setAddress(uint16_t start_address, uint16_t end_addre
     Address Set" (`CMD_PASET`) commands from p. 110-113 of the ILI9341 datasheet.
 
     The input parameters represent the first and last addresses to be written
-    to when ILI9341_write1px() is called.
+    to when `ILI9341_writePixel()` is called.
 
     To work correctly, `start_address` must be no greater than `end_address`,
     and `end_address` cannot be greater than the max number of rows/columns.
@@ -428,10 +428,10 @@ void ILI9341_setColAddress(uint16_t start_col, uint16_t end_col) {
 
 void ILI9341_writeMemCmd(void) {
     SPI_IRQ_WriteCmd(CMD_RAMWR);
-    // no call to `SPI_StartWriting()`; should be used right before `ILI9341_write1px()`.
+    // no call to `SPI_StartWriting()`; should be used right before `ILI9341_writePixel()`.
 }
 
-void ILI9341_write1px(uint8_t red, uint8_t green, uint8_t blue, bool is_16bit) {
+void ILI9341_writePixel(uint8_t red, uint8_t green, uint8_t blue, bool is_16bit) {
     // clang-format off
     /**
      *  This function sends one pixel to the display. Because the serial interface

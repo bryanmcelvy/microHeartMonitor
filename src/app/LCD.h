@@ -7,8 +7,8 @@
  * @brief   Module for outputting the ECG waveform and HR to a liquid crystal display (LCD).
  */
 
-#ifndef __LCD_H__
-#define __LCD_H__
+#ifndef LCD_H
+#define LCD_H
 
 /******************************************************************************
 SECTIONS
@@ -223,4 +223,4 @@ void LCD_graphSample(uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy, uint16_
 
 /** @} */
 
-#endif
+#endif               // LCD_H

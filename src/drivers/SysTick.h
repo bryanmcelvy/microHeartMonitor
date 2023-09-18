@@ -7,8 +7,8 @@
  * @brief       Driver module for using SysTick-based timing and/or interrupts.
  */
 
-#ifndef __SYSTICK_H___
-#define __SYSTICK_H___
+#ifndef SYSTICK_H
+#define SYSTICK_H
 
 #include "tm4c123gh6pm.h"
 
@@ -33,6 +33,6 @@ void SysTick_Wait1ms(uint32_t delay_ms);
  */
 void SysTick_Interrupt_Init(uint32_t time_ms);
 
-#endif
+#endif               // SYSTICK_H
 
 /** @} */

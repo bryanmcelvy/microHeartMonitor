@@ -13,8 +13,8 @@
  *              do not connect to a serial port.
  */
 
-#ifndef __UART_H___
-#define __UART_H___
+#ifndef UART_H
+#define UART_H
 
 #include "GPIO.h"
 #include "FIFO.h"
@@ -134,6 +134,6 @@ void UART1_WriteChar(unsigned char input_char);
  */
 void UART1_WriteStr(void * input_str);
 
-#endif
+#endif               // UART_H
 
 /** @} */

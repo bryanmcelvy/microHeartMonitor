@@ -24,8 +24,8 @@ SECTIONS
 Preprocessor Directives
 ********************************************************************************/
 
-#ifndef __QRS_H__
-#define __QRS_H__
+#ifndef QRS_H
+#define QRS_H
 
 #include "FIFO.h"
 
@@ -85,6 +85,6 @@ inline void QRS_DetectHeartRate(const FIFO_t * input_fifo, FIFO_t * output_fifo)
     /// TODO: Implement
 }
 
-#endif               // __QRS_H__
+#endif               // QRS_H
 
 /** @} */

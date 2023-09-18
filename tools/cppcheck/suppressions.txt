@@ -3,5 +3,3 @@
 badBitmaskCheck:src/middleware/*
 
 constParameterPointer
-missingIncludeSystem
-unusedFunction

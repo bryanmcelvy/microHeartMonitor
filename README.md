@@ -26,8 +26,8 @@
   * `/help` - Help text for a few of the command line-based applications used in this project.
   * `/manuals` - q manuals for some of the software used in this project.
 * `/external` - External software used in this project.
-  * `/CMSIS`
-  * `/CMSIS-DSP`
+  * `/CMSIS` - Core CMSIS library by ARM for Cortex-M devices.
+  * `/CMSIS-DSP` - DSP library by ARM for Cortex-M devices.
 * `/src` - Source code for the software modules written for this project.
   * `/app` - Application-specific modules.
   * `/common` - General-purpose modules used by other modules.
@@ -39,29 +39,40 @@
 * `/test` - CppUTest-based unit test suite.
   * `/mocks` - CppUMock-based mock functions used to substitute a module's depenencies during unit tests.
   * `/src` - Source code for unit tests.
-  * `stubs` - Hard-coded stub functions used to substitute a module's depenencies during unit tests.
+  * `/stubs` - Hard-coded stub functions used to substitute a module's depenencies during unit tests.
 * `/tools` - Miscellaneous tools used or created for this project.
-  * `cppcheck` - Suppressions list for Cppcheck.
-  * `data` - Original files from MIT-BIH Arrhythmia Database, as well as a Python script to convert them to `csv` files.
-  * `filter_design` - Python scripts/notebooks used to design the digital filter used in this project.
-  * `JDS6600` - Scripts for interfacing a JDS6600 DDS Signal Generator/Counter.
-  * `lookup_table` - Script for generating the lookup table used in the ADC module.
+  * `/cppcheck` - Suppressions list for Cppcheck.
+  * `/data` - Original files from MIT-BIH Arrhythmia Database, as well as a Python script to convert them to `csv` files.
+  * `/filter_design` - Python scripts/notebooks used to design the digital filter used in this project.
+  * `/JDS6600` - Scripts for interfacing a JDS6600 DDS Signal Generator/Counter.
+  * `/lookup_table` - Script for generating the lookup table used in the ADC module.
 
 </details>
 
 ## Introduction 
 ### Background
+WIP
 ### Motivation
+WIP
 ### Key Terms
+WIP
 
 ## Materials & Methods
+
 ### Hardware
+WIP
+
 ### Software
+WIP
 
 ## Current Results
+WIP
 
 ## To-do
+WIP
 
 ## Build Instructions
+WIP
 
 ## References
+WIP
