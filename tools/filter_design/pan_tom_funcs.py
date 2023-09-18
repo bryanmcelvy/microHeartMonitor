@@ -174,9 +174,8 @@ def apply_thresholding(xn):
     '''
     
     fid_marks = find_fid_marks(xn)
-    qrs = np.copy(fid_marks)
     
-    N_marks = len(qrs)
+    N_marks = len(fid_marks)
     sig_levs = np.zeros(N_marks)
     noise_levs = np.zeros(N_marks)
     thresh_vals = np.zeros(N_marks)
@@ -186,13 +185,13 @@ def apply_thresholding(xn):
     thresh_val_current = update_threshold(sig_lev_current, noise_lev_current)
     
     # Apply Thresholding
-    for i, mark in enumerate(qrs):
+    for i, mark in enumerate(fid_marks):
         
         if xn[mark] > thresh_val_current:
             sig_lev_current = update_level(xn[mark], sig_lev_current)
         else:
             noise_lev_current = update_level(xn[mark], noise_lev_current)
-            qrs[i] = -1
+            fid_marks[i] = -1
         
         thresh_val_current = update_threshold(sig_lev_current, noise_lev_current)
         
@@ -200,9 +199,9 @@ def apply_thresholding(xn):
         noise_levs[i] = noise_lev_current
         thresh_vals[i] = thresh_val_current
     
-    new_mark_idx = np.not_equal(qrs, -1)
+    new_mark_idx = np.not_equal(fid_marks, -1)
     
-    qrs = qrs[new_mark_idx]
+    qrs = fid_marks[new_mark_idx]
     sig_levs = sig_levs[new_mark_idx]
     noise_levs = noise_levs[new_mark_idx]
     thresh_vals = thresh_vals[new_mark_idx]
