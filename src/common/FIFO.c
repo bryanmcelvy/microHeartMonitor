@@ -42,9 +42,9 @@ struct FIFO_t {
 static FIFO_t buffer_pool[FIFO_POOL_SIZE] = { 0 };               ///< pre-allocated buffer pool
 static uint8_t free_buffers = FIFO_POOL_SIZE;                    ///< no. of remaining buffers
 
-volatile FIFO_t * FIFO_Init(volatile uint32_t buffer[], const uint32_t N) {
+FIFO_t * FIFO_Init(volatile uint32_t buffer[], const uint32_t N) {
     /// TODO: Add details
-    volatile FIFO_t * fifo_ptr = 0;
+    FIFO_t * fifo_ptr = 0;
 
     Assert(free_buffers > 0);
     fifo_ptr = &(buffer_pool[--free_buffers]);

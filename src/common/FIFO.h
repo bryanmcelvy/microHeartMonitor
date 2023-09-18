@@ -48,7 +48,7 @@ typedef struct FIFO_t FIFO_t;
  * @param N             Length of `buffer`. Usable length is `N - 1`.
  * @return              pointer to the FIFO buffer
  */
-volatile FIFO_t * FIFO_Init(volatile uint32_t buffer[], const uint32_t N);
+FIFO_t * FIFO_Init(volatile uint32_t buffer[], const uint32_t N);
 
 /******************************************************************************
 Basic Operations
