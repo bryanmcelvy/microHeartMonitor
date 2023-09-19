@@ -43,9 +43,10 @@ static struct {
     float32_t fifoArray[QRS_NUM_SAMPLES];
 } Detector;
 
-// NOLINTBEGIN(bugprone-narrowing-conversions)
+/* NOLINTBEGIN(bugprone-narrowing-conversions) */
+
+// IIR Filters
 typedef arm_biquad_casd_df1_inst_f32 IIR_Filt_t;
-typedef arm_fir_instance_f32 FIR_Filt_t;
 
 static IIR_Filt_t LowPassFilt = { 0 };
 static const float32_t COEFF_LOWPASS[5] = { 0.06744, 0.1349, 0.06744, -1.143, 0.4128 };
@@ -54,6 +55,9 @@ static float32_t stateBuffer_LowPass[4];
 static IIR_Filt_t HighPassFilt = { 0 };
 static const float32_t COEFF_HIGHPASS[5] = { 0.7656, -1.531, 0.7656, -1.476, 0.587 };
 static float32_t stateBuffer_HighPass[4];
+
+// FIR Filters
+typedef arm_fir_instance_f32 FIR_Filt_t;
 
 static FIR_Filt_t DerFilt = { 0 };
 static const float32_t COEFF_DERFILT[5] = { -0.125, -0.25, 0, 0.25, 0.125 };
@@ -65,6 +69,8 @@ static const float32_t COEFF_MOVAVG[15] = { 0.06666667, 0.06666667, 0.06666667, 
                                             0.06666667, 0.06666667, 0.06666667, 0.06666667,
                                             0.06666667, 0.06666667, 0.06666667 };
 static float32_t stateBuffer_MovingAvg[15 + QRS_NUM_SAMPLES - 1];
+
+/* NOLINTEND(bugprone-narrowing-conversions) */
 
 /*******************************************************************************
 Static Function Declarations
