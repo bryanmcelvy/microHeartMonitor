@@ -21,8 +21,12 @@ Preprocessor Directives
 
 #include "arm_math_types.h"
 #include "dsp/filtering_functions.h"
+#include "dsp/statistics_functions.h"
 
-#define DETECTOR_NUM_SAMPLES 1000               // number of samples to process after calibration
+#include <stdbool.h>
+#include <stdint.h>
+
+#define QRS_NUM_SAMPLES 1000               // number of samples to process after calibration
 
 /*******************************************************************************
 Functions

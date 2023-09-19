@@ -19,9 +19,8 @@ Preprocessor Directives
 #include "dsp/filtering_functions.h"
 #include "dsp/statistics_functions.h"
 
-#include <math.h>
-#include <string.h>
-#include <sys/_stdint.h>
+#include <stdbool.h>
+#include <stdint.h>
 
 #define QRS_NUM_SAMPLES    1000               // number of samples to process after calibration
 #define SAMPLING_FREQUENCY 200
