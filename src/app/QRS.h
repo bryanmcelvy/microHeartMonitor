@@ -14,8 +14,8 @@
 Preprocessor Directives
 ********************************************************************************/
 
-#ifndef DETECTOR_H
-#define DETECTOR_H
+#ifndef QRS_H
+#define QRS_H
 
 #include "FIFO.h"
 
@@ -29,7 +29,7 @@ Functions
 ********************************************************************************/
 
 /// @brief Initialize the QRS detector.
-void Detector_Init(void);
+void QRS_Init(void);
 
 /**
  * @brief                       Calculate the heart rate from the ECG data.
@@ -37,8 +37,8 @@ void Detector_Init(void);
  * @param[in] inputDataFifo     FIFO buffer containing ECG data.
  * @param[out] float32_t        Average heart rate in [bpm].
  */
-float32_t Detector_RunDetection(FIFO_t * inputDataFifo);
+float32_t QRS_RunDetection(FIFO_t * inputDataFifo);
 
-#endif               // DETECTOR_H
+#endif               // QRS_H
 
 /** @} */

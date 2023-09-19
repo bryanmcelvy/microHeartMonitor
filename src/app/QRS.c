@@ -4,7 +4,7 @@
  *
  * @file
  * @author  Bryan McElvy
- * @brief   Source code for Detector module.
+ * @brief   Source code for QRS module.
  */
 
 /*******************************************************************************
@@ -23,27 +23,26 @@ Preprocessor Directives
 #include <string.h>
 #include <sys/_stdint.h>
 
-#define DETECTOR_NUM_SAMPLES 1000               // number of samples to process after calibration
-#define SAMPLING_FREQUENCY   200
+#define QRS_NUM_SAMPLES    1000               // number of samples to process after calibration
+#define SAMPLING_FREQUENCY 200
 
 /*******************************************************************************
 Static Variables
 ********************************************************************************/
 
-static bool isCalibrated = false;
-static float32_t signalLevel;
-static float32_t noiseLevel;
-static float32_t threshold;
+static struct {
+    bool isCalibrated;
 
-static float32_t filtBuffer1[DETECTOR_NUM_SAMPLES];
-static float32_t filtBuffer2[DETECTOR_NUM_SAMPLES];
+    float32_t signalLevel;
+    float32_t noiseLevel;
+    float32_t threshold;
 
-static FIFO_t * Detector_Fifo;
-static float32_t Detector_FifoBuffer[DETECTOR_NUM_SAMPLES];
+    float32_t buffer1[QRS_NUM_SAMPLES];
+    float32_t buffer2[QRS_NUM_SAMPLES];
 
-/*******************************************************************************
-Static Filter Variables
-********************************************************************************/
+    FIFO_t * fifo;
+    float32_t fifoArray[QRS_NUM_SAMPLES];
+} Detector;
 
 // NOLINTBEGIN(bugprone-narrowing-conversions)
 typedef arm_biquad_casd_df1_inst_f32 IIR_Filt_t;
@@ -59,51 +58,50 @@ static float32_t stateBuffer_HighPass[4];
 
 static FIR_Filt_t DerFilt = { 0 };
 static const float32_t COEFF_DERFILT[5] = { -0.125, -0.25, 0, 0.25, 0.125 };
-static float32_t stateBuffer_DerFilt[5 + DETECTOR_NUM_SAMPLES - 1];
+static float32_t stateBuffer_DerFilt[5 + QRS_NUM_SAMPLES - 1];
 
 static FIR_Filt_t MovingAvgFilt = { 0 };
 static const float32_t COEFF_MOVAVG[15] = { 0.06666667, 0.06666667, 0.06666667, 0.06666667,
                                             0.06666667, 0.06666667, 0.06666667, 0.06666667,
                                             0.06666667, 0.06666667, 0.06666667, 0.06666667,
                                             0.06666667, 0.06666667, 0.06666667 };
-static float32_t stateBuffer_MovingAvg[15 + DETECTOR_NUM_SAMPLES - 1];
-// NOLINTEND(bugprone-narrowing-conversions)
+static float32_t stateBuffer_MovingAvg[15 + QRS_NUM_SAMPLES - 1];
 
 /*******************************************************************************
 Static Function Declarations
 ********************************************************************************/
 
 // Preprocessing
-static void Preprocess(void);
+static void QRS_Preprocess(void);
 
 // Decision Rules
-static void FindFiducialMarks(uint16_t * fidMarkArray, const uint16_t N);
-static void InitLevels(void);
-static float32_t UpdateLevel(float32_t peakAmplitude, float32_t level);
-static float32_t UpdateThreshold(void);
-static float32_t ApplyThresholding(void);
+static void QRS_FindFiducialMarks(uint16_t * fidMarkArray, const uint16_t N);
+static void QRS_InitLevels(void);
+static float32_t QRS_UpdateLevel(float32_t peakAmplitude, float32_t level);
+static float32_t QRS_UpdateThreshold(void);
+static float32_t QRS_ApplyThresholding(void);
 
 /*******************************************************************************
 Main Functions
 ********************************************************************************/
 
-void Detector_Init(void) {
+void QRS_Init(void) {
     // Initialize filters
     arm_biquad_cascade_df1_init_f32(&LowPassFilt, 1, COEFF_LOWPASS, stateBuffer_LowPass);
     arm_biquad_cascade_df1_init_f32(&HighPassFilt, 1, COEFF_HIGHPASS, stateBuffer_HighPass);
-    arm_fir_init_f32(&DerFilt, 5, COEFF_DERFILT, stateBuffer_DerFilt, DETECTOR_NUM_SAMPLES);
-    arm_fir_init_f32(&MovingAvgFilt, 15, COEFF_MOVAVG, stateBuffer_MovingAvg, DETECTOR_NUM_SAMPLES);
+    arm_fir_init_f32(&DerFilt, 5, COEFF_DERFILT, stateBuffer_DerFilt, QRS_NUM_SAMPLES);
+    arm_fir_init_f32(&MovingAvgFilt, 15, COEFF_MOVAVG, stateBuffer_MovingAvg, QRS_NUM_SAMPLES);
 
     // Initialize internal FIFO buffer
-    Detector_Fifo = FIFO_Init(Detector_FifoBuffer, DETECTOR_NUM_SAMPLES);
+    Detector.fifo = FIFO_Init(Detector.fifoArray, QRS_NUM_SAMPLES);
 
     return;
 }
 
-float32_t Detector_RunDetection(FIFO_t * inputDataFifo) {
-    FIFO_TransferAll(inputDataFifo, Detector_Fifo);
-    Preprocess();
-    float32_t heartRate_bpm = ApplyThresholding();
+float32_t QRS_RunDetection(FIFO_t * inputDataFifo) {
+    FIFO_TransferAll(inputDataFifo, Detector.fifo);
+    QRS_Preprocess();
+    float32_t heartRate_bpm = QRS_ApplyThresholding();
 
     return heartRate_bpm;
 }
@@ -112,29 +110,29 @@ float32_t Detector_RunDetection(FIFO_t * inputDataFifo) {
 Static Function Definitions
 ********************************************************************************/
 
-static void Preprocess(void) {
-    FIFO_Flush(Detector_Fifo, filtBuffer1);
+static void QRS_Preprocess(void) {
+    FIFO_Flush(Detector.fifo, Detector.buffer1);
 
     // high-pass filter
-    arm_biquad_cascade_df1_f32(&HighPassFilt, filtBuffer1, filtBuffer2, DETECTOR_NUM_SAMPLES);
+    arm_biquad_cascade_df1_f32(&HighPassFilt, Detector.buffer1, Detector.buffer2, QRS_NUM_SAMPLES);
 
     // low-pass filter
-    arm_biquad_cascade_df1_f32(&LowPassFilt, filtBuffer2, filtBuffer1, DETECTOR_NUM_SAMPLES);
+    arm_biquad_cascade_df1_f32(&LowPassFilt, Detector.buffer2, Detector.buffer1, QRS_NUM_SAMPLES);
 
     // derivative filter
-    arm_fir_f32(&DerFilt, filtBuffer1, filtBuffer2, DETECTOR_NUM_SAMPLES);
+    arm_fir_f32(&DerFilt, Detector.buffer1, Detector.buffer2, QRS_NUM_SAMPLES);
 
     // square
-    for(int n = 0; n < DETECTOR_NUM_SAMPLES; n++) {
-        filtBuffer2[n] *= filtBuffer2[n];
+    for(int n = 0; n < QRS_NUM_SAMPLES; n++) {
+        Detector.buffer2[n] *= Detector.buffer2[n];
     }
 
     // moving-average filter (i.e. integrate)
-    arm_fir_f32(&MovingAvgFilt, filtBuffer2, filtBuffer1, DETECTOR_NUM_SAMPLES);
+    arm_fir_f32(&MovingAvgFilt, Detector.buffer2, Detector.buffer1, QRS_NUM_SAMPLES);
 
     // move back to FIFO
-    for(int n = 0; n < DETECTOR_NUM_SAMPLES; n++) {
-        FIFO_Put(Detector_Fifo, filtBuffer2[n]);
+    for(int n = 0; n < QRS_NUM_SAMPLES; n++) {
+        FIFO_Put(Detector.fifo, Detector.buffer2[n]);
     }
 
     return;
@@ -143,7 +141,7 @@ static void Preprocess(void) {
 /*******************************************************************************
 Decision Rules
 ********************************************************************************/
-static void FindFiducialMarks(uint16_t * fidMarkArray, const uint16_t N) {
+static void QRS_FindFiducialMarks(uint16_t * fidMarkArray, const uint16_t N) {
     // TODO: Implement
     /**
      * This function marks local peaks in  the input signal as potential QRS
@@ -157,19 +155,20 @@ static void FindFiducialMarks(uint16_t * fidMarkArray, const uint16_t N) {
     uint16_t n_prevFidMark;
     uint16_t countSincePrev = 1;
 
-    FIFO_PeekAll(Detector_Fifo, filtBuffer1);
+    FIFO_PeekAll(Detector.fifo, Detector.buffer1);
 
     for(uint8_t i = 0; i < N; i++) {
         fidMarkArray[i] = 0;
     }
 
-    for(int n = 1; n < (DETECTOR_NUM_SAMPLES - 1); n++) {
+    for(int n = 1; n < (QRS_NUM_SAMPLES - 1); n++) {
         // Verify that sample [n] is a peak
-        if((filtBuffer1[n] > filtBuffer1[n - 1]) && (filtBuffer1[n] > filtBuffer1[n + 1])) {
+        if((Detector.buffer1[n] > Detector.buffer1[n - 1]) &&
+           (Detector.buffer1[n] > Detector.buffer1[n + 1])) {
             // Verify that peak appears ≥40 samples (200 [ms]) after previous mark
             if(countSincePrev < 40) {
                 // Replace the previous mark with the index with the largest amplitude
-                if(filtBuffer1[n] > filtBuffer1[n_prevFidMark]) {
+                if(Detector.buffer1[n] > Detector.buffer1[n_prevFidMark]) {
                     fidMarkArray[currIdx - 1] = n;
                     n_prevFidMark = n;
                     countSincePrev = 0;
@@ -190,50 +189,51 @@ static void FindFiducialMarks(uint16_t * fidMarkArray, const uint16_t N) {
     }
 }
 
-static void InitLevels(void) {
+static void QRS_InitLevels(void) {
     float32_t mean, max;
     uint32_t max_idx;
-    FIFO_PeekAll(Detector_Fifo, filtBuffer1);
+    FIFO_PeekAll(Detector.fifo, Detector.buffer1);
 
-    arm_max_f32(filtBuffer1, DETECTOR_NUM_SAMPLES, &max, &max_idx);
-    signalLevel = 0.25f * max;
+    arm_max_f32(Detector.buffer1, QRS_NUM_SAMPLES, &max, &max_idx);
+    Detector.signalLevel = 0.25f * max;
 
-    arm_mean_f32(filtBuffer1, DETECTOR_NUM_SAMPLES, &mean);
-    noiseLevel = 0.5f * mean;
+    arm_mean_f32(Detector.buffer1, QRS_NUM_SAMPLES, &mean);
+    Detector.noiseLevel = 0.5f * mean;
 
     return;
 }
 
-static float32_t UpdateLevel(float32_t peakAmplitude, float32_t level) {
+static float32_t QRS_UpdateLevel(float32_t peakAmplitude, float32_t level) {
     return (float32_t) ((0.125 * peakAmplitude) + (0.875 * level));
 }
 
-static float32_t UpdateThreshold(void) {
-    return (float32_t) (noiseLevel + (0.25 * (signalLevel - noiseLevel)));
+static float32_t QRS_UpdateThreshold(void) {
+    return (float32_t) (Detector.noiseLevel +
+                        (0.25 * (Detector.signalLevel - Detector.noiseLevel)));
 }
 
-static float32_t ApplyThresholding(void) {
-    FIFO_Flush(Detector_Fifo, filtBuffer1);
+static float32_t QRS_ApplyThresholding(void) {
+    FIFO_Flush(Detector.fifo, Detector.buffer1);
 
     int16_t fidMarkArray[10];
-    FindFiducialMarks(fidMarkArray, 10);
+    QRS_FindFiducialMarks(fidMarkArray, 10);
 
-    if(isCalibrated == false) {
-        InitLevels();
+    if(Detector.isCalibrated == false) {
+        QRS_InitLevels();
     }
-    threshold = UpdateThreshold();
+    Detector.threshold = QRS_UpdateThreshold();
 
     for(uint16_t idx = 0; idx < 10; idx++) {
         int16_t n = fidMarkArray[idx];
-        if(filtBuffer1[n] > threshold) {
-            signalLevel = UpdateLevel(filtBuffer1[n], signalLevel);
+        if(Detector.buffer1[n] > Detector.threshold) {
+            Detector.signalLevel = QRS_UpdateLevel(Detector.buffer1[n], Detector.signalLevel);
         }
         else {
-            noiseLevel = UpdateLevel(filtBuffer1[n], noiseLevel);
+            Detector.noiseLevel = QRS_UpdateLevel(Detector.buffer1[n], Detector.noiseLevel);
             fidMarkArray[idx] = -1;
         }
 
-        threshold = UpdateThreshold();
+        Detector.threshold = QRS_UpdateThreshold();
     }
 
     uint16_t sumFidMarks = 0;
