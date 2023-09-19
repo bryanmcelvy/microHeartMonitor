@@ -14,8 +14,14 @@ void Assert(bool condition) {
     if(condition == false) {
         Assert_Handler();
     }
+
+    return;
 }
 
 static void Assert_Handler(void) {
+#ifdef __arm__
+    __asm__("BKPT #0");
+#else
     while(1) {}
+#endif
 }
