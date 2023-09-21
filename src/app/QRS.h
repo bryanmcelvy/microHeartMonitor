@@ -17,8 +17,6 @@ Preprocessor Directives
 #ifndef QRS_H
 #define QRS_H
 
-#include "FIFO.h"
-
 #include "arm_math_types.h"
 #include "dsp/filtering_functions.h"
 #include "dsp/statistics_functions.h"
@@ -26,22 +24,45 @@ Preprocessor Directives
 #include <stdbool.h>
 #include <stdint.h>
 
-#define QRS_NUM_SAMPLES 1000               // number of samples to process after calibration
+#define QRS_SAMP_FREQ 200                // [Hz]
+#define QRS_NUM_SAMP  1000               // number of samples to process after calibration
 
 /*******************************************************************************
 Functions
 ********************************************************************************/
 
-/// @brief Initialize the QRS detector.
+///@brief           Initialize the QRS detector.
 void QRS_Init(void);
 
 /**
- * @brief                       Calculate the heart rate from the ECG data.
+ * @brief                   Preprocess the raw ECG data.
  *
- * @param[in] inputDataFifo     FIFO buffer containing ECG data.
- * @param[out] float32_t        Average heart rate in [bpm].
+ * @param[in] inputBuffer   Array of raw ECG signal values.
+ * @param[in] outputBuffer  Array of preprocessed ECG signal values.
  */
-float32_t QRS_RunDetection(FIFO_t * inputDataFifo);
+void QRS_Preprocess(float32_t inputBuffer[], float32_t outputBuffer[]);
+
+/**
+ * @brief                   Apply decision rules to the data.
+ *
+ * @param[in] inputBuffer   Array of preprocessed ECG signal values.
+ * @param[out] float32_t    Average heart rate in [bpm].
+ */
+float32_t QRS_ApplyDecisionRules(float32_t inputBuffer[]);
+
+/**
+ * @brief                   Run the full algorithm on the inputted ECG data.
+ *
+ * @param[in] inputBuffer   Array of raw ECG signal values.
+ * @param[in] outputBuffer  Array of preprocessed ECG signal values.
+ * @param[out] float32_t    Average heart rate in [bpm].
+ */
+inline float32_t QRS_RunDetection(float32_t inputBuffer[], float32_t outputBuffer[]) {
+    QRS_Preprocess(inputBuffer, outputBuffer);
+    float32_t heartRate_bpm = QRS_ApplyDecisionRules(outputBuffer);
+
+    return heartRate_bpm;
+}
 
 #endif               // QRS_H
 
