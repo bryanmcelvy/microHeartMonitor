@@ -25,11 +25,11 @@ void ADC_Init(void) {
     while((SYSCTL_PRADC_R & 0x01) == 0) {}
 
     // configure GPIO port
-    GPIO_Port_t * portE_ptr = GPIO_InitPort(E);
-    GPIO_ConfigDirInput(portE_ptr, GPIO_PIN5);
-    GPIO_ConfigAltMode(portE_ptr, GPIO_PIN5);
-    GPIO_DisableDigital(portE_ptr, GPIO_PIN5);
-    GPIO_ConfigAnalog(portE_ptr, GPIO_PIN5);
+    GPIO_Port_t * portE = GPIO_InitPort(E);
+    GPIO_ConfigDirInput(portE, GPIO_PIN5);
+    GPIO_ConfigAltMode(portE, GPIO_PIN5);
+    GPIO_DisableDigital(portE, GPIO_PIN5);
+    GPIO_ConfigAnalog(portE, GPIO_PIN5);
 
     ADC0_ACTSS_R &= ~(0x0F);                                // disable all sequencers
     ADC0_PC_R = (ADC0_PC_R & ~(0x0F)) | 0x01;               // max f_s = 125 [Hz]
