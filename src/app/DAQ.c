@@ -29,7 +29,7 @@ Preprocessor Directives
 #define SAMPLING_PERIOD_MS 5               ///< sampling period in ms (\f$ T_s = 1 / f_s \f$)
 
 /******************************************************************************
-Input Filter Definition
+Static Declarations
 *******************************************************************************/
 typedef arm_biquad_casd_df1_inst_f32 filt_t;
 

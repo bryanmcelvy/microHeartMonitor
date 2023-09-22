@@ -54,10 +54,10 @@ int main(void) {
 
     LCD_setColor_3bit(LCD_BLACK_INV);
     LCD_setArea(0, X_MAX, 0, Y_MAX);
-    LCD_draw();
+    LCD_Draw();
 
     LCD_setColor_3bit(LCD_WHITE_INV);
-    LCD_drawHLine(LCD_TOP_LINE, 1);
+    LCD_drawHoriLine(LCD_TOP_LINE, 1);
 
     LCD_setColor_3bit(LCD_RED_INV);
     LCD_toggleOutput();

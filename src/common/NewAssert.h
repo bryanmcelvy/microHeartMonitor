@@ -9,7 +9,10 @@
 
 #include <stdbool.h>
 
+#ifdef assert
 #undef assert
+#define assert Assert
+#endif
 
 /**
  * @brief               Custom `assert` implementation that is more lightweight

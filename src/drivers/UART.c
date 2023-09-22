@@ -10,9 +10,11 @@
 #include "UART.h"
 
 #include "GPIO.h"
+
 #include "FIFO.h"
 
 #include "tm4c123gh6pm.h"
+
 #include <stdbool.h>
 #include <stdint.h>
 
@@ -22,6 +24,7 @@
 
 #define UART0_BUFFER_SIZE   16
 #define UART0_INTERRUPT_NUM 5
+
 /**********************************************************************
 UART0
 ***********************************************************************/

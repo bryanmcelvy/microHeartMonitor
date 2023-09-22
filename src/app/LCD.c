@@ -236,7 +236,7 @@ void LCD_setColor_3bit(uint8_t color_code) {
 Drawing
 *******************************************************************************/
 
-void LCD_draw(void) {
+void LCD_Draw(void) {
     /// @showrefs
     ILI9341_writeMemCmd();
     for(uint32_t count = 0; count < lcd.numPixels; count++) {
@@ -244,11 +244,11 @@ void LCD_draw(void) {
     }
 }
 
-void LCD_fill(void) {
+void LCD_Fill(void) {
     // LCD_setArea(0, X_MAX, 0, Y_MAX);
     LCD_setDim(0, X_MAX, true, false);
     LCD_setDim(0, Y_MAX, false, true);
-    LCD_draw();
+    LCD_Draw();
 }
 
 inline static void LCD_drawLine(uint16_t center, uint16_t lineWidth, bool is_horizontal) {
@@ -284,18 +284,18 @@ inline static void LCD_drawLine(uint16_t center, uint16_t lineWidth, bool is_hor
         LCD_setDim(start, end, true, false);
         LCD_setDim(0, (Y_MAX - 1), false, true);
     }
-    LCD_draw();
+    LCD_Draw();
 }
 
-void LCD_drawHLine(uint16_t yCenter, uint16_t lineWidth) {
+void LCD_drawHoriLine(uint16_t yCenter, uint16_t lineWidth) {
     LCD_drawLine(yCenter, lineWidth, true);
 }
 
-void LCD_drawVLine(uint16_t xCenter, uint16_t lineWidth) {
+void LCD_drawVertLine(uint16_t xCenter, uint16_t lineWidth) {
     LCD_drawLine(xCenter, lineWidth, false);
 }
 
-void LCD_drawRectangle(uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy, bool is_filled) {
+void LCD_drawRectangle(uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy, bool isFilled) {
     uint16_t x2;
     uint16_t y2;
 
@@ -314,30 +314,30 @@ void LCD_drawRectangle(uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy, bool 
     // draw rectangle based on `is_filled`
     x2 = (x1 + dx) - 1;
     y2 = (y1 + dy) - 1;
-    if(is_filled) {
+    if(isFilled) {
         // LCD_setArea(x1, x2, y1, y2);
         LCD_setDim(x1, x2, true, false);
         LCD_setDim(y1, y2, false, true);
-        LCD_draw();
+        LCD_Draw();
     }
     else {
         // left side
         LCD_setDim(x1, x2, true, false);
         LCD_setDim(y1, y1, false, true);
-        LCD_draw();
+        LCD_Draw();
 
         // right side
         LCD_setDim(y2, y2, false, true);
-        LCD_draw();
+        LCD_Draw();
 
         // top side
         LCD_setDim(x1, x1, true, false);
         LCD_setDim(y1, y2, false, true);
-        LCD_draw();
+        LCD_Draw();
 
         // right side
         LCD_setDim(x2, x2, true, true);
-        LCD_draw();
+        LCD_Draw();
     }
 }
 
@@ -345,8 +345,8 @@ void LCD_drawRectangle(uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy, bool 
 Scrolling
 *******************************************************************************/
 
-void LCD_graphSample(uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy, uint16_t y_min,
-                     uint16_t y_max, uint16_t color_code) {
+void LCD_graphSample(uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy, uint16_t yMin,
+                     uint16_t yMax, uint16_t colorCode) {
     /// TODO: Write description
 
     uint16_t x2;
@@ -355,8 +355,8 @@ void LCD_graphSample(uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy, uint16_
     // set area of display to write to
     x2 = (x1 + dx) - 1;
     y2 = (y1 + dy) - 1;
-    LCD_setDim(x1, x2, true, false);                     // using setDim() instead of
-    LCD_setDim(y_min, y_max, false, true);               // setArea() to reduce stack usage
+    LCD_setDim(x1, x2, true, false);                   // using setDim() instead of
+    LCD_setDim(yMin, yMax, false, true);               // setArea() to reduce stack usage
 
     // write column by column
     ILI9341_writeMemCmd();
@@ -366,13 +366,13 @@ void LCD_graphSample(uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy, uint16_
         // write blank pixels from `(x1 + x_i, y_min)` to `(x1 + x_i, y1 - 1)
         LCD_setColor_3bit(LCD_WHITE);
 
-        numPixels = y1 - y_min;
+        numPixels = y1 - yMin;
         for(int y_i = 0; y_i < numPixels; y_i++) {
             ILI9341_writePixel(lcd.R_val, lcd.G_val, lcd.B_val, true);
         }
 
         // write colored pixels from `(x1 + x_i, y1)` to `(x1 + x_i, y2)`
-        LCD_setColor_3bit(color_code);
+        LCD_setColor_3bit(colorCode);
 
         numPixels = dy;
         for(int y_i = 0; y_i < numPixels; y_i++) {
@@ -382,7 +382,7 @@ void LCD_graphSample(uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy, uint16_
         // write blank pixels from `(x1 + x_i, y2 + 1)` to `(x1 + x_i, y_max)`
         LCD_setColor_3bit(LCD_WHITE);
 
-        numPixels = y_max - (y2 + 1) + 1;
+        numPixels = yMax - (y2 + 1) + 1;
         for(int y_i = 0; y_i < numPixels; y_i++) {
             ILI9341_writePixel(lcd.R_val, lcd.G_val, lcd.B_val, true);
         }

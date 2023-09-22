@@ -165,12 +165,12 @@ Drawing
  *                      `LCD_setArea()`, or after individually calling
  *                      `LCD_setX()` and/or `LCD_setY()`.
  */
-void LCD_draw(void);
+void LCD_Draw(void);
 
 /**
  * @brief               Fill the display with a single color.
  */
-void LCD_fill(void);
+void LCD_Fill(void);
 
 /**
  * @brief               Draw a horizontal line across the entire display.
@@ -178,7 +178,7 @@ void LCD_fill(void);
  * @param yCenter       y-coordinate to center the line on
  * @param lineWidth     width of the line; should be a positive, odd number
  */
-void LCD_drawHLine(uint16_t yCenter, uint16_t lineWidth);
+void LCD_drawHoriLine(uint16_t yCenter, uint16_t lineWidth);
 
 /**
  * @brief               Draw a vertical line across the entire display.
@@ -186,7 +186,7 @@ void LCD_drawHLine(uint16_t yCenter, uint16_t lineWidth);
  * @param xCenter       x-coordinate to center the line on
  * @param lineWidth     width of the line; should be a positive, odd number
  */
-void LCD_drawVLine(uint16_t xCenter, uint16_t lineWidth);
+void LCD_drawVertLine(uint16_t xCenter, uint16_t lineWidth);
 
 /**
  * @brief               Draw a rectangle of size `dx` x `dy` onto the display.
@@ -196,9 +196,9 @@ void LCD_drawVLine(uint16_t xCenter, uint16_t lineWidth);
  * @param dx            length (horizontal distance) of the rectangle
  * @param y1            lowest (bottom-most) y-coordinate
  * @param dy            height (vertical distance) of the rectangle
- * @param is_filled     `true` to fill the rectangle, `false` to leave it unfilled
+ * @param isFilled      `true` to fill the rectangle, `false` to leave it unfilled
  */
-void LCD_drawRectangle(uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy, bool is_filled);
+void LCD_drawRectangle(uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy, bool isFilled);
 
 /******************************************************************************
 Scrolling

@@ -36,8 +36,8 @@ Preprocessor Directives
 
 #include "tm4c123gh6pm.h"
 
-#include <stdint.h>
 #include <stdbool.h>
+#include <stdint.h>
 
 // Selected commands from the datasheet
 // NOTE: NUM_COLS and NUM_ROWS are defined in the header file
@@ -265,12 +265,7 @@ void ILI9341_setMemAccessCtrl(bool areRowsFlipped, bool areColsFlipped, bool are
      *   All bits are clear after powering on or `HWRESET`.
      */
 
-    uint8_t param;
-
-    // start with all bits cleared
-    param = 0x00;
-
-    // set bits based on input arguments
+    uint8_t param = 0x00;
     param = (areRowsFlipped) ? (param | 0x80) : param;
     param = (areColsFlipped) ? (param | 0x40) : param;
     param = (areRowsColsSwitched) ? (param | 0x20) : param;
@@ -299,27 +294,27 @@ void ILI9341_NoOpCmd(void) {
     return;
 }
 
-void ILI9341_setFrameRateNorm(uint8_t div_ratio, uint8_t clocks_per_line) {
+void ILI9341_setFrameRateNorm(uint8_t divisionRatio, uint8_t clocksPerLine) {
     /// TODO: Write description
 
-    div_ratio &= 0x03;
-    clocks_per_line &= 0x1F;
+    divisionRatio &= 0x03;
+    clocksPerLine &= 0x1F;
 
     SPI_WriteCmd(FRMCTR1);
-    SPI_WriteData(div_ratio);
-    SPI_WriteData(clocks_per_line);
+    SPI_WriteData(divisionRatio);
+    SPI_WriteData(clocksPerLine);
     return;
 }
 
-void ILI9341_setFrameRateIdle(uint8_t div_ratio, uint8_t clocks_per_line) {
+void ILI9341_setFrameRateIdle(uint8_t divisionRatio, uint8_t clocksPerLine) {
     /// TODO: Write description
 
-    div_ratio &= 0x03;
-    clocks_per_line &= 0x1F;
+    divisionRatio &= 0x03;
+    clocksPerLine &= 0x1F;
 
     SPI_WriteCmd(FRMCTR2);
-    SPI_WriteData(div_ratio);
-    SPI_WriteData(clocks_per_line);
+    SPI_WriteData(divisionRatio);
+    SPI_WriteData(clocksPerLine);
     return;
 }
 
@@ -382,7 +377,7 @@ inline static void ILI9341_sendParams(Cmd_t cmd) {
     return;
 }
 
-inline static void ILI9341_setAddress(uint16_t start_address, uint16_t end_address, bool is_row) {
+inline static void ILI9341_setAddress(uint16_t startAddress, uint16_t endAddress, bool is_row) {
     /**
     This function implements the "Column Address Set" (`CASET`) and "Page
     Address Set" (`PASET`) commands from p. 110-113 of the ILI9341 datasheet.
@@ -390,45 +385,45 @@ inline static void ILI9341_setAddress(uint16_t start_address, uint16_t end_addre
     The input parameters represent the first and last addresses to be written
     to when `ILI9341_writePixel()` is called.
 
-    To work correctly, `start_address` must be no greater than `end_address`,
-    and `end_address` cannot be greater than the max number of rows/columns.
+    To work correctly, `startAddress` must be no greater than `endAddress`,
+    and `endAddress` cannot be greater than the max number of rows/columns.
     */
 
     uint8_t cmd = (is_row) ? PASET : CASET;
     uint16_t max_num = (is_row) ? NUM_ROWS : NUM_COLS;
 
-    // ensure `start_address` and `end_address` meet restrictions
-    end_address = (end_address < max_num) ? end_address : (max_num - 1);
-    start_address = (start_address < end_address) ? start_address : end_address;
+    // ensure `startAddress` and `endAddress` meet restrictions
+    endAddress = (endAddress < max_num) ? endAddress : (max_num - 1);
+    startAddress = (startAddress < endAddress) ? startAddress : endAddress;
 
     // configure and send command sequence
-    FIFO_Put(ILI9341_Fifo, ((start_address & 0xFF00) >> 8));
-    FIFO_Put(ILI9341_Fifo, (start_address & 0x00FF));
-    FIFO_Put(ILI9341_Fifo, ((end_address & 0xFF00) >> 8));
-    FIFO_Put(ILI9341_Fifo, (end_address & 0x00FF));
+    FIFO_Put(ILI9341_Fifo, ((startAddress & 0xFF00) >> 8));
+    FIFO_Put(ILI9341_Fifo, (startAddress & 0x00FF));
+    FIFO_Put(ILI9341_Fifo, ((endAddress & 0xFF00) >> 8));
+    FIFO_Put(ILI9341_Fifo, (endAddress & 0x00FF));
 
     ILI9341_sendParams(cmd);
 
     return;
 }
 
-void ILI9341_setRowAddress(uint16_t start_row, uint16_t end_row) {
+void ILI9341_setRowAddress(uint16_t startRow, uint16_t endRow) {
     /**
         This function is simply an interface to ILI9341_setAddress().
         To work correctly, `start_row` must be no greater than `end_row`, and
         `end_row` cannot be greater than the max row number (default 320).
     */
-    ILI9341_setAddress(start_row, end_row, true);
+    ILI9341_setAddress(startRow, endRow, true);
     return;
 }
 
-void ILI9341_setColAddress(uint16_t start_col, uint16_t end_col) {
+void ILI9341_setColAddress(uint16_t startCol, uint16_t endCol) {
     /**
         This function is simply an interface to ILI9341_setAddress().
         To work correctly, `start_col` must be no greater than `end_col`, and
         `end_col` cannot be greater than the max column number (default 240).
     */
-    ILI9341_setAddress(start_col, end_col, false);
+    ILI9341_setAddress(startCol, endCol, false);
     return;
 }
 

@@ -9,15 +9,17 @@
 
 #include "ADC.h"
 
-#include "lookup.h"
 #include "GPIO.h"
 #include "Timer.h"
 
+#include "lookup.h"
+
 #include "arm_math_types.h"
 #include "tm4c123gh6pm.h"
+
 #include <stdint.h>
 
-static const float32_t * ADC_LOOKUP = 0;
+static const float32_t * ADC_LOOKUP_TABLE = 0;
 
 void ADC_Init(void) {
     // enable clock to ADC0 and wait for it to be ready
@@ -48,19 +50,25 @@ void ADC_Init(void) {
 
     ADC0_ACTSS_R |= 0x08;                   // enable SS3
 
-    ADC_LOOKUP = Lookup_GetPtr_ADC();
+    ADC_LOOKUP_TABLE = Lookup_GetPtr_ADC();
+
+    return;
 }
 
 void ADC_InterruptEnable(void) {
     ADC0_IM_R |= 0x08;
+
+    return;
 }
 
 void ADC_InterruptDisable(void) {
     ADC0_IM_R &= ~(0x08);
+
+    return;
 }
 
 float32_t ADC_ConvertToVolts(uint16_t raw_sample) {
-    return (volatile float32_t) ADC_LOOKUP[raw_sample];
+    return (volatile float32_t) ADC_LOOKUP_TABLE[raw_sample];
 }
 
 /** @} */

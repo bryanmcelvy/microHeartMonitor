@@ -10,12 +10,14 @@
 #ifndef ADC_H
 #define ADC_H
 
-#include "lookup.h"
 #include "GPIO.h"
 #include "Timer.h"
 
+#include "lookup.h"
+
 #include "arm_math_types.h"
 #include "tm4c123gh6pm.h"
+
 #include <stdint.h>
 
 /// @brief   Initialize ADC0 as a single-input analog-to-digital converter.
