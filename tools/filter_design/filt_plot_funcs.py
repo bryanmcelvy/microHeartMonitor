@@ -135,7 +135,7 @@ def plot_group_delay(b, a, N=512, fs=1, ax=None):
     else: plt.xlabel("Frequency [Hz]")
     plt.ylabel("Delay [samples]")
 
-def plot_pole_zero(b, a, ax=None):
+def plot_pole_zero(b, a, ax=None, filt_name=None):
     
     [z, p, _] = signal.tf2zpk(b, a)
     
@@ -150,7 +150,8 @@ def plot_pole_zero(b, a, ax=None):
     plt.xlim([-1.1, 1.1]); plt.xticks(np.linspace(-1, 1, 5))
     plt.ylim([-1.1, 1.1]); plt.yticks(np.linspace(-1, 1, 11))
 
-    plt.title("Pole-Zero Plot")
+    plot_title = "Pole-Zero Plot" if (filt_name == None) else filt_name
+    plt.title(plot_title)
     plt.xlabel("Real Part")
     plt.ylabel("Imaginary Part")
     
@@ -175,7 +176,7 @@ def plot_domain_t(b, a, ax1=None, ax2=None, filt_name=None):
     plot_impulse_resp(b, a, ax1)
     plot_step_resp(b, a, ax2)  
 
-def plot_domain_f(b, a, fs=1, ax1=None, ax2=None, filt_name=None):
+def plot_domain_f(b, a, fs=1, in_dB=False, ax1=None, ax2=None, filt_name=None):
     
     if not (ax1 and ax2):
         _, [ax1, ax2] = plt.subplots(1, 2, figsize=[9, 4], tight_layout=True)
@@ -183,5 +184,5 @@ def plot_domain_f(b, a, fs=1, ax1=None, ax2=None, filt_name=None):
     if filt_name:
         plt.suptitle(filt_name)
     
-    plot_freq_resp(b, a, fs=fs, ax=ax1)
+    plot_freq_resp(b, a, fs=fs, in_dB=in_dB, ax=ax1)
     plot_group_delay(b, a, fs=fs, ax=ax2)  
