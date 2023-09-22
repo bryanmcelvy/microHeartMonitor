@@ -15,9 +15,9 @@
 #include "PLL.h"
 
 #include "FIFO.h"
+#include "lookup.h"
 
 #include "arm_math_types.h"
-#include "lookup.h"
 #include <stdbool.h>
 #include <stdint.h>
 
@@ -52,6 +52,7 @@ int main(void) {
     LCD_Init();
     LCD_toggleInversion();
 
+    LCD_setColor_3bit(LCD_BLACK_INV);
     LCD_setArea(0, X_MAX, 0, Y_MAX);
     LCD_draw();
 
