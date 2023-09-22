@@ -15,7 +15,7 @@
  * @brief   Lookup table for converting ADC data from unsigned 12-bit integer
  *          values to 32-bit floating point values.
  */
-static const float32_t ADC_LOOKUP[4096] = {
+static const float32_t LOOKUP_ADC_TABLE[4096] = {
     -5.499999523162842, -5.497313499450684, -5.494627475738525, -5.491940975189209,
     -5.489254951477051, -5.486568927764893, -5.483882427215576, -5.481196403503418,
     -5.47851037979126, -5.475823879241943, -5.473137378692627, -5.470451354980469,
@@ -1046,5 +1046,5 @@ static const float32_t ADC_LOOKUP[4096] = {
 // clang-format on
 
 const float32_t * Lookup_GetPtr_ADC(void) {
-    return ADC_LOOKUP;
+    return LOOKUP_ADC_TABLE;
 }
