@@ -46,7 +46,7 @@ int main(void) {
     float32_t intermediate_sample;
 
     PLL_Init();
-    // Debug_Init();
+    Debug_Init();
 
     // Initialize/configure LCD
     LCD_Init();
@@ -92,6 +92,7 @@ int main(void) {
 /********************************************************************************/
 
 void ADC0_SS3_Handler(void) {
+    Debug_Assert(FIFO_isFull(input_fifo_ptr) == false);
     FIFO_Put(input_fifo_ptr, (volatile uint32_t)(ADC0_SSFIFO3_R & 0xFFF));
     sampleReady = true;
     ADC0_ISC_R |= 0x08;               // clear interrupt flag to acknowledge
