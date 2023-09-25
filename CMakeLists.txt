@@ -10,7 +10,6 @@ project(ecg_hrm C)
 #*****************************************************************************
 # Build Options
 #*****************************************************************************
-option(OPT_GEN_DOC      "Generate Doxygen documentation when building `all`"                            OFF)
 option(OPT_CPPCHECK     "Run static code analysis (i.e. linting) via cppcheck when building `all`"      OFF)
 option(OPT_TESTING      "Build test scripts when building `all`"                                        ON)
 
@@ -34,9 +33,9 @@ set(PATH_TEST_SCRIPTS ${PATH_SRC}/test)
 #*****************************************************************************
 # Subdirectories
 #*****************************************************************************
-add_subdirectory(${PATH_DOCS})                              # datasheets and generated code documentation
-add_subdirectory(${PATH_EXTERNAL})                          # ARM CMSIS libraries
-add_subdirectory(${PATH_SRC})                               # source code, libraries, test scripts
+add_subdirectory(${PATH_DOCS})      # datasheets and generated code documentation
+add_subdirectory(${PATH_EXTERNAL})  # ARM CMSIS libraries
+add_subdirectory(${PATH_SRC})       # source code, libraries, test scripts
 
 # Unit Testing
 include(${PROJECT_SOURCE_DIR}/cmake_files/cpputest.cmake)
