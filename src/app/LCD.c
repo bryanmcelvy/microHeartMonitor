@@ -5,22 +5,16 @@
  * @file
  * @author  Bryan McElvy
  * @brief   Source code for LCD module.
- * @ingroup lcd
  */
 
 /******************************************************************************
 SECTIONS
-        Preprocessor Directives
-        Declarations
+        Static Declarations
         Initialization/Configuration
         Drawing Area
         Color
         Drawing
         Scrolling
-*******************************************************************************/
-
-/******************************************************************************
-Preprocessor Directives
 *******************************************************************************/
 
 #include "LCD.h"
@@ -30,13 +24,15 @@ Preprocessor Directives
 #include "SPI.h"
 #include "Timer.h"
 
+#include "NewAssert.h"
+
 #include "tm4c123gh6pm.h"
 
-#include <stdint.h>
 #include <stdbool.h>
+#include <stdint.h>
 
 /******************************************************************************
-Declarations
+Static Declarations
 *******************************************************************************/
 
 /// @brief Updates `lcd`'s `numPixels` parameter after changing rows/columns
@@ -64,7 +60,7 @@ inline static void LCD_setDim(uint16_t d1, uint16_t d2, bool is_x, bool update_n
 inline static void LCD_drawLine(uint16_t center, uint16_t lineWidth, bool is_horizontal);
 
 // clang-format off
-typedef struct {
+static struct {
     uint16_t x1;            ///< starting x-value in range [0, x2]
     uint16_t x2;            ///< ending x-value in range [0, NUM_ROWS)
     uint16_t y1;            ///< starting y-value in range [0, y2]
@@ -79,24 +75,7 @@ typedef struct {
     bool is_inverted;       ///< if `true`, the display's colors are inverted
     bool is_16bit;          ///< `true` for 16-bit color depth, `false` for 18-bit
     bool is_init;           ///< if `true`, LCD has been initialized
-} LCD_t;
-
-static LCD_t lcd = {
-    0,
-    (X_MAX - 1),
-    0,
-    (Y_MAX - 1),
-    (X_MAX * Y_MAX),
-
-    255,
-    255,
-    255,                                
-
-    false,                              
-    false,                              
-    true,                               
-    false                               
-};
+} lcd;
 
 // clang-format on
 
@@ -105,26 +84,45 @@ Initialization/Configuration
 *******************************************************************************/
 
 void LCD_Init(void) {
-    if(lcd.is_init == false) {
-        ILI9341_Init();
-        ILI9341_setSleepMode(false);
-        ILI9341_setMemAccessCtrl(1, 0, 0, 0, 1, 0);
-        ILI9341_setColorDepth(true);
-        ILI9341_setDispMode(true, false);
-        // ILI9341_setFrameRateIdle(2, 27);               // frame rate = 35 Hz
+    Assert(lcd.is_init == false);
 
-        lcd.is_init = true;
-    }
+    ILI9341_Init();
+    ILI9341_setSleepMode(false);
+    ILI9341_setMemAccessCtrl(1, 0, 0, 0, 1, 0);
+    ILI9341_setColorDepth(true);
+    ILI9341_setDispMode(true, false);
+    // ILI9341_setFrameRateIdle(2, 27);               // frame rate = 35 Hz
+
+    lcd.x1 = 0;
+    lcd.x2 = (X_MAX - 1);
+    lcd.y1 = 0;
+    lcd.y2 = (Y_MAX - 1), lcd.numPixels = (X_MAX * Y_MAX);
+
+    lcd.R_val = 255;
+    lcd.G_val = 255;
+    lcd.B_val = 255;
+
+    lcd.is_outputON = false;
+    lcd.is_inverted = false;
+    lcd.is_16bit = true;
+
+    lcd.is_init = true;
+
+    return;
 }
 
 void LCD_toggleOutput(void) {
     lcd.is_outputON = (lcd.is_outputON) ? false : true;
     ILI9341_setDispOutput(lcd.is_outputON);
+
+    return;
 }
 
 void LCD_toggleInversion(void) {
     lcd.is_inverted = (lcd.is_inverted) ? false : true;
     ILI9341_setDispInversion(lcd.is_inverted);
+
+    return;
 }
 
 void LCD_toggleColorDepth(void) {
@@ -134,6 +132,8 @@ void LCD_toggleColorDepth(void) {
         lcd.R_val |= 0x1F;
         lcd.B_val |= 0x1F;
     }
+
+    return;
 }
 
 /******************************************************************************
@@ -142,16 +142,10 @@ Drawing Area
 
 inline static void LCD_updateNumPixels(void) {
     lcd.numPixels = (uint32_t) ((lcd.x2 - lcd.x1) + 1) * ((lcd.y2 - lcd.y1) + 1);
+    return;
 }
 
 inline static void LCD_setDim(uint16_t d1, uint16_t d2, bool is_x, bool update_num_pixels) {
-    // uint16_t DIM_MAX;
-
-    // ensure the dim numbers meet the restrictions
-    // DIM_MAX = (is_x) ? X_MAX : Y_MAX;
-    // d2 = (d2 < DIM_MAX) ? d2 : (DIM_MAX - 1);
-    // d1 = (d1 <= d2) ? d1 : d2;
-
     if(is_x) {
         lcd.x1 = d1;
         lcd.x2 = d2;
@@ -166,19 +160,24 @@ inline static void LCD_setDim(uint16_t d1, uint16_t d2, bool is_x, bool update_n
     if(update_num_pixels) {
         LCD_updateNumPixels();
     }
+
+    return;
 }
 
 void LCD_setArea(uint16_t x1, uint16_t x2, uint16_t y1, uint16_t y2) {
     LCD_setDim(x1, x2, true, false);
     LCD_setDim(y1, y2, false, true);
+    return;
 }
 
 void LCD_setX(uint16_t x1, uint16_t x2) {
     LCD_setDim(x1, x2, true, true);
+    return;
 }
 
 void LCD_setY(uint16_t y1, uint16_t y2) {
     LCD_setDim(y1, y2, false, true);
+    return;
 }
 
 /******************************************************************************
@@ -195,14 +194,16 @@ void LCD_setColor(uint8_t R_val, uint8_t G_val, uint8_t B_val) {
         lcd.B_val = 0x3F * (B_val & 0x01);
     }
     lcd.G_val = 0x3F * (G_val & 0x02);
+
+    return;
 }
 
 void LCD_setColor_3bit(uint8_t color_code) {
     // clang-format off
     /**
      *  This is simply a convenience function for setting the color using the
-     *  macros defined in the header file. The ones with the `_INV` suffix should
-     *  used when the display colors are inverted.
+     *  enum values defined in the header file. The ones with the `_INV` suffix
+     *  should be used when the display colors are inverted.
      *
      *  hex     | binary | macro
      *  --------|--------|------------
@@ -233,6 +234,8 @@ void LCD_setColor_3bit(uint8_t color_code) {
         }
         lcd.G_val = 0x3F * (color_code & 0x02);
     }
+
+    return;
 }
 
 /******************************************************************************
@@ -245,6 +248,8 @@ void LCD_Draw(void) {
     for(uint32_t count = 0; count < lcd.numPixels; count++) {
         ILI9341_writePixel(lcd.R_val, lcd.G_val, lcd.B_val, lcd.is_16bit);
     }
+
+    return;
 }
 
 void LCD_Fill(void) {
@@ -252,6 +257,8 @@ void LCD_Fill(void) {
     LCD_setDim(0, X_MAX, true, false);
     LCD_setDim(0, Y_MAX, false, true);
     LCD_Draw();
+
+    return;
 }
 
 inline static void LCD_drawLine(uint16_t center, uint16_t lineWidth, bool is_horizontal) {
@@ -287,15 +294,20 @@ inline static void LCD_drawLine(uint16_t center, uint16_t lineWidth, bool is_hor
         LCD_setDim(start, end, true, false);
         LCD_setDim(0, (Y_MAX - 1), false, true);
     }
+
     LCD_Draw();
+
+    return;
 }
 
 void LCD_drawHoriLine(uint16_t yCenter, uint16_t lineWidth) {
     LCD_drawLine(yCenter, lineWidth, true);
+    return;
 }
 
 void LCD_drawVertLine(uint16_t xCenter, uint16_t lineWidth) {
     LCD_drawLine(xCenter, lineWidth, false);
+    return;
 }
 
 void LCD_drawRectangle(uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy, bool isFilled) {
@@ -342,6 +354,8 @@ void LCD_drawRectangle(uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy, bool 
         LCD_setDim(x2, x2, true, true);
         LCD_Draw();
     }
+
+    return;
 }
 
 /******************************************************************************
@@ -390,6 +404,8 @@ void LCD_graphSample(uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy, uint16_
             ILI9341_writePixel(lcd.R_val, lcd.G_val, lcd.B_val, true);
         }
     }
+
+    return;
 }
 
 /** @} */

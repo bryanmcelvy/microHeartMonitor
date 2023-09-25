@@ -12,7 +12,6 @@
 
 /******************************************************************************
 SECTIONS
-        Preprocessor Directives
         Initialization/Configuration
         Drawing Area
         Color
@@ -20,48 +19,19 @@ SECTIONS
         Scrolling
 *******************************************************************************/
 
-/******************************************************************************
-Preprocessor Directives
-*******************************************************************************/
-
-// Dependencies
 #include "ILI9341.h"
 
 #include "SPI.h"
 #include "Timer.h"
 
+#include "NewAssert.h"
+
 #include "tm4c123gh6pm.h"
 
-#include <stdint.h>
 #include <stdbool.h>
+#include <stdint.h>
 
-// Dimensions
-#define X_MAX          NUM_ROWS
-#define Y_MAX          NUM_COLS
-
-// 3-bit Color Codes
-#define LCD_BLACK      (uint8_t) 0x00
-
-#define LCD_RED        (uint8_t) 0x04
-#define LCD_GREEN      (uint8_t) 0x02
-#define LCD_BLUE       (uint8_t) 0x01
-
-#define LCD_YELLOW     (uint8_t) 0x06               // LCD_RED + LCD_GREEN
-#define LCD_CYAN       (uint8_t) 0x03               // LCD_BLUE + LCD_GREEN
-#define LCD_PURPLE     (uint8_t) 0x05               // LCD_RED + LCD_BLUE
-#define LCD_WHITE      (uint8_t) 0x07               // LCD_RED + LCD_BLUE + LCD_GREEN
-
-// 3-bit Color Codes (Inverted)
-#define LCD_BLACK_INV  (uint8_t) LCD_WHITE                // LCD_WHITE - LCD_BLACK
-
-#define LCD_RED_INV    (uint8_t) LCD_CYAN                 // LCD_WHITE - LCD_RED
-#define LCD_GREEN_INV  (uint8_t) LCD_PURPLE               // LCD_WHITE - LCD_GREEN
-#define LCD_BLUE_INV   (uint8_t) LCD_YELLOW               // LCD_WHITE - LCD_BLUE
-
-#define LCD_YELLOW_INV (uint8_t) LCD_BLUE                 // LCD_WHITE - LCD_YELLOW
-#define LCD_CYAN_INV   (uint8_t) LCD_RED                  // LCD_WHITE - LCD_CYAN
-#define LCD_PURPLE_INV (uint8_t) LCD_GREEN                // LCD_WHITE - LCD_PURPLE
-#define LCD_WHITE_INV  (uint8_t) LCD_BLACK                // LCD_WHITE - LCD_WHITE
+enum { X_MAX = NUM_ROWS, Y_MAX = NUM_COLS };
 
 /******************************************************************************
 Initialization/Configuration
@@ -143,6 +113,30 @@ Color
                         6-bit (`[0-63]`) if color depth is 18-bit
  */
 void LCD_setColor(uint8_t R_val, uint8_t G_val, uint8_t B_val);
+
+enum {
+    // 3-bit Color Codes
+    LCD_BLACK = 0x00,
+    LCD_RED = 0x04,
+    LCD_GREEN = 0x02,
+    LCD_BLUE = 0x01,
+    LCD_YELLOW = 0x06,               // LCD_RED + LCD_GREEN
+    LCD_CYAN = 0x03,                 // LCD_BLUE + LCD_GREEN
+    LCD_PURPLE = 0x05,               // LCD_RED + LCD_BLUE
+    LCD_WHITE = 0x07,                // LCD_RED + LCD_BLUE + LCD_GREEN
+
+    // 3-bit Color Codes (Inverted)
+    LCD_BLACK_INV = LCD_WHITE,                // LCD_WHITE - LCD_BLACK
+
+    LCD_RED_INV = LCD_CYAN,                   // LCD_WHITE - LCD_RED
+    LCD_GREEN_INV = LCD_PURPLE,               // LCD_WHITE - LCD_GREEN
+    LCD_BLUE_INV = LCD_YELLOW,                // LCD_WHITE - LCD_BLUE
+
+    LCD_YELLOW_INV = LCD_BLUE,                // LCD_WHITE - LCD_YELLOW
+    LCD_CYAN_INV = LCD_RED,                   // LCD_WHITE - LCD_CYAN
+    LCD_PURPLE_INV = LCD_GREEN,               // LCD_WHITE - LCD_PURPLE
+    LCD_WHITE_INV = LCD_BLACK                 // LCD_WHITE - LCD_WHITE
+};
 
 /**
  * @brief               Set the color value via a 3-bit code.
