@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.7.25)  6 SEP 2023 18:38
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.7.25)  24 SEP 2023 19:17
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -708,7 +708,7 @@ Package caption Info: longtable package is loaded.
 Package: ltcaption 2021/01/08 v1.4c longtable captions (AR)
 ))
 (./etoc_doxygen.sty
-Package: etoc_doxygen 2023/05/01 v1.2a Completely customisable TOCs (JFB)
+Package: etoc_doxygen 2023/07/01 v1.2b Completely customisable TOCs (JFB)
 \Etoc@toctoks=\toks35
 \c@etoc@tocid=\count340
 \etoc@framed@titlebox=\box120
@@ -730,51 +730,19 @@ File: l3backend-pdftex.def 2023-01-16 L3 backend support: PDF output (pdfTeX)
 \l__pdf_internal_box=\box122
 ) (./refman.aux
 
-LaTeX Warning: Label `group__spi_ga0565bbebf93588bd01edaceb0aa3c439' multiply d
+LaTeX Warning: Label `group__daq_ga06fc87d81c62e9abb8790b6e5713c55b' multiply d
 efined.
 
 
-LaTeX Warning: Label `group__spi_ga346792b431b9d8552719cad50963c8d2' multiply d
+LaTeX Warning: Label `group__lcd_ga99fb83031ce9923c84392b4e92f956b5' multiply d
 efined.
 
 
-LaTeX Warning: Label `group__spi_gacfb024bc25d22090151672bd94578f02' multiply d
+LaTeX Warning: Label `group__lcd_gabc6126af1d45847bc59afa0aa3216b04' multiply d
 efined.
 
 
-LaTeX Warning: Label `group__spi_ga49a7a9f52181391f13e59dc23c562456' multiply d
-efined.
-
-
-LaTeX Warning: Label `group__spi_gadc3cc3688a7a13463d90aad4e861e525' multiply d
-efined.
-
-
-LaTeX Warning: Label `group__spi_ga97f9f5cc546b1896703fe63289b4fd3d' multiply d
-efined.
-
-
-LaTeX Warning: Label `group__spi_ga66c2da689e55a46d87cb2a896ebfd440' multiply d
-efined.
-
-
-LaTeX Warning: Label `group__uart_ga0bdd7d3b2e41fd447c72b362bee19e2e' multiply 
-defined.
-
-
-LaTeX Warning: Label `group__uart_ga62f1690ef2c273b5e727de8445cfa8a8' multiply 
-defined.
-
-
-LaTeX Warning: Label `group__uart_ga2e29d5f6cf5f8d37d71f890249360b0e' multiply 
-defined.
-
-
-LaTeX Warning: Label `group__uart_gae848306e99ce5047fee4c920841f5f57' multiply 
-defined.
-
-
-LaTeX Warning: Label `group__spi_ga99fb83031ce9923c84392b4e92f956b5' multiply d
+LaTeX Warning: Label `group__spi_ga0411cd49bb5b71852cecd93bcbf0ca2d' multiply d
 efined.
 
 )
@@ -906,37 +874,41 @@ LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 (Font)              scaled to size 6.29996pt on input line 201.
  [1] [2]
 Package hyperref Info: Option `pageanchor' set `true' on input line 203.
-LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 12.9599pt on input line 205.
 
-(./modules.tex
+(./md__2_users_2bryanmcelvy_2_documents_2project__dir_2ecg__hrm_2_r_e_a_d_m_e.t
+ex
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 10.79993pt on input line 1.
- [1]) (./annotated.tex) (./files.tex [2]
-LaTeX Font Info:    Trying to load font information for TS1+phv on input line 1
-9.
-
-(/usr/local/texlive/2023basic/texmf-dist/tex/latex/psnfss/ts1phv.fd
+(Font)              scaled to size 12.9599pt on input line 1.
+LaTeX Font Info:    Trying to load font information for TS1+phv on input line 7
+.
+ (/usr/local/texlive/2023basic/texmf-dist/tex/latex/psnfss/ts1phv.fd
 File: ts1phv.fd 2020/03/25 scalable font definitions for TS1/phv.
 )
-LaTeX Font Info:    Font shape `TS1/phv/b/n' will be
-(Font)              scaled to size 8.99994pt on input line 19.
- [3])
+LaTeX Font Info:    Font shape `TS1/phv/m/n' will be
+(Font)              scaled to size 8.99994pt on input line 7.
+
+[1]
+LaTeX Font Info:    Font shape `T1/phv/b/n' will be
+(Font)              scaled to size 10.79993pt on input line 26.
+LaTeX Font Info:    Trying to load font information for T1+pcr on input line 34
+.
+ (/usr/local/texlive/2023basic/texmf-dist/tex/latex/psnfss/t1pcr.fd
+File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
+)
+[2]) (./topics.tex [3]) (./annotated.tex) (./files.tex [4] [5])
 (./group__driver.tex <./group__driver.pdf>
-<group__driver.pdf, id=715, 339.2675pt x 443.6575pt>
+<group__driver.pdf, id=755, 339.2675pt x 369.38pt>
 File: group__driver.pdf Graphic file (type pdf)
 <use group__driver.pdf>
-Package pdftex.def Info: group__driver.pdf  used on input line 8.
-(pdftex.def)             Requested size: 338.0pt x 442.01814pt.
- [4]
-LaTeX Font Info:    Font shape `TS1/phv/m/n' will be
-(Font)              scaled to size 8.99994pt on input line 14.
- (./group__adc.tex [5] <./group__adc.pdf>
-<group__adc.pdf, id=776, 339.2675pt x 111.41624pt>
+Package pdftex.def Info: group__driver.pdf  used on input line 13.
+(pdftex.def)             Requested size: 338.0pt x 368.0151pt.
+ [6] (./group__adc.tex <./group__adc.pdf>
+<group__adc.pdf, id=799, 339.2675pt x 111.41624pt>
 File: group__adc.pdf Graphic file (type pdf)
 <use group__adc.pdf>
 Package pdftex.def Info: group__adc.pdf  used on input line 8.
 (pdftex.def)             Requested size: 338.0pt x 111.00455pt.
+ [7]
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
 (Font)              scaled to size 8.09995pt on input line 15.
 LaTeX Font Info:    Font shape `T1/phv/m/it' in size <9> not available
@@ -944,286 +916,218 @@ LaTeX Font Info:    Font shape `T1/phv/m/it' in size <9> not available
 LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
 (Font)              scaled to size 8.09995pt on input line 15.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 7.19995pt on input line 52.
-LaTeX Font Info:    Trying to load font information for T1+pcr on input line 52
-.
- (/usr/local/texlive/2023basic/texmf-dist/tex/latex/psnfss/t1pcr.fd
-File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
-)
+(Font)              scaled to size 7.19995pt on input line 42.
 LaTeX Font Info:    Font shape `T1/pcr/m/it' in size <8> not available
-(Font)              Font shape `T1/pcr/m/sl' tried instead on input line 52.
+(Font)              Font shape `T1/pcr/m/sl' tried instead on input line 42.
 LaTeX Font Info:    Font shape `T1/pcr/m/it' in size <7> not available
-(Font)              Font shape `T1/pcr/m/sl' tried instead on input line 52.
+(Font)              Font shape `T1/pcr/m/sl' tried instead on input line 42.
 
-[6]
-Underfull \hbox (badness 10000) detected at line 63
-[][][]
- []
+Overfull \vbox (7.34338pt too high) has occurred while \output is active []
 
 
-Underfull \hbox (badness 10000) detected at line 73
+[8]
+Underfull \hbox (badness 10000) detected at line 53
 [][][]
  []
 
 ) (./group__gpio.tex <./group__gpio.pdf>
-<group__gpio.pdf, id=816, 238.8925pt x 99.37125pt>
+<group__gpio.pdf, id=852, 238.8925pt x 99.37125pt>
 File: group__gpio.pdf Graphic file (type pdf)
 <use group__gpio.pdf>
 Package pdftex.def Info: group__gpio.pdf  used on input line 8.
 (pdftex.def)             Requested size: 238.0pt x 98.99951pt.
-LaTeX Font Info:    Font shape `TS1/phv/m/it' in size <9> not available
-(Font)              Font shape `TS1/phv/m/sl' tried instead on input line 17.
-LaTeX Font Info:    Font shape `TS1/phv/m/sl' will be
-(Font)              scaled to size 8.09995pt on input line 17.
- [7] [8] [9]) (./group__ili9341.tex <./group__ili9341.pdf>
-<group__ili9341.pdf, id=884, 246.9225pt x 99.37125pt>
-File: group__ili9341.pdf Graphic file (type pdf)
-<use group__ili9341.pdf>
-Package pdftex.def Info: group__ili9341.pdf  used on input line 8.
-(pdftex.def)             Requested size: 246.0pt x 98.99951pt.
- [10]
-LaTeX Font Info:    Font shape `T1/pcr/m/it' in size <9> not available
-(Font)              Font shape `T1/pcr/m/sl' tried instead on input line 119.
- [11] [12] [13] [14] [15] [16] [17] [18])
-(./group__led.tex
-Overfull \hbox (66.69417pt too wide) in paragraph at lines 531--1
-[]\T1/phv/m/n/10 Should be called af-ter set-ting the row ([]) and/or and/or co
-l-umn ([])
- []
-
-[19] <./group__led.pdf>
-<group__led.pdf, id=1068, 233.87375pt x 99.37125pt>
-File: group__led.pdf Graphic file (type pdf)
-<use group__led.pdf>
-Package pdftex.def Info: group__led.pdf  used on input line 8.
-(pdftex.def)             Requested size: 233.0pt x 99.00557pt.
- [20] [21]) (./group__pll.tex <./group__pll.pdf>
-<group__pll.pdf, id=1152, 327.2225pt x 99.37125pt>
+) (./group__pll.tex <./group__pll.pdf>
+<group__pll.pdf, id=869, 327.2225pt x 99.37125pt>
 File: group__pll.pdf Graphic file (type pdf)
 <use group__pll.pdf>
 Package pdftex.def Info: group__pll.pdf  used on input line 8.
 (pdftex.def)             Requested size: 326.0pt x 98.99951pt.
-
-[22]) (./group__spi.tex <./group__spi.pdf>
-<group__spi.pdf, id=1185, 327.2225pt x 111.41624pt>
+) (./group__spi.tex <./group__spi.pdf>
+<group__spi.pdf, id=888, 327.2225pt x 111.41624pt>
 File: group__spi.pdf Graphic file (type pdf)
 <use group__spi.pdf>
 Package pdftex.def Info: group__spi.pdf  used on input line 8.
 (pdftex.def)             Requested size: 326.0pt x 110.99945pt.
- [23]
-Underfull \hbox (badness 2351) in paragraph at lines 100--100
+ [9]
+LaTeX Font Info:    Font shape `T1/pcr/m/it' in size <9> not available
+(Font)              Font shape `T1/pcr/m/sl' tried instead on input line 71.
+ [10]
+Underfull \hbox (badness 2351) in paragraph at lines 76--76
 []\T1/phv/m/sl/9 Start writ-ing data to the Tx FIFO. Should be used af-ter 1+ c
 alls to [] and/or
  []
 
-[24
-pdfTeX warning (ext4): destination with the same identifier (name{group__spi_ga
-0565bbebf93588bd01edaceb0aa3c439}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.102 ... over SPI via SSI0. \end{DoxyCompactList}
-                                                  \end{DoxyCompactItemize}
-pdfTeX warning (ext4): destination with the same identifier (name{group__spi_ga
-346792b431b9d8552719cad50963c8d2}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.102 ... over SPI via SSI0. \end{DoxyCompactList}
-                                                  \end{DoxyCompactItemize}
-pdfTeX warning (ext4): destination with the same identifier (name{group__spi_ga
-cfb024bc25d22090151672bd94578f02}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.102 ... over SPI via SSI0. \end{DoxyCompactList}
-                                                  \end{DoxyCompactItemize}
-pdfTeX warning (ext4): destination with the same identifier (name{group__spi_ga
-49a7a9f52181391f13e59dc23c562456}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.102 ... over SPI via SSI0. \end{DoxyCompactList}
-                                                  \end{DoxyCompactItemize}
-pdfTeX warning (ext4): destination with the same identifier (name{group__spi_ga
-dc3cc3688a7a13463d90aad4e861e525}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.102 ... over SPI via SSI0. \end{DoxyCompactList}
-                                                  \end{DoxyCompactItemize}
-pdfTeX warning (ext4): destination with the same identifier (name{group__spi_ga
-97f9f5cc546b1896703fe63289b4fd3d}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.102 ... over SPI via SSI0. \end{DoxyCompactList}
-                                                  \end{DoxyCompactItemize}]
-LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 7.19995pt on input line 112.
 
-Underfull \hbox (badness 10000) in paragraph at lines 161--163
+Underfull \hbox (badness 10000) in paragraph at lines 110--112
 
  []
 
-[25
-pdfTeX warning (ext4): destination with the same identifier (name{group__spi_ga
-66c2da689e55a46d87cb2a896ebfd440}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.171 
-      ] [26]
-Underfull \hbox (badness 10000) detected at line 240
+[11]
+Underfull \hbox (badness 10000) detected at line 169
 [][][]
  []
 
-
-Underfull \hbox (badness 10000) detected at line 245
-[][][]
- []
-
-[27]) (./group__systick.tex <./group__systick.pdf>
-<group__systick.pdf, id=1293, 315.1775pt x 99.37125pt>
+[12]) (./group__systick.tex <./group__systick.pdf>
+<group__systick.pdf, id=987, 315.1775pt x 99.37125pt>
 File: group__systick.pdf Graphic file (type pdf)
 <use group__systick.pdf>
 Package pdftex.def Info: group__systick.pdf  used on input line 8.
 (pdftex.def)             Requested size: 314.0pt x 99.00557pt.
- [28]) (./group__timer.tex <./group__timer.pdf>
-<group__timer.pdf, id=1329, 238.8925pt x 99.37125pt>
+ [13]) (./group__timer.tex <./group__timer.pdf>
+<group__timer.pdf, id=1021, 238.8925pt x 99.37125pt>
 File: group__timer.pdf Graphic file (type pdf)
 <use group__timer.pdf>
 Package pdftex.def Info: group__timer.pdf  used on input line 8.
 (pdftex.def)             Requested size: 238.0pt x 98.99951pt.
- [29]
-Underfull \hbox (badness 10000) detected at line 73
+ [14]
+Underfull \hbox (badness 10000) detected at line 65
 [][][]
  []
 
-[30]
-Underfull \hbox (badness 10000) detected at line 141
+[15]
+Underfull \hbox (badness 10000) detected at line 123
 [][][]
  []
 
-[31]) (./group__uart.tex <./group__uart.pdf>
-<group__uart.pdf, id=1404, 320.19624pt x 122.4575pt>
+[16]) (./group__uart.tex <./group__uart.pdf>
+<group__uart.pdf, id=1094, 320.19624pt x 122.4575pt>
 File: group__uart.pdf Graphic file (type pdf)
 <use group__uart.pdf>
 Package pdftex.def Info: group__uart.pdf  used on input line 8.
 (pdftex.def)             Requested size: 319.0pt x 122.00125pt.
- [32] [33
-pdfTeX warning (ext4): destination with the same identifier (name{group__uart_g
-a0bdd7d3b2e41fd447c72b362bee19e2e}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.95 I
-      nitialize UART0 to a baud rate of 115200, 8-\/bit data length, 1 start...
-
-pdfTeX warning (ext4): destination with the same identifier (name{group__uart_g
-a62f1690ef2c273b5e727de8445cfa8a8}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.95 I
-      nitialize UART0 to a baud rate of 115200, 8-\/bit data length, 1 start...
-
-pdfTeX warning (ext4): destination with the same identifier (name{group__uart_g
-a2e29d5f6cf5f8d37d71f890249360b0e}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.95 I
-      nitialize UART0 to a baud rate of 115200, 8-\/bit data length, 1 start...
-
-pdfTeX warning (ext4): destination with the same identifier (name{group__uart_g
-ae848306e99ce5047fee4c920841f5f57}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.95 I
-      nitialize UART0 to a baud rate of 115200, 8-\/bit data length, 1 start...
-] [34] [35]
-Underfull \hbox (badness 10000) detected at line 195
+ [17]
+LaTeX Font Info:    Font shape `TS1/phv/m/it' in size <9> not available
+(Font)              Font shape `TS1/phv/m/sl' tried instead on input line 49.
+LaTeX Font Info:    Font shape `TS1/phv/m/sl' will be
+(Font)              scaled to size 8.09995pt on input line 49.
+ [18] [19]
+Underfull \hbox (badness 10000) detected at line 152
 [][][]
  []
 
-
-Underfull \hbox (badness 10000) detected at line 200
+[20]
+Underfull \hbox (badness 10000) detected at line 243
 [][][]
  []
 
-[36] [37] [38]
-Underfull \hbox (badness 10000) detected at line 335
-[][][]
+[21])) (./group__middleware.tex <./group__middleware.pdf>
+<group__middleware.pdf, id=1202, 230.8625pt x 136.51pt>
+File: group__middleware.pdf Graphic file (type pdf)
+<use group__middleware.pdf>
+Package pdftex.def Info: group__middleware.pdf  used on input line 13.
+(pdftex.def)             Requested size: 230.0pt x 136.0014pt.
+ (./group__ili9341.tex <./group__ili9341.pdf>
+<group__ili9341.pdf, id=1212, 230.8625pt x 99.37125pt>
+File: group__ili9341.pdf Graphic file (type pdf)
+<use group__ili9341.pdf>
+Package pdftex.def Info: group__ili9341.pdf  used on input line 8.
+(pdftex.def)             Requested size: 230.0pt x 99.00102pt.
+ [22] [23]
+Underfull \hbox (badness 918) in paragraph at lines 88--89
+[]\T1/phv/m/n/10 void [] (bool are[]Rows[]Flipped, bool are[]Cols[]Flipped, boo
+l are[]Rows[]And[]Cols[]
  []
 
-
-Underfull \hbox (badness 10000) detected at line 340
-[][][]
+[24] [25] [26] [27] [28] [29]
+Overfull \hbox (66.69417pt too wide) in paragraph at lines 534--537
+[]\T1/phv/m/n/10 Should be called af-ter set-ting the row ([]) and/or and/or co
+l-umn ([])
  []
 
-[39])) (./group__app.tex <./group__app.pdf>
-<group__app.pdf, id=1539, 341.275pt x 247.92625pt>
+[30]) (./group__led.tex <./group__led.pdf>
+<group__led.pdf, id=1413, 217.81375pt x 99.37125pt>
+File: group__led.pdf Graphic file (type pdf)
+<use group__led.pdf>
+Package pdftex.def Info: group__led.pdf  used on input line 8.
+(pdftex.def)             Requested size: 217.0pt x 98.99951pt.
+ [31] [32] [33])) (./group__app.tex <./group__app.pdf>
+<group__app.pdf, id=1493, 341.275pt x 210.7875pt>
 File: group__app.pdf Graphic file (type pdf)
 <use group__app.pdf>
-Package pdftex.def Info: group__app.pdf  used on input line 8.
-(pdftex.def)             Requested size: 340.0pt x 247.01392pt.
- (./group__daq.tex <./group__daq.pdf>
-<group__daq.pdf, id=1561, 341.275pt x 99.37125pt>
+Package pdftex.def Info: group__app.pdf  used on input line 13.
+(pdftex.def)             Requested size: 340.0pt x 210.01184pt.
+ [34] (./group__daq.tex <./group__daq.pdf>
+<group__daq.pdf, id=1527, 341.275pt x 99.37125pt>
 File: group__daq.pdf Graphic file (type pdf)
 <use group__daq.pdf>
 Package pdftex.def Info: group__daq.pdf  used on input line 8.
 (pdftex.def)             Requested size: 340.0pt x 99.00557pt.
- [40]) (./group__debug.tex <./group__debug.pdf>
-<group__debug.pdf, id=1595, 268.00125pt x 99.37125pt>
+ [35] [36]
+Underfull \hbox (badness 10000) detected at line 97
+[][][]
+ []
+
+) (./group__debug.tex <./group__debug.pdf>
+<group__debug.pdf, id=1584, 268.00125pt x 99.37125pt>
 File: group__debug.pdf Graphic file (type pdf)
 <use group__debug.pdf>
 Package pdftex.def Info: group__debug.pdf  used on input line 8.
 (pdftex.def)             Requested size: 267.0pt x 98.99951pt.
 ) (./group__lcd.tex <./group__lcd.pdf>
-<group__lcd.pdf, id=1612, 258.9675pt x 99.37125pt>
+<group__lcd.pdf, id=1602, 258.9675pt x 99.37125pt>
 File: group__lcd.pdf Graphic file (type pdf)
 <use group__lcd.pdf>
 Package pdftex.def Info: group__lcd.pdf  used on input line 8.
 (pdftex.def)             Requested size: 258.0pt x 99.01012pt.
- [41] [42]
-Underfull \hbox (badness 10000) in paragraph at lines 139--140
-[]\T1/phv/m/n/10 References [], [], [], [], [],
- []
-
-[43] [44] [45]
-Overfull \vbox (29.53128pt too high) has occurred while \output is active []
+ [37] [38] [39]
+Overfull \vbox (4.94727pt too high) has occurred while \output is active []
 
 
-[46]
-Overfull \vbox (4.69527pt too high) has occurred while \output is active []
-
-
-[47]) (./group__qrs.tex <./group__qrs.pdf>
-<group__qrs.pdf, id=1770, 260.975pt x 99.37125pt>
+[40] [41]) (./group__qrs.tex <./group__qrs.pdf>
+<group__qrs.pdf, id=1717, 260.975pt x 99.37125pt>
 File: group__qrs.pdf Graphic file (type pdf)
 <use group__qrs.pdf>
 Package pdftex.def Info: group__qrs.pdf  used on input line 8.
 (pdftex.def)             Requested size: 260.0pt x 99.00102pt.
-) (./group__userctrl.tex <./group__userctrl.pdf>
-<group__userctrl.pdf, id=1787, 276.03125pt x 99.37125pt>
-File: group__userctrl.pdf Graphic file (type pdf)
-<use group__userctrl.pdf>
-Package pdftex.def Info: group__userctrl.pdf  used on input line 8.
-(pdftex.def)             Requested size: 275.0pt x 99.01012pt.
-)) (./group__thread.tex [48]) (./group__fifo.tex [49] [50]
-Underfull \hbox (badness 10000) detected at line 93
+ [42])) (./group__common.tex <./group__common.pdf>
+<group__common.pdf, id=1743, 237.88875pt x 136.51pt>
+File: group__common.pdf Graphic file (type pdf)
+<use group__common.pdf>
+Package pdftex.def Info: group__common.pdf  used on input line 8.
+(pdftex.def)             Requested size: 237.0pt x 136.00557pt.
+ [43] (./group__fifo.tex <./group__fifo.pdf>
+<group__fifo.pdf, id=1770, 210.7875pt x 99.37125pt>
+File: group__fifo.pdf Graphic file (type pdf)
+<use group__fifo.pdf>
+Package pdftex.def Info: group__fifo.pdf  used on input line 8.
+(pdftex.def)             Requested size: 210.0pt x 99.00253pt.
+ [44] [45]
+Underfull \hbox (badness 10000) detected at line 106
 [][][]
  []
 
-
-Underfull \hbox (badness 10000) detected at line 128
+[46]
+Underfull \hbox (badness 10000) detected at line 141
 [][][]
  []
 
-[51] [52]
-Underfull \hbox (badness 10000) detected at line 207
+[47]
+Underfull \hbox (badness 10000) detected at line 220
 [][][]
  []
 
-) (./struct_f_i_f_o__t.tex [53]) (./struct_g_p_i_o___port__t.tex)
-(./struct_l_c_d__t.tex [54]) (./struct_led__t.tex) (./_d_a_q_8c.tex
-Underfull \hbox (badness 10000) in paragraph at lines 8--16
+[48]) (./group__newassert.tex <./group__newassert.pdf>
+<group__newassert.pdf, id=1892, 237.88875pt x 99.37125pt>
+File: group__newassert.pdf Graphic file (type pdf)
+<use group__newassert.pdf>
+Package pdftex.def Info: group__newassert.pdf  used on input line 8.
+(pdftex.def)             Requested size: 237.0pt x 99.00406pt.
+))
+(./struct_f_i_f_o__t.tex [49]) (./struct_g_p_i_o___port__t.tex)
+(./struct_led__t.tex) (./_d_a_q_8c.tex
+Underfull \hbox (badness 10000) in paragraph at lines 8--20
 
  []
 
-[55]
-Underfull \hbox (badness 10000) detected at line 38
+[50]
+pdfTeX warning (ext4): destination with the same identifier (name{group__daq_ga
+06fc87d81c62e9abb8790b6e5713c55b}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.33 ...p__daq_ga06fc87d81c62e9abb8790b6e5713c55b}
+                                                  \label{group__daq_ga06fc87...
+
+Underfull \hbox (badness 10000) detected at line 56
 [][][]
  []
 
@@ -1232,7 +1136,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 8--15
 
  []
 
-
+[51]
 Underfull \hbox (badness 10000) detected at line 27
 [][][]
  []
@@ -1242,28 +1146,42 @@ Underfull \hbox (badness 10000) in paragraph at lines 8--13
 
  []
 
-[56]
-Underfull \hbox (badness 10000) detected at line 46
+[52]
+Underfull \hbox (badness 10000) detected at line 45
 [][][]
  []
 
-[57]) (./_l_c_d_8c.tex
-Underfull \hbox (badness 10000) in paragraph at lines 8--15
+[53]) (./_l_c_d_8c.tex
+Underfull \hbox (badness 10000) in paragraph at lines 8--16
 
  []
 
-[58]
-Underfull \hbox (badness 10000) detected at line 58
+[54]
+Underfull \hbox (badness 10000) detected at line 68
 [][][]
  []
 
 ) (./_l_c_d_8h.tex
-Underfull \hbox (badness 10000) in paragraph at lines 8--14
+Underfull \hbox (badness 10000) in paragraph at lines 8--15
 
  []
 
-[59] [60]
-Underfull \hbox (badness 10000) detected at line 105
+
+pdfTeX warning (ext4): destination with the same identifier (name{group__lcd_ga
+99fb83031ce9923c84392b4e92f956b5}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.18 ...p__lcd_ga99fb83031ce9923c84392b4e92f956b5}
+                                                  \label{group__lcd_ga99fb83...
+[55]
+pdfTeX warning (ext4): destination with the same identifier (name{group__lcd_ga
+bc6126af1d45847bc59afa0aa3216b04}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.65 ...p__lcd_gabc6126af1d45847bc59afa0aa3216b04}
+                                                  \label{group__lcd_gabc6126...
+[56]
+Underfull \hbox (badness 10000) detected at line 97
 [][][]
  []
 
@@ -1283,27 +1201,27 @@ Underfull \hbox (badness 10000) in paragraph at lines 8--10
  []
 
 
-Underfull \hbox (badness 10000) detected at line 20
+Underfull \hbox (badness 10000) detected at line 21
 [][][]
  []
 
-[61]) (./_f_i_f_o_8c.tex
+) (./_f_i_f_o_8c.tex
+Underfull \hbox (badness 10000) in paragraph at lines 8--12
+
+ []
+
+[57]
+Underfull \hbox (badness 10000) detected at line 65
+[][][]
+ []
+
+) (./_f_i_f_o_8h.tex [58]
 Underfull \hbox (badness 10000) in paragraph at lines 8--11
 
  []
 
-[62]
-Underfull \hbox (badness 10000) detected at line 58
-[][][]
- []
-
-) (./_f_i_f_o_8h.tex
-Underfull \hbox (badness 10000) in paragraph at lines 8--10
-
- []
-
-[63]
-Underfull \hbox (badness 10000) detected at line 57
+[59]
+Underfull \hbox (badness 10000) detected at line 64
 [][][]
  []
 
@@ -1317,127 +1235,91 @@ Underfull \hbox (badness 10000) detected at line 20
 [][][]
  []
 
-
-Underfull \hbox (badness 10000) detected at line 36
-[][][]
- []
-
-) (./lookup_8h.tex [64]
+) (./lookup_8h.tex
 Underfull \hbox (badness 10000) in paragraph at lines 8--9
 
  []
 
 
-Underfull \hbox (badness 10000) detected at line 25
+Underfull \hbox (badness 10000) detected at line 26
 [][][]
  []
 
+) (./_new_assert_8c.tex
+Underfull \hbox (badness 10000) in paragraph at lines 8--10
 
-Underfull \hbox (badness 10000) detected at line 41
+ []
+
+[60]
+Underfull \hbox (badness 10000) detected at line 20
+[][][]
+ []
+
+) (./_new_assert_8h.tex
+Underfull \hbox (badness 10000) in paragraph at lines 8--9
+
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 19
 [][][]
  []
 
 ) (./_a_d_c_8c.tex
-Underfull \hbox (badness 10000) in paragraph at lines 8--13
-
- []
-
-[65]
-Underfull \hbox (badness 10000) detected at line 34
-[][][]
- []
-
-) (./_a_d_c_8h.tex
-Underfull \hbox (badness 10000) in paragraph at lines 8--13
-
- []
-
-[66]
-Underfull \hbox (badness 10000) detected at line 29
-[][][]
- []
-
-) (./_a_d_c___new_8c.tex
 Underfull \hbox (badness 10000) in paragraph at lines 8--15
 
  []
 
-
+[61]
 Underfull \hbox (badness 10000) detected at line 31
 [][][]
  []
 
-) (./_a_d_c___new_8h.tex
+) (./_a_d_c_8h.tex
 Underfull \hbox (badness 10000) in paragraph at lines 8--14
 
  []
 
-[67]
+[62]
 Underfull \hbox (badness 10000) detected at line 30
 [][][]
  []
 
 ) (./_g_p_i_o_8c.tex
-Underfull \hbox (badness 10000) in paragraph at lines 8--11
-
- []
-
-[68]
-Underfull \hbox (badness 10000) detected at line 31
-[][][]
- []
-
-) (./_g_p_i_o_8h.tex
-Underfull \hbox (badness 10000) in paragraph at lines 8--10
-
- []
-
-
-Underfull \hbox (badness 10000) detected at line 47
-[][][]
- []
-
-) (./_i_l_i9341_8c.tex
-Underfull \hbox (badness 10000) in paragraph at lines 8--14
-
- []
-
-[69] [70]
-Underfull \hbox (badness 10000) detected at line 117
-[][][]
- []
-
-) (./_i_l_i9341_8h.tex
 Underfull \hbox (badness 10000) in paragraph at lines 8--13
 
  []
 
-[71] [72]
-Underfull \hbox (badness 10000) detected at line 70
+[63]
+Underfull \hbox (badness 10000) detected at line 118
 [][][]
  []
 
-) (./_led_8c.tex
-Underfull \hbox (badness 10000) in paragraph at lines 8--13
+[64] [65] [66]
+Overfull \vbox (13.94469pt too high) has occurred while \output is active []
 
- []
 
-[73]
-Underfull \hbox (badness 10000) detected at line 40
+[67] [68]
+Underfull \hbox (badness 10000) detected at line 385
 [][][]
  []
 
-) (./_led_8h.tex
+[69]) (./_g_p_i_o_8h.tex
 Underfull \hbox (badness 10000) in paragraph at lines 8--12
 
  []
 
-[74]
-Underfull \hbox (badness 10000) detected at line 39
+[70] [71]
+Underfull \hbox (badness 10000) detected at line 101
 [][][]
  []
 
-) (./_p_l_l_8c.tex
+[72] [73] [74] [75]
+Underfull \hbox (badness 10000) detected at line 368
+[][][]
+ []
+
+[76] [77]) (./_p_l_l_8c.tex
 Underfull \hbox (badness 10000) in paragraph at lines 8--11
 
  []
@@ -1457,67 +1339,35 @@ Underfull \hbox (badness 10000) detected at line 20
 [][][]
  []
 
-) (./_s_p_i_8c.tex
-Underfull \hbox (badness 10000) in paragraph at lines 8--13
-
- []
-
-[75]
-Underfull \hbox (badness 2351) in paragraph at lines 46--46
-[]\T1/phv/m/sl/9 Start writ-ing data to the Tx FIFO. Should be used af-ter 1+ c
-alls to [] and/or
- []
-
-
-Underfull \hbox (badness 10000) detected at line 54
-[][][]
- []
-
-) (./_s_p_i_8h.tex
-Underfull \hbox (badness 10000) in paragraph at lines 8--12
-
- []
-
-[76]
-Underfull \hbox (badness 2351) in paragraph at lines 28--28
-[]\T1/phv/m/sl/9 Start writ-ing data to the Tx FIFO. Should be used af-ter 1+ c
-alls to [] and/or
- []
-
-
-Underfull \hbox (badness 10000) detected at line 34
-[][][]
- []
-
-) (./_s_p_i___new_8c.tex
+) (./_s_p_i_8c.tex [78]
 Underfull \hbox (badness 10000) in paragraph at lines 8--14
 
  []
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{group__spi_ga
-99fb83031ce9923c84392b4e92f956b5}) has been already used, duplicate ignored
+0411cd49bb5b71852cecd93bcbf0ca2d}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.34 ...p__spi_ga99fb83031ce9923c84392b4e92f956b5}
-                                                  \label{group__spi_ga99fb83...
-[77]
+l.34 ...p__spi_ga0411cd49bb5b71852cecd93bcbf0ca2d}
+                                                  \label{group__spi_ga0411cd...
+
 Underfull \hbox (badness 2351) in paragraph at lines 65--65
 []\T1/phv/m/sl/9 Start writ-ing data to the Tx FIFO. Should be used af-ter 1+ c
 alls to [] and/or
  []
 
-
+[79]
 Underfull \hbox (badness 10000) detected at line 73
 [][][]
  []
 
-) (./_s_p_i___new_8h.tex
+) (./_s_p_i_8h.tex
 Underfull \hbox (badness 10000) in paragraph at lines 8--13
 
  []
 
-[78]
+
 Underfull \hbox (badness 2351) in paragraph at lines 29--29
 []\T1/phv/m/sl/9 Start writ-ing data to the Tx FIFO. Should be used af-ter 1+ c
 alls to [] and/or
@@ -1528,12 +1378,12 @@ Underfull \hbox (badness 10000) detected at line 35
 [][][]
  []
 
-) (./_sys_tick_8c.tex
+) (./_sys_tick_8c.tex [80]
 Underfull \hbox (badness 10000) in paragraph at lines 8--11
 
  []
 
-[79]
+
 Underfull \hbox (badness 10000) detected at line 25
 [][][]
  []
@@ -1548,12 +1398,12 @@ Underfull \hbox (badness 10000) detected at line 24
 [][][]
  []
 
-) (./_timer_8c.tex
+) (./_timer_8c.tex [81]
 Underfull \hbox (badness 10000) in paragraph at lines 8--11
 
  []
 
-[80]
+
 Underfull \hbox (badness 10000) detected at line 49
 [][][]
  []
@@ -1563,163 +1413,234 @@ Underfull \hbox (badness 10000) in paragraph at lines 8--10
 
  []
 
-[81]
+[82]
 Underfull \hbox (badness 10000) detected at line 48
 [][][]
  []
 
 ) (./_u_a_r_t_8c.tex
-Underfull \hbox (badness 10000) in paragraph at lines 8--13
-
- []
-
-[82]
-Underfull \hbox (badness 10000) detected at line 62
-[][][]
- []
-
-) (./_u_a_r_t_8h.tex
-Underfull \hbox (badness 10000) in paragraph at lines 8--10
-
- []
-
-[83]
-Underfull \hbox (badness 10000) detected at line 46
-[][][]
- []
-
-) (./_u_a_r_t___new_8c.tex
 Underfull \hbox (badness 10000) in paragraph at lines 8--14
 
  []
 
-[84] [85]
+[83] [84]
 Underfull \hbox (badness 10000) detected at line 63
 [][][]
  []
 
-) (./main_8c.tex
+) (./_u_a_r_t_8h.tex
+Underfull \hbox (badness 10000) in paragraph at lines 8--13
+
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 49
+[][][]
+ []
+
+[85]) (./main_8c.tex
+Underfull \hbox (badness 10000) in paragraph at lines 8--13
+
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 30
+[][][]
+ []
+
+) (./_i_l_i9341_8c.tex
 Underfull \hbox (badness 10000) in paragraph at lines 8--15
 
  []
 
+[86]
+Underfull \hbox (badness 918) in paragraph at lines 75--76
+[]\T1/phv/m/n/10 void [] (bool are[]Rows[]Flipped, bool are[]Cols[]Flipped, boo
+l are[]Rows[]And[]Cols[]
+ []
 
-Underfull \hbox (badness 10000) detected at line 31
+[87]
+Underfull \hbox (badness 10000) detected at line 100
 [][][]
  []
 
-) [86] (./refman.ind [87
+) (./_i_l_i9341_8h.tex
+Underfull \hbox (badness 10000) in paragraph at lines 8--14
 
-
-] [88]
-Underfull \hbox (badness 10000) in paragraph at lines 344--346
-[]| \T1/phv/m/n/10 Uni-ver-sal Asyn-chronous Re-ceiver/Transmitter
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 347--349
-[]| \T1/phv/m/n/10 Uni-ver-sal Asyn-chronous Re-ceiver/Transmitter
+Underfull \hbox (badness 918) in paragraph at lines 44--45
+[]\T1/phv/m/n/10 void [] (bool are[]Rows[]Flipped, bool are[]Cols[]Flipped, boo
+l are[]Rows[]And[]Cols[]
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 350--352
-[]| \T1/phv/m/n/10 Uni-ver-sal Asyn-chronous Re-ceiver/Transmitter
+[88]
+Underfull \hbox (badness 10000) detected at line 71
+[][][]
  []
 
+) (./_led_8c.tex
+Underfull \hbox (badness 10000) in paragraph at lines 8--13
 
-Underfull \hbox (badness 10000) in paragraph at lines 353--355
-[]| \T1/phv/m/n/10 Uni-ver-sal Asyn-chronous Re-ceiver/Transmitter
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 356--358
-[]| \T1/phv/m/n/10 Uni-ver-sal Asyn-chronous Re-ceiver/Transmitter
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 359--361
-[]| \T1/phv/m/n/10 Uni-ver-sal Asyn-chronous Re-ceiver/Transmitter
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 362--364
-[]| \T1/phv/m/n/10 Uni-ver-sal Asyn-chronous Re-ceiver/Transmitter
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 365--367
-[]| \T1/phv/m/n/10 Uni-ver-sal Asyn-chronous Re-ceiver/Transmitter
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 368--370
-[]| \T1/phv/m/n/10 Uni-ver-sal Asyn-chronous Re-ceiver/Transmitter
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 371--373
-[]| \T1/phv/m/n/10 Uni-ver-sal Asyn-chronous Re-ceiver/Transmitter
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 374--376
-[]| \T1/phv/m/n/10 Uni-ver-sal Asyn-chronous Re-ceiver/Transmitter
  []
 
 [89]
-Underfull \hbox (badness 10000) in paragraph at lines 377--379
+Underfull \hbox (badness 10000) detected at line 40
+[][][]
+ []
+
+) (./_led_8h.tex
+Underfull \hbox (badness 10000) in paragraph at lines 8--12
+
+ []
+
+[90]
+Underfull \hbox (badness 10000) detected at line 39
+[][][]
+ []
+
+) [91] [92
+
+] (./refman.ind
+Underfull \hbox (badness 1708) in paragraph at lines 57--59
+[]\T1/phv/m/n/10 Electrocardiogram-based Heart Rate Mon-i-tor (ECG-
+ []
+
+[93
+
+] [94] [95]
+Underfull \hbox (badness 10000) in paragraph at lines 490--492
 []| \T1/phv/m/n/10 Uni-ver-sal Asyn-chronous Re-ceiver/Transmitter
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 380--382
+Underfull \hbox (badness 10000) in paragraph at lines 493--495
 []| \T1/phv/m/n/10 Uni-ver-sal Asyn-chronous Re-ceiver/Transmitter
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 383--385
+Underfull \hbox (badness 10000) in paragraph at lines 496--498
 []| \T1/phv/m/n/10 Uni-ver-sal Asyn-chronous Re-ceiver/Transmitter
  []
 
-[90
+[96]
+Underfull \hbox (badness 10000) in paragraph at lines 499--501
+[]| \T1/phv/m/n/10 Uni-ver-sal Asyn-chronous Re-ceiver/Transmitter
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 502--504
+[]| \T1/phv/m/n/10 Uni-ver-sal Asyn-chronous Re-ceiver/Transmitter
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 505--507
+[]| \T1/phv/m/n/10 Uni-ver-sal Asyn-chronous Re-ceiver/Transmitter
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 508--510
+[]| \T1/phv/m/n/10 Uni-ver-sal Asyn-chronous Re-ceiver/Transmitter
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 511--513
+[]| \T1/phv/m/n/10 Uni-ver-sal Asyn-chronous Re-ceiver/Transmitter
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 514--516
+[]| \T1/phv/m/n/10 Uni-ver-sal Asyn-chronous Re-ceiver/Transmitter
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 517--519
+[]| \T1/phv/m/n/10 Uni-ver-sal Asyn-chronous Re-ceiver/Transmitter
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 520--522
+[]| \T1/phv/m/n/10 Uni-ver-sal Asyn-chronous Re-ceiver/Transmitter
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 523--525
+[]| \T1/phv/m/n/10 Uni-ver-sal Asyn-chronous Re-ceiver/Transmitter
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 526--528
+[]| \T1/phv/m/n/10 Uni-ver-sal Asyn-chronous Re-ceiver/Transmitter
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 529--531
+[]| \T1/phv/m/n/10 Uni-ver-sal Asyn-chronous Re-ceiver/Transmitter
+ []
+
+[97
 
 ]) (./refman.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `refman.out' has not changed.
-(rerunfilecheck)             Checksum: 6624D49C355E0DB7460B46FFAACAACA9;21882.
+(rerunfilecheck)             Checksum: B7585A450EF1DBADA46F1E25EBDD5310;22169.
  ) 
 Here is how much of TeX's memory you used:
- 19628 strings out of 477476
- 330759 string characters out of 5824244
- 1894388 words of memory out of 5000000
- 38611 multiletter control sequences out of 15000+600000
- 563439 words of font info for 108 fonts, out of 8000000 for 9000
+ 19813 strings out of 477476
+ 337541 string characters out of 5824244
+ 1898388 words of memory out of 5000000
+ 38703 multiletter control sequences out of 15000+600000
+ 560873 words of font info for 104 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
- 101i,16n,117p,767b,744s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2023basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi1
-0.pfb></usr/local/texlive/2023basic/texmf-dist/fonts/type1/public/amsfonts/cm/c
-mmi6.pfb></usr/local/texlive/2023basic/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmmi7.pfb></usr/local/texlive/2023basic/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmmi9.pfb></usr/local/texlive/2023basic/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmr10.pfb></usr/local/texlive/2023basic/texmf-dist/fonts/type1/public/a
-msfonts/cm/cmr9.pfb></usr/local/texlive/2023basic/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2023basic/texmf-dist/fonts/type1/pu
-blic/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2023basic/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2023basic/texmf-dist/fonts/ty
-pe1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2023basic/texmf-dist/fonts
-/type1/urw/courier/ucrb8a.pfb></usr/local/texlive/2023basic/texmf-dist/fonts/ty
-pe1/urw/courier/ucrr8a.pfb></usr/local/texlive/2023basic/texmf-dist/fonts/type1
-/urw/courier/ucrro8a.pfb></usr/local/texlive/2023basic/texmf-dist/fonts/type1/u
-rw/helvetic/uhvb8a.pfb></usr/local/texlive/2023basic/texmf-dist/fonts/type1/urw
-/helvetic/uhvb8ac.pfb></usr/local/texlive/2023basic/texmf-dist/fonts/type1/urw/
-helvetic/uhvr8a.pfb></usr/local/texlive/2023basic/texmf-dist/fonts/type1/urw/he
-lvetic/uhvro8a.pfb>
-Output written on refman.pdf (93 pages, 508572 bytes).
+ 101i,16n,117p,811b,756s stack positions out of 10000i,1000n,20000p,200000b,200000s
+
+pdfTeX warning (dest): name{_l_c_d_8c_a47ada631c22a9d40348069145654f255} has be
+en referenced but does not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{_l_c_d_8c_aedb5fdfe3c1d1a915b668ba7f3950753} has be
+en referenced but does not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{_l_c_d_8c_a93f6b58ed09489779ab723dc5699cd31} has be
+en referenced but does not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{_l_c_d_8c_aaf3194dd3760d89e33f4d194eb63f5d6} has be
+en referenced but does not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{_l_c_d_8c_a1c3fcb61bb6bf804280b62c71949a83c} has be
+en referenced but does not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{_l_c_d_8c_a7e4fbbb1cc70dde809942232587305fc} has be
+en referenced but does not exist, replaced by a fixed one
+
+</usr/local/texlive/2023basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.
+pfb></usr/local/texlive/2023basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmm
+i6.pfb></usr/local/texlive/2023basic/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmmi7.pfb></usr/local/texlive/2023basic/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmmi9.pfb></usr/local/texlive/2023basic/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmr10.pfb></usr/local/texlive/2023basic/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmr9.pfb></usr/local/texlive/2023basic/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmsy10.pfb></usr/local/texlive/2023basic/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2023basic/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2023basic/texmf-dist/fonts/type
+1/urw/courier/ucrb8a.pfb></usr/local/texlive/2023basic/texmf-dist/fonts/type1/u
+rw/courier/ucrr8a.pfb></usr/local/texlive/2023basic/texmf-dist/fonts/type1/urw/
+courier/ucrro8a.pfb></usr/local/texlive/2023basic/texmf-dist/fonts/type1/urw/he
+lvetic/uhvb8a.pfb></usr/local/texlive/2023basic/texmf-dist/fonts/type1/urw/helv
+etic/uhvb8ac.pfb></usr/local/texlive/2023basic/texmf-dist/fonts/type1/urw/helve
+tic/uhvr8a.pfb></usr/local/texlive/2023basic/texmf-dist/fonts/type1/urw/helveti
+c/uhvro8a.pfb>
+Output written on refman.pdf (100 pages, 550910 bytes).
 PDF statistics:
- 2977 PDF objects out of 2984 (max. 8388607)
- 2713 compressed objects within 28 object streams
- 799 named destinations out of 1000 (max. 500000)
- 977 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 3347 PDF objects out of 3580 (max. 8388607)
+ 3072 compressed objects within 31 object streams
+ 896 named destinations out of 1000 (max. 500000)
+ 1032 words of extra memory for PDF output out of 10000 (max. 10000000)
 

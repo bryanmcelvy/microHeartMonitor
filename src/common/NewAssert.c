@@ -1,4 +1,7 @@
 /**
+ * @addtogroup common
+ * @{
+ *
  * @file
  * @author  Bryan McElvy
  * @brief   Source code for custom `assert` implementation.
@@ -25,3 +28,5 @@ static void Assert_Handler(void) {
     while(1) {}
 #endif
 }
+
+/** @} */

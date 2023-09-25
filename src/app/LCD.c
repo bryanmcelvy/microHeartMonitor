@@ -1,4 +1,7 @@
 /**
+ * @addtogroup lcd
+ * @{
+ *
  * @file
  * @author  Bryan McElvy
  * @brief   Source code for LCD module.
@@ -74,7 +77,7 @@ typedef struct {
 
     bool is_outputON;       ///< if `true`, the LCD driver is writing from its memory to display
     bool is_inverted;       ///< if `true`, the display's colors are inverted
-    bool is_16bit;          ///< `true` for 16-bit color depth (65K colors, 2 transfers), `false` for 18-bit
+    bool is_16bit;          ///< `true` for 16-bit color depth, `false` for 18-bit
     bool is_init;           ///< if `true`, LCD has been initialized
 } LCD_t;
 
@@ -388,3 +391,5 @@ void LCD_graphSample(uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy, uint16_
         }
     }
 }
+
+/** @} */

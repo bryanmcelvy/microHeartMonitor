@@ -1,4 +1,7 @@
 /**
+ * @addtogroup daq
+ * @{
+ *
  * @file
  * @brief   Lookup table API.
  * @author  Bryan McElvy
@@ -20,3 +23,5 @@
 const float32_t * Lookup_GetPtr_ADC(void);
 
 #endif               // LOOKUP_H
+
+/** @} */

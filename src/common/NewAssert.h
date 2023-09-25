@@ -1,4 +1,7 @@
 /**
+ * @addtogroup common
+ * @{
+ *
  * @file
  * @author  Bryan McElvy
  * @brief   Header file for custom `assert` implementation.
@@ -23,3 +26,5 @@
 void Assert(bool condition);
 
 #endif               // NEW_ASSERT_H
+
+/** @} */

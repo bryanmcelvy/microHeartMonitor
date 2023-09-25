@@ -1,4 +1,7 @@
 /**
+ * @addtogroup daq
+ * @{
+ *
  * @file
  * @author  Bryan McElvy
  * @brief   Lookup table source code.
@@ -1048,3 +1051,5 @@ static const float32_t LOOKUP_ADC_TABLE[4096] = {
 const float32_t * Lookup_GetPtr_ADC(void) {
     return LOOKUP_ADC_TABLE;
 }
+
+/** @} */

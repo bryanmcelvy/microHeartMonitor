@@ -1,6 +1,6 @@
 digraph {
     labelloc="t";
-    label="Software Architecture – ECG-HRM";
+    label="Call Graph – ECG-HRM";
     labeljust="c";
     newrank=true;
     node[shape=ellipse, height=0.25, width=0.5];
