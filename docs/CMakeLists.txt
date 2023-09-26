@@ -26,5 +26,5 @@ if(DOXYGEN_FOUND AND LATEX_FOUND)
                         COMMAND ${CMAKE_COMMAND} -E copy ${LATEX_OUTPUT_DIR}/refman.log ${PATH_DOCS}/doxygen_files
     )
 
-    set_target_properties(gen_docs PROPERTIES EXCLUDE_FROM_ALL FALSE)
+    set_target_properties(gen_docs PROPERTIES EXCLUDE_FROM_ALL TRUE)
 endif()
