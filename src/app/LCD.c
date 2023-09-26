@@ -10,7 +10,8 @@
 /******************************************************************************
 SECTIONS
         Static Declarations
-        Initialization/Configuration
+        Initialization
+        Configuration
         Drawing Area
         Color
         Drawing
@@ -59,32 +60,29 @@ inline static void LCD_setDim(uint16_t d1, uint16_t d2, bool is_x, bool update_n
  */
 inline static void LCD_drawLine(uint16_t center, uint16_t lineWidth, bool is_horizontal);
 
-// clang-format off
 static struct {
-    uint16_t x1;            ///< starting x-value in range [0, x2]
-    uint16_t x2;            ///< ending x-value in range [0, NUM_ROWS)
-    uint16_t y1;            ///< starting y-value in range [0, y2]
-    uint16_t y2;            ///< ending x-value in range [0, NUM_COLS)
-    uint32_t numPixels;     ///< number of pixels to write to; `= (x2 - x1 + 1) * (y2 - y1 + 1)`
+    uint16_t x1;                      ///< starting x-value in range [0, x2]
+    uint16_t x2;                      ///< ending x-value in range [0, NUM_ROWS)
+    uint16_t y1;                      ///< starting y-value in range [0, y2]
+    uint16_t y2;                      ///< ending x-value in range [0, NUM_COLS)
+    uint32_t numPixels;               ///< num. of pixels to write; `= (x2-x1 1) * (y2-y1+1)`
 
-    uint8_t R_val;          ///< 5 or 6-bit R value
-    uint8_t G_val;          ///< 6-bit G value
-    uint8_t B_val;          ///< 5 or 6-bit B value
+    uint8_t R_val;                    ///< 5 or 6-bit R value
+    uint8_t G_val;                    ///< 6-bit G value
+    uint8_t B_val;                    ///< 5 or 6-bit B value
 
-    bool is_outputON;       ///< if `true`, the LCD driver is writing from its memory to display
-    bool is_inverted;       ///< if `true`, the display's colors are inverted
-    bool is_16bit;          ///< `true` for 16-bit color depth, `false` for 18-bit
-    bool is_init;           ///< if `true`, LCD has been initialized
+    bool isOutputOn;                  ///< if `true`, LCD driver writes from its memory to display
+    bool isInverted;                  ///< if `true`, the display's colors are inverted
+    bool using16bitColors;               ///< `true` for 16-bit color depth, `false` for 18-bit
+    bool isInit;                         ///< if `true`, LCD has been initialized
 } lcd;
 
-// clang-format on
-
 /******************************************************************************
-Initialization/Configuration
+Initialization
 *******************************************************************************/
 
 void LCD_Init(void) {
-    Assert(lcd.is_init == false);
+    Assert(lcd.isInit == false);
 
     ILI9341_Init();
     ILI9341_setSleepMode(false);
@@ -102,33 +100,58 @@ void LCD_Init(void) {
     lcd.G_val = 255;
     lcd.B_val = 255;
 
-    lcd.is_outputON = false;
-    lcd.is_inverted = false;
-    lcd.is_16bit = true;
+    lcd.isOutputOn = false;
+    lcd.isInverted = false;
+    lcd.using16bitColors = true;
 
-    lcd.is_init = true;
+    lcd.isInit = true;
 
+    return;
+}
+
+/******************************************************************************
+Configuration
+*******************************************************************************/
+
+void LCD_setOutputMode(bool isOn) {
+    if(isOn != lcd.isOutputOn) {
+        LCD_toggleOutput();
+    }
     return;
 }
 
 void LCD_toggleOutput(void) {
-    lcd.is_outputON = (lcd.is_outputON) ? false : true;
-    ILI9341_setDispOutput(lcd.is_outputON);
+    lcd.isOutputOn = (lcd.isOutputOn) ? false : true;
+    ILI9341_setDispOutput(lcd.isOutputOn);
 
     return;
 }
 
-void LCD_toggleInversion(void) {
-    lcd.is_inverted = (lcd.is_inverted) ? false : true;
-    ILI9341_setDispInversion(lcd.is_inverted);
+void LCD_setColorInversionMode(bool isOn) {
+    if(isOn != lcd.isInverted) {
+        LCD_toggleColorInversion();
+    }
+    return;
+}
 
+void LCD_toggleColorInversion(void) {
+    lcd.isInverted = (lcd.isInverted) ? false : true;
+    ILI9341_setDispInversion(lcd.isInverted);
+
+    return;
+}
+
+void LCD_setColorDepth(bool is_16bit) {
+    if(is_16bit != lcd.using16bitColors) {
+        LCD_toggleColorDepth();
+    }
     return;
 }
 
 void LCD_toggleColorDepth(void) {
-    lcd.is_16bit = !(lcd.is_16bit);
-    ILI9341_setColorDepth(lcd.is_16bit);
-    if(lcd.is_16bit) {               // convert R and B to 5-bits
+    lcd.using16bitColors = !(lcd.using16bitColors);
+    ILI9341_setColorDepth(lcd.using16bitColors);
+    if(lcd.using16bitColors) {               // convert R and B to 5-bits
         lcd.R_val |= 0x1F;
         lcd.B_val |= 0x1F;
     }
@@ -185,7 +208,7 @@ Color
 *******************************************************************************/
 
 void LCD_setColor(uint8_t R_val, uint8_t G_val, uint8_t B_val) {
-    if(lcd.is_16bit) {
+    if(lcd.using16bitColors) {
         lcd.R_val = 0x1F * (R_val & 0x04);
         lcd.B_val = 0x1F * (B_val & 0x01);
     }
@@ -224,7 +247,7 @@ void LCD_setColor_3bit(uint8_t color_code) {
         lcd.B_val = 1;
     }
     else {
-        if(lcd.is_16bit) {
+        if(lcd.using16bitColors) {
             lcd.R_val = 0x1F * (color_code & 0x04);
             lcd.B_val = 0x1F * (color_code & 0x01);
         }
@@ -246,7 +269,7 @@ void LCD_Draw(void) {
     /// @showrefs
     ILI9341_writeMemCmd();
     for(uint32_t count = 0; count < lcd.numPixels; count++) {
-        ILI9341_writePixel(lcd.R_val, lcd.G_val, lcd.B_val, lcd.is_16bit);
+        ILI9341_writePixel(lcd.R_val, lcd.G_val, lcd.B_val, lcd.using16bitColors);
     }
 
     return;
