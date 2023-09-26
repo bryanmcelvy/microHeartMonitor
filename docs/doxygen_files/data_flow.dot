@@ -1,0 +1,32 @@
+digraph {
+    rankdir=TD;
+    
+    Person
+
+    subgraph cluster_afe{
+        label="Hardware"
+        style="dashed"
+        node[shape=rect]
+        AFE, Isolation, PE5
+    };
+
+    subgraph cluster_sw{
+        label="Software"
+        style="dashed"
+        node[shape=ellipse]
+        ADC, DAQ, LCD, QRS, SPI
+    };
+
+    MSP2807[shape=rect]
+
+    // Connections
+    Person -> AFE[label="raw signal"]
+    AFE -> Isolation[label="filtered signal"]
+    Isolation -> PE5[label="filtered signal"]
+    PE5 -> ADC[label="unsigned 12-bit integers"]
+    ADC -> DAQ[label="raw samples"]
+    DAQ -> {LCD, QRS}[label="filtered samples"]
+    QRS -> LCD[label="avg. HR"]
+    LCD -> SPI -> MSP2807[label="image"]
+
+}
