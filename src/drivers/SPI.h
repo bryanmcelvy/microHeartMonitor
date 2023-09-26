@@ -7,8 +7,8 @@
  * @brief   Driver module for using the serial peripheral interface (SPI) protocol.
  */
 
-#ifndef __SPI_H___
-#define __SPI_H___
+#ifndef SPI_H
+#define SPI_H
 
 /******************************************************************************
 TODO
@@ -112,6 +112,6 @@ void SPI_IRQ_WriteData(uint8_t data);
  */
 void SPI_IRQ_StartWriting(void);
 
-#endif
+#endif               // SPI_H
 
 /** @} */

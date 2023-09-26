@@ -7,8 +7,8 @@
  * @brief   Interface for LED module.
  */
 
-#ifndef __LED_H__
-#define __LED_H__
+#ifndef LED_H
+#define LED_H
 
 /******************************************************************************
 Preprocessor Directives
@@ -91,6 +91,6 @@ void Led_TurnOff(Led_t * led);
  */
 void Led_Toggle(Led_t * led);
 
-#endif               // __LED_H__
+#endif               // LED_H
 
 /// @}

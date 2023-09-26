@@ -1,10 +1,11 @@
 import matplotlib.pyplot as plt
-from matplotlib.patches import Circle
 
 import numpy as np
 from scipy import signal
 
-''' Time Domain Plot Functions '''
+################################################################################
+# Time Domain Plot Functions
+################################################################################
 
 def plot_impulse_resp(b, a, ax=None):
     
@@ -86,8 +87,12 @@ def plot_step_resp(b, a, ax=None):
     plt.title("Step Response")
     plt.xlabel("Sample number")
     plt.ylabel("Amplitude")
+    
+    return
 
-''' Frequency Domain Plot Functions '''
+################################################################################
+# Frequency Domain Plot Functions
+################################################################################
 
 def plot_freq_resp(b, a, N=512, fs=1, in_dB = False, ax=None):
     
@@ -117,7 +122,6 @@ def plot_group_delay(b, a, N=512, fs=1, ax=None):
     freq, grd = signal.group_delay([b, a], N, fs=fs)
     grd = [np.ceil(np.max(grd)) if ( (np.max(grd) - np.min(grd)) < 2 ) else val for val in grd]
     
-    
     if not ax:
         plt.figure()
     else:
@@ -135,7 +139,7 @@ def plot_group_delay(b, a, N=512, fs=1, ax=None):
     else: plt.xlabel("Frequency [Hz]")
     plt.ylabel("Delay [samples]")
 
-def plot_pole_zero(b, a, ax=None):
+def plot_pole_zero(b, a, ax=None, filt_name=None):
     
     [z, p, _] = signal.tf2zpk(b, a)
     
@@ -150,7 +154,8 @@ def plot_pole_zero(b, a, ax=None):
     plt.xlim([-1.1, 1.1]); plt.xticks(np.linspace(-1, 1, 5))
     plt.ylim([-1.1, 1.1]); plt.yticks(np.linspace(-1, 1, 11))
 
-    plt.title("Pole-Zero Plot")
+    plot_title = "Pole-Zero Plot" if (filt_name == None) else filt_name
+    plt.title(plot_title)
     plt.xlabel("Real Part")
     plt.ylabel("Imaginary Part")
     
@@ -162,26 +167,30 @@ def plot_pole_zero(b, a, ax=None):
     plt.plot(z.real, z.imag, 'ob', markersize=5)
     plt.plot(p.real, p.imag, 'xr', markersize=7.5)
 
-''' Multi-Plot Functions '''
+################################################################################
+# Composite Functions
+################################################################################
 
-def plot_domain_t(b, a, ax1=None, ax2=None, filt_name=None):
-    
+def plot_domain(b, a, inTimeDomain=True, fs=1, in_dB=False, ax1=None, ax2=None, filt_name=None):
     if not (ax1 and ax2):
         _, [ax1, ax2] = plt.subplots(1, 2, figsize=[9, 4], tight_layout=True)
     
-    if filt_name:
+    if filt_name is not None:
         plt.suptitle(filt_name)
-        
-    plot_impulse_resp(b, a, ax1)
-    plot_step_resp(b, a, ax2)  
 
-def plot_domain_f(b, a, fs=1, ax1=None, ax2=None, filt_name=None):
-    
-    if not (ax1 and ax2):
-        _, [ax1, ax2] = plt.subplots(1, 2, figsize=[9, 4], tight_layout=True)
-    
-    if filt_name:
-        plt.suptitle(filt_name)
-    
-    plot_freq_resp(b, a, fs=fs, ax=ax1)
-    plot_group_delay(b, a, fs=fs, ax=ax2)  
+    if inTimeDomain:
+        plot_impulse_resp(b, a, ax1)
+        plot_step_resp(b, a, ax2)  
+    else:
+        plot_freq_resp(b, a, fs=fs, in_dB=in_dB, ax=ax1)
+        plot_group_delay(b, a, fs=fs, ax=ax2)  
+
+    return
+
+def plot_time_domain(b, a, ax1=None, ax2=None, filt_name=None):
+    plot_domain(b, a, inTimeDomain=True, ax1=ax1, ax2=ax2, filt_name=filt_name)
+    return
+
+def plot_freq_domain(b, a, fs=1, in_dB=False, ax1=None, ax2=None, filt_name=None):
+    plot_domain(b, a, inTimeDomain=False, fs=fs, in_dB=in_dB, ax1=ax1, ax2=ax2, filt_name=filt_name)
+    return

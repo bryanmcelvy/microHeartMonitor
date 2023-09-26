@@ -14,8 +14,8 @@
  *              protocol.
  */
 
-#ifndef __ILI9341_H__
-#define __ILI9341_H__
+#ifndef ILI9341_H
+#define ILI9341_H
 
 /******************************************************************************
 SECTIONS
@@ -33,10 +33,12 @@ Preprocessor Directives
 #include "SPI.h"
 #include "Timer.h"
 
+#include "FIFO.h"
+
 #include "tm4c123gh6pm.h"
 
-#include <stdint.h>
 #include <stdbool.h>
+#include <stdint.h>
 
 // Defines
 #define NUM_COLS (uint16_t) 240
@@ -63,9 +65,9 @@ Configuration
  * @brief       Enter or exit sleep mode. The LCD driver is in sleep mode by
  *              default upon powering on or either kind of reset.
  *
- * @param       is_sleeping `true` to enter sleep mode, `false` to exit
+ * @param       isSleeping `true` to enter sleep mode, `false` to exit
  */
-void ILI9341_setSleepMode(bool is_sleeping);
+void ILI9341_setSleepMode(bool isSleeping);
 
 /**
  * @brief       Set the display area and color expression.
@@ -74,13 +76,13 @@ void ILI9341_setSleepMode(bool is_sleeping);
  *              display area. Partial mode should be activated after calling
  *              `ILI9341_setPartialArea()`.
  *
- *              Setting `is_full_colors` to `false` restricts the color expression
+ *              Setting `isFullColors` to `false` restricts the color expression
  *              to 8 colors, determined by the MSB of the R/G/B values.
  *
- * @param       is_normal       `true` for normal mode, `false` for partial mode
- * @param       is_full_colors  `true` for full colors, `false` for 8 colors
+ * @param       isNormal        `true` for normal mode, `false` for partial mode
+ * @param       isFullColors    `true` for full colors, `false` for 8 colors
  */
-void ILI9341_setDispMode(bool is_normal, bool is_full_colors);
+void ILI9341_setDispMode(bool isNormal, bool isFullColors);
 
 /**
  * @brief       Set the partial display area for partial mode.
@@ -126,24 +128,23 @@ void ILI9341_setScrollArea(uint16_t topFixedArea, uint16_t vertScrollArea, uint1
  */
 void ILI9341_setScrollStart(uint16_t startRow);
 
+// TODO: Finish writing description
 /**
- * @brief
- *      Set how data is converted from memory to display.
+ * @brief                               Set how data is converted from memory to display.
  *
- * @param areRowsFlipped
- * @param areColsFlipped
- * @param areRowsColsSwitched
- * @param isVertRefreshFlipped
- * @param isColorOrderFlipped
- * @param isHorRefreshFlipped
+ * @param[in] areRowsFlipped
+ * @param[in] areColsFlipped
+ * @param[in] areRowsAndColsSwitched
+ * @param[in] isVertRefreshFlipped
+ * @param[in] isColorOrderFlipped
+ * @param[in] isHorRefreshFlipped
  */
-void ILI9341_setMemAccessCtrl(bool areRowsFlipped, bool areColsFlipped, bool areRowsColsSwitched,
+void ILI9341_setMemAccessCtrl(bool areRowsFlipped, bool areColsFlipped, bool areRowsAndColsSwitched,
                               bool isVertRefreshFlipped, bool isColorOrderFlipped,
                               bool isHorRefreshFlipped);
 
 /**
- * @brief
- *      Set the pixel format to be 16-bit (65K colors) or 18-bit (262K colors).
+ * @brief Set the pixel format to be 16-bit (65K colors) or 18-bit (262K colors).
  *
  * @param is_16bit
  */
@@ -157,10 +158,10 @@ void ILI9341_setColorDepth(bool is_16bit);
 void ILI9341_NoOpCmd(void);
 
 /// TODO: Write brief
-void ILI9341_setFrameRateNorm(uint8_t div_ratio, uint8_t clocks_per_line);
+void ILI9341_setFrameRateNorm(uint8_t divisionRatio, uint8_t clocksPerLine);
 
 /// TODO: Write brief
-void ILI9341_setFrameRateIdle(uint8_t div_ratio, uint8_t clocks_per_line);
+void ILI9341_setFrameRateIdle(uint8_t divisionRatio, uint8_t clocksPerLine);
 
 /// TODO: Write
 void ILI9341_setBlankingPorch(uint8_t vpf, uint8_t vbp, uint8_t hfp, uint8_t hbp);
@@ -189,10 +190,10 @@ Memory Writing
  *              Should be called along with `ILI9341_setColAddress()` and
  *              before `ILI9341_writeMemCmd()`.
  *
- * @param       start_row:      0 <= `start_row` <= `end_row`
- * @param       end_row:        `start_row` <= `end_row` < 320
+ * @param       startRow:      0 <= `startRow` <= `endRow`
+ * @param       endRow:        `startRow` <= `endRow` < 320
  */
-void ILI9341_setRowAddress(uint16_t start_row, uint16_t end_row);
+void ILI9341_setRowAddress(uint16_t startRow, uint16_t endRow);
 
 /**
  * @brief       Sets the start/end rows to be written to.
@@ -200,10 +201,10 @@ void ILI9341_setRowAddress(uint16_t start_row, uint16_t end_row);
  *              Should be called along with `ILI9341_setRowAddress()` and
  *              before `ILI9341_writeMemCmd()`.
  *
- * @param       start_col:      0 <= `start_col` <= `end_col`
- * @param       end_col:        `start_col` <= `end_col` < 240
+ * @param       startCol:      0 <= `startCol` <= `endCol`
+ * @param       endCol:        `startCol` <= `endCol` < 240
  */
-void ILI9341_setColAddress(uint16_t start_col, uint16_t end_col);
+void ILI9341_setColAddress(uint16_t startCol, uint16_t endCol);
 
 /**
  * @brief
@@ -212,7 +213,7 @@ void ILI9341_setColAddress(uint16_t start_col, uint16_t end_col);
  *
  *      Should be called after setting the row (`ILI9341_setRowAddress()`) and/or
  *      and/or column (`ILI9341_setRowAddress()`) addresses, but before writing
- *      image data (`ILI9341_write1px()`).
+ *      image data (`ILI9341_writePixel()`).
  */
 void ILI9341_writeMemCmd(void);
 
@@ -228,8 +229,8 @@ void ILI9341_writeMemCmd(void);
  *                      `false` for 18-bit (262K colors, 3 transfer) color depth
  *                      NOTE: set color depth via `ILI9341_setColorDepth()`
  */
-void ILI9341_write1px(uint8_t red, uint8_t green, uint8_t blue, bool is_16bit);
+void ILI9341_writePixel(uint8_t red, uint8_t green, uint8_t blue, bool is_16bit);
 
-#endif
+#endif               // ILI9341_H
 
 /** @} */

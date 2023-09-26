@@ -21,12 +21,10 @@ if(DOXYGEN_FOUND AND LATEX_FOUND)
                         COMMAND ${CMAKE_COMMAND} -E chdir ${PATH_DOCS}/doxygen_files doxygen
                         COMMAND ${CMAKE_COMMAND} -E chdir ${LATEX_OUTPUT_DIR} make -s
 
-                        # copy new pdf and to `docs` directory
+                        # copy new pdf and reflog to `docs` directory
                         COMMAND ${CMAKE_COMMAND} -E copy ${LATEX_OUTPUT_DIR}/refman.pdf ${PATH_DOCS}
                         COMMAND ${CMAKE_COMMAND} -E copy ${LATEX_OUTPUT_DIR}/refman.log ${PATH_DOCS}/doxygen_files
-                    )
+    )
 
-    if (OPT_GEN_DOC)
-        set_target_properties(gen_docs PROPERTIES EXCLUDE_FROM_ALL FALSE)
-    endif()
+    set_target_properties(gen_docs PROPERTIES EXCLUDE_FROM_ALL TRUE)
 endif()

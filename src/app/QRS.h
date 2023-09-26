@@ -7,9 +7,9 @@
  * Pan-Tompkins algorithm.
  */
 
-#ifndef __QRS_H__
-#define __QRS_H__
+#ifndef QRS_H
+#define QRS_H
 
 #include "dsp/filtering_functions_f16.h"
 
-#endif
+#endif               // QRS_H

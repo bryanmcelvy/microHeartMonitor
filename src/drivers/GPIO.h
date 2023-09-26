@@ -4,8 +4,8 @@
  * @brief   Header file for general-purpose input/output (GPIO) device driver.
  */
 
-#ifndef __GPIO_H__
-#define __GPIO_H__
+#ifndef GPIO_H
+#define GPIO_H
 
 /******************************************************************************
 Preprocessor Directives
@@ -241,4 +241,4 @@ void GPIO_ConfigPortCtrl(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask, uint8_t fie
  */
 void GPIO_ConfigAnalog(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask);
 
-#endif               // __GPIO_H__
+#endif               // GPIO_H

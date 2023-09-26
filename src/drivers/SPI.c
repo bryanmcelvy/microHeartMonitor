@@ -100,15 +100,15 @@ void SPI_Init(void) {
     while((SYSCTL_PRSSI_R & 0x01) == 0) {}
 
     // configure GPIO pins
-    GPIO_Port_t * port_ptr = GPIO_InitPort(A);
-    GPIO_ConfigAltMode(port_ptr, SPI_SSI0_PINS);                   // alt. mode for PA2-5
-    GPIO_ConfigPortCtrl(port_ptr, SPI_SSI0_PINS, 2);               // SSI mode for PA2-5
+    GPIO_Port_t * portA = GPIO_InitPort(A);
+    GPIO_ConfigAltMode(portA, SPI_SSI0_PINS);                   // alt. mode for PA2-5
+    GPIO_ConfigPortCtrl(portA, SPI_SSI0_PINS, 2);               // SSI mode for PA2-5
 
-    GPIO_ConfigDirOutput(port_ptr, SPI_GPIO_PINS);                 // use PA6/7 as output pins
+    GPIO_ConfigDirOutput(portA, SPI_GPIO_PINS);                 // use PA6/7 as output pins
 
-    GPIO_EnableDigital(port_ptr, SPI_ALL_PINS);
+    GPIO_EnableDigital(portA, SPI_ALL_PINS);
 
-    GPIO_WriteHigh(port_ptr, SPI_RESET_PIN);               // hold `HIGH` (i.e. active `LOW`)
+    GPIO_WriteHigh(portA, SPI_RESET_PIN);                       // hold `HIGH` (i.e. active `LOW`)
 
     // configure SSI0
     SSI0_CR1_R &= ~(0x02);                 // disable SSI0
@@ -125,6 +125,8 @@ void SPI_Init(void) {
     NVIC_EN0_R |= (1 << NVIC_SSI0_NUM);
 
     SSI0_CR1_R |= 0x02;                     // re-enable SSI0
+
+    return;
 }
 
 /******************************************************************************
@@ -139,14 +141,18 @@ uint8_t SPI_Read(void) {
 void SPI_WriteCmd(uint8_t cmd) {
     while(SPI_IS_BUSY) {}
     SPI_CLEAR_DC();                                    // signal incoming command to peripheral
-    SSI0_DR_R += cmd;
+    SSI0_DR_R = cmd;
     while(SPI_IS_BUSY) {}                              // wait for transmission to finish
+
+    return;
 }
 
 void SPI_WriteData(uint8_t data) {
     while(SPI_TX_ISNOTFULL == 0) {}
     SPI_SET_DC();                                      // signal incoming data to peripheral
-    SSI0_DR_R += data;                                 // write command
+    SSI0_DR_R = data;                                  // write command
+
+    return;
 }
 
 /*

@@ -13,14 +13,15 @@
  *              do not connect to a serial port.
  */
 
-#ifndef __UART_H___
-#define __UART_H___
+#ifndef UART_H
+#define UART_H
 
 #include "GPIO.h"
 
 #include "NewAssert.h"
 
 #include "tm4c123gh6pm.h"
+
 #include <stdbool.h>
 #include <stdint.h>
 

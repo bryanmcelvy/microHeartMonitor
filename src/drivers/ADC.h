@@ -7,15 +7,17 @@
  * @brief       Driver module for analog-to-digital conversion (ADC).
  */
 
-#ifndef __ADC_H___
-#define __ADC_H___
+#ifndef ADC_H
+#define ADC_H
 
-#include "lookup.h"
 #include "GPIO.h"
 #include "Timer.h"
 
+#include "lookup.h"
+
 #include "arm_math_types.h"
 #include "tm4c123gh6pm.h"
+
 #include <stdint.h>
 
 /// @brief   Initialize ADC0 as a single-input analog-to-digital converter.
@@ -35,6 +37,6 @@ void ADC_InterruptDisable(void);
  */
 float32_t ADC_ConvertToVolts(uint16_t raw_sample);
 
-#endif
+#endif               // ADC_H
 
 /** @} */

@@ -1,15 +1,19 @@
 /**
+ * @addtogroup daq
+ * @{
+ *
  * @file
  * @brief   Lookup table API.
  * @author  Bryan McElvy
  */
 
-#ifndef __LOOKUP_H__
-#define __LOOKUP_H__
+#ifndef LOOKUP_H
+#define LOOKUP_H
 
 #include "arm_math_types.h"
 
 #define LOOKUP_ADC_MAX (float32_t) 5.5
+#define LOOKUP_ADC_MIN (float32_t)(-5.5)
 
 /**
  * @brief   Return a pointer to the ADC lookup table.
@@ -18,4 +22,6 @@
  */
 const float32_t * Lookup_GetPtr_ADC(void);
 
-#endif
+#endif               // LOOKUP_H
+
+/** @} */
