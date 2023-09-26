@@ -35,62 +35,56 @@ Static Declarations
 typedef arm_biquad_casd_df1_inst_f32 filt_t;
 
 enum {
-    // Input Filter: 2nd Order Low Pass Filter (fc = 40 [Hz])
-    NUM_STAGES_LOWPASS = 4,
-    NUM_COEFF_LOWPASS = NUM_STAGES_LOWPASS * 5,
-    STATE_BUFF_SIZE_LOWPASS = NUM_STAGES_LOWPASS * 4,
-
-    // Notch Filter: 1st Order 60 [Hz] Bandstop Filter
-    NUM_STAGES_NOTCH = 6,
-    NUM_COEFF_NOTCH = NUM_STAGES_NOTCH * 5,
-    STATE_BUFF_SIZE_NOTCH = NUM_STAGES_NOTCH * 4
+    NUM_FILT_STAGES = 10,
+    NUM_FILT_COEFFS = NUM_FILT_STAGES * 5,
+    STATE_BUFF_SIZE = NUM_FILT_STAGES * 4,
 };
 
 // clang-format off
-static const float32_t FILT_COEFF_LOWPASS[NUM_COEFF_LOWPASS] = {
-    0.33315151929855347f, 0.5766809582710266f, 0.33315151929855347f, 
-    -0.9251470565795898f, -0.3086468279361725f, 
-    1.0f, 0.5240882635116577f, 1.0f, 
-    -0.2858136296272278f, -0.5249051451683044f, 
-    1.0f, -0.2681707739830017f, 1.0f, 
-    0.29658612608909607f, -0.745910108089447f, 
-    1.0f, -0.5827286839485168f, 1.0f, 
-    0.6055136919021606f, -0.9191300272941589f, 
-};
-
-static const float32_t FILT_COEFF_NOTCH[NUM_COEFF_NOTCH] = {
-    0.8856732845306396f, 0.5476464033126831f, 0.8856732845306396f, 
+static const float32_t FILT_COEFFS[NUM_FILT_COEFFS] = {
+    // Section 1
+    0.2869851589202881f, 0.32466086745262146f, 0.2869851589202881f, 
+    -0.20968256890773773f, -0.1729172021150589f, 
+    // Section 2
+    1.0f, -0.4715292155742645f, 1.0f, 
+    0.5868059992790222f, -0.7193671464920044f, 
+    // Section 3
+    1.0f, 0.6183391213417053f, 1.0f, 
     -0.5850160717964172f, -0.9409302473068237f, 
+    // Section 4
     1.0f, 0.6183391213417053f, 1.0f, 
     -0.615153431892395f, -0.9412328004837036f, 
+    // Section 5
     1.0f, 0.6183391213417053f, 1.0f, 
     -0.5631667971611023f, -0.9562366008758545f, 
+    // Section 6
     1.0f, 0.6183391213417053f, 1.0f, 
     -0.6460562348365784f, -0.9568508863449097f, 
+    // Section 7
     1.0f, 0.6183391213417053f, 1.0f, 
     -0.5554963946342468f, -0.9837208390235901f, 
+    // Section 8
     1.0f, 0.6183391213417053f, 1.0f, 
     -0.6700929999351501f, -0.9840363264083862f, 
+    // Section 9
+    1.0f, -1.9999638795852661f, 1.0f, 
+    1.9863483905792236f, -0.986438512802124f, 
+    // Section 10
+    1.0f, -1.9997893571853638f, 1.0f, 
+    1.994096040725708f, -0.9943605065345764f, 
 };
 // clang-format on
 
-static filt_t lowPassFiltStruct = { 0 };
-static filt_t * const lowPassFilter = &lowPassFiltStruct;
-static float32_t stateBuffer_LowPass[STATE_BUFF_SIZE_LOWPASS];
-
-static filt_t notchFiltStruct = { 0 };
-static filt_t * const notchFilter = &notchFiltStruct;
-static float32_t stateBuffer_Notch[STATE_BUFF_SIZE_NOTCH];
+static filt_t filterStruct = { 0 };
+static filt_t * const filter = &filterStruct;
+static float32_t stateBuffer[STATE_BUFF_SIZE];
 
 /******************************************************************************
 Functions
 *******************************************************************************/
 void DAQ_Init(void) {
 
-    arm_biquad_cascade_df1_init_f32(lowPassFilter, NUM_STAGES_LOWPASS, FILT_COEFF_LOWPASS,
-                                    stateBuffer_LowPass);
-    arm_biquad_cascade_df1_init_f32(notchFilter, NUM_STAGES_NOTCH, FILT_COEFF_NOTCH,
-                                    stateBuffer_Notch);
+    arm_biquad_cascade_df1_init_f32(filter, NUM_FILT_STAGES, FILT_COEFFS, stateBuffer);
 
     ADC_Init();
     Timer3A_Init(SAMPLING_PERIOD_MS);
@@ -101,18 +95,11 @@ void DAQ_Init(void) {
 float32_t DAQ_Filter(volatile float32_t inputSample) {
     float32_t * inputPtr = &inputSample;
 
-    // Low Pass Filter
     float32_t outputSample = 0;
     float32_t * outputPtr = &outputSample;
-    arm_biquad_cascade_df1_f32(lowPassFilter, inputPtr, outputPtr, 1);
-    Assert(isinf(outputSample) == false);
 
-    // Notch Filter
-    float32_t tmp = outputSample;
-    float32_t * tmpPtr = &tmp;
-    arm_biquad_cascade_df1_f32(notchFilter, tmpPtr, outputPtr, 1);
+    arm_biquad_cascade_df1_f32(filter, inputPtr, outputPtr, 1);
     Assert(isinf(outputSample) == false);
-    // Assert((outputSample > (LOOKUP_ADC_MIN * 4)) && (outputSample < (LOOKUP_ADC_MAX * 4)));
 
     return outputSample;
 }
