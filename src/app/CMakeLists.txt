@@ -10,7 +10,7 @@ include_directories(
 
 add_library(DAQ STATIC DAQ.c DAQ.h)
 target_include_directories(DAQ PRIVATE ${CMSIS_DIRS})
-target_link_libraries(DAQ ADC CMSIS-DSP-f32 FIFO)
+target_link_libraries(DAQ ADC CMSIS-DSP-f32 FIFO NewAssert Timer)
 
 add_library(QRS STATIC QRS.c QRS.h)
 target_include_directories(QRS PRIVATE ${CMSIS_DIRS})

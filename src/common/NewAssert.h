@@ -1,4 +1,7 @@
 /**
+ * @addtogroup common
+ * @{
+ *
  * @file
  * @author  Bryan McElvy
  * @brief   Header file for custom `assert` implementation.
@@ -9,7 +12,10 @@
 
 #include <stdbool.h>
 
+#ifdef assert
 #undef assert
+#define assert Assert
+#endif
 
 /**
  * @brief               Custom `assert` implementation that is more lightweight
@@ -20,3 +26,5 @@
 void Assert(bool condition);
 
 #endif               // NEW_ASSERT_H
+
+/** @} */

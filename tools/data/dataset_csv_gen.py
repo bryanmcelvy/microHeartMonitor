@@ -13,9 +13,6 @@ patient_lst = [ 100, 101, 102, 103, 104, 105, 106, 107, 108, 109,
 # fmt: on
 
 # Load data
-fs_old = 360
-fs_new = 200
-
 for patient_num in patient_lst:
     file_name = f"./mit-bih-arr/{patient_num}"
 
@@ -27,7 +24,11 @@ for patient_num in patient_lst:
     data = np.transpose(data)[0]
 
     # Resample from 360 [Hz] to 200 [Hz]
+    fs_old = 360
+    fs_new = 200
     N = int((len(data) / fs_old) * fs_new)
+    data = signal.resample(data, N)
 
-    data = pd.DataFrame(signal.resample(data, N))
+    # Save to .csv
+    data = pd.DataFrame(data)
     data.to_csv(f"../data/{patient_num}.csv")

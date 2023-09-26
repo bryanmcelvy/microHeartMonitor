@@ -15,9 +15,9 @@
 #include "PLL.h"
 
 #include "FIFO.h"
+#include "lookup.h"
 
 #include "arm_math_types.h"
-#include "lookup.h"
 #include <stdbool.h>
 #include <stdint.h>
 
@@ -46,17 +46,18 @@ int main(void) {
     float32_t intermediate_sample;
 
     PLL_Init();
-    // Debug_Init();
+    Debug_Init();
 
     // Initialize/configure LCD
     LCD_Init();
     LCD_toggleInversion();
 
+    LCD_setColor_3bit(LCD_BLACK_INV);
     LCD_setArea(0, X_MAX, 0, Y_MAX);
-    LCD_draw();
+    LCD_Draw();
 
     LCD_setColor_3bit(LCD_WHITE_INV);
-    LCD_drawHLine(LCD_TOP_LINE, 1);
+    LCD_drawHoriLine(LCD_TOP_LINE, 1);
 
     LCD_setColor_3bit(LCD_RED_INV);
     LCD_toggleOutput();
@@ -91,6 +92,7 @@ int main(void) {
 /********************************************************************************/
 
 void ADC0_SS3_Handler(void) {
+    Debug_Assert(FIFO_isFull(input_fifo_ptr) == false);
     FIFO_Put(input_fifo_ptr, (volatile uint32_t)(ADC0_SSFIFO3_R & 0xFFF));
     sampleReady = true;
     ADC0_ISC_R |= 0x08;               // clear interrupt flag to acknowledge
