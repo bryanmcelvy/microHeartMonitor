@@ -14,7 +14,7 @@ AllowShortBlocksOnASingleLine: Empty
 AllowShortFunctionsOnASingleLine: Empty
 AllowShortIfStatementsOnASingleLine: true
 AlignConsecutiveMacros: AcrossEmptyLinesAndComments
-AllowShortCaseLabelsOnASingleLine: true
+AllowShortCaseLabelsOnASingleLine: false
 AlignTrailingComments:
   Kind: Always
   OverEmptyLines: 100
