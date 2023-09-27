@@ -16,6 +16,17 @@
 #ifndef UART_H
 #define UART_H
 
+/******************************************************************************
+SECTIONS
+        Preprocessor Directives
+        Initialization
+        Reading
+        Writing
+*******************************************************************************/
+
+/******************************************************************************
+Preprocessor Directives
+*******************************************************************************/
 #include "GPIO.h"
 
 #include "NewAssert.h"
@@ -33,6 +44,14 @@ typedef struct UART_t UART_t;
 
 typedef enum { UART0, UART1, UART2, UART3, UART4, UART5, UART6, UART7 } UART_Num_t;
 
+/**
+ * @brief                       Initialize the specified UART peripheral.
+ *
+ * @param[in] port              GPIO port to use.
+ * @param[in] uartNum           UART number. Should be either one of the
+                                enumerated constants or an int in range [0, 7].
+ * @param[out] UART_t*          (Pointer to) initialized UART peripheral.
+ */
 UART_t * UART_Init(GPIO_Port_t * port, UART_Num_t uartNum);
 
 /******************************************************************************
@@ -73,7 +92,7 @@ void UART_WriteStr(UART_t * uart, void * input_str);
  * @param[in] uart              UART to read from.
  * @param[in] n                 Unsigned 32-bit `int` to be converted and transmitted.
  */
-void UART_WriteInt(UART_t * uart, uint32_t n);
+void UART_WriteInt(UART_t * uart, int32_t n);
 
 /**
  * @brief                       Write a floating-point number the UART.

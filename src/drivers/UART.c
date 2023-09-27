@@ -7,6 +7,19 @@
  * @brief   Source code for UART module.
  */
 
+/******************************************************************************
+SECTIONS
+        Preprocessor Directives
+        Constant Declarations
+        Initialization
+        Reading
+        Writing
+*******************************************************************************/
+
+/******************************************************************************
+Preprocessor Directives
+*******************************************************************************/
+
 #include "UART.h"
 
 #include "GPIO.h"
@@ -20,13 +33,17 @@
 
 #define ASCII_CONVERSION 0x30
 
+/******************************************************************************
+Constant Declarations
+*******************************************************************************/
+
 enum GPIO_BASE_ADDRESSES {
-    GPIO_PA_BASE = (uint32_t) 0x40004000,
-    GPIO_PB_BASE = (uint32_t) 0x40005000,
-    GPIO_PC_BASE = (uint32_t) 0x40006000,
-    GPIO_PD_BASE = (uint32_t) 0x40007000,
-    GPIO_PE_BASE = (uint32_t) 0x40024000,
-    GPIO_PF_BASE = (uint32_t) 0x40025000
+    GPIO_PORTA_BASE = (uint32_t) 0x40004000,
+    GPIO_PORTB_BASE = (uint32_t) 0x40005000,
+    GPIO_PORTC_BASE = (uint32_t) 0x40006000,
+    GPIO_PORTD_BASE = (uint32_t) 0x40007000,
+    GPIO_PORTE_BASE = (uint32_t) 0x40024000,
+    GPIO_PORTF_BASE = (uint32_t) 0x40025000
 };
 
 enum UART_BASE_ADDRESSES {
@@ -83,14 +100,14 @@ UART_t * UART_Init(GPIO_Port_t * port, UART_Num_t uartNum) {
     // Check that inputted GPIO port and UART match each other
     uint32_t gpio_baseAddress = GPIO_getBaseAddr(port);
     switch(uartNum) {
-        case UART0: Assert(gpio_baseAddress == GPIO_PA_BASE); break;
-        case UART1: Assert(gpio_baseAddress == GPIO_PB_BASE); break;
+        case UART0: Assert(gpio_baseAddress == GPIO_PORTA_BASE); break;
+        case UART1: Assert(gpio_baseAddress == GPIO_PORTB_BASE); break;
         case UART2:
-        case UART6: Assert(gpio_baseAddress == GPIO_PD_BASE); break;
+        case UART6: Assert(gpio_baseAddress == GPIO_PORTD_BASE); break;
         case UART3:
-        case UART4: Assert(gpio_baseAddress == GPIO_PC_BASE); break;
+        case UART4: Assert(gpio_baseAddress == GPIO_PORTC_BASE); break;
         case UART5:
-        case UART7: Assert(gpio_baseAddress == GPIO_PE_BASE); break;
+        case UART7: Assert(gpio_baseAddress == GPIO_PORTE_BASE); break;
     }
 
     // clang-format off
@@ -116,7 +133,7 @@ UART_t * UART_Init(GPIO_Port_t * port, UART_Num_t uartNum) {
 
         // initialize GPIO pins
         GPIO_ConfigAltMode(port, uart->RX_PIN_NUM | uart->TX_PIN_NUM);
-        if(gpio_baseAddress == GPIO_PC_BASE) {
+        if(gpio_baseAddress == GPIO_PORTC_BASE) {
             GPIO_ConfigPortCtrl(port, uart->RX_PIN_NUM | uart->TX_PIN_NUM, 2);
         }
         else {
@@ -173,13 +190,19 @@ void UART_WriteStr(UART_t * uart, void * input_str) {
     return;
 }
 
-void UART_WriteInt(UART_t * uart, uint32_t n) {
-    uint32_t nearestPowOf10 = 1;
+void UART_WriteInt(UART_t * uart, int32_t n) {
+
+    // Send negative sign (`-`) if needed
+    if(n < 0) {
+        UART_WriteChar(uart, '-');
+        n *= -1;
+    }
 
     if(n < 10) {
-        UART_WriteChar(uart, ASCII_CONVERSION + (n / nearestPowOf10));
+        UART_WriteChar(uart, ASCII_CONVERSION + n);
     }
     else {
+        int32_t nearestPowOf10 = 1;
         while((n / (nearestPowOf10 * 10)) > 0) {
             nearestPowOf10 *= 10;
         }
@@ -194,16 +217,17 @@ void UART_WriteInt(UART_t * uart, uint32_t n) {
 }
 
 void UART_WriteFloat(UART_t * uart, double n, uint8_t num_decimals) {
-    int32_t b;
-
+    // Send negative sign (`-`) if needed
     if(n < 0) {
         UART_WriteChar(uart, '-');
         n *= -1;
     }
 
-    b = n / (int32_t) 1;
+    // Send the integer part
+    int32_t b = n / (int32_t) 1;
     UART_WriteInt(uart, b);
 
+    // Send the decimal part
     if(num_decimals > 0) {
         UART_WriteChar(uart, '.');
         for(uint8_t count = 0; count < num_decimals; count++) {
