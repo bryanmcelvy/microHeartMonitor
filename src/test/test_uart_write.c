@@ -6,6 +6,7 @@
 
 #include "PLL.h"
 #include "GPIO.h"
+#include "Led.h"
 #include "Timer.h"
 #include "UART.h"
 
@@ -22,9 +23,10 @@ int main(void) {
 
     // Init. LED pins
     GPIO_Port_t * portF = GPIO_InitPort(F);
-    GPIO_ConfigDirOutput(portF, (GPIO_PIN1 | GPIO_PIN2 | GPIO_PIN3));
-    GPIO_ConfigDriveStrength(portF, (GPIO_PIN1 | GPIO_PIN2 | GPIO_PIN3), 8);
-    GPIO_EnableDigital(portF, (GPIO_PIN1 | GPIO_PIN2 | GPIO_PIN3));
+
+    Led_t * redLed = Led_Init(portF, GPIO_PIN1);
+    Led_t * greenLed = Led_Init(portF, GPIO_PIN3);
+    Led_t * blueLed = Led_Init(portF, GPIO_PIN2);
 
     UART_WriteStr(uart0, (unsigned char *) "Starting transmission...\r\n");
 
@@ -33,11 +35,11 @@ int main(void) {
         in_char = UART_ReadChar(uart0);
         switch(in_char) {
             case((unsigned char) 'r'):
-            case((unsigned char) 'R'): GPIO_Toggle(portF, 0x02); break;
+            case((unsigned char) 'R'): Led_Toggle(redLed); break;
             case((unsigned char) 'g'):
-            case((unsigned char) 'G'): GPIO_Toggle(portF, 0x08); break;
+            case((unsigned char) 'G'): Led_Toggle(greenLed); break;
             case((unsigned char) 'b'):
-            case((unsigned char) 'B'): GPIO_Toggle(portF, 0x04); break;
+            case((unsigned char) 'B'): Led_Toggle(blueLed);
         }
         UART_WriteChar(uart0, in_char);
         counter += 1;
