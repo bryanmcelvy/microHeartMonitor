@@ -232,7 +232,7 @@ void GPIO_ConfigNVIC(GPIO_Port_t * gpioPort, uint8_t priority) {
             NVIC_EN0_R |= (1 << 3);
             break;
         case GPIO_PORTE_BASE_ADDRESS:
-            NVIC_PRI0_R |= (priority << 5);
+            NVIC_PRI1_R |= (priority << 5);
             NVIC_EN0_R |= (1 << 4);
             break;
         case GPIO_PORTF_BASE_ADDRESS:
