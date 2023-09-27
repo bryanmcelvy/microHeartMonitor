@@ -1,5 +1,6 @@
 #include "Debug.h"
 
+#include "GPIO.h"
 #include "UART.h"
 
 #include "NewAssert.h"
@@ -14,12 +15,15 @@ static const char * const MSG_LIST[] = {
     "LCD module initialized.\r\n", "Assert failed. Entering infinite loop.\r\n."
 };
 
+static UART_t * uart0;
+
 /******************************************************************************
 Initialization
 *******************************************************************************/
 
 void Debug_Init(void) {
-    UART0_Init();
+    GPIO_Port_t * portA = GPIO_InitPort(A);
+    uart0 = UART_Init(portA, UART0);
     Debug_SendMsg(MSG_LIST[START_MSG]);
     return;
 }
@@ -29,7 +33,7 @@ Serial Output
 *******************************************************************************/
 
 void Debug_SendMsg(void * message) {
-    UART0_WriteStr(message);
+    UART_WriteStr(uart0, message);
     return;
 }
 
@@ -39,8 +43,8 @@ void Debug_SendFromList(msg_t msg) {
 }
 
 void Debug_WriteFloat(double value) {
-    UART0_WriteFloat(value, 3);
-    UART0_WriteStr("\r\n");
+    UART_WriteFloat(uart0, value, 3);
+    UART_WriteStr(uart0, "\r\n");
     return;
 }
 
