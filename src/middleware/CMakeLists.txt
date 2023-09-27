@@ -10,5 +10,5 @@ include_directories(${PATH_COMMON} ${PATH_DEVICE} ${PATH_DRIVERS})
 add_library(ILI9341 STATIC ILI9341.c ILI9341.h)
 target_link_libraries(ILI9341 PRIVATE SPI Timer)
 
-add_library(LED STATIC Led.c Led.h)
-target_link_libraries(LED PRIVATE GPIO)
+add_library(Led STATIC Led.c Led.h)
+target_link_libraries(Led PRIVATE GPIO)
