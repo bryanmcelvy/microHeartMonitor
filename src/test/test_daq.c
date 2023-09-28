@@ -15,6 +15,7 @@
 #include "PLL.h"
 
 #include "FIFO.h"
+#include "ISR.h"
 #include "lookup.h"
 
 #include "arm_math_types.h"
@@ -30,8 +31,8 @@
 #define LCD_Y_MIN         (0 + LCD_X_AXIS_OFFSET)
 #define LCD_Y_MAX         (LCD_NUM_Y_VALS + LCD_X_AXIS_OFFSET)
 
-volatile FIFO_t * input_fifo_ptr = 0;
-volatile uint32_t input_buffer[DAQ_BUFFER_SIZE] = { 0 };
+volatile FIFO_t * inputFifo = 0;
+volatile uint32_t inputBuffer[DAQ_BUFFER_SIZE] = { 0 };
 volatile bool sampleReady = false;
 
 void LCD_plotNewSample(uint16_t x, volatile const float32_t sample);
@@ -39,11 +40,7 @@ void LCD_plotNewSample(uint16_t x, volatile const float32_t sample);
 /********************************************************************************/
 
 int main(void) {
-    uint16_t x;
-    volatile uint16_t raw_sample;
-    volatile float32_t sample;
-    float32_t prev_sample = 0;
-    float32_t intermediate_sample;
+    ISR_GlobalDisable();
 
     PLL_Init();
     Debug_Init();
@@ -63,22 +60,24 @@ int main(void) {
     LCD_toggleOutput();
 
     // Initialize DAQ module
-    input_fifo_ptr = FIFO_Init(input_buffer, DAQ_BUFFER_SIZE);
+    inputFifo = FIFO_Init(inputBuffer, DAQ_BUFFER_SIZE);
     DAQ_Init();
 
-    x = 0;
+    uint16_t x = 0;
+    float32_t prev_sample = 0;
+    ISR_GlobalEnable();
     while(1) {
         while(sampleReady == false) {}
 
         // collect sample
-        raw_sample = FIFO_Get(input_fifo_ptr);
-        sampleReady = !FIFO_isEmpty(input_fifo_ptr);
+        volatile uint16_t raw_sample = FIFO_Get(inputFifo);
+        sampleReady = !FIFO_isEmpty(inputFifo);
 
         // convert and filter
-        sample = ADC_ConvertToVolts(raw_sample);
+        volatile float32_t sample = ADC_ConvertToVolts(raw_sample);
         sample = DAQ_Filter(sample);
 
-        intermediate_sample = prev_sample + ((sample - prev_sample) / 2);
+        float32_t intermediate_sample = prev_sample + ((sample - prev_sample) / 2);
         LCD_plotNewSample(x, intermediate_sample);
         x = (x + 1) % X_MAX;
 
@@ -92,10 +91,12 @@ int main(void) {
 /********************************************************************************/
 
 void ADC0_SS3_Handler(void) {
-    Debug_Assert(FIFO_isFull(input_fifo_ptr) == false);
-    FIFO_Put(input_fifo_ptr, (volatile uint32_t)(ADC0_SSFIFO3_R & 0xFFF));
+    Debug_Assert(FIFO_isFull(inputFifo) == false);
+    FIFO_Put(inputFifo, (volatile uint32_t)(ADC0_SSFIFO3_R & 0xFFF));
     sampleReady = true;
+
     ADC0_ISC_R |= 0x08;               // clear interrupt flag to acknowledge
+    return;
 }
 
 void LCD_plotNewSample(uint16_t x, volatile const float32_t sample) {
@@ -110,4 +111,6 @@ void LCD_plotNewSample(uint16_t x, volatile const float32_t sample) {
     y = LCD_X_AXIS_OFFSET +
         ((uint16_t) (((sample + LOOKUP_ADC_MAX) / (LOOKUP_ADC_MAX * 2)) * LCD_NUM_Y_VALS));
     LCD_drawRectangle(x, 1, y, 1, true);
+
+    return;
 }
