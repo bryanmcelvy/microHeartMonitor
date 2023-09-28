@@ -21,6 +21,8 @@ Preprocessor Directives
 #include <stdbool.h>
 #include <stdint.h>
 
+#define TIMER_CLEAR_INT(timer) (*((register_t) (timer->BASE_ADDRESS + ICR_R_OFFSET)) |= 0x01)
+
 /******************************************************************************
 Declarations
 *******************************************************************************/
@@ -38,6 +40,8 @@ enum {
     CONFIG_R_OFFSET = 0x00,
     MODE_R_OFFSET = 0x04,
     CTRL_R_OFFSET = 0x0C,
+    IMR_R_OFFSET = 0x18,
+    ICR_R_OFFSET = 0x24,
     INTERVAL_LOAD_R_OFFSET = 0x28,
     VALUE_R_OFFSET = 0x054
 };
@@ -103,6 +107,17 @@ Timer_t Timer_Init(timerName_t timerName, bool isPeriodic, bool isCountingUp) {
 Configuration
 *******************************************************************************/
 
+void Timer_setInterval_ms(Timer_t timer, uint32_t time_ms) {
+    Assert(timer->isInit);
+    Assert((time_ms > 0) && (time_ms <= 53000));
+
+    *timer->controlRegister &= ~(0x101);                                      // disable timer
+    uint32_t reload_val = (80000 * time_ms) - 1;
+    *timer->intervalLoadRegister = reload_val;
+
+    return;
+}
+
 void Timer_enableAdcTrigger(Timer_t timer) {
     Assert(timer->isInit);
 
@@ -117,14 +132,30 @@ void Timer_disableAdcTrigger(Timer_t timer) {
     return;
 }
 
-void Timer_setInterval_ms(Timer_t timer, uint32_t time_ms) {
-    Assert(timer->isInit);
-    Assert((time_ms > 0) && (time_ms <= 53000));
+void Timer_enableInterruptOnTimeout(Timer_t timer, uint8_t priority) {
+    *timer->controlRegister &= ~(0x101);                                      // disable timer
 
-    *timer->controlRegister &= ~(0x101);               // disable timer
-    uint32_t reload_val = (80000 * time_ms) - 1;
-    *timer->intervalLoadRegister = reload_val;
+    *((register_t) timer->BASE_ADDRESS + IMR_R_OFFSET) |= 0x01;               // int. on timeout
 
+    // enable in NVIC
+    uint8_t vectorNum;
+    switch(timer->BASE_ADDRESS) {
+        case TIMER0_BASE: vectorNum = INT_TIMER0A; break;
+        case TIMER1_BASE: vectorNum = INT_TIMER1A; break;
+        case TIMER2_BASE: vectorNum = INT_TIMER2A; break;
+        case TIMER3_BASE: vectorNum = INT_TIMER3A; break;
+        case TIMER4_BASE: vectorNum = INT_TIMER4A; break;
+        case TIMER5_BASE: vectorNum = INT_TIMER5A; break;
+    }
+    ISR_setPriority(vectorNum, priority);
+    ISR_Enable(vectorNum);
+
+    return;
+}
+
+void Timer_disableInterruptOnTimeout(Timer_t timer) {
+    *timer->controlRegister &= ~(0x101);                                         // disable timer
+    *((register_t) timer->BASE_ADDRESS + IMR_R_OFFSET) &= ~(0x01);               // disable int.
     return;
 }
 

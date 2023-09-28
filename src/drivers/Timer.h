@@ -53,6 +53,14 @@ void Timer_enableAdcTrigger(Timer_t timer);
 // TODO: Write description
 void Timer_disableAdcTrigger(Timer_t timer);
 
+// TODO: Write description
+void Timer_enableInterruptOnTimeout(Timer_t timer, uint8_t priority);
+
+// TODO: Write description
+void Timer_disableInterruptOnTimeout(Timer_t timer);
+
+// #define TIMER_CLEAR_INT(timer)
+
 /******************************************************************************
 Basic Operations
 *******************************************************************************/
