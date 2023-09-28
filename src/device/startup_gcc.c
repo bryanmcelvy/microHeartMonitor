@@ -64,9 +64,6 @@ void __attribute__((weak, alias("IntDefaultHandler"))) SysTick_Handler(void);
 void __attribute__((weak, alias("IntDefaultHandler"))) Timer1A_Handler(void);
 void __attribute__((weak, alias("IntDefaultHandler"))) UART0_Handler(void);
 
-void InterruptGlobal_Enable(void);                     // defined at end of file
-void InterruptGlobal_Disable(void);                    // defined at end of file
-
 //*****************************************************************************
 //
 // The entry point for the application.
@@ -352,23 +349,4 @@ static void IntDefaultHandler(void) {
     // Go into an infinite loop.
     //
     while(1) {}
-}
-
-//*****************************************************************************
-//
-// Functions for enabling/disabling interrupts/exceptions globally via the
-// PRIMASK register. Reset, NMI, and hard faults are excluded.
-//
-//*****************************************************************************
-
-void InterruptGlobal_Disable(void) {
-    __asm__("   CPSID   I\n\t"                     // Set I bit in PRIMASK
-            "   BX      LR\n\t"                    // Return
-    );
-}
-
-void InterruptGlobal_Enable(void) {
-    __asm__("   CPSIE   I\n\t"                     // Clear I bit in PRIMASK
-            "   BX      LR"                        // Return
-    );
 }
