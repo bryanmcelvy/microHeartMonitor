@@ -44,7 +44,7 @@ target_link_libraries(test_gpio_int.elf GPIO SysTick Timer)
 
 # Timer 1 Interrupts
 add_executable(test_timer1_int.elf test_timer1_int.c )
-target_link_libraries(test_timer1_int.elf GPIO Timer)
+target_link_libraries(test_timer1_int.elf GPIO Timer ISR)
 
 # UART
 add_executable(test_uart_write.elf test_uart_write.c )
