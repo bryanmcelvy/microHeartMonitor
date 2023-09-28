@@ -55,11 +55,11 @@ int main(void) {
 
     DAQ_Fifo = FIFO_Init(DAQ_Buffer, DAQ_BUFFER_SIZE);
     DAQ_Init();
-    Debug_SendFromList(DAQ_INIT);
+    Debug_SendFromList(DEBUG_DAQ_INIT);
 
     FIFO_t * QRS_Fifo = FIFO_Init(QRS_FifoBuffer, QRS_NUM_SAMP + 1);
     QRS_Init();
-    Debug_SendFromList(QRS_INIT);
+    Debug_SendFromList(DEBUG_QRS_INIT);
 
     ISR_GlobalEnable();
     while(1) {

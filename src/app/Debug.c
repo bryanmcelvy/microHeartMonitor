@@ -9,11 +9,13 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+// clang-format off
 static const char * const MSG_LIST[] = {
-    "Starting transmission...\r\nDebug module initialized.\r\n",
-    "Data acquisition module initialized.\r\n", "QRS module initialized.\r\n",
-    "LCD module initialized.\r\n", "Assert failed. Entering infinite loop.\r\n."
+    "Data acquisition module initialized.\r\n", 
+    "QRS module initialized.\r\n",
+    "LCD module initialized.\r\n", 
 };
+// clang-format on
 
 static UART_t * uart0;
 
@@ -24,7 +26,8 @@ Initialization
 void Debug_Init(void) {
     GPIO_Port_t * portA = GPIO_InitPort(A);
     uart0 = UART_Init(portA, UART0);
-    Debug_SendMsg(MSG_LIST[START_MSG]);
+    Debug_SendMsg((void *) "Starting transmission...\r\n");
+    Debug_SendMsg((void *) "Debug module initialized.\r\n");
     return;
 }
 
@@ -37,8 +40,8 @@ void Debug_SendMsg(void * message) {
     return;
 }
 
-void Debug_SendFromList(msg_t msg) {
-    Debug_SendMsg(MSG_LIST[msg]);
+void Debug_SendFromList(Msg_t msg) {
+    Debug_SendMsg((void *) MSG_LIST[msg]);
     return;
 }
 
@@ -54,7 +57,7 @@ Assertions
 
 void Debug_Assert(bool condition) {
     if(condition == false) {
-        Debug_SendFromList(ASSERT_FALSE);
+        Debug_SendMsg((void *) "Assertion failed. Entering infinite loop.\r\n.");
         Assert(false);
     }
     return;

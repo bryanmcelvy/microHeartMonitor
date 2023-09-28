@@ -33,14 +33,18 @@ Serial Output
  */
 void Debug_SendMsg(void * message);
 
-typedef enum { START_MSG, DAQ_INIT, QRS_INIT, LCD_INIT, ASSERT_FALSE } msg_t;
+typedef enum {
+    DEBUG_DAQ_INIT,
+    DEBUG_QRS_INIT,
+    DEBUG_LCD_INIT,
+} Msg_t;
 
 /**
  * @brief               Send a message from the message list.
  *
  * @param[in] msg       Message to send.
  */
-void Debug_SendFromList(msg_t msg);
+void Debug_SendFromList(Msg_t msg);
 
 /**
  * @brief               Write a floating-point value to the serial port.
