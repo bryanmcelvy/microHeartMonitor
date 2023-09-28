@@ -37,10 +37,10 @@ enum {
 enum REGISTER_OFFSETS {
     CONFIG = 0x00,
     MODE = 0x04,
-    CONTROL = 0x0C,
+    CTRL = 0x0C,
     INT_MASK = 0x18,
     INT_CLEAR = 0x24,
-    INTERVAL_LOAD = 0x28,
+    INTERVAL = 0x28,
     VALUE = 0x054
 };
 
@@ -56,12 +56,12 @@ typedef struct TimerStruct_t {
 
 // clang-format off
 static TimerStruct_t TIMER_POOL[6] = {
-    { TIMER0_BASE, (register_t) (TIMER0_BASE + CONTROL), (register_t) (TIMER0_BASE + INTERVAL_LOAD), (register_t) (TIMER0_BASE + INT_CLEAR), false },
-    { TIMER1_BASE, (register_t) (TIMER1_BASE + CONTROL), (register_t) (TIMER1_BASE + INTERVAL_LOAD), (register_t) (TIMER0_BASE + INT_CLEAR), false },
-    { TIMER2_BASE, (register_t) (TIMER2_BASE + CONTROL), (register_t) (TIMER2_BASE + INTERVAL_LOAD), (register_t) (TIMER0_BASE + INT_CLEAR), false },
-    { TIMER3_BASE, (register_t) (TIMER3_BASE + CONTROL), (register_t) (TIMER3_BASE + INTERVAL_LOAD), (register_t) (TIMER0_BASE + INT_CLEAR), false },
-    { TIMER4_BASE, (register_t) (TIMER4_BASE + CONTROL), (register_t) (TIMER4_BASE + INTERVAL_LOAD), (register_t) (TIMER0_BASE + INT_CLEAR), false },
-    { TIMER5_BASE, (register_t) (TIMER5_BASE + CONTROL), (register_t) (TIMER5_BASE + INTERVAL_LOAD), (register_t) (TIMER0_BASE + INT_CLEAR), false }
+    { TIMER0_BASE, (register_t) (TIMER0_BASE + CTRL), (register_t) (TIMER0_BASE + INTERVAL), (register_t) (TIMER0_BASE + INT_CLEAR), false },
+    { TIMER1_BASE, (register_t) (TIMER1_BASE + CTRL), (register_t) (TIMER1_BASE + INTERVAL), (register_t) (TIMER1_BASE + INT_CLEAR), false },
+    { TIMER2_BASE, (register_t) (TIMER2_BASE + CTRL), (register_t) (TIMER2_BASE + INTERVAL), (register_t) (TIMER2_BASE + INT_CLEAR), false },
+    { TIMER3_BASE, (register_t) (TIMER3_BASE + CTRL), (register_t) (TIMER3_BASE + INTERVAL), (register_t) (TIMER3_BASE + INT_CLEAR), false },
+    { TIMER4_BASE, (register_t) (TIMER4_BASE + CTRL), (register_t) (TIMER4_BASE + INTERVAL), (register_t) (TIMER4_BASE + INT_CLEAR), false },
+    { TIMER5_BASE, (register_t) (TIMER5_BASE + CTRL), (register_t) (TIMER5_BASE + INTERVAL), (register_t) (TIMER5_BASE + INT_CLEAR), false }
 };
 
 // clang-format on
@@ -111,7 +111,7 @@ void Timer_setInterval_ms(Timer_t timer, uint32_t time_ms) {
     Assert(timer->isInit);
     Assert((time_ms > 0) && (time_ms <= 53000));
 
-    *timer->controlRegister &= ~(0x101);                               // disable timer
+    *timer->controlRegister &= ~(0x101);               // disable timer
     uint32_t reload_val = (80000 * time_ms) - 1;
     *timer->intervalLoadRegister = reload_val;
 
@@ -133,9 +133,7 @@ void Timer_disableAdcTrigger(Timer_t timer) {
 }
 
 void Timer_enableInterruptOnTimeout(Timer_t timer, uint8_t priority) {
-    *timer->controlRegister &= ~(0x101);                               // disable timer
-
-    *((register_t) timer->BASE_ADDR + INT_MASK) |= 0x01;               // int. on timeout
+    *timer->controlRegister &= ~(0x101);               // disable timer
 
     // enable in NVIC
     uint8_t vectorNum;
@@ -150,12 +148,16 @@ void Timer_enableInterruptOnTimeout(Timer_t timer, uint8_t priority) {
     ISR_setPriority(vectorNum, priority);
     ISR_Enable(vectorNum);
 
+    // enable in timer register
+    *((register_t) (timer->BASE_ADDR + INT_MASK)) |= 0x01;
+    *timer->interruptClearRegister |= 0x01;                                 // clear int. flag
+
     return;
 }
 
 void Timer_disableInterruptOnTimeout(Timer_t timer) {
-    *timer->controlRegister &= ~(0x101);                                  // disable timer
-    *((register_t) timer->BASE_ADDR + INT_MASK) &= ~(0x01);               // disable int.
+    *timer->controlRegister &= ~(0x101);                                    // disable timer
+    *((register_t) (timer->BASE_ADDR + INT_MASK)) &= ~(0x01);               // disable int.
     return;
 }
 
