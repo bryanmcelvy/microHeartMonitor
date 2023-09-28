@@ -15,18 +15,18 @@ volatile uint8_t color_idx = 0;
 volatile uint8_t led_is_on = 0;
 
 int main() {
-    InterruptGlobal_Disable();
+    // InterruptGlobal_Disable();
 
     PLL_Init();
     SysTick_Interrupt_Init(200);               // f_interrupt = 5[Hz]
     GPIO_PortF_Init();
 
-    InterruptGlobal_Enable();
+    // InterruptGlobal_Enable();
     while(1) {}
 }
 
 void GPIO_PortF_Init(void) {
-    SYSCTL_RCGCGPIO_R |= 0x20;                 // start clock for Port F
+    SYSCTL_RCGCGPIO_R |= 0x20;               // start clock for Port F
 
     // GPIO_PORTF_LOCK_R = 0x4C4F434B;	    // Unlock GPIO Port F
     // GPIO_PORTF_CR_R = 0x0F;				// Allow changes to PF0
