@@ -101,4 +101,4 @@ target_link_libraries(test_debug.elf Debug GPIO Timer)
 # QRS Test
 add_executable(test_qrs.elf test_qrs.c)
 target_include_directories(test_qrs.elf PRIVATE ${PATH_APP} ${CMSIS_DIRS})
-target_link_libraries(test_qrs.elf DAQ Debug LCD QRS)
+target_link_libraries(test_qrs.elf DAQ Debug ISR LCD QRS)
