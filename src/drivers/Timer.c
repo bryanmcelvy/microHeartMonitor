@@ -53,12 +53,12 @@ typedef struct TimerStruct_t {
 
 // clang-format off
 static TimerStruct_t TIMER_POOL[6] = {
-    { TIMER0_BASE, (register_t) TIMER0_BASE + CTRL_R_OFFSET, (register_t) TIMER0_BASE + INTERVAL_LOAD_R_OFFSET, false },
-    { TIMER1_BASE, (register_t) TIMER1_BASE + CTRL_R_OFFSET, (register_t) TIMER1_BASE + INTERVAL_LOAD_R_OFFSET, false },
-    { TIMER2_BASE, (register_t) TIMER2_BASE + CTRL_R_OFFSET, (register_t) TIMER2_BASE + INTERVAL_LOAD_R_OFFSET, false },
-    { TIMER3_BASE, (register_t) TIMER3_BASE + CTRL_R_OFFSET, (register_t) TIMER3_BASE + INTERVAL_LOAD_R_OFFSET, false },
-    { TIMER4_BASE, (register_t) TIMER4_BASE + CTRL_R_OFFSET, (register_t) TIMER4_BASE + INTERVAL_LOAD_R_OFFSET, false },
-    { TIMER5_BASE, (register_t) TIMER5_BASE + CTRL_R_OFFSET, (register_t) TIMER5_BASE + INTERVAL_LOAD_R_OFFSET, false }};
+    { TIMER0_BASE, (register_t) (TIMER0_BASE + CTRL_R_OFFSET), (register_t) (TIMER0_BASE + INTERVAL_LOAD_R_OFFSET), false },
+    { TIMER1_BASE, (register_t) (TIMER1_BASE + CTRL_R_OFFSET), (register_t) (TIMER1_BASE + INTERVAL_LOAD_R_OFFSET), false },
+    { TIMER2_BASE, (register_t) (TIMER2_BASE + CTRL_R_OFFSET), (register_t) (TIMER2_BASE + INTERVAL_LOAD_R_OFFSET), false },
+    { TIMER3_BASE, (register_t) (TIMER3_BASE + CTRL_R_OFFSET), (register_t) (TIMER3_BASE + INTERVAL_LOAD_R_OFFSET), false },
+    { TIMER4_BASE, (register_t) (TIMER4_BASE + CTRL_R_OFFSET), (register_t) (TIMER4_BASE + INTERVAL_LOAD_R_OFFSET), false },
+    { TIMER5_BASE, (register_t) (TIMER5_BASE + CTRL_R_OFFSET), (register_t) (TIMER5_BASE + INTERVAL_LOAD_R_OFFSET), false }};
 
 // clang-format on
 
@@ -153,9 +153,7 @@ void Timer_Stop(Timer_t timer) {
 }
 
 bool Timer_isCounting(Timer_t timer) {
-    Assert(timer->isInit);
-
-    return *timer->controlRegister & 0x101;
+    return (bool) (*timer->controlRegister & 0x101);
 }
 
 void Timer_Wait1ms(Timer_t timer, uint32_t time_ms) {
