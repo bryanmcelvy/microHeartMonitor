@@ -15,7 +15,7 @@ int main(void) {
     uint8_t color_idx = 0;
 
     PLL_Init();               // set bus frequency to 80 MHz
-    Timer0A_Init();
+    Timer_t timer0 = Timer_Init(TIMER0, false, true);
 
     // Init. LED pins
     GPIO_Port_t * portF = GPIO_InitPort(F);
@@ -26,7 +26,7 @@ int main(void) {
     while(1) {
         for(uint8_t i = 0; i < 2; i++) {
             GPIO_Toggle(portF, color_table[color_idx]);
-            Timer0A_Wait1ms(500);
+            Timer_Wait1ms(timer0, 500);
         }
         color_idx = (color_idx < 5) ? (color_idx + 1) : 0;
     }
