@@ -198,8 +198,12 @@ float32_t QRS_ApplyDecisionRules(float32_t inputBuffer[]) {
     return avgHeartRate_bpm;
 }
 
-inline float32_t QRS_RunDetection(float32_t inputBuffer[],
-                                  float32_t outputBuffer[]);               // defined in header
+float32_t QRS_RunDetection(float32_t inputBuffer[], float32_t outputBuffer[]) {
+    QRS_Preprocess(inputBuffer, outputBuffer);
+    float32_t heartRate_bpm = QRS_ApplyDecisionRules(outputBuffer);
+
+    return heartRate_bpm;
+}
 
 /*******************************************************************************
 Static Function Definitions

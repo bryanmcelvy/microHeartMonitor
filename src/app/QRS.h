@@ -57,12 +57,7 @@ float32_t QRS_ApplyDecisionRules(float32_t inputBuffer[]);
  * @param[in] outputBuffer  Array of preprocessed ECG signal values.
  * @param[out] float32_t    Average heart rate in [bpm].
  */
-inline float32_t QRS_RunDetection(float32_t inputBuffer[], float32_t outputBuffer[]) {
-    QRS_Preprocess(inputBuffer, outputBuffer);
-    float32_t heartRate_bpm = QRS_ApplyDecisionRules(outputBuffer);
-
-    return heartRate_bpm;
-}
+float32_t QRS_RunDetection(float32_t inputBuffer[], float32_t outputBuffer[]);
 
 #endif               // QRS_H
 
