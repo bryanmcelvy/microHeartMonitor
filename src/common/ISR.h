@@ -36,4 +36,10 @@ void ISR_Enable(const uint8_t vectorNum);
  */
 void ISR_Disable(const uint8_t vectorNum);
 
+/// @brief Disable all interrupts.
+void ISR_GlobalDisable(void);
+
+/// @brief Enable all interrupts.
+void ISR_GlobalEnable(void);
+
 #endif               // ISR_H

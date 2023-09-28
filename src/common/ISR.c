@@ -81,3 +81,25 @@ void ISR_Disable(const uint8_t vectorNum) {
 
     return;
 }
+
+void ISR_GlobalDisable(void) {
+    // NOTE: Does not affect Reset, NMI, or hard faults
+    __asm__("   CPSID   I\n\t"                // Set I bit in PRIMASK
+
+            "   BX      LR\n\t"               // Return
+
+    );
+
+    return;
+}
+
+void ISR_GlobalEnable(void) {
+    // NOTE: Does not affect Reset, NMI, or hard faults
+    __asm__("   CPSIE   I\n\t"               // Clear I bit in PRIMASK
+
+            "   BX      LR"                  // Return
+
+    );
+
+    return;
+}
