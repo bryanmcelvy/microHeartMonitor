@@ -1,7 +1,7 @@
 /**
  * @file
  * @author  Bryan McElvy
- * @brief   Test script for writing to serial port via UART0
+ * @brief   (**DISABLED**) Test script for writing to serial port via UART0
  */
 
 #include "PLL.h"

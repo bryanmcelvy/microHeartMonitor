@@ -47,7 +47,7 @@ int main(void) {
 
     // Initialize/configure LCD
     LCD_Init();
-    LCD_toggleInversion();
+    LCD_toggleColorInversion();
 
     LCD_setColor_3bit(LCD_BLACK_INV);
     LCD_setArea(0, X_MAX, 0, Y_MAX);

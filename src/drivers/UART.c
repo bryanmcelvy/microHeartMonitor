@@ -7,32 +7,109 @@
  * @brief   Source code for UART module.
  */
 
+/******************************************************************************
+SECTIONS
+        Preprocessor Directives
+        Constant Declarations
+        Initialization
+        Reading
+        Writing
+*******************************************************************************/
+
+/******************************************************************************
+Preprocessor Directives
+*******************************************************************************/
+
 #include "UART.h"
 
 #include "GPIO.h"
 
-#include "FIFO.h"
+#include "NewAssert.h"
 
 #include "tm4c123gh6pm.h"
 
 #include <stdbool.h>
 #include <stdint.h>
 
-#define ASCII_CONVERSION    0x30
+#define ASCII_CONVERSION 0x30
 
-#define UART0_TX_FULL       (UART0_FR_R & 0x20)
+/******************************************************************************
+Constant Declarations
+*******************************************************************************/
 
-#define UART0_BUFFER_SIZE   16
-#define UART0_INTERRUPT_NUM 5
+enum GPIO_BASE_ADDRESSES {
+    GPIO_PORTA_BASE = (uint32_t) 0x40004000,
+    GPIO_PORTB_BASE = (uint32_t) 0x40005000,
+    GPIO_PORTC_BASE = (uint32_t) 0x40006000,
+    GPIO_PORTD_BASE = (uint32_t) 0x40007000,
+    GPIO_PORTE_BASE = (uint32_t) 0x40024000,
+    GPIO_PORTF_BASE = (uint32_t) 0x40025000
+};
 
-/**********************************************************************
-UART0
-***********************************************************************/
+enum UART_BASE_ADDRESSES {
+    UART0_BASE = (uint32_t) 0x4000C000,
+    UART1_BASE = (uint32_t) 0x4000D000,
+    UART2_BASE = (uint32_t) 0x4000E000,
+    UART3_BASE = (uint32_t) 0x4000F000,
+    UART4_BASE = (uint32_t) 0x40010000,
+    UART5_BASE = (uint32_t) 0x40011000,
+    UART6_BASE = (uint32_t) 0x40012000,
+    UART7_BASE = (uint32_t) 0x40013000
+};
 
-static volatile uint32_t UART_buffer[UART0_BUFFER_SIZE] = { 0 };
-static volatile FIFO_t * UART_fifo_ptr = 0;
+enum UART_REG_OFFSETS {
+    UART_FR_R_OFFSET = (uint32_t) 0x18,
+    IBRD_R_OFFSET = (uint32_t) 0x24,
+    FBRD_R_OFFSET = (uint32_t) 0x28,
+    LCRH_R_OFFSET = (uint32_t) 0x2C,
+    CTL_R_OFFSET = (uint32_t) 0x30,
+    CC_R_OFFSET = (uint32_t) 0xFC8
+};
 
-void UART0_Init(void) {
+typedef volatile uint32_t * register_t;
+
+/******************************************************************************
+Initialization
+*******************************************************************************/
+
+struct UART_t {
+    const uint32_t BASE_ADDRESS;
+    register_t const FLAG_R_ADDRESS;
+    GPIO_Port_t * GPIO_PORT;               ///< pointer to GPIO port data structure
+    GPIO_Pin_t RX_PIN_NUM;                 ///< GPIO pin number
+    GPIO_Pin_t TX_PIN_NUM;                 ///< GPIO pin number
+    bool isInit;
+};
+
+static UART_t UART_ARR[8] = {
+    { UART0_BASE, ((register_t) (UART0_BASE + UART_FR_R_OFFSET)), 0, GPIO_PIN0, GPIO_PIN1, false },
+    { UART1_BASE, ((register_t) (UART1_BASE + UART_FR_R_OFFSET)), 0, GPIO_PIN0, GPIO_PIN1, false },
+    { UART2_BASE, ((register_t) (UART2_BASE + UART_FR_R_OFFSET)), 0, GPIO_PIN6, GPIO_PIN7, false },
+    { UART3_BASE, ((register_t) (UART3_BASE + UART_FR_R_OFFSET)), 0, GPIO_PIN6, GPIO_PIN7, false },
+    { UART4_BASE, ((register_t) (UART4_BASE + UART_FR_R_OFFSET)), 0, GPIO_PIN4, GPIO_PIN5, false },
+    { UART5_BASE, ((register_t) (UART5_BASE + UART_FR_R_OFFSET)), 0, GPIO_PIN4, GPIO_PIN5, false },
+    { UART6_BASE, ((register_t) (UART6_BASE + UART_FR_R_OFFSET)), 0, GPIO_PIN4, GPIO_PIN5, false },
+    { UART7_BASE, ((register_t) (UART7_BASE + UART_FR_R_OFFSET)), 0, GPIO_PIN0, GPIO_PIN1, false }
+};
+
+UART_t * UART_Init(GPIO_Port_t * port, UART_Num_t uartNum) {
+    // Check inputs
+    Assert(GPIO_isPortInit(port));
+    Assert(uartNum < 8);
+
+    // Check that inputted GPIO port and UART match each other
+    uint32_t gpio_baseAddress = GPIO_getBaseAddr(port);
+    switch(uartNum) {
+        case UART0: Assert(gpio_baseAddress == GPIO_PORTA_BASE); break;
+        case UART1: Assert(gpio_baseAddress == GPIO_PORTB_BASE); break;
+        case UART2:
+        case UART6: Assert(gpio_baseAddress == GPIO_PORTD_BASE); break;
+        case UART3:
+        case UART4: Assert(gpio_baseAddress == GPIO_PORTC_BASE); break;
+        case UART5:
+        case UART7: Assert(gpio_baseAddress == GPIO_PORTE_BASE); break;
+    }
+
     // clang-format off
     /**
      *  @details
@@ -48,228 +125,118 @@ void UART0_Init(void) {
      */
     // clang-format on
 
-    // activate clock for UART0 and wait for it to be ready
-    SYSCTL_RCGCUART_R |= 0x01;
-    while((SYSCTL_PRUART_R & 0x01) == 0) {}
+    // Initialize UART
+    UART_t * uart = &UART_ARR[uartNum];
+    if(uart->isInit == false) {
+        SYSCTL_RCGCUART_R |= (1 << uartNum);
+        while((SYSCTL_PRUART_R & (1 << uartNum)) == 0) {}
 
-    // initialize GPIO pins
-    GPIO_Port_t * portA_ptr = GPIO_InitPort(A);
-    GPIO_ConfigAltMode(portA_ptr, GPIO_PIN0 | GPIO_PIN1);
-    GPIO_ConfigPortCtrl(portA_ptr, GPIO_PIN0 | GPIO_PIN1, 1);
-    GPIO_ConfigDriveStrength(portA_ptr, GPIO_PIN0 | GPIO_PIN1, 8);
-    GPIO_EnableDigital(portA_ptr, GPIO_PIN0 | GPIO_PIN1);
+        // initialize GPIO pins
+        GPIO_ConfigAltMode(port, uart->RX_PIN_NUM | uart->TX_PIN_NUM);
+        if(gpio_baseAddress == GPIO_PORTC_BASE) {
+            GPIO_ConfigPortCtrl(port, uart->RX_PIN_NUM | uart->TX_PIN_NUM, 2);
+        }
+        else {
+            GPIO_ConfigPortCtrl(port, uart->RX_PIN_NUM | uart->TX_PIN_NUM, 1);
+        }
+        GPIO_ConfigDriveStrength(port, uart->RX_PIN_NUM | uart->TX_PIN_NUM, 8);
+        GPIO_EnableDigital(port, uart->RX_PIN_NUM | uart->TX_PIN_NUM);
 
-    // configure UART0
-    UART0_CTL_R &= ~(0x01);                 // disable UART0
-    UART0_IBRD_R |= 43;
-    UART0_FBRD_R |= 26;
-    UART0_LCRH_R |= 0x70;                   // 8-bit length, FIFO (NOTE: access *AFTER* `BRD`)
-    UART0_CC_R &= ~(0x0F);                  // system clock source
-    UART0_CTL_R |= 0x01;                    // re-enable UART0
+        // disable UART
+        *((register_t) (uart->BASE_ADDRESS + CTL_R_OFFSET)) &= ~(1 << uartNum);
 
-    UART_fifo_ptr = FIFO_Init(UART_buffer, UART0_BUFFER_SIZE);
+        // 8-bit length, FIFO
+        *((register_t) (uart->BASE_ADDRESS + IBRD_R_OFFSET)) |= 43;
+        *((register_t) (uart->BASE_ADDRESS + FBRD_R_OFFSET)) |= 26;
 
-    NVIC_PRI1_R |= (1 << 13);               // priority 1
-    NVIC_EN0_R |= (1 << UART0_INTERRUPT_NUM);               // enable UART0 interrupts in NVIC
+        // (NOTE: access *AFTER* `BRD`)
+        *((register_t) (uart->BASE_ADDRESS + LCRH_R_OFFSET)) |= 0x70;
+        *((register_t) (uart->BASE_ADDRESS + CC_R_OFFSET)) &= ~(0x0F);               // system clock
+
+        // re-enable
+        *((register_t) (uart->BASE_ADDRESS + CTL_R_OFFSET)) |= (1 << uartNum);
+
+        uart->isInit = true;
+    }
+
+    return uart;
 }
 
-unsigned char UART0_ReadChar(void) {
-    /**
-     * This function uses busy-wait synchronization
-     * to read a character from UART0.
-     */
-    while((UART0_FR_R & 0x10) != 0) {}               // wait until Rx FIFO is empty
-    return (unsigned char) (UART0_DR_R & 0xFF);
+/******************************************************************************
+Reading
+*******************************************************************************/
+
+unsigned char UART_ReadChar(UART_t * uart) {
+    while((*uart->FLAG_R_ADDRESS & 0x10) != 0) {}
+    return (unsigned char) *((register_t) (uart->BASE_ADDRESS));
 }
 
-void UART0_WriteChar(unsigned char input_char) {
-    /**
-     * This function uses busy-wait synchronization
-     * to write a character to UART0.
-     */
-    while((UART0_FR_R & 0x20) != 0) {}               // wait until Tx FIFO is no longer full
-    UART0_DR_R = input_char;
+/******************************************************************************
+Writing
+*******************************************************************************/
+
+void UART_WriteChar(UART_t * uart, unsigned char input_char) {
+    while((*uart->FLAG_R_ADDRESS & 0x20) != 0) {}
+    *((register_t) (uart->BASE_ADDRESS)) = input_char;
+    return;
 }
 
-void UART0_WriteStr(void * input_str) {
-    /**
-     * This function uses UART0_WriteChar() function
-     * to write a C string to UART0. The function writes
-     * until either the entire string has been written or
-     * a null-terminated character has been reached.
-     */
+void UART_WriteStr(UART_t * uart, void * input_str) {
     unsigned char * str_ptr = input_str;
     while(*str_ptr != '\0') {
-        UART0_WriteChar(*str_ptr);
+        UART_WriteChar(uart, *str_ptr);
         str_ptr += 1;
     }
+    return;
 }
 
-void UART0_WriteInt(uint32_t n) {
-    uint32_t nearestPowOf10 = 1;
+void UART_WriteInt(UART_t * uart, int32_t n) {
 
-    if(n < 10) {
-        UART0_WriteChar(ASCII_CONVERSION + (n / nearestPowOf10));
-    }
-    else {
-        while((n / (nearestPowOf10 * 10)) > 0) {
-            nearestPowOf10 *= 10;
-        }
-
-        while(nearestPowOf10 > 0) {
-            UART0_WriteChar(ASCII_CONVERSION + (n / nearestPowOf10));
-            n %= nearestPowOf10;
-            nearestPowOf10 /= 10;
-        }
-    }
-}
-
-void UART0_WriteFloat(double n, uint8_t num_decimals) {
-    int32_t b;
-
+    // Send negative sign (`-`) if needed
     if(n < 0) {
-        UART0_WriteChar('-');
+        UART_WriteChar(uart, '-');
         n *= -1;
     }
 
-    b = n / (int32_t) 1;
-    UART0_WriteInt(b);
-
-    if(num_decimals > 0) {
-        UART0_WriteChar('.');
-        for(uint8_t count = 0; count < num_decimals; count++) {
-            n = (n - b) * (double) 10;
-            b = n / (int32_t) 1;
-            UART0_WriteChar(ASCII_CONVERSION + b);
-        }
-    }
-}
-
-/**********************************************************************
-UART0 (Interrupt)
-***********************************************************************/
-
-void UART0_IRQ_AddChar(unsigned char input_char) {
-    FIFO_Put(UART_fifo_ptr, input_char);
-    if(FIFO_isFull(UART_fifo_ptr)) {
-        UART0_IRQ_Start();
-    }
-}
-
-void UART0_IRQ_AddStr(void * input_str) {
-    unsigned char * str_ptr = input_str;
-    while(*str_ptr != '\0') {
-        UART0_IRQ_AddChar(*str_ptr);
-        str_ptr += 1;
-    }
-}
-
-void UART0_IRQ_AddInt(uint32_t n) {
-    uint32_t nearestPowOf10 = 1;
-
     if(n < 10) {
-        UART0_IRQ_AddChar(ASCII_CONVERSION + (n / nearestPowOf10));
+        UART_WriteChar(uart, ASCII_CONVERSION + n);
     }
     else {
+        int32_t nearestPowOf10 = 1;
         while((n / (nearestPowOf10 * 10)) > 0) {
             nearestPowOf10 *= 10;
         }
 
         while(nearestPowOf10 > 0) {
-            UART0_IRQ_AddChar(ASCII_CONVERSION + (n / nearestPowOf10));
+            UART_WriteChar(uart, ASCII_CONVERSION + (n / nearestPowOf10));
             n %= nearestPowOf10;
             nearestPowOf10 /= 10;
         }
     }
+    return;
 }
 
-void UART0_IRQ_Start(void) {
-    /**
-     * This function writes to the Software Trigger Interrupt (`SWTRIG`)
-     * register to activate the `UART0_Handler()` function rather than
-     * relying on the TM4C123's built-in UART0 interrupt sources.
-     */
-    NVIC_SW_TRIG_R |= UART0_INTERRUPT_NUM;
-}
-
-void UART0_Handler(void) {
-    while(FIFO_isEmpty(UART_fifo_ptr) == false) {
-        unsigned char output_char = FIFO_Get(UART_fifo_ptr);
-        while(UART0_TX_FULL) {}
-        UART0_DR_R += output_char;
-    }
-}
-
-/**********************************************************************
-UART1
-***********************************************************************/
-
-void UART1_Init(void) {
-    // clang-format off
-    /**
-     *  @details
-     *  Given the bus frequency (`f_bus`) and desired baud rate (`BR`),
-     *  the baud rate divisor (`BRD`) can be calculated:
-     *      \f$BRD = f_{bus}/(16*BR)\f$
-     *
-     *  The integer BRD (`IBRD`) is simply the integer part of the BRD:
-     *      \f$IBRD = int( BRD )\f$
-     *
-     *  The fractional BRD (`FBRD`) is calculated using the fractional part (`mod(BRD,1)`) of the BRD:
-     *      \f$FBRD = int( ( mod(BRD,1) * 64 ) + 0.5 )\f$
-     */
-    // clang-format on
-
-    SYSCTL_RCGCUART_R |= 0x02;                   // activate clock for UART1
-    if((SYSCTL_RCGCGPIO_R & 0x02) == 0) {
-        SYSCTL_RCGCGPIO_R |= 0x02;               // activate clock for GPIO Port B
+void UART_WriteFloat(UART_t * uart, double n, uint8_t num_decimals) {
+    // Send negative sign (`-`) if needed
+    if(n < 0) {
+        UART_WriteChar(uart, '-');
+        n *= -1;
     }
 
-    UART1_CTL_R &= ~(0x01);                      // disable UART1
-    UART1_IBRD_R |= 43;                          /// NOTE: LCRH must be accessed *AFTER* setting the
-                                                 /// `BRD` register
-    UART1_FBRD_R |= 26;
-    UART1_LCRH_R |= 0x70;                        // 8-bit length, FIFO
-    UART1_CC_R &= ~(0x0F);                       // system clock source
-    UART1_CTL_R |= 0x01;                         // re-enable UART0
+    // Send the integer part
+    int32_t b = n / (int32_t) 1;
+    UART_WriteInt(uart, b);
 
-    GPIO_PORTB_AFSEL_R |= 0x03;                  // alt. mode for PB0/1
-    GPIO_PORTB_PCTL_R |= 0x11;                   // UART mode for PB0/1
-    GPIO_PORTB_DR8R_R |= 0x03;                   // 8 [ma] drive strength
-    GPIO_PORTB_AMSEL_R &= ~(0x03);               // disable analog
-    GPIO_PORTB_DEN_R |= 0x03;                    // enable digital I/O
-}
-
-unsigned char UART1_ReadChar(void) {
-    /**
-     * This function uses busy-wait synchronization
-     * to read a character from UART1.
-     */
-    while((UART1_FR_R & 0x10) != 0) {}               // wait until Rx FIFO is empty
-    return (unsigned char) (UART1_DR_R & 0xFF);
-}
-
-void UART1_WriteChar(unsigned char input_char) {
-    /**
-     * This function uses busy-wait synchronization
-     * to write a character to UART1.
-     */
-    while((UART1_FR_R & 0x20) != 0) {}               // wait until Tx FIFO is no longer full
-    UART1_DR_R = input_char;
-}
-
-void UART1_WriteStr(void * input_str) {
-    /**
-     * This function uses UART1_WriteChar() function
-     * to write a C string to UART1. The function writes
-     * until either the entire string has been written or
-     * a null-terminated character has been reached.
-     */
-    unsigned char * str_ptr = input_str;
-    while(*str_ptr != '\0') {
-        UART1_WriteChar(*str_ptr);
-        str_ptr += 1;
+    // Send the decimal part
+    if(num_decimals > 0) {
+        UART_WriteChar(uart, '.');
+        for(uint8_t count = 0; count < num_decimals; count++) {
+            n = (n - b) * (double) 10;
+            b = n / (int32_t) 1;
+            UART_WriteChar(uart, ASCII_CONVERSION + b);
+        }
     }
+    return;
 }
 
 /** @} */

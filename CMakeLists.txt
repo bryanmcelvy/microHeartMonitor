@@ -19,6 +19,7 @@ option(OPT_TESTING      "Build test scripts when building `all`"                
 set(PATH_DOCS ${PROJECT_SOURCE_DIR}/docs)
 set(PATH_EXTERNAL ${PROJECT_SOURCE_DIR}/external)
 set(PATH_SRC ${PROJECT_SOURCE_DIR}/src)
+set(PATH_UNIT_TESTS ${PROJECT_SOURCE_DIR}/test)
 
 set(PATH_TOOLS ${PROJECT_SOURCE_DIR}/tools)
 set(PATH_CPPCHECK ${PATH_TOOLS}/cppcheck)
@@ -28,7 +29,7 @@ set(PATH_COMMON ${PATH_SRC}/common)
 set(PATH_DEVICE ${PATH_SRC}/device)
 set(PATH_DRIVERS ${PATH_SRC}/drivers)
 set(PATH_MIDDLEWARE ${PATH_SRC}/middleware)
-set(PATH_TEST_SCRIPTS ${PATH_SRC}/test)
+set(PATH_TEST_SCRIPTS ${PATH_SRC}/test_scripts)
 
 #*****************************************************************************
 # Subdirectories
@@ -39,7 +40,7 @@ add_subdirectory(${PATH_SRC})       # source code, libraries, test scripts
 
 # Unit Testing
 include(${PROJECT_SOURCE_DIR}/cmake_files/cpputest.cmake)
-add_subdirectory(${PROJECT_SOURCE_DIR}/test EXCLUDE_FROM_ALL)
+add_subdirectory(${PATH_UNIT_TESTS} EXCLUDE_FROM_ALL)
 
 #*****************************************************************************
 # Cppcheck Configuration

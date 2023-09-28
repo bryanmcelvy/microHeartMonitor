@@ -48,16 +48,18 @@ target_link_libraries(test_timer1_int.elf GPIO Timer)
 
 # UART
 add_executable(test_uart_write.elf test_uart_write.c )
-target_link_libraries(test_uart_write.elf GPIO Timer UART)
+target_link_libraries(test_uart_write.elf GPIO Led Timer UART)
 
 # UART (Logic Analyzer)
 add_executable(test_uart_la.elf test_uart_la.c )
 target_link_libraries(test_uart_la.elf Timer UART)
 
-# UART (Logic Analyzer)
+#[[ 
+UART (Interrupt) 
 add_executable(test_uart_interrupt.elf test_uart_interrupt.c )
 target_include_directories(test_uart_interrupt.elf PRIVATE ${PATH_COMMON})
 target_link_libraries(test_uart_interrupt.elf GPIO Timer UART)
+#]]
 
 # Blink Display Test
 add_executable(test_ili9341_blinkdisplay.elf test_ili9341_blinkdisplay.c)
@@ -71,7 +73,7 @@ target_link_libraries(test_adc.elf ADC FIFO GPIO Timer)
 
 # GPIO (New) Test
 add_executable(test_gpio_new.elf test_gpio_new.c)
-target_link_libraries(test_gpio_new.elf GPIO LED Timer)
+target_link_libraries(test_gpio_new.elf GPIO Led Timer)
 
 #*****************************************************************************
 # Application SW Tests

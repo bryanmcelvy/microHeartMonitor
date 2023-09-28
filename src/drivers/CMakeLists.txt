@@ -17,10 +17,7 @@ add_library(GPIO STATIC GPIO.c GPIO.h)
 target_link_libraries(GPIO PUBLIC NewAssert)
 
 add_library(UART STATIC UART.c UART.h)
-target_link_libraries(UART 
-                        PRIVATE GPIO
-                        PUBLIC FIFO)
-
+target_link_libraries(UART PRIVATE GPIO)
 
 add_library(SPI STATIC SPI.c SPI.h)
 target_link_libraries(SPI 

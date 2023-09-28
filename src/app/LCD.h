@@ -12,7 +12,8 @@
 
 /******************************************************************************
 SECTIONS
-        Initialization/Configuration
+        Initialization
+        Configuration
         Drawing Area
         Color
         Drawing
@@ -34,28 +35,68 @@ SECTIONS
 enum { X_MAX = NUM_ROWS, Y_MAX = NUM_COLS };
 
 /******************************************************************************
-Initialization/Configuration
+Initialization
 *******************************************************************************/
 /** @name Init./Config. Functions */               /// @{
 
-/**
- * @brief       Initialize the LCD driver and its internal independencies.
- *
- */
+/// @brief       Initialize the LCD driver and its internal independencies.
 void LCD_Init(void);
 
+/******************************************************************************
+Configuration
+*******************************************************************************/
+
 /**
- * @brief       Toggle display output `ON` or `OFF` (`OFF` by default).
- *              Turning output `OFF` prevents the LCD driver from refreshing the
- *              display, which can prevent abnormalities like screen tearing
- *              while attempting to update the image.
+ * @brief           Toggle display output `ON` or `OFF` (`OFF` by default).
+ *                  Turning output `OFF` stops the LCD driver chip from writing
+ *                  to the display, and also blanks out the display completely.
+ *
+ * @param[in] isOn  `true` to turn display output `ON`, `false` to turn `OFF`
+ *
+ * @sa              LCD_toggleOutput()
+ */
+void LCD_setOutputMode(bool isOn);
+
+/**
+ * @brief           Toggle display output `ON` or `OFF` (`OFF` by default).
+ *
+ * @sa              LCD_setOutputMode()
  */
 void LCD_toggleOutput(void);
 
-/// @brief      Toggle color inversion `ON` or `OFF` (`OFF` by default).
-void LCD_toggleInversion(void);
+/**
+ * @brief           Turn color inversion `ON` or `OFF` (`OFF` by default).
+ *
+ * @param[in] isOn  `true` to invert colors, `false` to use regular colors
+ *
+ * @sa              LCD_toggleColorInversion(), LCD_setColor(), LCD_setColor_3bit()
+ */
+void LCD_setColorInversionMode(bool isOn);
 
-/// @brief      Toggle 16-bit or 18-bit color depth (16-bit by default).
+/**
+ * @brief           Toggle color inversion `ON` or `OFF` (`OFF` by default).
+ *
+ * @sa              LCD_setColorInversionMode(), LCD_setColor(), LCD_setColor_3bit()
+ */
+void LCD_toggleColorInversion(void);
+
+/**
+ * @brief               Set the color depth to 16-bit or 18-bit.
+ *                      16-bit color depth allows for only ~65K colors, but only needs
+ *                      2 data transfers. 18-bit color depth allows for ~262K colors,
+ *                      but requires 3 transfers.
+ *
+ * @param[in] is_16bit  `true` for 16-bit, `false` for 18b-bit
+ *
+ * @sa                  LCD_toggleColorDepth(), LCD_setColor(), LCD_setColor_3bit()
+ */
+void LCD_setColorDepth(bool is_16bit);
+
+/**
+ * @brief               Toggle 16-bit or 18-bit color depth (16-bit by default).
+ *
+ * @sa                  LCD_setColorDepth(), LCD_setColor(), LCD_setColor_3bit()
+ */
 void LCD_toggleColorDepth(void);
 
 ///@}
@@ -74,6 +115,8 @@ Drawing Area
  * @param x2_new        right-most x-coordinate
  * @param y1_new        lowest y-coordinate
  * @param y2_new        highest y-coordinate
+ *
+ * @sa                  LCD_setX(), LCD_setY()
  */
 void LCD_setArea(uint16_t x1_new, uint16_t x2_new, uint16_t y1_new, uint16_t y2_new);
 
@@ -83,6 +126,8 @@ void LCD_setArea(uint16_t x1_new, uint16_t x2_new, uint16_t y1_new, uint16_t y2_
  *
  * @param x1_new        left-most x-coordinate
  * @param x2_new        right-most x-coordinate
+ *
+ * @sa                  LCD_setY(), LCD_setArea()
  */
 void LCD_setX(uint16_t x1_new, uint16_t x2_new);
 
@@ -92,6 +137,8 @@ void LCD_setX(uint16_t x1_new, uint16_t x2_new);
  *
  * @param y1_new        lowest y-coordinate
  * @param y2_new        highest y-coordinate
+ *
+ * @sa                  LCD_setX(), LCD_setArea()
  */
 void LCD_setY(uint16_t y1_new, uint16_t y2_new);
 
@@ -111,6 +158,8 @@ Color
  * @param   G_val       6-bit (`[0-63]`) G value
  * @param   B_val       5-bit (`[0-31]`) B value;
                         6-bit (`[0-63]`) if color depth is 18-bit
+ *
+ * @sa                  LCD_setColorDepth(), LCD_toggleColorDepth(), LCD_setColor_3bit()
  */
 void LCD_setColor(uint8_t R_val, uint8_t G_val, uint8_t B_val);
 
@@ -143,6 +192,8 @@ enum {
  *
  * @param color_code    3-bit color value to use. Bits 2, 1, 0 correspond to
  *                      R, G, and B values, respectively.
+ *
+ * @sa                  LCD_setColorDepth(), LCD_toggleColorDepth(), LCD_setColor()
  */
 void LCD_setColor_3bit(uint8_t color_code);
 
@@ -156,8 +207,8 @@ Drawing
 /**
  * @brief               Draw on the LCD display.
  *                      Call this function after setting the drawable area via
- *                      `LCD_setArea()`, or after individually calling
- *                      `LCD_setX()` and/or `LCD_setY()`.
+ *                      @ref LCD_setArea(), or after individually calling
+ *                      @ref LCD_setX() and/or @ref LCD_setY().
  */
 void LCD_Draw(void);
 
@@ -171,6 +222,8 @@ void LCD_Fill(void);
  *
  * @param yCenter       y-coordinate to center the line on
  * @param lineWidth     width of the line; should be a positive, odd number
+ *
+ * @sa LCD_drawVertLine, LCD_drawRectangle()
  */
 void LCD_drawHoriLine(uint16_t yCenter, uint16_t lineWidth);
 
@@ -179,6 +232,8 @@ void LCD_drawHoriLine(uint16_t yCenter, uint16_t lineWidth);
  *
  * @param xCenter       x-coordinate to center the line on
  * @param lineWidth     width of the line; should be a positive, odd number
+ *
+ * @sa LCD_drawHoriLine, LCD_drawRectangle()
  */
 void LCD_drawVertLine(uint16_t xCenter, uint16_t lineWidth);
 

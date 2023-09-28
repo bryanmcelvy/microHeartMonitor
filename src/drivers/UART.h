@@ -16,9 +16,20 @@
 #ifndef UART_H
 #define UART_H
 
+/******************************************************************************
+SECTIONS
+        Preprocessor Directives
+        Initialization
+        Reading
+        Writing
+*******************************************************************************/
+
+/******************************************************************************
+Preprocessor Directives
+*******************************************************************************/
 #include "GPIO.h"
 
-#include "FIFO.h"
+#include "NewAssert.h"
 
 #include "tm4c123gh6pm.h"
 
@@ -26,116 +37,72 @@
 #include <stdint.h>
 
 /******************************************************************************
-TODO
-    - Refactor to use more generic interface
-    - Add interrupt functionality for reading input
+Initialization
 *******************************************************************************/
+
+typedef struct UART_t UART_t;
+
+typedef enum { UART0, UART1, UART2, UART3, UART4, UART5, UART6, UART7 } UART_Num_t;
+
+/**
+ * @brief                       Initialize the specified UART peripheral.
+ *
+ * @param[in] port              GPIO port to use.
+ * @param[in] uartNum           UART number. Should be either one of the
+                                enumerated constants or an int in range [0, 7].
+ * @param[out] UART_t*          (Pointer to) initialized UART peripheral.
+ */
+UART_t * UART_Init(GPIO_Port_t * port, UART_Num_t uartNum);
 
 /******************************************************************************
-UART0
+Reading
 *******************************************************************************/
 
 /**
- * @brief               Initialize UART0 to a baud rate of 115200,
- *                      8-bit data length, 1 start bit, and 1 stop bit.
- */
-void UART0_Init(void);
-
-/**
- * @brief               Read a single character from UART0.
+ * @brief                       Read a single ASCII character from the UART.
  *
- * @return              input_char
+ * @param[in] uart              UART to read from.
+ * @param[out] unsigned char    ASCII character from sender.
  */
-unsigned char UART0_ReadChar(void);
-
-/**
- * @brief               Write a single character to UART0.
- *
- * @param               input_char
- */
-void UART0_WriteChar(unsigned char input_char);
-
-/**
- * @brief               Write a C string to UART0.
- *
- * @param   input_str   (Pointer to) array of ASCII characters.
- */
-void UART0_WriteStr(void * input_str);
-
-/**
- * @brief               Write a 32-bit unsigned integer to UART0.
- *
- * @param n             32-bit unsigned integer to be converted and transmitted
- */
-void UART0_WriteInt(uint32_t n);
-
-/**
- * @brief               Write a floating-point number to UART0.
- *
- * @param n             Floating-point number to be converted and transmitted.
- * @param num_decimals  Number of digits after the decimal point to include.
- */
-void UART0_WriteFloat(double n, uint8_t num_decimals);
+unsigned char UART_ReadChar(UART_t * uart);
 
 /******************************************************************************
-UART0 (Interrupt)
+Writing
 *******************************************************************************/
 
 /**
- * @brief               Add a single character to UART0's FIFO.
+ * @brief                       Write a single character to the UART.
  *
- * @param input_char    ASCII character.
+ * @param[in] uart              UART to read from.
+ * @param[in] input_char        ASCII character to send.
  */
-void UART0_IRQ_AddChar(unsigned char input_char);
+void UART_WriteChar(UART_t * uart, unsigned char input_char);
 
 /**
- * @brief               Add a string to UART0's FIFO.
+ * @brief                       Write a C string to the UART.
  *
- * @param input_str     (Pointer to) array of ASCII characters.
+ * @param[in] uart              UART to read from.
+ * @param[in] input_str         Array of ASCII characters.
  */
-void UART0_IRQ_AddStr(void * input_str);
+void UART_WriteStr(UART_t * uart, void * input_str);
 
 /**
- * @brief               Add an integer to UART0's FIFO.
+ * @brief                       Write a 32-bit unsigned integer the UART.
  *
- * @param n             32-bit integer to be converted and transmitted.
+ * @param[in] uart              UART to read from.
+ * @param[in] n                 Unsigned 32-bit `int` to be converted and transmitted.
  */
-void UART0_IRQ_AddInt(uint32_t n);
-
-/// @brief              Transmit the UART0's FIFO's contents via interrupt.
-void UART0_IRQ_Start(void);
-
-/******************************************************************************
-UART1
-*******************************************************************************/
+void UART_WriteInt(UART_t * uart, int32_t n);
 
 /**
- * @brief   Initialize UART1 to a baud rate of 115200,
- *          8-bit data length, 1 start bit, and 1 stop bit.
- */
-void UART1_Init(void);
-
-/**
- * @brief   Read a single character from UART1.
+ * @brief                       Write a floating-point number the UART.
  *
- * @return  input_char
+ * @param[in] uart              UART to read from.
+ * @param[in] n                 Floating-point number to be converted and transmitted.
+ * @param[in] num_decimals      Number of digits after the decimal point to include.
  */
-unsigned char UART1_ReadChar(void);
+void UART_WriteFloat(UART_t * uart, double n, uint8_t num_decimals);
 
-/**
- * @brief   Write a single character to UART1.
- *
- * @param   input_char
- */
-void UART1_WriteChar(unsigned char input_char);
-
-/**
- * @brief               Write a C string to UART1.
- *
- * @param input_str     C string
- */
-void UART1_WriteStr(void * input_str);
-
-#endif               // UART_H
+#endif
 
 /** @} */

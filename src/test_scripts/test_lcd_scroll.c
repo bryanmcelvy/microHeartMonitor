@@ -36,7 +36,7 @@ int main(void) {
 
     LCD_Init();
 
-    LCD_toggleInversion();
+    LCD_toggleColorInversion();
     LCD_setColor_3bit(LCD_BLACK);
     LCD_drawHoriLine(TOP_LINE_OFFSET, TOP_LINE_THICKNESS);
 
