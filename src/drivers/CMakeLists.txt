@@ -29,3 +29,7 @@ target_include_directories(ADC PRIVATE ${CMSIS_DIRS})
 target_link_libraries(ADC
                         PRIVATE GPIO Timer
                         PUBLIC FIFO Lookup)
+
+# New Timer module
+add_library(TimerNew STATIC TimerNew.c TimerNew.h)
+target_link_libraries(TimerNew PRIVATE ISR NewAssert)

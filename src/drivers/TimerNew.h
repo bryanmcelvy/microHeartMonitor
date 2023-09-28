@@ -4,32 +4,72 @@
  *
  * @file
  * @author      Bryan McElvy
- * @brief       Driver module for general-purpose timer modules.
-
-                Timer | Function
-                ---------------------
-                0A      Debouncing
-                1A      LCD Interrupts
-                2A      ILI9341 Resets
-                3A      ADC Interrupts
+ * @brief       Device driver for general-purpose timer modules.
  */
 
 #ifndef TIMER_H
 #define TIMER_H
+
+/******************************************************************************
+Preprocessor Directives
+*******************************************************************************/
+
+#include "ISR.h"
+#include "NewAssert.h"
 
 #include "tm4c123gh6pm.h"
 
 #include <stdbool.h>
 #include <stdint.h>
 
+/******************************************************************************
+Initialization
+*******************************************************************************/
+
 typedef struct TimerStruct_t * Timer_t;
 
-Timer_t Timer_Init(uint8_t timerNum);
+typedef enum {
+    TIMER0,
+    TIMER1,
+    TIMER2,
+    TIMER3,
+    TIMER4,
+    TIMER5,
+} timerName_t;
 
-void Timer_Start(Timer_t timer, uint32_t time_ms);
+// TODO: Write description
+Timer_t Timer_Init(timerName_t timerName, bool isPeriodic, bool isCountingUp);
 
+/******************************************************************************
+Configuration
+*******************************************************************************/
+
+// TODO: Write description
+void Timer_setInterval_ms(Timer_t timer, uint32_t time_ms);
+
+// TODO: Write description
+void Timer_enableAdcTrigger(Timer_t timer);
+
+// TODO: Write description
+void Timer_disableAdcTrigger(Timer_t timer);
+
+/******************************************************************************
+Basic Operations
+*******************************************************************************/
+
+// TODO: Write description
+uint32_t Timer_getCurrentValue(Timer_t timer);
+
+// TODO: Write description
+void Timer_Start(Timer_t timer);
+
+// TODO: Write description
+void Timer_Stop(Timer_t timer);
+
+// TODO: Write description
 bool Timer_isCounting(Timer_t timer);
 
+// TODO: Write description
 void Timer_Wait1ms(Timer_t timer, uint32_t time_ms);
 
 #endif               // TIMER_H
