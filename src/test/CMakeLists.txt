@@ -90,7 +90,8 @@ target_link_libraries(test_lcd_image.elf LCD GPIO Timer)
 # DAQ Test
 add_executable(test_daq.elf test_daq.c)
 target_include_directories(test_daq.elf PRIVATE ${PATH_APP} ${CMSIS_DIRS})
-target_link_libraries(test_daq.elf DAQ Debug FIFO LCD)
+target_link_libraries(test_daq.elf DAQ Debug FIFO ISR LCD)
+target_link_options(test_daq.elf PRIVATE "-Wl,-Map=test_daq.map")
 
 # Debug Module Test
 add_executable(test_debug.elf test_debug.c)
