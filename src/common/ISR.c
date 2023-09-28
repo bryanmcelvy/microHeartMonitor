@@ -19,15 +19,6 @@
 
 typedef volatile uint32_t * register_t;
 
-void ISR_addToVectorTable(ISR_t isr, const uint8_t vectorNum) {
-    Assert((vectorNum >= 16) && (vectorNum <= 154));
-
-    ISR_t * vectorPtr = (ISR_t *) (VECTOR_TABLE_BASE_ADDR + (vectorNum * sizeof(ISR_t)));
-    *vectorPtr = isr;
-
-    return;
-}
-
 void ISR_setPriority(const uint8_t vectorNum, const uint8_t priority) {
     Assert((vectorNum >= 16) && (vectorNum <= 154));
     Assert(priority <= 7);
