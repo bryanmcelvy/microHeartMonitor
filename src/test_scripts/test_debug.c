@@ -14,7 +14,8 @@
 
 int main(void) {
     PLL_Init();
-    Timer0A_Init();
+    Timer_t timer0 = Timer_Init(TIMER0);
+    Timer_setMode(timer0, ONESHOT, UP);
 
     // Init. LED pins
     GPIO_Port_t * portF = GPIO_InitPort(F);
@@ -29,6 +30,6 @@ int main(void) {
     Debug_SendMsg("All done! Blinking now.\r\n");
     while(1) {
         GPIO_Toggle(portF, LED_GREEN);
-        Timer0A_Wait1ms(500);
+        Timer_Wait1ms(timer0, 500);
     }
 }

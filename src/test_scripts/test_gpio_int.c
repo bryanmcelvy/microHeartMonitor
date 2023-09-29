@@ -3,18 +3,24 @@
 #include "SysTick.h"
 #include "Timer.h"
 
+#include "ISR.h"
+
 #include <stdbool.h>
 #include <stdint.h>
-
-volatile uint8_t color;
 
 #define LED_PINS (GPIO_Pin_t)(GPIO_PIN1 | GPIO_PIN2 | GPIO_PIN3)
 #define SW_PINS  (GPIO_Pin_t)(GPIO_PIN0 | GPIO_PIN4)
 
+Timer_t debounceTimer = 0;
+volatile uint8_t color;
+
 int main(void) {
     PLL_Init();                         // set bus frequency to 80 MHz
     SysTick_Timer_Init();               // time delays
-    Timer0A_Init();                     // debouncing
+
+    debounceTimer = Timer_Init(TIMER0);
+    Timer_setMode(debounceTimer, ONESHOT, UP);
+    Timer_setInterval_ms(debounceTimer, 100);
 
     // Init. LED pins
     GPIO_Port_t * portF = GPIO_InitPort(F);
@@ -48,18 +54,18 @@ void GPIO_PortF_Handler(void) {
     uint8_t int_mask;
 
     int_mask = GPIO_PORTF_RIS_R & 0x11;
-    if(Timer0A_isCounting() == 0) {
-        switch(int_mask) {                // determine interrupt source
-            case(0x11):                   // both pressed
-            case(0x01):                   // Sw2 pressed (PF0)
+    if(Timer_isCounting(debounceTimer) == false) {
+        switch(int_mask) {                        // determine interrupt source
+            case(0x11):                           // both pressed
+            case(0x01):                           // Sw2 pressed (PF0)
                 color_idx = (color_idx + 1) % 6;
                 break;
-            case(0x10):                   // Sw1 pressed (PF4)
+            case(0x10):                           // Sw1 pressed (PF4)
                 color_idx = (color_idx > 0) ? (color_idx - 1) : 5;
                 break;
         }
         color = color_table[color_idx];
-        Timer0A_Start(100);               // debounce
+        Timer_Start(debounceTimer);               // debounce
     }
 
     // Acknowledge interrupt by clearing flag

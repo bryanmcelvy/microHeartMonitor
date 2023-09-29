@@ -29,7 +29,9 @@ int main(void) {
     bool is_increasing;
 
     PLL_Init();
-    Timer0A_Init();
+    Timer_t timer = Timer_Init(TIMER0);
+    Timer_setMode(timer, ONESHOT, UP);
+    Timer_setInterval_ms(timer, 10);
 
     // Init. LED pins
     GPIO_Port_t * portF = GPIO_InitPort(F);
@@ -49,9 +51,9 @@ int main(void) {
     GPIO_Toggle(portF, LED_GREEN);
     while(1) {
 
-        while(Timer0A_isCounting()) {}
+        while(Timer_isCounting(timer)) {}
         LCD_drawRectangle(x, SIZE, y, SIZE, true);
-        Timer0A_Start(10);
+        Timer_Start(timer);
 
         x = ((x + SIZE) < X_MAX) ? (x + SIZE) : 0;
 

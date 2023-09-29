@@ -15,6 +15,7 @@
 #include "PLL.h"
 
 #include "FIFO.h"
+#include "ISR.h"
 #include "lookup.h"
 
 #include "arm_math_types.h"
@@ -39,13 +40,13 @@ void LCD_plotNewSample(uint16_t x, volatile const float32_t sample);
 /********************************************************************************/
 
 int main(void) {
-    uint16_t x;
     volatile uint16_t raw_sample;
     volatile float32_t sample;
     float32_t prev_sample = 0;
     float32_t intermediate_sample;
 
     PLL_Init();
+    ISR_GlobalDisable();
     Debug_Init();
 
     // Initialize/configure LCD
@@ -66,7 +67,8 @@ int main(void) {
     input_fifo_ptr = FIFO_Init(input_buffer, DAQ_BUFFER_SIZE);
     DAQ_Init();
 
-    x = 0;
+    uint16_t x = 0;
+    ISR_GlobalEnable();
     while(1) {
         while(sampleReady == false) {}
 

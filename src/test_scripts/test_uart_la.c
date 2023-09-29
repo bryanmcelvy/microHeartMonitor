@@ -12,7 +12,9 @@
 int main(void) {
 
     PLL_Init();
-    Timer0A_Init();
+    Timer_t timer = Timer_Init(TIMER0);
+    Timer_setMode(timer, ONESHOT, UP);
+    Timer_setInterval_ms(timer, 10);
 
     GPIO_Port_t * portB = GPIO_InitPort(B);
     UART_t * uart1 = UART_Init(portB, UART1);
@@ -21,6 +23,6 @@ int main(void) {
 
     while(1) {
         UART_WriteStr(uart1, (unsigned char *) "Hello World!\r\n");
-        Timer0A_Wait1ms(1);
+        Timer_Wait1ms(timer, 1);
     }
 }

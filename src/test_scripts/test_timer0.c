@@ -15,7 +15,8 @@ int main(void) {
     uint8_t color_idx = 0;
 
     PLL_Init();               // set bus frequency to 80 MHz
-    Timer_t timer0 = Timer_Init(TIMER0, false, true);
+    Timer_t timer0 = Timer_Init(TIMER0);
+    Timer_setMode(timer0, PERIODIC, UP);
 
     // Init. LED pins
     GPIO_Port_t * portF = GPIO_InitPort(F);

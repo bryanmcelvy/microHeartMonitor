@@ -7,7 +7,6 @@
 #include "PLL.h"
 #include "GPIO.h"
 #include "Led.h"
-#include "Timer.h"
 #include "UART.h"
 
 volatile unsigned char in_char;
@@ -16,14 +15,13 @@ uint32_t counter;
 int main(void) {
 
     PLL_Init();
-    Timer0A_Init();
 
+    // Init. UART0
     GPIO_Port_t * portA = GPIO_InitPort(A);
     UART_t * uart0 = UART_Init(portA, UART0);
 
     // Init. LED pins
     GPIO_Port_t * portF = GPIO_InitPort(F);
-
     Led_t * redLed = Led_Init(portF, GPIO_PIN1);
     Led_t * greenLed = Led_Init(portF, GPIO_PIN3);
     Led_t * blueLed = Led_Init(portF, GPIO_PIN2);

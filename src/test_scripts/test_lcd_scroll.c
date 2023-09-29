@@ -26,7 +26,9 @@ int main(void) {
     bool is_y_increasing;
 
     PLL_Init();
-    Timer0A_Init();
+    Timer_t timer = Timer_Init(TIMER0);
+    Timer_setMode(timer, ONESHOT, UP);
+    Timer_setInterval_ms(timer, 33);
 
     // Init. LED pins
     GPIO_Port_t * portF = GPIO_InitPort(F);
@@ -48,9 +50,9 @@ int main(void) {
     GPIO_Toggle(portF, LED_GREEN);
     while(1) {
         // draw pixel
-        while(Timer0A_isCounting()) {}
+        while(Timer_isCounting(timer)) {}
         LCD_graphSample(x1, DX * 2, y1, DY, COL_Y_MIN, COL_Y_MAX, (LCD_WHITE - LCD_RED));
-        Timer0A_Start(33);
+        Timer_Start(timer);
 
         // update x1 and y1
         x1 = (x1 + DX < X_MAX) ? (x1 + DX) : 0;

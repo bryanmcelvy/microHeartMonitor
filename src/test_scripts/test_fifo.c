@@ -28,7 +28,10 @@ int main(void) {
     uint32_t print_buffer[FIFO_LEN];
 
     PLL_Init();
-    Timer0A_Init();
+
+    // Init. Timer
+    Timer_t timer = Timer_Init(TIMER0);
+    Timer_setMode(timer, ONESHOT, UP);
 
     // Init. LED pins
     GPIO_Port_t * portF = GPIO_InitPort(F);
@@ -36,18 +39,17 @@ int main(void) {
     GPIO_ConfigDriveStrength(portF, LED_PINS, 8);
     GPIO_EnableDigital(portF, LED_PINS);
 
+    // Init. UART0
     GPIO_Port_t * portA = GPIO_InitPort(A);
     uart = UART_Init(portA, UART0);
-
     UART_WriteStr(uart, (unsigned char *) "\nTransmission started...\r\n");
 
-    srand(42);
-
-    // Initialize FIFO buffer
+    // Init. FIFO buffer
     fifo_ptr = FIFO_Init(buffer, FIFO_LEN);
     FIFO_reportStatus(fifo_ptr);
 
     // Add random numbers to the buffer
+    srand(42);
     UART_WriteStr(uart, (unsigned char *) "Placing random values into buffer...");
     for(int i = 0; i < FIFO_LEN - 1; i++) {
         FIFO_Put(fifo_ptr, rand());
@@ -79,7 +81,7 @@ int main(void) {
     // Blink
     while(1) {
         GPIO_Toggle(portF, (GPIO_Pin_t) LED_GREEN);
-        Timer0A_Wait1ms(500);
+        Timer_Wait1ms(timer, 500);
     }
 }
 

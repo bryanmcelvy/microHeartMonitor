@@ -45,7 +45,12 @@ int main(void) {
     GPIO_Toggle(portF, LED_RED);
 
     ADC_Init();
-    Timer3A_Init(SAMPLING_PERIOD_MS);
+
+    Timer_t DAQ_Timer = Timer_Init(TIMER3);
+    Timer_setMode(DAQ_Timer, PERIODIC, UP);
+    Timer_enableAdcTrigger(DAQ_Timer);
+    Timer_setInterval_ms(DAQ_Timer, SAMPLING_PERIOD_MS);
+    Timer_Start(DAQ_Timer);
 
     while(1) {
         if(done_sampling) {}
