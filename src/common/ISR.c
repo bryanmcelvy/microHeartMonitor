@@ -56,13 +56,11 @@ void ISR_GlobalEnable(void) {
 Interrupt Vector Table Configuration
 *******************************************************************************/
 
-/// @var interruptVectorTable
-/// original table, located in flash and defined in `startup_gcc.c`
+// Original table, located in flash and defined in `startup_gcc.c`
 extern void (*const interruptVectorTable[])(void);
 
-/// @var newVectorTable
-/// new table, located in SRAM and defined here
-__attribute__((aligned(VECTOR_TABLE_ALIGNMENT))) static ISR_t newVectorTable[VECTOR_TABLE_SIZE];
+// New table, located in SRAM and defined here
+static ISR_t newVectorTable[VECTOR_TABLE_SIZE] __attribute__((aligned(VECTOR_TABLE_ALIGNMENT)));
 
 static bool isTableCopiedToRam = false;
 
@@ -93,7 +91,6 @@ void ISR_addToIntTable(ISR_t isr, const uint8_t vectorNum) {
 Individual Interrupt Configuration
 *******************************************************************************/
 
-/// @typedef volatile uint32_t * register_t
 typedef volatile uint32_t * register_t;
 
 void ISR_setPriority(const uint8_t vectorNum, const uint8_t priority) {
