@@ -4,6 +4,10 @@
  * @brief   Source code for interrupt vector handling module.
  */
 
+/******************************************************************************
+Preprocessor Directives
+*******************************************************************************/
+
 #include "ISR.h"
 
 #include "NewAssert.h"
@@ -13,9 +17,50 @@
 #include <stdint.h>
 
 #define VECTOR_TABLE_BASE_ADDR (uint32_t) 0x00000000
+#define VECTOR_TABLE_SIZE      (uint32_t) 155
+#define VECTOR_TABLE_ALIGNMENT (uint32_t)(1 << 10)
+
 #define NVIC_EN_BASE_ADDR      (uint32_t) 0xE000E100
 #define NVIC_DIS_BASE_ADDR     (uint32_t) 0xE000E180
 #define NVIC_PRI_BASE_ADDR     (uint32_t) 0xE000E400
+
+/******************************************************************************
+Interrupt Vector Table
+*******************************************************************************/
+
+/// @var interruptVectorTable
+/// original table, located in flash and defined in `startup_gcc.c`
+extern void (*const interruptVectorTable[])(void);
+
+/// @var newVectorTable
+/// new table, located in SRAM and defined here
+__attribute__((aligned(VECTOR_TABLE_ALIGNMENT))) static ISR_t newVectorTable[VECTOR_TABLE_SIZE];
+
+static bool isCopiedToRam = false;
+
+void ISR_InitNewTableInRam(void) {
+    Assert(isCopiedToRam == false);
+
+    for(uint32_t idx = 0; idx < VECTOR_TABLE_SIZE; idx++) {
+        newVectorTable[idx] = interruptVectorTable[idx];
+    }
+    NVIC_VTABLE_R = ((uint32_t) &newVectorTable) << 10;
+    isCopiedToRam = true;
+
+    return;
+}
+
+void ISR_addToIntTable(ISR_t isr, const uint8_t vectorNum) {
+    Assert(isCopiedToRam == true);
+    Assert((vectorNum >= 16) && (vectorNum <= 154));
+
+    newVectorTable[vectorNum] = isr;
+    return;
+}
+
+/******************************************************************************
+Interrupt Configuration
+*******************************************************************************/
 
 typedef volatile uint32_t * register_t;
 
