@@ -25,7 +25,35 @@ Preprocessor Directives
 #define NVIC_PRI_BASE_ADDR     (uint32_t) 0xE000E400
 
 /******************************************************************************
-Interrupt Vector Table
+Global Interrupt Configuration
+*******************************************************************************/
+
+static bool interruptsAreEnabled = true;
+
+void ISR_GlobalDisable(void) {
+    // NOTE: Does not affect Reset, NMI, or hard faults
+    __asm__("   CPSID   I\n\t"                // Set I bit in PRIMASK
+
+            "   BX      LR\n\t"               // Return
+
+    );
+    interruptsAreEnabled = false;
+    return;
+}
+
+void ISR_GlobalEnable(void) {
+    // NOTE: Does not affect Reset, NMI, or hard faults
+    __asm__("   CPSIE   I\n\t"               // Clear I bit in PRIMASK
+
+            "   BX      LR"                  // Return
+
+    );
+    interruptsAreEnabled = true;
+    return;
+}
+
+/******************************************************************************
+Interrupt Vector Table Configuration
 *******************************************************************************/
 
 /// @var interruptVectorTable
@@ -36,22 +64,25 @@ extern void (*const interruptVectorTable[])(void);
 /// new table, located in SRAM and defined here
 __attribute__((aligned(VECTOR_TABLE_ALIGNMENT))) static ISR_t newVectorTable[VECTOR_TABLE_SIZE];
 
-static bool isCopiedToRam = false;
+static bool isTableCopiedToRam = false;
 
 void ISR_InitNewTableInRam(void) {
-    Assert(isCopiedToRam == false);
+    Assert(isTableCopiedToRam == false);
+    Assert(interruptsAreEnabled == false);
 
     for(uint32_t idx = 0; idx < VECTOR_TABLE_SIZE; idx++) {
         newVectorTable[idx] = interruptVectorTable[idx];
     }
+
     NVIC_VTABLE_R = ((uint32_t) &newVectorTable) << 10;
-    isCopiedToRam = true;
+    isTableCopiedToRam = true;
 
     return;
 }
 
 void ISR_addToIntTable(ISR_t isr, const uint8_t vectorNum) {
-    Assert(isCopiedToRam == true);
+    Assert(isTableCopiedToRam == true);
+    Assert(interruptsAreEnabled == false);
     Assert((vectorNum >= 16) && (vectorNum <= 154));
 
     newVectorTable[vectorNum] = isr;
@@ -59,9 +90,10 @@ void ISR_addToIntTable(ISR_t isr, const uint8_t vectorNum) {
 }
 
 /******************************************************************************
-Interrupt Configuration
+Individual Interrupt Configuration
 *******************************************************************************/
 
+/// @typedef volatile uint32_t * register_t
 typedef volatile uint32_t * register_t;
 
 void ISR_setPriority(const uint8_t vectorNum, const uint8_t priority) {
@@ -123,28 +155,6 @@ void ISR_Disable(const uint8_t vectorNum) {
 
     // Disable the ISR
     *disableRegPtr |= (1 << interruptBitNumber);
-
-    return;
-}
-
-void ISR_GlobalDisable(void) {
-    // NOTE: Does not affect Reset, NMI, or hard faults
-    __asm__("   CPSID   I\n\t"                // Set I bit in PRIMASK
-
-            "   BX      LR\n\t"               // Return
-
-    );
-
-    return;
-}
-
-void ISR_GlobalEnable(void) {
-    // NOTE: Does not affect Reset, NMI, or hard faults
-    __asm__("   CPSIE   I\n\t"               // Clear I bit in PRIMASK
-
-            "   BX      LR"                  // Return
-
-    );
 
     return;
 }
