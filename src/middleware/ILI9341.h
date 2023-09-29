@@ -49,13 +49,13 @@ Initialization/Reset
 *******************************************************************************/
 
 /// @brief      Initialize the LCD driver, the SPI module, and Timer2A.
-void ILI9341_Init(void);
+void ILI9341_Init(Timer_t timer);
 
 /// @brief      Perform a hardware reset of the LCD driver.
-void ILI9341_resetHard(void);
+void ILI9341_resetHard(Timer_t timer);
 
 /// @brief      Perform a software reset of the LCD driver.
-void ILI9341_resetSoft(void);
+void ILI9341_resetSoft(Timer_t timer);
 
 /******************************************************************************
 Configuration
@@ -67,7 +67,7 @@ Configuration
  *
  * @param       isSleeping `true` to enter sleep mode, `false` to exit
  */
-void ILI9341_setSleepMode(bool isSleeping);
+void ILI9341_setSleepMode(bool isSleeping, Timer_t timer);
 
 /**
  * @brief       Set the display area and color expression.
