@@ -87,7 +87,7 @@ extern int main(void);
 // Reserve space for the system stack.
 //
 //*****************************************************************************
-static uint32_t pui32Stack[64];
+static uint32_t SystemStack[64];
 
 //*****************************************************************************
 //
@@ -95,8 +95,8 @@ static uint32_t pui32Stack[64];
 // ensure that it ends up at physical address 0x0000.0000.
 //
 //*****************************************************************************
-__attribute__((section(".isr_vector"))) void (*const g_pfnVectors[])(void) = {
-    (void (*)(void))((uint32_t) pui32Stack + sizeof(pui32Stack)),
+__attribute__((section(".isr_vector"))) void (*const interruptVectorTable[])(void) = {
+    (void (*)(void))((uint32_t) SystemStack + sizeof(SystemStack)),
     // The initial stack pointer
     ResetISR,                              // The reset handler
     NmiSR,                                 // The NMI handler
@@ -278,14 +278,14 @@ extern uint32_t _ebss;
 //
 //*****************************************************************************
 void ResetISR(void) {
-    uint32_t *pui32Src, *pui32Dest;
+    uint32_t *srcPtr, *destPtr;
 
     //
     // Copy the data segment initializers from flash to SRAM.
     //
-    pui32Src = &_ldata;
-    for(pui32Dest = &_data; pui32Dest < &_edata;) {
-        *pui32Dest++ = *pui32Src++;
+    srcPtr = &_ldata;
+    for(destPtr = &_data; destPtr < &_edata;) {
+        *destPtr++ = *srcPtr++;
     }
 
     //
