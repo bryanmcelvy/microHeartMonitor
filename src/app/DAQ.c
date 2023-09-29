@@ -87,7 +87,12 @@ void DAQ_Init(void) {
     arm_biquad_cascade_df1_init_f32(filter, NUM_FILT_STAGES, FILT_COEFFS, stateBuffer);
 
     ADC_Init();
-    Timer3A_Init(SAMPLING_PERIOD_MS);
+
+    Timer_t DAQ_Timer = Timer_Init(TIMER3);
+    Timer_setMode(DAQ_Timer, PERIODIC, UP);
+    Timer_enableAdcTrigger(DAQ_Timer);
+    Timer_setInterval_ms(DAQ_Timer, SAMPLING_PERIOD_MS);
+    Timer_Start(DAQ_Timer);
 
     return;
 }

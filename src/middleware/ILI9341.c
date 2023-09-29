@@ -107,33 +107,37 @@ inline static void ILI9341_sendParams(Cmd_t cmd);
 Initialization/Reset
 *******************************************************************************/
 
-void ILI9341_Init(void) {
+void ILI9341_Init(Timer_t timer) {
+    Assert(timer);
     SPI_Init();
-    Timer2A_Init();
 
     ILI9341_Fifo = FIFO_Init(ILI9341_Buffer, 8);
 
-    ILI9341_resetHard();
+    ILI9341_resetHard(timer);
     ILI9341_setInterface();
     return;
 }
 
-void ILI9341_resetHard(void) {
+void ILI9341_resetHard(Timer_t timer) {
     /**
      *  The LCD driver's RESET pin requires a negative logic (i.e. active `LOW`)
      *  signal for >= 10 [us] and an additional 5 [ms] before further commands
      *  can be sent.
      */
+    Timer_setMode(timer, ONESHOT, UP);
+
     GPIO_PORTA_DATA_R &= ~(0x80);               // clear PA7 to init. reset
-    Timer2A_Wait1ms(1);
+    Timer_Wait1ms(timer, 1);
     GPIO_PORTA_DATA_R |= 0x80;                  // set PA7 to end reset pulse
-    Timer2A_Wait1ms(5);
+    Timer_Wait1ms(timer, 5);
     return;
 }
 
-void ILI9341_resetSoft(void) {
+void ILI9341_resetSoft(Timer_t timer) {
+    Timer_setMode(timer, ONESHOT, UP);
+
     SPI_WriteCmd(SWRESET);
-    Timer2A_Wait1ms(5);                         /// the driver needs 5 [ms] before another command
+    Timer_Wait1ms(timer, 5);                    /// the driver needs 5 [ms] before another command
     return;
 }
 
@@ -141,7 +145,7 @@ void ILI9341_resetSoft(void) {
 Configuration
 *******************************************************************************/
 
-void ILI9341_setSleepMode(bool is_sleeping) {
+void ILI9341_setSleepMode(bool is_sleeping, Timer_t timer) {
     /**     This function turns sleep mode ON or OFF
      *      depending on the value of `is_sleeping`.
      *      Either way, the MCU must wait >= 5 [ms]
@@ -151,14 +155,17 @@ void ILI9341_setSleepMode(bool is_sleeping) {
      *      sending `SPLOUT` after sending `SPLIN` or a reset,
      *      so this function waits 120 [ms] regardless of the preceding event.
      */
+
     if(is_sleeping) {
         SPI_WriteCmd(SPLIN);
     }
     else {
         SPI_WriteCmd(SPLOUT);
     }
+    Timer_setMode(timer, ONESHOT, UP);
+    Timer_Wait1ms(timer, 120);
 
-    Timer2A_Wait1ms(120);
+    return;
 }
 
 void ILI9341_setDispMode(bool is_normal, bool is_full_colors) {

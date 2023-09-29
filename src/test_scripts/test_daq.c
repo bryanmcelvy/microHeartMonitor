@@ -43,6 +43,7 @@ int main(void) {
     ISR_GlobalDisable();
 
     PLL_Init();
+    ISR_GlobalDisable();
     Debug_Init();
 
     // Initialize/configure LCD

@@ -4,120 +4,93 @@
  *
  * @file
  * @author      Bryan McElvy
- * @brief       Driver module for general-purpose timer modules.
-
-                Timer | Function
-                ---------------------
-                0A      Debouncing
-                1A      LCD Interrupts
-                2A      ILI9341 Resets
-                3A      ADC Interrupts
+ * @brief       Device driver for general-purpose timer modules.
  */
 
 #ifndef TIMER_H
 #define TIMER_H
 
+/******************************************************************************
+Preprocessor Directives
+*******************************************************************************/
+
+#include "ISR.h"
+#include "NewAssert.h"
+
 #include "tm4c123gh6pm.h"
 
+#include <stdbool.h>
 #include <stdint.h>
 
-/**********************************************************************
-Timer0A
-***********************************************************************/
-/** @name Timer0A */               ///@{
+/******************************************************************************
+Initialization
+*******************************************************************************/
 
-/**
- * @brief   Initialize timer 0 as 32-bit, one-shot, countdown timer.
- *
- */
-void Timer0A_Init(void);
+typedef struct TimerStruct_t * Timer_t;
 
-/**
- * @brief   Count down starting from the inputted value.
- *
- * @param   time_ms Time in [ms] to load into Timer 0.
- *                  Must be <= 53 seconds.
- */
-void Timer0A_Start(uint32_t time_ms);
+typedef enum {
+    TIMER0,
+    TIMER1,
+    TIMER2,
+    TIMER3,
+    TIMER4,
+    TIMER5,
+} timerName_t;
 
-/**
- * @brief   Returns 1 if Timer0 is still counting and 0 if not.
- *
- * @return  uint8_t status
- */
-uint8_t Timer0A_isCounting(void);
+// TODO: Write description
+Timer_t Timer_Init(timerName_t timerName);
 
-/**
- * @brief   Wait for the specified amount of time in [ms].
- *
- * @param   time_ms Time in [ms] to load into Timer 0.
- *                  Must be <= 53 seconds.
- */
-void Timer0A_Wait1ms(uint32_t time_ms);
+// TODO: Write description
+timerName_t Timer_getName(Timer_t timer);
 
-///@}
+/******************************************************************************
+Configuration
+*******************************************************************************/
 
-/**********************************************************************
-Timer1A
-***********************************************************************/
-/** @name Timer1A */               ///@{
+// TODO: Implement more modes
+typedef enum { ONESHOT, PERIODIC } timerMode_t;
 
-/**
- * @brief   Initialize timer 1 as a 32-bit, periodic, countdown timer with interrupts.
- *
- * @param   time_ms Time in [ms] between interrupts.
- *                  Must be <= 53 seconds.
- */
-void Timer1A_Init(uint32_t time_ms);
+enum { UP = true, DOWN = false };
 
-///@}
+// TODO: Write description
+void Timer_setMode(Timer_t timer, timerMode_t timerMode, bool isCountingUp);
 
-/**********************************************************************
-Timer2A
-***********************************************************************/
-/** @name Timer2A */               ///@{
+// TODO: Write description
+void Timer_enableAdcTrigger(Timer_t timer);
 
-/**
- * @brief   Initialize timer 2 as 32-bit, one-shot, countdown timer.
- *
- */
-void Timer2A_Init(void);
+// TODO: Write description
+void Timer_disableAdcTrigger(Timer_t timer);
 
-/**
- * @brief   Count down starting from the inputted value.
- *
- * @param   time_ms Time in [ms] to load into Timer 2.
- *                  Must be <= 53 seconds.
- */
-void Timer2A_Start(uint32_t time_ms);
+// TODO: Write description
+void Timer_enableInterruptOnTimeout(Timer_t timer, uint8_t priority);
 
-/**
- * @brief   Returns 1 if Timer2 is still counting and 0 if not.
- *
- * @return  uint8_t status
- */
-uint8_t Timer2A_isCounting(void);
+// TODO: Write description
+void Timer_disableInterruptOnTimeout(Timer_t timer);
 
-/**
- * @brief   Wait for the specified amount of time in [ms].
- *
- * @param   time_ms Time in [ms] to load into Timer 2.
- *                  Must be <= 53 seconds.
- */
-void Timer2A_Wait1ms(uint32_t time_ms);
+// TODO: Write description
+void Timer_clearInterruptFlag(Timer_t timer);
 
-/**********************************************************************
-Timer3A
-***********************************************************************/
+/******************************************************************************
+Basic Operations
+*******************************************************************************/
 
-/**
- * @brief   Initialize Timer3A as a 32-bit, periodic, countdown timer
- *          that triggers ADC sample capture.
- *
- * @param   time_ms     Time in [ms] to load into Timer3A.
- *                      Must be <= 53 seconds.
- */
-void Timer3A_Init(uint32_t time_ms);
+// TODO: Write description
+void Timer_setInterval_ms(Timer_t timer, uint32_t time_ms);
+
+// TODO: Write description
+uint32_t Timer_getCurrentValue(Timer_t timer);
+
+// TODO: Write description
+void Timer_Start(Timer_t timer);
+
+// TODO: Write description
+void Timer_Stop(Timer_t timer);
+
+// TODO: Write description
+bool Timer_isCounting(Timer_t timer);
+
+// TODO: Write description
+void Timer_Wait1ms(Timer_t timer, uint32_t time_ms);
 
 #endif               // TIMER_H
 

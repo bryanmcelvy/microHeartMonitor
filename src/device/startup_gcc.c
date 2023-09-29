@@ -61,7 +61,18 @@ void __attribute__((weak, alias("IntDefaultHandler"))) ADC0_SS3_Handler(void);
 void __attribute__((weak, alias("IntDefaultHandler"))) GPIO_PortF_Handler(void);
 void __attribute__((weak, alias("IntDefaultHandler"))) SSI0_Handler(void);
 void __attribute__((weak, alias("IntDefaultHandler"))) SysTick_Handler(void);
+void __attribute__((weak, alias("IntDefaultHandler"))) Timer0A_Handler(void);
+void __attribute__((weak, alias("IntDefaultHandler"))) Timer0B_Handler(void);
 void __attribute__((weak, alias("IntDefaultHandler"))) Timer1A_Handler(void);
+void __attribute__((weak, alias("IntDefaultHandler"))) Timer1B_Handler(void);
+void __attribute__((weak, alias("IntDefaultHandler"))) Timer2A_Handler(void);
+void __attribute__((weak, alias("IntDefaultHandler"))) Timer2B_Handler(void);
+void __attribute__((weak, alias("IntDefaultHandler"))) Timer3A_Handler(void);
+void __attribute__((weak, alias("IntDefaultHandler"))) Timer3B_Handler(void);
+void __attribute__((weak, alias("IntDefaultHandler"))) Timer4A_Handler(void);
+void __attribute__((weak, alias("IntDefaultHandler"))) Timer4B_Handler(void);
+void __attribute__((weak, alias("IntDefaultHandler"))) Timer5A_Handler(void);
+void __attribute__((weak, alias("IntDefaultHandler"))) Timer5B_Handler(void);
 void __attribute__((weak, alias("IntDefaultHandler"))) UART0_Handler(void);
 
 //*****************************************************************************
@@ -121,12 +132,12 @@ __attribute__((section(".isr_vector"))) void (*const g_pfnVectors[])(void) = {
     IntDefaultHandler,                     // ADC Sequence 2
     ADC0_SS3_Handler,                      // ADC Sequence 3
     IntDefaultHandler,                     // Watchdog timer
-    IntDefaultHandler,                     // Timer 0 subtimer A
-    IntDefaultHandler,                     // Timer 0 subtimer B
+    Timer0A_Handler,                       // Timer 0 subtimer A
+    Timer0B_Handler,                       // Timer 0 subtimer B
     Timer1A_Handler,                       // Timer 1 subtimer A
-    IntDefaultHandler,                     // Timer 1 subtimer B
-    IntDefaultHandler,                     // Timer 2 subtimer A
-    IntDefaultHandler,                     // Timer 2 subtimer B
+    Timer1B_Handler,                       // Timer 1 subtimer B
+    Timer2A_Handler,                       // Timer 2 subtimer A
+    Timer2B_Handler,                       // Timer 2 subtimer B
     IntDefaultHandler,                     // Analog Comparator 0
     IntDefaultHandler,                     // Analog Comparator 1
     IntDefaultHandler,                     // Analog Comparator 2
@@ -137,8 +148,8 @@ __attribute__((section(".isr_vector"))) void (*const g_pfnVectors[])(void) = {
     IntDefaultHandler,                     // GPIO Port H
     IntDefaultHandler,                     // UART2 Rx and Tx
     IntDefaultHandler,                     // SSI1 Rx and Tx
-    IntDefaultHandler,                     // Timer 3 subtimer A
-    IntDefaultHandler,                     // Timer 3 subtimer B
+    Timer3A_Handler,                       // Timer 3 subtimer A
+    Timer3B_Handler,                       // Timer 3 subtimer B
     IntDefaultHandler,                     // I2C1 Master and Slave
     IntDefaultHandler,                     // Quadrature Encoder 1
     IntDefaultHandler,                     // CAN0
@@ -172,8 +183,8 @@ __attribute__((section(".isr_vector"))) void (*const g_pfnVectors[])(void) = {
     0,                                     // Reserved
     IntDefaultHandler,                     // I2C2 Master and Slave
     IntDefaultHandler,                     // I2C3 Master and Slave
-    IntDefaultHandler,                     // Timer 4 subtimer A
-    IntDefaultHandler,                     // Timer 4 subtimer B
+    Timer4A_Handler,                       // Timer 4 subtimer A
+    Timer4B_Handler,                       // Timer 4 subtimer B
     0,                                     // Reserved
     0,                                     // Reserved
     0,                                     // Reserved
@@ -194,8 +205,8 @@ __attribute__((section(".isr_vector"))) void (*const g_pfnVectors[])(void) = {
     0,                                     // Reserved
     0,                                     // Reserved
     0,                                     // Reserved
-    IntDefaultHandler,                     // Timer 5 subtimer A
-    IntDefaultHandler,                     // Timer 5 subtimer B
+    Timer5A_Handler,                       // Timer 5 subtimer A
+    Timer5B_Handler,                       // Timer 5 subtimer B
     IntDefaultHandler,                     // Wide Timer 0 subtimer A
     IntDefaultHandler,                     // Wide Timer 0 subtimer B
     IntDefaultHandler,                     // Wide Timer 1 subtimer A

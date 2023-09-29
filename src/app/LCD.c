@@ -84,8 +84,10 @@ Initialization
 void LCD_Init(void) {
     Assert(lcd.isInit == false);
 
-    ILI9341_Init();
-    ILI9341_setSleepMode(false);
+    Timer_t timer2 = Timer_Init(TIMER2);
+
+    ILI9341_Init(timer2);
+    ILI9341_setSleepMode(false, timer2);
     ILI9341_setMemAccessCtrl(1, 0, 0, 0, 1, 0);
     ILI9341_setColorDepth(true);
     ILI9341_setDispMode(true, false);

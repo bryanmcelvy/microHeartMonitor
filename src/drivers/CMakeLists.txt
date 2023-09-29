@@ -12,6 +12,7 @@ add_library(PLL STATIC PLL.c PLL.h)
 add_library(SysTick STATIC SysTick.c SysTick.h)
 
 add_library(Timer STATIC Timer.c Timer.h)
+target_link_libraries(Timer PUBLIC ISR NewAssert)
 
 add_library(GPIO STATIC GPIO.c GPIO.h)
 target_link_libraries(GPIO PUBLIC NewAssert)

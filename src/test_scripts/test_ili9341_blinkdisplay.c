@@ -12,7 +12,13 @@ int main(void) {
     uint8_t red_val, green_val, blue_val;
 
     PLL_Init();
-    Timer0A_Init();               // Timer2A is reserved for the ILI9341 module
+    Timer_t timer0 = Timer_Init(TIMER0);
+
+    // Initialize driver
+    ILI9341_Init(timer0);
+    ILI9341_setRowAddress(0, NUM_ROWS - 1);
+    ILI9341_setColAddress(0, NUM_COLS - 1);
+    ILI9341_setMemAccessCtrl(0, 0, 0, 0, 1, 0);
 
     // Init. LED pins
     GPIO_Port_t * portF = GPIO_InitPort(F);
@@ -20,11 +26,8 @@ int main(void) {
     GPIO_ConfigDriveStrength(portF, LED_PINS, 8);
     GPIO_EnableDigital(portF, LED_PINS);
 
-    ILI9341_setRowAddress(0, NUM_ROWS - 1);
-    ILI9341_setColAddress(0, NUM_COLS - 1);
-    ILI9341_setMemAccessCtrl(0, 0, 0, 0, 1, 0);
-
-    ILI9341_Init();
+    Timer_setMode(timer0, ONESHOT, DOWN);
+    Timer_setInterval_ms(timer0, 1000);
 
     color = BLUE;
     while(1) {
@@ -49,10 +52,10 @@ int main(void) {
                 color = RED;
                 break;
         }
-        while(Timer0A_isCounting()) {}
+        while(Timer_isCounting(timer0)) {}
 
         // Write to display
-        Timer0A_Start(1000);
+        Timer_Start(timer0);
 
         GPIO_WriteLow(portF, LED_PINS);
         GPIO_WriteHigh(portF, color);
@@ -60,6 +63,5 @@ int main(void) {
         for(uint32_t i = 0; i < 76800; i++) {
             ILI9341_writePixel(red_val, green_val, blue_val, 1);
         }
-        // ILI9341_NoOpCmd();
     }
 }

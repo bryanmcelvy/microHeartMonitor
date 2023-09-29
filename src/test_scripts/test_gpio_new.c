@@ -5,13 +5,15 @@
 
 int main(void) {
     PLL_Init();
-    Timer0A_Init();
+
+    Timer_t timer = Timer_Init(TIMER0);
+    Timer_setMode(timer, ONESHOT, UP);
 
     GPIO_Port_t * portF = GPIO_InitPort(F);
     Led_t * led = Led_Init(portF, GPIO_PIN3);
 
     while(1) {
         Led_Toggle(led);
-        Timer0A_Wait1ms(333);
+        Timer_Wait1ms(timer, 333);
     }
 }

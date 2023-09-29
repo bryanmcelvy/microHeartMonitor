@@ -7,39 +7,56 @@
 #include "GPIO.h"
 #include "PLL.h"
 #include "Timer.h"
+
+#include "ISR.h"
+
 #include "tm4c123gh6pm.h"
 
-uint8_t is_led_on = 0;
+#include <stdbool.h>
+#include <stdint.h>
+
+#define LED_PINS (GPIO_Pin_t)(GPIO_PIN1 | GPIO_PIN2 | GPIO_PIN3)
+
+GPIO_Port_t * portF = 0;
+Timer_t timer1 = 0;
+bool isLedOn = false;
 
 int main(void) {
-
     PLL_Init();
+    ISR_GlobalDisable();
 
     // Init. LED pins
-    GPIO_Port_t * portF = GPIO_InitPort(F);
-    GPIO_ConfigDirOutput(portF, (GPIO_PIN1 | GPIO_PIN2 | GPIO_PIN3));
-    GPIO_ConfigDriveStrength(portF, (GPIO_PIN1 | GPIO_PIN2 | GPIO_PIN3), 8);
-    GPIO_EnableDigital(portF, (GPIO_PIN1 | GPIO_PIN2 | GPIO_PIN3));
+    portF = GPIO_InitPort(F);
+    GPIO_ConfigDirOutput(portF, LED_PINS);
+    GPIO_ConfigDriveStrength(portF, LED_PINS, 8);
+    GPIO_EnableDigital(portF, LED_PINS);
+    GPIO_WriteLow(portF, LED_PINS);               // turn off all LEDs
 
-    GPIO_WriteLow(portF, 0x0E);                       // turn off all LEDs
-    Timer1A_Init(200);
+    // Init. timer w/ periodic interrupts
+    timer1 = Timer_Init(TIMER1);
+    Timer_setMode(timer1, PERIODIC, UP);
+    Timer_enableInterruptOnTimeout(timer1, 2);
+    Timer_setInterval_ms(timer1, 200);
+    Timer_Start(timer1);
 
+    ISR_GlobalEnable();
     while(1) {}
 }
 
 void Timer1A_Handler(void) {
-    const uint8_t color_table[6] = { 0x02, 0x06, 0x04, 0x0C, 0x08, 0x0A };
-    static uint8_t color_idx = 0;
-    GPIO_Port_t * portF_int = GPIO_InitPort(F);
+    const uint8_t colorArray[6] = { 0x02, 0x06, 0x04, 0x0C, 0x08, 0x0A };
+    static uint8_t colorIdx = 0;
+    portF = GPIO_InitPort(F);
 
-    if(is_led_on) {
-        GPIO_WriteLow(portF_int, 0x0E);               // turn off all LEDs
+    if(isLedOn) {
+        GPIO_WriteLow(portF, LED_PINS);               // turn off all LEDs
     }
     else {
-        color_idx = (color_idx < 5) ? (color_idx + 1) : 0;
-        GPIO_Toggle(portF_int, color_table[color_idx]);
+        colorIdx = (colorIdx + 1) % 6;
+        GPIO_Toggle(portF, colorArray[colorIdx]);
     }
-    is_led_on = !is_led_on;
+    isLedOn = !isLedOn;
 
-    TIMER1_ICR_R |= 0x01;                             // acknowledge interrupt
+    Timer_clearInterruptFlag(timer1);
+    return;
 }

@@ -1,130 +1,216 @@
 /**
- * @addtogroup timer
+ * @addtogroup  timer
  * @{
  *
  * @file
  * @author  Bryan McElvy
- * @brief   Implementation for timer module.
- *
- * @ingroup timer
+ * @brief   Source code for Timer module.
  */
+
+/******************************************************************************
+Preprocessor Directives
+*******************************************************************************/
 
 #include "Timer.h"
 
+#include "ISR.h"
+#include "NewAssert.h"
+
 #include "tm4c123gh6pm.h"
 
+#include <stdbool.h>
 #include <stdint.h>
 
-/**********************************************************************
-Timer0A
-***********************************************************************/
+/******************************************************************************
+Declarations
+*******************************************************************************/
 
-void Timer0A_Init(void) {
-    SYSCTL_RCGCTIMER_R |= 0x01;                // enable clock for timer 0
-    TIMER0_CTL_R &= ~(0x101);                  // disable both subtimers
-    TIMER0_CFG_R &= ~(0x07);                   // 32-bit timer configuration
-    TIMER0_TAMR_R |= 0x01;                     // one-shot mode, countdown
+enum {
+    TIMER0_BASE = 0x40030000,
+    TIMER1_BASE = 0x40031000,
+    TIMER2_BASE = 0x40032000,
+    TIMER3_BASE = 0x40033000,
+    TIMER4_BASE = 0x40034000,
+    TIMER5_BASE = 0x40035000
+};
+
+enum REGISTER_OFFSETS {
+    CONFIG = 0x00,
+    MODE = 0x04,
+    CTRL = 0x0C,
+    INT_MASK = 0x18,
+    INT_CLEAR = 0x24,
+    INTERVAL = 0x28,
+    VALUE = 0x054
+};
+
+typedef volatile uint32_t * register_t;
+
+typedef struct TimerStruct_t {
+    const timerName_t NAME;
+    const uint32_t BASE_ADDR;
+    register_t controlRegister;
+    register_t intervalLoadRegister;
+    register_t interruptClearRegister;
+    bool isInit;
+} TimerStruct_t;
+
+// clang-format off
+static TimerStruct_t TIMER_POOL[6] = {
+    { TIMER0, TIMER0_BASE, (register_t) (TIMER0_BASE + CTRL), (register_t) (TIMER0_BASE + INTERVAL), (register_t) (TIMER0_BASE + INT_CLEAR), false },
+    { TIMER1, TIMER1_BASE, (register_t) (TIMER1_BASE + CTRL), (register_t) (TIMER1_BASE + INTERVAL), (register_t) (TIMER1_BASE + INT_CLEAR), false },
+    { TIMER2, TIMER2_BASE, (register_t) (TIMER2_BASE + CTRL), (register_t) (TIMER2_BASE + INTERVAL), (register_t) (TIMER2_BASE + INT_CLEAR), false },
+    { TIMER3, TIMER3_BASE, (register_t) (TIMER3_BASE + CTRL), (register_t) (TIMER3_BASE + INTERVAL), (register_t) (TIMER3_BASE + INT_CLEAR), false },
+    { TIMER4, TIMER4_BASE, (register_t) (TIMER4_BASE + CTRL), (register_t) (TIMER4_BASE + INTERVAL), (register_t) (TIMER4_BASE + INT_CLEAR), false },
+    { TIMER5, TIMER5_BASE, (register_t) (TIMER5_BASE + CTRL), (register_t) (TIMER5_BASE + INTERVAL), (register_t) (TIMER5_BASE + INT_CLEAR), false }
+};
+
+// clang-format on
+
+/******************************************************************************
+Initialization
+*******************************************************************************/
+
+Timer_t Timer_Init(timerName_t timerName) {
+    Timer_t timer = &TIMER_POOL[timerName];
+    if(timer->isInit == false) {
+        // Start clock to timer
+        SYSCTL_RCGCTIMER_R |= (1 << timerName);
+        while((SYSCTL_PRTIMER_R & (1 << timerName)) == 0) {}
+        timer->isInit = true;
+    }
+
+    // Disable timers and turn on concatenated mode
+    *timer->controlRegister &= ~(0x0101);
+    *((register_t) (timer->BASE_ADDR + CONFIG)) &= ~(0x0007);
+
+    return timer;
 }
 
-void Timer0A_Start(uint32_t time_ms) {
-    uint32_t reload_val;
-
-    TIMER0_CTL_R &= ~(0x101);                  // disable Timer 0
-
-    time_ms = (time_ms <= 53000) ? ((uint32_t) time_ms) : 53000;
-    reload_val = (80000 * time_ms) - 1;
-    TIMER0_TAILR_R = reload_val;
-
-    TIMER0_CTL_R |= 0x101;                     // re-enable Timer 0
+timerName_t Timer_getName(Timer_t timer) {
+    Assert(timer->isInit);
+    return timer->NAME;
 }
 
-uint8_t Timer0A_isCounting(void) {
-    return TIMER0_CTL_R & 0x101;               // check enable bit (1 if counting, 0 if not)
+/******************************************************************************
+Configuration
+*******************************************************************************/
+
+void Timer_setMode(Timer_t timer, timerMode_t timerMode, bool isCountingUp) {
+    Assert(timer->isInit);
+    *timer->controlRegister &= ~(0x101);               // disable timer
+
+    *((register_t) (timer->BASE_ADDR + MODE)) &= ~(0x13);
+    switch(timerMode) {
+        case ONESHOT: *((register_t) (timer->BASE_ADDR + MODE)) |= 0x01; break;
+        case PERIODIC: *((register_t) (timer->BASE_ADDR + MODE)) |= 0x02; break;
+    }
+
+    if(isCountingUp) {
+        *((register_t) (timer->BASE_ADDR + MODE)) |= 0x10;
+    }
+    else {
+        *((register_t) (timer->BASE_ADDR + MODE)) &= ~(0x10);
+    }
+
+    return;
 }
 
-void Timer0A_Wait1ms(uint32_t time_ms) {
-    Timer0A_Start(time_ms);
-    while(Timer0A_isCounting()) {}
+void Timer_enableAdcTrigger(Timer_t timer) {
+    Assert(timer->isInit);
+
+    *timer->controlRegister |= 0x20;
+    return;
 }
 
-/**********************************************************************
-Timer0A
-***********************************************************************/
+void Timer_disableAdcTrigger(Timer_t timer) {
+    Assert(timer->isInit);
 
-void Timer1A_Init(uint32_t time_ms) {
-    uint32_t reload_val;
-
-    SYSCTL_RCGCTIMER_R |= 0x02;               // enable clock for timer 1
-    TIMER1_CTL_R &= ~(0x101);                 // disable both subtimers
-    TIMER1_CFG_R &= ~(0x07);                  // 32-bit timer configuration
-    TIMER1_TAMR_R |= 0x02;                    // periodic mode, countdown
-
-    time_ms = (time_ms <= 53000) ? ((uint32_t) time_ms) : 53000;
-    reload_val = (80000 * time_ms) - 1;
-    TIMER1_TAILR_R = reload_val;
-
-    TIMER1_IMR_R |= 0x01;                     // interrupt on timeout
-    NVIC_PRI5_R |= (2 << 13);                 // priority 2
-    NVIC_EN0_R |= 0x200000;                   // enable Timer 1A interrupts in NVIC
-
-    TIMER1_CTL_R |= 0x101;                    // enable both subtimers
+    *timer->controlRegister &= ~(0x20);
+    return;
 }
 
-/**********************************************************************
-Timer2A
-***********************************************************************/
+void Timer_enableInterruptOnTimeout(Timer_t timer, uint8_t priority) {
+    *timer->controlRegister &= ~(0x101);               // disable timer
 
-void Timer2A_Init(void) {
-    SYSCTL_RCGCTIMER_R |= 0x04;                // enable clock for timer 2
-    TIMER2_CTL_R &= ~(0x101);                  // disable both subtimers
-    TIMER2_CFG_R &= ~(0x07);                   // 32-bit timer configuration
-    TIMER2_TAMR_R |= 0x01;                     // one-shot mode, countdown
+    // enable in NVIC
+    uint8_t vectorNum;
+    switch(timer->BASE_ADDR) {
+        case TIMER0_BASE: vectorNum = INT_TIMER0A; break;
+        case TIMER1_BASE: vectorNum = INT_TIMER1A; break;
+        case TIMER2_BASE: vectorNum = INT_TIMER2A; break;
+        case TIMER3_BASE: vectorNum = INT_TIMER3A; break;
+        case TIMER4_BASE: vectorNum = INT_TIMER4A; break;
+        case TIMER5_BASE: vectorNum = INT_TIMER5A; break;
+    }
+    ISR_setPriority(vectorNum, priority);
+    ISR_Enable(vectorNum);
+
+    // enable in timer register
+    *((register_t) (timer->BASE_ADDR + INT_MASK)) |= 0x01;
+    *timer->interruptClearRegister |= 0x01;                                 // clear int. flag
+
+    return;
 }
 
-void Timer2A_Start(uint32_t time_ms) {
-    uint32_t reload_val;
-
-    TIMER2_CTL_R &= ~(0x101);                  // disable Timer 2
-
-    time_ms = (time_ms <= 53000) ? ((uint32_t) time_ms) : 53000;
-    reload_val = (80000 * time_ms) - 1;
-    TIMER2_TAILR_R = reload_val;
-
-    TIMER2_CTL_R |= 0x101;                     // re-enable Timer 2
+void Timer_disableInterruptOnTimeout(Timer_t timer) {
+    *timer->controlRegister &= ~(0x101);                                    // disable timer
+    *((register_t) (timer->BASE_ADDR + INT_MASK)) &= ~(0x01);               // disable int.
+    return;
 }
 
-uint8_t Timer2A_isCounting(void) {
-    return TIMER2_CTL_R & 0x101;               // check enable bit (1 if counting, 0 if not)
+void Timer_clearInterruptFlag(Timer_t timer) {
+    *(timer->interruptClearRegister) |= 0x01;
+    return;
 }
 
-void Timer2A_Wait1ms(uint32_t time_ms) {
-    Timer2A_Start(time_ms);
-    while(Timer2A_isCounting()) {}
+/******************************************************************************
+Basic Operations
+*******************************************************************************/
+
+void Timer_setInterval_ms(Timer_t timer, uint32_t time_ms) {
+    Assert(timer->isInit);
+    Assert((time_ms > 0) && (time_ms <= 53000));
+
+    *timer->controlRegister &= ~(0x101);               // disable timer
+    uint32_t reload_val = (80000 * time_ms) - 1;
+    *timer->intervalLoadRegister = reload_val;
+
+    return;
 }
 
-/**********************************************************************
-Timer3A
-***********************************************************************/
+uint32_t Timer_getCurrentValue(Timer_t timer) {
+    Assert(timer->isInit);
 
-void Timer3A_Init(uint32_t time_ms) {
+    return *((register_t) timer->BASE_ADDR + VALUE);
+}
 
-    // Calculate reload value
-    uint32_t reload_val;
+void Timer_Start(Timer_t timer) {
+    Assert(timer->isInit);
 
-    time_ms = (time_ms <= 53000) ? ((uint32_t) time_ms) : 53000;
-    reload_val = (80000 * time_ms) - 1;
+    *timer->controlRegister |= 0x101;                  // enable timer
+    return;
+}
 
-    // Initialize Timer3A
-    SYSCTL_RCGCTIMER_R |= 0x08;               // enable clock for Timer3
+void Timer_Stop(Timer_t timer) {
+    Assert(timer->isInit);
 
-    TIMER3_CTL_R &= ~(0x101);                 // disable both subtimers
+    *timer->controlRegister &= ~(0x101);               // stop/disable timer
+    return;
+}
 
-    TIMER3_CTL_R |= 0x20;                     // trigger ADC interrupts
-    TIMER3_CFG_R &= ~(0x07);                  // 32-bit timer configuration
-    TIMER3_TAMR_R |= 0x02;                    // periodic mode, countdown
-    TIMER3_TAILR_R = reload_val;
+bool Timer_isCounting(Timer_t timer) {
+    return (bool) (*timer->controlRegister & 0x101);
+}
 
-    TIMER3_CTL_R |= 0x101;                    // enable both subtimers
+void Timer_Wait1ms(Timer_t timer, uint32_t time_ms) {
+    Assert(timer->isInit);
+
+    Timer_setInterval_ms(timer, time_ms);
+    Timer_Start(timer);
+    while(Timer_isCounting(timer)) {}
+
+    return;
 }
 
 /** @} */
