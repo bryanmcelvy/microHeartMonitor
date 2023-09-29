@@ -47,6 +47,7 @@ enum REGISTER_OFFSETS {
 typedef volatile uint32_t * register_t;
 
 typedef struct TimerStruct_t {
+    const timerName_t NAME;
     const uint32_t BASE_ADDR;
     register_t controlRegister;
     register_t intervalLoadRegister;
@@ -56,12 +57,12 @@ typedef struct TimerStruct_t {
 
 // clang-format off
 static TimerStruct_t TIMER_POOL[6] = {
-    { TIMER0_BASE, (register_t) (TIMER0_BASE + CTRL), (register_t) (TIMER0_BASE + INTERVAL), (register_t) (TIMER0_BASE + INT_CLEAR), false },
-    { TIMER1_BASE, (register_t) (TIMER1_BASE + CTRL), (register_t) (TIMER1_BASE + INTERVAL), (register_t) (TIMER1_BASE + INT_CLEAR), false },
-    { TIMER2_BASE, (register_t) (TIMER2_BASE + CTRL), (register_t) (TIMER2_BASE + INTERVAL), (register_t) (TIMER2_BASE + INT_CLEAR), false },
-    { TIMER3_BASE, (register_t) (TIMER3_BASE + CTRL), (register_t) (TIMER3_BASE + INTERVAL), (register_t) (TIMER3_BASE + INT_CLEAR), false },
-    { TIMER4_BASE, (register_t) (TIMER4_BASE + CTRL), (register_t) (TIMER4_BASE + INTERVAL), (register_t) (TIMER4_BASE + INT_CLEAR), false },
-    { TIMER5_BASE, (register_t) (TIMER5_BASE + CTRL), (register_t) (TIMER5_BASE + INTERVAL), (register_t) (TIMER5_BASE + INT_CLEAR), false }
+    { TIMER0, TIMER0_BASE, (register_t) (TIMER0_BASE + CTRL), (register_t) (TIMER0_BASE + INTERVAL), (register_t) (TIMER0_BASE + INT_CLEAR), false },
+    { TIMER1, TIMER1_BASE, (register_t) (TIMER1_BASE + CTRL), (register_t) (TIMER1_BASE + INTERVAL), (register_t) (TIMER1_BASE + INT_CLEAR), false },
+    { TIMER2, TIMER2_BASE, (register_t) (TIMER2_BASE + CTRL), (register_t) (TIMER2_BASE + INTERVAL), (register_t) (TIMER2_BASE + INT_CLEAR), false },
+    { TIMER3, TIMER3_BASE, (register_t) (TIMER3_BASE + CTRL), (register_t) (TIMER3_BASE + INTERVAL), (register_t) (TIMER3_BASE + INT_CLEAR), false },
+    { TIMER4, TIMER4_BASE, (register_t) (TIMER4_BASE + CTRL), (register_t) (TIMER4_BASE + INTERVAL), (register_t) (TIMER4_BASE + INT_CLEAR), false },
+    { TIMER5, TIMER5_BASE, (register_t) (TIMER5_BASE + CTRL), (register_t) (TIMER5_BASE + INTERVAL), (register_t) (TIMER5_BASE + INT_CLEAR), false }
 };
 
 // clang-format on
@@ -70,7 +71,7 @@ static TimerStruct_t TIMER_POOL[6] = {
 Initialization
 *******************************************************************************/
 
-Timer_t Timer_Init(timerName_t timerName, bool isPeriodic, bool isCountingUp) {
+Timer_t Timer_Init(timerName_t timerName) {
     Timer_t timer = &TIMER_POOL[timerName];
     if(timer->isInit == false) {
         // Start clock to timer
@@ -83,8 +84,27 @@ Timer_t Timer_Init(timerName_t timerName, bool isPeriodic, bool isCountingUp) {
     *timer->controlRegister &= ~(0x0101);
     *((register_t) (timer->BASE_ADDR + CONFIG)) &= ~(0x0007);
 
-    // Configure timer according to input args
-    *((register_t) (timer->BASE_ADDR + MODE)) &= ~(0x0FFF);
+    return timer;
+}
+
+timerName_t Timer_getName(Timer_t timer) {
+    Assert(timer->isInit);
+    return timer->NAME;
+}
+
+/******************************************************************************
+Configuration
+*******************************************************************************/
+
+void Timer_setMode(Timer_t timer, timerMode_t timerMode, bool isCountingUp) {
+    Assert(timer->isInit);
+    *timer->controlRegister &= ~(0x101);               // disable timer
+
+    *((register_t) (timer->BASE_ADDR + MODE)) &= ~(0x13);
+    switch(timerMode) {
+        case ONESHOT: *((register_t) (timer->BASE_ADDR + MODE)) |= 0x01; break;
+        case PERIODIC: *((register_t) (timer->BASE_ADDR + MODE)) |= 0x02; break;
+    }
 
     if(isCountingUp) {
         *((register_t) (timer->BASE_ADDR + MODE)) |= 0x10;
@@ -92,28 +112,6 @@ Timer_t Timer_Init(timerName_t timerName, bool isPeriodic, bool isCountingUp) {
     else {
         *((register_t) (timer->BASE_ADDR + MODE)) &= ~(0x10);
     }
-
-    if(isPeriodic) {
-        *((register_t) (timer->BASE_ADDR + MODE)) |= 0x02;
-    }
-    else {
-        *((register_t) (timer->BASE_ADDR + MODE)) |= 0x01;
-    }
-
-    return timer;
-}
-
-/******************************************************************************
-Configuration
-*******************************************************************************/
-
-void Timer_setInterval_ms(Timer_t timer, uint32_t time_ms) {
-    Assert(timer->isInit);
-    Assert((time_ms > 0) && (time_ms <= 53000));
-
-    *timer->controlRegister &= ~(0x101);               // disable timer
-    uint32_t reload_val = (80000 * time_ms) - 1;
-    *timer->intervalLoadRegister = reload_val;
 
     return;
 }
@@ -169,6 +167,17 @@ void Timer_clearInterruptFlag(Timer_t timer) {
 /******************************************************************************
 Basic Operations
 *******************************************************************************/
+
+void Timer_setInterval_ms(Timer_t timer, uint32_t time_ms) {
+    Assert(timer->isInit);
+    Assert((time_ms > 0) && (time_ms <= 53000));
+
+    *timer->controlRegister &= ~(0x101);               // disable timer
+    uint32_t reload_val = (80000 * time_ms) - 1;
+    *timer->intervalLoadRegister = reload_val;
+
+    return;
+}
 
 uint32_t Timer_getCurrentValue(Timer_t timer) {
     Assert(timer->isInit);
