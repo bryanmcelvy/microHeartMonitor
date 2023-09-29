@@ -75,6 +75,10 @@ target_link_libraries(test_adc.elf ADC FIFO GPIO Timer)
 add_executable(test_gpio_new.elf test_gpio_new.c)
 target_link_libraries(test_gpio_new.elf GPIO Led Timer)
 
+# Timer 1 Interrupts (Interrupt Table Relocation)
+add_executable(test_isr_relocate.elf test_isr_relocate.c )
+target_link_libraries(test_isr_relocate.elf Led Timer ISR)
+
 #*****************************************************************************
 # Application SW Tests
 #*****************************************************************************
