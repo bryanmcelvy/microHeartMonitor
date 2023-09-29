@@ -49,8 +49,8 @@ static void arm_bitonic_sort_core_f32(float32_t * pSrc, uint32_t n, uint8_t dir)
             *rightPtr = temp;
         }
 
-        leftPtr++;                     // Move right
-        rightPtr--;                    // Move left
+        leftPtr++;                // Move right
+        rightPtr--;               // Move left
     }
 
     // Merge
@@ -871,9 +871,9 @@ void arm_bitonic_sort_f32(const arm_sort_instance_f32 * S, float32_t * pSrc, flo
     float32_t * pOut;
     uint16_t counter = blockSize >> 5;
 
-    if((blockSize & (blockSize - 1)) == 0)                    // Powers of 2 only
+    if((blockSize & (blockSize - 1)) == 0)               // Powers of 2 only
     {
-        if(pSrc == pDst)                                      // in-place
+        if(pSrc == pDst)                                 // in-place
             pOut = pSrc;
         else
             pOut = pDst;
@@ -955,7 +955,7 @@ void arm_bitonic_sort_f32(const arm_sort_instance_f32 * S, float32_t * pSrc, flo
 
     float32_t * pA;
 
-    if(pSrc != pDst)                                          // out-of-place
+    if(pSrc != pDst)                                     // out-of-place
     {
         memcpy(pDst, pSrc, blockSize * sizeof(float32_t));
         pA = pDst;
@@ -963,7 +963,7 @@ void arm_bitonic_sort_f32(const arm_sort_instance_f32 * S, float32_t * pSrc, flo
     else
         pA = pSrc;
 
-    if((blockSize & (blockSize - 1)) == 0)                    // Powers of 2 only
+    if((blockSize & (blockSize - 1)) == 0)               // Powers of 2 only
     {
         for(s = 2; s <= blockSize; s = s * 2) {
             for(i = 0; i < blockSize; i = i + s)

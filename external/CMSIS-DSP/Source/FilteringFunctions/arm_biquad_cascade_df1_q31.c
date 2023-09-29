@@ -89,9 +89,9 @@ void arm_biquad_cascade_df1_q31(const arm_biquad_casd_df1_inst_q31 * S, const q3
         b0Coeffs = vdupq_n_s32(0);
         a0Coeffs = vdupq_n_s32(0);
 
-        b0Coeffs[0] = pCoeffs[2];                    // b2
-        b0Coeffs[1] = pCoeffs[1];                    // b1
-        b0Coeffs[2] = pCoeffs[0];                    // b0
+        b0Coeffs[0] = pCoeffs[2];               // b2
+        b0Coeffs[1] = pCoeffs[1];               // b1
+        b0Coeffs[2] = pCoeffs[0];               // b0
 
         b1Coeffs = b0Coeffs;
         uint32_t zero = 0;

@@ -762,47 +762,48 @@ void arm_fir_f32(const arm_fir_instance_f32 * S, const float32_t * pSrc, float32
 
         /* Perform the multiply-accumulates */
         switch(i) {
-        case 3: {
-            accv0 = vmlaq_n_f32(accv0, x0, *pb);
-            accv1 = vmlaq_n_f32(accv1, x1, *pb);
+            case 3: {
+                accv0 = vmlaq_n_f32(accv0, x0, *pb);
+                accv1 = vmlaq_n_f32(accv1, x1, *pb);
 
-            pb++;
+                pb++;
 
-            xa = vextq_f32(x0, x1, 1);
-            xb = vextq_f32(x1, x2, 1);
+                xa = vextq_f32(x0, x1, 1);
+                xb = vextq_f32(x1, x2, 1);
 
-            accv0 = vmlaq_n_f32(accv0, xa, *pb);
-            accv1 = vmlaq_n_f32(accv1, xb, *pb);
+                accv0 = vmlaq_n_f32(accv0, xa, *pb);
+                accv1 = vmlaq_n_f32(accv1, xb, *pb);
 
-            pb++;
+                pb++;
 
-            xa = vextq_f32(x0, x1, 2);
-            xb = vextq_f32(x1, x2, 2);
+                xa = vextq_f32(x0, x1, 2);
+                xb = vextq_f32(x1, x2, 2);
 
-            accv0 = vmlaq_n_f32(accv0, xa, *pb);
-            accv1 = vmlaq_n_f32(accv1, xb, *pb);
+                accv0 = vmlaq_n_f32(accv0, xa, *pb);
+                accv1 = vmlaq_n_f32(accv1, xb, *pb);
 
-        } break;
-        case 2: {
-            accv0 = vmlaq_n_f32(accv0, x0, *pb);
-            accv1 = vmlaq_n_f32(accv1, x1, *pb);
+            } break;
+            case 2: {
+                accv0 = vmlaq_n_f32(accv0, x0, *pb);
+                accv1 = vmlaq_n_f32(accv1, x1, *pb);
 
-            pb++;
+                pb++;
 
-            xa = vextq_f32(x0, x1, 1);
-            xb = vextq_f32(x1, x2, 1);
+                xa = vextq_f32(x0, x1, 1);
+                xb = vextq_f32(x1, x2, 1);
 
-            accv0 = vmlaq_n_f32(accv0, xa, *pb);
-            accv1 = vmlaq_n_f32(accv1, xb, *pb);
+                accv0 = vmlaq_n_f32(accv0, xa, *pb);
+                accv1 = vmlaq_n_f32(accv1, xb, *pb);
 
-        } break;
-        case 1: {
+            } break;
+            case 1: {
 
-            accv0 = vmlaq_n_f32(accv0, x0, *pb);
-            accv1 = vmlaq_n_f32(accv1, x1, *pb);
+                accv0 = vmlaq_n_f32(accv0, x0, *pb);
+                accv1 = vmlaq_n_f32(accv1, x1, *pb);
 
-        } break;
-        default: break;
+            } break;
+            default:
+                break;
         }
 
         /* The result is stored in the destination buffer. */

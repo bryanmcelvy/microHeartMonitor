@@ -429,7 +429,7 @@ arm_status arm_mat_mult_q7(const arm_matrix_instance_q7 * pSrcA,
          */
 
         if(numColsB & 1u) {
-            row = numRowsA & (~0x1);                    // avoid redundant computation
+            row = numRowsA & (~0x1);               // avoid redundant computation
             px = pDst->pData + numColsB - 1;
             i = 0;
 

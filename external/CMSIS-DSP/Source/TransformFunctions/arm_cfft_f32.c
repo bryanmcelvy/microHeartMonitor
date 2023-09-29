@@ -40,25 +40,44 @@ static float32_t arm_inverse_fft_length_f32(uint16_t fftLen) {
 
     switch(fftLen) {
 
-    case 4096U: retValue = 0.000244140625; break;
+        case 4096U:
+            retValue = 0.000244140625;
+            break;
 
-    case 2048U: retValue = 0.00048828125; break;
+        case 2048U:
+            retValue = 0.00048828125;
+            break;
 
-    case 1024U: retValue = 0.0009765625f; break;
+        case 1024U:
+            retValue = 0.0009765625f;
+            break;
 
-    case 512U: retValue = 0.001953125; break;
+        case 512U:
+            retValue = 0.001953125;
+            break;
 
-    case 256U: retValue = 0.00390625f; break;
+        case 256U:
+            retValue = 0.00390625f;
+            break;
 
-    case 128U: retValue = 0.0078125; break;
+        case 128U:
+            retValue = 0.0078125;
+            break;
 
-    case 64U: retValue = 0.015625f; break;
+        case 64U:
+            retValue = 0.015625f;
+            break;
 
-    case 32U: retValue = 0.03125; break;
+        case 32U:
+            retValue = 0.03125;
+            break;
 
-    case 16U: retValue = 0.0625f; break;
+        case 16U:
+            retValue = 0.0625f;
+            break;
 
-    default: break;
+        default:
+            break;
     }
     return (retValue);
 }
@@ -486,33 +505,39 @@ void arm_cfft_f32(const arm_cfft_instance_f32 * S, float32_t * pSrc, uint8_t iff
     if(ifftFlag == 1U) {
 
         switch(fftLen) {
-        case 16:
-        case 64:
-        case 256:
-        case 1024:
-        case 4096:
-            _arm_radix4_butterfly_inverse_f32_mve(S, pSrc, fftLen,
-                                                  arm_inverse_fft_length_f32(S->fftLen));
-            break;
+            case 16:
+            case 64:
+            case 256:
+            case 1024:
+            case 4096:
+                _arm_radix4_butterfly_inverse_f32_mve(S, pSrc, fftLen,
+                                                      arm_inverse_fft_length_f32(S->fftLen));
+                break;
 
-        case 32:
-        case 128:
-        case 512:
-        case 2048: arm_cfft_radix4by2_inverse_f32_mve(S, pSrc, fftLen); break;
+            case 32:
+            case 128:
+            case 512:
+            case 2048:
+                arm_cfft_radix4by2_inverse_f32_mve(S, pSrc, fftLen);
+                break;
         }
     }
     else {
         switch(fftLen) {
-        case 16:
-        case 64:
-        case 256:
-        case 1024:
-        case 4096: _arm_radix4_butterfly_f32_mve(S, pSrc, fftLen); break;
+            case 16:
+            case 64:
+            case 256:
+            case 1024:
+            case 4096:
+                _arm_radix4_butterfly_f32_mve(S, pSrc, fftLen);
+                break;
 
-        case 32:
-        case 128:
-        case 512:
-        case 2048: arm_cfft_radix4by2_f32_mve(S, pSrc, fftLen); break;
+            case 32:
+            case 128:
+            case 512:
+            case 2048:
+                arm_cfft_radix4by2_f32_mve(S, pSrc, fftLen);
+                break;
         }
     }
 
@@ -1078,15 +1103,21 @@ void arm_cfft_f32(const arm_cfft_instance_f32 * S, float32_t * p1, uint8_t ifftF
     }
 
     switch(L) {
-    case 16:
-    case 128:
-    case 1024: arm_cfft_radix8by2_f32((arm_cfft_instance_f32 *) S, p1); break;
-    case 32:
-    case 256:
-    case 2048: arm_cfft_radix8by4_f32((arm_cfft_instance_f32 *) S, p1); break;
-    case 64:
-    case 512:
-    case 4096: arm_radix8_butterfly_f32(p1, L, (float32_t *) S->pTwiddle, 1); break;
+        case 16:
+        case 128:
+        case 1024:
+            arm_cfft_radix8by2_f32((arm_cfft_instance_f32 *) S, p1);
+            break;
+        case 32:
+        case 256:
+        case 2048:
+            arm_cfft_radix8by4_f32((arm_cfft_instance_f32 *) S, p1);
+            break;
+        case 64:
+        case 512:
+        case 4096:
+            arm_radix8_butterfly_f32(p1, L, (float32_t *) S->pTwiddle, 1);
+            break;
     }
 
     if(bitReverseFlag) arm_bitreversal_32((uint32_t *) p1, S->bitRevLength, S->pBitRevTable);

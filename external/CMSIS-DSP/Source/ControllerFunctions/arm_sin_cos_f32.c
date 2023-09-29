@@ -90,7 +90,7 @@ void arm_sin_cos_f32(float32_t theta, float32_t * pSinVal, float32_t * pCosVal) 
     d1 = sinTable_f32[indexC];
     d2 = sinTable_f32[indexC + 1];
 
-    Df = f2 - f1;                    // delta between the values of the functions
+    Df = f2 - f1;               // delta between the values of the functions
     temp = Dn * (d1 + d2) - 2 * Df;
     temp = fract * temp + (3 * Df - (d2 + 2 * d1) * Dn);
     temp = fract * temp + d1 * Dn;

@@ -536,30 +536,38 @@ void arm_cfft_q31(const arm_cfft_instance_q31 * S, q31_t * pSrc, uint8_t ifftFla
     if(ifftFlag == 1U) {
 
         switch(fftLen) {
-        case 16:
-        case 64:
-        case 256:
-        case 1024:
-        case 4096: _arm_radix4_butterfly_inverse_q31_mve(S, pSrc, fftLen); break;
+            case 16:
+            case 64:
+            case 256:
+            case 1024:
+            case 4096:
+                _arm_radix4_butterfly_inverse_q31_mve(S, pSrc, fftLen);
+                break;
 
-        case 32:
-        case 128:
-        case 512:
-        case 2048: arm_cfft_radix4by2_inverse_q31_mve(S, pSrc, fftLen); break;
+            case 32:
+            case 128:
+            case 512:
+            case 2048:
+                arm_cfft_radix4by2_inverse_q31_mve(S, pSrc, fftLen);
+                break;
         }
     }
     else {
         switch(fftLen) {
-        case 16:
-        case 64:
-        case 256:
-        case 1024:
-        case 4096: _arm_radix4_butterfly_q31_mve(S, pSrc, fftLen); break;
+            case 16:
+            case 64:
+            case 256:
+            case 1024:
+            case 4096:
+                _arm_radix4_butterfly_q31_mve(S, pSrc, fftLen);
+                break;
 
-        case 32:
-        case 128:
-        case 512:
-        case 2048: arm_cfft_radix4by2_q31_mve(S, pSrc, fftLen); break;
+            case 32:
+            case 128:
+            case 512:
+            case 2048:
+                arm_cfft_radix4by2_q31_mve(S, pSrc, fftLen);
+                break;
         }
     }
 
@@ -607,30 +615,38 @@ void arm_cfft_q31(const arm_cfft_instance_q31 * S, q31_t * p1, uint8_t ifftFlag,
 
     if(ifftFlag == 1U) {
         switch(L) {
-        case 16:
-        case 64:
-        case 256:
-        case 1024:
-        case 4096: arm_radix4_butterfly_inverse_q31(p1, L, (q31_t *) S->pTwiddle, 1); break;
+            case 16:
+            case 64:
+            case 256:
+            case 1024:
+            case 4096:
+                arm_radix4_butterfly_inverse_q31(p1, L, (q31_t *) S->pTwiddle, 1);
+                break;
 
-        case 32:
-        case 128:
-        case 512:
-        case 2048: arm_cfft_radix4by2_inverse_q31(p1, L, S->pTwiddle); break;
+            case 32:
+            case 128:
+            case 512:
+            case 2048:
+                arm_cfft_radix4by2_inverse_q31(p1, L, S->pTwiddle);
+                break;
         }
     }
     else {
         switch(L) {
-        case 16:
-        case 64:
-        case 256:
-        case 1024:
-        case 4096: arm_radix4_butterfly_q31(p1, L, (q31_t *) S->pTwiddle, 1); break;
+            case 16:
+            case 64:
+            case 256:
+            case 1024:
+            case 4096:
+                arm_radix4_butterfly_q31(p1, L, (q31_t *) S->pTwiddle, 1);
+                break;
 
-        case 32:
-        case 128:
-        case 512:
-        case 2048: arm_cfft_radix4by2_q31(p1, L, S->pTwiddle); break;
+            case 32:
+            case 128:
+            case 512:
+            case 2048:
+                arm_cfft_radix4by2_q31(p1, L, S->pTwiddle);
+                break;
         }
     }
 

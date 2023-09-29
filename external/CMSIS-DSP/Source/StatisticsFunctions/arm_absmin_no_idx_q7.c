@@ -99,11 +99,11 @@ void arm_absmin_no_idx_q7(const q7_t * pSrc, uint32_t blockSize, q7_t * pResult)
     q7_t cur_absmin, out; /* Temporary variables to store the output value. */
     uint32_t blkCnt;      /* Loop counter */
 
-        /* Load first input value that act as reference value for comparision */
+    /* Load first input value that act as reference value for comparision */
     out = *pSrc++;
     out = (out > 0) ? out : (q7_t) __QSUB8(0, out);
 
-        /* Loop unrolling: Compute 4 outputs at a time */
+    /* Loop unrolling: Compute 4 outputs at a time */
     blkCnt = (blockSize - 1U) >> 2U;
 
     while(blkCnt > 0U) { /* Initialize cur_absmin to next consecutive values one by one */

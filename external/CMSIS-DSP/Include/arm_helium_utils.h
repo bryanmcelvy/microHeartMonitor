@@ -503,7 +503,7 @@ __STATIC_INLINE arm_status arm_mat_cmplx_trans_16bit(uint16_t srcRows, uint16_t 
         while(blkCnt > 0U) {
             vecIn = vldrhq_gather_shifted_offset(pDataC, vecOffsCur);
             vstrhq(pDataDestR, vecIn);
-            pDataDestR += 8;                    // VEC_LANES_U16
+            pDataDestR += 8;               // VEC_LANES_U16
             vecOffsCur = vaddq(vecOffsCur, (srcCols << 3));
             /*
              * Decrement the blockSize loop counter

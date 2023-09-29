@@ -104,11 +104,11 @@ void arm_absmax_no_idx_f16(const float16_t * pSrc, uint32_t blockSize, float16_t
     float16_t cur_absmax, out; /* Temporary variables to store the output value. */
     uint32_t blkCnt;           /* Loop counter */
 
-        /* Load first input value that act as reference value for comparision */
+    /* Load first input value that act as reference value for comparision */
     out = *pSrc++;
     out = ((_Float16) out > 0.0f16) ? out : -(_Float16) out;
 
-        /* Loop unrolling: Compute 4 outputs at a time */
+    /* Loop unrolling: Compute 4 outputs at a time */
     blkCnt = (blockSize - 1U) >> 2U;
 
     while(blkCnt > 0U) { /* Initialize cur_absmax to next consecutive values one by one */

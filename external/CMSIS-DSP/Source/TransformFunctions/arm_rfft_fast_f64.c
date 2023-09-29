@@ -99,8 +99,8 @@ void stage_rfft_f64(const arm_rfft_fast_instance_f64 * S, float64_t * p, float64
         p2 = twR * t1b;
         p3 = twI * t1b;
 
-        *pOut++ = 0.5 * (xAR + xBR + p0 + p3);                    // xAR
-        *pOut++ = 0.5 * (xAI - xBI + p1 - p2);                    // xAI
+        *pOut++ = 0.5 * (xAR + xBR + p0 + p3);               // xAR
+        *pOut++ = 0.5 * (xAI - xBI + p1 - p2);               // xAI
 
         pA += 2;
         pB -= 2;
@@ -153,8 +153,8 @@ void merge_rfft_f64(const arm_rfft_fast_instance_f64 * S, float64_t * p, float64
 
         // real(tw * (xA - xB)) = twR * (xAR - xBR) - twI * (xAI - xBI);
         // imag(tw * (xA - xB)) = twI * (xAR - xBR) + twR * (xAI - xBI);
-        *pOut++ = 0.5 * (xAR + xBR - r - s);                    // xAR
-        *pOut++ = 0.5 * (xAI - xBI + t - u);                    // xAI
+        *pOut++ = 0.5 * (xAR + xBR - r - s);               // xAR
+        *pOut++ = 0.5 * (xAI - xBI + t - u);               // xAI
 
         pA += 2;
         pB -= 2;

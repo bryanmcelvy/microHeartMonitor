@@ -174,13 +174,13 @@ void arm_absmin_q7(const q7_t * pSrc, uint32_t blockSize, q7_t * pResult, uint32
     uint32_t blkCnt, outIndex; /* Loop counter */
     uint32_t index;            /* index of maximum value */
 
-        /* Initialize index value to zero. */
+    /* Initialize index value to zero. */
     outIndex = 0U; /* Load first input value that act as reference value for comparision */
     out = *pSrc++;
     out = (out > 0) ? out : (q7_t) __QSUB8(0, out); /* Initialize index of extrema value. */
     index = 0U;
 
-        /* Loop unrolling: Compute 4 outputs at a time */
+    /* Loop unrolling: Compute 4 outputs at a time */
     blkCnt = (blockSize - 1U) >> 2U;
 
     while(blkCnt > 0U) { /* Initialize cur_absmin to next consecutive values one by one */
@@ -216,7 +216,7 @@ void arm_absmin_q7(const q7_t * pSrc, uint32_t blockSize, q7_t * pResult, uint32
 
         index += 4U;
 
-            /* Decrement loop counter */
+        /* Decrement loop counter */
         blkCnt--;
     }
 

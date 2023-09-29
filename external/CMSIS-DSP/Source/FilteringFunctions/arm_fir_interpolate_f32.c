@@ -571,58 +571,59 @@ void arm_fir_interpolate_f32(const arm_fir_interpolate_instance_f32 * S, const f
             x2v = vld1q_f32(ptr1 + 8);
 
             switch(tapCnt) {
-            case 3:
-                c0 = *(ptr2);
-                accV0 = vmlaq_n_f32(accV0, x0v, c0);
-                accV1 = vmlaq_n_f32(accV1, x1v, c0);
-                ptr2 += S->L;
+                case 3:
+                    c0 = *(ptr2);
+                    accV0 = vmlaq_n_f32(accV0, x0v, c0);
+                    accV1 = vmlaq_n_f32(accV1, x1v, c0);
+                    ptr2 += S->L;
 
-                c0 = *(ptr2);
+                    c0 = *(ptr2);
 
-                xa = vextq_f32(x0v, x1v, 1);
-                xb = vextq_f32(x1v, x2v, 1);
+                    xa = vextq_f32(x0v, x1v, 1);
+                    xb = vextq_f32(x1v, x2v, 1);
 
-                accV0 = vmlaq_n_f32(accV0, xa, c0);
-                accV1 = vmlaq_n_f32(accV1, xb, c0);
-                ptr2 += S->L;
+                    accV0 = vmlaq_n_f32(accV0, xa, c0);
+                    accV1 = vmlaq_n_f32(accV1, xb, c0);
+                    ptr2 += S->L;
 
-                c0 = *(ptr2);
+                    c0 = *(ptr2);
 
-                xa = vextq_f32(x0v, x1v, 2);
-                xb = vextq_f32(x1v, x2v, 2);
+                    xa = vextq_f32(x0v, x1v, 2);
+                    xb = vextq_f32(x1v, x2v, 2);
 
-                accV0 = vmlaq_n_f32(accV0, xa, c0);
-                accV1 = vmlaq_n_f32(accV1, xb, c0);
-                ptr2 += S->L;
+                    accV0 = vmlaq_n_f32(accV0, xa, c0);
+                    accV1 = vmlaq_n_f32(accV1, xb, c0);
+                    ptr2 += S->L;
 
-                break;
+                    break;
 
-            case 2:
-                c0 = *(ptr2);
-                accV0 = vmlaq_n_f32(accV0, x0v, c0);
-                accV1 = vmlaq_n_f32(accV1, x1v, c0);
-                ptr2 += S->L;
+                case 2:
+                    c0 = *(ptr2);
+                    accV0 = vmlaq_n_f32(accV0, x0v, c0);
+                    accV1 = vmlaq_n_f32(accV1, x1v, c0);
+                    ptr2 += S->L;
 
-                c0 = *(ptr2);
+                    c0 = *(ptr2);
 
-                xa = vextq_f32(x0v, x1v, 1);
-                xb = vextq_f32(x1v, x2v, 1);
+                    xa = vextq_f32(x0v, x1v, 1);
+                    xb = vextq_f32(x1v, x2v, 1);
 
-                accV0 = vmlaq_n_f32(accV0, xa, c0);
-                accV1 = vmlaq_n_f32(accV1, xb, c0);
-                ptr2 += S->L;
+                    accV0 = vmlaq_n_f32(accV0, xa, c0);
+                    accV1 = vmlaq_n_f32(accV1, xb, c0);
+                    ptr2 += S->L;
 
-                break;
+                    break;
 
-            case 1:
-                c0 = *(ptr2);
-                accV0 = vmlaq_n_f32(accV0, x0v, c0);
-                accV1 = vmlaq_n_f32(accV1, x1v, c0);
-                ptr2 += S->L;
+                case 1:
+                    c0 = *(ptr2);
+                    accV0 = vmlaq_n_f32(accV0, x0v, c0);
+                    accV1 = vmlaq_n_f32(accV1, x1v, c0);
+                    ptr2 += S->L;
 
-                break;
+                    break;
 
-            default: break;
+                default:
+                    break;
             }
 
             /* The result is in the accumulator, store in the destination buffer. */

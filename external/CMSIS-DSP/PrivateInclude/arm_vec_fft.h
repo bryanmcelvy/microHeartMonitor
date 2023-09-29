@@ -277,8 +277,8 @@ __STATIC_INLINE void arm_bitreversal_16_outpl_mve(void * pDst, void * pSrc, uint
     uint32_t incrIdx = 0;
 
     /* fwd indexes */
-    idxOffs0 = vidupq_wb_u32(&incrIdx, 4);                    // {0, 4, 8, 12}
-    idxOffs1 = vidupq_wb_u32(&incrIdx, 4);                    // {16, 20, 24, 28}
+    idxOffs0 = vidupq_wb_u32(&incrIdx, 4);               // {0, 4, 8, 12}
+    idxOffs1 = vidupq_wb_u32(&incrIdx, 4);               // {16, 20, 24, 28}
 
     bitRevPos = (31 - __CLZ(fftLen)) + 4;
     blkCnt = fftLen >> 3;

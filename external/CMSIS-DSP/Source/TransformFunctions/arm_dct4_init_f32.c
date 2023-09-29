@@ -92,27 +92,28 @@ arm_status arm_dct4_init_f32(arm_dct4_instance_f32 * S, arm_rfft_instance_f32 * 
     S->pCfft = S_CFFT;
 
     switch(N) {
-        /* Initialize the table modifier values */
-    case 8192U:
-        S->pTwiddle = Weights_8192;
-        S->pCosFactor = cos_factors_8192;
-        break;
+            /* Initialize the table modifier values */
+        case 8192U:
+            S->pTwiddle = Weights_8192;
+            S->pCosFactor = cos_factors_8192;
+            break;
 
-    case 2048U:
-        S->pTwiddle = Weights_2048;
-        S->pCosFactor = cos_factors_2048;
-        break;
+        case 2048U:
+            S->pTwiddle = Weights_2048;
+            S->pCosFactor = cos_factors_2048;
+            break;
 
-    case 512U:
-        S->pTwiddle = Weights_512;
-        S->pCosFactor = cos_factors_512;
-        break;
+        case 512U:
+            S->pTwiddle = Weights_512;
+            S->pCosFactor = cos_factors_512;
+            break;
 
-    case 128U:
-        S->pTwiddle = Weights_128;
-        S->pCosFactor = cos_factors_128;
-        break;
-    default: status = ARM_MATH_ARGUMENT_ERROR;
+        case 128U:
+            S->pTwiddle = Weights_128;
+            S->pCosFactor = cos_factors_128;
+            break;
+        default:
+            status = ARM_MATH_ARGUMENT_ERROR;
     }
 
     /* Initialize the RFFT/RIFFT Function */

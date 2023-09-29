@@ -40,25 +40,44 @@ static float16_t arm_inverse_fft_length_f16(uint16_t fftLen) {
 
     switch(fftLen) {
 
-    case 4096U: retValue = (float16_t) 0.000244140625f; break;
+        case 4096U:
+            retValue = (float16_t) 0.000244140625f;
+            break;
 
-    case 2048U: retValue = (float16_t) 0.00048828125f; break;
+        case 2048U:
+            retValue = (float16_t) 0.00048828125f;
+            break;
 
-    case 1024U: retValue = (float16_t) 0.0009765625f; break;
+        case 1024U:
+            retValue = (float16_t) 0.0009765625f;
+            break;
 
-    case 512U: retValue = (float16_t) 0.001953125f; break;
+        case 512U:
+            retValue = (float16_t) 0.001953125f;
+            break;
 
-    case 256U: retValue = (float16_t) 0.00390625f; break;
+        case 256U:
+            retValue = (float16_t) 0.00390625f;
+            break;
 
-    case 128U: retValue = (float16_t) 0.0078125f; break;
+        case 128U:
+            retValue = (float16_t) 0.0078125f;
+            break;
 
-    case 64U: retValue = (float16_t) 0.015625f; break;
+        case 64U:
+            retValue = (float16_t) 0.015625f;
+            break;
 
-    case 32U: retValue = (float16_t) 0.03125f; break;
+        case 32U:
+            retValue = (float16_t) 0.03125f;
+            break;
 
-    case 16U: retValue = (float16_t) 0.0625f; break;
+        case 16U:
+            retValue = (float16_t) 0.0625f;
+            break;
 
-    default: break;
+        default:
+            break;
     }
     return (retValue);
 }
@@ -485,33 +504,39 @@ void arm_cfft_f16(const arm_cfft_instance_f16 * S, float16_t * pSrc, uint8_t iff
     if(ifftFlag == 1U) {
 
         switch(fftLen) {
-        case 16:
-        case 64:
-        case 256:
-        case 1024:
-        case 4096:
-            _arm_radix4_butterfly_inverse_f16_mve(S, pSrc, fftLen,
-                                                  arm_inverse_fft_length_f16(S->fftLen));
-            break;
+            case 16:
+            case 64:
+            case 256:
+            case 1024:
+            case 4096:
+                _arm_radix4_butterfly_inverse_f16_mve(S, pSrc, fftLen,
+                                                      arm_inverse_fft_length_f16(S->fftLen));
+                break;
 
-        case 32:
-        case 128:
-        case 512:
-        case 2048: arm_cfft_radix4by2_inverse_f16_mve(S, pSrc, fftLen); break;
+            case 32:
+            case 128:
+            case 512:
+            case 2048:
+                arm_cfft_radix4by2_inverse_f16_mve(S, pSrc, fftLen);
+                break;
         }
     }
     else {
         switch(fftLen) {
-        case 16:
-        case 64:
-        case 256:
-        case 1024:
-        case 4096: _arm_radix4_butterfly_f16_mve(S, pSrc, fftLen); break;
+            case 16:
+            case 64:
+            case 256:
+            case 1024:
+            case 4096:
+                _arm_radix4_butterfly_f16_mve(S, pSrc, fftLen);
+                break;
 
-        case 32:
-        case 128:
-        case 512:
-        case 2048: arm_cfft_radix4by2_f16_mve(S, pSrc, fftLen); break;
+            case 32:
+            case 128:
+            case 512:
+            case 2048:
+                arm_cfft_radix4by2_f16_mve(S, pSrc, fftLen);
+                break;
         }
     }
 
@@ -568,16 +593,20 @@ void arm_cfft_f16(const arm_cfft_instance_f16 * S, float16_t * p1, uint8_t ifftF
 
     switch(L) {
 
-    case 16:
-    case 64:
-    case 256:
-    case 1024:
-    case 4096: arm_radix4_butterfly_f16(p1, L, (float16_t *) S->pTwiddle, 1U); break;
+        case 16:
+        case 64:
+        case 256:
+        case 1024:
+        case 4096:
+            arm_radix4_butterfly_f16(p1, L, (float16_t *) S->pTwiddle, 1U);
+            break;
 
-    case 32:
-    case 128:
-    case 512:
-    case 2048: arm_cfft_radix4by2_f16(p1, L, (float16_t *) S->pTwiddle); break;
+        case 32:
+        case 128:
+        case 512:
+        case 2048:
+            arm_cfft_radix4by2_f16(p1, L, (float16_t *) S->pTwiddle);
+            break;
     }
 
     if(bitReverseFlag)

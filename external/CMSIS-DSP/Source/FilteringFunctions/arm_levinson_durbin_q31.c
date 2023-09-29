@@ -223,39 +223,39 @@ void arm_levinson_durbin_q31(const q31_t * phi, q31_t * a, q31_t * err, int nbCo
         }
 
         switch(p & 3) {
-        case 3: {
-            q31_t x, y;
+            case 3: {
+                q31_t x, y;
 
-            // x = a[j] - k * a[p-1-j];
-            x = a[j] - mul32x32(k, a[p - 1 - j]);
+                // x = a[j] - k * a[p-1-j];
+                x = a[j] - mul32x32(k, a[p - 1 - j]);
 
-            // y = a[p-1-j] - k * a[j];
-            y = a[p - 1 - j] - mul32x32(k, a[j]);
+                // y = a[p-1-j] - k * a[j];
+                y = a[p - 1 - j] - mul32x32(k, a[j]);
 
-            a[j] = x;
-            a[p - 1 - j] = y;
+                a[j] = x;
+                a[p - 1 - j] = y;
 
-            // a[j] = a[j]- k * a[p-1-j];
-            a[j + 1] = a[j + 1] - mul32x32(k, a[p - 2 - j]);
-        } break;
+                // a[j] = a[j]- k * a[p-1-j];
+                a[j + 1] = a[j + 1] - mul32x32(k, a[p - 2 - j]);
+            } break;
 
-        case 2: {
-            q31_t x, y;
+            case 2: {
+                q31_t x, y;
 
-            // x = a[j] - k * a[p-1-j];
-            x = a[j] - mul32x32(k, a[p - 1 - j]);
+                // x = a[j] - k * a[p-1-j];
+                x = a[j] - mul32x32(k, a[p - 1 - j]);
 
-            // y = a[p-1-j] - k * a[j];
-            y = a[p - 1 - j] - mul32x32(k, a[j]);
+                // y = a[p-1-j] - k * a[j];
+                y = a[p - 1 - j] - mul32x32(k, a[j]);
 
-            a[j] = x;
-            a[p - 1 - j] = y;
-        } break;
+                a[j] = x;
+                a[p - 1 - j] = y;
+            } break;
 
-        case 1:
-            // a[j] = a[j]- k * a[p-1-j];
-            a[j] = a[j] - mul32x32(k, a[p - 1 - j]);
-            break;
+            case 1:
+                // a[j] = a[j]- k * a[p-1-j];
+                a[j] = a[j] - mul32x32(k, a[p - 1 - j]);
+                break;
         }
 
         a[p] = k;

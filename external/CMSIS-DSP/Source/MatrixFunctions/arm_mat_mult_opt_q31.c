@@ -356,7 +356,7 @@ arm_status arm_mat_mult_opt_q31(const arm_matrix_instance_q31 * pSrcA,
         status = ARM_MATH_SIZE_MISMATCH;
     }
     else
-#endif  /* #ifdef ARM_MATH_MATRIX_CHECK */
+#endif /* #ifdef ARM_MATH_MATRIX_CHECK */
     {
 
         /* small squared matrix specialized routines */
@@ -502,7 +502,7 @@ arm_status arm_mat_mult_opt_q31(const arm_matrix_instance_q31 * pSrcA,
          * Compute remaining row and/or column below
          */
         if(numColsB & 1u) {
-            row = numRowsA & (~0x1);                    // avoid redundant computation
+            row = numRowsA & (~0x1);               // avoid redundant computation
             px = pDst->pData + numColsB - 1;
             i = 0;
 

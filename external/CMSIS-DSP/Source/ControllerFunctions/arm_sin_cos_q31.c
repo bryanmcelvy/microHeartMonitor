@@ -90,7 +90,7 @@ void arm_sin_cos_q31(q31_t theta, q31_t * pSinVal, q31_t * pCosVal) {
     d1 = sinTable_q31[indexC];
     d2 = sinTable_q31[indexC + 1];
 
-    Df = f2 - f1;                    // delta between the values of the functions
+    Df = f2 - f1;               // delta between the values of the functions
     temp = Dn * ((q63_t) d1 + d2);
     temp = temp - ((q63_t) Df << 32);
     temp = (q63_t) fract * (temp >> 31);

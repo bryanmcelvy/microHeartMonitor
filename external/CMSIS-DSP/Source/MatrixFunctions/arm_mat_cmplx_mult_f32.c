@@ -892,10 +892,10 @@ arm_status arm_mat_cmplx_mult_f32(const arm_matrix_instance_f32 * pSrcA,
                 /* Matrix multiplication */
                 while(colCnt > 0U) {
                     /* Reading real part of complex matrix A */
-                    a0V = vld2q_f32(pIn1);                     // load & separate real/imag pSrcA
-                                                               // (de-interleave 2)
-                    a1V = vld2q_f32(pIn1B);                    // load & separate real/imag pSrcA
-                                                               // (de-interleave 2)
+                    a0V = vld2q_f32(pIn1);                // load & separate real/imag pSrcA
+                                                          // (de-interleave 2)
+                    a1V = vld2q_f32(pIn1B);               // load & separate real/imag pSrcA
+                                                          // (de-interleave 2)
 
                     pIn1 += 8;
                     pIn1B += 8;
@@ -1044,8 +1044,8 @@ arm_status arm_mat_cmplx_mult_f32(const arm_matrix_instance_f32 * pSrcA,
                 /* Matrix multiplication */
                 while(colCnt > 0U) {
                     /* Reading real part of complex matrix A */
-                    a0V = vld2q_f32(pIn1);                    // load & separate real/imag pSrcA
-                                                              // (de-interleave 2)
+                    a0V = vld2q_f32(pIn1);               // load & separate real/imag pSrcA
+                                                         // (de-interleave 2)
                     pIn1 += 8;
 
                     tempR = vsetq_lane_f32(*pIn2, tempR, 0);

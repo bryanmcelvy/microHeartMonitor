@@ -269,15 +269,33 @@ arm_status arm_rfft_fast_init_f32(arm_rfft_fast_instance_f32 * S, uint16_t fftLe
     arm_status status;
 
     switch(fftLen) {
-    case 4096U: status = arm_rfft_fast_init_4096_f32(S); break;
-    case 2048U: status = arm_rfft_fast_init_2048_f32(S); break;
-    case 1024U: status = arm_rfft_fast_init_1024_f32(S); break;
-    case 512U: status = arm_rfft_fast_init_512_f32(S); break;
-    case 256U: status = arm_rfft_fast_init_256_f32(S); break;
-    case 128U: status = arm_rfft_fast_init_128_f32(S); break;
-    case 64U: status = arm_rfft_fast_init_64_f32(S); break;
-    case 32U: status = arm_rfft_fast_init_32_f32(S); break;
-    default: return (ARM_MATH_ARGUMENT_ERROR); break;
+        case 4096U:
+            status = arm_rfft_fast_init_4096_f32(S);
+            break;
+        case 2048U:
+            status = arm_rfft_fast_init_2048_f32(S);
+            break;
+        case 1024U:
+            status = arm_rfft_fast_init_1024_f32(S);
+            break;
+        case 512U:
+            status = arm_rfft_fast_init_512_f32(S);
+            break;
+        case 256U:
+            status = arm_rfft_fast_init_256_f32(S);
+            break;
+        case 128U:
+            status = arm_rfft_fast_init_128_f32(S);
+            break;
+        case 64U:
+            status = arm_rfft_fast_init_64_f32(S);
+            break;
+        case 32U:
+            status = arm_rfft_fast_init_32_f32(S);
+            break;
+        default:
+            return (ARM_MATH_ARGUMENT_ERROR);
+            break;
     }
 
     return (status);

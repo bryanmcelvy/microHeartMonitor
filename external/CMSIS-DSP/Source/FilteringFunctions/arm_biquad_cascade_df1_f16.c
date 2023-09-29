@@ -198,80 +198,80 @@ void arm_biquad_cascade_df1_f16(const arm_biquad_casd_df1_inst_f16 * S, const fl
             accVec = vfmaq(accVec, coeffs, Yn2);
 
             switch(sample) {
-            case 1:
-                *pOut++ = vgetq_lane(accVec, 0);
-                Xn1 = X0;
-                Xn2 = lastX;
-                Yn1 = vgetq_lane(accVec, 0);
-                Yn2 = lastY;
-                break;
-            case 2:
-                *pOut++ = vgetq_lane(accVec, 0);
-                *pOut++ = vgetq_lane(accVec, 1);
-                Xn1 = X1;
-                Xn2 = X0;
-                Yn1 = vgetq_lane(accVec, 1);
-                Yn2 = vgetq_lane(accVec, 0);
-                break;
-            case 3:
-                *pOut++ = vgetq_lane(accVec, 0);
-                *pOut++ = vgetq_lane(accVec, 1);
-                *pOut++ = vgetq_lane(accVec, 2);
-                Xn1 = X2;
-                Xn2 = X1;
-                Yn1 = vgetq_lane(accVec, 2);
-                Yn2 = vgetq_lane(accVec, 1);
-                break;
+                case 1:
+                    *pOut++ = vgetq_lane(accVec, 0);
+                    Xn1 = X0;
+                    Xn2 = lastX;
+                    Yn1 = vgetq_lane(accVec, 0);
+                    Yn2 = lastY;
+                    break;
+                case 2:
+                    *pOut++ = vgetq_lane(accVec, 0);
+                    *pOut++ = vgetq_lane(accVec, 1);
+                    Xn1 = X1;
+                    Xn2 = X0;
+                    Yn1 = vgetq_lane(accVec, 1);
+                    Yn2 = vgetq_lane(accVec, 0);
+                    break;
+                case 3:
+                    *pOut++ = vgetq_lane(accVec, 0);
+                    *pOut++ = vgetq_lane(accVec, 1);
+                    *pOut++ = vgetq_lane(accVec, 2);
+                    Xn1 = X2;
+                    Xn2 = X1;
+                    Yn1 = vgetq_lane(accVec, 2);
+                    Yn2 = vgetq_lane(accVec, 1);
+                    break;
 
-            case 4:
-                *pOut++ = vgetq_lane(accVec, 0);
-                *pOut++ = vgetq_lane(accVec, 1);
-                *pOut++ = vgetq_lane(accVec, 2);
-                *pOut++ = vgetq_lane(accVec, 3);
-                Xn1 = X3;
-                Xn2 = X2;
-                Yn1 = vgetq_lane(accVec, 3);
-                Yn2 = vgetq_lane(accVec, 2);
-                break;
+                case 4:
+                    *pOut++ = vgetq_lane(accVec, 0);
+                    *pOut++ = vgetq_lane(accVec, 1);
+                    *pOut++ = vgetq_lane(accVec, 2);
+                    *pOut++ = vgetq_lane(accVec, 3);
+                    Xn1 = X3;
+                    Xn2 = X2;
+                    Yn1 = vgetq_lane(accVec, 3);
+                    Yn2 = vgetq_lane(accVec, 2);
+                    break;
 
-            case 5:
-                *pOut++ = vgetq_lane(accVec, 0);
-                *pOut++ = vgetq_lane(accVec, 1);
-                *pOut++ = vgetq_lane(accVec, 2);
-                *pOut++ = vgetq_lane(accVec, 3);
-                *pOut++ = vgetq_lane(accVec, 4);
-                Xn1 = X4;
-                Xn2 = X3;
-                Yn1 = vgetq_lane(accVec, 4);
-                Yn2 = vgetq_lane(accVec, 3);
-                break;
+                case 5:
+                    *pOut++ = vgetq_lane(accVec, 0);
+                    *pOut++ = vgetq_lane(accVec, 1);
+                    *pOut++ = vgetq_lane(accVec, 2);
+                    *pOut++ = vgetq_lane(accVec, 3);
+                    *pOut++ = vgetq_lane(accVec, 4);
+                    Xn1 = X4;
+                    Xn2 = X3;
+                    Yn1 = vgetq_lane(accVec, 4);
+                    Yn2 = vgetq_lane(accVec, 3);
+                    break;
 
-            case 6:
-                *pOut++ = vgetq_lane(accVec, 0);
-                *pOut++ = vgetq_lane(accVec, 1);
-                *pOut++ = vgetq_lane(accVec, 2);
-                *pOut++ = vgetq_lane(accVec, 3);
-                *pOut++ = vgetq_lane(accVec, 4);
-                *pOut++ = vgetq_lane(accVec, 5);
-                Xn1 = X5;
-                Xn2 = X4;
-                Yn1 = vgetq_lane(accVec, 5);
-                Yn2 = vgetq_lane(accVec, 4);
-                break;
+                case 6:
+                    *pOut++ = vgetq_lane(accVec, 0);
+                    *pOut++ = vgetq_lane(accVec, 1);
+                    *pOut++ = vgetq_lane(accVec, 2);
+                    *pOut++ = vgetq_lane(accVec, 3);
+                    *pOut++ = vgetq_lane(accVec, 4);
+                    *pOut++ = vgetq_lane(accVec, 5);
+                    Xn1 = X5;
+                    Xn2 = X4;
+                    Yn1 = vgetq_lane(accVec, 5);
+                    Yn2 = vgetq_lane(accVec, 4);
+                    break;
 
-            case 7:
-                *pOut++ = vgetq_lane(accVec, 0);
-                *pOut++ = vgetq_lane(accVec, 1);
-                *pOut++ = vgetq_lane(accVec, 2);
-                *pOut++ = vgetq_lane(accVec, 3);
-                *pOut++ = vgetq_lane(accVec, 4);
-                *pOut++ = vgetq_lane(accVec, 5);
-                *pOut++ = vgetq_lane(accVec, 6);
-                Xn1 = X6;
-                Xn2 = X5;
-                Yn1 = vgetq_lane(accVec, 6);
-                Yn2 = vgetq_lane(accVec, 5);
-                break;
+                case 7:
+                    *pOut++ = vgetq_lane(accVec, 0);
+                    *pOut++ = vgetq_lane(accVec, 1);
+                    *pOut++ = vgetq_lane(accVec, 2);
+                    *pOut++ = vgetq_lane(accVec, 3);
+                    *pOut++ = vgetq_lane(accVec, 4);
+                    *pOut++ = vgetq_lane(accVec, 5);
+                    *pOut++ = vgetq_lane(accVec, 6);
+                    Xn1 = X6;
+                    Xn2 = X5;
+                    Yn1 = vgetq_lane(accVec, 6);
+                    Yn2 = vgetq_lane(accVec, 5);
+                    break;
             }
         }
         /*

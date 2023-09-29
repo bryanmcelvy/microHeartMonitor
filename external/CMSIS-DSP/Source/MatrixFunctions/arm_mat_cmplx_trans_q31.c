@@ -88,8 +88,8 @@ arm_status arm_mat_cmplx_trans_q31(const arm_matrix_instance_q31 * pSrc,
 
             while(col > 0U) {
                 /* Read and store the input element in the destination */
-                px[0] = *pIn++;                    // real
-                px[1] = *pIn++;                    // imag
+                px[0] = *pIn++;               // real
+                px[1] = *pIn++;               // imag
 
                 /* Update the pointer px to point to the next row of the transposed matrix */
                 px += CMPLX_DIM * nRows;

@@ -88,60 +88,60 @@ arm_status arm_cfft_radix4_init_f32(arm_cfft_radix4_instance_f32 * S, uint16_t f
     /*  Initializations of structure parameters depending on the FFT length */
     switch(S->fftLen) {
 
-    case 4096U:
-        /*  Initializations of structure parameters for 4096 point FFT */
+        case 4096U:
+            /*  Initializations of structure parameters for 4096 point FFT */
 
-        /*  Initialise the twiddle coef modifier value */
-        S->twidCoefModifier = 1U;
-        /*  Initialise the bit reversal table modifier */
-        S->bitRevFactor = 1U;
-        /*  Initialise the bit reversal table pointer */
-        S->pBitRevTable = (uint16_t *) armBitRevTable;
-        /*  Initialise the 1/fftLen Value */
-        S->onebyfftLen = 0.000244140625;
-        break;
+            /*  Initialise the twiddle coef modifier value */
+            S->twidCoefModifier = 1U;
+            /*  Initialise the bit reversal table modifier */
+            S->bitRevFactor = 1U;
+            /*  Initialise the bit reversal table pointer */
+            S->pBitRevTable = (uint16_t *) armBitRevTable;
+            /*  Initialise the 1/fftLen Value */
+            S->onebyfftLen = 0.000244140625;
+            break;
 
-    case 1024U:
-        /*  Initializations of structure parameters for 1024 point FFT */
+        case 1024U:
+            /*  Initializations of structure parameters for 1024 point FFT */
 
-        /*  Initialise the twiddle coef modifier value */
-        S->twidCoefModifier = 4U;
-        /*  Initialise the bit reversal table modifier */
-        S->bitRevFactor = 4U;
-        /*  Initialise the bit reversal table pointer */
-        S->pBitRevTable = (uint16_t *) &armBitRevTable[3];
-        /*  Initialise the 1/fftLen Value */
-        S->onebyfftLen = 0.0009765625f;
-        break;
+            /*  Initialise the twiddle coef modifier value */
+            S->twidCoefModifier = 4U;
+            /*  Initialise the bit reversal table modifier */
+            S->bitRevFactor = 4U;
+            /*  Initialise the bit reversal table pointer */
+            S->pBitRevTable = (uint16_t *) &armBitRevTable[3];
+            /*  Initialise the 1/fftLen Value */
+            S->onebyfftLen = 0.0009765625f;
+            break;
 
-    case 256U:
-        /*  Initializations of structure parameters for 256 point FFT */
-        S->twidCoefModifier = 16U;
-        S->bitRevFactor = 16U;
-        S->pBitRevTable = (uint16_t *) &armBitRevTable[15];
-        S->onebyfftLen = 0.00390625f;
-        break;
+        case 256U:
+            /*  Initializations of structure parameters for 256 point FFT */
+            S->twidCoefModifier = 16U;
+            S->bitRevFactor = 16U;
+            S->pBitRevTable = (uint16_t *) &armBitRevTable[15];
+            S->onebyfftLen = 0.00390625f;
+            break;
 
-    case 64U:
-        /*  Initializations of structure parameters for 64 point FFT */
-        S->twidCoefModifier = 64U;
-        S->bitRevFactor = 64U;
-        S->pBitRevTable = (uint16_t *) &armBitRevTable[63];
-        S->onebyfftLen = 0.015625f;
-        break;
+        case 64U:
+            /*  Initializations of structure parameters for 64 point FFT */
+            S->twidCoefModifier = 64U;
+            S->bitRevFactor = 64U;
+            S->pBitRevTable = (uint16_t *) &armBitRevTable[63];
+            S->onebyfftLen = 0.015625f;
+            break;
 
-    case 16U:
-        /*  Initializations of structure parameters for 16 point FFT */
-        S->twidCoefModifier = 256U;
-        S->bitRevFactor = 256U;
-        S->pBitRevTable = (uint16_t *) &armBitRevTable[255];
-        S->onebyfftLen = 0.0625f;
-        break;
+        case 16U:
+            /*  Initializations of structure parameters for 16 point FFT */
+            S->twidCoefModifier = 256U;
+            S->bitRevFactor = 256U;
+            S->pBitRevTable = (uint16_t *) &armBitRevTable[255];
+            S->onebyfftLen = 0.0625f;
+            break;
 
-    default:
-        /*  Reporting argument error if fftSize is not valid value */
-        status = ARM_MATH_ARGUMENT_ERROR;
-        break;
+        default:
+            /*  Reporting argument error if fftSize is not valid value */
+            status = ARM_MATH_ARGUMENT_ERROR;
+            break;
     }
 
     return (status);

@@ -74,7 +74,7 @@ arm_status arm_mat_scale_q31(const arm_matrix_instance_q31 * pSrc, q31_t scaleFr
     }
     else
 
-#endif  /* #ifdef ARM_MATH_MATRIX_CHECK */
+#endif /* #ifdef ARM_MATH_MATRIX_CHECK */
     {
 
         /*

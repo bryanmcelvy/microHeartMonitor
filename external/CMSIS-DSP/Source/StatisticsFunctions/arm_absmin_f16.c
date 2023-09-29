@@ -138,14 +138,14 @@ void arm_absmin_f16(const float16_t * pSrc, uint32_t blockSize, float16_t * pRes
     uint32_t blkCnt, outIndex; /* Loop counter */
     uint32_t index;            /* index of maximum value */
 
-        /* Initialize index value to zero. */
+    /* Initialize index value to zero. */
     outIndex = 0U; /* Load first input value that act as reference value for comparision */
     out = *pSrc++;
     out =
         ((_Float16) out > 0.0f16) ? out : -(_Float16) out; /* Initialize index of extrema value. */
     index = 0U;
 
-        /* Loop unrolling: Compute 4 outputs at a time */
+    /* Loop unrolling: Compute 4 outputs at a time */
     blkCnt = (blockSize - 1U) >> 2U;
 
     while(blkCnt > 0U) { /* Initialize cur_absmin to next consecutive values one by one */
@@ -181,7 +181,7 @@ void arm_absmin_f16(const float16_t * pSrc, uint32_t blockSize, float16_t * pRes
 
         index += 4U;
 
-            /* Decrement loop counter */
+        /* Decrement loop counter */
         blkCnt--;
     }
 

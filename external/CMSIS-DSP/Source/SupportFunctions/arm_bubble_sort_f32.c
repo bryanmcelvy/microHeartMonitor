@@ -65,7 +65,7 @@ void arm_bubble_sort_f32(const arm_sort_instance_f32 * S, float32_t * pSrc, floa
     float32_t * pA;
     float32_t temp;
 
-    if(pSrc != pDst)                       // out-of-place
+    if(pSrc != pDst)                  // out-of-place
     {
         memcpy(pDst, pSrc, blockSize * sizeof(float32_t));
         pA = pDst;
@@ -73,7 +73,7 @@ void arm_bubble_sort_f32(const arm_sort_instance_f32 * S, float32_t * pSrc, floa
     else
         pA = pSrc;
 
-    while(swapped == 1)                    // If nothing has been swapped after one loop stop
+    while(swapped == 1)               // If nothing has been swapped after one loop stop
     {
         swapped = 0;
 

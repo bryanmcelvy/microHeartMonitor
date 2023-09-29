@@ -187,11 +187,10 @@ void arm_cmplx_mult_cmplx_f32(const float32_t * pSrcA, const float32_t * pSrcB, 
     blkCnt = numSamples >> 2U;
 
     while(blkCnt > 0U) {
-        va = vld2q_f32(
-            pSrcA);                    // load & separate real/imag pSrcA (de-interleave 2)
-        vb = vld2q_f32(pSrcB);                    // load & separate real/imag pSrcB
+        va = vld2q_f32(pSrcA);               // load & separate real/imag pSrcA (de-interleave 2)
+        vb = vld2q_f32(pSrcB);               // load & separate real/imag pSrcB
 
-                                                  /* Increment pointers */
+                                             /* Increment pointers */
         pSrcA += 8;
         pSrcB += 8;
 

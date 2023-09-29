@@ -252,16 +252,20 @@ void arm_cfft_f64(const arm_cfft_instance_f64 * S, float64_t * p1, uint8_t ifftF
     }
 
     switch(L) {
-    case 16:
-    case 64:
-    case 256:
-    case 1024:
-    case 4096: arm_radix4_butterfly_f64(p1, L, (float64_t *) S->pTwiddle, 1U); break;
+        case 16:
+        case 64:
+        case 256:
+        case 1024:
+        case 4096:
+            arm_radix4_butterfly_f64(p1, L, (float64_t *) S->pTwiddle, 1U);
+            break;
 
-    case 32:
-    case 128:
-    case 512:
-    case 2048: arm_cfft_radix4by2_f64(p1, L, (float64_t *) S->pTwiddle); break;
+        case 32:
+        case 128:
+        case 512:
+        case 2048:
+            arm_cfft_radix4by2_f64(p1, L, (float64_t *) S->pTwiddle);
+            break;
     }
 
     if(bitReverseFlag) arm_bitreversal_64((uint64_t *) p1, S->bitRevLength, S->pBitRevTable);

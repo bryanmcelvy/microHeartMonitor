@@ -166,8 +166,8 @@ void stage_rfft_f32(const arm_rfft_fast_instance_f32 * S, float32_t * p, float32
         p2 = twR * t1b;
         p3 = twI * t1b;
 
-        *pOut++ = 0.5f * (xAR + xBR + p0 + p3);                    // xAR
-        *pOut++ = 0.5f * (xAI - xBI + p1 - p2);                    // xAI
+        *pOut++ = 0.5f * (xAR + xBR + p0 + p3);               // xAR
+        *pOut++ = 0.5f * (xAI - xBI + p1 - p2);               // xAI
 
         pA += 2;
         pB -= 2;
@@ -274,8 +274,8 @@ void merge_rfft_f32(const arm_rfft_fast_instance_f32 * S, float32_t * p, float32
 
         // real(tw * (xA - xB)) = twR * (xAR - xBR) - twI * (xAI - xBI);
         // imag(tw * (xA - xB)) = twI * (xAR - xBR) + twR * (xAI - xBI);
-        *pOut++ = 0.5f * (xAR + xBR - r - s);                    // xAR
-        *pOut++ = 0.5f * (xAI - xBI + t - u);                    // xAI
+        *pOut++ = 0.5f * (xAR + xBR - r - s);               // xAR
+        *pOut++ = 0.5f * (xAI - xBI + t - u);               // xAI
 
         pA += 2;
         pB -= 2;
@@ -354,8 +354,8 @@ void stage_rfft_f32(const arm_rfft_fast_instance_f32 * S, float32_t * p, float32
         p2 = twR * t1b;
         p3 = twI * t1b;
 
-        *pOut++ = 0.5f * (xAR + xBR + p0 + p3);                    // xAR
-        *pOut++ = 0.5f * (xAI - xBI + p1 - p2);                    // xAI
+        *pOut++ = 0.5f * (xAR + xBR + p0 + p3);               // xAR
+        *pOut++ = 0.5f * (xAI - xBI + p1 - p2);               // xAI
 
         pA += 2;
         pB -= 2;
@@ -408,8 +408,8 @@ void merge_rfft_f32(const arm_rfft_fast_instance_f32 * S, float32_t * p, float32
 
         // real(tw * (xA - xB)) = twR * (xAR - xBR) - twI * (xAI - xBI);
         // imag(tw * (xA - xB)) = twI * (xAR - xBR) + twR * (xAI - xBI);
-        *pOut++ = 0.5f * (xAR + xBR - r - s);                    // xAR
-        *pOut++ = 0.5f * (xAI - xBI + t - u);                    // xAI
+        *pOut++ = 0.5f * (xAR + xBR - r - s);               // xAR
+        *pOut++ = 0.5f * (xAI - xBI + t - u);               // xAI
 
         pA += 2;
         pB -= 2;

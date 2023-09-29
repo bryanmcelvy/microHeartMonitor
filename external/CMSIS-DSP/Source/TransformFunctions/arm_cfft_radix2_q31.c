@@ -104,7 +104,7 @@ void arm_radix2_butterfly_q31(q31_t * pSrc, uint32_t fftLen, const q31_t * pCoef
         pSrc[2U * l] = p0;
         pSrc[2U * l + 1U] = p1;
 
-    }                    // groups loop end
+    }               // groups loop end
 
     twidCoefModifier <<= 1U;
 
@@ -140,12 +140,12 @@ void arm_radix2_butterfly_q31(q31_t * pSrc, uint32_t fftLen, const q31_t * pCoef
                 pSrc[2U * l + 1U] = p1;
                 i += n1;
                 m--;
-            } while(m > 0);                    // butterfly loop end
+            } while(m > 0);               // butterfly loop end
 
-        }                                      // groups loop end
+        }                                 // groups loop end
 
         twidCoefModifier <<= 1U;
-    }                                          // stages loop end
+    }                                     // stages loop end
 
     n1 = n2;
     n2 = n2 >> 1;
@@ -181,7 +181,7 @@ void arm_radix2_butterfly_q31(q31_t * pSrc, uint32_t fftLen, const q31_t * pCoef
 
         pSrc[2U * l + 1U] = yt;
 
-    }                    // butterfly loop end
+    }               // butterfly loop end
 }
 
 void arm_radix2_butterfly_inverse_q31(q31_t * pSrc, uint32_t fftLen, const q31_t * pCoef,
@@ -219,7 +219,7 @@ void arm_radix2_butterfly_inverse_q31(q31_t * pSrc, uint32_t fftLen, const q31_t
 
         pSrc[2U * l] = p0;
         pSrc[2U * l + 1U] = p1;
-    }                    // groups loop end
+    }               // groups loop end
 
     twidCoefModifier = twidCoefModifier << 1U;
 
@@ -251,12 +251,12 @@ void arm_radix2_butterfly_inverse_q31(q31_t * pSrc, uint32_t fftLen, const q31_t
 
                 pSrc[2U * l] = p0;
                 pSrc[2U * l + 1U] = p1;
-            }                    // butterfly loop end
+            }               // butterfly loop end
 
-        }                        // groups loop end
+        }                   // groups loop end
 
         twidCoefModifier = twidCoefModifier << 1U;
-    }                            // stages loop end
+    }                       // stages loop end
 
     n1 = n2;
     n2 = n2 >> 1;
@@ -292,5 +292,5 @@ void arm_radix2_butterfly_inverse_q31(q31_t * pSrc, uint32_t fftLen, const q31_t
 
         pSrc[2U * l + 1U] = yt;
 
-    }                    // butterfly loop end
+    }               // butterfly loop end
 }

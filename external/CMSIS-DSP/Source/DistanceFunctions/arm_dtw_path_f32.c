@@ -102,12 +102,16 @@ void arm_dtw_path_f32(const arm_matrix_instance_f32 * pDTW, int16_t * pPath,
         *pathLength = *pathLength + 1;
 
         switch(p) {
-        case 0: t = t - 1; break;
-        case 1:
-            t = t - 1;
-            q = q - 1;
-            break;
-        case 2: q = q - 1; break;
+            case 0:
+                t = t - 1;
+                break;
+            case 1:
+                t = t - 1;
+                q = q - 1;
+                break;
+            case 2:
+                q = q - 1;
+                break;
         }
     }
 

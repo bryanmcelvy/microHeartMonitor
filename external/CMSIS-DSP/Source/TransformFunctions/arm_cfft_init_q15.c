@@ -264,47 +264,55 @@ arm_status arm_cfft_init_q15(arm_cfft_instance_q15 * S, uint16_t fftLen) {
 
     /*  Initializations of Instance structure depending on the FFT length */
     switch(fftLen) {
-        /*  Initializations of structure parameters for 4096 point FFT */
-    case 4096U:
-        /*  Initialise the bit reversal table modifier */
-        status = arm_cfft_init_4096_q15(S);
-        break;
+            /*  Initializations of structure parameters for 4096 point FFT */
+        case 4096U:
+            /*  Initialise the bit reversal table modifier */
+            status = arm_cfft_init_4096_q15(S);
+            break;
 
-        /*  Initializations of structure parameters for 2048 point FFT */
-    case 2048U:
-        /*  Initialise the bit reversal table modifier */
-        status = arm_cfft_init_2048_q15(S);
-        break;
+            /*  Initializations of structure parameters for 2048 point FFT */
+        case 2048U:
+            /*  Initialise the bit reversal table modifier */
+            status = arm_cfft_init_2048_q15(S);
+            break;
 
-        /*  Initializations of structure parameters for 1024 point FFT */
-    case 1024U:
-        /*  Initialise the bit reversal table modifier */
-        status = arm_cfft_init_1024_q15(S);
-        break;
+            /*  Initializations of structure parameters for 1024 point FFT */
+        case 1024U:
+            /*  Initialise the bit reversal table modifier */
+            status = arm_cfft_init_1024_q15(S);
+            break;
 
-        /*  Initializations of structure parameters for 512 point FFT */
-    case 512U:
-        /*  Initialise the bit reversal table modifier */
-        status = arm_cfft_init_512_q15(S);
-        break;
+            /*  Initializations of structure parameters for 512 point FFT */
+        case 512U:
+            /*  Initialise the bit reversal table modifier */
+            status = arm_cfft_init_512_q15(S);
+            break;
 
-    case 256U: status = arm_cfft_init_256_q15(S); break;
+        case 256U:
+            status = arm_cfft_init_256_q15(S);
+            break;
 
-    case 128U: status = arm_cfft_init_128_q15(S); break;
+        case 128U:
+            status = arm_cfft_init_128_q15(S);
+            break;
 
-    case 64U: status = arm_cfft_init_64_q15(S); break;
+        case 64U:
+            status = arm_cfft_init_64_q15(S);
+            break;
 
-    case 32U: status = arm_cfft_init_32_q15(S); break;
+        case 32U:
+            status = arm_cfft_init_32_q15(S);
+            break;
 
-    case 16U:
-        /*  Initializations of structure parameters for 16 point FFT */
-        status = arm_cfft_init_16_q15(S);
-        break;
+        case 16U:
+            /*  Initializations of structure parameters for 16 point FFT */
+            status = arm_cfft_init_16_q15(S);
+            break;
 
-    default:
-        /*  Reporting argument error if fftSize is not valid value */
-        status = ARM_MATH_ARGUMENT_ERROR;
-        break;
+        default:
+            /*  Reporting argument error if fftSize is not valid value */
+            status = ARM_MATH_ARGUMENT_ERROR;
+            break;
     }
 
     return (status);

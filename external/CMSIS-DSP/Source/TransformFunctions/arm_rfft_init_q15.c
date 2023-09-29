@@ -385,19 +385,37 @@ arm_status arm_rfft_init_q15(arm_rfft_instance_q15 * S, uint32_t fftLenReal, uin
 
     /*  Initialization of coef modifier depending on the FFT length */
     switch(fftLenReal) {
-    case 8192U: status = arm_rfft_init_8192_q15(S, ifftFlagR, bitReverseFlag); break;
-    case 4096U: status = arm_rfft_init_4096_q15(S, ifftFlagR, bitReverseFlag); break;
-    case 2048U: status = arm_rfft_init_2048_q15(S, ifftFlagR, bitReverseFlag); break;
-    case 1024U: status = arm_rfft_init_1024_q15(S, ifftFlagR, bitReverseFlag); break;
-    case 512U: status = arm_rfft_init_512_q15(S, ifftFlagR, bitReverseFlag); break;
-    case 256U: status = arm_rfft_init_256_q15(S, ifftFlagR, bitReverseFlag); break;
-    case 128U: status = arm_rfft_init_128_q15(S, ifftFlagR, bitReverseFlag); break;
-    case 64U: status = arm_rfft_init_64_q15(S, ifftFlagR, bitReverseFlag); break;
-    case 32U: status = arm_rfft_init_32_q15(S, ifftFlagR, bitReverseFlag); break;
-    default:
-        /*  Reporting argument error if rfftSize is not valid value */
-        status = ARM_MATH_ARGUMENT_ERROR;
-        break;
+        case 8192U:
+            status = arm_rfft_init_8192_q15(S, ifftFlagR, bitReverseFlag);
+            break;
+        case 4096U:
+            status = arm_rfft_init_4096_q15(S, ifftFlagR, bitReverseFlag);
+            break;
+        case 2048U:
+            status = arm_rfft_init_2048_q15(S, ifftFlagR, bitReverseFlag);
+            break;
+        case 1024U:
+            status = arm_rfft_init_1024_q15(S, ifftFlagR, bitReverseFlag);
+            break;
+        case 512U:
+            status = arm_rfft_init_512_q15(S, ifftFlagR, bitReverseFlag);
+            break;
+        case 256U:
+            status = arm_rfft_init_256_q15(S, ifftFlagR, bitReverseFlag);
+            break;
+        case 128U:
+            status = arm_rfft_init_128_q15(S, ifftFlagR, bitReverseFlag);
+            break;
+        case 64U:
+            status = arm_rfft_init_64_q15(S, ifftFlagR, bitReverseFlag);
+            break;
+        case 32U:
+            status = arm_rfft_init_32_q15(S, ifftFlagR, bitReverseFlag);
+            break;
+        default:
+            /*  Reporting argument error if rfftSize is not valid value */
+            status = ARM_MATH_ARGUMENT_ERROR;
+            break;
     }
 
     /* return the status of RFFT Init function */

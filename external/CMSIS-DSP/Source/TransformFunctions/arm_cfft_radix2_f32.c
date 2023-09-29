@@ -134,7 +134,7 @@ void arm_radix2_butterfly_f32(float32_t * pSrc, uint32_t fftLen, const float32_t
         pSrc[2 * l + 1] = p2 - p3;
 
         i++;
-    }                    // groups loop end
+    }               // groups loop end
 
     twidCoefModifier <<= 1U;
 
@@ -173,11 +173,11 @@ void arm_radix2_butterfly_f32(float32_t * pSrc, uint32_t fftLen, const float32_t
                 pSrc[2 * l + 1] = p2 - p3;
 
                 i += n1;
-            } while(i < fftLen);                    // butterfly loop end
+            } while(i < fftLen);               // butterfly loop end
             j++;
-        } while(j < n2);                            // groups loop end
+        } while(j < n2);                       // groups loop end
         twidCoefModifier <<= 1U;
-    }                                               // stages loop end
+    }                                          // stages loop end
 
     // loop for butterfly
     for(i = 0; i < fftLen; i += 2) {
@@ -191,9 +191,9 @@ void arm_radix2_butterfly_f32(float32_t * pSrc, uint32_t fftLen, const float32_t
         pSrc[2 * i + 1] = a1;
         pSrc[2 * i + 2] = xt;
         pSrc[2 * i + 3] = yt;
-    }                    // groups loop end
+    }               // groups loop end
 
-#else                    /* #if defined (ARM_MATH_DSP) */
+#else               /* #if defined (ARM_MATH_DSP) */
 
     n2 = fftLen;
 
@@ -238,7 +238,7 @@ void arm_radix2_butterfly_f32(float32_t * pSrc, uint32_t fftLen, const float32_t
         twidCoefModifier <<= 1U;
     }
 
-#endif                   /* #if defined (ARM_MATH_DSP) */
+#endif              /* #if defined (ARM_MATH_DSP) */
 }
 
 void arm_radix2_butterfly_inverse_f32(float32_t * pSrc, uint32_t fftLen, const float32_t * pCoef,
@@ -278,7 +278,7 @@ void arm_radix2_butterfly_inverse_f32(float32_t * pSrc, uint32_t fftLen, const f
 
         pSrc[2 * l] = p0 - p1;
         pSrc[2 * l + 1] = p2 + p3;
-    }                    // groups loop end
+    }               // groups loop end
 
     twidCoefModifier <<= 1U;
 
@@ -317,12 +317,12 @@ void arm_radix2_butterfly_inverse_f32(float32_t * pSrc, uint32_t fftLen, const f
                 pSrc[2 * l + 1] = p2 + p3;
 
                 i += n1;
-            } while(i < fftLen);                    // butterfly loop end
+            } while(i < fftLen);               // butterfly loop end
             j++;
-        } while(j < n2);                            // groups loop end
+        } while(j < n2);                       // groups loop end
 
         twidCoefModifier <<= 1U;
-    }                                               // stages loop end
+    }                                          // stages loop end
 
     // loop for butterfly
     for(i = 0; i < fftLen; i += 2) {
@@ -341,9 +341,9 @@ void arm_radix2_butterfly_inverse_f32(float32_t * pSrc, uint32_t fftLen, const f
         pSrc[2 * i + 1] = p1;
         pSrc[2 * i + 2] = p2;
         pSrc[2 * i + 3] = p3;
-    }                    // butterfly loop end
+    }               // butterfly loop end
 
-#else                    /* #if defined (ARM_MATH_DSP) */
+#else               /* #if defined (ARM_MATH_DSP) */
 
     n2 = fftLen;
 
@@ -382,12 +382,12 @@ void arm_radix2_butterfly_inverse_f32(float32_t * pSrc, uint32_t fftLen, const f
                 pSrc[2 * l + 1] = p2 + p3;
 
                 i += n1;
-            } while(i < fftLen);                    // butterfly loop end
+            } while(i < fftLen);               // butterfly loop end
             j++;
-        } while(j < n2);                            // groups loop end
+        } while(j < n2);                       // groups loop end
 
         twidCoefModifier = twidCoefModifier << 1U;
-    }                                               // stages loop end
+    }                                          // stages loop end
 
     n1 = n2;
     n2 = n2 >> 1;
@@ -412,7 +412,7 @@ void arm_radix2_butterfly_inverse_f32(float32_t * pSrc, uint32_t fftLen, const f
 
         pSrc[2 * i + 1] = p1;
         pSrc[2 * l + 1] = p3;
-    }                    // butterfly loop end
+    }               // butterfly loop end
 
-#endif                   /* #if defined (ARM_MATH_DSP) */
+#endif              /* #if defined (ARM_MATH_DSP) */
 }

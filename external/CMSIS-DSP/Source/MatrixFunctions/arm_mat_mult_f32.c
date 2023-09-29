@@ -773,8 +773,8 @@ arm_status arm_mat_mult_f32(const arm_matrix_instance_f32 * pSrcA,
                 /* Matrix multiplication   */
                 while(colCnt > 0U) {
                     /* c(m,n) = a(1,1)*b(1,1) + a(1,2)*b(2,1) + ... + a(m,p)*b(p,n) */
-                    a0V = vld1q_f32(pIn1);                    // load & separate real/imag pSrcA
-                                                              // (de-interleave 2)
+                    a0V = vld1q_f32(pIn1);               // load & separate real/imag pSrcA
+                                                         // (de-interleave 2)
                     pIn1 += 4;
 
                     temp = vsetq_lane_f32(*pIn2, temp, 0);

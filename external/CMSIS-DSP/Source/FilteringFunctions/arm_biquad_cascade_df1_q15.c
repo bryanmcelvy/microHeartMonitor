@@ -62,16 +62,16 @@
 
 void arm_biquad_cascade_df1_q15(const arm_biquad_casd_df1_inst_q15 * S, const q15_t * pSrc,
                                 q15_t * pDst, uint32_t blockSize) {
-    const q15_t * pIn = pSrc;                        /*  input pointer initialization  */
-    q15_t * pOut = pDst;                             /*  output pointer initialization */
+    const q15_t * pIn = pSrc;                       /*  input pointer initialization  */
+    q15_t * pOut = pDst;                            /*  output pointer initialization */
     int shift;
-    uint32_t sample, stages = S->numStages;          /*  loop counters                 */
+    uint32_t sample, stages = S->numStages;         /*  loop counters                 */
     int postShift = S->postShift;
-    q15x8_t bCoeffs0, bCoeffs1, bCoeffs2, bCoeffs3;  /*  Coefficients vector           */
-    q15_t * pState = S->pState;                      /*  pState pointer initialization */
+    q15x8_t bCoeffs0, bCoeffs1, bCoeffs2, bCoeffs3; /*  Coefficients vector           */
+    q15_t * pState = S->pState;                     /*  pState pointer initialization */
     q15x8_t inVec0;
     int64_t acc;
-    const q15_t * pCoeffs = S->pCoeffs;              /*  coeff pointer initialization  */
+    const q15_t * pCoeffs = S->pCoeffs;             /*  coeff pointer initialization  */
     q31_t out, out1;
 
     shift = (15 - postShift) - 32;
@@ -81,9 +81,9 @@ void arm_biquad_cascade_df1_q15(const arm_biquad_casd_df1_inst_q15 * S, const q1
         q15_t a1 = pCoeffs[4];
 
         bCoeffs0 = vdupq_n_s16(0);
-        bCoeffs0[0] = pCoeffs[3];                    // b2
-        bCoeffs0[1] = pCoeffs[2];                    // b1
-        bCoeffs0[2] = pCoeffs[0];                    // b0
+        bCoeffs0[0] = pCoeffs[3];                   // b2
+        bCoeffs0[1] = pCoeffs[2];                   // b1
+        bCoeffs0[2] = pCoeffs[0];                   // b0
 
         uint32_t zero = 0;
         bCoeffs1 = bCoeffs0;
@@ -522,7 +522,7 @@ void arm_biquad_cascade_df1_q15(const arm_biquad_casd_df1_inst_q15 * S, const q1
     do {
         /* Reading the coefficients */
         b0 = *pCoeffs++;
-        pCoeffs++;                    // skip the 0 coefficient
+        pCoeffs++;               // skip the 0 coefficient
         b1 = *pCoeffs++;
         b2 = *pCoeffs++;
         a1 = *pCoeffs++;

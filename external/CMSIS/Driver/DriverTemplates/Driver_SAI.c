@@ -15,16 +15,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 #include "Driver_SAI.h"
 
-#define ARM_SAI_DRV_VERSION    ARM_DRIVER_VERSION_MAJOR_MINOR(1, 0) /* driver version */
+#define ARM_SAI_DRV_VERSION ARM_DRIVER_VERSION_MAJOR_MINOR(1, 0) /* driver version */
 
 /* Driver Version */
-static const ARM_DRIVER_VERSION DriverVersion = {
-    ARM_SAI_API_VERSION,
-    ARM_SAI_DRV_VERSION
-};
+static const ARM_DRIVER_VERSION DriverVersion = { ARM_SAI_API_VERSION, ARM_SAI_DRV_VERSION };
 
 /* Driver Capabilities */
 static const ARM_SAI_CAPABILITIES DriverCapabilities = {
@@ -46,83 +43,52 @@ static const ARM_SAI_CAPABILITIES DriverCapabilities = {
 //  Functions
 //
 
-static ARM_DRIVER_VERSION ARM_SAI_GetVersion (void)
-{
-  return DriverVersion;
+static ARM_DRIVER_VERSION ARM_SAI_GetVersion(void) {
+    return DriverVersion;
 }
 
-static ARM_SAI_CAPABILITIES ARM_SAI_GetCapabilities (void)
-{
-  return DriverCapabilities;
+static ARM_SAI_CAPABILITIES ARM_SAI_GetCapabilities(void) {
+    return DriverCapabilities;
 }
 
-static int32_t ARM_SAI_Initialize (ARM_SAI_SignalEvent_t cb_event)
-{
-}
+static int32_t ARM_SAI_Initialize(ARM_SAI_SignalEvent_t cb_event) {}
 
-static int32_t ARM_SAI_Uninitialize (void)
-{
-}
+static int32_t ARM_SAI_Uninitialize(void) {}
 
-static int32_t ARM_SAI_PowerControl (ARM_POWER_STATE state)
-{
-    switch (state)
-    {
-    case ARM_POWER_OFF:
-        break;
+static int32_t ARM_SAI_PowerControl(ARM_POWER_STATE state) {
+    switch(state) {
+        case ARM_POWER_OFF:
+            break;
 
-    case ARM_POWER_LOW:
-        break;
+        case ARM_POWER_LOW:
+            break;
 
-    case ARM_POWER_FULL:
-        break;
+        case ARM_POWER_FULL:
+            break;
     }
     return ARM_DRIVER_OK;
 }
 
-static int32_t ARM_SAI_Send (const void *data, uint32_t num)
-{
-}
+static int32_t ARM_SAI_Send(const void * data, uint32_t num) {}
 
-static int32_t ARM_SAI_Receive (void *data, uint32_t num)
-{
-}
+static int32_t ARM_SAI_Receive(void * data, uint32_t num) {}
 
-static uint32_t ARM_SAI_GetTxCount (void)
-{
-}
+static uint32_t ARM_SAI_GetTxCount(void) {}
 
-static uint32_t ARM_SAI_GetRxCount (void)
-{
-}
+static uint32_t ARM_SAI_GetRxCount(void) {}
 
-static int32_t ARM_SAI_Control (uint32_t control, uint32_t arg1, uint32_t arg2)
-{
-}
+static int32_t ARM_SAI_Control(uint32_t control, uint32_t arg1, uint32_t arg2) {}
 
-static ARM_SAI_STATUS ARM_SAI_GetStatus (void)
-{
-}
+static ARM_SAI_STATUS ARM_SAI_GetStatus(void) {}
 
-static void ARM_SAI_SignalEvent(uint32_t event)
-{
+static void ARM_SAI_SignalEvent(uint32_t event) {
     // function body
 }
 
 // End SAI Interface
 
-extern \
-ARM_DRIVER_SAI Driver_SAI0;
-ARM_DRIVER_SAI Driver_SAI0 = {
-    ARM_SAI_GetVersion,
-    ARM_SAI_GetCapabilities,
-    ARM_SAI_Initialize,
-    ARM_SAI_Uninitialize,
-    ARM_SAI_PowerControl,
-    ARM_SAI_Send,
-    ARM_SAI_Receive,
-    ARM_SAI_GetTxCount,
-    ARM_SAI_GetRxCount,
-    ARM_SAI_Control,
-    ARM_SAI_GetStatus
-};
+extern ARM_DRIVER_SAI Driver_SAI0;
+ARM_DRIVER_SAI Driver_SAI0 = { ARM_SAI_GetVersion,   ARM_SAI_GetCapabilities, ARM_SAI_Initialize,
+                               ARM_SAI_Uninitialize, ARM_SAI_PowerControl,    ARM_SAI_Send,
+                               ARM_SAI_Receive,      ARM_SAI_GetTxCount,      ARM_SAI_GetRxCount,
+                               ARM_SAI_Control,      ARM_SAI_GetStatus };

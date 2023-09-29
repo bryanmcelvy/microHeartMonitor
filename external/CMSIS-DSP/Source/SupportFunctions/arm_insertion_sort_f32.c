@@ -62,7 +62,7 @@ void arm_insertion_sort_f32(const arm_sort_instance_f32 * S, float32_t * pSrc, f
     uint32_t i, j;
     float32_t temp;
 
-    if(pSrc != pDst)                    // out-of-place
+    if(pSrc != pDst)               // out-of-place
     {
         memcpy(pDst, pSrc, blockSize * sizeof(float32_t));
         pA = pDst;

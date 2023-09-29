@@ -166,27 +166,29 @@ void arm_levinson_durbin_f32(const float32_t * phi, float32_t * a, float32_t * e
         }
 
         switch(p & 3) {
-        case 3: {
-            float32_t x, y;
-            x = a[j] - k * a[p - 1 - j];
-            y = a[p - 1 - j] - k * a[j];
+            case 3: {
+                float32_t x, y;
+                x = a[j] - k * a[p - 1 - j];
+                y = a[p - 1 - j] - k * a[j];
 
-            a[j] = x;
-            a[p - 1 - j] = y;
+                a[j] = x;
+                a[p - 1 - j] = y;
 
-            a[j + 1] = a[j + 1] - k * a[p - 1 - (j + 1)];
-        } break;
+                a[j + 1] = a[j + 1] - k * a[p - 1 - (j + 1)];
+            } break;
 
-        case 2: {
-            float32_t x, y;
-            x = a[j] - k * a[p - 1 - j];
-            y = a[p - 1 - j] - k * a[j];
+            case 2: {
+                float32_t x, y;
+                x = a[j] - k * a[p - 1 - j];
+                y = a[p - 1 - j] - k * a[j];
 
-            a[j] = x;
-            a[p - 1 - j] = y;
-        } break;
+                a[j] = x;
+                a[p - 1 - j] = y;
+            } break;
 
-        case 1: a[j] = a[j] - k * a[p - 1 - j]; break;
+            case 1:
+                a[j] = a[j] - k * a[p - 1 - j];
+                break;
         }
 
         a[p] = k;

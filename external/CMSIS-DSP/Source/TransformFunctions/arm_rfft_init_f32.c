@@ -98,15 +98,23 @@ arm_status arm_rfft_init_f32(arm_rfft_instance_f32 * S, arm_cfft_radix4_instance
 
     /*  Initializations of structure parameters depending on the FFT length */
     switch(S->fftLenReal) {
-        /* Init table modifier value */
-    case 8192U: S->twidCoefRModifier = 1U; break;
-    case 2048U: S->twidCoefRModifier = 4U; break;
-    case 512U: S->twidCoefRModifier = 16U; break;
-    case 128U: S->twidCoefRModifier = 64U; break;
-    default:
-        /*  Reporting argument error if rfftSize is not valid value */
-        status = ARM_MATH_ARGUMENT_ERROR;
-        break;
+            /* Init table modifier value */
+        case 8192U:
+            S->twidCoefRModifier = 1U;
+            break;
+        case 2048U:
+            S->twidCoefRModifier = 4U;
+            break;
+        case 512U:
+            S->twidCoefRModifier = 16U;
+            break;
+        case 128U:
+            S->twidCoefRModifier = 64U;
+            break;
+        default:
+            /*  Reporting argument error if rfftSize is not valid value */
+            status = ARM_MATH_ARGUMENT_ERROR;
+            break;
     }
 
     /* Init Complex FFT Instance */
