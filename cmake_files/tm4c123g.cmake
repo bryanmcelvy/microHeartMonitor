@@ -36,7 +36,7 @@ set(CMAKE_CXX_FLAGS                             "${COMMON_FLAGS} -std= c++11 -fn
 
 set(CMAKE_SHARED_LIBRARY_LINK_C_FLAGS           "")
 set(CMAKE_SHARED_LIBRARY_LINK_CXX_FLAGS         "")
-set(CMAKE_EXE_LINKER_FLAGS                      "-Wl,--gc-sections -T${LINKER_SCRIPT}") # -Wl,-Map=${PROJECT_NAME}.map,--cref
+set(CMAKE_EXE_LINKER_FLAGS                      "-Wl,--gc-sections -Wl,-Map=mapfile.map,--cref -T${LINKER_SCRIPT}")
 
 set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
 set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
