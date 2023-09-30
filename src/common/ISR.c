@@ -79,7 +79,8 @@ void ISR_InitNewTableInRam(void) {
 void ISR_addToIntTable(ISR_t isr, const uint8_t vectorNum) {
     Assert(isTableCopiedToRam == true);
     Assert(interruptsAreEnabled == false);
-    Assert((vectorNum >= 16) && (vectorNum <= 154));
+    Assert(vectorNum >= 16);
+    Assert(vectorNum < VECTOR_TABLE_SIZE);
 
     newVectorTable[vectorNum] = isr;
     return;
@@ -92,7 +93,8 @@ Individual Interrupt Configuration
 typedef volatile uint32_t * register_t;
 
 void ISR_setPriority(const uint8_t vectorNum, const uint8_t priority) {
-    Assert((vectorNum >= 16) && (vectorNum <= 154));
+    Assert(vectorNum >= 16);
+    Assert(vectorNum < VECTOR_TABLE_SIZE);
     Assert(priority <= 7);
 
     uint8_t interruptBitNumber = vectorNum - 16;
@@ -121,7 +123,8 @@ void ISR_setPriority(const uint8_t vectorNum, const uint8_t priority) {
 }
 
 void ISR_Enable(const uint8_t vectorNum) {
-    Assert((vectorNum >= 16) && (vectorNum <= 154));
+    Assert(vectorNum >= 16);
+    Assert(vectorNum < VECTOR_TABLE_SIZE);
     uint8_t interruptBitNumber = vectorNum - 16;
 
     // Determine correct enable register to use
@@ -138,7 +141,8 @@ void ISR_Enable(const uint8_t vectorNum) {
 }
 
 void ISR_Disable(const uint8_t vectorNum) {
-    Assert((vectorNum >= 16) && (vectorNum <= 154));
+    Assert(vectorNum >= 16);
+    Assert(vectorNum < VECTOR_TABLE_SIZE);
     uint8_t interruptBitNumber = vectorNum - 16;
 
     // Determine correct disable register to use
