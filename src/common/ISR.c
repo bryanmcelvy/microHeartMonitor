@@ -97,12 +97,12 @@ void ISR_setPriority(const uint8_t vectorNum, const uint8_t priority) {
     Assert(vectorNum < VECTOR_TABLE_SIZE);
     Assert(priority <= 7);
 
-    uint8_t interruptBitNumber = vectorNum - 16;
+    uint8_t interruptBitNum = vectorNum - 16;
 
     // Determine correct register and assign priority
-    uint8_t priorityRegisterNum = (interruptBitNumber - (interruptBitNumber % 4)) / 4;
+    uint8_t priorityRegisterNum = (interruptBitNum - (interruptBitNum % 4)) / 4;
     register_t priorityRegisterPtr = (register_t) (NVIC_PRI_BASE_ADDR + (4 * priorityRegisterNum));
-    switch((interruptBitNumber % 4)) {
+    switch((interruptBitNum % 4)) {
         case 0:
             *priorityRegisterPtr |= (priority << 5);
             break;
@@ -125,17 +125,18 @@ void ISR_setPriority(const uint8_t vectorNum, const uint8_t priority) {
 void ISR_Enable(const uint8_t vectorNum) {
     Assert(vectorNum >= 16);
     Assert(vectorNum < VECTOR_TABLE_SIZE);
-    uint8_t interruptBitNumber = vectorNum - 16;
+    uint8_t interruptBitNum = vectorNum - 16;
 
     // Determine correct enable register to use
-    uint8_t enableRegisterNum = 0;
-    while(interruptBitNumber >= ((enableRegisterNum + 1) * 32)) {
-        enableRegisterNum += 1;
+    uint8_t registerNum = 0;
+    while(interruptBitNum >= ((registerNum + 1) * 32)) {
+        registerNum += 1;
     }
-    register_t enableRegisterPtr = (register_t) (NVIC_EN_BASE_ADDR + (4 * enableRegisterNum));
+    register_t registerPtr = (register_t) (NVIC_EN_BASE_ADDR + (4 * registerNum));
 
     // Enable the ISR
-    *enableRegisterPtr |= (1 << interruptBitNumber);
+    interruptBitNum -= registerNum * 32;
+    *registerPtr |= (1 << interruptBitNum);
 
     return;
 }
@@ -143,17 +144,23 @@ void ISR_Enable(const uint8_t vectorNum) {
 void ISR_Disable(const uint8_t vectorNum) {
     Assert(vectorNum >= 16);
     Assert(vectorNum < VECTOR_TABLE_SIZE);
-    uint8_t interruptBitNumber = vectorNum - 16;
+    uint8_t interruptBitNum = vectorNum - 16;
 
     // Determine correct disable register to use
-    uint8_t disableRegNum = 0;
-    while(interruptBitNumber >= ((disableRegNum + 1) * 32)) {
-        disableRegNum += 1;
+    uint8_t registerNum = 0;
+    while(interruptBitNum >= ((registerNum + 1) * 32)) {
+        registerNum += 1;
     }
-    register_t disableRegPtr = (register_t) (NVIC_DIS_BASE_ADDR + (4 * disableRegNum));
+    interruptBitNum = interruptBitNum - (registerNum * 32);
+    register_t registerPtr = (register_t) (NVIC_DIS_BASE_ADDR + (4 * registerNum));
 
     // Disable the ISR
-    *disableRegPtr |= (1 << interruptBitNumber);
+    interruptBitNum -= registerNum * 32;
+    *registerPtr |= (1 << interruptBitNum);
+
+    return;
+}
+
 
     return;
 }
