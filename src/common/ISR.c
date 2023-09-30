@@ -32,24 +32,22 @@ static bool interruptsAreEnabled = true;
 
 void ISR_GlobalDisable(void) {
     // NOTE: Does not affect Reset, NMI, or hard faults
+    interruptsAreEnabled = false;
     __asm__("   CPSID   I\n\t"                // Set I bit in PRIMASK
 
             "   BX      LR\n\t"               // Return
 
     );
-    interruptsAreEnabled = false;
-    return;
 }
 
 void ISR_GlobalEnable(void) {
     // NOTE: Does not affect Reset, NMI, or hard faults
+    interruptsAreEnabled = true;
     __asm__("   CPSIE   I\n\t"               // Clear I bit in PRIMASK
 
             "   BX      LR"                  // Return
 
     );
-    interruptsAreEnabled = true;
-    return;
 }
 
 /******************************************************************************
