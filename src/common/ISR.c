@@ -70,7 +70,7 @@ void ISR_InitNewTableInRam(void) {
         newVectorTable[idx] = interruptVectorTable[idx];
     }
 
-    NVIC_VTABLE_R = ((uint32_t) &newVectorTable) << 10;
+    NVIC_VTABLE_R = (uint32_t) &newVectorTable;
     isTableCopiedToRam = true;
 
     return;
