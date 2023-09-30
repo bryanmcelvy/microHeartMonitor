@@ -95,4 +95,37 @@ void ISR_Enable(const uint8_t vectorNum);
  */
 void ISR_Disable(const uint8_t vectorNum);
 
+/******************************************************************************
+Individual Interrupt Operations
+*******************************************************************************/
+
+/**
+ * @brief                   Generate a software-generated interrupt (SGI).
+ *
+ * @pre                     Enable the ISR (and set priority as needed) for calling this.
+ * @pre                     Enable all interrupts before calling this.
+ *
+ * @param[in] vectorNum     ISR's vector number (i.e. offset from the top of the table).
+ *                          Should be in range `[16, 154]`.
+ *
+ * @post                    The ISR should trigger once any higher priority ISRs return.
+ *
+ * @sa                      ISR_clearPending()
+ */
+void ISR_triggerInterrupt(const uint8_t vectorNum);
+
+/**
+ * @brief                   Clear an ISR's pending bit.
+ *
+ * @pre                     This should be called during the ISR for an SGI.
+ *
+ * @param[in] vectorNum     ISR's vector number (i.e. offset from the top of the table).
+ *                          Should be in range `[16, 154]`.
+ *
+ * @post                    The ISR should not trigger again until re-activated.
+ *
+ * @sa                      ISR_triggerInterrupt()
+ */
+void ISR_clearPending(const uint8_t vectorNum);
+
 #endif               // ISR_H
