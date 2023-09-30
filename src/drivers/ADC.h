@@ -11,8 +11,8 @@
 #define ADC_H
 
 #include "GPIO.h"
-#include "Timer.h"
 
+#include "ISR.h"
 #include "lookup.h"
 
 #include "arm_math_types.h"

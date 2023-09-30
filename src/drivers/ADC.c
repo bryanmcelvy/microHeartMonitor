@@ -10,8 +10,8 @@
 #include "ADC.h"
 
 #include "GPIO.h"
-#include "Timer.h"
 
+#include "ISR.h"
 #include "lookup.h"
 
 #include "arm_math_types.h"
@@ -40,15 +40,15 @@ void ADC_Init(void) {
                    0x0123;
     ADC0_EMUX_R |= 0x5000;                                  // set trigger source to Timer3A
     ADC0_SSMUX3_R = 8;                                      // analog input 8 (Ain8 = PE5)
-    ADC0_SSCTL3_R = 0x06;                   // disable temp. sensor, enable differential input,
-                                            // enable interrupts
-    ADC0_ISC_R |= 0x08;                     // clear SS3 interrupt flag
-    ADC0_IM_R |= 0x08;                      // enable SS3 interrupt
+    ADC0_SSCTL3_R = 0x06;               // disable temp. sensor, enable differential input,
+                                        // enable interrupts
+    ADC0_ISC_R |= 0x08;                 // clear SS3 interrupt flag
+    ADC0_IM_R |= 0x08;                  // enable SS3 interrupt
 
-    NVIC_PRI4_R |= (1 << 13);               // priority 1 for interrupt 17 (ADC0 SS3)
-    NVIC_EN0_R |= (1 << 17);                // enable ADC0 SS3 interrupt in NVIC
+    ISR_setPriority(INT_ADC0SS3, 1);
+    ISR_Enable(INT_ADC0SS3);
 
-    ADC0_ACTSS_R |= 0x08;                   // enable SS3
+    ADC0_ACTSS_R |= 0x08;               // enable SS3
 
     ADC_LOOKUP_TABLE = Lookup_GetPtr_ADC();
 
@@ -57,13 +57,11 @@ void ADC_Init(void) {
 
 void ADC_InterruptEnable(void) {
     ADC0_IM_R |= 0x08;
-
     return;
 }
 
 void ADC_InterruptDisable(void) {
     ADC0_IM_R &= ~(0x08);
-
     return;
 }
 
