@@ -128,7 +128,7 @@ Main Functions
 void QRS_Init(void) {
 
     // Initialize filters
-    arm_biquad_cascade_df1_init_f32(highPassFilter, NUM_COEFF_HIGHPASS, COEFF_HIGHPASS,
+    arm_biquad_cascade_df1_init_f32(highPassFilter, NUM_STAGES_HIGHPASS, COEFF_HIGHPASS,
                                     stateBuffer_HighPass);
     arm_biquad_cascade_df1_init_f32(lowPassFilter, NUM_STAGES_LOWPASS, COEFF_LOWPASS,
                                     stateBuffer_LowPass);
