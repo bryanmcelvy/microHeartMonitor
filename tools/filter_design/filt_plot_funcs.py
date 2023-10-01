@@ -94,7 +94,7 @@ def plot_step_resp(b, a, ax=None):
 # Frequency Domain Plot Functions
 ################################################################################
 
-def plot_freq_resp(b, a, N=512, fs=1, in_dB = False, ax=None):
+def plot_freq_resp(b, a, N=4096, fs=1, in_dB = False, ax=None):
     
     freq, H = signal.freqz(b, a, N, fs=fs)
     H = 20 * np.log10(np.abs(H)) if (in_dB) else np.abs(H)
@@ -117,7 +117,7 @@ def plot_freq_resp(b, a, N=512, fs=1, in_dB = False, ax=None):
     if in_dB: plt.ylabel("Magnitude [dB]")
     else: plt.ylabel("Magnitude")
 
-def plot_group_delay(b, a, N=512, fs=1, ax=None):
+def plot_group_delay(b, a, N=4096, fs=1, ax=None):
     
     freq, grd = signal.group_delay([b, a], N, fs=fs)
     grd = [np.ceil(np.max(grd)) if ( (np.max(grd) - np.min(grd)) < 2 ) else val for val in grd]
