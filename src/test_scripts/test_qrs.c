@@ -43,12 +43,12 @@ enum {
 
 volatile FIFO_t * DAQ_Fifo = 0;
 volatile uint32_t DAQ_Buffer[DAQ_BUFFER_SIZE] = { 0 };
-volatile bool sampleReady = false;
+volatile bool bufferFullFlag = false;
 
-FIFO_t * QRS_Fifo = 0;
-float32_t QRS_FifoBuffer[QRS_BUFFER_SIZE] = { 0 };
-float32_t QRS_InputBuffer[QRS_NUM_SAMP] = { 0 };
-float32_t QRS_OutputBuffer[QRS_NUM_SAMP] = { 0 };
+volatile FIFO_t * QRS_Fifo = 0;
+volatile float32_t QRS_FifoBuffer[QRS_BUFFER_SIZE] = { 0 };
+volatile float32_t QRS_InputBuffer[QRS_NUM_SAMP] = { 0 };
+volatile float32_t QRS_OutputBuffer[QRS_NUM_SAMP] = { 0 };
 
 /******************************************************************************
 Main
@@ -74,8 +74,11 @@ int main(void) {
 
     ISR_GlobalEnable();
     while(1) {
-        if(FIFO_isFull(QRS_Fifo)) {
+        if(bufferFullFlag == true) {
+            ISR_Disable(DAQ_VECTOR_NUM);
             FIFO_Flush(QRS_Fifo, QRS_InputBuffer);
+            bufferFullFlag = false;
+            ISR_Enable(DAQ_VECTOR_NUM);
 
             Debug_SendMsg("Starting QRS detection...");
 
@@ -105,5 +108,9 @@ void DAQ_Handler(void) {
     volatile uint16_t raw_sample = FIFO_Get(DAQ_Fifo);
     volatile float32_t sample = ADC_ConvertToVolts(raw_sample);
     sample = DAQ_Filter(sample);
+
     FIFO_Put(QRS_Fifo, sample);
+    if(FIFO_isFull(QRS_Fifo)) {
+        bufferFullFlag = true;
+    }
 }

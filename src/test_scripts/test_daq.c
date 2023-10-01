@@ -76,7 +76,9 @@ int main(void) {
 
         // convert and filter
         volatile float32_t sample = ADC_ConvertToVolts(raw_sample);
+        // Debug_Assert(sample < LOOKUP_ADC_MAX);
         sample = DAQ_Filter(sample);
+        // Debug_Assert(sample < LOOKUP_ADC_MAX);
 
         float32_t intermediate_sample = prev_sample + ((sample - prev_sample) / 2);
         LCD_plotNewSample(x, intermediate_sample);
@@ -101,16 +103,17 @@ void ADC0_SS3_Handler(void) {
 }
 
 void LCD_plotNewSample(uint16_t x, volatile const float32_t sample) {
-    uint16_t y;
+    static float32_t maxVoltage = LOOKUP_ADC_MAX;
 
     // blank out column
     LCD_setColor_3bit(LCD_BLACK_INV);
     LCD_drawRectangle(x, 1, LCD_Y_MIN, LCD_NUM_Y_VALS, true);
 
     // plot sample
+    maxVoltage = (sample > maxVoltage) ? sample : maxVoltage;
+    uint16_t y = LCD_X_AXIS_OFFSET +
+                 ((uint16_t) (((sample + maxVoltage) / (maxVoltage * 2)) * LCD_NUM_Y_VALS));
     LCD_setColor_3bit(LCD_RED_INV);
-    y = LCD_X_AXIS_OFFSET +
-        ((uint16_t) (((sample + LOOKUP_ADC_MAX) / (LOOKUP_ADC_MAX * 2)) * LCD_NUM_Y_VALS));
     LCD_drawRectangle(x, 1, y, 1, true);
 
     return;
