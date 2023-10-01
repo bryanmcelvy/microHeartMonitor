@@ -22,6 +22,7 @@ SECTIONS
         After Flush
         After Peek
         After Reaching Capacity
+        Float
 *******************************************************************************/
 
 /******************************************************************************
@@ -57,14 +58,14 @@ TEST_GROUP(Group_FIFO_AfterReset) {
     volatile FIFO_t * fifo;
     volatile uint32_t fifoBuffer[FIFO_BUFFER_SIZE] = { 0 };
     uint32_t randArray[FIFO_CAPACITY] = {29, 81, 73, 79, 2, 40, 21, 60, 93};
-    uint8_t rand_idx;
+    uint8_t randNum;
 
     void setup() {
         fifo = FIFO_Init(fifoBuffer, FIFO_BUFFER_SIZE);
 
         // Fill with a random number in range [1, FIFO_CAPACITY]
-        rand_idx = 1 + (rand() % (FIFO_CAPACITY - 1));
-        for(uint8_t n = 0; n < rand_idx; n++) {
+        randNum = 1 + (rand() % (FIFO_CAPACITY - 1));
+        for(uint8_t n = 0; n < randNum; n++) {
             FIFO_Put(fifo, randArray[n]);
         }
     } 
@@ -95,14 +96,14 @@ TEST_GROUP(Group_FIFO_AfterPut) {
     volatile FIFO_t * fifo;
     volatile uint32_t fifoBuffer[FIFO_BUFFER_SIZE] = { 0 };
     uint32_t randArray[FIFO_CAPACITY] = {29, 81, 73, 79, 2, 40, 21, 60, 93};
-    uint8_t rand_idx;
+    uint8_t randNum;
 
     void setup() {
         fifo = FIFO_Init(fifoBuffer, FIFO_BUFFER_SIZE);
 
         // Fill with a random number in range [1, FIFO_CAPACITY]
-        rand_idx = 1 + (rand() % (FIFO_CAPACITY - 1));
-        for(uint8_t n = 0; n < rand_idx; n++) {
+        randNum = 1 + (rand() % (FIFO_CAPACITY - 1));
+        for(uint8_t n = 0; n < randNum; n++) {
             FIFO_Put(fifo, randArray[n]);
         }
     } 
@@ -112,14 +113,14 @@ TEST_GROUP(Group_FIFO_AfterPut) {
 
 TEST(Group_FIFO_AfterPut, AfterPut_SizeIncreases) {
     uint8_t sizeBeforePut = FIFO_getCurrSize(fifo);
-    FIFO_Put(fifo, randArray[rand_idx]);
+    FIFO_Put(fifo, randArray[randNum]);
     uint8_t sizeAfterPut = FIFO_getCurrSize(fifo);
 
     CHECK_EQUAL(sizeBeforePut + 1, sizeAfterPut);
 }
 
 TEST(Group_FIFO_AfterPut, AfterPut_isNotEmpty) {
-    FIFO_Put(fifo, randArray[rand_idx]);
+    FIFO_Put(fifo, randArray[randNum]);
     CHECK_FALSE(FIFO_isEmpty(fifo));
 }
 
@@ -131,14 +132,14 @@ TEST_GROUP(Group_FIFO_AfterGet) {
     volatile FIFO_t * fifo;
     volatile uint32_t fifoBuffer[FIFO_BUFFER_SIZE] = { 0 };
     uint32_t randArray[FIFO_CAPACITY] = {29, 81, 73, 79, 2, 40, 21, 60, 93};
-    uint8_t rand_idx;
+    uint8_t randNum;
 
     void setup() {
         fifo = FIFO_Init(fifoBuffer, FIFO_BUFFER_SIZE);
 
         // Fill with a random number in range [1, FIFO_CAPACITY]
-        rand_idx = 1 + (rand() % (FIFO_CAPACITY - 1));
-        for(uint8_t n = 0; n < rand_idx; n++) {
+        randNum = 1 + (rand() % (FIFO_CAPACITY - 1));
+        for(uint8_t n = 0; n < randNum; n++) {
             FIFO_Put(fifo, randArray[n]);
         }
     } 
@@ -163,14 +164,14 @@ TEST_GROUP(Group_FIFO_AfterFlush) {
     volatile uint32_t fifoBuffer[FIFO_BUFFER_SIZE] = { 0 };
     uint32_t randArray[FIFO_CAPACITY] = {29, 81, 73, 79, 2, 40, 21, 60, 93};
     uint32_t outputArray[FIFO_CAPACITY] = { 0 };
-    uint8_t rand_idx;
+    uint8_t randNum;
 
     void setup() {
         fifo = FIFO_Init(fifoBuffer, FIFO_BUFFER_SIZE);
 
         // Fill with a random number in range [1, FIFO_CAPACITY]
-        rand_idx = 1 + (rand() % (FIFO_CAPACITY - 1));
-        for(uint8_t n = 0; n < rand_idx; n++) {
+        randNum = 1 + (rand() % (FIFO_CAPACITY - 1));
+        for(uint8_t n = 0; n < randNum; n++) {
             FIFO_Put(fifo, randArray[n]);
         }
     } 
@@ -187,7 +188,7 @@ TEST(Group_FIFO_AfterFlush, AfterFlush_OutputHasCorrectVals) {
     FIFO_Flush(fifo, outputArray);
 
     bool areAllCorrect = true;
-    for(uint8_t n = 0; n < rand_idx; n++) {
+    for(uint8_t n = 0; n < randNum; n++) {
         if (outputArray[n] != randArray[n]) {
             areAllCorrect = false;
             break;
@@ -249,6 +250,7 @@ TEST(Group_FIFO_AfterPeek, AfterPeekAll_OutputHasCorrectVals) {
         uint32_t temp_val = FIFO_Get(fifo);
         if(outputArray[n] != temp_val) {
             areAllCorrect = false;
+            break;
         }
     }
 
@@ -285,6 +287,58 @@ TEST(Group_FIFO_AfterReachingCapacity, AfterReachingCapacity_isNotEmpty) {
 TEST(Group_FIFO_AfterReachingCapacity, AfterReachingCapacity_isNotFullAfterGet) {
     FIFO_Get(fifo);
     CHECK_FALSE(FIFO_isFull(fifo));
+}
+
+/******************************************************************************
+Float
+*******************************************************************************/
+
+typedef float float32_t;
+
+TEST_GROUP(Group_FIFO_Float) {
+    volatile FIFO_t * fifo;
+    volatile uint32_t fifoBuffer[FIFO_BUFFER_SIZE] = { 0 };
+    float32_t randArray[FIFO_CAPACITY] = { 64.17631782f, 1.38950613f,  0.51682714f,
+                                       54.7013881f,  26.31959354f, 2.85827833f,
+                                       51.68221266f, 2.97704495f,  84.99567175f };
+    float32_t outputArray[FIFO_CAPACITY] = { 0.0f };
+    uint8_t randNum;
+
+    void setup() {
+        fifo = FIFO_Init(fifoBuffer, FIFO_BUFFER_SIZE);
+
+        // Fill with a random number in range [1, FIFO_CAPACITY]
+        randNum = 1 + (rand() % (FIFO_CAPACITY - 1));
+        for(uint8_t n = 0; n < randNum; n++) {
+            FIFO_Put(fifo, *((uint32_t *) &randArray[n]));
+        }
+    } 
+
+    void teardown() {} 
+};
+
+TEST(Group_FIFO_Float, AfterFlush_OutputHasCorrectFloatVals) {
+    FIFO_Flush(fifo, (uint32_t *) outputArray);
+
+    for(uint8_t n = 0; n < randNum; n++) {
+        DOUBLES_EQUAL(randArray[n], (float32_t) outputArray[n], 10e-6);
+    }
+}
+
+TEST(Group_FIFO_Float, AfterPeekOne_ReturnValIsCorrectFloat) {
+    float32_t peekVal, getVal;
+    *((uint32_t *) &peekVal) = FIFO_PeekOne(fifo);
+    *((uint32_t *) &getVal) = FIFO_Get(fifo);
+    DOUBLES_EQUAL(getVal, peekVal, 10e-6);
+}
+
+TEST(Group_FIFO_Float, AfterPeekAll_OutputHasCorrectFloatVals) {
+    FIFO_PeekAll(fifo, (uint32_t *) outputArray);
+    for(uint8_t n = 0; n < randNum; n++) {
+        float32_t getVal;
+        *((uint32_t *) &getVal) = FIFO_Get(fifo);
+        DOUBLES_EQUAL(getVal, outputArray[n], 10e-6);
+    }
 }
 
 // NOLINTEND
