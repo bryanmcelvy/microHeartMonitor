@@ -96,7 +96,8 @@ def plot_step_resp(b, a, ax=None):
 
 def plot_freq_resp(b, a, N=4096, fs=1, in_dB = False, ax=None):
     
-    freq, H = signal.freqz(b, a, N, fs=fs)
+    sos = signal.tf2sos(b, a)
+    freq, H = signal.sosfreqz(sos, N, fs=fs)
     H = 20 * np.log10(np.abs(H)) if (in_dB) else np.abs(H)
     
     if not ax:
@@ -109,13 +110,18 @@ def plot_freq_resp(b, a, N=4096, fs=1, in_dB = False, ax=None):
     plt.plot(freq, H, '-k')
     
     plt.xlim([freq[0], freq[-1]])
-    plt.xticks(np.linspace(0.0, 0.5, 6) * fs)
+    plt.xticks(np.linspace(0.0, 0.5, num=6) * fs)
     
     plt.title("Frequency Response")
-    if fs == 1: plt.xlabel("Normalized Frequency [Hz]")
-    else: plt.xlabel("Frequency [Hz]")
-    if in_dB: plt.ylabel("Magnitude [dB]")
-    else: plt.ylabel("Magnitude")
+    if fs == 1: 
+        plt.xlabel("Normalized Frequency [Hz]")
+    else: 
+        plt.xlabel("Frequency [Hz]")
+        
+    if in_dB: 
+        plt.ylabel("Magnitude [dB]")
+    else: 
+        plt.ylabel("Magnitude")
 
 def plot_group_delay(b, a, N=4096, fs=1, ax=None):
     
