@@ -14,11 +14,12 @@ patient_lst = [ 100, 101, 102, 103, 104, 105, 106, 107, 108, 109,
 
 # Load data
 for patient_num in patient_lst:
-    file_name = f"./mit-bih-arr/{patient_num}"
+    file_name = f"./tools/data/mit-bih-arr/{patient_num}"
 
     try:
         data, _ = wfdb.io.rdsamp(file_name)
     except:
+        print(f"Patient #{patient_num} not found.")
         continue
 
     data = np.transpose(data)[0]
@@ -31,4 +32,4 @@ for patient_num in patient_lst:
 
     # Save to .csv
     data = pd.DataFrame(data)
-    data.to_csv(f"../data/{patient_num}.csv")
+    data.to_csv(f"./tools/data/csv/{patient_num}.csv")

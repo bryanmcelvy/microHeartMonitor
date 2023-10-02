@@ -3,8 +3,8 @@
 !/tools/cppcheck/suppressions.txt
 
 # ECG dataset
-/data/*.csv
-!/data/101.csv
+/tools/data/csv/*.csv
+!/tools/data/csv/101.csv
 /tools/data/mit-bih-arr/*
 !/tools/data/mit-bih-arr/101*
 
