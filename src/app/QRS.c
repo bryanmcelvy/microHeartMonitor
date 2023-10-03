@@ -20,7 +20,12 @@ Preprocessor Directives
 #include <stdbool.h>
 #include <stdint.h>
 
-#define QRS_NUM_FID_MARKS 13
+#define QRS_NUM_FID_MARKS               13
+
+#define FLOAT_COMPARE_TOLERANCE         (float32_t)(1E-5f)
+#define IS_GREATER(X, Y)                (bool) ((X - Y) > FLOAT_COMPARE_TOLERANCE)
+#define IS_LESSER(X, Y)                 (bool) ((Y - X) > FLOAT_COMPARE_TOLERANCE)
+#define IS_PEAK(X_MINUS_1, X, X_PLUS_1) (bool) (IS_GREATER(X, X_MINUS_1) && IS_GREATER(X, X_PLUS_1))
 
 /*******************************************************************************
 Static Function Declarations
@@ -104,22 +109,22 @@ typedef arm_biquad_casd_df1_inst_f32 IIR_Filt_t;
 
 static float32_t stateBuffer_HighPass[STATE_BUFF_SIZE_HIGHPASS] = { 0 };
 static const IIR_Filt_t highPassFiltStruct = { NUM_STAGES_HIGHPASS, stateBuffer_HighPass, COEFF_HIGHPASS };
-static IIR_Filt_t * const highPassFilter = &highPassFiltStruct;
+static const IIR_Filt_t * const highPassFilter = &highPassFiltStruct;
 
 static float32_t stateBuffer_LowPass[STATE_BUFF_SIZE_LOWPASS] = { 0 };
 static const IIR_Filt_t lowPassFiltStruct = { NUM_STAGES_LOWPASS, stateBuffer_LowPass, COEFF_LOWPASS };
-static IIR_Filt_t * const lowPassFilter = &lowPassFiltStruct;
+static const IIR_Filt_t * const lowPassFilter = &lowPassFiltStruct;
 
 /* FIR Filters */
 typedef arm_fir_instance_f32 FIR_Filt_t;
 
 static float32_t stateBuffer_DerFilt[STATE_BUFF_SIZE_DERFILT] = { 0 };
 static const FIR_Filt_t derivativeFiltStruct = { NUM_COEFF_DERFILT, stateBuffer_DerFilt, COEFF_DERFILT };
-static FIR_Filt_t * const derivativeFilter = &derivativeFiltStruct;
+static const FIR_Filt_t * const derivativeFilter = &derivativeFiltStruct;
 
 static float32_t stateBuffer_MovingAvg[STATE_BUFF_SIZE_MOVAVG] = { 0 };
 static const FIR_Filt_t movingAvgFiltStruct = { NUM_COEFF_MOVAVG, stateBuffer_MovingAvg, COEFF_MOVAVG };
-static FIR_Filt_t * const movingAverageFilter = &movingAvgFiltStruct;
+static const FIR_Filt_t * const movingAverageFilter = &movingAvgFiltStruct;
 
 // clang-format on
 
@@ -177,7 +182,7 @@ float32_t QRS_ApplyDecisionRules(float32_t inputBuffer[]) {
     uint16_t numPeaks = 0;
     for(uint16_t idx = 0; idx < numMarks; idx++) {
         uint16_t n = Detector.fidMarkArray[idx];
-        if(inputBuffer[n] > Detector.threshold) {
+        if(IS_GREATER(inputBuffer[n], Detector.threshold)) {
             Detector.signalLevel = QRS_updateLevel(inputBuffer[n], Detector.signalLevel);
             sumPeakIdx += n;
             numPeaks += 1;
@@ -238,8 +243,7 @@ static uint8_t QRS_findFiducialMarks(float32_t yn[], uint16_t fidMarkArray[]) {
                 countSincePrev = 0;
             }
             else if(countSincePrev < 40) {
-                // Replace the previous mark with the index with the largest amplitude
-                if(preprocData[n] > preprocData[n_prevMark]) {
+                if(IS_GREATER(yn[n], yn[n_prevMark])) {
                     fidMarkArray[numMarks - 1] = n;
                     n_prevMark = n;
                     countSincePrev = 0;
