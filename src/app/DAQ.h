@@ -29,13 +29,20 @@
 void DAQ_Init(void);
 
 /**
- * @brief                   Filter an input sample using a 40 [Hz] low pass
- *                          filter and a 60 [Hz] notch filter.
+ * @brief                   Apply a 60 [Hz] notch filter to an input sample.
  *
  * @param[in] inputSample   Raw input sample in range `[-5.5, 5.5) [V]`.
  * @param[out] float32_t    Filtered output sample.
  */
-float32_t DAQ_Filter(volatile float32_t inputSample);
+float32_t DAQ_NotchFilter(volatile float32_t inputSample);
+
+/**
+ * @brief                   Apply a 0.5-40 [Hz] bandpass filter to an input sample.
+ *
+ * @param[in] inputSample   Raw input sample in range `[-5.5, 5.5) [V]`.
+ * @param[out] float32_t    Filtered output sample.
+ */
+float32_t DAQ_BandpassFilter(volatile float32_t inputSample);
 
 #endif               // DAQ_H
 

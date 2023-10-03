@@ -77,7 +77,7 @@ int main(void) {
         // convert and filter
         volatile float32_t sample = ADC_ConvertToVolts(raw_sample);
         // Debug_Assert(sample < LOOKUP_ADC_MAX);
-        sample = DAQ_Filter(sample);
+        sample = DAQ_NotchFilter(sample);
         // Debug_Assert(sample < LOOKUP_ADC_MAX);
 
         float32_t intermediate_sample = prev_sample + ((sample - prev_sample) / 2);

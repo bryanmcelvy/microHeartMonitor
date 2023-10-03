@@ -129,7 +129,7 @@ static void DAQ_Handler(void) {
     while(FIFO_isEmpty(DAQ_Fifo) == false) {
         volatile uint16_t raw_sample = FIFO_Get(DAQ_Fifo);
         volatile float32_t sample = ADC_ConvertToVolts(raw_sample);
-        sample = DAQ_Filter(sample);
+        sample = DAQ_NotchFilter(sample);
         Debug_Assert(isnan(sample) == false);
         Debug_Assert(isinf(sample) == false);
 
