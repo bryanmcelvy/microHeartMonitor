@@ -75,7 +75,7 @@ int main(void) {
         sampleReady = !FIFO_isEmpty(inputFifo);
 
         // convert and filter
-        volatile float32_t sample = ADC_ConvertToVolts(raw_sample);
+        volatile float32_t sample = DAQ_convertToMilliVolts(raw_sample);
         // Debug_Assert(sample < LOOKUP_ADC_MAX);
         sample = DAQ_NotchFilter(sample);
         // Debug_Assert(sample < LOOKUP_ADC_MAX);
@@ -95,15 +95,16 @@ int main(void) {
 
 void ADC0_SS3_Handler(void) {
     Debug_Assert(FIFO_isFull(inputFifo) == false);
-    FIFO_Put(inputFifo, (volatile uint32_t)(ADC0_SSFIFO3_R & 0xFFF));
+    uint16_t rawSample = DAQ_readSample();
+    FIFO_Put(inputFifo, (volatile uint32_t) rawSample);
     sampleReady = true;
 
-    ADC0_ISC_R |= 0x08;               // clear interrupt flag to acknowledge
+    ADC_InterruptAcknowledge();
     return;
 }
 
 void LCD_plotNewSample(uint16_t x, volatile const float32_t sample) {
-    static float32_t maxVoltage = LOOKUP_ADC_MAX;
+    static float32_t maxVoltage = LOOKUP_DAQ_MAX;
 
     // blank out column
     LCD_setColor_3bit(LCD_BLACK_INV);

@@ -72,11 +72,11 @@ int main(void) {
     ISR_InitNewTableInRam();
 
     ISR_addToIntTable(ADC_Handler, ADC_VECTOR_NUM);
-    ISR_setPriority(ADC_VECTOR_NUM, 2);
+    ISR_setPriority(ADC_VECTOR_NUM, 0);
     ISR_Enable(ADC_VECTOR_NUM);
 
     ISR_addToIntTable(DAQ_Handler, DAQ_VECTOR_NUM);
-    ISR_setPriority(DAQ_VECTOR_NUM, 2);
+    ISR_setPriority(DAQ_VECTOR_NUM, 0);
     ISR_Enable(DAQ_VECTOR_NUM);
 
     // Init. FIFOs
@@ -119,19 +119,19 @@ Interrupt Service Routines
 
 static void ADC_Handler(void) {
     Debug_Assert(FIFO_isFull(DAQ_Fifo) == false);
-    FIFO_Put(DAQ_Fifo, (volatile uint32_t)(ADC0_SSFIFO3_R & 0xFFF));
 
-    ADC0_ISC_R |= 0x08;               // clear interrupt flag to acknowledge
+    uint16_t rawSample = DAQ_readSample();
+    FIFO_Put(DAQ_Fifo, (volatile uint32_t) rawSample);
+
+    ADC_InterruptAcknowledge();
     ISR_triggerInterrupt(DAQ_VECTOR_NUM);
 }
 
 static void DAQ_Handler(void) {
     while(FIFO_isEmpty(DAQ_Fifo) == false) {
-        volatile uint16_t raw_sample = FIFO_Get(DAQ_Fifo);
-        volatile float32_t sample = ADC_ConvertToVolts(raw_sample);
+        volatile uint16_t rawSample = FIFO_Get(DAQ_Fifo);
+        volatile float32_t sample = DAQ_convertToMilliVolts(rawSample);
         sample = DAQ_NotchFilter(sample);
-        Debug_Assert(isnan(sample) == false);
-        Debug_Assert(isinf(sample) == false);
 
         FIFO_Put(QRS_Fifo, *((uint32_t *) (&sample)));
         if(FIFO_isFull(QRS_Fifo)) {

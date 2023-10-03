@@ -9,6 +9,7 @@
 
 #ifndef DAQ_H
 #define DAQ_H
+#include "lookup.h"
 
 #include "ADC.h"
 #include "Timer.h"
@@ -27,6 +28,30 @@
  *
  */
 void DAQ_Init(void);
+
+/*******************************************************************************
+Reading Input Data
+********************************************************************************/
+
+/**
+ * @brief                   Read a sample from the ADC.
+ *
+ * @param[out] uint16_t     12-bit sample in range [0x000, 0xFFF]
+ */
+uint16_t DAQ_readSample(void);
+
+/**
+ * @brief                   Convert a 12-bit integer sample to a floating-point
+ *                          voltage value via lookup table (LUT).
+ *
+ * @param[in] sample        12-bit sample in range [0x000, 0xFFF]
+ * @param[out] float32_t    Voltage value in range `[-5.5, 5.5) [mV]`.
+ */
+float32_t DAQ_convertToMilliVolts(uint16_t sample);
+
+/*******************************************************************************
+Digital Filtering Functions
+********************************************************************************/
 
 /**
  * @brief                   Apply a 60 [Hz] notch filter to an input sample.

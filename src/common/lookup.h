@@ -3,7 +3,7 @@
  * @{
  *
  * @file
- * @brief   Lookup table API.
+ * @brief   Lookup table for DAQ module.
  * @author  Bryan McElvy
  */
 
@@ -12,15 +12,15 @@
 
 #include "arm_math_types.h"
 
-#define LOOKUP_ADC_MAX (float32_t) 5.5
-#define LOOKUP_ADC_MIN (float32_t)(-5.5)
+#define LOOKUP_DAQ_MAX (float32_t) 5.5
+#define LOOKUP_DAQ_MIN (float32_t)(-5.5)
 
 /**
- * @brief   Return a pointer to the ADC lookup table.
+ * @brief   Return a pointer to the DAQ lookup table.
  *
  * @return  const float32_t*
  */
-const float32_t * Lookup_GetPtr_ADC(void);
+const float32_t * Lookup_GetPtr(void);
 
 #endif               // LOOKUP_H
 
