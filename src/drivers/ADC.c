@@ -45,9 +45,6 @@ void ADC_Init(void) {
     ADC0_ISC_R |= 0x08;                 // clear SS3 interrupt flag
     ADC0_IM_R |= 0x08;                  // enable SS3 interrupt
 
-    ISR_setPriority(INT_ADC0SS3, 1);
-    ISR_Enable(INT_ADC0SS3);
-
     ADC0_ACTSS_R |= 0x08;               // enable SS3
 
     ADC_LOOKUP_TABLE = Lookup_GetPtr_ADC();
