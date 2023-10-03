@@ -24,8 +24,8 @@ Preprocessor Directives
 #include <stdbool.h>
 #include <stdint.h>
 
-#define QRS_SAMP_FREQ 200                // [Hz]
-#define QRS_NUM_SAMP  1000               // number of samples to process after calibration
+#define QRS_SAMP_FREQ 200                     // [Hz]
+#define QRS_NUM_SAMP  (1 << 10)               // number of samples to process after calibration
 
 /*******************************************************************************
 Functions
