@@ -87,7 +87,7 @@ extern int main(void);
 // Reserve space for the system stack.
 //
 //*****************************************************************************
-static uint32_t SystemStack[64];
+static uint32_t SystemStack[0x200];
 
 //*****************************************************************************
 //
@@ -96,8 +96,7 @@ static uint32_t SystemStack[64];
 //
 //*****************************************************************************
 __attribute__((section(".isr_vector"))) void (*const interruptVectorTable[])(void) = {
-    (void (*)(void))((uint32_t) SystemStack + sizeof(SystemStack)),
-    // The initial stack pointer
+    (void (*)(void))((uint32_t) SystemStack + sizeof(SystemStack)), // The initial stack pointer
     ResetISR,                              // The reset handler
     NmiSR,                                 // The NMI handler
     FaultISR,                              // The hard fault handler
