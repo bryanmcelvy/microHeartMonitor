@@ -18,12 +18,10 @@ Preprocessor Directives
 #include "ADC.h"
 #include "Timer.h"
 
-#include "FIFO.h"
 #include "NewAssert.h"
 
 #include "arm_math_types.h"
 #include "dsp/filtering_functions.h"
-#include "lookup.h"
 #include "tm4c123gh6pm.h"
 
 #include <math.h>
@@ -86,6 +84,9 @@ static const float32_t COEFFS_BANDPASS[NUM_COEFFS_DAQ_BANDPASS] = {
 };
 
 // clang-format on
+
+typedef arm_biquad_casd_df1_inst_f32 Filter_t;
+
 static float32_t stateBuffer_Notch[STATE_BUFF_SIZE_NOTCH];
 static const Filter_t notchFiltStruct = { NUM_STAGES_NOTCH, stateBuffer_Notch, COEFFS_NOTCH };
 static const Filter_t * const notchFilter = &notchFiltStruct;
@@ -95,9 +96,10 @@ static const Filter_t bandpassFiltStruct = { NUM_STAGES_BANDPASS, stateBuffer_Ba
                                              COEFFS_BANDPASS };
 static const Filter_t * const bandpassFilter = &bandpassFiltStruct;
 
-/******************************************************************************
-Functions
-*******************************************************************************/
+/*******************************************************************************
+Initialization
+********************************************************************************/
+
 void DAQ_Init(void) {
 
     ADC_Init();
@@ -112,6 +114,11 @@ void DAQ_Init(void) {
 
     return;
 }
+
+/*******************************************************************************
+Reading Input Data
+********************************************************************************/
+
 uint16_t DAQ_readSample(void) {
     return (uint16_t) (ADC0_SSFIFO3_R & 0xFFF);
 }
@@ -120,6 +127,10 @@ float32_t DAQ_convertToMilliVolts(uint16_t sample) {
     Assert(sample < 0x1000);
     return DAQ_LOOKUP_TABLE[sample];
 }
+
+/*******************************************************************************
+Digital Filtering Functions
+********************************************************************************/
 
 float32_t DAQ_NotchFilter(volatile float32_t inputSample) {
     float32_t * inputPtr = &inputSample;

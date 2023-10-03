@@ -9,23 +9,40 @@
 
 #ifndef DAQ_H
 #define DAQ_H
+
+/*******************************************************************************
+SECTIONS
+        Preprocessor Directives
+        Initialization
+        Reading Input Data
+        Digital Filtering Functions
+********************************************************************************/
+
+/*******************************************************************************
+Preprocessor Directives
+********************************************************************************/
+
 #include "lookup.h"
 
 #include "ADC.h"
 #include "Timer.h"
 
-#include "FIFO.h"
+#include "NewAssert.h"
 
 #include "arm_math_types.h"
 #include "dsp/filtering_functions.h"
 #include "tm4c123gh6pm.h"
 
+#include <math.h>
+#include <stdbool.h>
 #include <stdint.h>
 
+/*******************************************************************************
+Initialization
+********************************************************************************/
+
 /**
- * @brief Initialize the data acquisition module, including the input filter
- * and timer interrupt-based analog-to-digital conversion (ADC) @ \f$ f_s = 200 [Hz] \f$
- *
+ * @brief Initialize the data acquisition module.
  */
 void DAQ_Init(void);
 
