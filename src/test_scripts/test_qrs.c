@@ -36,12 +36,10 @@ Declarations
 enum {               // clang-format off
     ADC_VECTOR_NUM = INT_ADC0SS3,
     DAQ_VECTOR_NUM = INT_CAN0,
-    QRS_VECTOR_NUM = INT_ADC0SS0
 };               // clang-format on
 
 static void ADC_Handler(void);
 static void DAQ_Handler(void);
-static void QRS_Handler(void);
 
 // FIFO Buffers
 enum {
@@ -81,10 +79,6 @@ int main(void) {
     ISR_setPriority(DAQ_VECTOR_NUM, 2);
     ISR_Enable(DAQ_VECTOR_NUM);
 
-    ISR_addToIntTable(QRS_Handler, QRS_VECTOR_NUM);
-    ISR_setPriority(QRS_VECTOR_NUM, 1);
-    ISR_Enable(QRS_VECTOR_NUM);
-
     // Init. FIFOs
     DAQ_Fifo = FIFO_Init(DAQ_Buffer, DAQ_BUFFER_SIZE);
     QRS_Fifo = FIFO_Init(QRS_FifoBuffer, QRS_BUFFER_SIZE);
@@ -99,14 +93,18 @@ int main(void) {
     ISR_GlobalEnable();
     while(1) {
         if(QRS_bufferIsFull == true) {
+            // Transfer samples from FIFO
             ISR_Disable(DAQ_VECTOR_NUM);
 
             FIFO_Flush(QRS_Fifo, (uint32_t *) QRS_InputBuffer);
             QRS_bufferIsFull = false;
 
             ISR_Enable(DAQ_VECTOR_NUM);
-            ISR_triggerInterrupt(QRS_VECTOR_NUM);
 
+            // Run QRS detection
+            Debug_SendMsg("Starting QRS detection...\r\n");
+
+            QRS_Preprocess(QRS_InputBuffer, QRS_OutputBuffer);
             float32_t heartRate_bpm = QRS_ApplyDecisionRules(QRS_OutputBuffer);
             Debug_Assert(isnan(heartRate_bpm) == false);
             Debug_Assert(isinf(heartRate_bpm) == false);
@@ -140,10 +138,4 @@ static void DAQ_Handler(void) {
             QRS_bufferIsFull = true;
         }
     }
-}
-
-static void QRS_Handler(void) {
-    Debug_SendMsg("Starting QRS detection...\r\n");
-
-    QRS_Preprocess(QRS_InputBuffer, QRS_OutputBuffer);
 }
