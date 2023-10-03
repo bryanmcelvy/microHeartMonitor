@@ -108,17 +108,22 @@ void ISR_setPriority(const uint8_t vectorNum, const uint8_t priority) {
     switch((interruptBitNum % 4)) {
         case 0:
             *priorityRegisterPtr |= (priority << 5);
+            Assert(*priorityRegisterPtr & (priority << 5));
             break;
+
         case 1:
             *priorityRegisterPtr |= (priority << 13);
+            Assert(*priorityRegisterPtr & (priority << 13));
             break;
 
         case 2:
             *priorityRegisterPtr |= (priority << 21);
+            Assert(*priorityRegisterPtr & (priority << 21));
             break;
 
         case 3:
             *priorityRegisterPtr |= (priority << 29);
+            Assert(*priorityRegisterPtr & (priority << 29));
             break;
     }
 
