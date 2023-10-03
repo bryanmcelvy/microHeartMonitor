@@ -74,17 +74,14 @@ static const float32_t FILT_COEFFS[NUM_FILT_COEFFS] = {
     1.994096040725708f, -0.9943605065345764f, 
 };
 // clang-format on
-
-static filt_t filterStruct = { 0 };
-static filt_t * const filter = &filterStruct;
 static float32_t stateBuffer[STATE_BUFF_SIZE];
+static const filt_t filterStruct = { NUM_FILT_STAGES, stateBuffer, FILT_COEFFS };
+static filt_t * const filter = &filterStruct;
 
 /******************************************************************************
 Functions
 *******************************************************************************/
 void DAQ_Init(void) {
-
-    arm_biquad_cascade_df1_init_f32(filter, NUM_FILT_STAGES, FILT_COEFFS, stateBuffer);
 
     ADC_Init();
 
