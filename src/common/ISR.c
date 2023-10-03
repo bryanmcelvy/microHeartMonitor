@@ -25,6 +25,8 @@ Preprocessor Directives
 #define NVIC_PRI_BASE_ADDR     (uint32_t) 0xE000E400
 #define NVIC_UNPEND_BASE_ADDR  (uint32_t) 0xE000E280
 
+static void ISR_setStatus(const uint8_t vectorNum, bool isEnabled);
+
 /******************************************************************************
 Global Interrupt Configuration
 *******************************************************************************/
@@ -123,42 +125,33 @@ void ISR_setPriority(const uint8_t vectorNum, const uint8_t priority) {
     return;
 }
 
-void ISR_Enable(const uint8_t vectorNum) {
+static void ISR_setStatus(const uint8_t vectorNum, bool isEnabled) {
     Assert(vectorNum >= 16);
     Assert(vectorNum < VECTOR_TABLE_SIZE);
     uint8_t interruptBitNum = vectorNum - 16;
 
-    // Determine correct enable register to use
+    // Determine correct register to use
     uint8_t registerNum = 0;
     while(interruptBitNum >= ((registerNum + 1) * 32)) {
         registerNum += 1;
     }
-    register_t registerPtr = (register_t) (NVIC_EN_BASE_ADDR + (4 * registerNum));
+    uint32_t REG_BASE_ADDR = (isEnabled) ? NVIC_EN_BASE_ADDR : NVIC_DIS_BASE_ADDR;
+    register_t registerPtr = (register_t) (REG_BASE_ADDR + (4 * registerNum));
 
-    // Enable the ISR
-    interruptBitNum -= registerNum * 32;
+    // Enable/disable the ISR
+    interruptBitNum -= (registerNum * 32);
     *registerPtr |= (1 << interruptBitNum);
 
     return;
 }
 
+void ISR_Enable(const uint8_t vectorNum) {
+    ISR_setStatus(vectorNum, true);
+    return;
+}
+
 void ISR_Disable(const uint8_t vectorNum) {
-    Assert(vectorNum >= 16);
-    Assert(vectorNum < VECTOR_TABLE_SIZE);
-    uint8_t interruptBitNum = vectorNum - 16;
-
-    // Determine correct disable register to use
-    uint8_t registerNum = 0;
-    while(interruptBitNum >= ((registerNum + 1) * 32)) {
-        registerNum += 1;
-    }
-    interruptBitNum = interruptBitNum - (registerNum * 32);
-    register_t registerPtr = (register_t) (NVIC_DIS_BASE_ADDR + (4 * registerNum));
-
-    // Disable the ISR
-    interruptBitNum -= registerNum * 32;
-    *registerPtr |= (1 << interruptBitNum);
-
+    ISR_setStatus(vectorNum, false);
     return;
 }
 
@@ -170,7 +163,7 @@ void ISR_triggerInterrupt(const uint8_t vectorNum) {
     Assert(vectorNum >= 16);
     Assert(vectorNum < VECTOR_TABLE_SIZE);
 
-    NVIC_SW_TRIG_R |= (vectorNum - 16);
+    NVIC_SW_TRIG_R = (NVIC_SW_TRIG_R & ~(0xFF)) | (vectorNum - 16);
     return;
 }
 
