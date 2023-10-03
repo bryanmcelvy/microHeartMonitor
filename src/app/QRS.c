@@ -65,27 +65,7 @@ enum {
     STATE_BUFF_SIZE_MOVAVG = NUM_COEFF_MOVAVG + QRS_NUM_SAMP - 1,
 };
 
-/* IIR Filters */
-typedef arm_biquad_casd_df1_inst_f32 IIR_Filt_t;
-
-static IIR_Filt_t highPassFiltStruct = { 0 };
-static IIR_Filt_t * const highPassFilter = &highPassFiltStruct;
-static float32_t stateBuffer_HighPass[STATE_BUFF_SIZE_HIGHPASS];
-
-static IIR_Filt_t lowPassFiltStruct = { 0 };
-static IIR_Filt_t * const lowPassFilter = &lowPassFiltStruct;
-static float32_t stateBuffer_LowPass[STATE_BUFF_SIZE_LOWPASS];
-
-/* FIR Filters */
-typedef arm_fir_instance_f32 FIR_Filt_t;
-
-static FIR_Filt_t derivativeFiltStruct = { 0 };
-static FIR_Filt_t * const derivativeFilter = &derivativeFiltStruct;
-static float32_t stateBuffer_DerFilt[STATE_BUFF_SIZE_DERFILT];
-
-static FIR_Filt_t movingAvgFiltStruct = { 0 };
-static FIR_Filt_t * const movingAverageFilter = &movingAvgFiltStruct;
-static float32_t stateBuffer_MovingAvg[STATE_BUFF_SIZE_MOVAVG];
+/* Filter Coefficients */
 
 // clang-format off
 static const float32_t COEFF_HIGHPASS[NUM_COEFF_HIGHPASS] = {
@@ -97,7 +77,6 @@ static const float32_t COEFF_HIGHPASS[NUM_COEFF_HIGHPASS] = {
     1.6299355030059814f, -0.7530401945114136f, 
 };
 
-/* Filter Coefficients */
 static const float32_t COEFF_LOWPASS[NUM_COEFF_LOWPASS] = {
     // Section 1
     0.004824343137443066f, 0.009648686274886131f, 0.004824343137443066f, 
@@ -106,7 +85,6 @@ static const float32_t COEFF_LOWPASS[NUM_COEFF_LOWPASS] = {
     1.0f, 2.0f, 1.0f, 
     1.3209134340286255f, -0.6327387690544128f, 
 };
-// clang-format on
 
 static const float32_t COEFF_DERFILT[NUM_COEFF_DERFILT] = { -0.125f, -0.25f, 0.0f, 0.25f, 0.125f };
 
@@ -121,22 +99,35 @@ static const float32_t COEFF_MOVAVG[NUM_COEFF_MOVAVG] = {
     0.03333333507180214f, 0.03333333507180214f
 };
 
+/* IIR Filters */
+typedef arm_biquad_casd_df1_inst_f32 IIR_Filt_t;
+
+static float32_t stateBuffer_HighPass[STATE_BUFF_SIZE_HIGHPASS] = { 0 };
+static const IIR_Filt_t highPassFiltStruct = { NUM_STAGES_HIGHPASS, stateBuffer_HighPass, COEFF_HIGHPASS };
+static IIR_Filt_t * const highPassFilter = &highPassFiltStruct;
+
+static float32_t stateBuffer_LowPass[STATE_BUFF_SIZE_LOWPASS] = { 0 };
+static const IIR_Filt_t lowPassFiltStruct = { NUM_STAGES_LOWPASS, stateBuffer_LowPass, COEFF_LOWPASS };
+static IIR_Filt_t * const lowPassFilter = &lowPassFiltStruct;
+
+/* FIR Filters */
+typedef arm_fir_instance_f32 FIR_Filt_t;
+
+static float32_t stateBuffer_DerFilt[STATE_BUFF_SIZE_DERFILT] = { 0 };
+static const FIR_Filt_t derivativeFiltStruct = { NUM_COEFF_DERFILT, stateBuffer_DerFilt, COEFF_DERFILT };
+static FIR_Filt_t * const derivativeFilter = &derivativeFiltStruct;
+
+static float32_t stateBuffer_MovingAvg[STATE_BUFF_SIZE_MOVAVG] = { 0 };
+static const FIR_Filt_t movingAvgFiltStruct = { NUM_COEFF_MOVAVG, stateBuffer_MovingAvg, COEFF_MOVAVG };
+static FIR_Filt_t * const movingAverageFilter = &movingAvgFiltStruct;
+
+// clang-format on
+
 /*******************************************************************************
 Main Functions
 ********************************************************************************/
 
 void QRS_Init(void) {
-
-    // Initialize filters
-    arm_biquad_cascade_df1_init_f32(highPassFilter, NUM_STAGES_HIGHPASS, COEFF_HIGHPASS,
-                                    stateBuffer_HighPass);
-    arm_biquad_cascade_df1_init_f32(lowPassFilter, NUM_STAGES_LOWPASS, COEFF_LOWPASS,
-                                    stateBuffer_LowPass);
-    arm_fir_init_f32(derivativeFilter, NUM_COEFF_DERFILT, COEFF_DERFILT, stateBuffer_DerFilt,
-                     QRS_NUM_SAMP);
-    arm_fir_init_f32(movingAverageFilter, NUM_COEFF_MOVAVG, COEFF_MOVAVG, stateBuffer_MovingAvg,
-                     QRS_NUM_SAMP);
-
     return;
 }
 
@@ -147,14 +138,20 @@ void QRS_Preprocess(float32_t inputBuffer[], float32_t outputBuffer[]) {
     arm_biquad_cascade_df1_f32(highPassFilter, inputBuffer, outputBuffer, QRS_NUM_SAMP);
 
     // low-pass filter
-    arm_biquad_cascade_df1_f32(lowPassFilter, outputBuffer, inputBuffer, QRS_NUM_SAMP);
+    for(uint16_t idx = 0; idx < QRS_NUM_SAMP; idx++) {
+        inputBuffer[idx] = outputBuffer[idx];
+    }
+    arm_biquad_cascade_df1_f32(lowPassFilter, inputBuffer, outputBuffer, QRS_NUM_SAMP);
 
     // derivative filter
+    for(uint16_t idx = 0; idx < QRS_NUM_SAMP; idx++) {
+        inputBuffer[idx] = outputBuffer[idx];
+    }
     arm_fir_f32(derivativeFilter, inputBuffer, outputBuffer, QRS_NUM_SAMP);
 
     // square
     for(uint16_t n = 0; n < QRS_NUM_SAMP; n++) {
-        inputBuffer[n] = outputBuffer[n] * outputBuffer[n];
+        inputBuffer[n] = inputBuffer[n] * inputBuffer[n];
     }
 
     // moving-average filter (i.e. integrate)
