@@ -26,9 +26,9 @@ Preprocessor Directives
 Static Function Declarations
 ********************************************************************************/
 
-static uint8_t QRS_FindFiducialMarks(float32_t preprocessedData[], int16_t fidMarkArray[]);
-static void QRS_InitLevels(float32_t preprocessedData[]);
-static float32_t QRS_UpdateLevel(float32_t peakAmplitude, float32_t level);
+static uint8_t QRS_findFiducialMarks(float32_t preprocessedData[], uint16_t fidMarkArray[]);
+static void QRS_initLevels(float32_t preprocessedData[]);
+static float32_t QRS_updateLevel(float32_t peakAmplitude, float32_t level);
 static float32_t QRS_UpdateThreshold(void);
 
 /*******************************************************************************
@@ -42,7 +42,7 @@ static struct {
     float32_t noiseLevel;
     float32_t threshold;
 
-    int16_t fidMarkArray[QRS_NUM_FID_MARKS];
+    uint16_t fidMarkArray[QRS_NUM_FID_MARKS];
 } Detector;
 
 enum {
@@ -165,25 +165,25 @@ float32_t QRS_ApplyDecisionRules(float32_t inputBuffer[]) {
 
     // calibrate detector on first pass
     if(Detector.isCalibrated == false) {
-        QRS_InitLevels(inputBuffer);
+        QRS_initLevels(inputBuffer);
         Detector.threshold = QRS_UpdateThreshold();
         Detector.isCalibrated = true;
     }
 
     // classify points and update levels/threshold as needed
-    uint8_t numMarks = QRS_FindFiducialMarks(inputBuffer, Detector.fidMarkArray);
+    uint8_t numMarks = QRS_findFiducialMarks(inputBuffer, Detector.fidMarkArray);
 
     uint16_t sumPeakIdx = 0;
     uint16_t numPeaks = 0;
     for(uint16_t idx = 0; idx < numMarks; idx++) {
-        int16_t n = Detector.fidMarkArray[idx];
+        uint16_t n = Detector.fidMarkArray[idx];
         if(inputBuffer[n] > Detector.threshold) {
-            Detector.signalLevel = QRS_UpdateLevel(inputBuffer[n], Detector.signalLevel);
+            Detector.signalLevel = QRS_updateLevel(inputBuffer[n], Detector.signalLevel);
             sumPeakIdx += n;
             numPeaks += 1;
         }
         else {
-            Detector.noiseLevel = QRS_UpdateLevel(inputBuffer[n], Detector.noiseLevel);
+            Detector.noiseLevel = QRS_updateLevel(inputBuffer[n], Detector.noiseLevel);
         }
 
         Detector.threshold = QRS_UpdateThreshold();
@@ -206,29 +206,34 @@ float32_t QRS_RunDetection(float32_t inputBuffer[], float32_t outputBuffer[]) {
 Static Function Definitions
 ********************************************************************************/
 
-static uint8_t QRS_FindFiducialMarks(float32_t preprocData[], int16_t fidMarkArray[]) {
-    /**
-     * This function marks local peaks in  the input signal as potential QRS
-     * candidates. The fiducial marks must be spaced apart by at least 200 [ms]
-     * (40 samples @ fs = 200 [Hz] ). If a peak is found within this range, the
-     * one with the largest amplitude is taken to be the correct peak and the other
-     * is ignored.
-     */
-
-    uint8_t numMarks = 0;
-    uint16_t n_prevMark = 0;
-    uint16_t countSincePrev = 1;
+/**
+ * @brief                   Mark local peaks in the input signal `y` as potential
+ *                          candidates for QRS complexes (AKA "fiducial marks").
+ *
+ * @param[in] yn            Array containing the preprocessed ECG signal \f$ y[n] \f$
+ * @param[in] fidMarkArray  Array to place the fiducial mark's sample indices into.
+ * @param[out] uint8_t      Number of identified fiducial marks
+ */
+static uint8_t QRS_findFiducialMarks(float32_t yn[], uint16_t fidMarkArray[]) {
+    uint8_t numMarks = 0;                      // running counter of peak candidates
+    uint16_t countSincePrev = 1;               // samples checked since previous peak candidate
+    uint16_t n_prevMark = 0;                   // sample number of previous peak candidate
 
     for(uint8_t i = 0; i < QRS_NUM_FID_MARKS; i++) {
         fidMarkArray[i] = 0;
     }
 
-    for(int16_t n = 1; n < (QRS_NUM_SAMP - 1); n++) {
-        // Verify that sample [n] is a peak
-        if((preprocData[n] > preprocData[n - 1]) && (preprocData[n] > preprocData[n + 1])) {
-            // Verify that the peak appears ≥40 samples (200 [ms]) after previous mark
+    for(uint16_t n = 1; n < (QRS_NUM_SAMP - 1); n++) {
+        if(IS_PEAK(yn[n - 1], yn[n], yn[n + 1])) {               // Verify `y[n]` is a peak
+            /**
+             * The fiducial marks must be spaced apart by at least 200 [ms] (40 samples
+             * @ fs = 200 [Hz]). If a peak is found within this range, the one with the
+             * largest amplitude is taken to be the correct peak and the other is ignored.
+             */
             if(countSincePrev >= 40) {
-                fidMarkArray[numMarks++] = n;
+                fidMarkArray[numMarks] = n;
+                numMarks += 1;
+
                 n_prevMark = n;
                 countSincePrev = 0;
             }
@@ -252,26 +257,46 @@ static uint8_t QRS_FindFiducialMarks(float32_t preprocData[], int16_t fidMarkArr
     return numMarks;
 }
 
-static void QRS_InitLevels(float32_t preprocessedData[]) {
-    float32_t mean, max;
-    uint32_t max_idx;
+/**
+ * @brief                       Initialize the signal and noise levels for the QRS detector.
+ *
+ * @param[in] yn                Array containing the preprocessed ECG signal \f$ y[n] \f$
+ */
+static void QRS_initLevels(float32_t yn[]) {
+    float32_t mean;
+    float32_t max;
+    uint32_t maxIdx;
 
-    arm_max_f32(preprocessedData, QRS_NUM_SAMP, &max, &max_idx);
+    arm_max_f32(yn, QRS_NUM_SAMP, &max, &maxIdx);
     Detector.signalLevel = 0.25f * max;
 
-    arm_mean_f32(preprocessedData, QRS_NUM_SAMP, &mean);
+    arm_mean_f32(yn, QRS_NUM_SAMP, &mean);
     Detector.noiseLevel = 0.5f * mean;
 
     return;
 }
 
-static float32_t QRS_UpdateLevel(float32_t peakAmplitude, float32_t level) {
-    return (float32_t) ((0.125 * peakAmplitude) + (0.875 * level));
+/**
+ * @brief                       Update signal or noise level based on a confirmed peak's amplitude.
+ *
+ * @param[in] peakAmplitude     Amplitude of the peak in signal \f$y[n]\f$
+ * @param[in] level             The current value of the signal level or noise level
+ * @param[out] float32_t        The updated value of the signal level or noise level
+ */
+static float32_t QRS_updateLevel(float32_t peakAmplitude, float32_t level) {
+    return ((0.125f * peakAmplitude) + (0.875f * level));
 }
 
+/**
+ * @brief                       Update the amplitude threshold used to identify peaks based on the
+ *                              signal and noise levels.
+ *
+ *                              \f$ threshold = f(signalLevel, noiseLevel) \f$
+ *
+ * @param[out] float32_t        New threshold
+ */
 static float32_t QRS_UpdateThreshold(void) {
-    return (float32_t) (Detector.noiseLevel +
-                        (0.25 * (Detector.signalLevel - Detector.noiseLevel)));
+    return (Detector.noiseLevel + (0.25f * (Detector.signalLevel - Detector.noiseLevel)));
 }
 
 /** @} */               // qrs
