@@ -140,7 +140,7 @@ float32_t DAQ_BandpassFilter(volatile float32_t inputSample) {
     float32_t outputSample = 0;
     float32_t * outputPtr = &outputSample;
 
-    arm_biquad_cascade_df1_f32(notchFilter, inputPtr, outputPtr, 1);
+    arm_biquad_cascade_df1_f32(bandpassFilter, inputPtr, outputPtr, 1);
     Assert(isinf(outputSample) == false);
     Assert(isnan(outputSample) == false);
 
