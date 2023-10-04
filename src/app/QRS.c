@@ -8,6 +8,14 @@
  */
 
 /*******************************************************************************
+SECTIONS
+        Static Declarations
+        Digital Filters
+        Main Functions
+        Static Function Definitions
+********************************************************************************/
+
+/*******************************************************************************
 Preprocessor Directives
 ********************************************************************************/
 
@@ -28,7 +36,7 @@ Preprocessor Directives
 #define IS_PEAK(X_MINUS_1, X, X_PLUS_1) (bool) (IS_GREATER(X, X_MINUS_1) && IS_GREATER(X, X_PLUS_1))
 
 /*******************************************************************************
-Static Function Declarations
+Static Declarations
 ********************************************************************************/
 
 static uint8_t QRS_findFiducialMarks(float32_t preprocessedData[], uint16_t fidMarkArray[]);
@@ -47,9 +55,9 @@ static struct {
     float32_t noiseLevel;
     float32_t threshold;
 
-    uint16_t fidMarkArray[QRS_NUM_FID_MARKS];
-    float32_t buffer[QRS_NUM_SAMP];
-} Detector = { false, 0.0f, 0.0f, 0.0f, { 0 }, { 0 } };
+/*******************************************************************************
+Digital Filters
+********************************************************************************/
 
 enum {
     // High Pass Filter
