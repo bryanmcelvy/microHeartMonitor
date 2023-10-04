@@ -35,27 +35,56 @@ Functions
 void QRS_Init(void);
 
 /**
- * @brief                   Preprocess the raw ECG data.
+ * @brief                   Preprocess the ECG data to remove noise and/or
+ *                          exaggerate the signal characteristic(s) of interest.
  *
+ * @pre                     Fill `inputBuffer` with raw or lightly preprocessed
+ *                          ECG data.
+ *
+ * @param[in] xn            Array of raw ECG signal values.
+ * @param[in] yn            Array used to hold preprocessed ECG signal values.
+ *
+ * @post                    `yn` will contain the preprocessed data,
+ *                          which is ready to be analyzed to calculate HR.
+ *
+ * @see                     QRS_applyDecisionRules()
  */
 void QRS_Preprocess(const float32_t xn[], float32_t yn[]);
 
 /**
- * @brief                   Apply decision rules to the data.
+ * @brief                   Calculate the average heart rate (HR) using
+ *                          predetermined decision rules.
  *
- * @param[in] inputBuffer   Array of preprocessed ECG signal values.
+ * @pre                     Preprocess the raw ECG data.
+ *
+ * @param[in] yn            Array of preprocessed ECG signal values.
  * @param[out] float32_t    Average heart rate in [bpm].
+ *
+ * @post                    Certain information (signal/noise levels, thresholds, etc.)
+ *                          is retained between calls.
+ *
+ * @see                     QRS_Preprocess()
  */
-float32_t QRS_ApplyDecisionRules(float32_t inputBuffer[]);
+float32_t QRS_applyDecisionRules(const float32_t yn[]);
 
 /**
- * @brief                   Run the full algorithm on the inputted ECG data.
+ * @brief                   Run the full algorithm (preprocessing and decision rules)
+ *                          on the inputted ECG data.
  *
- * @param[in] inputBuffer   Array of raw ECG signal values.
- * @param[in] outputBuffer  Array of preprocessed ECG signal values.
+ *                          This function simply combines the preprocessing and
+ *                          decision rules functions into a single function.
+ *
+ * @param[in] xn            Array of raw ECG signal values.
+ * @param[in] yn            Array used to hold preprocessed ECG signal values.
  * @param[out] float32_t    Average heart rate in [bpm].
+ *
+ * @post                    `yn` will contain the preprocessed data.
+ * @post                    Certain information (signal/noise levels, thresholds, etc.)
+ *                          is retained between calls.
+ *
+ * @see                     QRS_Preprocess(), QRS_applyDecisionRules()
  */
-float32_t QRS_RunDetection(float32_t inputBuffer[], float32_t outputBuffer[]);
+float32_t QRS_runDetection(const float32_t xn[], float32_t yn[]);
 
 #endif               // QRS_H
 

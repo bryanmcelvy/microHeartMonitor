@@ -175,30 +175,30 @@ void QRS_Preprocess(const float32_t xn[], float32_t yn[]) {
     return;
 }
 
-float32_t QRS_ApplyDecisionRules(float32_t inputBuffer[]) {
+float32_t QRS_applyDecisionRules(const float32_t yn[]) {
     // TODO: Write implementation explanation
 
     // calibrate detector on first pass
     if(Detector.isCalibrated == false) {
-        QRS_initLevels(inputBuffer);
+        QRS_initLevels(yn);
         Detector.threshold = QRS_UpdateThreshold();
         Detector.isCalibrated = true;
     }
 
     // classify points and update levels/threshold as needed
-    uint8_t numMarks = QRS_findFiducialMarks(inputBuffer, Detector.fidMarkArray);
+    uint8_t numMarks = QRS_findFiducialMarks(yn, Detector.fidMarkArray);
 
     uint16_t sumPeakIdx = 0;
     uint16_t numPeaks = 0;
     for(uint16_t idx = 0; idx < numMarks; idx++) {
         uint16_t n = Detector.fidMarkArray[idx];
-        if(IS_GREATER(inputBuffer[n], Detector.threshold)) {
-            Detector.signalLevel = QRS_updateLevel(inputBuffer[n], Detector.signalLevel);
+        if(IS_GREATER(yn[n], Detector.threshold)) {
+            Detector.signalLevel = QRS_updateLevel(yn[n], Detector.signalLevel);
             sumPeakIdx += n;
             numPeaks += 1;
         }
         else {
-            Detector.noiseLevel = QRS_updateLevel(inputBuffer[n], Detector.noiseLevel);
+            Detector.noiseLevel = QRS_updateLevel(yn[n], Detector.noiseLevel);
         }
 
         Detector.threshold = QRS_UpdateThreshold();
@@ -210,9 +210,9 @@ float32_t QRS_ApplyDecisionRules(float32_t inputBuffer[]) {
     return avgHeartRate_bpm;
 }
 
-float32_t QRS_RunDetection(float32_t inputBuffer[], float32_t outputBuffer[]) {
-    QRS_Preprocess(inputBuffer, outputBuffer);
-    float32_t heartRate_bpm = QRS_ApplyDecisionRules(outputBuffer);
+float32_t QRS_runDetection(const float32_t xn[], float32_t yn[]) {
+    QRS_Preprocess(xn, yn);
+    float32_t heartRate_bpm = QRS_applyDecisionRules(yn);
 
     return heartRate_bpm;
 }
@@ -272,18 +272,20 @@ static uint8_t QRS_findFiducialMarks(float32_t yn[], uint16_t fidMarkArray[]) {
 }
 
 /**
- * @brief                       Initialize the signal and noise levels for the QRS detector.
+ * @brief                       Initialize the signal and noise levels for the QRS detector
+ *                              using the initial block of input signal data.
  *
  * @param[in] yn                Array containing the preprocessed ECG signal \f$ y[n] \f$
+ *
+ * @post                        The detector's signal and noise levels are initialized.
  */
 static void QRS_initLevels(float32_t yn[]) {
-    float32_t mean;
     float32_t max;
     uint32_t maxIdx;
-
     arm_max_f32(yn, QRS_NUM_SAMP, &max, &maxIdx);
     Detector.signalLevel = 0.25f * max;
 
+    float32_t mean;
     arm_mean_f32(yn, QRS_NUM_SAMP, &mean);
     Detector.noiseLevel = 0.5f * mean;
 
@@ -295,7 +297,7 @@ static void QRS_initLevels(float32_t yn[]) {
  *
  * @param[in] peakAmplitude     Amplitude of the peak in signal \f$y[n]\f$
  * @param[in] level             The current value of the signal level or noise level
- * @param[out] float32_t        The updated value of the signal level or noise level
+ * @param[out] newLevel         The updated value of the signal level or noise level
  */
 static float32_t QRS_updateLevel(float32_t peakAmplitude, float32_t level) {
     return ((0.125f * peakAmplitude) + (0.875f * level));
@@ -305,11 +307,14 @@ static float32_t QRS_updateLevel(float32_t peakAmplitude, float32_t level) {
  * @brief                       Update the amplitude threshold used to identify peaks based on the
  *                              signal and noise levels.
  *
- *                              \f$ threshold = f(signalLevel, noiseLevel) \f$
- *
- * @param[out] float32_t        New threshold
+ * @param[out] threshold        New threshold to use for next comparison.
  */
 static float32_t QRS_UpdateThreshold(void) {
+    /**
+     * \f$
+     * threshold = f(signalLevel, noiseLevel) = noiseLevel + 0.25(signalLevel - noiseLevel)
+     * \f$
+     */
     return (Detector.noiseLevel + (0.25f * (Detector.signalLevel - Detector.noiseLevel)));
 }
 
