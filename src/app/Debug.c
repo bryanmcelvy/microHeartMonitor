@@ -13,7 +13,8 @@
 static const char * const MSG_LIST[] = {
     "Data acquisition module initialized.\r\n", 
     "QRS detection module initialized.\r\n",
-    "LCD module initialized.\r\n", 
+    "LCD module initialized.\r\n",
+    "Starting QRS detection...\r\n"
 };
 // clang-format on
 
