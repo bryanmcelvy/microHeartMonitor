@@ -8,21 +8,15 @@
 Preprocessor Directives
 ******************************************************************************/
 
-// Application Software
 #include "DAQ.h"
 #include "Debug.h"
 #include "QRS.h"
 
-// Drivers
-#include "ADC.h"
 #include "PLL.h"
 
-// Common
 #include "FIFO.h"
 #include "ISR.h"
-#include "lookup.h"
 
-// Other
 #include "arm_math_types.h"
 #include <math.h>
 #include <stdbool.h>
@@ -72,11 +66,11 @@ int main(void) {
     ISR_InitNewTableInRam();
 
     ISR_addToIntTable(ADC_Handler, ADC_VECTOR_NUM);
-    ISR_setPriority(ADC_VECTOR_NUM, 0);
+    ISR_setPriority(ADC_VECTOR_NUM, 1);
     ISR_Enable(ADC_VECTOR_NUM);
 
     ISR_addToIntTable(DAQ_Handler, DAQ_VECTOR_NUM);
-    ISR_setPriority(DAQ_VECTOR_NUM, 0);
+    ISR_setPriority(DAQ_VECTOR_NUM, 1);
     ISR_Enable(DAQ_VECTOR_NUM);
 
     // Init. FIFOs
@@ -105,7 +99,7 @@ int main(void) {
             Debug_SendMsg("Starting QRS detection...\r\n");
 
             QRS_Preprocess(QRS_InputBuffer, QRS_OutputBuffer);
-            float32_t heartRate_bpm = QRS_ApplyDecisionRules(QRS_OutputBuffer);
+            float32_t heartRate_bpm = QRS_applyDecisionRules(QRS_OutputBuffer);
             Debug_Assert(isnan(heartRate_bpm) == false);
             Debug_Assert(isinf(heartRate_bpm) == false);
             Debug_WriteFloat(heartRate_bpm);
