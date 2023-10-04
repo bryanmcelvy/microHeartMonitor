@@ -48,7 +48,8 @@ static struct {
     float32_t threshold;
 
     uint16_t fidMarkArray[QRS_NUM_FID_MARKS];
-} Detector;
+    float32_t buffer[QRS_NUM_SAMP];
+} Detector = { false, 0.0f, 0.0f, 0.0f, { 0 }, { 0 } };
 
 enum {
     // High Pass Filter
@@ -136,31 +137,40 @@ void QRS_Init(void) {
     return;
 }
 
-void QRS_Preprocess(float32_t inputBuffer[], float32_t outputBuffer[]) {
-    // TODO: Write implementation explanation
+void QRS_Preprocess(const float32_t xn[], float32_t yn[]) {
+    /**
+     * This function uses the same overall preprocessing pipeline as the original Pan-Tompkins
+     * algorithm, but the high-pass and low-pass filters have been replaced with ones generated
+     * using Scipy.
+     */
+
+    // copy samples from `xn` to the detector's utility buffer
+    for(uint16_t n = 0; n < QRS_NUM_SAMP; n++) {
+        Detector.buffer[n] = xn[n];
+    }
 
     // high-pass filter
-    arm_biquad_cascade_df1_f32(highPassFilter, inputBuffer, outputBuffer, QRS_NUM_SAMP);
+    arm_biquad_cascade_df1_f32(highPassFilter, Detector.buffer, yn, QRS_NUM_SAMP);
 
     // low-pass filter
     for(uint16_t idx = 0; idx < QRS_NUM_SAMP; idx++) {
-        inputBuffer[idx] = outputBuffer[idx];
+        Detector.buffer[idx] = yn[idx];
     }
-    arm_biquad_cascade_df1_f32(lowPassFilter, inputBuffer, outputBuffer, QRS_NUM_SAMP);
+    arm_biquad_cascade_df1_f32(lowPassFilter, Detector.buffer, yn, QRS_NUM_SAMP);
 
     // derivative filter
     for(uint16_t idx = 0; idx < QRS_NUM_SAMP; idx++) {
-        inputBuffer[idx] = outputBuffer[idx];
+        Detector.buffer[idx] = yn[idx];
     }
-    arm_fir_f32(derivativeFilter, inputBuffer, outputBuffer, QRS_NUM_SAMP);
+    arm_fir_f32(derivativeFilter, Detector.buffer, yn, QRS_NUM_SAMP);
 
     // square
     for(uint16_t n = 0; n < QRS_NUM_SAMP; n++) {
-        inputBuffer[n] = inputBuffer[n] * inputBuffer[n];
+        Detector.buffer[n] = Detector.buffer[n] * Detector.buffer[n];
     }
 
     // moving-average filter (i.e. integrate)
-    arm_fir_f32(movingAverageFilter, inputBuffer, outputBuffer, QRS_NUM_SAMP);
+    arm_fir_f32(movingAverageFilter, Detector.buffer, yn, QRS_NUM_SAMP);
 
     return;
 }

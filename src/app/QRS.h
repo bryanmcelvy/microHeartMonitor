@@ -37,10 +37,8 @@ void QRS_Init(void);
 /**
  * @brief                   Preprocess the raw ECG data.
  *
- * @param[in] inputBuffer   Array of raw ECG signal values.
- * @param[in] outputBuffer  Array of preprocessed ECG signal values.
  */
-void QRS_Preprocess(float32_t inputBuffer[], float32_t outputBuffer[]);
+void QRS_Preprocess(const float32_t xn[], float32_t yn[]);
 
 /**
  * @brief                   Apply decision rules to the data.
