@@ -151,35 +151,35 @@ void QRS_Preprocess(const float32_t xn[], float32_t yn[]) {
      * This function uses the same overall preprocessing pipeline as the original Pan-Tompkins
      * algorithm, but the high-pass and low-pass filters have been replaced with ones generated
      * using Scipy.
+     *
+     * The inputs and outputs of each step are essentially ping-ponged between the Detector's
+     * utility buffer `Detector.buffer` and the provided output buffer \f$y[n]\f$ to avoid copying
+     * contents from buffer-to-buffer after every filter.
      */
+
+    float32_t * utilityBuffer = Detector.buffer;
 
     // copy samples from `xn` to the detector's utility buffer
     for(uint16_t n = 0; n < QRS_NUM_SAMP; n++) {
-        Detector.buffer[n] = xn[n];
+        utilityBuffer[n] = xn[n];
     }
 
     // high-pass filter
-    arm_biquad_cascade_df1_f32(highPassFilter, Detector.buffer, yn, QRS_NUM_SAMP);
+    arm_biquad_cascade_df1_f32(highPassFilter, utilityBuffer, yn, QRS_NUM_SAMP);
 
     // low-pass filter
-    for(uint16_t idx = 0; idx < QRS_NUM_SAMP; idx++) {
-        Detector.buffer[idx] = yn[idx];
-    }
-    arm_biquad_cascade_df1_f32(lowPassFilter, Detector.buffer, yn, QRS_NUM_SAMP);
+    arm_biquad_cascade_df1_f32(lowPassFilter, yn, utilityBuffer, QRS_NUM_SAMP);
 
     // derivative filter
-    for(uint16_t idx = 0; idx < QRS_NUM_SAMP; idx++) {
-        Detector.buffer[idx] = yn[idx];
-    }
-    arm_fir_f32(derivativeFilter, Detector.buffer, yn, QRS_NUM_SAMP);
+    arm_fir_f32(derivativeFilter, utilityBuffer, yn, QRS_NUM_SAMP);
 
     // square
     for(uint16_t n = 0; n < QRS_NUM_SAMP; n++) {
-        Detector.buffer[n] = Detector.buffer[n] * Detector.buffer[n];
+        utilityBuffer[n] = yn[n] * yn[n];
     }
 
     // moving-average filter (i.e. integrate)
-    arm_fir_f32(movingAverageFilter, Detector.buffer, yn, QRS_NUM_SAMP);
+    arm_fir_f32(movingAverageFilter, utilityBuffer, yn, QRS_NUM_SAMP);
 
     return;
 }
