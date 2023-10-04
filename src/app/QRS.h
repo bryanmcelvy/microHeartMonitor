@@ -58,7 +58,7 @@ void QRS_Preprocess(const float32_t xn[], float32_t yn[]);
  * @pre                     Preprocess the raw ECG data.
  *
  * @param[in] yn            Array of preprocessed ECG signal values.
- * @param[out] float32_t    Average heart rate in [bpm].
+ * @param[out] heartRate    Average heart rate in [bpm].
  *
  * @post                    Certain information (signal/noise levels, thresholds, etc.)
  *                          is retained between calls.
@@ -76,7 +76,7 @@ float32_t QRS_applyDecisionRules(const float32_t yn[]);
  *
  * @param[in] xn            Array of raw ECG signal values.
  * @param[in] yn            Array used to hold preprocessed ECG signal values.
- * @param[out] float32_t    Average heart rate in [bpm].
+ * @param[out] heartRate    Average heart rate in [bpm].
  *
  * @post                    `yn` will contain the preprocessed data.
  * @post                    Certain information (signal/noise levels, thresholds, etc.)

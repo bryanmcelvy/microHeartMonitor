@@ -53,14 +53,14 @@ Configuration
  *
  * @param[in] isOn  `true` to turn display output `ON`, `false` to turn `OFF`
  *
- * @sa              LCD_toggleOutput()
+ * @see             LCD_toggleOutput()
  */
 void LCD_setOutputMode(bool isOn);
 
 /**
  * @brief           Toggle display output `ON` or `OFF` (`OFF` by default).
  *
- * @sa              LCD_setOutputMode()
+ * @see             LCD_setOutputMode()
  */
 void LCD_toggleOutput(void);
 
@@ -69,14 +69,14 @@ void LCD_toggleOutput(void);
  *
  * @param[in] isOn  `true` to invert colors, `false` to use regular colors
  *
- * @sa              LCD_toggleColorInversion(), LCD_setColor(), LCD_setColor_3bit()
+ * @see             LCD_toggleColorInversion(), LCD_setColor(), LCD_setColor_3bit()
  */
 void LCD_setColorInversionMode(bool isOn);
 
 /**
  * @brief           Toggle color inversion `ON` or `OFF` (`OFF` by default).
  *
- * @sa              LCD_setColorInversionMode(), LCD_setColor(), LCD_setColor_3bit()
+ * @see             LCD_setColorInversionMode(), LCD_setColor(), LCD_setColor_3bit()
  */
 void LCD_toggleColorInversion(void);
 
@@ -88,18 +88,18 @@ void LCD_toggleColorInversion(void);
  *
  * @param[in] is_16bit  `true` for 16-bit, `false` for 18b-bit
  *
- * @sa                  LCD_toggleColorDepth(), LCD_setColor(), LCD_setColor_3bit()
+ * @see                 LCD_toggleColorDepth(), LCD_setColor(), LCD_setColor_3bit()
  */
 void LCD_setColorDepth(bool is_16bit);
 
 /**
  * @brief               Toggle 16-bit or 18-bit color depth (16-bit by default).
  *
- * @sa                  LCD_setColorDepth(), LCD_setColor(), LCD_setColor_3bit()
+ * @see                 LCD_setColorDepth(), LCD_setColor(), LCD_setColor_3bit()
  */
 void LCD_toggleColorDepth(void);
 
-///@}
+/// @}
 
 /******************************************************************************
 Drawing Area
@@ -116,7 +116,7 @@ Drawing Area
  * @param y1_new        lowest y-coordinate
  * @param y2_new        highest y-coordinate
  *
- * @sa                  LCD_setX(), LCD_setY()
+ * @see                 LCD_setX(), LCD_setY()
  */
 void LCD_setArea(uint16_t x1_new, uint16_t x2_new, uint16_t y1_new, uint16_t y2_new);
 
@@ -127,7 +127,7 @@ void LCD_setArea(uint16_t x1_new, uint16_t x2_new, uint16_t y1_new, uint16_t y2_
  * @param x1_new        left-most x-coordinate
  * @param x2_new        right-most x-coordinate
  *
- * @sa                  LCD_setY(), LCD_setArea()
+ * @see                 LCD_setY(), LCD_setArea()
  */
 void LCD_setX(uint16_t x1_new, uint16_t x2_new);
 
@@ -138,11 +138,11 @@ void LCD_setX(uint16_t x1_new, uint16_t x2_new);
  * @param y1_new        lowest y-coordinate
  * @param y2_new        highest y-coordinate
  *
- * @sa                  LCD_setX(), LCD_setArea()
+ * @see                 LCD_setX(), LCD_setArea()
  */
 void LCD_setY(uint16_t y1_new, uint16_t y2_new);
 
-///@}
+/// @}
 
 /******************************************************************************
 Color
@@ -159,7 +159,7 @@ Color
  * @param   B_val       5-bit (`[0-31]`) B value;
                         6-bit (`[0-63]`) if color depth is 18-bit
  *
- * @sa                  LCD_setColorDepth(), LCD_toggleColorDepth(), LCD_setColor_3bit()
+ * @see                 LCD_setColorDepth(), LCD_toggleColorDepth(), LCD_setColor_3bit()
  */
 void LCD_setColor(uint8_t R_val, uint8_t G_val, uint8_t B_val);
 
@@ -193,11 +193,11 @@ enum {
  * @param color_code    3-bit color value to use. Bits 2, 1, 0 correspond to
  *                      R, G, and B values, respectively.
  *
- * @sa                  LCD_setColorDepth(), LCD_toggleColorDepth(), LCD_setColor()
+ * @see                 LCD_setColorDepth(), LCD_toggleColorDepth(), LCD_setColor()
  */
 void LCD_setColor_3bit(uint8_t color_code);
 
-///@}
+/// @}
 
 /******************************************************************************
 Drawing
@@ -223,7 +223,7 @@ void LCD_Fill(void);
  * @param yCenter       y-coordinate to center the line on
  * @param lineWidth     width of the line; should be a positive, odd number
  *
- * @sa LCD_drawVertLine, LCD_drawRectangle()
+ * @seeLCD_drawVertLine, LCD_drawRectangle()
  */
 void LCD_drawHoriLine(uint16_t yCenter, uint16_t lineWidth);
 
@@ -233,7 +233,7 @@ void LCD_drawHoriLine(uint16_t yCenter, uint16_t lineWidth);
  * @param xCenter       x-coordinate to center the line on
  * @param lineWidth     width of the line; should be a positive, odd number
  *
- * @sa LCD_drawHoriLine, LCD_drawRectangle()
+ * @seeLCD_drawHoriLine, LCD_drawRectangle()
  */
 void LCD_drawVertLine(uint16_t xCenter, uint16_t lineWidth);
 
@@ -268,7 +268,7 @@ Scrolling
 void LCD_graphSample(uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy, uint16_t y_min,
                      uint16_t y_max, uint16_t color_code);
 
-///@}
+/// @}
 
 /** @} */
 
