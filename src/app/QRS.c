@@ -39,14 +39,10 @@ Preprocessor Directives
 Static Declarations
 ********************************************************************************/
 
-static uint8_t QRS_findFiducialMarks(float32_t preprocessedData[], uint16_t fidMarkArray[]);
-static void QRS_initLevels(float32_t preprocessedData[]);
+static uint8_t QRS_findFiducialMarks(float32_t yn[], int16_t fidMarkArray[]);
+static void QRS_initLevels(const float32_t yn[]);
 static float32_t QRS_updateLevel(float32_t peakAmplitude, float32_t level);
-static float32_t QRS_UpdateThreshold(void);
-
-/*******************************************************************************
-Static Variables
-********************************************************************************/
+static float32_t QRS_updateThreshold(void);
 
 static struct {
     bool isCalibrated;
@@ -54,6 +50,11 @@ static struct {
     float32_t signalLevel;
     float32_t noiseLevel;
     float32_t threshold;
+
+    int16_t fidMarkArray[QRS_NUM_FID_MARKS];               /// array to hold fidMark indices
+    float32_t HR_Array[QRS_NUM_FID_MARKS];                 /// array to hold RR intervals
+    float32_t buffer[QRS_NUM_SAMP];                        /// utility buffer
+} Detector = { false, 0.0f, 0.0f, 0.0f, { 0 }, { 0 }, { 0 } };
 
 /*******************************************************************************
 Digital Filters
@@ -189,7 +190,7 @@ float32_t QRS_applyDecisionRules(const float32_t yn[]) {
     // calibrate detector on first pass
     if(Detector.isCalibrated == false) {
         QRS_initLevels(yn);
-        Detector.threshold = QRS_UpdateThreshold();
+        Detector.threshold = QRS_updateThreshold();
         Detector.isCalibrated = true;
     }
 
@@ -237,7 +238,7 @@ Static Function Definitions
  * @param[in] fidMarkArray  Array to place the fiducial mark's sample indices into.
  * @param[out] uint8_t      Number of identified fiducial marks
  */
-static uint8_t QRS_findFiducialMarks(float32_t yn[], uint16_t fidMarkArray[]) {
+static uint8_t QRS_findFiducialMarks(float32_t yn[], int16_t fidMarkArray[]) {
     uint8_t numMarks = 0;                      // running counter of peak candidates
     uint16_t countSincePrev = 1;               // samples checked since previous peak candidate
     uint16_t n_prevMark = 0;                   // sample number of previous peak candidate
@@ -246,7 +247,7 @@ static uint8_t QRS_findFiducialMarks(float32_t yn[], uint16_t fidMarkArray[]) {
         fidMarkArray[i] = 0;
     }
 
-    for(uint16_t n = 1; n < (QRS_NUM_SAMP - 1); n++) {
+    for(int16_t n = 1; n < (QRS_NUM_SAMP - 1); n++) {
         if(IS_PEAK(yn[n - 1], yn[n], yn[n + 1])) {               // Verify `y[n]` is a peak
             /**
              * The fiducial marks must be spaced apart by at least 200 [ms] (40 samples
@@ -287,7 +288,7 @@ static uint8_t QRS_findFiducialMarks(float32_t yn[], uint16_t fidMarkArray[]) {
  *
  * @post                        The detector's signal and noise levels are initialized.
  */
-static void QRS_initLevels(float32_t yn[]) {
+static void QRS_initLevels(const float32_t yn[]) {
     float32_t max;
     uint32_t maxIdx;
     arm_max_f32(yn, QRS_NUM_SAMP, &max, &maxIdx);
@@ -317,7 +318,7 @@ static float32_t QRS_updateLevel(float32_t peakAmplitude, float32_t level) {
  *
  * @param[out] threshold        New threshold to use for next comparison.
  */
-static float32_t QRS_UpdateThreshold(void) {
+static float32_t QRS_updateThreshold(void) {
     /**
      * \f$
      * threshold = f(signalLevel, noiseLevel) = noiseLevel + 0.25(signalLevel - noiseLevel)
