@@ -61,9 +61,20 @@ static volatile bool QRS_bufferIsFull = false;
 static volatile FIFO_t * LCD_Fifo = 0;
 static volatile uint32_t LCD_FifoBuffer[LCD_BUFFER_SIZE] = { 0 };
 
-// Processing Buffers
+// Processing Buffer
 // NOTE: using just one to avoid running out of RAM
 static volatile float32_t QRS_Buffer[QRS_BUFFER_SIZE] = { 0 };
+
+// LCD Info
+enum {
+    LCD_TOP_LINE = (Y_MAX - 48),
+    LCD_NUM_Y_VALS = 128,
+    LCD_X_AXIS_OFFSET = 0,
+    LCD_Y_MIN = (0 + LCD_X_AXIS_OFFSET),
+    LCD_Y_MAX = (LCD_NUM_Y_VALS + LCD_X_AXIS_OFFSET)
+};
+
+static void LCD_plotNewSample(uint16_t x, volatile const float32_t sample);
 
 /******************************************************************************
 Main
@@ -92,6 +103,7 @@ int main(void) {
     // Init. FIFOs
     DAQ_Fifo = FIFO_Init(DAQ_Buffer, DAQ_BUFFER_SIZE);
     QRS_Fifo = FIFO_Init(QRS_FifoBuffer, QRS_BUFFER_SIZE);
+    LCD_Fifo = FIFO_Init(LCD_FifoBuffer, LCD_BUFFER_SIZE);
 
     // Initialize/configure LCD
     LCD_Init();
@@ -103,6 +115,8 @@ int main(void) {
 
     LCD_setColor_3bit(LCD_RED_INV);
     LCD_toggleOutput();
+
+    Debug_SendFromList(DEBUG_LCD_INIT);
 
     // Init. app. modules
     QRS_Init();
@@ -129,6 +143,8 @@ int main(void) {
             float32_t heartRate_bpm = QRS_applyDecisionRules(QRS_Buffer);
             Debug_Assert(isnan(heartRate_bpm) == false);
             Debug_Assert(isinf(heartRate_bpm) == false);
+
+            // Output heart rate (TODO: Write to LCD)
             Debug_WriteFloat(heartRate_bpm);
         }
     }
@@ -155,34 +171,56 @@ static void DAQ_Handler(void) {
         sample = DAQ_subtractRunningMean(sample);
         sample = DAQ_NotchFilter(sample);
 
+        Debug_Assert(FIFO_isFull(QRS_Fifo) == false);
         FIFO_Put(QRS_Fifo, *((uint32_t *) (&sample)));
         if(FIFO_isFull(QRS_Fifo)) {
             QRS_bufferIsFull = true;
         }
 
         sample = DAQ_BandpassFilter(sample);
+        Debug_Assert(FIFO_isFull(LCD_Fifo) == false);
+        FIFO_Put(LCD_Fifo, *((uint32_t *) (&sample)));
+    }
+
+    if(QRS_bufferIsFull == false) {
+        ISR_triggerInterrupt(LCD_VECTOR_NUM);
     }
 }
 
 static void LCD_Handler(void) {
-    //...
+    static float32_t sampPrev = 0;
+    static uint16_t x = 0;
+
+    Debug_Assert(FIFO_isEmpty(LCD_Fifo) == false);
+
+    while(FIFO_isEmpty(LCD_Fifo) == false) {
+        float32_t sample;
+        *((uint32_t *) &sample) = FIFO_Get(LCD_Fifo);
+
+        float32_t intermediate_sample = sampPrev + ((sample - sampPrev) / 2);
+
+        LCD_plotNewSample(x, intermediate_sample);
+        x = (x + 1) % X_MAX;
+
+        LCD_plotNewSample(x, sample);
+        x = (x + 1) % X_MAX;
+
+        sampPrev = sample;
+    }
 }
 
-/*
-void LCD_plotNewSample(uint16_t x, volatile const float32_t sample) {
-    static float32_t maxVoltage = LOOKUP_DAQ_MAX;
+static void LCD_plotNewSample(uint16_t x, volatile const float32_t sample) {
+    static const float32_t maxVoltage = LOOKUP_DAQ_MAX * 2;
 
     // blank out column
     LCD_setColor_3bit(LCD_BLACK_INV);
     LCD_drawRectangle(x, 1, LCD_Y_MIN, LCD_NUM_Y_VALS, true);
 
     // plot sample
-    maxVoltage = (sample > maxVoltage) ? sample : maxVoltage;
-    uint16_t y = LCD_X_AXIS_OFFSET +
-                 ((uint16_t) (((sample + maxVoltage) / (maxVoltage * 2)) * LCD_NUM_Y_VALS));
+    uint16_t y =
+        LCD_Y_MIN + ((uint16_t) (((sample + maxVoltage) / (maxVoltage * 2)) * LCD_NUM_Y_VALS));
     LCD_setColor_3bit(LCD_RED_INV);
     LCD_drawRectangle(x, 1, y, 1, true);
 
     return;
 }
-*/
