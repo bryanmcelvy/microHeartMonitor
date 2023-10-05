@@ -183,7 +183,7 @@ float32_t QRS_applyDecisionRules(const float32_t yn[]) {
         int16_t n = fidMarkArray[idx];
 
         if(IS_GREATER(yn[n], threshold)) {
-            timeBuffer[numPeaks] = n / ((float32_t) QRS_SAMP_FREQ);
+            timeBuffer[numPeaks] = n * QRS_SAMP_PERIOD_SEC;
             numPeaks += 1;
 
             signalLevel = QRS_updateLevel(yn[n], signalLevel);
