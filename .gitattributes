@@ -1,0 +1,1 @@
+*.ipynb -linguist-detectable # Jupyter Notebooks are NOT 70% of the repo, but will show up as such without this
