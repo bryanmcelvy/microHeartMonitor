@@ -223,6 +223,27 @@ Static Function Definitions
 ********************************************************************************/
 
 /**
+ * @brief                       Initialize the signal and noise levels for the QRS detector
+ *                              using the initial block of input signal data.
+ *
+ * @param[in] yn                Array containing the preprocessed ECG signal \f$ y[n] \f$
+ *
+ * @post                        The detector's signal and noise levels are initialized.
+ */
+static void QRS_initLevels(const float32_t yn[]) {
+    float32_t max;
+    uint32_t maxIdx;
+    arm_max_f32(yn, QRS_SAMP_FREQ * 2, &max, &maxIdx);
+    Detector.signalLevel = 0.25f * max;
+
+    float32_t mean;
+    arm_mean_f32(yn, QRS_SAMP_FREQ * 2, &mean);
+    Detector.noiseLevel = 0.5f * mean;
+
+    return;
+}
+
+/**
  * @brief                   Mark local peaks in the input signal `y` as potential
  *                          candidates for QRS complexes (AKA "fiducial marks").
  *
@@ -270,27 +291,6 @@ static uint8_t QRS_findFiducialMarks(float32_t yn[], uint16_t fidMarkArray[]) {
     }
 
     return numMarks;
-}
-
-/**
- * @brief                       Initialize the signal and noise levels for the QRS detector
- *                              using the initial block of input signal data.
- *
- * @param[in] yn                Array containing the preprocessed ECG signal \f$ y[n] \f$
- *
- * @post                        The detector's signal and noise levels are initialized.
- */
-static void QRS_initLevels(const float32_t yn[]) {
-    float32_t max;
-    uint32_t maxIdx;
-    arm_max_f32(yn, QRS_NUM_SAMP, &max, &maxIdx);
-    Detector.signalLevel = 0.25f * max;
-
-    float32_t mean;
-    arm_mean_f32(yn, QRS_NUM_SAMP, &mean);
-    Detector.noiseLevel = 0.5f * mean;
-
-    return;
 }
 
 /**
