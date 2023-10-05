@@ -52,8 +52,8 @@ static struct {
     float32_t threshold;
 
     int16_t fidMarkArray[QRS_NUM_FID_MARKS];               /// array to hold fidMark indices
-    float32_t HR_Array[QRS_NUM_FID_MARKS];                 /// array to hold RR intervals
-    float32_t buffer[QRS_NUM_SAMP];                        /// utility buffer
+    float32_t utilityBuffer1[QRS_NUM_FID_MARKS];
+    float32_t utilityBuffer2[QRS_NUM_FID_MARKS];
 } Detector = { false, 0.0f, 0.0f, 0.0f, { 0 }, { 0 }, { 0 } };
 
 /*******************************************************************************
@@ -132,32 +132,25 @@ void QRS_Preprocess(const float32_t xn[], float32_t yn[]) {
      * This function uses the same overall preprocessing pipeline as the original Pan-Tompkins
      * algorithm, but the high-pass and low-pass filters have been replaced with ones generated
      * using Scipy.
-     *
-     * The inputs and outputs of each step are essentially ping-ponged between the Detector's
-     * utility buffer `Detector.buffer` and the provided output buffer \f$y[n]\f$ to avoid copying
-     * contents from buffer-to-buffer after every filter.
      */
 
-    float32_t * utilityBuffer = Detector.buffer;
-
-    // copy samples from `xn` to the detector's utility buffer
-    for(uint16_t n = 0; n < QRS_NUM_SAMP; n++) {
-        yn[n] = xn[n];
+    // copy samples from input buffer `xn` to output buffer `yn`
+    if(((uint32_t) &xn[0]) != ((uint32_t) &yn[0])) {               // skip if they're the same
+        for(uint16_t n = 0; n < QRS_NUM_SAMP; n++) {
+            yn[n] = xn[n];
+        }
     }
 
-    // bandpass filter
-    arm_biquad_cascade_df1_f32(bandpassFilter, yn, utilityBuffer, QRS_NUM_SAMP);
+    arm_biquad_cascade_df1_f32(bandpassFilter, yn, yn, QRS_NUM_SAMP);
 
-    // derivative filter
-    arm_fir_f32(derivativeFilter, utilityBuffer, yn, QRS_NUM_SAMP);
+    arm_fir_f32(derivativeFilter, yn, yn, QRS_NUM_SAMP);
 
     // square
     for(uint16_t n = 0; n < QRS_NUM_SAMP; n++) {
-        utilityBuffer[n] = yn[n] * yn[n];
+        yn[n] = yn[n] * yn[n];
     }
 
-    // moving-average filter (i.e. integrate)
-    arm_fir_f32(movingAverageFilter, utilityBuffer, yn, QRS_NUM_SAMP);
+    arm_fir_f32(movingAverageFilter, yn, yn, QRS_NUM_SAMP);
 
     return;
 }
@@ -176,14 +169,18 @@ float32_t QRS_applyDecisionRules(const float32_t yn[]) {
     float32_t signalLevel = Detector.signalLevel;
     float32_t noiseLevel = Detector.noiseLevel;
     float32_t threshold = Detector.threshold;
-    float32_t * timeBuffer = Detector.buffer;               // time in [s] of each peak
+
+    int16_t * fidMarkArray = Detector.fidMarkArray;
+
+    float32_t * timeBuffer = Detector.utilityBuffer1;               // time in [s] of each peak
+    float32_t * heartRateBuffer = Detector.utilityBuffer2;
 
     // classify fiducial marks as signal (confirmed R peaks) or noise
-    uint8_t numMarks = QRS_findFiducialMarks(yn, Detector.fidMarkArray);
+    uint8_t numMarks = QRS_findFiducialMarks(yn, fidMarkArray);
     uint8_t numPeaks = 0;
 
     for(uint8_t idx = 0; idx < numMarks; idx++) {
-        int16_t n = Detector.fidMarkArray[idx];
+        int16_t n = fidMarkArray[idx];
 
         if(IS_GREATER(yn[n], threshold)) {
             timeBuffer[numPeaks] = n / ((float32_t) QRS_SAMP_FREQ);
@@ -198,18 +195,18 @@ float32_t QRS_applyDecisionRules(const float32_t yn[]) {
         threshold = QRS_updateThreshold();
     }
 
-    // calculate RR interval and convert to HR
-    for(uint8_t idx = 0; idx < (numPeaks - 1); idx++) {
-        Detector.HR_Array[idx] = 60.0f / (timeBuffer[idx + 1] - timeBuffer[idx]);
-    }
-
-    float32_t avgHeartRate_bpm;
-    arm_mean_f32(Detector.HR_Array, numPeaks, &avgHeartRate_bpm);
-
     // store updated values in `Detector`
     Detector.signalLevel = signalLevel;
     Detector.noiseLevel = noiseLevel;
     Detector.threshold = threshold;
+
+    // calculate RR interval and convert to HR
+    for(uint8_t idx = 0; idx < (numPeaks - 1); idx++) {
+        heartRateBuffer[idx] = 60.0f / (timeBuffer[idx + 1] - timeBuffer[idx]);
+    }
+
+    float32_t avgHeartRate_bpm;
+    arm_mean_f32(heartRateBuffer, numPeaks, &avgHeartRate_bpm);
 
     return avgHeartRate_bpm;
 }
