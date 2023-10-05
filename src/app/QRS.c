@@ -172,27 +172,44 @@ float32_t QRS_applyDecisionRules(const float32_t yn[]) {
         Detector.isCalibrated = true;
     }
 
-    // classify points and update levels/threshold as needed
-    uint8_t numMarks = QRS_findFiducialMarks(yn, Detector.fidMarkArray);
+    // copy variables from `Detector` for readability
+    float32_t signalLevel = Detector.signalLevel;
+    float32_t noiseLevel = Detector.noiseLevel;
+    float32_t threshold = Detector.threshold;
+    float32_t * timeBuffer = Detector.buffer;               // time in [s] of each peak
 
-    uint16_t sumPeakIdx = 0;
-    uint16_t numPeaks = 0;
-    for(uint16_t idx = 0; idx < numMarks; idx++) {
-        uint16_t n = Detector.fidMarkArray[idx];
-        if(IS_GREATER(yn[n], Detector.threshold)) {
-            Detector.signalLevel = QRS_updateLevel(yn[n], Detector.signalLevel);
-            sumPeakIdx += n;
+    // classify fiducial marks as signal (confirmed R peaks) or noise
+    uint8_t numMarks = QRS_findFiducialMarks(yn, Detector.fidMarkArray);
+    uint8_t numPeaks = 0;
+
+    for(uint8_t idx = 0; idx < numMarks; idx++) {
+        int16_t n = Detector.fidMarkArray[idx];
+
+        if(IS_GREATER(yn[n], threshold)) {
+            timeBuffer[numPeaks] = n / ((float32_t) QRS_SAMP_FREQ);
             numPeaks += 1;
+
+            signalLevel = QRS_updateLevel(yn[n], signalLevel);
         }
         else {
-            Detector.noiseLevel = QRS_updateLevel(yn[n], Detector.noiseLevel);
+            noiseLevel = QRS_updateLevel(yn[n], noiseLevel);
         }
 
-        Detector.threshold = QRS_UpdateThreshold();
+        threshold = QRS_updateThreshold();
     }
 
-    // take average and convert to [bpm]
-    float32_t avgHeartRate_bpm = (numPeaks / (float32_t) sumPeakIdx) * QRS_SAMP_FREQ * 60;
+    // calculate RR interval and convert to HR
+    for(uint8_t idx = 0; idx < (numPeaks - 1); idx++) {
+        Detector.HR_Array[idx] = 60.0f / (timeBuffer[idx + 1] - timeBuffer[idx]);
+    }
+
+    float32_t avgHeartRate_bpm;
+    arm_mean_f32(Detector.HR_Array, numPeaks, &avgHeartRate_bpm);
+
+    // store updated values in `Detector`
+    Detector.signalLevel = signalLevel;
+    Detector.noiseLevel = noiseLevel;
+    Detector.threshold = threshold;
 
     return avgHeartRate_bpm;
 }
