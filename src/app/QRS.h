@@ -24,8 +24,8 @@ Preprocessor Directives
 #include <stdbool.h>
 #include <stdint.h>
 
-#define QRS_SAMP_FREQ 200                               // [Hz]
-#define QRS_NUM_SAMP  (uint16_t)(1 << 10)               // num. samples to process
+#define QRS_SAMP_FREQ       ((uint32_t) 200)                  // [Hz]
+#define QRS_NUM_SAMP        ((uint16_t) (1300))               // num. samples to process
 
 /*******************************************************************************
 Functions
