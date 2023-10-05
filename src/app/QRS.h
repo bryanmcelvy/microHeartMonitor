@@ -26,7 +26,7 @@ Preprocessor Directives
 
 #define QRS_SAMP_FREQ       ((uint32_t) 200)                  // [Hz]
 #define QRS_SAMP_PERIOD_SEC ((float32_t) 0.005f)
-#define QRS_NUM_SAMP        ((uint16_t) (1300))               // num. samples to process
+#define QRS_NUM_SAMP        ((uint16_t) (1200))               // num. samples to process
 
 /*******************************************************************************
 Functions
