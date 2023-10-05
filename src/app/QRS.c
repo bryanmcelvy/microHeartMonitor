@@ -39,7 +39,7 @@ Preprocessor Directives
 Static Declarations
 ********************************************************************************/
 
-static uint8_t QRS_findFiducialMarks(float32_t yn[], int16_t fidMarkArray[]);
+static uint8_t QRS_findFiducialMarks(float32_t yn[], uint16_t fidMarkArray[]);
 static void QRS_initLevels(const float32_t yn[]);
 static float32_t QRS_updateLevel(float32_t peakAmplitude, float32_t level);
 static float32_t QRS_updateThreshold(void);
@@ -51,7 +51,7 @@ static struct {
     float32_t noiseLevel;
     float32_t threshold;
 
-    int16_t fidMarkArray[QRS_NUM_FID_MARKS];               /// array to hold fidMark indices
+    uint16_t fidMarkArray[QRS_NUM_FID_MARKS];               /// array to hold fidMark indices
     float32_t utilityBuffer1[QRS_NUM_FID_MARKS];
     float32_t utilityBuffer2[QRS_NUM_FID_MARKS];
 } Detector = { false, 0.0f, 0.0f, 0.0f, { 0 }, { 0 }, { 0 } };
@@ -170,7 +170,7 @@ float32_t QRS_applyDecisionRules(const float32_t yn[]) {
     float32_t noiseLevel = Detector.noiseLevel;
     float32_t threshold = Detector.threshold;
 
-    int16_t * fidMarkArray = Detector.fidMarkArray;
+    uint16_t * fidMarkArray = Detector.fidMarkArray;
 
     float32_t * timeBuffer = Detector.utilityBuffer1;               // time in [s] of each peak
     float32_t * heartRateBuffer = Detector.utilityBuffer2;
@@ -180,7 +180,7 @@ float32_t QRS_applyDecisionRules(const float32_t yn[]) {
     uint8_t numPeaks = 0;
 
     for(uint8_t idx = 0; idx < numMarks; idx++) {
-        int16_t n = fidMarkArray[idx];
+        uint16_t n = fidMarkArray[idx];
 
         if(IS_GREATER(yn[n], threshold)) {
             timeBuffer[numPeaks] = n * QRS_SAMP_PERIOD_SEC;
@@ -230,7 +230,7 @@ Static Function Definitions
  * @param[in] fidMarkArray  Array to place the fiducial mark's sample indices into.
  * @param[out] uint8_t      Number of identified fiducial marks
  */
-static uint8_t QRS_findFiducialMarks(float32_t yn[], int16_t fidMarkArray[]) {
+static uint8_t QRS_findFiducialMarks(float32_t yn[], uint16_t fidMarkArray[]) {
     uint8_t numMarks = 0;                      // running counter of peak candidates
     uint16_t countSincePrev = 1;               // samples checked since previous peak candidate
     uint16_t n_prevMark = 0;                   // sample number of previous peak candidate
@@ -239,7 +239,7 @@ static uint8_t QRS_findFiducialMarks(float32_t yn[], int16_t fidMarkArray[]) {
         fidMarkArray[i] = 0;
     }
 
-    for(int16_t n = 1; n < (QRS_NUM_SAMP - 1); n++) {
+    for(uint16_t n = 1; n < (QRS_NUM_SAMP - 1); n++) {
         if(IS_PEAK(yn[n - 1], yn[n], yn[n + 1])) {               // Verify `y[n]` is a peak
             /**
              * The fiducial marks must be spaced apart by at least 200 [ms] (40 samples
