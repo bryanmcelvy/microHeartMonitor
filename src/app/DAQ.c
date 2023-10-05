@@ -132,6 +132,16 @@ float32_t DAQ_convertToMilliVolts(uint16_t sample) {
 Digital Filtering Functions
 ********************************************************************************/
 
+float32_t DAQ_subtractRunningMean(volatile float32_t xn) {
+    static float32_t sum = 0;
+    static float32_t N = 0;
+
+    sum += xn;
+    N += 1;
+
+    return xn - (sum / N);
+}
+
 float32_t DAQ_NotchFilter(volatile float32_t inputSample) {
     float32_t * inputPtr = &inputSample;
 

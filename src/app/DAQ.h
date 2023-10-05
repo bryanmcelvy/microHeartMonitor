@@ -95,6 +95,20 @@ Digital Filtering Functions
 /** @name Digital Filtering Functions */               /// @{
 
 /**
+ * @brief                   Apply a running mean subtraction to an input sample.
+ *
+ * @pre                     Read a sample from the ADC and convert it to millivolts.
+ *
+ * @param[in] xn            Raw input sample
+ * @param[out] yn           Filtered output sample
+ *
+ * @post                    \f$ y[n] \f$ is ready for analysis and/or further processing.
+ *
+ * @see                     DAQ_NotchFilter(), DAQ_BandpassFilter()
+ */
+float32_t DAQ_subtractRunningMean(volatile float32_t xn);
+
+/**
  * @brief                   Apply a 60 [Hz] notch filter to an input sample.
  *
  * @pre                     Read a sample from the ADC and convert it to millivolts.
@@ -102,9 +116,9 @@ Digital Filtering Functions
  * @param[in] xn            Raw input sample
  * @param[out] yn           Filtered output sample
  *
- * @post                    The sample \f$ y[n] \f$ is ready for analysis and/or further processing.
+ * @post                    \f$ y[n] \f$ is ready for analysis and/or further processing.
  *
- * @see                     DAQ_BandpassFilter()
+ * @see                     DAQ_subtractRunningMean(), DAQ_BandpassFilter()
  */
 float32_t DAQ_NotchFilter(volatile float32_t xn);
 
@@ -116,9 +130,9 @@ float32_t DAQ_NotchFilter(volatile float32_t xn);
  * @param[in] xn            Input sample
  * @param[out] yn           Filtered output sample
  *
- * @post                    The sample \f$ y[n] \f$ is ready for analysis and/or further processing.
+ * @post                    \f$ y[n] \f$ is ready for analysis and/or further processing.
  *
- * @see                     DAQ_NotchFilter()
+ * @see                     DAQ_subtractRunningMean(), DAQ_NotchFilter()
  */
 float32_t DAQ_BandpassFilter(volatile float32_t xn);
 

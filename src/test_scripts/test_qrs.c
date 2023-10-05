@@ -125,6 +125,7 @@ static void DAQ_Handler(void) {
     while(FIFO_isEmpty(DAQ_Fifo) == false) {
         volatile uint16_t rawSample = FIFO_Get(DAQ_Fifo);
         volatile float32_t sample = DAQ_convertToMilliVolts(rawSample);
+        sample = DAQ_subtractRunningMean(sample);
         sample = DAQ_NotchFilter(sample);
 
         FIFO_Put(QRS_Fifo, *((uint32_t *) (&sample)));
