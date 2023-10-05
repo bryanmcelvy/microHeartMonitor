@@ -25,7 +25,7 @@ Preprocessor Directives
 #define NVIC_PRI_BASE_ADDR     (uint32_t) 0xE000E400
 #define NVIC_UNPEND_BASE_ADDR  (uint32_t) 0xE000E280
 
-static void ISR_setStatus(const uint8_t vectorNum, bool isEnabled);
+static void ISR_setStatus(const uint8_t vectorNum, const bool isEnabled);
 
 /******************************************************************************
 Global Interrupt Configuration
@@ -130,13 +130,13 @@ void ISR_setPriority(const uint8_t vectorNum, const uint8_t priority) {
     return;
 }
 
-static void ISR_setStatus(const uint8_t vectorNum, bool isEnabled) {
+static void ISR_setStatus(const uint8_t vectorNum, const bool isEnabled) {
     Assert(vectorNum >= 16);
     Assert(vectorNum < VECTOR_TABLE_SIZE);
-    uint8_t interruptBitNum = vectorNum - 16;
+    uint32_t interruptBitNum = (uint32_t) (vectorNum - 16);
 
     // Determine correct register to use
-    uint8_t registerNum = 0;
+    uint32_t registerNum = 0;
     while(interruptBitNum >= ((registerNum + 1) * 32)) {
         registerNum += 1;
     }
@@ -144,7 +144,9 @@ static void ISR_setStatus(const uint8_t vectorNum, bool isEnabled) {
     register_t registerPtr = (register_t) (REG_BASE_ADDR + (4 * registerNum));
 
     // Enable/disable the ISR
-    interruptBitNum -= (registerNum * 32);
+    if(interruptBitNum > 31) {
+        interruptBitNum -= (registerNum * 32);
+    }
     *registerPtr |= (1 << interruptBitNum);
 
     return;
