@@ -61,15 +61,10 @@ Digital Filters
 ********************************************************************************/
 
 enum {
-    // High Pass Filter
-    NUM_STAGES_HIGHPASS = 2,
-    NUM_COEFF_HIGHPASS = NUM_STAGES_HIGHPASS * 5,
-    STATE_BUFF_SIZE_HIGHPASS = NUM_STAGES_HIGHPASS * 4,
-
-    // Low Pass Filter
-    NUM_STAGES_LOWPASS = 2,
-    NUM_COEFF_LOWPASS = NUM_STAGES_LOWPASS * 5,
-    STATE_BUFF_SIZE_LOWPASS = NUM_STAGES_LOWPASS * 4,
+    // Bandpass Filter
+    NUM_STAGES_BANDPASS = 4,
+    NUM_COEFF_HIGHPASS = NUM_STAGES_BANDPASS * 5,
+    STATE_BUFF_SIZE_BANDPASS = NUM_STAGES_BANDPASS * 4,
 
     // Derivative Filter
     NUM_COEFF_DERFILT = 5,
@@ -83,22 +78,19 @@ enum {
 /* Filter Coefficients */
 
 // clang-format off
-static const float32_t COEFF_HIGHPASS[NUM_COEFF_HIGHPASS] = {
+static const float32_t COEFF_BANDPASS[NUM_COEFF_HIGHPASS] = {
     // Section 1
-    0.6089446544647217f, -1.2178893089294434f, 0.6089446544647217f, 
-    1.3876197338104248f, -0.492422878742218f, 
-    // Section 2
-    1.0f, -2.0f, 1.0f, 
-    1.6299355030059814f, -0.7530401945114136f, 
-};
-
-static const float32_t COEFF_LOWPASS[NUM_COEFF_LOWPASS] = {
-    // Section 1
-    0.004824343137443066f, 0.009648686274886131f, 0.004824343137443066f, 
+    0.002937758108600974f, 0.005875516217201948f, 0.002937758108600974f, 
     1.0485996007919312f, -0.2961403429508209f, 
     // Section 2
     1.0f, 2.0f, 1.0f, 
+    1.3876197338104248f, -0.492422878742218f, 
+    // Section 3
+    1.0f, -2.0f, 1.0f, 
     1.3209134340286255f, -0.6327387690544128f, 
+    // Section 4
+    1.0f, -2.0f, 1.0f, 
+    1.6299355030059814f, -0.7530401945114136f, 
 };
 
 static const float32_t COEFF_DERFILT[NUM_COEFF_DERFILT] = { -0.125f, -0.25f, 0.0f, 0.25f, 0.125f };
@@ -116,17 +108,12 @@ static const float32_t COEFF_MOVAVG[NUM_COEFF_MOVAVG] = {
 
 /* IIR Filters */
 typedef arm_biquad_casd_df1_inst_f32 IIR_Filt_t;
-
-static float32_t stateBuffer_HighPass[STATE_BUFF_SIZE_HIGHPASS] = { 0 };
-static const IIR_Filt_t highPassFiltStruct = { NUM_STAGES_HIGHPASS, stateBuffer_HighPass, COEFF_HIGHPASS };
-static const IIR_Filt_t * const highPassFilter = &highPassFiltStruct;
-
-static float32_t stateBuffer_LowPass[STATE_BUFF_SIZE_LOWPASS] = { 0 };
-static const IIR_Filt_t lowPassFiltStruct = { NUM_STAGES_LOWPASS, stateBuffer_LowPass, COEFF_LOWPASS };
-static const IIR_Filt_t * const lowPassFilter = &lowPassFiltStruct;
-
-/* FIR Filters */
 typedef arm_fir_instance_f32 FIR_Filt_t;
+
+static float32_t stateBuffer_bandPass[STATE_BUFF_SIZE_BANDPASS] = { 0 };
+static const IIR_Filt_t bandpassFiltStruct = { NUM_STAGES_BANDPASS, stateBuffer_bandPass, COEFF_BANDPASS };
+static const IIR_Filt_t * const bandpassFilter = &bandpassFiltStruct;
+
 
 static float32_t stateBuffer_DerFilt[STATE_BUFF_SIZE_DERFILT] = { 0 };
 static const FIR_Filt_t derivativeFiltStruct = { NUM_COEFF_DERFILT, stateBuffer_DerFilt, COEFF_DERFILT };
@@ -161,14 +148,11 @@ void QRS_Preprocess(const float32_t xn[], float32_t yn[]) {
 
     // copy samples from `xn` to the detector's utility buffer
     for(uint16_t n = 0; n < QRS_NUM_SAMP; n++) {
-        utilityBuffer[n] = xn[n];
+        yn[n] = xn[n];
     }
 
-    // high-pass filter
-    arm_biquad_cascade_df1_f32(highPassFilter, utilityBuffer, yn, QRS_NUM_SAMP);
-
-    // low-pass filter
-    arm_biquad_cascade_df1_f32(lowPassFilter, yn, utilityBuffer, QRS_NUM_SAMP);
+    // bandpass filter
+    arm_biquad_cascade_df1_f32(bandpassFilter, yn, utilityBuffer, QRS_NUM_SAMP);
 
     // derivative filter
     arm_fir_f32(derivativeFilter, utilityBuffer, yn, QRS_NUM_SAMP);
