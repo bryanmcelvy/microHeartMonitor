@@ -39,6 +39,11 @@
         * Functions for UART-based communication.
         */
 
+        /** @defgroup   isr         Interrupt Service Routines
+        * Functions for manipulating the interrupt vector table and setting up interrupt handlers via the NVIC.
+        */
+
+
 /** @} */
 
 //************************************************************************************************

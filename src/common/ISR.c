@@ -1,4 +1,7 @@
 /**
+ * @addtogroup isr
+ * @{
+ *
  * @file
  * @author  Bryan McElvy
  * @brief   Source code for interrupt vector handling module.
@@ -193,3 +196,5 @@ void ISR_clearPending(const uint8_t vectorNum) {
 
     return;
 }
+
+/** @} */               // isr

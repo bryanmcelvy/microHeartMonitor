@@ -433,4 +433,4 @@ void LCD_graphSample(uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy, uint16_
     return;
 }
 
-/** @} */
+/** @} */               // lcd

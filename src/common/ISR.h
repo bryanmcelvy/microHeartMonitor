@@ -1,4 +1,7 @@
 /**
+ * @addtogroup isr
+ * @{
+ *
  * @file
  * @author  Bryan McElvy
  * @brief   Module for configuring interrupt service routines (ISRs).
@@ -128,4 +131,6 @@ void ISR_triggerInterrupt(const uint8_t vectorNum);
  */
 void ISR_clearPending(const uint8_t vectorNum);
 
-#endif               // ISR_H
+#endif                  // ISR_H
+
+/** @} */               // isr
