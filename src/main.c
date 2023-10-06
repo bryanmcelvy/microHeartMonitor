@@ -34,18 +34,18 @@ Declarations
 
 // Interrupt Service Routines (ISRs)
 enum {               // clang-format off
-    ADC_VECTOR_NUM = INT_ADC0SS3,
-    DAQ_VECTOR_NUM = INT_CAN0,
+    DAQ_VECTOR_NUM = INT_ADC0SS3,
+    PROC_VECTOR_NUM = INT_CAN0,
     LCD_VECTOR_NUM = INT_TIMER1A
 };               // clang-format on
 
-static void ADC_Handler(void);
 static void DAQ_Handler(void);
+static void Processing_Handler(void);
 static void LCD_Handler(void);
 
 // FIFO Buffers
 enum {
-    DAQ_BUFFER_CAPACITY = 4,
+    DAQ_BUFFER_CAPACITY = 3,
     DAQ_BUFFER_SIZE = DAQ_BUFFER_CAPACITY + 1,
 
     QRS_BUFFER_SIZE = QRS_NUM_SAMP + 1,
@@ -71,10 +71,10 @@ static volatile float32_t QRS_Buffer[QRS_BUFFER_SIZE] = { 0 };
 // LCD Info
 enum {
     LCD_TOP_LINE = (Y_MAX - 48),
-    LCD_NUM_Y_VALS = 128,
-    LCD_X_AXIS_OFFSET = 0,
-    LCD_Y_MIN = (0 + LCD_X_AXIS_OFFSET),
-    LCD_Y_MAX = (LCD_NUM_Y_VALS + LCD_X_AXIS_OFFSET)
+    LCD_WAVE_NUM_Y = 128,
+    LCD_WAVE_X_OFFSET = 0,
+    LCD_WAVE_Y_MIN = (0 + LCD_WAVE_X_OFFSET),
+    LCD_WAVE_Y_MAX = (LCD_WAVE_NUM_Y + LCD_WAVE_X_OFFSET)
 };
 
 static void LCD_plotNewSample(uint16_t x, volatile const float32_t sample);
@@ -91,17 +91,17 @@ int main(void) {
     ISR_GlobalDisable();
     ISR_InitNewTableInRam();
 
-    ISR_addToIntTable(LCD_Handler, LCD_VECTOR_NUM);
-    ISR_setPriority(LCD_VECTOR_NUM, 1);
-    ISR_Enable(LCD_VECTOR_NUM);
-
-    ISR_addToIntTable(ADC_Handler, ADC_VECTOR_NUM);
-    ISR_setPriority(ADC_VECTOR_NUM, 1);
-    ISR_Enable(ADC_VECTOR_NUM);
-
     ISR_addToIntTable(DAQ_Handler, DAQ_VECTOR_NUM);
     ISR_setPriority(DAQ_VECTOR_NUM, 1);
     ISR_Enable(DAQ_VECTOR_NUM);
+
+    ISR_addToIntTable(Processing_Handler, PROC_VECTOR_NUM);
+    ISR_setPriority(PROC_VECTOR_NUM, 1);
+    ISR_Enable(PROC_VECTOR_NUM);
+
+    ISR_addToIntTable(LCD_Handler, LCD_VECTOR_NUM);
+    ISR_setPriority(LCD_VECTOR_NUM, 1);
+    ISR_Enable(LCD_VECTOR_NUM);
 
     // Init. FIFOs
     DAQ_Fifo = FIFO_Init(DAQ_Buffer, DAQ_BUFFER_SIZE);
@@ -132,12 +132,12 @@ int main(void) {
     while(1) {
         if(QRS_bufferIsFull) {               // flag set by Processing_Handler()
             // Transfer samples from FIFO
-            ISR_Disable(DAQ_VECTOR_NUM);
+            ISR_Disable(PROC_VECTOR_NUM);
 
             FIFO_Flush(QRS_Fifo, (uint32_t *) QRS_Buffer);
             QRS_bufferIsFull = false;
 
-            ISR_Enable(DAQ_VECTOR_NUM);
+            ISR_Enable(PROC_VECTOR_NUM);
 
             // Run QRS detection
             Debug_SendMsg("Starting QRS detection...\r\n");
@@ -157,58 +157,111 @@ int main(void) {
 Interrupt Service Routines
 ******************************************************************************/
 
-static void ADC_Handler(void) {
-    Debug_Assert(FIFO_isFull(DAQ_Fifo) == false);
-
+/**
+ * @ingroup isr
+ *
+ * @brief   Reads ADC output, converts to raw voltage sample, and sends to next FIFO.
+ * @details This ISR has a priority level of 1, is triggered when the ADC
+ *          has finished capturing a sample, and also triggers the intermediate processing
+ *          handler.
+ *
+ * @pre     Initialize the DAQ module.
+ * @post    The converted sample is placed in the DAQ FIFO, and the DAQ ISR is triggered.
+ *
+ * @see     DAQ_Init(), Processing_Handler()
+ */
+static void DAQ_Handler(void) {
+    // read sample and convert to `float32_t`
     uint16_t rawSample = DAQ_readSample();
-    FIFO_Put(DAQ_Fifo, (volatile uint32_t) rawSample);
+    volatile float32_t sample = DAQ_convertToMilliVolts(rawSample);
+
+    // send to intermediate processing handler
+    Debug_Assert(FIFO_isFull(DAQ_Fifo) == false);
+    FIFO_Put(DAQ_Fifo, *((uint32_t *) &sample));
+    ISR_triggerInterrupt(PROC_VECTOR_NUM);
 
     ADC_InterruptAcknowledge();
-    ISR_triggerInterrupt(DAQ_VECTOR_NUM);
 }
 
-static void DAQ_Handler(void) {
+/**
+ * @ingroup isr
+ * @brief   Removes noise from the signal and sends it to the QRS and LCD FIFO buffers.
+ * @details This ISR has a priority level of 1, is triggered by the DAQ ISR, and triggers
+ *          the LCD Handler. It also notifies the superloop in @ref main() that the QRS
+ *          buffer is full.
+ *
+ * @post    The converted sample is placed in the DAQ FIFO, and the DAQ ISR is triggered.
+ *
+ * @see     DAQ_Handler(), main(), LCD_Handler()
+ */
+static void Processing_Handler(void) {
+    static float32_t sum = 0;
+    static uint32_t N = 0;
+
+    // NOTE: this `while` is only here in case a sample arrives while the QRS FIFO is being emptied
     while(FIFO_isEmpty(DAQ_Fifo) == false) {
-        volatile uint16_t rawSample = FIFO_Get(DAQ_Fifo);
-        volatile float32_t sample = DAQ_convertToMilliVolts(rawSample);
-        sample = DAQ_subtractRunningMean(sample);
+        volatile float32_t sample;
+        *((uint32_t *) &sample) = FIFO_Get(DAQ_Fifo);
+
+        // apply running mean subtraction to remove baseline drift
+        sum += sample;
+        N += 1;
+        sample -= sum / ((float32_t) N);
+
+        // apply 60 [Hz] notch filter to remove power line noise
         sample = DAQ_NotchFilter(sample);
 
+        // place in FIFO buffers
         Debug_Assert(FIFO_isFull(QRS_Fifo) == false);
         FIFO_Put(QRS_Fifo, *((uint32_t *) (&sample)));
-        if(FIFO_isFull(QRS_Fifo)) {
-            QRS_bufferIsFull = true;
-        }
 
-        sample = DAQ_BandpassFilter(sample);
         Debug_Assert(FIFO_isFull(LCD_Fifo) == false);
         FIFO_Put(LCD_Fifo, *((uint32_t *) (&sample)));
     }
 
-    if(QRS_bufferIsFull == false) {
+    if(FIFO_isFull(QRS_Fifo)) {
+        QRS_bufferIsFull = true;
+    }
+    else {
+        // doesn't trigger if QRS detection is ready to start
         ISR_triggerInterrupt(LCD_VECTOR_NUM);
     }
 }
 
+/**
+ * @ingroup isr
+ * @brief   Applies a 0.5-40 [Hz] bandpass filter and plots the sample to the waveform.
+ * @details This ISR has a priority level of 1 and is triggered by the Processing ISR.
+ *          This ISR also plots an intermediate sample to the display to make the waveform
+ *          look more continuous.
+ *
+ * @pre     Initialize the LCD module.
+ * @post    The bandpass-filtered sample is plotted to the LCD.
+ *
+ * @see     LCD_Init(), Processing_Handler()
+ */
 static void LCD_Handler(void) {
-    static float32_t sampPrev = 0;
+    static float32_t samplePrevious = 0;
     static uint16_t x = 0;
 
     Debug_Assert(FIFO_isEmpty(LCD_Fifo) == false);
 
     while(FIFO_isEmpty(LCD_Fifo) == false) {
-        float32_t sample;
-        *((uint32_t *) &sample) = FIFO_Get(LCD_Fifo);
+        float32_t sampleCurrent;
 
-        float32_t intermediate_sample = sampPrev + ((sample - sampPrev) / 2);
+        // get sample and apply 0.5-40 [Hz] bandpass filter
+        *((uint32_t *) &sampleCurrent) = FIFO_Get(LCD_Fifo);
+        sampleCurrent = DAQ_BandpassFilter(sampleCurrent);
 
+        // plot a point between previous and current sample
+        float32_t intermediate_sample = samplePrevious + ((sampleCurrent - samplePrevious) / 2);
         LCD_plotNewSample(x, intermediate_sample);
         x = (x + 1) % X_MAX;
+        samplePrevious = sampleCurrent;
 
-        LCD_plotNewSample(x, sample);
+        // plot current sample
+        LCD_plotNewSample(x, sampleCurrent);
         x = (x + 1) % X_MAX;
-
-        sampPrev = sample;
     }
 }
 
@@ -217,11 +270,11 @@ static void LCD_plotNewSample(uint16_t x, volatile const float32_t sample) {
 
     // blank out column
     LCD_setColor_3bit(LCD_BLACK_INV);
-    LCD_drawRectangle(x, 1, LCD_Y_MIN, LCD_NUM_Y_VALS, true);
+    LCD_drawRectangle(x, 1, LCD_WAVE_Y_MIN, LCD_WAVE_NUM_Y, true);
 
     // plot sample
     uint16_t y =
-        LCD_Y_MIN + ((uint16_t) (((sample + maxVoltage) / (maxVoltage * 2)) * LCD_NUM_Y_VALS));
+        LCD_WAVE_Y_MIN + ((uint16_t) (((sample + maxVoltage) / (maxVoltage * 2)) * LCD_WAVE_NUM_Y));
     LCD_setColor_3bit(LCD_RED_INV);
     LCD_drawRectangle(x, 1, y, 1, true);
 
