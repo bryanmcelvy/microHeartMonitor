@@ -89,9 +89,6 @@ typedef enum {
 Static Declarations
 *******************************************************************************/
 
-static uint32_t ILI9341_Buffer[8];
-static Fifo_t ILI9341_Fifo;
-
 inline static void ILI9341_setAddress(uint16_t start_address, uint16_t end_address, bool is_row);
 
 /**
@@ -102,6 +99,11 @@ inline static void ILI9341_setAddress(uint16_t start_address, uint16_t end_addre
  * @param[in] cmd   Command to send.
  */
 inline static void ILI9341_sendParams(Cmd_t cmd);
+
+static uint32_t ILI9341_Buffer[8];
+static Fifo_t ILI9341_Fifo;
+
+// static struct {} ili9341;
 
 /******************************************************************************
 Initialization/Reset
@@ -221,37 +223,6 @@ void ILI9341_setDispOutput(bool is_ON) {
     }
 }
 
-void ILI9341_setScrollArea(uint16_t top_fixed, uint16_t vert_scroll, uint16_t bottom_fixed) {
-
-    // ensure parameters sum together
-    // while( (top_fixed + vert_scroll + bottom_fixed) < ILI9341_NUM_ROWS ) {
-    //     vert_scroll += 1;
-    // }
-    // while( (top_fixed + vert_scroll + bottom_fixed) > ILI9341_NUM_ROWS ) {
-    //     vert_scroll -= 1;
-    // }
-
-    // configure and send command sequence
-    FIFO_Put(ILI9341_Fifo, ((top_fixed & 0xFF00) >> 8));
-    FIFO_Put(ILI9341_Fifo, (top_fixed & 0x00FF));
-    FIFO_Put(ILI9341_Fifo, ((vert_scroll & 0xFF00) >> 8));
-    FIFO_Put(ILI9341_Fifo, (vert_scroll & 0x00FF));
-    FIFO_Put(ILI9341_Fifo, ((bottom_fixed & 0xFF00) >> 8));
-    FIFO_Put(ILI9341_Fifo, (bottom_fixed & 0x00FF));
-
-    ILI9341_sendParams(VSCRDEF);
-
-    return;
-}
-
-void ILI9341_setScrollStart(uint16_t startRow) {
-    FIFO_Put(ILI9341_Fifo, ((startRow & 0xFF00) >> 8));
-    FIFO_Put(ILI9341_Fifo, (startRow & 0x00FF));
-    ILI9341_sendParams(VSCRSADD);
-
-    return;
-}
-
 void ILI9341_setMemAccessCtrl(bool areRowsFlipped, bool areColsFlipped, bool areRowsColsSwitched,
                               bool isVertRefreshFlipped, bool isColorOrderFlipped,
                               bool isHorRefreshFlipped) {
@@ -285,19 +256,9 @@ void ILI9341_setMemAccessCtrl(bool areRowsFlipped, bool areColsFlipped, bool are
     return;
 }
 
-void ILI9341_setColorDepth(bool is_16bit) {
-    /**
-     *  16-bit requires 2 transfers and allows for 65K colors.
-     *  18-bit requires 3 transfers and allows for 262K colors.
-     */
-    uint8_t param = (is_16bit) ? 0x55 : 0x66;
+void ILI9341_setColorDepth(colorDepth_t colorDepth) {
     SPI_WriteCmd(PIXSET);
-    SPI_WriteData(param);
-    return;
-}
-
-void ILI9341_NoOpCmd(void) {
-    SPI_WriteCmd(NOP);
+    SPI_WriteData((uint8_t) colorDepth);
     return;
 }
 

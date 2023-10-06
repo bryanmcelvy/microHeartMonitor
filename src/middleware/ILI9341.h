@@ -126,25 +126,6 @@ void ILI9341_setDispInversion(bool is_ON);
 void ILI9341_setDispOutput(bool is_ON);
 
 /**
- * @brief                       Set the vertical scrolling area of the display.
- *                              The sum of the three parameters should be equal
- *                              to the max number of rows `NUM_ROWS = 320`.
- *
- * @param topFixedArea          Number of rows fixed at the top of the screen.
- * @param vertScrollArea        Number of rows that scroll.
- * @param bottFixedArea         Number of rows fixed at the bottom of the screen.
- */
-void ILI9341_setScrollArea(uint16_t topFixedArea, uint16_t vertScrollArea, uint16_t bottFixedArea);
-
-/**
- * @brief               Set the start row for vertical scrolling.
- *
- * @param startRow      Start row for scrolling. Should be `>= topFixedArea - 1`
- */
-void ILI9341_setScrollStart(uint16_t startRow);
-
-// TODO: Finish writing description
-/**
  * @brief                               Set how data is converted from memory to display.
  *
  * @param[in] areRowsFlipped
@@ -158,28 +139,26 @@ void ILI9341_setMemAccessCtrl(bool areRowsFlipped, bool areColsFlipped, bool are
                               bool isVertRefreshFlipped, bool isColorOrderFlipped,
                               bool isHorRefreshFlipped);
 
-/**
- * @brief Set the pixel format to be 16-bit (65K colors) or 18-bit (262K colors).
- *
- * @param is_16bit
- */
-void ILI9341_setColorDepth(bool is_16bit);
+typedef enum {
+    ILI9341_COLORDEPTH_16BIT = 0x55,               ///< 16-bit color depth
+    ILI9341_COLORDEPTH_18BIT = 0x66,               ///< 18-bit color depth
+} colorDepth_t;
 
 /**
- * @brief       Send the "No Operation" command (`NOP` = `0x00`) to the LCD driver.
- *              Can be used to terminate the "Memory Write" (`RAMWR`) and
- *              "Memory Read" (`RAMRD`) commands, but does nothing otherwise.
+ * @brief               Set the pixel format to be 16-bit (65K colors) or 18-bit (262K colors).
+ *
+ * @param[in] colorDepth
+ *
+ * @post                `16BIT` mode allows for ~65K (2^16) colors and requires 2 transfers.
+ *                      `18BIT` mode allows for ~262K (2^18) colors but requires 3 transfers.
  */
-void ILI9341_NoOpCmd(void);
+void ILI9341_setColorDepth(colorDepth_t colorDepth);
 
 /// TODO: Write brief
 void ILI9341_setFrameRateNorm(uint8_t divisionRatio, uint8_t clocksPerLine);
 
 /// TODO: Write brief
 void ILI9341_setFrameRateIdle(uint8_t divisionRatio, uint8_t clocksPerLine);
-
-/// TODO: Write
-void ILI9341_setBlankingPorch(uint8_t vpf, uint8_t vbp, uint8_t hfp, uint8_t hbp);
 
 /**
  * @brief       Sets the interface for the ILI9341.
