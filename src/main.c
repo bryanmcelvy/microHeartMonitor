@@ -1,4 +1,7 @@
 /**
+ * @addtogroup main
+ * @{
+ *
  * @file
  * @author  Bryan McElvy
  * @brief   Main program file.
@@ -105,7 +108,7 @@ int main(void) {
     QRS_Fifo = FIFO_Init(QRS_FifoBuffer, QRS_BUFFER_SIZE);
     LCD_Fifo = FIFO_Init(LCD_FifoBuffer, LCD_BUFFER_SIZE);
 
-    // Initialize/configure LCD
+    // Init./config. LCD
     LCD_Init();
     LCD_toggleColorInversion();
 
@@ -127,7 +130,7 @@ int main(void) {
 
     ISR_GlobalEnable();
     while(1) {
-        if(QRS_bufferIsFull == true) {
+        if(QRS_bufferIsFull) {               // flag set by Processing_Handler()
             // Transfer samples from FIFO
             ISR_Disable(DAQ_VECTOR_NUM);
 
@@ -224,3 +227,5 @@ static void LCD_plotNewSample(uint16_t x, volatile const float32_t sample) {
 
     return;
 }
+
+/** @} */               // main
