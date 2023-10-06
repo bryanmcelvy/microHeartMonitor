@@ -1,118 +1,88 @@
 digraph {
     labelloc="t";
-    label="Call Graph – ECG-HRM";
-    labeljust="c";
+    label="Call Graph – μHeartMonitor";
     newrank=true;
-    node[shape=ellipse, height=0.25, width=0.5];
-    splines=false;
+    ranksep=1.2;
 
-    /***************************************************************************
-    Main Clusters
-    ***************************************************************************/
+    main;
 
-    // Application Software
-    subgraph cluster_app{
-        label=""; style="dashed";
+    subgraph cluster_app {
+        style="dashed";
+        label="App.";
+        labeljust="l";
 
-        DAQ, QRS, LCD, Debug;
-        app_col5[style=invis, shape=none];
+        LCD;
+        QRS;
+        DAQ[label="DAQ/Lookup"];
     };
 
-    // Middleware
-    subgraph cluster_middleware{
-        label=""
+    subgraph cluster_ext {
         style="dashed";
+        label="External";
+        labeljust="l";
+
+        CMSIS[label="CMSIS-DSP"];
+    };
+
+    subgraph cluster_middle {
+        style="dashed";
+        label="Middleware";
+        labeljust="c";
 
         ILI9341;
-        mid_col1[style=invis, shape=none];
-        mid_col2[style=invis, shape=none];
-        mid_col4[style=invis, shape=none];
-        mid_col5[style=invis, shape=none];
+        Debug;
     };
 
-    // Device Drivers
-    subgraph cluster_driver{
-        label=""; style="dashed";
+    
 
-        ADC, PLL, SPI, Timer, UART;
+    subgraph cluster_common {
+        style="dashed";
+        label="Common";
+        labeljust="c";
 
-        subgraph cluster_gpio{
+        FIFO;
+        NewAssert;
+    };
+
+    subgraph cluster_driver {
+        style="dashed";
+        label="Drivers";
+        labeljust="c";
+
+        ISR;
+        SPI;
+        Timer;
+        ADC;
+        UART;
+        PLL;
+
+        subgraph cluster_gpio {
+            style="dashed";
             label="GPIO";
             labeljust="l";
 
-            node[shape=rect];
-            PA01[label="PA0/1"]
-            PA27[label="PA2-7"];
-            PE5;
-
-            node[style=invis, shape=none, width=0, height=0]
-            hw_col1;
-            hw_col5;
+            PA01[label="PA0/1", shape=rect];
+            PE5[shape=rect];
+            PA27[label="PA2-7", shape=rect];
         };
-
     };
 
-    // Common
-    subgraph cluster_common {
-        label="src/common"; style="dashed";
+    main -> {LCD, QRS, DAQ, Debug, ISR, PLL};
+    DAQ -> {ADC, Timer};
+    LCD -> ILI9341 -> SPI;
 
-        FIFO, lookup, NewAssert;
-    }
+    ILI9341 -> Timer;
 
-    // External
-    subgraph cluster_external {
-        label="external"; style="dashed";
-        CMSIS;
-    }
+    {DAQ, QRS} -> CMSIS;
+    Debug -> UART;
 
-    // Connections
-    edge[constraint=false];
-    main -> {DAQ, QRS, LCD, Debug, PLL};
-    DAQ -> ADC[dir=both];
-    DAQ -> Timer;
-    LCD -> ILI9341 -> SPI -> PA27;
-    Debug -> UART -> PA01;
+    Timer -> ADC -> PE5;
+    SPI -> PA27;
+    UART -> PA01;
 
-    ADC -> PE5;
-    ADC -> Timer[dir=back];
-    
-    /***************************************************************************
-    Graphviz Boilerplate
-    ***************************************************************************/
-    
-    // Rows
-    subgraph invis_rows{
-        edge[style=invis];
-        node[shape=none]
-        rank_app[label="src/app"];
-        rank_middle[label="src/middleware"]; 
-        rank_driver[label="src/driver"];
-
-        node[style=invis, shape=none, width=0, height=0, label=""];
-        rank_main; rank_hw; rank_cols;
-    };
-
-    // Columns
-    subgraph invis_cols{
-        node[style=invis, shape=none, width=0, height=0, label=""];
-        col1, col2, col3, col4, col5, col6;
-    }
-
-    // Horizontal Alignment
-    edge[style=invis, weight=3, constraint=true];
-    {rank=source; rank_main, main};
-    {rank=same; rank_app -> DAQ -> QRS -> LCD -> Debug -> app_col5 -> CMSIS};
-    {rank=same; rank_middle -> mid_col1 -> mid_col2 -> ILI9341 -> mid_col4 -> mid_col5 -> FIFO};
-    {rank=same; rank_driver -> Timer -> ADC -> SPI -> UART -> PLL -> lookup};
-    {rank=same; rank_hw -> hw_col1 -> PE5 -> PA27 -> PA01 -> hw_col5 -> NewAssert};
-    {rank=same; rank_cols -> col1 -> col2 -> col3 -> col4 -> col5 -> col6};
-
-    // Vertical Alignment
-    rank_main -> rank_app -> rank_middle -> rank_driver -> rank_hw -> rank_cols;
-    DAQ -> mid_col1 -> Timer -> hw_col1 -> col1;
-    QRS -> mid_col2 -> ADC -> PE5 -> col2;
-    main -> LCD -> ILI9341 -> SPI -> PA27 -> col3;
-    Debug -> mid_col4 -> UART -> PA01 -> col4;
-    app_col5 -> mid_col5 -> PLL -> hw_col5 -> col5;
-    CMSIS -> FIFO -> lookup -> NewAssert -> col6;
+    {rank=source; main};
+    {rank=same; LCD, QRS, DAQ};
+    {rank=same; ILI9341, Debug};
+    {rank=same; ISR, SPI, Timer, ADC, UART, PLL};
+    {rank=same; PE5, PA27, PA01};
 }
