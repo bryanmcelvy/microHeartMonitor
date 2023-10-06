@@ -4,7 +4,9 @@
  *
  * @file
  * @author  Bryan McElvy
- * @brief   Module for outputting the ECG waveform and HR to a liquid crystal display (LCD).
+ * @brief   Header file for LCD module.
+ *
+ *          This module is essentially a higher-level interface to the ILI9341 module.
  */
 
 #ifndef LCD_H
@@ -39,7 +41,11 @@ Initialization
 *******************************************************************************/
 /** @name Init./Config. Functions */               /// @{
 
-/// @brief       Initialize the LCD driver and its internal independencies.
+/**
+ * @brief           Initialize the LCD.
+ *
+ * @post            The display will be ready to accept commands, but output will be off.
+ */
 void LCD_Init(void);
 
 /******************************************************************************
@@ -108,8 +114,8 @@ Drawing Area
 
 /**
  * @brief               Set the area of the display to be written to.
- *                      `0 <= x1 <= x2 < X_MAX`
- *                      `0 <= y1 <= y2 < Y_MAX`
+ *                      \f$ 0 <= x1 <= x2 < X_MAX \f$
+ *                      \f$ 0 <= y1 <= y2 < Y_MAX \f$
  *
  * @param x1_new        left-most x-coordinate
  * @param x2_new        right-most x-coordinate
@@ -122,7 +128,7 @@ void LCD_setArea(uint16_t x1_new, uint16_t x2_new, uint16_t y1_new, uint16_t y2_
 
 /**
  * @brief               Set only new x-coordinates to be written to.
- *                      `0 <= x1 <= x2 < X_MAX`
+ *                      \f$ 0 <= x1 <= x2 < X_MAX \f$
  *
  * @param x1_new        left-most x-coordinate
  * @param x2_new        right-most x-coordinate
@@ -133,7 +139,7 @@ void LCD_setX(uint16_t x1_new, uint16_t x2_new);
 
 /**
  * @brief               Set only new y-coordinates to be written to.
- *                      `0 <= y1 <= y2 < Y_MAX`
+ *                      \f$ 0 <= y1 <= y2 < Y_MAX \f$
  *
  * @param y1_new        lowest y-coordinate
  * @param y2_new        highest y-coordinate
@@ -206,9 +212,12 @@ Drawing
 
 /**
  * @brief               Draw on the LCD display.
- *                      Call this function after setting the drawable area via
- *                      @ref LCD_setArea(), or after individually calling
- *                      @ref LCD_setX() and/or @ref LCD_setY().
+ *
+ * @pre                 Set the drawable area and the color to use for that area.
+ * @post                The selected areas of the display will be drawn onto with
+ *                      the selected color.
+ *
+ * @see                 LCD_setArea(), LCD_setX(), LCD_setY()
  */
 void LCD_Draw(void);
 
@@ -223,7 +232,7 @@ void LCD_Fill(void);
  * @param yCenter       y-coordinate to center the line on
  * @param lineWidth     width of the line; should be a positive, odd number
  *
- * @seeLCD_drawVertLine, LCD_drawRectangle()
+ * @see                 LCD_drawVertLine, LCD_drawRectangle()
  */
 void LCD_drawHoriLine(uint16_t yCenter, uint16_t lineWidth);
 
@@ -233,7 +242,7 @@ void LCD_drawHoriLine(uint16_t yCenter, uint16_t lineWidth);
  * @param xCenter       x-coordinate to center the line on
  * @param lineWidth     width of the line; should be a positive, odd number
  *
- * @seeLCD_drawHoriLine, LCD_drawRectangle()
+ * @see                 LCD_drawHoriLine, LCD_drawRectangle()
  */
 void LCD_drawVertLine(uint16_t xCenter, uint16_t lineWidth);
 

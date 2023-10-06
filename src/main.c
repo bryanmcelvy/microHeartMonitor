@@ -8,6 +8,15 @@
  */
 
 /******************************************************************************
+SECTIONS
+        Preprocessor Directives
+        Declarations
+        Main
+        Interrupt Service Routines (ISRs)
+        Static Function Definition
+******************************************************************************/
+
+/******************************************************************************
 Preprocessor Directives
 ******************************************************************************/
 
@@ -83,6 +92,14 @@ static void LCD_plotNewSample(uint16_t x, volatile const float32_t sample);
 Main
 ******************************************************************************/
 
+/**
+ * @brief           Main function for the project.
+ * @details         Moves the interrupt vector table to RAM; configures and
+ *                  enables the ISRs; initializes all modules and static variables;
+ *                  and performs QRS detection once the buffer has been filled.
+ *
+ * @callgraph
+ */
 int main(void) {
     PLL_Init();
     Debug_Init();
@@ -168,6 +185,8 @@ Interrupt Service Routines
  * @post    The converted sample is placed in the DAQ FIFO, and the DAQ ISR is triggered.
  *
  * @see     DAQ_Init(), Processing_Handler()
+ *
+ * @callgraph
  */
 static void DAQ_Handler(void) {
     // read sample and convert to `float32_t`
@@ -191,6 +210,8 @@ static void DAQ_Handler(void) {
  * @post    The converted sample is placed in the DAQ FIFO, and the DAQ ISR is triggered.
  *
  * @see     DAQ_Handler(), main(), LCD_Handler()
+ *
+ * @callgraph
  */
 static void Processing_Handler(void) {
     static float32_t sum = 0;
@@ -236,6 +257,8 @@ static void Processing_Handler(void) {
  * @post    The bandpass-filtered sample is plotted to the LCD.
  *
  * @see     LCD_Init(), Processing_Handler()
+ *
+ * @callgraph
  */
 static void LCD_Handler(void) {
     static float32_t samplePrevious = 0;
@@ -243,6 +266,7 @@ static void LCD_Handler(void) {
 
     Debug_Assert(FIFO_isEmpty(LCD_Fifo) == false);
 
+    // NOTE: this `while` is only here in case a sample arrives while the QRS FIFO is being emptied
     while(FIFO_isEmpty(LCD_Fifo) == false) {
         float32_t sampleCurrent;
 

@@ -58,7 +58,7 @@ typedef void (*ISR_t)(void);
  *
  * @post                    The ISR is now added to the vector table and available to be called.
  *
- * @sa                      ISR_relocateIntTableToRam()
+ * @sa                      ISR_InitNewTableInRam()
  */
 void ISR_addToIntTable(ISR_t isr, const uint8_t vectorNum);
 
@@ -69,9 +69,16 @@ Individual Interrupt Configuration
 /**
  * @brief                   Set the priority for an interrupt.
  *
+ * @pre                     Disable the interrupt before adjusting its priority.
+ *
  * @param[in] vectorNum     ISR's vector number (i.e. offset from the top of the table).
  *                          Should be in range `[16, 154]`.
+ *
  * @param[in] priority      Priority to assign. Highest priority is 0, lowest is 7.
+ *
+ * @post                    The interrupt's priority has now been changed in the NVIC.
+ *
+ * @sa                      ISR_Disable()
  */
 void ISR_setPriority(const uint8_t vectorNum, const uint8_t priority);
 
@@ -84,6 +91,8 @@ void ISR_setPriority(const uint8_t vectorNum, const uint8_t priority);
  * @param[in] vectorNum     ISR's vector number (i.e. offset from the top of the table).
  *                          Should be in range `[16, 154]`.
  *
+ * @post                    The interrupt is now enabled in the NVIC.
+ *
  * @sa                      ISR_setPriority(), ISR_Disable()
  */
 void ISR_Enable(const uint8_t vectorNum);
@@ -93,6 +102,8 @@ void ISR_Enable(const uint8_t vectorNum);
  *
  * @param[in] vectorNum     ISR's vector number (i.e. offset from the top of the table).
  *                          Should be in range `[16, 154]`.
+ *
+ * @post                    The interrupt is now enabled in the NVIC.
  *
  * @sa                      ISR_Enable()
  */

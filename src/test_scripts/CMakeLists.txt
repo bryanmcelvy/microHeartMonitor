@@ -83,10 +83,12 @@ target_link_libraries(test_isr_relocate.elf Led Timer ISR)
 # Application SW Tests
 #*****************************************************************************
 
-# LCD Color Test
+#[[
+LCD Color Test
 add_executable(test_lcd_scroll.elf test_lcd_scroll.c)
 target_include_directories(test_lcd_scroll.elf PRIVATE ${PATH_APP})
 target_link_libraries(test_lcd_scroll.elf LCD GPIO Timer)
+#]]
 
 # LCD Image Test
 add_executable(test_lcd_image.elf test_lcd_image.c)
