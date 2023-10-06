@@ -32,7 +32,7 @@ SECTIONS
 #include <stdbool.h>
 #include <stdint.h>
 
-enum { X_MAX = NUM_ROWS, Y_MAX = NUM_COLS };
+enum { LCD_X_MAX = ILI9341_NUM_ROWS, LCD_Y_MAX = ILI9341_NUM_COLS };
 
 /******************************************************************************
 Initialization

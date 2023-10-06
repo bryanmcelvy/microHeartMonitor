@@ -55,9 +55,9 @@ int main(void) {
         LCD_drawRectangle(x, SIZE, y, SIZE, true);
         Timer_Start(timer);
 
-        x = ((x + SIZE) < X_MAX) ? (x + SIZE) : 0;
+        x = ((x + SIZE) < LCD_X_MAX) ? (x + SIZE) : 0;
 
-        if((y + SIZE) >= Y_MAX) {
+        if((y + SIZE) >= LCD_Y_MAX) {
             is_increasing = false;
         }
         else if(y == 0) {

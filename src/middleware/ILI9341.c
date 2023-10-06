@@ -40,7 +40,7 @@ Preprocessor Directives
 #include <stdint.h>
 
 // Selected commands from the datasheet
-// NOTE: NUM_COLS and NUM_ROWS are defined in the header file
+// NOTE: ILI9341_NUM_COLS and ILI9341_NUM_ROWS are defined in the header file
 typedef enum {
     NOP = 0x00,                    /// No Operation
     SWRESET = 0x01,                /// Software Reset
@@ -187,7 +187,7 @@ void ILI9341_setDispMode(bool is_normal, bool is_full_colors) {
 void ILI9341_setPartialArea(uint16_t rowStart, uint16_t rowEnd) {
     // ensure `rowStart` and `rowEnd` meet restrictions.
     rowEnd = (rowEnd > 0) ? rowEnd : 1;
-    rowEnd = (rowEnd < NUM_ROWS) ? rowEnd : (NUM_ROWS - 1);
+    rowEnd = (rowEnd < ILI9341_NUM_ROWS) ? rowEnd : (ILI9341_NUM_ROWS - 1);
     rowStart = (rowStart > 0) ? rowStart : 1;
     rowStart = (rowStart < rowEnd) ? rowStart : rowEnd;
 
@@ -224,10 +224,10 @@ void ILI9341_setDispOutput(bool is_ON) {
 void ILI9341_setScrollArea(uint16_t top_fixed, uint16_t vert_scroll, uint16_t bottom_fixed) {
 
     // ensure parameters sum together
-    // while( (top_fixed + vert_scroll + bottom_fixed) < NUM_ROWS ) {
+    // while( (top_fixed + vert_scroll + bottom_fixed) < ILI9341_NUM_ROWS ) {
     //     vert_scroll += 1;
     // }
-    // while( (top_fixed + vert_scroll + bottom_fixed) > NUM_ROWS ) {
+    // while( (top_fixed + vert_scroll + bottom_fixed) > ILI9341_NUM_ROWS ) {
     //     vert_scroll -= 1;
     // }
 
@@ -397,7 +397,7 @@ inline static void ILI9341_setAddress(uint16_t startAddress, uint16_t endAddress
     */
 
     uint8_t cmd = (is_row) ? PASET : CASET;
-    uint16_t max_num = (is_row) ? NUM_ROWS : NUM_COLS;
+    uint16_t max_num = (is_row) ? ILI9341_NUM_ROWS : ILI9341_NUM_COLS;
 
     // ensure `startAddress` and `endAddress` meet restrictions
     endAddress = (endAddress < max_num) ? endAddress : (max_num - 1);

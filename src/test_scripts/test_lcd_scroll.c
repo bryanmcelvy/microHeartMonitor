@@ -55,7 +55,7 @@ int main(void) {
         Timer_Start(timer);
 
         // update x1 and y1
-        x1 = (x1 + DX < X_MAX) ? (x1 + DX) : 0;
+        x1 = (x1 + DX < LCD_X_MAX) ? (x1 + DX) : 0;
         y1 = (is_y_increasing) ? (y1 + DY) : (y1 - DY);
         y1 = (y1 + DY < COL_Y_MAX) ? y1 : (COL_Y_MAX - DY + 1);
 

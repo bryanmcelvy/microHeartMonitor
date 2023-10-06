@@ -41,8 +41,7 @@ Preprocessor Directives
 #include <stdint.h>
 
 // Defines
-#define NUM_COLS (uint16_t) 240
-#define NUM_ROWS (uint16_t) 320
+enum { ILI9341_NUM_COLS = 240, ILI9341_NUM_ROWS = 320 };
 
 /******************************************************************************
 Initialization/Reset

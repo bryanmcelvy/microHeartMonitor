@@ -70,7 +70,7 @@ static volatile float32_t QRS_Buffer[QRS_BUFFER_SIZE] = { 0 };
 
 // LCD Info
 enum {
-    LCD_TOP_LINE = (Y_MAX - 48),
+    LCD_TOP_LINE = (LCD_Y_MAX - 48),
     LCD_WAVE_NUM_Y = 128,
     LCD_WAVE_X_OFFSET = 0,
     LCD_WAVE_Y_MIN = (0 + LCD_WAVE_X_OFFSET),
@@ -113,7 +113,7 @@ int main(void) {
     LCD_toggleColorInversion();
 
     LCD_setColor_3bit(LCD_BLACK_INV);
-    LCD_setArea(0, X_MAX, 0, Y_MAX);
+    LCD_setArea(0, LCD_X_MAX, 0, LCD_Y_MAX);
     LCD_Draw();
 
     LCD_setColor_3bit(LCD_RED_INV);
@@ -253,12 +253,12 @@ static void LCD_Handler(void) {
         // plot a point between previous and current sample
         float32_t intermediate_sample = samplePrevious + ((sampleCurrent - samplePrevious) / 2);
         LCD_plotNewSample(x, intermediate_sample);
-        x = (x + 1) % X_MAX;
+        x = (x + 1) % LCD_X_MAX;
         samplePrevious = sampleCurrent;
 
         // plot current sample
         LCD_plotNewSample(x, sampleCurrent);
-        x = (x + 1) % X_MAX;
+        x = (x + 1) % LCD_X_MAX;
     }
 }
 

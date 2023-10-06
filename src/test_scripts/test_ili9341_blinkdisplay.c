@@ -16,8 +16,8 @@ int main(void) {
 
     // Initialize driver
     ILI9341_Init(timer0);
-    ILI9341_setRowAddress(0, NUM_ROWS - 1);
-    ILI9341_setColAddress(0, NUM_COLS - 1);
+    ILI9341_setRowAddress(0, ILI9341_NUM_ROWS - 1);
+    ILI9341_setColAddress(0, ILI9341_NUM_COLS - 1);
     ILI9341_setMemAccessCtrl(0, 0, 0, 0, 1, 0);
 
     // Init. LED pins

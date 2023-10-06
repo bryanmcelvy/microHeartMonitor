@@ -25,7 +25,7 @@
 // Declarations
 #define DAQ_BUFFER_SIZE   128
 
-#define LCD_TOP_LINE      (Y_MAX - 48)
+#define LCD_TOP_LINE      (LCD_Y_MAX - 48)
 #define LCD_NUM_Y_VALS    128
 #define LCD_X_AXIS_OFFSET 32
 #define LCD_Y_MIN         (0 + LCD_X_AXIS_OFFSET)
@@ -51,7 +51,7 @@ int main(void) {
     LCD_toggleColorInversion();
 
     LCD_setColor_3bit(LCD_BLACK_INV);
-    LCD_setArea(0, X_MAX, 0, Y_MAX);
+    LCD_setArea(0, LCD_X_MAX, 0, LCD_Y_MAX);
     LCD_Draw();
 
     LCD_setColor_3bit(LCD_WHITE_INV);
@@ -82,10 +82,10 @@ int main(void) {
 
         float32_t intermediate_sample = prev_sample + ((sample - prev_sample) / 2);
         LCD_plotNewSample(x, intermediate_sample);
-        x = (x + 1) % X_MAX;
+        x = (x + 1) % LCD_X_MAX;
 
         LCD_plotNewSample(x, sample);
-        x = (x + 1) % X_MAX;
+        x = (x + 1) % LCD_X_MAX;
 
         prev_sample = sample;
     }

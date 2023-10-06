@@ -94,9 +94,9 @@ void LCD_Init(void) {
     // ILI9341_setFrameRateIdle(2, 27);               // frame rate = 35 Hz
 
     lcd.x1 = 0;
-    lcd.x2 = (X_MAX - 1);
+    lcd.x2 = (LCD_X_MAX - 1);
     lcd.y1 = 0;
-    lcd.y2 = (Y_MAX - 1), lcd.numPixels = (X_MAX * Y_MAX);
+    lcd.y2 = (LCD_Y_MAX - 1), lcd.numPixels = (LCD_X_MAX * LCD_Y_MAX);
 
     lcd.R_val = 255;
     lcd.G_val = 255;
@@ -279,8 +279,8 @@ void LCD_Draw(void) {
 
 void LCD_Fill(void) {
     // LCD_setArea(0, X_MAX, 0, Y_MAX);
-    LCD_setDim(0, X_MAX, true, false);
-    LCD_setDim(0, Y_MAX, false, true);
+    LCD_setDim(0, LCD_X_MAX, true, false);
+    LCD_setDim(0, LCD_Y_MAX, false, true);
     LCD_Draw();
 
     return;
@@ -291,7 +291,7 @@ inline static void LCD_drawLine(uint16_t center, uint16_t lineWidth, bool is_hor
     uint16_t padding;
     uint16_t MAX_NUM;
 
-    MAX_NUM = (is_horizontal) ? Y_MAX : X_MAX;
+    MAX_NUM = (is_horizontal) ? LCD_Y_MAX : LCD_X_MAX;
 
     // ensure `lineWidth` is odd and positive
     lineWidth = (lineWidth > 0) ? lineWidth : 1;
@@ -311,13 +311,13 @@ inline static void LCD_drawLine(uint16_t center, uint16_t lineWidth, bool is_hor
     end = center + padding;
     if(is_horizontal) {
         // NOTE: this is split into separate func calls to reduce call stack usage
-        LCD_setDim(0, (X_MAX - 1), true, false);
+        LCD_setDim(0, (LCD_X_MAX - 1), true, false);
         LCD_setDim(start, end, false, true);
     }
     else {
         // NOTE: see above comment
         LCD_setDim(start, end, true, false);
-        LCD_setDim(0, (Y_MAX - 1), false, true);
+        LCD_setDim(0, (LCD_Y_MAX - 1), false, true);
     }
 
     LCD_Draw();
@@ -340,15 +340,15 @@ void LCD_drawRectangle(uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy, bool 
     uint16_t y2;
 
     // ensure startRow and startCol are less than their max numbers
-    x1 = (x1 < X_MAX) ? x1 : (X_MAX - 1);
-    y1 = (y1 < Y_MAX) ? y1 : (Y_MAX - 1);
+    x1 = (x1 < LCD_X_MAX) ? x1 : (LCD_X_MAX - 1);
+    y1 = (y1 < LCD_Y_MAX) ? y1 : (LCD_Y_MAX - 1);
 
     // ensure lines don't go out of bounds
-    if((x1 + dx) > X_MAX) {
-        dx = (X_MAX - x1 - 1);
+    if((x1 + dx) > LCD_X_MAX) {
+        dx = (LCD_X_MAX - x1 - 1);
     }
-    if((y1 + dy) > Y_MAX) {
-        dy = (Y_MAX - y1 - 1);
+    if((y1 + dy) > LCD_Y_MAX) {
+        dy = (LCD_Y_MAX - y1 - 1);
     }
 
     // draw rectangle based on `is_filled`
