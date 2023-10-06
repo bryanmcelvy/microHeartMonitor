@@ -158,7 +158,6 @@ Interrupt Service Routines
 ******************************************************************************/
 
 /**
- * @ingroup isr
  *
  * @brief   Reads ADC output, converts to raw voltage sample, and sends to next FIFO.
  * @details This ISR has a priority level of 1, is triggered when the ADC
@@ -184,7 +183,6 @@ static void DAQ_Handler(void) {
 }
 
 /**
- * @ingroup isr
  * @brief   Removes noise from the signal and sends it to the QRS and LCD FIFO buffers.
  * @details This ISR has a priority level of 1, is triggered by the DAQ ISR, and triggers
  *          the LCD Handler. It also notifies the superloop in @ref main() that the QRS
@@ -229,7 +227,6 @@ static void Processing_Handler(void) {
 }
 
 /**
- * @ingroup isr
  * @brief   Applies a 0.5-40 [Hz] bandpass filter and plots the sample to the waveform.
  * @details This ISR has a priority level of 1 and is triggered by the Processing ISR.
  *          This ISR also plots an intermediate sample to the display to make the waveform
