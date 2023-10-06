@@ -42,10 +42,10 @@ enum {
     QRS_BUFFER_SIZE = QRS_NUM_SAMP + 1
 };
 
-static volatile FIFO_t * DAQ_Fifo = 0;
+static volatile Fifo_t DAQ_Fifo = 0;
 static volatile uint32_t DAQ_Buffer[DAQ_BUFFER_SIZE] = { 0 };
 
-static volatile FIFO_t * QRS_Fifo = 0;
+static volatile Fifo_t QRS_Fifo = 0;
 static volatile uint32_t QRS_FifoBuffer[QRS_BUFFER_SIZE] = { 0 };
 static volatile bool QRS_bufferIsFull = false;
 

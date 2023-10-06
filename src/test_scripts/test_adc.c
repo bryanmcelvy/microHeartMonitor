@@ -22,7 +22,7 @@
 #define NUM_SAMPLES        (uint32_t) 1000
 
 volatile bool buffer_is_full = false;
-volatile FIFO_t * fifo_ptr = 0;
+volatile Fifo_t fifo_ptr = 0;
 volatile uint32_t fifo_buffer[NUM_SAMPLES];
 
 int main(void) {

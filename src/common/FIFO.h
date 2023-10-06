@@ -39,7 +39,7 @@ Preprocessor Directives
 Type Declaration + Initialization
 *******************************************************************************/
 
-typedef struct FIFO_t FIFO_t;
+typedef struct FifoStruct_t * Fifo_t;
 
 /**
  * @brief               Initialize a FIFO buffer of length `N`.
@@ -48,7 +48,7 @@ typedef struct FIFO_t FIFO_t;
  * @param N             Length of `buffer`. Usable length is `N - 1`.
  * @return              pointer to the FIFO buffer
  */
-FIFO_t * FIFO_Init(volatile uint32_t buffer[], const uint32_t N);
+Fifo_t FIFO_Init(volatile uint32_t buffer[], const uint32_t N);
 
 /******************************************************************************
 Basic Operations
@@ -61,7 +61,7 @@ Basic Operations
  * @param fifo          Pointer to FIFO object
  * @param val           last value in the buffer
  */
-void FIFO_Put(volatile FIFO_t * fifo, const uint32_t val);
+void FIFO_Put(volatile Fifo_t fifo, const uint32_t val);
 
 /**
  * @brief               Remove the first value of the buffer.
@@ -69,7 +69,7 @@ void FIFO_Put(volatile FIFO_t * fifo, const uint32_t val);
  * @param fifo          Pointer to FIFO object
  * @return              First sample in the FIFO.
  */
-uint32_t FIFO_Get(volatile FIFO_t * fifo);
+uint32_t FIFO_Get(volatile Fifo_t fifo);
 
 /**
  * @brief               Transfer a value from one FIFO buffer to another.
@@ -77,7 +77,7 @@ uint32_t FIFO_Get(volatile FIFO_t * fifo);
  * @param srcFifo       Pointer to source FIFO buffer.
  * @param destFifo      Pointer to destination FIFO buffer.
  */
-void FIFO_TransferOne(volatile FIFO_t * srcFifo, volatile FIFO_t * destFifo);
+void FIFO_TransferOne(volatile Fifo_t srcFifo, volatile Fifo_t destFifo);
 
 ///@}
 
@@ -93,14 +93,14 @@ Bulk Removal
  * @param outputBuffer  Array to output values to.
  *                      Should be the same length as the FIFO buffer.
  */
-void FIFO_Flush(volatile FIFO_t * fifo, uint32_t outputBuffer[]);
+void FIFO_Flush(volatile Fifo_t fifo, uint32_t outputBuffer[]);
 
 /**
  * @brief               Reset the FIFO buffer.
  *
  * @param[in] fifo  Pointer to FIFO buffer.
  */
-void FIFO_Reset(volatile FIFO_t * fifo);
+void FIFO_Reset(volatile Fifo_t fifo);
 
 /**
  * @brief               Transfer the contents of one FIFO buffer to another.
@@ -108,7 +108,7 @@ void FIFO_Reset(volatile FIFO_t * fifo);
  * @param srcFifo       Pointer to source FIFO buffer.
  * @param destFifo      Pointer to destination FIFO buffer.
  */
-void FIFO_TransferAll(volatile FIFO_t * srcFifo, volatile FIFO_t * destFifo);
+void FIFO_TransferAll(volatile Fifo_t srcFifo, volatile Fifo_t destFifo);
 
 ///@}
 
@@ -123,7 +123,7 @@ Peeking
  * @param fifo      Pointer to FIFO object
  * @return              First sample in the FIFO.
  */
-uint32_t FIFO_PeekOne(volatile FIFO_t * fifo);
+uint32_t FIFO_PeekOne(volatile Fifo_t fifo);
 
 /**
  * @brief               See the FIFO buffer's contents without removing them.
@@ -132,7 +132,7 @@ uint32_t FIFO_PeekOne(volatile FIFO_t * fifo);
  * @param outputBuffer  Array to output values to.
  *                      Should be the same length as the FIFO buffer.
  */
-void FIFO_PeekAll(volatile FIFO_t * fifo, uint32_t outputBuffer[]);
+void FIFO_PeekAll(volatile Fifo_t fifo, uint32_t outputBuffer[]);
 
 ///@}
 
@@ -148,7 +148,7 @@ Status Checks
  * @retval true         The buffer is full.
  * @retval false        The buffer is not full.
  */
-bool FIFO_isFull(volatile FIFO_t * fifo);
+bool FIFO_isFull(volatile Fifo_t fifo);
 
 /**
  * @brief               Check if the FIFO buffer is empty.
@@ -157,14 +157,14 @@ bool FIFO_isFull(volatile FIFO_t * fifo);
  * @retval true         The buffer is empty.
  * @retval false        The buffer is not empty.
  */
-bool FIFO_isEmpty(volatile FIFO_t * fifo);
+bool FIFO_isEmpty(volatile Fifo_t fifo);
 
 /**
  * @brief               Get the current size of the FIFO buffer.
  *
  * @param fifo      Pointer to the FIFO buffer.
  */
-uint32_t FIFO_getCurrSize(volatile FIFO_t * fifo);
+uint32_t FIFO_getCurrSize(volatile Fifo_t fifo);
 
 ///@}
 

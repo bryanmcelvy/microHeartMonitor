@@ -54,14 +54,14 @@ enum {
     LCD_BUFFER_SIZE = LCD_BUFFER_CAPACITY + 1
 };
 
-static volatile FIFO_t * DAQ_Fifo = 0;
+static volatile Fifo_t DAQ_Fifo = 0;
 static volatile uint32_t DAQ_Buffer[DAQ_BUFFER_SIZE] = { 0 };
 
-static volatile FIFO_t * QRS_Fifo = 0;
+static volatile Fifo_t QRS_Fifo = 0;
 static volatile uint32_t QRS_FifoBuffer[QRS_BUFFER_SIZE] = { 0 };
 static volatile bool QRS_bufferIsFull = false;
 
-static volatile FIFO_t * LCD_Fifo = 0;
+static volatile Fifo_t LCD_Fifo = 0;
 static volatile uint32_t LCD_FifoBuffer[LCD_BUFFER_SIZE] = { 0 };
 
 // Processing Buffer

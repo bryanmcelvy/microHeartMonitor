@@ -31,7 +31,7 @@
 #define LCD_Y_MIN         (0 + LCD_X_AXIS_OFFSET)
 #define LCD_Y_MAX         (LCD_NUM_Y_VALS + LCD_X_AXIS_OFFSET)
 
-volatile FIFO_t * inputFifo = 0;
+volatile Fifo_t inputFifo = 0;
 volatile uint32_t inputBuffer[DAQ_BUFFER_SIZE] = { 0 };
 volatile bool sampleReady = false;
 

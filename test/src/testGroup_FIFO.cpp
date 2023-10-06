@@ -30,7 +30,7 @@ After Initialization
 *******************************************************************************/
 
 TEST_GROUP(Group_FIFO_AfterInit) {
-    volatile FIFO_t * fifo;
+    volatile Fifo_t fifo;
     volatile uint32_t fifoBuffer[FIFO_BUFFER_SIZE] = { 0 };
 
     void setup() {
@@ -55,7 +55,7 @@ After Reset
 *******************************************************************************/
 
 TEST_GROUP(Group_FIFO_AfterReset) {
-    volatile FIFO_t * fifo;
+    volatile Fifo_t fifo;
     volatile uint32_t fifoBuffer[FIFO_BUFFER_SIZE] = { 0 };
     uint32_t randArray[FIFO_CAPACITY] = {29, 81, 73, 79, 2, 40, 21, 60, 93};
     uint8_t randNum;
@@ -93,7 +93,7 @@ After Put
 *******************************************************************************/
 
 TEST_GROUP(Group_FIFO_AfterPut) {
-    volatile FIFO_t * fifo;
+    volatile Fifo_t fifo;
     volatile uint32_t fifoBuffer[FIFO_BUFFER_SIZE] = { 0 };
     uint32_t randArray[FIFO_CAPACITY] = {29, 81, 73, 79, 2, 40, 21, 60, 93};
     uint8_t randNum;
@@ -129,7 +129,7 @@ After Get
 *******************************************************************************/
 
 TEST_GROUP(Group_FIFO_AfterGet) {
-    volatile FIFO_t * fifo;
+    volatile Fifo_t fifo;
     volatile uint32_t fifoBuffer[FIFO_BUFFER_SIZE] = { 0 };
     uint32_t randArray[FIFO_CAPACITY] = {29, 81, 73, 79, 2, 40, 21, 60, 93};
     uint8_t randNum;
@@ -160,7 +160,7 @@ After Flush
 *******************************************************************************/
 
 TEST_GROUP(Group_FIFO_AfterFlush) {
-    volatile FIFO_t * fifo;
+    volatile Fifo_t fifo;
     volatile uint32_t fifoBuffer[FIFO_BUFFER_SIZE] = { 0 };
     uint32_t randArray[FIFO_CAPACITY] = {29, 81, 73, 79, 2, 40, 21, 60, 93};
     uint32_t outputArray[FIFO_CAPACITY] = { 0 };
@@ -203,7 +203,7 @@ After Peek
 *******************************************************************************/
 
 TEST_GROUP(Group_FIFO_AfterPeek) {
-    volatile FIFO_t * fifo;
+    volatile Fifo_t fifo;
     volatile uint32_t fifoBuffer[FIFO_BUFFER_SIZE] = { 0 };
     uint32_t randArray[FIFO_CAPACITY] = {29, 81, 73, 79, 2, 40, 21, 60, 93};
     uint32_t outputArray[FIFO_CAPACITY] = { 0 };
@@ -262,7 +262,7 @@ After Reaching Capacity
 *******************************************************************************/
 
 TEST_GROUP(Group_FIFO_AfterReachingCapacity) {
-    volatile FIFO_t * fifo;
+    volatile Fifo_t fifo;
     volatile uint32_t fifoBuffer[FIFO_BUFFER_SIZE] = { 0 };
     uint32_t randArray[FIFO_CAPACITY] = {29, 81, 73, 79, 2, 40, 21, 60, 93};
 
@@ -296,7 +296,7 @@ Float
 typedef float float32_t;
 
 TEST_GROUP(Group_FIFO_Float) {
-    volatile FIFO_t * fifo;
+    volatile Fifo_t fifo;
     volatile uint32_t fifoBuffer[FIFO_BUFFER_SIZE] = { 0 };
     float32_t randArray[FIFO_CAPACITY] = { 64.17631782f, 1.38950613f,  0.51682714f,
                                        54.7013881f,  26.31959354f, 2.85827833f,

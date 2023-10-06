@@ -20,11 +20,11 @@
 
 UART_t * uart;
 
-void FIFO_reportStatus(FIFO_t * fifo_ptr);
+void FIFO_reportStatus(Fifo_t fifo_ptr);
 
 int main(void) {
     uint32_t buffer[FIFO_LEN];
-    FIFO_t * fifo_ptr = 0;
+    Fifo_t fifo_ptr = 0;
     uint32_t print_buffer[FIFO_LEN];
 
     PLL_Init();
@@ -85,7 +85,7 @@ int main(void) {
     }
 }
 
-void FIFO_reportStatus(FIFO_t * fifo_ptr) {
+void FIFO_reportStatus(Fifo_t fifo_ptr) {
     if(FIFO_isEmpty(fifo_ptr)) {
         UART_WriteStr(uart, (unsigned char *) "FIFO is empty.");
     }

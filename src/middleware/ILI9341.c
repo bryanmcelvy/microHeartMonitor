@@ -90,7 +90,7 @@ Static Declarations
 *******************************************************************************/
 
 static uint32_t ILI9341_Buffer[8];
-static FIFO_t * ILI9341_Fifo;
+static Fifo_t ILI9341_Fifo;
 
 inline static void ILI9341_setAddress(uint16_t start_address, uint16_t end_address, bool is_row);
 
