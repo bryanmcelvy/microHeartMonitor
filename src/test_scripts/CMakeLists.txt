@@ -20,7 +20,7 @@ link_libraries(PLL Startup)
 # FIFO Buffer
 add_executable(test_fifo.elf test_fifo.c)
 target_include_directories(test_fifo.elf PRIVATE ${PATH_COMMON})
-target_link_libraries(test_fifo.elf FIFO GPIO Timer UART)
+target_link_libraries(test_fifo.elf Fifo GPIO Timer UART)
 
 #[[***********************************************************************************************
 # Driver Tests
@@ -69,7 +69,7 @@ target_link_libraries(test_ili9341_blinkdisplay.elf ILI9341 GPIO)
 # ADC Test
 add_executable(test_adc.elf test_adc.c)
 target_include_directories(test_adc.elf PRIVATE ${PATH_COMMON})
-target_link_libraries(test_adc.elf ADC FIFO GPIO Timer)
+target_link_libraries(test_adc.elf ADC Fifo GPIO Timer)
 
 # GPIO (New) Test
 add_executable(test_gpio_new.elf test_gpio_new.c)
@@ -96,7 +96,7 @@ target_link_libraries(test_lcd_image.elf LCD GPIO Timer)
 # DAQ Test
 add_executable(test_daq.elf test_daq.c)
 target_include_directories(test_daq.elf PRIVATE ${PATH_APP} ${CMSIS_DIRS})
-target_link_libraries(test_daq.elf DAQ Debug FIFO ISR LCD)
+target_link_libraries(test_daq.elf DAQ Debug Fifo ISR LCD)
 target_link_options(test_daq.elf PRIVATE "-Wl,-Map=test_daq.map")
 
 # Debug Module Test

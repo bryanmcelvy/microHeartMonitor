@@ -8,16 +8,17 @@ include_directories(
                     ${PATH_DRIVERS}
                 )
 
+add_library(Lookup OBJECT lookup.c lookup.h)
+target_include_directories(Lookup PRIVATE ${CMSIS_DIRS})
+target_link_libraries(Lookup CMSIS-DSP-f32)
+
 add_library(DAQ STATIC DAQ.c DAQ.h)
 target_include_directories(DAQ PRIVATE ${CMSIS_DIRS})
-target_link_libraries(DAQ ADC CMSIS-DSP-f32 FIFO NewAssert Timer)
+target_link_libraries(DAQ ADC CMSIS-DSP-f32 Lookup NewAssert Timer)
 
 add_library(QRS STATIC QRS.c QRS.h)
 target_include_directories(QRS PRIVATE ${CMSIS_DIRS})
-target_link_libraries(QRS CMSIS-DSP-f32 FIFO)
-
-add_library(Debug STATIC Debug.c Debug.h)
-target_link_libraries(Debug UART NewAssert)
+target_link_libraries(QRS CMSIS-DSP-f32)
 
 add_library(LCD STATIC LCD.c LCD.h)
 target_include_directories(LCD PRIVATE ${PATH_MIDDLEWARE})
