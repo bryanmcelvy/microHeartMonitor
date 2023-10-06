@@ -122,10 +122,17 @@ static void ADC_Handler(void) {
 }
 
 static void DAQ_Handler(void) {
+    static float32_t sum = 0.0f;
+    static uint32_t N = 0;
+
     while(FIFO_isEmpty(DAQ_Fifo) == false) {
         volatile uint16_t rawSample = FIFO_Get(DAQ_Fifo);
         volatile float32_t sample = DAQ_convertToMilliVolts(rawSample);
-        sample = DAQ_subtractRunningMean(sample);
+
+        sum += sample;
+        N += 1;
+        sample -= (sum / ((float32_t) N));
+
         sample = DAQ_NotchFilter(sample);
 
         FIFO_Put(QRS_Fifo, *((uint32_t *) (&sample)));
