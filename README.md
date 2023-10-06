@@ -1,5 +1,8 @@
-# Electrocardiogram-based Heart Rate Monitor (ECG-HRM)
-- [Electrocardiogram-based Heart Rate Monitor (ECG-HRM)](#electrocardiogram-based-heart-rate-monitor-ecg-hrm)
+# μHeartMonitor: An ECG-based Heart Rate Monitor
+
+An electrocardiogram-based heart rate monitor project implemented with a TM4C123 microcontroller and custom analog front-end circuitry. Please read below for more information on what exactly this project is and why I decided to do it!
+
+- [μHeartMonitor: An ECG-based Heart Rate Monitor](#μheartmonitor-an-ecg-based-heart-rate-monitor)
   - [Navigation](#navigation)
   - [Introduction](#introduction)
     - [Background](#background)
@@ -10,7 +13,11 @@
     - [Software](#software)
   - [Current Results](#current-results)
   - [To-do](#to-do)
+    - [Hardware](#hardware-1)
+    - [Software](#software-1)
   - [Build Instructions](#build-instructions)
+    - [Hardware](#hardware-2)
+    - [Software](#software-2)
   - [References](#references)
 
 ## Navigation
@@ -56,6 +63,10 @@ WIP
 WIP
 ### Key Terms
 WIP
+* Analog front-end
+* Electrocardiogram
+* Electrocardiography (ECG)
+* Heart rate monitor
 
 ## Materials & Methods
 
@@ -70,9 +81,27 @@ WIP
 WIP
 
 ## To-do
-WIP
+### Hardware
+* Design a custom PCB
+* Add electrostatic discharge (ESD) protection
+* Replace most of the op-amps in the AFE circuitry with an AFE IC (e.g. AD8232)
+### Software
+* Rework the structure of/relationship between the LCD and ILI9341 modules
+* Refactor ADC module to be more general
+* Refactor SPI module to be more general
+* Remove statically-allocated data structures for unused Timers and GPIO ports
+* Add remaining parts of the Pan-Tompkins algorithm
+  * Thresholding procedure for bandpass-filtered signal (not just integrated signal)
+  * Search-back procedure
+  * T-wave discrimination
+* Add heart rate variability (HRV)
+* Move CMSIS-DSP filters from DAQ and QRS modules to their own module
 
 ## Build Instructions
+### Hardware
+WIP
+
+### Software
 WIP
 
 ## References
