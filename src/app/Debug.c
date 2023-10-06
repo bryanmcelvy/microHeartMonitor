@@ -47,7 +47,7 @@ void Debug_SendFromList(Msg_t msg) {
 }
 
 void Debug_WriteFloat(double value) {
-    UART_WriteFloat(uart0, value, 3);
+    UART_WriteFloat(uart0, value, 1);
     UART_WriteStr(uart0, "\r\n");
     return;
 }
