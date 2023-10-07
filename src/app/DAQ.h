@@ -79,6 +79,12 @@ uint16_t DAQ_readSample(void);
  */
 float32_t DAQ_convertToMilliVolts(uint16_t sample);
 
+/**
+ * @brief                   Acknowledge the ADC interrupt.
+ *
+ */
+void DAQ_acknowledgeInterrupt(void);
+
 /// @} Reading Input Data
 
 /*******************************************************************************

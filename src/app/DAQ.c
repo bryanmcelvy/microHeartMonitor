@@ -127,6 +127,11 @@ float32_t DAQ_convertToMilliVolts(uint16_t sample) {
     return DAQ_LOOKUP_TABLE[sample];
 }
 
+void DAQ_acknowledgeInterrupt(void) {
+    ADC0_ISC_R |= 0x08;
+    return;
+}
+
 /*******************************************************************************
 Digital Filtering Functions
 ********************************************************************************/

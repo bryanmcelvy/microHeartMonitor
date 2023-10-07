@@ -23,6 +23,7 @@ Preprocessor Directives
 #include "DAQ.h"
 #include "Debug.h"
 #include "LCD.h"
+#include "lookup.h"
 #include "QRS.h"
 
 #include "FIFO.h"
@@ -200,7 +201,7 @@ static void DAQ_Handler(void) {
     FIFO_Put(DAQ_Fifo, *((uint32_t *) &sample));
     ISR_triggerInterrupt(PROC_VECTOR_NUM);
 
-    ADC_InterruptAcknowledge();
+    DAQ_acknowledgeInterrupt();
 }
 
 /**

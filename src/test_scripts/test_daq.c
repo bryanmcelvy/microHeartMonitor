@@ -98,7 +98,7 @@ void ADC0_SS3_Handler(void) {
     FIFO_Put(inputFifo, (volatile uint32_t) rawSample);
     sampleReady = true;
 
-    ADC_InterruptAcknowledge();
+    DAQ_acknowledgeInterrupt();
     return;
 }
 

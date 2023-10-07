@@ -33,25 +33,10 @@ void ADC_Init(void) {
     ADC0_EMUX_R |= 0x5000;                                  // set trigger source to Timer3A
     ADC0_SSMUX3_R = 8;                                      // analog input 8 (Ain8 = PE5)
     ADC0_SSCTL3_R = 0x06;               // disable temp. sensor, enable interrupts
-    ADC_InterruptAcknowledge();
-    ADC_InterruptEnable();
+    ADC0_ISC_R |= 0x08;                 // clear interrupt flag
+    ADC0_IM_R |= 0x08;                  // enable interrupt
 
     ADC0_ACTSS_R |= 0x08;               // enable SS3
-    return;
-}
-
-void ADC_InterruptEnable(void) {
-    ADC0_IM_R |= 0x08;
-    return;
-}
-
-void ADC_InterruptDisable(void) {
-    ADC0_IM_R &= ~(0x08);
-    return;
-}
-
-void ADC_InterruptAcknowledge(void) {
-    ADC0_ISC_R |= 0x08;                 // clear interrupt flag to acknowledge
     return;
 }
 

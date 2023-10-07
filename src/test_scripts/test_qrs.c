@@ -117,7 +117,7 @@ static void ADC_Handler(void) {
     uint16_t rawSample = DAQ_readSample();
     FIFO_Put(DAQ_Fifo, (volatile uint32_t) rawSample);
 
-    ADC_InterruptAcknowledge();
+    DAQ_acknowledgeInterrupt();
     ISR_triggerInterrupt(DAQ_VECTOR_NUM);
 }
 
