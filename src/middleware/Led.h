@@ -37,6 +37,8 @@ typedef struct LedStruct_t * Led_t;
  */
 Led_t Led_Init(GPIO_Port_t * gpioPort, GPIO_Pin_t pin);
 
+bool Led_isInit(Led_t led);
+
 /******************************************************************************
 Status Checking
 *******************************************************************************/
