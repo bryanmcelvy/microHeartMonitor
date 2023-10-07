@@ -76,18 +76,16 @@ static volatile uint32_t LCD_FifoBuffer[LCD_BUFFER_SIZE] = { 0 };
 
 // Processing Buffer
 // NOTE: using just one to avoid running out of RAM
-static volatile float32_t QRS_Buffer[QRS_BUFFER_SIZE] = { 0 };
+static volatile float32_t QRS_processingBuffer[QRS_BUFFER_SIZE] = { 0 };
 
 // LCD Info
 enum {
     LCD_TOP_LINE = (LCD_Y_MAX - 48),
-    LCD_WAVE_NUM_Y = 128,
+    LCD_WAVE_NUM_Y = 192,
     LCD_WAVE_X_OFFSET = 0,
     LCD_WAVE_Y_MIN = (0 + LCD_WAVE_X_OFFSET),
     LCD_WAVE_Y_MAX = (LCD_WAVE_NUM_Y + LCD_WAVE_X_OFFSET)
 };
-
-static void LCD_plotNewSample(uint16_t x, volatile const float32_t sample);
 
 /******************************************************************************
 Main
@@ -154,7 +152,7 @@ int main(void) {
             // Transfer samples from FIFO
             ISR_Disable(PROC_VECTOR_NUM);
 
-            FIFO_Flush(QRS_Fifo, (uint32_t *) QRS_Buffer);
+            FIFO_Flush(QRS_Fifo, (uint32_t *) QRS_processingBuffer);
             QRS_bufferIsFull = false;
 
             ISR_Enable(PROC_VECTOR_NUM);
@@ -162,8 +160,8 @@ int main(void) {
             // Run QRS detection
             Debug_SendMsg("Starting QRS detection...\r\n");
 
-            QRS_Preprocess(QRS_Buffer, QRS_Buffer);
-            float32_t heartRate_bpm = QRS_applyDecisionRules(QRS_Buffer);
+            QRS_Preprocess(QRS_processingBuffer, QRS_processingBuffer);
+            float32_t heartRate_bpm = QRS_applyDecisionRules(QRS_processingBuffer);
             Debug_Assert(isnan(heartRate_bpm) == false);
             Debug_Assert(isinf(heartRate_bpm) == false);
 
@@ -250,6 +248,8 @@ static void Processing_Handler(void) {
     }
 }
 
+static uint16_t LCD_prevSampleBuffer[LCD_X_MAX] = { 0 };
+
 /**
  * @brief   Applies a 0.5-40 [Hz] bandpass filter and plots the sample to the waveform.
  * @details This ISR has a priority level of 1 and is triggered by the Processing ISR.
@@ -264,45 +264,36 @@ static void Processing_Handler(void) {
  * @callgraph
  */
 static void LCD_Handler(void) {
-    static float32_t samplePrevious = 0;
     static uint16_t x = 0;
+    static const float32_t maxVal = LOOKUP_DAQ_MAX * 2;
 
     Debug_Assert(FIFO_isEmpty(LCD_Fifo) == false);
 
     // NOTE: this `while` is only here in case a sample arrives while the QRS FIFO is being emptied
     while(FIFO_isEmpty(LCD_Fifo) == false) {
-        float32_t sampleCurrent;
 
         // get sample and apply 0.5-40 [Hz] bandpass filter
-        *((uint32_t *) &sampleCurrent) = FIFO_Get(LCD_Fifo);
-        sampleCurrent = DAQ_BandpassFilter(sampleCurrent);
+        float32_t sample;
+        *((uint32_t *) &sample) = FIFO_Get(LCD_Fifo);
+        sample = DAQ_BandpassFilter(sample);
 
-        // plot a point between previous and current sample
-        float32_t intermediate_sample = samplePrevious + ((sampleCurrent - samplePrevious) / 2);
-        LCD_plotNewSample(x, intermediate_sample);
-        x = (x + 1) % LCD_X_MAX;
-        samplePrevious = sampleCurrent;
+        // remove previous sample
+        uint16_t y = LCD_prevSampleBuffer[x];
+        LCD_setColor(LCD_BLACK_INV);
+        LCD_setX(x, x);
+        LCD_setY(y, y);
+        LCD_Draw();
 
         // plot current sample
-        LCD_plotNewSample(x, sampleCurrent);
+        y = LCD_WAVE_Y_MIN + ((uint16_t) (((sample + maxVal) / (maxVal * 2)) * LCD_WAVE_NUM_Y));
+        LCD_setColor(LCD_RED_INV);
+        LCD_setY(y, y);
+        LCD_Draw();
+
+        // store y-value and update x
+        LCD_prevSampleBuffer[x] = y;
         x = (x + 1) % LCD_X_MAX;
     }
-}
-
-static void LCD_plotNewSample(uint16_t x, volatile const float32_t sample) {
-    static const float32_t maxVoltage = LOOKUP_DAQ_MAX * 2;
-
-    // blank out column
-    LCD_setColor(LCD_BLACK_INV);
-    LCD_drawRectangle(x, 1, LCD_WAVE_Y_MIN, LCD_WAVE_NUM_Y, true);
-
-    // plot sample
-    uint16_t y =
-        LCD_WAVE_Y_MIN + ((uint16_t) (((sample + maxVoltage) / (maxVoltage * 2)) * LCD_WAVE_NUM_Y));
-    LCD_setColor(LCD_RED_INV);
-    LCD_drawRectangle(x, 1, y, 1, true);
-
-    return;
 }
 
 /** @} */               // main
