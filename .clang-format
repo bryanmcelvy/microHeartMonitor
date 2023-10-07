@@ -2,6 +2,8 @@
 # File:         ./clang-format
 # Description:  Style/formatting rules for auto-formatting via clangd
 ###############################################################################
+
+---
 Language: Cpp
 BasedOnStyle: LLVM
 
@@ -9,16 +11,13 @@ IndentWidth: 4
 UseTab: Never
 ColumnLimit: 100
 
-DerivePointerAlignment: false
-PointerAlignment: Middle
-
+AlignConsecutiveMacros: AcrossEmptyLinesAndComments
 AllowAllArgumentsOnNextLine: true
 AllowShortBlocksOnASingleLine: Empty
+AllowShortCaseLabelsOnASingleLine: false
 AllowShortEnumsOnASingleLine: False
 AllowShortFunctionsOnASingleLine: Empty
 AllowShortIfStatementsOnASingleLine: true
-AlignConsecutiveMacros: AcrossEmptyLinesAndComments
-AllowShortCaseLabelsOnASingleLine: false
 AlignTrailingComments:
   Kind: Always
   OverEmptyLines: 100
@@ -27,34 +26,23 @@ BreakBeforeBraces: Custom
 BraceWrapping:
     BeforeElse: true
 
+Cpp11BracedListStyle: false
+
+DerivePointerAlignment: false
+
 IndentCaseLabels: true
+InsertNewlineAtEOF: true
 
 MaxEmptyLinesToKeep: 1
 
+PointerAlignment: Middle
+
 SpaceAfterCStyleCast: true
-SpacesInCStyleCastParentheses: false
 SpaceBeforeParens: Never
 SpaceBeforeSquareBrackets: false
 SpaceInEmptyBlock: false
-SpacesInCStyleCastParentheses: false
 SpacesBeforeTrailingComments: 15
-
+SpacesInCStyleCastParentheses: false
 SeparateDefinitionBlocks: Always
-
-# ReflowComments: false
-# SpacesInLineCommentPrefix:
-#   Minimum: 1
-#   Maximum: 1
-
-Cpp11BracedListStyle: false
-
-# AlignConsecutiveShortCaseStatements:
-#   Enabled: true
-#   AcrossEmptyLines: true
-#   AcrossComments: true
-#   AlignCaseColons: false
-
-InsertNewlineAtEOF: true
-
 SortIncludes: Never
 ---
