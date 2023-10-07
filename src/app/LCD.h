@@ -34,7 +34,10 @@ SECTIONS
 #include <stdbool.h>
 #include <stdint.h>
 
-enum { LCD_X_MAX = ILI9341_NUM_ROWS, LCD_Y_MAX = ILI9341_NUM_COLS };
+enum {
+    LCD_X_MAX = ILI9341_NUM_ROWS,
+    LCD_Y_MAX = ILI9341_NUM_COLS
+};
 
 /******************************************************************************
 Initialization
@@ -63,113 +66,41 @@ Configuration
  */
 void LCD_setOutputMode(bool isOn);
 
-/**
- * @brief           Toggle display output `ON` or `OFF` (`OFF` by default).
- *
- * @see             LCD_setOutputMode()
- */
-void LCD_toggleOutput(void);
-
-/**
- * @brief           Turn color inversion `ON` or `OFF` (`OFF` by default).
- *
- * @param[in] isOn  `true` to invert colors, `false` to use regular colors
- *
- * @see             LCD_toggleColorInversion(), LCD_setColor(), LCD_setColor_3bit()
- */
-void LCD_setColorInversionMode(bool isOn);
-
-/**
- * @brief           Toggle color inversion `ON` or `OFF` (`OFF` by default).
- *
- * @see             LCD_setColorInversionMode(), LCD_setColor(), LCD_setColor_3bit()
- */
-void LCD_toggleColorInversion(void);
-
-/**
- * @brief               Set the color depth to 16-bit or 18-bit.
- *                      16-bit color depth allows for only ~65K colors, but only needs
- *                      2 data transfers. 18-bit color depth allows for ~262K colors,
- *                      but requires 3 transfers.
- *
- * @param[in] is_16bit  `true` for 16-bit, `false` for 18b-bit
- *
- * @see                 LCD_toggleColorDepth(), LCD_setColor(), LCD_setColor_3bit()
- */
-void LCD_setColorDepth(bool is_16bit);
-
-/**
- * @brief               Toggle 16-bit or 18-bit color depth (16-bit by default).
- *
- * @see                 LCD_setColorDepth(), LCD_setColor(), LCD_setColor_3bit()
- */
-void LCD_toggleColorDepth(void);
-
 /// @}
 
 /******************************************************************************
 Drawing Area
 *******************************************************************************/
-/** @name Drawing Area Definition Functions */               /// @{
 
 /**
- * @brief               Set the area of the display to be written to.
- *                      \f$ 0 <= x1 <= x2 < X_MAX \f$
- *                      \f$ 0 <= y1 <= y2 < Y_MAX \f$
- *
- * @param x1_new        left-most x-coordinate
- * @param x2_new        right-most x-coordinate
- * @param y1_new        lowest y-coordinate
- * @param y2_new        highest y-coordinate
- *
- * @see                 LCD_setX(), LCD_setY()
- */
-void LCD_setArea(uint16_t x1_new, uint16_t x2_new, uint16_t y1_new, uint16_t y2_new);
-
-/**
- * @brief               Set only new x-coordinates to be written to.
+ * @brief               Set new x-coordinates to be written to.
  *                      \f$ 0 <= x1 <= x2 < X_MAX \f$
  *
  * @param x1_new        left-most x-coordinate
  * @param x2_new        right-most x-coordinate
  *
- * @see                 LCD_setY(), LCD_setArea()
+ * @see                 LCD_setY()
  */
 void LCD_setX(uint16_t x1_new, uint16_t x2_new);
 
 /**
- * @brief               Set only new y-coordinates to be written to.
+ * @brief               Set new y-coordinates to be written to.
  *                      \f$ 0 <= y1 <= y2 < Y_MAX \f$
  *
  * @param y1_new        lowest y-coordinate
  * @param y2_new        highest y-coordinate
  *
- * @see                 LCD_setX(), LCD_setArea()
+ * @see                 LCD_setX()
  */
 void LCD_setY(uint16_t y1_new, uint16_t y2_new);
-
-/// @}
 
 /******************************************************************************
 Color
 *******************************************************************************/
 /** @name Color Setting Functions */               /// @{
 
-/**
- * @brief               Set the current color value for the display.
- *                      Only the first 5-6 bits of each inputted value are used.
- *
- * @param   R_val       5-bit (`[0-31]`) R value;
-                        6-bit (`[0-63]`) if color depth is 18-bit
- * @param   G_val       6-bit (`[0-63]`) G value
- * @param   B_val       5-bit (`[0-31]`) B value;
-                        6-bit (`[0-63]`) if color depth is 18-bit
- *
- * @see                 LCD_setColorDepth(), LCD_toggleColorDepth(), LCD_setColor_3bit()
- */
-void LCD_setColor(uint8_t R_val, uint8_t G_val, uint8_t B_val);
-
-enum {
+typedef enum {
+    // Bits 2, 1, 0 correspond to R, G, and B values, respectively.
     // 3-bit Color Codes
     LCD_BLACK = 0x00,
     LCD_RED = 0x04,
@@ -191,17 +122,16 @@ enum {
     LCD_CYAN_INV = LCD_RED,                   // LCD_WHITE - LCD_CYAN
     LCD_PURPLE_INV = LCD_GREEN,               // LCD_WHITE - LCD_PURPLE
     LCD_WHITE_INV = LCD_BLACK                 // LCD_WHITE - LCD_WHITE
-};
+} LCD_Color_t;
 
 /**
  * @brief               Set the color value via a 3-bit code.
  *
- * @param color_code    3-bit color value to use. Bits 2, 1, 0 correspond to
- *                      R, G, and B values, respectively.
+ * @param color         Color to use.
  *
  * @see                 LCD_setColorDepth(), LCD_toggleColorDepth(), LCD_setColor()
  */
-void LCD_setColor_3bit(uint8_t color_code);
+void LCD_setColor(LCD_Color_t color);
 
 /// @}
 
@@ -211,13 +141,13 @@ Drawing
 /** @name Drawing Functions */               /// @{
 
 /**
- * @brief               Draw on the LCD display.
+ * @brief               Draw on the LCD.
  *
  * @pre                 Set the drawable area and the color to use for that area.
  * @post                The selected areas of the display will be drawn onto with
  *                      the selected color.
  *
- * @see                 LCD_setArea(), LCD_setX(), LCD_setY()
+ * @see                 LCD_setX(), LCD_setY()
  */
 void LCD_Draw(void);
 

@@ -48,17 +48,16 @@ int main(void) {
 
     // Initialize/configure LCD
     LCD_Init();
-    LCD_toggleColorInversion();
 
-    LCD_setColor_3bit(LCD_BLACK_INV);
-    LCD_setArea(0, LCD_X_MAX, 0, LCD_Y_MAX);
+    LCD_setColor(LCD_BLACK_INV);
+    LCD_Fill();
     LCD_Draw();
 
-    LCD_setColor_3bit(LCD_WHITE_INV);
+    LCD_setColor(LCD_WHITE_INV);
     LCD_drawHoriLine(LCD_TOP_LINE, 1);
 
-    LCD_setColor_3bit(LCD_RED_INV);
-    LCD_toggleOutput();
+    LCD_setColor(LCD_RED_INV);
+    LCD_setOutputMode(true);
 
     // Initialize DAQ module
     inputFifo = FIFO_Init(inputBuffer, DAQ_BUFFER_SIZE);
@@ -107,14 +106,14 @@ void LCD_plotNewSample(uint16_t x, volatile const float32_t sample) {
     static float32_t maxVoltage = LOOKUP_DAQ_MAX;
 
     // blank out column
-    LCD_setColor_3bit(LCD_BLACK_INV);
+    LCD_setColor(LCD_BLACK_INV);
     LCD_drawRectangle(x, 1, LCD_Y_MIN, LCD_NUM_Y_VALS, true);
 
     // plot sample
     maxVoltage = (sample > maxVoltage) ? sample : maxVoltage;
     uint16_t y = LCD_X_AXIS_OFFSET +
                  ((uint16_t) (((sample + maxVoltage) / (maxVoltage * 2)) * LCD_NUM_Y_VALS));
-    LCD_setColor_3bit(LCD_RED_INV);
+    LCD_setColor(LCD_RED_INV);
     LCD_drawRectangle(x, 1, y, 1, true);
 
     return;

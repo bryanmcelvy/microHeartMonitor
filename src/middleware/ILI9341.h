@@ -19,17 +19,12 @@
 
 /******************************************************************************
 SECTIONS
-        Preprocessor Directives
+        Declarations
         Initialization/Reset
         Configuration
         Memory Writing
 *******************************************************************************/
 
-/******************************************************************************
-Preprocessor Directives
-*******************************************************************************/
-
-// Includes
 #include "SPI.h"
 #include "Timer.h"
 
@@ -40,8 +35,59 @@ Preprocessor Directives
 #include <stdbool.h>
 #include <stdint.h>
 
-// Defines
-enum { ILI9341_NUM_COLS = 240, ILI9341_NUM_ROWS = 320 };
+/******************************************************************************
+Declarations
+*******************************************************************************/
+
+enum {
+    ILI9341_NUM_COLS = 240,               ///< # of columns available on the display
+    ILI9341_NUM_ROWS = 320                ///< # of rows available on the display
+};
+
+// Selected commands from the datasheet
+typedef enum {
+    NOP = 0x00,                    ///< No Operation
+    SWRESET = 0x01,                ///< Software Reset
+    SPLIN = 0x10,                  ///< Enter Sleep Mode
+    SPLOUT = 0x11,                 ///< Sleep Out (i.e. Exit Sleep Mode)
+    PTLON = 0x12,                  ///< Partial Display Mode ON
+    NORON = 0x13,                  ///< Normal Display Mode ON
+    DINVOFF = 0x20,                ///< Display Inversion OFF
+    DINVON = 0x21,                 ///< Display Inversion ON
+    CASET = 0x2A,                  ///< Column Address Set
+    PASET = 0x2B,                  ///< Page Address Set
+    RAMWR = 0x2C,                  ///< Memory Write
+    DISPOFF = 0x28,                ///< Display OFF
+    DISPON = 0x29,                 ///< Display ON
+    PLTAR = 0x30,                  ///< Partial Area
+    VSCRDEF = 0x33,                ///< Vertical Scrolling Definition
+    MADCTL = 0x36,                 ///< Memory Access Control
+    VSCRSADD = 0x37,               ///< Vertical Scrolling Start Address
+    IDMOFF = 0x38,                 ///< Idle Mode OFF
+    IDMON = 0x39,                  ///< Idle Mode ON
+    PIXSET = 0x3A,                 ///< Pixel Format Set
+    FRMCTR1 = 0xB1,                ///< Frame Rate Control Set (Normal Mode)
+    FRMCTR2 = 0xB2,                ///< Frame Rate Control Set (Idle Mode)
+    FRMCTR3 = 0xB3,                ///< Frame Rate Control Set (Partial Mode)
+    PRCTR = 0xB5,                  ///< Blanking Porch Control
+    IFCTL = 0xF6,                  ///< Interface Control
+} Cmd_t;
+
+// clang-format off
+/** Currently unused commands
+#define RDDST                   (uint8_t) 0x09          /// Read Display Status
+#define RDDMADCTL               (uint8_t) 0x0B          /// Read Display MADCTL
+#define RDDCOLMOD               (uint8_t) 0x0C          /// Read Display Pixel Format
+#define RGBSET                  (uint8_t) 0x2D          /// Color Set
+#define RAMRD                   (uint8_t) 0x2E          /// Memory Read
+#define WRITE_MEMORY_CONTINUE   (uint8_t) 0x3C          /// Write_Memory_Continue
+#define READ_MEMORY_CONTINUE    (uint8_t) 0x3E          /// Read_Memory_Continue
+#define WRDISBV                 (uint8_t) 0x51          /// Write Display Brightness
+#define RDDISBV                 (uint8_t) 0x52          /// Read Display Brightness
+#define IFMODE                  (uint8_t) 0xB0          /// RGB Interface Signal Control (i.e. Interface Mode Control)
+#define INVTR                   (uint8_t) 0xB4          /// Display Inversion Control
+ */
+// clang-format on
 
 /******************************************************************************
 Initialization/Reset
@@ -72,39 +118,65 @@ void ILI9341_resetSoft(Timer_t timer);
 Configuration
 *******************************************************************************/
 
-enum { ON = true, OFF = false };
+typedef enum {
+    SLEEP_ON = SPLIN,
+    SLEEP_OFF = SPLOUT
+} sleepMode_t;
 
 /**
- * @brief                       Enter or exit sleep mode.
+ * @brief                       Enter or exit sleep mode (`ON` by default).
  *
- * @param[in] isSleeping        `true` to enter sleep mode, `false` to exit
+ * @param[in] isSleeping        `ON` to enter sleep mode, `OFF` to exit
  * @param[in] timer             Hardware timer to use after mode change.
  */
-void ILI9341_setSleepMode(bool isSleeping, Timer_t timer);
+void ILI9341_setSleepMode(sleepMode_t sleepMode, Timer_t timer);
+
+typedef enum {
+    NORMAL_AREA = NORON,
+    PARTIAL_AREA = PTLON
+} displayArea_t;
 
 /**
- * @brief       Set the display area and color expression.
+ * @brief                   Set the display area.
  *
- *              Normal mode is the default and allows output to the full
- *              display area. Partial mode should be activated after calling
- *              `ILI9341_setPartialArea()`.
+ * @pre                     If using partial mode, set the partial area first.
  *
- *              Setting `isFullColors` to `false` restricts the color expression
- *              to 8 colors, determined by the MSB of the R/G/B values.
+ * @param[in] displayArea   `NORMAL_AREA` or `PARTIAL_AREA`
  *
- * @param       isNormal        `true` for normal mode, `false` for partial mode
- * @param       isFullColors    `true` for full colors, `false` for 8 colors
+ * @see                     ILI9341_setPartialArea()
  */
-void ILI9341_setDispMode(bool isNormal, bool isFullColors);
+void ILI9341_setDisplayArea(displayArea_t displayArea);
 
 /**
- * @brief       Set the partial display area for partial mode.
- *              Call before activating partial mode via ILI9341_setDisplayMode().
+ * @brief                   Set the display area for partial mode.
+ *                          Call before activating partial mode.
  *
- * @param       rowStart
- * @param       rowEnd
+ * @param[in] rowStart
+ * @param[in] rowEnd
+ *
+ * @see                     ILI9341_setDisplayArea()
  */
 void ILI9341_setPartialArea(uint16_t rowStart, uint16_t rowEnd);
+
+typedef enum {
+    FULL_COLORS = IDMOFF,
+    PARTIAL_COLORS = IDMON
+} colorExpr_t;
+
+/**
+ * @brief                   Set the color expression (`FULL_COLORS` by default).
+ *
+ * @param[in] colorExpr     `FULL_COLORS` or `PARTIAL_COLORS`
+ *
+ * @post                    With partial color expression, the display only uses 8 colors.
+ *                          Otherwise, the color depth determines the number of colors available.
+ */
+void ILI9341_setColorExpression(colorExpr_t colorExpr);
+
+typedef enum {
+    INVERT_ON = DINVON,
+    INVERT_OFF = DINVOFF
+} invertMode_t;
 
 /**
  * @brief               Toggle display inversion (`OFF` by default).
@@ -113,7 +185,14 @@ void ILI9341_setPartialArea(uint16_t rowStart, uint16_t rowEnd);
  *
  * @post                Display colors are either inverted (`ON`) or not inverted (`OFF`).
  */
-void ILI9341_setDispInversion(bool is_ON);
+void ILI9341_setDispInversion(invertMode_t invertMode);
+
+bool ILI9341_isDispInverted(void);
+
+typedef enum {
+    OUTPUT_ON = DISPON,
+    OUTPUT_OFF = DISPOFF
+} outputMode_t;
 
 /**
  * @brief               Change whether the IC is outputting to the display for not.
@@ -123,7 +202,9 @@ void ILI9341_setDispInversion(bool is_ON);
  * @post                If `ON`, the IC outputs data from its memory to the display.
  *                      If `OFF`, the display is cleared and the IC stops outputting data.
  */
-void ILI9341_setDispOutput(bool is_ON);
+void ILI9341_setDispOutput(outputMode_t outputMode);
+
+bool ILI9341_isOutputOn(void);
 
 /**
  * @brief                               Set how data is converted from memory to display.
@@ -140,8 +221,8 @@ void ILI9341_setMemAccessCtrl(bool areRowsFlipped, bool areColsFlipped, bool are
                               bool isHorRefreshFlipped);
 
 typedef enum {
-    ILI9341_COLORDEPTH_16BIT = 0x55,               ///< 16-bit color depth
-    ILI9341_COLORDEPTH_18BIT = 0x66,               ///< 18-bit color depth
+    COLORDEPTH_16BIT = 0x55,
+    COLORDEPTH_18BIT = 0x66,
 } colorDepth_t;
 
 /**
@@ -154,16 +235,16 @@ typedef enum {
  */
 void ILI9341_setColorDepth(colorDepth_t colorDepth);
 
-/// TODO: Write brief
-void ILI9341_setFrameRateNorm(uint8_t divisionRatio, uint8_t clocksPerLine);
+bool ILI9341_isColorDepth16bit(void);
 
 /// TODO: Write brief
-void ILI9341_setFrameRateIdle(uint8_t divisionRatio, uint8_t clocksPerLine);
+void ILI9341_setFrameRate(uint8_t divisionRatio, uint8_t clocksPerLine);
 
 /**
- * @brief       Sets the interface for the ILI9341.
- *              The parameters for this command are hard-coded, so it only
- *              needs to be called once upon initialization.
+ * @brief               Sets the interface for the ILI9341.
+ *
+ *                      The parameters for this command are hard-coded, so it only
+ *                      needs to be called once upon initialization.
  */
 void ILI9341_setInterface(void);
 

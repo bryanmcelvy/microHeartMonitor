@@ -127,14 +127,16 @@ int main(void) {
 
     // Init./config. LCD
     LCD_Init();
-    LCD_toggleColorInversion();
+    LCD_setOutputMode(false);
 
-    LCD_setColor_3bit(LCD_BLACK_INV);
-    LCD_setArea(0, LCD_X_MAX, 0, LCD_Y_MAX);
-    LCD_Draw();
+    LCD_setColor(LCD_BLACK_INV);
+    LCD_Fill();
 
-    LCD_setColor_3bit(LCD_RED_INV);
-    LCD_toggleOutput();
+    LCD_setColor(LCD_WHITE_INV);
+    LCD_drawHoriLine(LCD_TOP_LINE, 1);
+
+    LCD_setColor(LCD_RED_INV);
+    LCD_setOutputMode(true);
 
     Debug_SendFromList(DEBUG_LCD_INIT);
 
@@ -290,13 +292,13 @@ static void LCD_plotNewSample(uint16_t x, volatile const float32_t sample) {
     static const float32_t maxVoltage = LOOKUP_DAQ_MAX * 2;
 
     // blank out column
-    LCD_setColor_3bit(LCD_BLACK_INV);
+    LCD_setColor(LCD_BLACK_INV);
     LCD_drawRectangle(x, 1, LCD_WAVE_Y_MIN, LCD_WAVE_NUM_Y, true);
 
     // plot sample
     uint16_t y =
         LCD_WAVE_Y_MIN + ((uint16_t) (((sample + maxVoltage) / (maxVoltage * 2)) * LCD_WAVE_NUM_Y));
-    LCD_setColor_3bit(LCD_RED_INV);
+    LCD_setColor(LCD_RED_INV);
     LCD_drawRectangle(x, 1, y, 1, true);
 
     return;

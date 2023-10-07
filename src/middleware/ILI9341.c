@@ -7,11 +7,7 @@
  * @brief   Source code for ILI9341 module.
  */
 
-/******************************************************************************
-TODO
-    – Refactor writing functions to use more generic SPI interface
-    – Add assertions
-*******************************************************************************/
+#include "ILI9341.h"
 
 /******************************************************************************
 SECTIONS
@@ -21,13 +17,6 @@ SECTIONS
         Configuration
         Memory Writing
 *******************************************************************************/
-
-/******************************************************************************
-Preprocessor Directives
-*******************************************************************************/
-
-// Includes
-#include "ILI9341.h"
 
 #include "SPI.h"
 #include "Timer.h"
@@ -39,55 +28,20 @@ Preprocessor Directives
 #include <stdbool.h>
 #include <stdint.h>
 
-// Selected commands from the datasheet
-// NOTE: ILI9341_NUM_COLS and ILI9341_NUM_ROWS are defined in the header file
-typedef enum {
-    NOP = 0x00,                    /// No Operation
-    SWRESET = 0x01,                /// Software Reset
-    SPLIN = 0x10,                  /// Enter Sleep Mode
-    SPLOUT = 0x11,                 /// Sleep Out (i.e. Exit Sleep Mode)
-    PTLON = 0x12,                  /// Partial Display Mode ON
-    NORON = 0x13,                  /// Normal Display Mode ON
-    DINVOFF = 0x20,                /// Display Inversion OFF
-    DINVON = 0x21,                 /// Display Inversion ON
-    CASET = 0x2A,                  /// Column Address Set
-    PASET = 0x2B,                  /// Page Address Set
-    RAMWR = 0x2C,                  /// Memory Write
-    DISPOFF = 0x28,                /// Display OFF
-    DISPON = 0x29,                 /// Display ON
-    PLTAR = 0x30,                  /// Partial Area
-    VSCRDEF = 0x33,                /// Vertical Scrolling Definition
-    MADCTL = 0x36,                 /// Memory Access Control
-    VSCRSADD = 0x37,               /// Vertical Scrolling Start Address
-    IDMOFF = 0x38,                 /// Idle Mode OFF
-    IDMON = 0x39,                  /// Idle Mode ON
-    PIXSET = 0x3A,                 /// Pixel Format Set
-    FRMCTR1 = 0xB1,                /// Frame Rate Control Set (Normal Mode)
-    FRMCTR2 = 0xB2,                /// Frame Rate Control Set (Idle Mode)
-    FRMCTR3 = 0xB3,                /// Frame Rate Control Set (Partial Mode)
-    PRCTR = 0xB5,                  /// Blanking Porch Control
-    IFCTL = 0xF6,                  /// Interface Control
-} Cmd_t;
-
-// clang-format off
-/** Currently unused commands
-#define RDDST                   (uint8_t) 0x09          /// Read Display Status
-#define RDDMADCTL               (uint8_t) 0x0B          /// Read Display MADCTL
-#define RDDCOLMOD               (uint8_t) 0x0C          /// Read Display Pixel Format
-#define RGBSET                  (uint8_t) 0x2D          /// Color Set
-#define RAMRD                   (uint8_t) 0x2E          /// Memory Read
-#define WRITE_MEMORY_CONTINUE   (uint8_t) 0x3C          /// Write_Memory_Continue
-#define READ_MEMORY_CONTINUE    (uint8_t) 0x3E          /// Read_Memory_Continue
-#define WRDISBV                 (uint8_t) 0x51          /// Write Display Brightness
-#define RDDISBV                 (uint8_t) 0x52          /// Read Display Brightness
-#define IFMODE                  (uint8_t) 0xB0          /// RGB Interface Signal Control (i.e. Interface Mode Control)
-#define INVTR                   (uint8_t) 0xB4          /// Display Inversion Control
- */
-// clang-format on
-
 /******************************************************************************
 Static Declarations
 *******************************************************************************/
+
+typedef enum {
+    SLEEP_MODE,
+    DISPLAY_AREA,
+    COLOR_EXPR,
+    DISP_INVERT,
+    OUTPUT_MODE,
+    COLOR_DEPTH
+} Mode_t;
+
+static void ILI9341_setMode(uint8_t param);
 
 inline static void ILI9341_setAddress(uint16_t start_address, uint16_t end_address, bool is_row);
 
@@ -103,20 +57,33 @@ inline static void ILI9341_sendParams(Cmd_t cmd);
 static uint32_t ILI9341_Buffer[8];
 static Fifo_t ILI9341_Fifo;
 
-// static struct {} ili9341;
+static struct {
+    sleepMode_t sleepMode;
+    displayArea_t displayArea;
+    colorExpr_t colorExpression;
+    invertMode_t invertMode;
+    outputMode_t outputMode;
+    colorDepth_t colorDepth;
+
+    bool isInit;
+} ili9341 = { SLEEP_ON, NORMAL_AREA, FULL_COLORS, INVERT_OFF, OUTPUT_ON, COLORDEPTH_16BIT, false };
 
 /******************************************************************************
 Initialization/Reset
 *******************************************************************************/
 
 void ILI9341_Init(Timer_t timer) {
+    Assert(ili9341.isInit == false);
     Assert(timer);
-    SPI_Init();
 
     ILI9341_Fifo = FIFO_Init(ILI9341_Buffer, 8);
 
+    SPI_Init();
+
     ILI9341_resetHard(timer);
     ILI9341_setInterface();
+
+    ili9341.isInit = true;
     return;
 }
 
@@ -147,43 +114,83 @@ void ILI9341_resetSoft(Timer_t timer) {
 Configuration
 *******************************************************************************/
 
-void ILI9341_setSleepMode(bool is_sleeping, Timer_t timer) {
-    /**     This function turns sleep mode ON or OFF
-     *      depending on the value of `is_sleeping`.
-     *      Either way, the MCU must wait >= 5 [ms]
-     *      before sending further commands.
+static void ILI9341_setMode(uint8_t param) {
+    /**
+     * @fn      ILI9341_setMode()
+     *
+     *          This function simply groups each of the configuration functions
+     *          into one to reduce code duplication.
+     */
+
+    switch(param) {
+        case(SLEEP_ON):
+        case(SLEEP_OFF):
+            SPI_WriteCmd(param);
+            ili9341.sleepMode = param;
+            break;
+        case(NORMAL_AREA):
+        case(PARTIAL_AREA):
+            SPI_WriteCmd(param);
+            ili9341.displayArea = param;
+            break;
+        case(FULL_COLORS):
+        case(PARTIAL_COLORS):
+            SPI_WriteCmd(param);
+            ili9341.colorExpression = param;
+            break;
+        case(INVERT_OFF):
+        case(INVERT_ON):
+            SPI_WriteCmd(param);
+            ili9341.invertMode = param;
+            break;
+        case(OUTPUT_OFF):
+        case(OUTPUT_ON):
+            SPI_WriteCmd(param);
+            ili9341.outputMode = param;
+            break;
+        case(COLORDEPTH_16BIT):
+        case(COLORDEPTH_18BIT):
+            SPI_WriteCmd(PIXSET);
+            SPI_WriteData(param);
+            break;
+        default:
+            Assert(false);
+            break;
+    }
+
+    return;
+}
+
+void ILI9341_setSleepMode(sleepMode_t sleepMode, Timer_t timer) {
+    /**
+     *      The MCU must wait >= 5 [ms] before sending further commands
+     *      regardless of the selected mode.
      *
      *      It's also necessary to wait 120 [ms] before
      *      sending `SPLOUT` after sending `SPLIN` or a reset,
      *      so this function waits 120 [ms] regardless of the preceding event.
      */
+    Assert(ili9341.isInit);
+    ILI9341_setMode(sleepMode);
 
-    if(is_sleeping) {
-        SPI_WriteCmd(SPLIN);
-    }
-    else {
-        SPI_WriteCmd(SPLOUT);
-    }
     Timer_setMode(timer, ONESHOT, UP);
     Timer_Wait1ms(timer, 120);
 
     return;
 }
 
-void ILI9341_setDispMode(bool is_normal, bool is_full_colors) {
-    if(is_normal) {
-        SPI_WriteCmd(NORON);
-    }
-    else {
-        SPI_WriteCmd(PTLON);
-    }               // call after ILI9341_setPartialArea()
+void ILI9341_setDisplayArea(displayArea_t displayArea) {
+    Assert(ili9341.isInit);
+    ILI9341_setMode(displayArea);
 
-    if(is_full_colors) {
-        SPI_WriteCmd(IDMON);
-    }
-    else {
-        SPI_WriteCmd(IDMOFF);
-    }
+    return;
+}
+
+void ILI9341_setColorExpression(colorExpr_t colorExpr) {
+    Assert(ili9341.isInit);
+    ILI9341_setMode(colorExpr);
+
+    return;
 }
 
 void ILI9341_setPartialArea(uint16_t rowStart, uint16_t rowEnd) {
@@ -203,32 +210,35 @@ void ILI9341_setPartialArea(uint16_t rowStart, uint16_t rowEnd) {
     return;
 }
 
-void ILI9341_setDispInversion(bool is_ON) {
-    /// TODO: Write description
-    if(is_ON) {
-        SPI_WriteCmd(DINVON);
-    }
-    else {
-        SPI_WriteCmd(DINVOFF);
-    }
+void ILI9341_setDispInversion(invertMode_t invertMode) {
+    Assert(ili9341.isInit);
+    ILI9341_setMode(invertMode);
+
+    return;
 }
 
-void ILI9341_setDispOutput(bool is_ON) {
+bool ILI9341_isDispInverted(void) {
+    return (ili9341.invertMode == INVERT_ON) ? true : false;
+}
+
+void ILI9341_setDispOutput(outputMode_t outputMode) {
     /// TODO: Write description
-    if(is_ON) {
-        SPI_WriteCmd(DISPON);
-    }
-    else {
-        SPI_WriteCmd(DISPOFF);
-    }
+    Assert(ili9341.isInit);
+    ILI9341_setMode(outputMode);
+
+    return;
+}
+
+bool ILI9341_isOutputOn(void) {
+    return (ili9341.outputMode == OUTPUT_ON) ? true : false;
 }
 
 void ILI9341_setMemAccessCtrl(bool areRowsFlipped, bool areColsFlipped, bool areRowsColsSwitched,
                               bool isVertRefreshFlipped, bool isColorOrderFlipped,
                               bool isHorRefreshFlipped) {
     /**
-     *   This function implements the "Memory Access Control" (`MADCTL`) command from
-     *   p. 127-128 of the ILI9341 datasheet, which controls how the LCD driver
+     *   This function implements the "Memory Access Control" (`MADCTL`) command
+     * from p. 127-128 of the ILI9341 datasheet, which controls how the LCD driver
      *   displays data upon writing to memory.
      *
      *   Name | Bit # | Effect when set = `1`
@@ -257,36 +267,35 @@ void ILI9341_setMemAccessCtrl(bool areRowsFlipped, bool areColsFlipped, bool are
 }
 
 void ILI9341_setColorDepth(colorDepth_t colorDepth) {
-    SPI_WriteCmd(PIXSET);
-    SPI_WriteData((uint8_t) colorDepth);
+    Assert(ili9341.isInit);
+    ILI9341_setMode(colorDepth);
+
     return;
 }
 
-void ILI9341_setFrameRateNorm(uint8_t divisionRatio, uint8_t clocksPerLine) {
+bool ILI9341_isColorDepth16bit(void) {
+    return (ili9341.colorDepth == COLORDEPTH_16BIT) ? true : false;
+}
+
+void ILI9341_setFrameRate(uint8_t divisionRatio, uint8_t clocksPerLine) {
     /// TODO: Write description
 
-    divisionRatio &= 0x03;
-    clocksPerLine &= 0x1F;
+    Cmd_t cmd;
+    if(ili9341.colorExpression == PARTIAL_COLORS) {
+        cmd = FRMCTR2;
+    }
+    else {
+        cmd = (ili9341.displayArea == NORMAL_AREA) ? FRMCTR1 : FRMCTR3;
+    }
 
-    SPI_WriteCmd(FRMCTR1);
-    SPI_WriteData(divisionRatio);
-    SPI_WriteData(clocksPerLine);
+    SPI_WriteCmd((uint8_t) cmd);
+    SPI_WriteData(divisionRatio & 0x03);
+    SPI_WriteData(clocksPerLine & 0x1F);
     return;
 }
 
-void ILI9341_setFrameRateIdle(uint8_t divisionRatio, uint8_t clocksPerLine) {
-    /// TODO: Write description
-
-    divisionRatio &= 0x03;
-    clocksPerLine &= 0x1F;
-
-    SPI_WriteCmd(FRMCTR2);
-    SPI_WriteData(divisionRatio);
-    SPI_WriteData(clocksPerLine);
-    return;
-}
-
-// void ILI9341_setBlankingPorch(uint8_t vpf, uint8_t vbp, uint8_t hfp, uint8_t hbp) {
+// void ILI9341_setBlankingPorch(uint8_t vpf, uint8_t vbp, uint8_t hfp, uint8_t
+// hbp) {
 //     /// TODO: Write
 // }
 
@@ -315,7 +324,8 @@ void ILI9341_setInterface(void) {
      *   data is ignored. The EPF bits are cleared so that the LSB of the
      *   R and B values is copied from the MSB when using 16-bit color depth.
      *   The TM4C123 sends the MSB first, so the ENDIAN bit is cleared. The other
-     *   bits are cleared and/or irrelevant since the RGB and VSYNC interfaces aren't used.
+     *   bits are cleared and/or irrelevant since the RGB and VSYNC interfaces
+     *   aren't used.
      */
 
     SPI_WriteData(IFCTL);
@@ -361,8 +371,8 @@ inline static void ILI9341_setAddress(uint16_t startAddress, uint16_t endAddress
     uint16_t max_num = (is_row) ? ILI9341_NUM_ROWS : ILI9341_NUM_COLS;
 
     // ensure `startAddress` and `endAddress` meet restrictions
-    endAddress = (endAddress < max_num) ? endAddress : (max_num - 1);
-    startAddress = (startAddress < endAddress) ? startAddress : endAddress;
+    Assert(endAddress < max_num);
+    Assert(startAddress <= endAddress);
 
     // configure and send command sequence
     FIFO_Put(ILI9341_Fifo, ((startAddress & 0xFF00) >> 8));

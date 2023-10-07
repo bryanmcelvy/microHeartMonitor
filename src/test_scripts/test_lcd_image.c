@@ -45,8 +45,8 @@ int main(void) {
     y = 0;
     is_increasing = true;
     color_idx = 0;
-    LCD_setColor_3bit(COLOR_ARR[color_idx]);
-    LCD_toggleOutput();
+    LCD_setColor(COLOR_ARR[color_idx]);
+    LCD_setOutputMode(true);
 
     GPIO_Toggle(portF, LED_GREEN);
     while(1) {
@@ -68,7 +68,7 @@ int main(void) {
 
         if(x == 0) {
             color_idx = (color_idx < 5) ? (color_idx + 1) : 0;
-            LCD_setColor_3bit(COLOR_ARR[color_idx]);
+            LCD_setColor(COLOR_ARR[color_idx]);
         }
     }
 }
