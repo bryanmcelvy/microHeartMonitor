@@ -43,11 +43,11 @@ Declarations
 ******************************************************************************/
 
 // Interrupt Service Routines (ISRs)
-enum {               // clang-format off
+enum {
     DAQ_VECTOR_NUM = INT_ADC0SS3,
     PROC_VECTOR_NUM = INT_CAN0,
     LCD_VECTOR_NUM = INT_TIMER1A
-};               // clang-format on
+};
 
 static void DAQ_Handler(void);
 static void Processing_Handler(void);
