@@ -81,9 +81,12 @@ static volatile float32_t QRS_processingBuffer[QRS_BUFFER_SIZE] = { 0 };
 // LCD Info
 enum {
     LCD_TOP_LINE = (LCD_Y_MAX - 48),
-    LCD_WAVE_NUM_Y = 192,
+
+    LCD_WAVE_NUM_Y = LCD_TOP_LINE,
+
     LCD_WAVE_X_OFFSET = 0,
     LCD_WAVE_Y_MIN = (0 + LCD_WAVE_X_OFFSET),
+
     LCD_WAVE_Y_MAX = (LCD_WAVE_NUM_Y + LCD_WAVE_X_OFFSET)
 };
 
