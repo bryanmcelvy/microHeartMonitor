@@ -26,7 +26,7 @@ Preprocessor Directives
 Initialization
 *******************************************************************************/
 
-typedef struct Led_t Led_t;
+typedef struct LedStruct_t * Led_t;
 
 /**
  * @brief                       Initialize a light-emitting diode (LED) as an `Led_t`.
@@ -35,7 +35,7 @@ typedef struct Led_t Led_t;
  * @param[in] pin               GPIO pin to use.
  * @param[out] Led_t*           Pointer to LED data structure.
  */
-Led_t * Led_Init(GPIO_Port_t * gpioPort, GPIO_Pin_t pin);
+Led_t Led_Init(GPIO_Port_t * gpioPort, GPIO_Pin_t pin);
 
 /******************************************************************************
 Status Checking
@@ -47,7 +47,7 @@ Status Checking
  * @param[in] led               Pointer to LED data structure.
  * @param[out] GPIO_Port_t*     Pointer to a GPIO port data structure.
  */
-GPIO_Port_t * Led_GetPort(Led_t * led);
+GPIO_Port_t * Led_GetPort(Led_t led);
 
 /**
  * @brief                       Get the GPIO pin associated with the LED.
@@ -55,7 +55,7 @@ GPIO_Port_t * Led_GetPort(Led_t * led);
  * @param[in] led               Pointer to LED data structure.
  * @param[out] GPIO_Pin_t       GPIO pin associated with the LED.
  */
-GPIO_Pin_t Led_GetPin(Led_t * led);
+GPIO_Pin_t Led_GetPin(Led_t led);
 
 /**
  * @brief                       Check the LED's status.
@@ -64,7 +64,7 @@ GPIO_Pin_t Led_GetPin(Led_t * led);
  * @param[out] true             the LED is `ON`.
  * @param[out] false            the LED is `OFF`.
  */
-bool Led_isOn(Led_t * led);
+bool Led_isOn(Led_t led);
 
 /******************************************************************************
 Operations
@@ -74,19 +74,19 @@ Operations
  * @brief                       Turn the LED `ON`.
  * @param[in] led               Pointer to LED data structure.
  */
-void Led_TurnOn(Led_t * led);
+void Led_TurnOn(Led_t led);
 
 /**
  * @brief                       Turn the LED `OFF`.
  * @param[in] led               Pointer to LED data structure.
  */
-void Led_TurnOff(Led_t * led);
+void Led_TurnOff(Led_t led);
 
 /**
  * @brief                       Toggle the LED (i.e. `OFF` -> `ON` or `ON` -> `OFF`).
  * @param[in] led               Pointer to LED data structure.
  */
-void Led_Toggle(Led_t * led);
+void Led_Toggle(Led_t led);
 
 #endif               // LED_H
 

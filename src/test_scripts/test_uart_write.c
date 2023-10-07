@@ -22,9 +22,9 @@ int main(void) {
 
     // Init. LED pins
     GPIO_Port_t * portF = GPIO_InitPort(F);
-    Led_t * redLed = Led_Init(portF, GPIO_PIN1);
-    Led_t * greenLed = Led_Init(portF, GPIO_PIN3);
-    Led_t * blueLed = Led_Init(portF, GPIO_PIN2);
+    Led_t redLed = Led_Init(portF, GPIO_PIN1);
+    Led_t greenLed = Led_Init(portF, GPIO_PIN3);
+    Led_t blueLed = Led_Init(portF, GPIO_PIN2);
 
     UART_WriteStr(uart0, (unsigned char *) "Starting transmission...\r\n");
 
@@ -33,11 +33,16 @@ int main(void) {
         in_char = UART_ReadChar(uart0);
         switch(in_char) {
             case((unsigned char) 'r'):
-            case((unsigned char) 'R'): Led_Toggle(redLed); break;
+            case((unsigned char) 'R'):
+                Led_Toggle(redLed);
+                break;
             case((unsigned char) 'g'):
-            case((unsigned char) 'G'): Led_Toggle(greenLed); break;
+            case((unsigned char) 'G'):
+                Led_Toggle(greenLed);
+                break;
             case((unsigned char) 'b'):
-            case((unsigned char) 'B'): Led_Toggle(blueLed);
+            case((unsigned char) 'B'):
+                Led_Toggle(blueLed);
         }
         UART_WriteChar(uart0, in_char);
         counter += 1;

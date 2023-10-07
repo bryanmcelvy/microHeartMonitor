@@ -13,7 +13,7 @@ extern "C" {
 TEST_GROUP(Group_Led) { 
     GPIO_Port_t * port;
     const GPIO_Pin_t pin = (GPIO_Pin_t) (1 << (rand() % 8));
-    Led_t * led;
+    Led_t led;
 
     void setup() {
         port = GPIO_InitPort((GPIO_PortName_t) (rand() % 6));

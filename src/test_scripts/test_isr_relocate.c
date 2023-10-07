@@ -22,7 +22,7 @@ void Timer_Handler(void);
 const GPIO_Pin_t LED_PIN = GPIO_PIN3;
 
 GPIO_Port_t * portF = 0;
-Led_t * led = 0;
+Led_t led = 0;
 Timer_t timer1 = 0;
 
 int main(void) {
