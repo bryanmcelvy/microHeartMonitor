@@ -1,4 +1,7 @@
----
+###############################################################################
+# File:         ./clang-format
+# Description:  Style/formatting rules for auto-formatting via clangd
+###############################################################################
 Language: Cpp
 BasedOnStyle: LLVM
 
@@ -11,6 +14,7 @@ PointerAlignment: Middle
 
 AllowAllArgumentsOnNextLine: true
 AllowShortBlocksOnASingleLine: Empty
+AllowShortEnumsOnASingleLine: False
 AllowShortFunctionsOnASingleLine: Empty
 AllowShortIfStatementsOnASingleLine: true
 AlignConsecutiveMacros: AcrossEmptyLinesAndComments

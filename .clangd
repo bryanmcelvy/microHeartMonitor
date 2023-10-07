@@ -1,3 +1,7 @@
+###############################################################################
+# File:         ./clangd
+# Description:  Configuration file for language server protocol (LSP)
+###############################################################################
 CompileFlags:
   Add: [-c, -W*]
 Diagnostics:
