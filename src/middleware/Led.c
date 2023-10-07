@@ -54,7 +54,7 @@ Led_t Led_Init(GPIO_Port_t * gpioPort, GPIO_Pin_t pin) {
     led->GPIO_PORT_PTR = gpioPort;
     led->GPIO_PIN = pin;
     led->is_ON = false;
-    led->isInit = false;
+    led->isInit = true;
 
     return led;
 }
