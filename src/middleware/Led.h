@@ -19,7 +19,7 @@ Preprocessor Directives
 #include <stdbool.h>
 
 #ifndef LED_POOL_SIZE
-#define LED_POOL_SIZE 3
+#define LED_POOL_SIZE 1
 #endif
 
 /******************************************************************************
