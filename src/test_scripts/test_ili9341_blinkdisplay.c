@@ -61,7 +61,7 @@ int main(void) {
         GPIO_WriteHigh(portF, color);
         ILI9341_writeMemCmd();
         for(uint32_t i = 0; i < 76800; i++) {
-            ILI9341_writePixel(red_val, green_val, blue_val, 1);
+            ILI9341_writePixel(red_val, green_val, blue_val);
         }
     }
 }

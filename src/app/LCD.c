@@ -154,7 +154,7 @@ void LCD_Draw(void) {
 
     ILI9341_writeMemCmd();
     for(uint32_t count = 0; count < numPixels; count++) {
-        ILI9341_writePixel(lcd.R_val, lcd.G_val, lcd.B_val, true);
+        ILI9341_writePixel(lcd.R_val, lcd.G_val, lcd.B_val);
     }
 
     return;

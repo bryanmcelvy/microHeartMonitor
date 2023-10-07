@@ -31,17 +31,8 @@ Static Declarations
 *******************************************************************************/
 
 static void ILI9341_setMode(uint8_t param);
-
-inline static void ILI9341_setAddress(uint16_t start_address, uint16_t end_address, bool is_row);
-
-/**
- * @brief           Send a command and/or the data within the FIFO buffer.
- *                  A command is only sent when `cmd != NOP` (where `NOP = 0`).
- *                  Data is only sent if the FIFO buffer is not empty.
- *
- * @param[in] cmd   Command to send.
- */
-inline static void ILI9341_sendParams(Cmd_t cmd);
+static void ILI9341_setAddress(uint16_t start_address, uint16_t end_address, bool is_row);
+static void ILI9341_sendParams(Cmd_t cmd);
 
 static uint32_t ILI9341_Buffer[8];
 static Fifo_t ILI9341_Fifo;
@@ -73,6 +64,42 @@ void ILI9341_Init(Timer_t timer) {
     ILI9341_setInterface();
 
     ili9341.isInit = true;
+    return;
+}
+
+void ILI9341_setInterface(void) {
+    /**
+     *   This function implements the "Interface Control" (`IFCTL`) command from
+     *   p. 192-194 of the ILI9341 datasheet, which controls how the LCD driver
+     *   handles 16-bit data and what interfaces (internal or external) are used.
+     *
+     *   Name     | Bit # | Param # | Effect when set = `1`
+     *   ---------|-------|---------|-------------------------------------------
+     *   MY_EOR   |  7    |    0    | flips value of corresponding MADCTL bit
+     *   MX_EOR   |  6    |    ^    | flips value of corresponding MADCTL bit
+     *   MV_EOR   |  5    |    ^    | flips value of corresponding MADCTL bit
+     *   BGR_EOR  |  3    |    ^    | flips value of corresponding MADCTL bit
+     *   WEMODE   |  0    |    ^    | overflowing pixel data is not ignored
+     *   EPF[1:0] |  5:4  |    1    | controls 16 to 18-bit pixel data conversion
+     *   MDT[1:0] |  1:0  |    ^    | controls display data transfer method
+     *   ENDIAN   |  5    |    2    | host sends LSB first
+     *   DM[1:0]  |  3:2  |    ^    | selects display operation mode
+     *   RM       |  1    |    ^    | selects GRAM interface mode
+     *   RIM      |  0    |    ^    | specifies RGB interface-specific details
+     *
+     *   The first param's bits are cleared so that the corresponding MADCTL bits
+     *   (ILI9341_setMemoryAccessCtrl()) are unaffected and overflowing pixel
+     *   data is ignored. The EPF bits are cleared so that the LSB of the
+     *   R and B values is copied from the MSB when using 16-bit color depth.
+     *   The TM4C123 sends the MSB first, so the ENDIAN bit is cleared. The other
+     *   bits are cleared and/or irrelevant since the RGB and VSYNC interfaces
+     *   aren't used.
+     */
+
+    SPI_WriteData(IFCTL);
+    SPI_WriteData(0);
+    SPI_WriteData(0);
+    SPI_WriteData(0);
     return;
 }
 
@@ -150,6 +177,29 @@ static void ILI9341_setMode(uint8_t param) {
     return;
 }
 
+/**
+ * @brief           Send a command and/or the data within the FIFO buffer.
+ *                  A command is only sent when `cmd != NOP` (where `NOP = 0`).
+ *                  Data is only sent if the FIFO buffer is not empty.
+ *
+ * @param[in] cmd   Command to send.
+ */
+static void ILI9341_sendParams(Cmd_t cmd) {
+    if(cmd != NOP) {
+        SPI_WriteCmd(cmd);
+    }
+
+    uint8_t numParams = FIFO_getCurrSize(ILI9341_Fifo);
+    while(numParams > 0) {
+        uint8_t data = FIFO_Get(ILI9341_Fifo);
+        SPI_WriteData(data);
+
+        numParams -= 1;
+    }
+
+    return;
+}
+
 void ILI9341_setSleepMode(sleepMode_t sleepMode, Timer_t timer) {
     /**
      *      The MCU must wait >= 5 [ms] before sending further commands
@@ -206,20 +256,12 @@ void ILI9341_setDispInversion(invertMode_t invertMode) {
     return;
 }
 
-bool ILI9341_isDispInverted(void) {
-    return (ili9341.invertMode == INVERT_ON) ? true : false;
-}
-
 void ILI9341_setDispOutput(outputMode_t outputMode) {
     /// TODO: Write description
     Assert(ili9341.isInit);
     ILI9341_setMode(outputMode);
 
     return;
-}
-
-bool ILI9341_isOutputOn(void) {
-    return (ili9341.outputMode == OUTPUT_ON) ? true : false;
 }
 
 void ILI9341_setMemAccessCtrl(bool areRowsFlipped, bool areColsFlipped, bool areRowsColsSwitched,
@@ -262,10 +304,6 @@ void ILI9341_setColorDepth(colorDepth_t colorDepth) {
     return;
 }
 
-bool ILI9341_isColorDepth16bit(void) {
-    return (ili9341.colorDepth == COLORDEPTH_16BIT) ? true : false;
-}
-
 void ILI9341_setFrameRate(uint8_t divisionRatio, uint8_t clocksPerLine) {
     /// TODO: Write description
 
@@ -288,63 +326,11 @@ void ILI9341_setFrameRate(uint8_t divisionRatio, uint8_t clocksPerLine) {
 //     /// TODO: Write
 // }
 
-void ILI9341_setInterface(void) {
-    /**
-     *   This function implements the "Interface Control" `IFCTL` command from
-     *   p. 192-194 of the ILI9341 datasheet, which controls how the LCD driver
-     *   handles 16-bit data and what interfaces (internal or external) are used.
-     *
-     *   Name     | Bit # | Param # | Effect when set = `1`
-     *   ---------|-------|---------|-------------------------------------------
-     *   MY_EOR   |  7    |    0    | flips value of corresponding MADCTL bit
-     *   MX_EOR   |  6    |    ^    | flips value of corresponding MADCTL bit
-     *   MV_EOR   |  5    |    ^    | flips value of corresponding MADCTL bit
-     *   BGR_EOR  |  3    |    ^    | flips value of corresponding MADCTL bit
-     *   WEMODE   |  0    |    ^    | overflowing pixel data is not ignored
-     *   EPF[1:0] |  5:4  |    1    | controls 16 to 18-bit pixel data conversion
-     *   MDT[1:0] |  1:0  |    ^    | controls display data transfer method
-     *   ENDIAN   |  5    |    2    | host sends LSB first
-     *   DM[1:0]  |  3:2  |    ^    | selects display operation mode
-     *   RM       |  1    |    ^    | selects GRAM interface mode
-     *   RIM      |  0    |    ^    | specifies RGB interface-specific details
-     *
-     *   The first param's bits are cleared so that the corresponding MADCTL bits
-     *   (ILI9341_setMemoryAccessCtrl()) are unaffected and overflowing pixel
-     *   data is ignored. The EPF bits are cleared so that the LSB of the
-     *   R and B values is copied from the MSB when using 16-bit color depth.
-     *   The TM4C123 sends the MSB first, so the ENDIAN bit is cleared. The other
-     *   bits are cleared and/or irrelevant since the RGB and VSYNC interfaces
-     *   aren't used.
-     */
-
-    SPI_WriteData(IFCTL);
-    SPI_WriteData(0);
-    SPI_WriteData(0);
-    SPI_WriteData(0);
-    return;
-}
-
 /******************************************************************************
 Memory Writing
 *******************************************************************************/
 
-inline static void ILI9341_sendParams(Cmd_t cmd) {
-    if(cmd != NOP) {
-        SPI_WriteCmd(cmd);
-    }
-
-    uint8_t numParams = FIFO_getCurrSize(ILI9341_Fifo);
-    while(numParams > 0) {
-        uint8_t data = FIFO_Get(ILI9341_Fifo);
-        SPI_WriteData(data);
-
-        numParams -= 1;
-    }
-
-    return;
-}
-
-inline static void ILI9341_setAddress(uint16_t startAddress, uint16_t endAddress, bool is_row) {
+static void ILI9341_setAddress(uint16_t startAddress, uint16_t endAddress, bool is_row) {
     /**
     This function implements the "Column Address Set" (`CASET`) and "Page
     Address Set" (`PASET`) commands from p. 110-113 of the ILI9341 datasheet.
@@ -399,7 +385,7 @@ void ILI9341_writeMemCmd(void) {
     return;
 }
 
-void ILI9341_writePixel(uint8_t red, uint8_t green, uint8_t blue, bool is_16bit) {
+void ILI9341_writePixel(uint8_t red, uint8_t green, uint8_t blue) {
     // clang-format off
     /**
      *  This function sends one pixel to the display. Because the serial interface
@@ -424,7 +410,7 @@ void ILI9341_writePixel(uint8_t red, uint8_t green, uint8_t blue, bool is_16bit)
      */
     // clang-format on
 
-    if(is_16bit) {
+    if(ili9341.colorDepth == COLORDEPTH_16BIT) {
         FIFO_Put(ILI9341_Fifo, ((red & 0x1F) << 3) | ((green & 0x38) >> 3));
         FIFO_Put(ILI9341_Fifo, ((green & 0x07) << 5) | (blue & 0x1F));
     }

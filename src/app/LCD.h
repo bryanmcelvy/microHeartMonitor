@@ -15,11 +15,9 @@
 /******************************************************************************
 SECTIONS
         Initialization
-        Configuration
         Drawing Area
         Color
         Drawing
-        Scrolling
 *******************************************************************************/
 
 #include "ILI9341.h"
@@ -37,28 +35,24 @@ Initialization
 /** @name Init./Config. Functions */               /// @{
 
 /**
- * @brief           Initialize the LCD.
+ * @brief               Initialize the LCD.
  *
- * @post            The display will be ready to accept commands, but output will be off.
+ * @post                The display will be ready to accept commands, but output will be off.
  */
 void LCD_Init(void);
 
-/******************************************************************************
-Configuration
-*******************************************************************************/
-
 /**
- * @brief           Toggle display output `ON` or `OFF` (`OFF` by default).
- *                  Turning output `OFF` stops the LCD driver chip from writing
- *                  to the display, and also blanks out the display completely.
+ * @brief               Toggle display output `ON` or `OFF` (`OFF` by default).
+ *                      Turning output `OFF` stops the LCD driver chip from writing
+ *                      to the display, and also blanks out the display completely.
  *
- * @param[in] isOn  `true` to turn display output `ON`, `false` to turn `OFF`
+ * @pre                 Initialize the LCD.
  *
- * @see             LCD_toggleOutput()
+ * @param[in] isOn      `true` to turn display output `ON`, `false` to turn `OFF`
+ *
+ * @see                 LCD_toggleOutput()
  */
 void LCD_setOutputMode(bool isOn);
-
-/// @}
 
 /******************************************************************************
 Drawing Area
@@ -67,6 +61,8 @@ Drawing Area
 /**
  * @brief               Set new x-coordinates to be written to.
  *                      \f$ 0 <= x1 <= x2 < X_MAX \f$
+ *
+ * @pre                 Initialize the LCD.
  *
  * @param x1_new        left-most x-coordinate
  * @param x2_new        right-most x-coordinate
@@ -79,6 +75,8 @@ void LCD_setX(uint16_t x1_new, uint16_t x2_new);
  * @brief               Set new y-coordinates to be written to.
  *                      \f$ 0 <= y1 <= y2 < Y_MAX \f$
  *
+ * @pre                 Initialize the LCD.
+ *
  * @param y1_new        lowest y-coordinate
  * @param y2_new        highest y-coordinate
  *
@@ -89,7 +87,6 @@ void LCD_setY(uint16_t y1_new, uint16_t y2_new);
 /******************************************************************************
 Color
 *******************************************************************************/
-/** @name Color Setting Functions */               /// @{
 
 typedef enum {
     // Bits 2, 1, 0 correspond to R, G, and B values, respectively.
@@ -136,20 +133,27 @@ Drawing
  * @brief               Draw on the LCD.
  *
  * @pre                 Set the drawable area and the color to use for that area.
+ *
  * @post                The selected areas of the display will be drawn onto with
  *                      the selected color.
  *
- * @see                 LCD_setX(), LCD_setY()
+ * @see                 LCD_setX(), LCD_setY(), LCD_setColor()
  */
 void LCD_Draw(void);
 
 /**
  * @brief               Fill the display with a single color.
+ *
+ * @pre                 Select the desired color to fill the display with.
+ *
+ * @see                 LCD_setColor()
  */
 void LCD_Fill(void);
 
 /**
  * @brief               Draw a horizontal line across the entire display.
+ *
+ * @pre                 Select the desired color to use for the line.
  *
  * @param yCenter       y-coordinate to center the line on
  * @param lineWidth     width of the line; should be a positive, odd number
@@ -160,6 +164,8 @@ void LCD_drawHoriLine(uint16_t yCenter, uint16_t lineWidth);
 
 /**
  * @brief               Draw a vertical line across the entire display.
+ *
+ * @pre                 Select the desired color to use for the line.
  *
  * @param xCenter       x-coordinate to center the line on
  * @param lineWidth     width of the line; should be a positive, odd number
@@ -172,11 +178,15 @@ void LCD_drawVertLine(uint16_t xCenter, uint16_t lineWidth);
  * @brief               Draw a rectangle of size `dx` x `dy` onto the display.
  *                      The bottom-left corner will be located at `(x1, y1)`.
  *
+ * @pre                 Select the desired color to use for the rectangle.
+ *
  * @param x1            lowest (left-most) x-coordinate
  * @param dx            length (horizontal distance) of the rectangle
  * @param y1            lowest (bottom-most) y-coordinate
  * @param dy            height (vertical distance) of the rectangle
  * @param isFilled      `true` to fill the rectangle, `false` to leave it unfilled
+ *
+ * @see                 LCD_Draw(), LCD_Fill(), LCD_drawHoriLine(), LCD_drawVertLine()
  */
 void LCD_drawRectangle(uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy, bool isFilled);
 

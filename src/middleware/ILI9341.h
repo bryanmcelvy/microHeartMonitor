@@ -10,7 +10,7 @@
  *              graphical data to a 240RGBx320 resolution, 262K color-depth liquid
  *              crystal display (LCD). The module interfaces the LaunchPad (or any
  *              other board featuring the TM4C123GH6PM microcontroller) with an
- *              ILI9341 LCD driver chip via the SPI (serial peripheral interface)
+ *              ILI9341 LCD driver chip via the serial peripheral interface (SPI)
  *              protocol.
  */
 
@@ -96,6 +96,14 @@ Initialization/Reset
 void ILI9341_Init(Timer_t timer);
 
 /**
+ * @brief               Sets the interface for the ILI9341.
+ *
+ *                      The parameters for this command are hard-coded, so it only
+ *                      needs to be called once upon initialization.
+ */
+void ILI9341_setInterface(void);
+
+/**
  * @brief               Perform a hardware reset of the LCD driver.
  *
  * @param[in] timer     Hardware timer to use during reset.
@@ -121,8 +129,11 @@ typedef enum {
 /**
  * @brief                       Enter or exit sleep mode (`ON` by default).
  *
- * @param[in] isSleeping        `ON` to enter sleep mode, `OFF` to exit
- * @param[in] timer             Hardware timer to use after mode change.
+ * @param[in] sleepMode         `SLEEP_ON` or `SLEEP_OFF`
+ * @param[in] timer             Hardware timer to use for a slight delay after the mode change.
+ *
+ * @post                        The IC will be in or out of sleep mode depending
+ *                              on the value of `sleepMode`.
  */
 void ILI9341_setSleepMode(sleepMode_t sleepMode, Timer_t timer);
 
@@ -174,15 +185,14 @@ typedef enum {
 } invertMode_t;
 
 /**
- * @brief               Toggle display inversion (`OFF` by default).
+ * @brief                   Toggle display inversion (`OFF` by default).
  *
- * @param[in] is_ON
+ * @param[in] invertMode    `INVERT_ON` or `INVERT_OFF`
  *
- * @post                Display colors are either inverted (`ON`) or not inverted (`OFF`).
+ * @post                    When inversion is ON, the display colors are inverted.
+ *                          (e.g. BLACK -> WHITE, GREEN -> PURPLE)
  */
 void ILI9341_setDispInversion(invertMode_t invertMode);
-
-bool ILI9341_isDispInverted(void);
 
 typedef enum {
     OUTPUT_ON = DISPON,
@@ -190,16 +200,14 @@ typedef enum {
 } outputMode_t;
 
 /**
- * @brief               Change whether the IC is outputting to the display for not.
+ * @brief                   Change whether the IC is outputting to the display for not.
  *
- * @param[in] is_ON
+ * @param[in] outputMode    `OUTPUT_ON` or `OUTPUT_OFF`
  *
- * @post                If `ON`, the IC outputs data from its memory to the display.
- *                      If `OFF`, the display is cleared and the IC stops outputting data.
+ * @post                    If `ON`, the IC outputs data from its memory to the display.
+ *                          If `OFF`, the display is cleared and the IC stops outputting data.
  */
 void ILI9341_setDispOutput(outputMode_t outputMode);
-
-bool ILI9341_isOutputOn(void);
 
 /**
  * @brief                               Set how data is converted from memory to display.
@@ -221,34 +229,26 @@ typedef enum {
 } colorDepth_t;
 
 /**
- * @brief               Set the pixel format to be 16-bit (65K colors) or 18-bit (262K colors).
+ * @brief                   Set the color depth for the display.
  *
- * @param[in] colorDepth
+ * @param[in] colorDepth    `COLORDEPTH_16BIT` or `COLORDEPTH_18BIT`
  *
- * @post                `16BIT` mode allows for ~65K (2^16) colors and requires 2 transfers.
- *                      `18BIT` mode allows for ~262K (2^18) colors but requires 3 transfers.
+ * @post                    `16BIT` mode allows for ~65K (2^16) colors and requires 2 transfers.
+ *                          `18BIT` mode allows for ~262K (2^18) colors but requires 3 transfers.
  */
 void ILI9341_setColorDepth(colorDepth_t colorDepth);
-
-bool ILI9341_isColorDepth16bit(void);
 
 /// TODO: Write brief
 void ILI9341_setFrameRate(uint8_t divisionRatio, uint8_t clocksPerLine);
 
-/**
- * @brief               Sets the interface for the ILI9341.
- *
- *                      The parameters for this command are hard-coded, so it only
- *                      needs to be called once upon initialization.
- */
-void ILI9341_setInterface(void);
+/* NOTE: not using backlight, so these aren't necessary at the moment
+void ILI9341_setDispBrightness(uint8_t brightness);
+uint8_t ILI9341_getDispBrightness(void);
+*/
 
-/// not using backlight, so these aren't necessary
-// void ILI9341_setDispBrightness(uint8_t brightness);
-// uint8_t ILI9341_getDispBrightness(void);
-
-// NOTE: The RGB interface is not usable via SPI, so this function was useless.
-// void ILI9341_setRGBInterface(uint8_t param);
+/* NOTE: The RGB interface is not usable via SPI, so this function was useless.
+void ILI9341_setRGBInterface(uint8_t param);
+*/
 
 /******************************************************************************
 Memory Writing
@@ -265,12 +265,12 @@ Memory Writing
 void ILI9341_setRowAddress(uint16_t startRow, uint16_t endRow);
 
 /**
- * @brief               Sets the start/end rows to be written to.
+ * @brief               Sets the start/end columns to be written to.
  *
  * @param[in] startCol  0 <= `startCol` <= `endCol`
  * @param[in] endCol    startCol` <= `endCol` < 240
  *
- * @see                 ILI9341_setRowAddress, ILI9341_writePixel()
+ * @see                 ILI9341_setColAddress, ILI9341_writePixel()
  */
 void ILI9341_setColAddress(uint16_t startCol, uint16_t endCol);
 
@@ -294,12 +294,10 @@ void ILI9341_writeMemCmd(void);
  * @param[in] red       5 or 6-bit `R` value
  * @param[in] green     5 or 6-bit `G` value
  * @param[in] blue      5 or 6-bit `B` value
- * @param[in] is_16bit  `true` for 16-bit (65K colors, 2 transfers) color depth,
- *                      `false` for 18-bit (262K colors, 3 transfer) color depth
  *
  * @see                 ILI9341_setColorDepth, ILI9341_writeMemCmd(), ILI9341_writePixel()
  */
-void ILI9341_writePixel(uint8_t red, uint8_t green, uint8_t blue, bool is_16bit);
+void ILI9341_writePixel(uint8_t red, uint8_t green, uint8_t blue);
 
 #endif               // ILI9341_H
 
