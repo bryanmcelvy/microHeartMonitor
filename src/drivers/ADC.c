@@ -13,8 +13,6 @@
 
 #include "tm4c123gh6pm.h"
 
-#include <stdint.h>
-
 void ADC_Init(void) {
     // enable clock to ADC0 and wait for it to be ready
     SYSCTL_RCGCADC_R |= 0x01;

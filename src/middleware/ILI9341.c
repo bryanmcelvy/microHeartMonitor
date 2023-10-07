@@ -11,7 +11,6 @@
 
 /******************************************************************************
 SECTIONS
-        Preprocessor Directives
         Static Declarations
         Initialization/Reset
         Configuration
@@ -22,8 +21,7 @@ SECTIONS
 #include "Timer.h"
 
 #include "FIFO.h"
-
-#include "tm4c123gh6pm.h"
+#include "NewAssert.h"
 
 #include <stdbool.h>
 #include <stdint.h>
@@ -31,15 +29,6 @@ SECTIONS
 /******************************************************************************
 Static Declarations
 *******************************************************************************/
-
-typedef enum {
-    SLEEP_MODE,
-    DISPLAY_AREA,
-    COLOR_EXPR,
-    DISP_INVERT,
-    OUTPUT_MODE,
-    COLOR_DEPTH
-} Mode_t;
 
 static void ILI9341_setMode(uint8_t param);
 
@@ -95,9 +84,9 @@ void ILI9341_resetHard(Timer_t timer) {
      */
     Timer_setMode(timer, ONESHOT, UP);
 
-    GPIO_PORTA_DATA_R &= ~(0x80);               // clear PA7 to init. reset
+    SPI_CLEAR_RESET();
     Timer_Wait1ms(timer, 1);
-    GPIO_PORTA_DATA_R |= 0x80;                  // set PA7 to end reset pulse
+    SPI_SET_RESET();
     Timer_Wait1ms(timer, 5);
     return;
 }
@@ -106,7 +95,7 @@ void ILI9341_resetSoft(Timer_t timer) {
     Timer_setMode(timer, ONESHOT, UP);
 
     SPI_WriteCmd(SWRESET);
-    Timer_Wait1ms(timer, 5);                    /// the driver needs 5 [ms] before another command
+    Timer_Wait1ms(timer, 5);               /// the driver needs 5 [ms] before another command
     return;
 }
 

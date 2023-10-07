@@ -7,9 +7,10 @@
  * @brief   Source code for FIFO buffer module.
  */
 
+#include "FIFO.h"
+
 /******************************************************************************
 SECTIONS
-        Preprocessor Directives
         Type Declaration + Initialization
         Basic Operations
         Bulk Removal
@@ -17,16 +18,10 @@ SECTIONS
         Status Checks
 *******************************************************************************/
 
-/******************************************************************************
-Preprocessor Directives
-*******************************************************************************/
-
-#include "FIFO.h"
-
 #include "NewAssert.h"
 
-#include <stdint.h>
 #include <stdbool.h>
+#include <stdint.h>
 
 /******************************************************************************
 Type Declaration + Initialization

@@ -7,6 +7,8 @@
  * @brief   Source code for SPI module.
  */
 
+#include "SPI.h"
+
 /**
  *     TM4C Pin |  Function | ILI9341 Pin   | Description
  *  ------------|-----------|---------------|------------------------------------------------
@@ -20,8 +22,6 @@
  *  Clk. Polarity  =   steady state low (0)     <br>
  *  Clk. Phase     =   rising clock edge (0)    <br>
  */
-
-#include "SPI.h"
 
 #include "GPIO.h"
 

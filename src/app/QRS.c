@@ -7,6 +7,8 @@
  * @brief   Source code for QRS module.
  */
 
+#include "QRS.h"
+
 /*******************************************************************************
 SECTIONS
         Static Declarations
@@ -18,8 +20,6 @@ SECTIONS
 /*******************************************************************************
 Preprocessor Directives
 ********************************************************************************/
-
-#include "QRS.h"
 
 #include "arm_math_types.h"
 #include "dsp/filtering_functions.h"

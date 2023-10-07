@@ -10,12 +10,6 @@
 #ifndef ADC_H
 #define ADC_H
 
-#include "GPIO.h"
-
-#include "tm4c123gh6pm.h"
-
-#include <stdint.h>
-
 /// @brief   Initialize ADC0 as a single-input analog-to-digital converter.
 void ADC_Init(void);
 

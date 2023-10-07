@@ -25,12 +25,7 @@ SECTIONS
         Memory Writing
 *******************************************************************************/
 
-#include "SPI.h"
 #include "Timer.h"
-
-#include "FIFO.h"
-
-#include "tm4c123gh6pm.h"
 
 #include <stdbool.h>
 #include <stdint.h>

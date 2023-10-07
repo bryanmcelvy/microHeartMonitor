@@ -7,22 +7,22 @@
  * @brief   Driver module for using the serial peripheral interface (SPI) protocol.
  */
 
-#ifndef SPI_H
-#define SPI_H
-
 /******************************************************************************
 TODO
         – Refactor to use more generic interface OR create separate SSI module
         as a dependency
 *******************************************************************************/
 
-#include "GPIO.h"
-
-#include "FIFO.h"
+#ifndef SPI_H
+#define SPI_H
 
 #include "tm4c123gh6pm.h"
+
 #include <stdbool.h>
 #include <stdint.h>
+
+#define SPI_CLEAR_RESET() (GPIO_PORTA_DATA_R &= ~(0x80))
+#define SPI_SET_RESET()   (GPIO_PORTA_DATA_R |= 0x80)
 
 /**
  * @brief   Initialize SSI0 to act as an SPI Controller (AKA Master) in mode 0.

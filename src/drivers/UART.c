@@ -7,19 +7,6 @@
  * @brief   Source code for UART module.
  */
 
-/******************************************************************************
-SECTIONS
-        Preprocessor Directives
-        Constant Declarations
-        Initialization
-        Reading
-        Writing
-*******************************************************************************/
-
-/******************************************************************************
-Preprocessor Directives
-*******************************************************************************/
-
 #include "UART.h"
 
 #include "GPIO.h"
@@ -32,6 +19,14 @@ Preprocessor Directives
 #include <stdint.h>
 
 #define ASCII_CONVERSION 0x30
+
+/******************************************************************************
+SECTIONS
+        Constant Declarations
+        Initialization
+        Reading
+        Writing
+*******************************************************************************/
 
 /******************************************************************************
 Constant Declarations
@@ -100,14 +95,24 @@ UART_t * UART_Init(GPIO_Port_t * port, UART_Num_t uartNum) {
     // Check that inputted GPIO port and UART match each other
     uint32_t gpio_baseAddress = GPIO_getBaseAddr(port);
     switch(uartNum) {
-        case UART0: Assert(gpio_baseAddress == GPIO_PORTA_BASE); break;
-        case UART1: Assert(gpio_baseAddress == GPIO_PORTB_BASE); break;
+        case UART0:
+            Assert(gpio_baseAddress == GPIO_PORTA_BASE);
+            break;
+        case UART1:
+            Assert(gpio_baseAddress == GPIO_PORTB_BASE);
+            break;
         case UART2:
-        case UART6: Assert(gpio_baseAddress == GPIO_PORTD_BASE); break;
+        case UART6:
+            Assert(gpio_baseAddress == GPIO_PORTD_BASE);
+            break;
         case UART3:
-        case UART4: Assert(gpio_baseAddress == GPIO_PORTC_BASE); break;
+        case UART4:
+            Assert(gpio_baseAddress == GPIO_PORTC_BASE);
+            break;
         case UART5:
-        case UART7: Assert(gpio_baseAddress == GPIO_PORTE_BASE); break;
+        case UART7:
+            Assert(gpio_baseAddress == GPIO_PORTE_BASE);
+            break;
     }
 
     // clang-format off

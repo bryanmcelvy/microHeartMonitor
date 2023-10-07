@@ -7,11 +7,11 @@
  * @brief   Source code for interrupt vector handling module.
  */
 
+#include "ISR.h"
+
 /******************************************************************************
 Preprocessor Directives
 *******************************************************************************/
-
-#include "ISR.h"
 
 #include "NewAssert.h"
 

@@ -18,22 +18,13 @@
 
 /******************************************************************************
 SECTIONS
-        Preprocessor Directives
         Initialization
         Reading
         Writing
 *******************************************************************************/
 
-/******************************************************************************
-Preprocessor Directives
-*******************************************************************************/
 #include "GPIO.h"
 
-#include "NewAssert.h"
-
-#include "tm4c123gh6pm.h"
-
-#include <stdbool.h>
 #include <stdint.h>
 
 /******************************************************************************
@@ -42,7 +33,16 @@ Initialization
 
 typedef struct UART_t UART_t;
 
-typedef enum { UART0, UART1, UART2, UART3, UART4, UART5, UART6, UART7 } UART_Num_t;
+typedef enum {
+    UART0,
+    UART1,
+    UART2,
+    UART3,
+    UART4,
+    UART5,
+    UART6,
+    UART7
+} UART_Num_t;
 
 /**
  * @brief                       Initialize the specified UART peripheral.

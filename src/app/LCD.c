@@ -22,12 +22,9 @@ SECTIONS
 
 #include "ILI9341.h"
 
-#include "SPI.h"
 #include "Timer.h"
 
 #include "NewAssert.h"
-
-#include "tm4c123gh6pm.h"
 
 #include <stdbool.h>
 #include <stdint.h>

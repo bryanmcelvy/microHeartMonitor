@@ -5,9 +5,7 @@
 
 #include "NewAssert.h"
 
-#include "tm4c123gh6pm.h"
 #include <stdbool.h>
-#include <stdint.h>
 
 // clang-format off
 static const char * const MSG_LIST[] = {

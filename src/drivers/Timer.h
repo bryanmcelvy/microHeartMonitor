@@ -10,15 +10,6 @@
 #ifndef TIMER_H
 #define TIMER_H
 
-/******************************************************************************
-Preprocessor Directives
-*******************************************************************************/
-
-#include "ISR.h"
-#include "NewAssert.h"
-
-#include "tm4c123gh6pm.h"
-
 #include <stdbool.h>
 #include <stdint.h>
 
@@ -48,9 +39,15 @@ Configuration
 *******************************************************************************/
 
 // TODO: Implement more modes
-typedef enum { ONESHOT, PERIODIC } timerMode_t;
+typedef enum {
+    ONESHOT,
+    PERIODIC
+} timerMode_t;
 
-enum { UP = true, DOWN = false };
+enum {
+    UP = true,
+    DOWN = false
+};
 
 // TODO: Write description
 void Timer_setMode(Timer_t timer, timerMode_t timerMode, bool isCountingUp);

@@ -10,25 +10,16 @@
 #ifndef DEBUG_H
 #define DEBUG_H
 
+#include "UART.h"
+
+#include <stdbool.h>
+
 /*******************************************************************************
 SECTIONS
-        Preprocessor Directives
         Initialization
         Serial Output
         Assertions
 ********************************************************************************/
-
-/*******************************************************************************
-Preprocessor Directives
-********************************************************************************/
-
-#include "UART.h"
-
-#include "NewAssert.h"
-
-#include "tm4c123gh6pm.h"
-#include <stdbool.h>
-#include <stdint.h>
 
 /******************************************************************************
 Initialization
@@ -113,8 +104,6 @@ Assertions
 void Debug_Assert(bool condition);
 
 /// @} Assertions
-
-/*****************************************************************************/
 
 #endif                  // DEBUG_H
 

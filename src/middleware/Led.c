@@ -1,26 +1,20 @@
-/**
+/** @addtogroup led
+ * @{
+ *
  * @file
  * @author  Bryan McElvy
  * @brief   Source code for LED module.
  * @ingroup led
  */
 
-/** @addtogroup led
- * @{ */
+#include "Led.h"
 
 /******************************************************************************
 SECTIONS
-        Preprocessor Directives
         Initialization
         Configuration
         Operations
 *******************************************************************************/
-
-/******************************************************************************
-Preprocessor Directives
-*******************************************************************************/
-
-#include "Led.h"
 
 #include "GPIO.h"
 

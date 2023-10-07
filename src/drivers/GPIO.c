@@ -4,10 +4,11 @@
  * @brief   Source code for GPIO module.
  */
 
+#include "GPIO.h"
+
 /******************************************************************************
 Preprocessor Directives
 *******************************************************************************/
-#include "GPIO.h"
 
 #include <NewAssert.h>
 
@@ -52,7 +53,6 @@ enum {
 /******************************************************************************
 Struct Definition
 *******************************************************************************/
-typedef volatile uint32_t * register_t;
 
 struct GPIO_Port_t {
     const uint32_t BASE_ADDRESS;
@@ -72,6 +72,9 @@ static GPIO_Port_t GPIO_PTR_ARR[6] = {
 /******************************************************************************
 Initialization
 *******************************************************************************/
+
+typedef volatile uint32_t * register_t;
+
 GPIO_Port_t * GPIO_InitPort(GPIO_PortName_t portName) {
     Assert(portName < GPIO_NUM_PORTS);
 
@@ -132,10 +135,18 @@ void GPIO_ConfigPullDown(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask) {
 void GPIO_ConfigDriveStrength(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask, uint8_t drive_mA) {
     uint32_t driveSelectRegister_Offset;
     switch(drive_mA) {
-        case 2: driveSelectRegister_Offset = GPIO_DR2R_R_OFFSET; break;
-        case 4: driveSelectRegister_Offset = GPIO_DR4R_R_OFFSET; break;
-        case 8: driveSelectRegister_Offset = GPIO_DR8R_R_OFFSET; break;
-        default: driveSelectRegister_Offset = 0; Assert(false);
+        case 2:
+            driveSelectRegister_Offset = GPIO_DR2R_R_OFFSET;
+            break;
+        case 4:
+            driveSelectRegister_Offset = GPIO_DR4R_R_OFFSET;
+            break;
+        case 8:
+            driveSelectRegister_Offset = GPIO_DR8R_R_OFFSET;
+            break;
+        default:
+            driveSelectRegister_Offset = 0;
+            Assert(false);
     }
     *((register_t) (gpioPort->BASE_ADDRESS + driveSelectRegister_Offset)) |= pinMask;
     return;

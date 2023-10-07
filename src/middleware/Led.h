@@ -16,10 +16,7 @@ Preprocessor Directives
 
 #include "GPIO.h"
 
-#include "NewAssert.h"
-
 #include <stdbool.h>
-#include <stdint.h>
 
 #ifndef LED_POOL_SIZE
 #define LED_POOL_SIZE 3

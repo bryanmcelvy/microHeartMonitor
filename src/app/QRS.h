@@ -13,24 +13,12 @@
 #ifndef QRS_H
 #define QRS_H
 
-/*******************************************************************************
-Preprocessor Directives
-********************************************************************************/
-
 #include "arm_math_types.h"
-#include "dsp/filtering_functions.h"
-#include "dsp/statistics_functions.h"
-
 #include <stdbool.h>
-#include <stdint.h>
 
 #define QRS_SAMP_FREQ       ((uint32_t) 200)                  // [Hz]
 #define QRS_SAMP_PERIOD_SEC ((float32_t) 0.005f)
 #define QRS_NUM_SAMP        ((uint16_t) (1200))               // num. samples to process
-
-/*******************************************************************************
-Functions
-********************************************************************************/
 
 ///@brief           Initialize the QRS detector.
 void QRS_Init(void);

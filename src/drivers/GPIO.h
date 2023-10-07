@@ -7,44 +7,21 @@
 #ifndef GPIO_H
 #define GPIO_H
 
-/******************************************************************************
-Preprocessor Directives
-*******************************************************************************/
-
-// Includes
-#include <NewAssert.h>
-
-#include "tm4c123gh6pm.h"
 #include <stdbool.h>
 #include <stdint.h>
 
 /******************************************************************************
 Type Definitions + Initialization
 *******************************************************************************/
+
 typedef enum {
-    GPIO_PIN0 = ((uint8_t) 1),
-    GPIO_PIN1 = ((uint8_t) (1 << 1)),
-    GPIO_PIN2 = ((uint8_t) (1 << 2)),
-    GPIO_PIN3 = ((uint8_t) (1 << 3)),
-    GPIO_PIN4 = ((uint8_t) (1 << 4)),
-    GPIO_PIN5 = ((uint8_t) (1 << 5)),
-    GPIO_PIN6 = ((uint8_t) (1 << 6)),
-    GPIO_PIN7 = ((uint8_t) (1 << 7)),
-    GPIO_ALL_PINS = ((uint8_t) (0xFF))
-} GPIO_Pin_t;               ///< bit masks for each GPIO pin. Can be `OR`ed together for funcs.
-
-enum {
-    LED_RED = GPIO_PIN1,
-    LED_GREEN = GPIO_PIN3,
-    LED_BLUE = GPIO_PIN2,
-
-    LED_YELLOW = (LED_RED + LED_GREEN),
-    LED_CYAN = (LED_BLUE + LED_GREEN),
-    LED_PURPLE = (LED_RED + LED_BLUE),
-    LED_WHITE = (LED_RED + LED_BLUE + LED_GREEN)
-};
-
-typedef enum { A, B, C, D, E, F } GPIO_PortName_t;
+    A,
+    B,
+    C,
+    D,
+    E,
+    F
+} GPIO_PortName_t;
 
 typedef struct GPIO_Port_t GPIO_Port_t;
 
@@ -71,6 +48,29 @@ bool GPIO_isPortInit(GPIO_Port_t * gpioPort);
 /******************************************************************************
 Configuration (Digital I/O)
 *******************************************************************************/
+
+typedef enum {
+    GPIO_PIN0 = ((uint8_t) 1),
+    GPIO_PIN1 = ((uint8_t) (1 << 1)),
+    GPIO_PIN2 = ((uint8_t) (1 << 2)),
+    GPIO_PIN3 = ((uint8_t) (1 << 3)),
+    GPIO_PIN4 = ((uint8_t) (1 << 4)),
+    GPIO_PIN5 = ((uint8_t) (1 << 5)),
+    GPIO_PIN6 = ((uint8_t) (1 << 6)),
+    GPIO_PIN7 = ((uint8_t) (1 << 7)),
+    GPIO_ALL_PINS = ((uint8_t) (0xFF))
+} GPIO_Pin_t;               ///< bit masks for each GPIO pin. Can be `OR`ed together for funcs.
+
+enum {
+    LED_RED = GPIO_PIN1,
+    LED_GREEN = GPIO_PIN3,
+    LED_BLUE = GPIO_PIN2,
+
+    LED_YELLOW = (LED_RED + LED_GREEN),
+    LED_CYAN = (LED_BLUE + LED_GREEN),
+    LED_PURPLE = (LED_RED + LED_BLUE),
+    LED_WHITE = (LED_RED + LED_BLUE + LED_GREEN)
+};
 
 /**
  * @brief           Configure the direction of the specified GPIO pins. All pins

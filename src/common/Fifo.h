@@ -7,6 +7,9 @@
  * @brief   FIFO buffer data structure.
  */
 
+#ifndef FIFO_H
+#define FIFO_H
+
 /******************************************************************************
 SECTIONS
         Preprocessor Directives
@@ -20,11 +23,6 @@ SECTIONS
 /******************************************************************************
 Preprocessor Directives
 *******************************************************************************/
-
-#ifndef FIFO_H
-#define FIFO_H
-
-#include "NewAssert.h"
 
 #include <stdbool.h>
 #include <stdint.h>

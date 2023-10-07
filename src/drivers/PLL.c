@@ -11,8 +11,6 @@
 
 #include "tm4c123gh6pm.h"
 
-#include <stdint.h>
-
 void PLL_Init(void) {
 
     // Disable PLL and system clock divider

@@ -7,10 +7,6 @@
  * @brief   Source code for Timer module.
  */
 
-/******************************************************************************
-Preprocessor Directives
-*******************************************************************************/
-
 #include "Timer.h"
 
 #include "ISR.h"
@@ -102,8 +98,12 @@ void Timer_setMode(Timer_t timer, timerMode_t timerMode, bool isCountingUp) {
 
     *((register_t) (timer->BASE_ADDR + MODE)) &= ~(0x13);
     switch(timerMode) {
-        case ONESHOT: *((register_t) (timer->BASE_ADDR + MODE)) |= 0x01; break;
-        case PERIODIC: *((register_t) (timer->BASE_ADDR + MODE)) |= 0x02; break;
+        case ONESHOT:
+            *((register_t) (timer->BASE_ADDR + MODE)) |= 0x01;
+            break;
+        case PERIODIC:
+            *((register_t) (timer->BASE_ADDR + MODE)) |= 0x02;
+            break;
     }
 
     if(isCountingUp) {
@@ -136,12 +136,24 @@ void Timer_enableInterruptOnTimeout(Timer_t timer, uint8_t priority) {
     // enable in NVIC
     uint8_t vectorNum;
     switch(timer->BASE_ADDR) {
-        case TIMER0_BASE: vectorNum = INT_TIMER0A; break;
-        case TIMER1_BASE: vectorNum = INT_TIMER1A; break;
-        case TIMER2_BASE: vectorNum = INT_TIMER2A; break;
-        case TIMER3_BASE: vectorNum = INT_TIMER3A; break;
-        case TIMER4_BASE: vectorNum = INT_TIMER4A; break;
-        case TIMER5_BASE: vectorNum = INT_TIMER5A; break;
+        case TIMER0_BASE:
+            vectorNum = INT_TIMER0A;
+            break;
+        case TIMER1_BASE:
+            vectorNum = INT_TIMER1A;
+            break;
+        case TIMER2_BASE:
+            vectorNum = INT_TIMER2A;
+            break;
+        case TIMER3_BASE:
+            vectorNum = INT_TIMER3A;
+            break;
+        case TIMER4_BASE:
+            vectorNum = INT_TIMER4A;
+            break;
+        case TIMER5_BASE:
+            vectorNum = INT_TIMER5A;
+            break;
     }
     ISR_setPriority(vectorNum, priority);
     ISR_Enable(vectorNum);
