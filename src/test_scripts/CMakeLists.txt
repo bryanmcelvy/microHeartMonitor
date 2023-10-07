@@ -110,3 +110,8 @@ target_link_libraries(test_debug.elf Debug GPIO Timer)
 add_executable(test_qrs.elf test_qrs.c)
 target_include_directories(test_qrs.elf PRIVATE ${PATH_APP} ${CMSIS_DIRS})
 target_link_libraries(test_qrs.elf DAQ Debug ISR LCD QRS)
+
+# LED Letter Test
+add_executable(test_lcd_letters.elf test_lcd_letters.c)
+target_include_directories(test_lcd_letters.elf PRIVATE ${PATH_APP})
+target_link_libraries(test_lcd_letters.elf LCD Led Timer)
