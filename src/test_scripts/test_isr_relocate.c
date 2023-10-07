@@ -32,6 +32,8 @@ int main(void) {
     ISR_GlobalDisable();
     ISR_InitNewTableInRam();
     ISR_addToIntTable(Timer_Handler, INT_TIMER1A);
+    ISR_setPriority(INT_TIMER1A, 2);
+    ISR_Enable(INT_TIMER1A);
 
     // Init. LED pins
     portF = GPIO_InitPort(F);
@@ -41,7 +43,7 @@ int main(void) {
     // Init. timer w/ periodic interrupts
     timer1 = Timer_Init(TIMER1);
     Timer_setMode(timer1, PERIODIC, UP);
-    Timer_enableInterruptOnTimeout(timer1, 2);
+    Timer_enableInterruptOnTimeout(timer1);
 
     Timer_setInterval_ms(timer1, 200);
     Timer_Start(timer1);

@@ -33,9 +33,12 @@ int main(void) {
     GPIO_WriteLow(portF, LED_PINS);               // turn off all LEDs
 
     // Init. timer w/ periodic interrupts
+    ISR_setPriority(INT_TIMER1A, 2);
+    ISR_Enable(INT_TIMER1A);
+
     timer1 = Timer_Init(TIMER1);
     Timer_setMode(timer1, PERIODIC, UP);
-    Timer_enableInterruptOnTimeout(timer1, 2);
+    Timer_enableInterruptOnTimeout(timer1);
     Timer_setInterval_ms(timer1, 200);
     Timer_Start(timer1);
 
