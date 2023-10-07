@@ -9,7 +9,6 @@
 
 #include "Timer.h"
 
-#include "ISR.h"
 #include "NewAssert.h"
 
 #include "tm4c123gh6pm.h"
@@ -88,13 +87,17 @@ timerName_t Timer_getName(Timer_t timer) {
     return timer->NAME;
 }
 
+bool Timer_isInit(Timer_t timer) {
+    return timer->isInit;
+}
+
 /******************************************************************************
 Configuration
 *******************************************************************************/
 
 void Timer_setMode(Timer_t timer, timerMode_t timerMode, bool isCountingUp) {
     Assert(timer->isInit);
-    *timer->controlRegister &= ~(0x101);               // disable timer
+    *timer->controlRegister &= ~(0x101);                                    // disable timer
 
     *((register_t) (timer->BASE_ADDR + MODE)) &= ~(0x13);
     switch(timerMode) {
@@ -130,37 +133,10 @@ void Timer_disableAdcTrigger(Timer_t timer) {
     return;
 }
 
-void Timer_enableInterruptOnTimeout(Timer_t timer, uint8_t priority) {
-    *timer->controlRegister &= ~(0x101);               // disable timer
-
-    // enable in NVIC
-    uint8_t vectorNum;
-    switch(timer->BASE_ADDR) {
-        case TIMER0_BASE:
-            vectorNum = INT_TIMER0A;
-            break;
-        case TIMER1_BASE:
-            vectorNum = INT_TIMER1A;
-            break;
-        case TIMER2_BASE:
-            vectorNum = INT_TIMER2A;
-            break;
-        case TIMER3_BASE:
-            vectorNum = INT_TIMER3A;
-            break;
-        case TIMER4_BASE:
-            vectorNum = INT_TIMER4A;
-            break;
-        case TIMER5_BASE:
-            vectorNum = INT_TIMER5A;
-            break;
-    }
-    ISR_setPriority(vectorNum, priority);
-    ISR_Enable(vectorNum);
-
-    // enable in timer register
-    *((register_t) (timer->BASE_ADDR + INT_MASK)) |= 0x01;
+void Timer_enableInterruptOnTimeout(Timer_t timer) {
+    *timer->controlRegister &= ~(0x101);                                    // disable timer
     *timer->interruptClearRegister |= 0x01;                                 // clear int. flag
+    *((register_t) (timer->BASE_ADDR + INT_MASK)) |= 0x01;
 
     return;
 }

@@ -34,6 +34,8 @@ Timer_t Timer_Init(timerName_t timerName);
 // TODO: Write description
 timerName_t Timer_getName(Timer_t timer);
 
+bool Timer_isInit(Timer_t timer);
+
 /******************************************************************************
 Configuration
 *******************************************************************************/
@@ -59,7 +61,7 @@ void Timer_enableAdcTrigger(Timer_t timer);
 void Timer_disableAdcTrigger(Timer_t timer);
 
 // TODO: Write description
-void Timer_enableInterruptOnTimeout(Timer_t timer, uint8_t priority);
+void Timer_enableInterruptOnTimeout(Timer_t timer);
 
 // TODO: Write description
 void Timer_disableInterruptOnTimeout(Timer_t timer);
