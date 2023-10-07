@@ -21,6 +21,12 @@ set(PATH_EXTERNAL ${PROJECT_SOURCE_DIR}/external)
 set(PATH_SRC ${PROJECT_SOURCE_DIR}/src)
 set(PATH_UNIT_TESTS ${PROJECT_SOURCE_DIR}/test)
 
+set(PATH_CMSIS ${PATH_EXTERNAL}/CMSIS-DSP)
+list(APPEND CMSIS_DIRS                  
+                ${PATH_CMSIS}/Include
+                ${PATH_CMSIS}/PrivateInclude
+                ${PATH_EXTERNAL}/CMSIS/Core/Include)
+
 set(PATH_TOOLS ${PROJECT_SOURCE_DIR}/tools)
 set(PATH_CPPCHECK ${PATH_TOOLS}/cppcheck)
 
