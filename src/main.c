@@ -280,18 +280,13 @@ static void LCD_Handler(void) {
         *((uint32_t *) &sample) = FIFO_Get(LCD_Fifo);
         sample = DAQ_BandpassFilter(sample);
 
-        // remove previous sample
+        // remove previous sample and plot current sample
         uint16_t y = LCD_prevSampleBuffer[x];
-        LCD_setColor(LCD_BLACK_INV);
-        LCD_setX(x, x);
-        LCD_setY(y, y);
-        LCD_Draw();
+        LCD_plotSample(x, y, LCD_BLACK_INV);
 
-        // plot current sample
-        y = LCD_WAVE_Y_MIN + ((uint16_t) (((sample + maxVal) / (maxVal * 2)) * LCD_WAVE_NUM_Y));
-        LCD_setColor(LCD_RED_INV);
-        LCD_setY(y, y);
-        LCD_Draw();
+        // shift/scale `sample` from (est.) range [-11, 11) to [LCD_WAVE_Y_MIN, LCD_WAVE_Y_MAX)
+        y = LCD_WAVE_Y_MIN + ((uint16_t) (((sample + maxVal) / (maxVal * 2)) * LCD_WAVE_Y_MAX));
+        LCD_plotSample(x, y, LCD_RED_INV);
 
         // store y-value and update x
         LCD_prevSampleBuffer[x] = y;

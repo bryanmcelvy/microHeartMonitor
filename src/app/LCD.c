@@ -260,4 +260,6 @@ void LCD_drawRectangle(uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy, bool 
     return;
 }
 
+static void LCD_plotSample(uint16_t x, uint16_t y, LCD_Color_t color);
+
 /** @} */               // lcd
