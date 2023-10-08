@@ -76,7 +76,7 @@ static volatile uint32_t LCD_FifoBuffer[LCD_BUFFER_SIZE] = { 0 };
 
 // Processing Buffer
 // NOTE: using just one to avoid running out of RAM
-static volatile float32_t QRS_processingBuffer[QRS_BUFFER_SIZE] = { 0 };
+static float32_t QRS_processingBuffer[QRS_BUFFER_SIZE] = { 0 };
 
 // LCD Info
 enum {
