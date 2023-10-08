@@ -32,7 +32,6 @@ Preprocessor Directives
 
 #define FLOAT_COMPARE_TOLERANCE         (float32_t)(1E-5f)
 #define IS_GREATER(X, Y)                (bool) ((X - Y) > FLOAT_COMPARE_TOLERANCE)
-#define IS_LESSER(X, Y)                 (bool) ((Y - X) > FLOAT_COMPARE_TOLERANCE)
 #define IS_PEAK(X_MINUS_1, X, X_PLUS_1) (bool) (IS_GREATER(X, X_MINUS_1) && IS_GREATER(X, X_PLUS_1))
 
 /*******************************************************************************
