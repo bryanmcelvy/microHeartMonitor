@@ -4,7 +4,7 @@
  *
  * @file
  * @author  Bryan McElvy
- * @brief   Driver module for using the serial peripheral interface (SPI) protocol.
+ * @brief   Header file for serial peripheral interface (SPI) module.
  */
 
 /******************************************************************************
@@ -31,23 +31,35 @@ TODO
 void SPI_Init(void);
 
 /**
- * @brief                   Read data from the peripheral.
+ * @brief                       Read data from the serial port.
  *
- * @return                  uint8_t
+ * @pre                         Initialize the SPI module.
+ *
+ * @param[out] data             8-bit data received from the hardware's receive FIFO.
  */
 uint8_t SPI_Read(void);
 
 /**
- * @brief                   Write an 8-bit command to the peripheral.
+ * @brief                       Write a command to the serial port.
  *
- * @param cmd               command for peripheral
+ * @pre                         Initialize the SPI module.
+ *
+ * @param[in] cmd               8-bit command to write.
+ *
+ * @post                        The D/C pin is cleared.
+ * @post                        The data is added to the hardware's transmit FIFO.
  */
 void SPI_WriteCmd(uint8_t cmd);
 
 /**
- * @brief                   Write 8-bit data to the peripheral.
+ * @brief                       Write data to the serial port.
  *
- * @param data              input data for peripheral
+ * @pre                         Initialize the SPI module.
+ *
+ * @param[in] data              8-bit data to write.
+ *
+ * @post                        The D/C pin is set.
+ * @post                        The data is added to the hardware's transmit FIFO.
  */
 void SPI_WriteData(uint8_t data);
 

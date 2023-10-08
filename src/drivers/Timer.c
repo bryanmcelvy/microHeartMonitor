@@ -95,7 +95,7 @@ bool Timer_isInit(Timer_t timer) {
 Configuration
 *******************************************************************************/
 
-void Timer_setMode(Timer_t timer, timerMode_t timerMode, bool isCountingUp) {
+void Timer_setMode(Timer_t timer, timerMode_t timerMode, timerDirection_t timerDirection) {
     Assert(timer->isInit);
     *timer->controlRegister &= ~(0x101);                                    // disable timer
 
@@ -109,11 +109,13 @@ void Timer_setMode(Timer_t timer, timerMode_t timerMode, bool isCountingUp) {
             break;
     }
 
-    if(isCountingUp) {
-        *((register_t) (timer->BASE_ADDR + MODE)) |= 0x10;
-    }
-    else {
-        *((register_t) (timer->BASE_ADDR + MODE)) &= ~(0x10);
+    switch(timerDirection) {
+        case(UP):
+            *((register_t) (timer->BASE_ADDR + MODE)) |= 0x10;
+            break;
+        case(DOWN):
+            *((register_t) (timer->BASE_ADDR + MODE)) &= ~(0x10);
+            break;
     }
 
     return;
@@ -135,7 +137,7 @@ void Timer_disableAdcTrigger(Timer_t timer) {
 
 void Timer_enableInterruptOnTimeout(Timer_t timer) {
     *timer->controlRegister &= ~(0x101);                                    // disable timer
-    *timer->interruptClearRegister |= 0x01;                                 // clear int. flag
+    *timer->interruptClearRegister |= 0x01;                                 // clear int.switchlag
     *((register_t) (timer->BASE_ADDR + INT_MASK)) |= 0x01;
 
     return;

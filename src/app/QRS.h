@@ -4,10 +4,7 @@
  *
  * @file
  * @author  Bryan McElvy
- * @brief   QRS detection algorithm functions.
- *
- *          This module contains functions for detecting heart rate (`HR`) using
- *          a simplified version of the Pan-Tompkins algorithm.
+ * @brief   Header file for QRS detection module.
  */
 
 #ifndef QRS_H
@@ -20,21 +17,24 @@
 #define QRS_SAMP_PERIOD_SEC ((float32_t) 0.005f)
 #define QRS_NUM_SAMP        ((uint16_t) (1200))               // num. samples to process
 
-///@brief           Initialize the QRS detector.
+/**
+ * @brief                   Initialize the QRS detector.
+ * @warning                 This function isn't necessary anymore, but I'm keeping it here
+ *                          just in case.
+ */
 void QRS_Init(void);
 
 /**
  * @brief                   Preprocess the ECG data to remove noise and/or
  *                          exaggerate the signal characteristic(s) of interest.
  *
- * @pre                     Fill `inputBuffer` with raw or lightly preprocessed
- *                          ECG data.
+ * @pre                     Fill input buffer `xn` with raw or lightly preprocessed ECG data.
  *
  * @param[in] xn            Array of raw ECG signal values.
- * @param[in] yn            Array used to hold preprocessed ECG signal values.
+ * @param[in] yn            Array used to store preprocessed ECG signal values.
  *
- * @post                    `yn` will contain the preprocessed data,
- *                          which is ready to be analyzed to calculate HR.
+ * @post                    The preprocessed signal data \f$y[n]\f$ is stored in `yn` and is ready
+ *                          to be analyzed to calculate the heart rate in [bpm].
  *
  * @see                     QRS_applyDecisionRules()
  */
@@ -49,8 +49,12 @@ void QRS_Preprocess(const float32_t xn[], float32_t yn[]);
  * @param[in] yn            Array of preprocessed ECG signal values.
  * @param[out] heartRate    Average heart rate in [bpm].
  *
- * @post                    Certain information (signal/noise levels, thresholds, etc.)
- *                          is retained between calls.
+ * @post                    Certain information (signal/noise levels, thresholds, etc.) is retained
+ *                          between calls and used to improve further detection.
+ *
+ * @bug                     The current implementation only processes one block at a time and
+ *                          discards the data immediately after, so peaks that are cut off between
+ *                          one block and another are not being counted.
  *
  * @see                     QRS_Preprocess()
  */

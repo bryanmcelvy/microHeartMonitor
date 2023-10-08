@@ -16,9 +16,9 @@
 #define LOOKUP_DAQ_MIN (float32_t)(-5.5)
 
 /**
- * @brief   Return a pointer to the DAQ lookup table.
+ * @brief               Return a pointer to the DAQ lookup table.
  *
- * @return  const float32_t*
+ * @param[out] lutPtr   Pointer to the lookup table (LUT).
  */
 const float32_t * Lookup_GetPtr(void);
 

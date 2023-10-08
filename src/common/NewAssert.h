@@ -21,7 +21,10 @@
  * @brief               Custom `assert` implementation that is more lightweight
  *                      than the one from `newlib`.
  *
- * @param[in] condition Conditional to test. Causes an infinite loop if `false`.
+ * @param[in] condition Conditional to test.
+ *
+ * @post                If `condition == true`, the function simply returns.
+ * @post                If `condition == false`, a breakpoint is initiated.
  */
 void Assert(bool condition);
 

@@ -13,11 +13,8 @@
 SECTIONS
         Static Declarations
         Initialization
-        Configuration
-        Drawing Area
-        Color
+        Plotting Parameters
         Drawing
-        Scrolling
 *******************************************************************************/
 
 #include "ILI9341.h"
@@ -58,7 +55,7 @@ static struct {
 } lcd;
 
 /******************************************************************************
-Initialization + Configuration
+Initialization
 *******************************************************************************/
 
 void LCD_Init(void) {
@@ -68,21 +65,18 @@ void LCD_Init(void) {
     ILI9341_Init(timer2);
     ILI9341_setSleepMode(SLEEP_OFF, timer2);
 
+    // TODO: explain this
     ILI9341_setMemAccessCtrl(1, 0, 0, 0, 1, 0);
 
     ILI9341_setColorDepth(COLORDEPTH_16BIT);
     ILI9341_setColorExpression(PARTIAL_COLORS);
     ILI9341_setDisplayArea(NORMAL_AREA);
-
-    // ILI9341_setFrameRate(2, 27);               // frame rate = 35 Hz
-
-    LCD_setX(0, (LCD_X_MAX - 1));
-    LCD_setY(0, (LCD_Y_MAX - 1));
-
     ILI9341_setDispInversion(INVERT_ON);
-    LCD_setColor(LCD_BLACK_INV);
-
     ILI9341_setDispOutput(OUTPUT_OFF);
+
+    // black background
+    LCD_setColor(LCD_BLACK);
+    LCD_Fill();
 
     lcd.isInit = true;
 
@@ -95,6 +89,10 @@ void LCD_setOutputMode(bool isOn) {
 
     return;
 }
+
+/******************************************************************************
+Plotting Parameters
+*******************************************************************************/
 
 void LCD_setX(uint16_t x1, uint16_t x2) {
     lcd.x1 = x1;
@@ -199,8 +197,8 @@ void LCD_drawRectangle(uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy, bool 
     uint16_t y2;
 
     // ensure startRow and startCol are less than their max numbers
-    x1 = (x1 < LCD_X_MAX) ? x1 : (LCD_X_MAX - 1);
-    y1 = (y1 < LCD_Y_MAX) ? y1 : (LCD_Y_MAX - 1);
+    x1 = (x1 <= LCD_X_MAX) ? x1 : LCD_X_MAX;
+    y1 = (y1 <= LCD_Y_MAX) ? y1 : LCD_Y_MAX;
 
     // ensure lines don't go out of bounds
     if((x1 + dx) > LCD_X_MAX) {
@@ -241,6 +239,15 @@ void LCD_drawRectangle(uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy, bool 
     return;
 }
 
+/**
+ * @brief               Plot a sample at coordinates `(x, y)`.
+ *
+ * @param[in] x         x-coordinate (i.e. sample number) in range `[0, X_MAX]`
+ * @param[in] y         y-coordinate (i.e. amplitude) in range `[0, Y_MAX]`
+ * @param[in] color     Color to use
+ *
+ * @see                 LCD_setX(), LCD_setY(), LCD_setColor(), LCD_Draw()
+ */
 static void LCD_plotSample(uint16_t x, uint16_t y, LCD_Color_t color);
 
 /** @} */               // lcd

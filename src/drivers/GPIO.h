@@ -73,9 +73,9 @@ enum {
 };
 
 /**
- * @brief           Configure the direction of the specified GPIO pins. All pins
- *                  are configured to `INPUT` by default, so this function should
- *                  only be called to specify `OUTPUT` pins.
+ * @brief               Configure the direction of the specified GPIO pins. All pins
+ *                      are configured to `INPUT` by default, so this function should
+ *                      only be called to specify `OUTPUT` pins.
  *
  * @param[in] gpioPort  Pointer to the specified GPIO port.
  * @param[in] bitMask   Bit mask corresponding to the intended `OUTPUT` pin(s).
@@ -83,9 +83,9 @@ enum {
 void GPIO_ConfigDirOutput(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask);
 
 /**
- * @brief           Configure the specified GPIO pins as `INPUT` pins. All pins
- *                  are configured to `INPUT` by default, so this function is
- *                  technically unnecessary, but useful for code readability.
+ * @brief               Configure the specified GPIO pins as `INPUT` pins. All pins
+ *                      are configured to `INPUT` by default, so this function is
+ *                      technically unnecessary, but useful for code readability.
  *
  * @param[in] gpioPort  Pointer to the specified GPIO port.
  * @param[in] bitMask   Bit mask corresponding to the intended `INPUT` pin(s).
@@ -93,7 +93,7 @@ void GPIO_ConfigDirOutput(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask);
 void GPIO_ConfigDirInput(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask);
 
 /**
- * @brief           Activate the specified pins' internal pull-up resistors.
+ * @brief               Activate the specified pins' internal pull-up resistors.
  *
  * @param[in] gpioPort  Pointer to the specified GPIO port.
  * @param[in] pinMask   Bit mask corresponding to the intended pin(s).
@@ -101,7 +101,7 @@ void GPIO_ConfigDirInput(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask);
 void GPIO_ConfigPullUp(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask);
 
 /**
- * @brief           Activate the specified pins' internal pull-down resistors.
+ * @brief               Activate the specified pins' internal pull-down resistors.
  *
  * @param[in] gpioPort  Pointer to the specified GPIO port.
  * @param[in] pinMask   Bit mask corresponding to the intended pin(s).
@@ -109,9 +109,9 @@ void GPIO_ConfigPullUp(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask);
 void GPIO_ConfigPullDown(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask);
 
 /**
- * @brief           Configure the specified pins' drive strength. Pins are
- *                  initialized with 2[mA] drive strength, so this is only
- *                  needed for a drive strength of 4[mA] or 8[mA].
+ * @brief               Configure the specified pins' drive strength. Pins are
+ *                      initialized with 2[mA] drive strength, so this is only
+ *                      needed for a drive strength of 4[mA] or 8[mA].
  *
  * @param[in] gpioPort  Pointer to the specified GPIO port.
  * @param[in] pinMask   Bit mask corresponding to the intended pin(s).
@@ -120,7 +120,7 @@ void GPIO_ConfigPullDown(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask);
 void GPIO_ConfigDriveStrength(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask, uint8_t drive_mA);
 
 /**
- * @brief           Enable digital I/O for the specified pins.
+ * @brief               Enable digital I/O for the specified pins.
  *
  * @param[in] gpioPort  Pointer to the specified GPIO port.
  * @param[in] pinMask   Bit mask corresponding to the intended pin(s).
@@ -128,7 +128,7 @@ void GPIO_ConfigDriveStrength(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask, uint8_
 void GPIO_EnableDigital(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask);
 
 /**
- * @brief           Disable digital I/O for the specified pins.
+ * @brief               Disable digital I/O for the specified pins.
  *
  * @param[in] gpioPort  Pointer to the specified GPIO port.
  * @param[in] pinMask   Bit mask corresponding to the intended pin(s).

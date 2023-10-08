@@ -4,7 +4,7 @@
  *
  * @file
  * @author  Bryan McElvy
- * @brief   Source code for SPI module.
+ * @brief   Source code for serial peripheral interface (SPI) module.
  */
 
 #include "SPI.h"

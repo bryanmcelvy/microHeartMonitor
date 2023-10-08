@@ -4,13 +4,19 @@
  *
  * @file
  * @author  Bryan McElvy
- * @brief   Source code for QRS module.
+ * @brief   Source code for QRS detection module.
+ *
+ *          The algorithm used in this file is a simplified version of the Pan-Tompkins algorithm.
+ *          Specifically, this version currently only uses the integrated signal for the
+ *          thresholding, and also completely omits the searchback and T wave discrimination parts
+ *          of the original.
  */
 
 #include "QRS.h"
 
 /*******************************************************************************
 SECTIONS
+        Preprocessor Directives
         Static Declarations
         Digital Filters
         Main Functions
@@ -87,9 +93,9 @@ static float32_t QRS_updateThreshold(const float32_t signalLevel, const float32_
 static struct {
     bool isCalibrated;
 
-    float32_t signalLevel;
-    float32_t noiseLevel;
-    float32_t threshold;
+    float32_t signalLevel;                                  ///< estimated signal level
+    float32_t noiseLevel;                                   ///< estimated noise level
+    float32_t threshold;                                    ///< amplitude threshold
 
     uint16_t fidMarkArray[QRS_NUM_FID_MARKS];               /// array to hold fidMark indices
     float32_t utilityBuffer1[QRS_NUM_FID_MARKS];
@@ -99,6 +105,7 @@ static struct {
 /*******************************************************************************
 Digital Filters
 ********************************************************************************/
+/** @name Digital Filters */               /// @{
 
 enum {
     // Bandpass Filter
@@ -133,7 +140,9 @@ static const float32_t COEFF_BANDPASS[NUM_COEFF_HIGHPASS] = {
     1.6299355030059814f, -0.7530401945114136f, 
 };
 
-static const float32_t COEFF_DERFILT[NUM_COEFF_DERFILT] = { -0.125f, -0.25f, 0.0f, 0.25f, 0.125f };
+static const float32_t COEFF_DERFILT[NUM_COEFF_DERFILT] = {
+    -0.125f, -0.25f, 0.0f, 0.25f, 0.125f
+};
 
 static const float32_t COEFF_MOVAVG[NUM_COEFF_MOVAVG] = {
     0.10000000149011612f, 0.10000000149011612f, 0.10000000149011612f, 
@@ -159,11 +168,19 @@ static const FIR_Filt_t * const movingAverageFilter = &movingAvgFiltStruct;
 
 // clang-format on
 
+/** @} */               // Digital Filters
+
 /*******************************************************************************
 Main Functions
 ********************************************************************************/
 
+/** @name Interface Functions */               /// @{
+
 void QRS_Init(void) {
+    /**
+     * This function originally initialized the filter `struct`s but now does nothing since those
+     * have been made `const` and their initialization functions have been removed entirely.
+     */
     return;
 }
 
@@ -257,6 +274,8 @@ float32_t QRS_runDetection(const float32_t xn[], float32_t yn[]) {
 
     return heartRate_bpm;
 }
+
+/** @} */               // Interface Functions
 
 /*******************************************************************************
 Static Function Definitions

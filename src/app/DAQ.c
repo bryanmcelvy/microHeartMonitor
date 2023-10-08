@@ -7,11 +7,20 @@
  * @brief   Source code for DAQ module.
  */
 
+#include "DAQ.h"
+
+/*******************************************************************************
+SECTIONS
+        Preprocessor Directives
+        Digital Filter Variables
+        Initialization
+        Reading Input Data
+        Digital Filtering Functions
+********************************************************************************/
+
 /******************************************************************************
 Preprocessor Directives
 *******************************************************************************/
-
-#include "DAQ.h"
 
 #include "lookup.h"
 
@@ -30,10 +39,9 @@ Preprocessor Directives
 #define SAMPLING_PERIOD_MS 5               ///< sampling period in ms (\f$ T_s = 1 / f_s \f$)
 
 /******************************************************************************
-Static Declarations
+Digital Filter Variables
 *******************************************************************************/
-
-static const float32_t * DAQ_LOOKUP_TABLE = 0;
+/** @name Digital Filters */               /// @{
 
 enum {
     NUM_STAGES_NOTCH = 6,
@@ -95,9 +103,13 @@ static const Filter_t bandpassFiltStruct = { NUM_STAGES_BANDPASS, stateBuffer_Ba
                                              COEFFS_BANDPASS };
 static const Filter_t * const bandpassFilter = &bandpassFiltStruct;
 
+/** @} */               // Digital Filters
+
 /*******************************************************************************
 Initialization
 ********************************************************************************/
+
+static const float32_t * DAQ_LOOKUP_TABLE = 0;               /// pointer to lookup table
 
 void DAQ_Init(void) {
 

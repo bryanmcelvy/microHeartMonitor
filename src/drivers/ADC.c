@@ -4,7 +4,7 @@
  *
  * @file
  * @author      Bryan McElvy
- * @brief       Source code for ADC module.
+ * @brief       Source code ffor analog-to-digital conversion (ADC) module.
  */
 
 #include "ADC.h"

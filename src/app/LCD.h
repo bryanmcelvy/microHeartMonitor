@@ -15,19 +15,13 @@
 /******************************************************************************
 SECTIONS
         Initialization
-        Drawing Area
-        Color
+        Plotting Parameters
         Drawing
 *******************************************************************************/
 
 #include "ILI9341.h"
 
 #include <stdbool.h>
-
-enum {
-    LCD_X_MAX = ILI9341_NUM_ROWS,
-    LCD_Y_MAX = ILI9341_NUM_COLS
-};
 
 /******************************************************************************
 Initialization
@@ -43,50 +37,44 @@ void LCD_Init(void);
 
 /**
  * @brief               Toggle display output `ON` or `OFF` (`OFF` by default).
- *                      Turning output `OFF` stops the LCD driver chip from writing
- *                      to the display, and also blanks out the display completely.
- *
- * @pre                 Initialize the LCD.
  *
  * @param[in] isOn      `true` to turn display output `ON`, `false` to turn `OFF`
  *
- * @see                 LCD_toggleOutput()
+ * @post                When `OFF`, the display is cleared.
+ *                      When `ON`, the IC writes pixel data from its memory to the display.
  */
 void LCD_setOutputMode(bool isOn);
 
 /******************************************************************************
-Drawing Area
+Plotting Parameters
 *******************************************************************************/
+
+enum {
+    LCD_X_MAX = ILI9341_NUM_ROWS - 1,
+    LCD_Y_MAX = ILI9341_NUM_COLS - 1
+};
 
 /**
  * @brief               Set new x-coordinates to be written to.
- *                      \f$ 0 <= x1 <= x2 < X_MAX \f$
+ *                      \f$ 0 <= x1 <= x2 <= X_{MAX} \f$
  *
- * @pre                 Initialize the LCD.
- *
- * @param x1_new        left-most x-coordinate
- * @param x2_new        right-most x-coordinate
+ * @param[in] x1        left-most x-coordinate
+ * @param[in] x2        right-most x-coordinate
  *
  * @see                 LCD_setY()
  */
-void LCD_setX(uint16_t x1_new, uint16_t x2_new);
+void LCD_setX(uint16_t x1, uint16_t x2);
 
 /**
  * @brief               Set new y-coordinates to be written to.
- *                      \f$ 0 <= y1 <= y2 < Y_MAX \f$
+ *                      \f$ 0 <= y1 <= y2 <= Y_{MAX} \f$
  *
- * @pre                 Initialize the LCD.
- *
- * @param y1_new        lowest y-coordinate
- * @param y2_new        highest y-coordinate
+ * @param[in] y1        lowest y-coordinate
+ * @param[in] y2        highest y-coordinate
  *
  * @see                 LCD_setX()
  */
-void LCD_setY(uint16_t y1_new, uint16_t y2_new);
-
-/******************************************************************************
-Color
-*******************************************************************************/
+void LCD_setY(uint16_t y1, uint16_t y2);
 
 typedef enum {
     // Bits 2, 1, 0 correspond to R, G, and B values, respectively.
@@ -104,11 +92,11 @@ typedef enum {
 } LCD_Color_t;
 
 /**
- * @brief               Set the color value via a 3-bit code.
+ * @brief               Set the color value.
  *
- * @param color         Color to use.
+ * @param[in]           color Color to use.
  *
- * @see                 LCD_setColorDepth(), LCD_toggleColorDepth(), LCD_setColor()
+ * @post                Outgoing pixel data will use the selected color.
  */
 void LCD_setColor(LCD_Color_t color);
 
@@ -145,8 +133,8 @@ void LCD_Fill(void);
  *
  * @pre                 Select the desired color to use for the line.
  *
- * @param yCenter       y-coordinate to center the line on
- * @param lineWidth     width of the line; should be a positive, odd number
+ * @param[in] yCenter   y-coordinate to center the line on
+ * @param[in] lineWidth width of the line; should be a positive, odd number
  *
  * @see                 LCD_drawVertLine, LCD_drawRectangle()
  */
@@ -157,8 +145,8 @@ void LCD_drawHoriLine(uint16_t yCenter, uint16_t lineWidth);
  *
  * @pre                 Select the desired color to use for the line.
  *
- * @param xCenter       x-coordinate to center the line on
- * @param lineWidth     width of the line; should be a positive, odd number
+ * @param[in] xCenter   x-coordinate to center the line on
+ * @param[in] lineWidth width of the line; should be a positive, odd number
  *
  * @see                 LCD_drawHoriLine, LCD_drawRectangle()
  */
@@ -170,23 +158,16 @@ void LCD_drawVertLine(uint16_t xCenter, uint16_t lineWidth);
  *
  * @pre                 Select the desired color to use for the rectangle.
  *
- * @param x1            lowest (left-most) x-coordinate
- * @param dx            length (horizontal distance) of the rectangle
- * @param y1            lowest (bottom-most) y-coordinate
- * @param dy            height (vertical distance) of the rectangle
- * @param isFilled      `true` to fill the rectangle, `false` to leave it unfilled
+ * @param[in] x1        lowest (left-most) x-coordinate
+ * @param[in] dx        length (horizontal distance) of the rectangle
+ * @param[in] y1        lowest (bottom-most) y-coordinate
+ * @param[in] dy        height (vertical distance) of the rectangle
+ * @param[in] isFilled  `true` to fill the rectangle, `false` to leave it unfilled
  *
  * @see                 LCD_Draw(), LCD_Fill(), LCD_drawHoriLine(), LCD_drawVertLine()
  */
 void LCD_drawRectangle(uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy, bool isFilled);
 
-/**
- * @brief               Plot a sample at coordinates `(x, y)`.
- *
- * @param[in] x         x-coordinate (i.e. sample number) in range `[0, LCD_X_MAX)`
- * @param[in] y         y-coordinate (i.e. amplitude) in range `[0, LCD_Y_MAX)`
- * @param[in] color     Color to use
- */
 inline static void LCD_plotSample(uint16_t x, uint16_t y, LCD_Color_t color) {
     LCD_setColor(color);
     LCD_setX(x, x);

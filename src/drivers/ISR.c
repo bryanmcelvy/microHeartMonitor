@@ -4,10 +4,18 @@
  *
  * @file
  * @author  Bryan McElvy
- * @brief   Source code for interrupt vector handling module.
+ * @brief   Source code for interrupt service routine (ISR) configuration module.
  */
 
 #include "ISR.h"
+
+/*******************************************************************************
+SECTIONS
+        Preprocessor Directives
+        Global Interrupt Configuration
+        Interrupt Vector Table Configuration
+        Individual Interrupts
+********************************************************************************/
 
 /******************************************************************************
 Preprocessor Directives
@@ -19,14 +27,14 @@ Preprocessor Directives
 
 #include <stdint.h>
 
-#define VECTOR_TABLE_BASE_ADDR (uint32_t) 0x00000000
-#define VECTOR_TABLE_SIZE      (uint32_t) 155
-#define VECTOR_TABLE_ALIGNMENT (uint32_t)(1 << 10)
+#define VECTOR_TABLE_BASE_ADDR ((uint32_t) 0x00000000)
+#define VECTOR_TABLE_SIZE      ((uint32_t) 155)
+#define VECTOR_TABLE_ALIGNMENT ((uint32_t) (1 << 10))
 
-#define NVIC_EN_BASE_ADDR      (uint32_t) 0xE000E100
-#define NVIC_DIS_BASE_ADDR     (uint32_t) 0xE000E180
-#define NVIC_PRI_BASE_ADDR     (uint32_t) 0xE000E400
-#define NVIC_UNPEND_BASE_ADDR  (uint32_t) 0xE000E280
+#define NVIC_EN_BASE_ADDR      ((uint32_t) 0xE000E100)
+#define NVIC_DIS_BASE_ADDR     ((uint32_t) 0xE000E180)
+#define NVIC_PRI_BASE_ADDR     ((uint32_t) 0xE000E400)
+#define NVIC_UNPEND_BASE_ADDR  ((uint32_t) 0xE000E280)
 
 static void ISR_setStatus(const uint8_t vectorNum, const bool isEnabled);
 
@@ -93,7 +101,7 @@ void ISR_addToIntTable(ISR_t isr, const uint8_t vectorNum) {
 }
 
 /******************************************************************************
-Individual Interrupt Configuration
+Individual Interrupts
 *******************************************************************************/
 
 typedef volatile uint32_t * register_t;
@@ -164,10 +172,6 @@ void ISR_Disable(const uint8_t vectorNum) {
     ISR_setStatus(vectorNum, false);
     return;
 }
-
-/******************************************************************************
-Individual Interrupt Operations
-*******************************************************************************/
 
 void ISR_triggerInterrupt(const uint8_t vectorNum) {
     Assert(vectorNum >= 16);
