@@ -128,20 +128,6 @@ Individual Interrupt Operations
  */
 void ISR_triggerInterrupt(const uint8_t vectorNum);
 
-/**
- * @brief                   Clear an ISR's pending bit.
- *
- * @pre                     This should be called during the ISR for an SGI.
- *
- * @param[in] vectorNum     ISR's vector number (i.e. offset from the top of the table).
- *                          Should be in range `[16, 154]`.
- *
- * @post                    The ISR should not trigger again until re-activated.
- *
- * @sa                      ISR_triggerInterrupt()
- */
-void ISR_clearPending(const uint8_t vectorNum);
-
 #endif                  // ISR_H
 
 /** @} */               // isr

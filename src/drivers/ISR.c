@@ -177,24 +177,4 @@ void ISR_triggerInterrupt(const uint8_t vectorNum) {
     return;
 }
 
-void ISR_clearPending(const uint8_t vectorNum) {
-    Assert(vectorNum >= 16);
-    Assert(vectorNum < VECTOR_TABLE_SIZE);
-    uint8_t interruptBitNum = vectorNum - 16;
-
-    // Determine correct disable register to use
-    uint8_t registerNum = 0;
-    while(interruptBitNum >= ((registerNum + 1) * 32)) {
-        registerNum += 1;
-    }
-    interruptBitNum = interruptBitNum - (registerNum * 32);
-    register_t registerPtr = (register_t) (NVIC_DIS_BASE_ADDR + (4 * registerNum));
-
-    // Unpend the ISR
-    interruptBitNum -= registerNum * 32;
-    *registerPtr |= (1 << interruptBitNum);
-
-    return;
-}
-
 /** @} */               // isr
