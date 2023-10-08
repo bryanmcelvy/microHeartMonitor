@@ -9,37 +9,41 @@
 
 /******************************************************************************
 SECTIONS
-        Preprocessor Directives
-        Declarations
-        Main
-        Interrupt Service Routines (ISRs)
-        Static Function Definition
+        Direct Dependencies
+        Function Declarations
+        Variable Declarations
+        Function Definitions
 ******************************************************************************/
 
 /******************************************************************************
-Preprocessor Directives
+Direct Dependencies
 ******************************************************************************/
 
+// application-specific
 #include "DAQ.h"
 #include "Debug.h"
 #include "LCD.h"
 #include "lookup.h"
 #include "QRS.h"
 
+// common
 #include "FIFO.h"
-#include "ISR.h"
 
+// drivers
+#include "ISR.h"
 #include "PLL.h"
 
+// vendor (i.e. external/device) files
 #include "arm_math_types.h"
 #include "tm4c123gh6pm.h"
 
+// other
 #include <math.h>
 #include <stdbool.h>
 #include <stdint.h>
 
 /******************************************************************************
-Declarations
+Function Declarations
 ******************************************************************************/
 
 // Interrupt Service Routines (ISRs)
@@ -49,30 +53,72 @@ enum {
     LCD_VECTOR_NUM = INT_TIMER1A
 };
 
+/**
+ *
+ * @brief   Reads ADC output, converts to raw voltage sample, and sends to next FIFO.
+ * @details This ISR has a priority level of 1, is triggered when the ADC has finished
+ *          capturing a sample, and also triggers the intermediate processing handler.
+ *
+ * @pre     Initialize the DAQ module.
+ * @post    The converted sample is placed in the DAQ FIFO, and the DAQ ISR is triggered.
+ *
+ * @see     DAQ_Init(), Processing_Handler()
+ *
+ * @callgraph
+ */
 static void DAQ_Handler(void);
+
+/**
+ * @brief   Removes baseline drift and PLI from a sample, and moves it to the QRS/LCD FIFOs.
+ * @details This ISR has a priority level of 1, is triggered by the DAQ ISR, and triggers
+ *          the LCD Handler. It also notifies the superloop in @ref main() when the QRS
+ *          buffer is full.
+ *
+ * @post    The converted sample is placed in the DAQ FIFO, and the DAQ ISR is triggered.
+ *
+ * @see     DAQ_Handler(), main(), LCD_Handler()
+ *
+ * @callgraph
+ */
 static void Processing_Handler(void);
+
+/**
+ * @brief   Applies a 0.5-40 [Hz] bandpass filter and plots the sample to the waveform.
+ * @details This ISR has a priority level of 1 and is triggered by the Processing ISR.
+ *
+ * @pre     Initialize the LCD module.
+ * @post    The bandpass-filtered sample is plotted to the LCD.
+ *
+ * @see     LCD_Init(), Processing_Handler()
+ *
+ * @callgraph
+ */
 static void LCD_Handler(void);
+
+/******************************************************************************
+Variable Declarations
+******************************************************************************/
 
 // FIFO Buffers
 enum {
-    DAQ_BUFFER_CAPACITY = 3,
-    DAQ_BUFFER_SIZE = DAQ_BUFFER_CAPACITY + 1,
+    DAQ_FIFO_CAPACITY = 3,                                 ///< capacity of DAQ's FIFO buffer
+    DAQ_BUFFER_SIZE = DAQ_FIFO_CAPACITY + 1,               ///< actual size of underlying array
 
     QRS_BUFFER_SIZE = QRS_NUM_SAMP + 1,
 
-    LCD_BUFFER_CAPACITY = DAQ_BUFFER_CAPACITY,
-    LCD_BUFFER_SIZE = LCD_BUFFER_CAPACITY + 1
+    LCD_FIFO_CAPACITY = DAQ_FIFO_CAPACITY,                 ///< capacity of LCD's FIFO buffer
+    LCD_BUFFER_SIZE = LCD_FIFO_CAPACITY + 1                ///< actual size of underlying array
 };
 
 static volatile Fifo_t DAQ_Fifo = 0;
-static volatile uint32_t DAQ_Buffer[DAQ_BUFFER_SIZE] = { 0 };
+static volatile uint32_t DAQ_fifoBuffer[DAQ_BUFFER_SIZE] = { 0 };
 
 static volatile Fifo_t QRS_Fifo = 0;
-static volatile uint32_t QRS_FifoBuffer[QRS_BUFFER_SIZE] = { 0 };
+static volatile uint32_t QRS_fifoBuffer[QRS_BUFFER_SIZE] = { 0 };
 static volatile bool QRS_bufferIsFull = false;
 
 static volatile Fifo_t LCD_Fifo = 0;
-static volatile uint32_t LCD_FifoBuffer[LCD_BUFFER_SIZE] = { 0 };
+static volatile uint32_t LCD_fifoBuffer[LCD_BUFFER_SIZE] = { 0 };
 
 // Processing Buffer
 // NOTE: using just one to avoid running out of RAM
@@ -80,18 +126,19 @@ static float32_t QRS_processingBuffer[QRS_BUFFER_SIZE] = { 0 };
 
 // LCD Info
 enum {
-    LCD_TOP_LINE = (LCD_Y_MAX - 48),
+    LCD_TOP_LINE = (LCD_Y_MAX - 48),               ///< separates wavefrom from text
 
-    LCD_WAVE_NUM_Y = LCD_TOP_LINE,
+    LCD_WAVE_NUM_Y = LCD_TOP_LINE,               ///< num. of y-vals available for plotting waveform
 
     LCD_WAVE_X_OFFSET = 0,
     LCD_WAVE_Y_MIN = (0 + LCD_WAVE_X_OFFSET),
-
     LCD_WAVE_Y_MAX = (LCD_WAVE_NUM_Y + LCD_WAVE_X_OFFSET)
 };
 
+static uint16_t LCD_prevSampleBuffer[LCD_X_MAX] = { 0 };
+
 /******************************************************************************
-Main
+Function Definitions
 ******************************************************************************/
 
 /**
@@ -123,9 +170,9 @@ int main(void) {
     ISR_Enable(LCD_VECTOR_NUM);
 
     // Init. FIFOs
-    DAQ_Fifo = FIFO_Init(DAQ_Buffer, DAQ_BUFFER_SIZE);
-    QRS_Fifo = FIFO_Init(QRS_FifoBuffer, QRS_BUFFER_SIZE);
-    LCD_Fifo = FIFO_Init(LCD_FifoBuffer, LCD_BUFFER_SIZE);
+    DAQ_Fifo = FIFO_Init(DAQ_fifoBuffer, DAQ_BUFFER_SIZE);
+    QRS_Fifo = FIFO_Init(QRS_fifoBuffer, QRS_BUFFER_SIZE);
+    LCD_Fifo = FIFO_Init(LCD_fifoBuffer, LCD_BUFFER_SIZE);
 
     // Init./config. LCD
     LCD_Init();
@@ -174,24 +221,6 @@ int main(void) {
     }
 }
 
-/******************************************************************************
-Interrupt Service Routines
-******************************************************************************/
-
-/**
- *
- * @brief   Reads ADC output, converts to raw voltage sample, and sends to next FIFO.
- * @details This ISR has a priority level of 1, is triggered when the ADC
- *          has finished capturing a sample, and also triggers the intermediate processing
- *          handler.
- *
- * @pre     Initialize the DAQ module.
- * @post    The converted sample is placed in the DAQ FIFO, and the DAQ ISR is triggered.
- *
- * @see     DAQ_Init(), Processing_Handler()
- *
- * @callgraph
- */
 static void DAQ_Handler(void) {
     // read sample and convert to `float32_t`
     uint16_t rawSample = DAQ_readSample();
@@ -205,18 +234,6 @@ static void DAQ_Handler(void) {
     DAQ_acknowledgeInterrupt();
 }
 
-/**
- * @brief   Removes noise from the signal and sends it to the QRS and LCD FIFO buffers.
- * @details This ISR has a priority level of 1, is triggered by the DAQ ISR, and triggers
- *          the LCD Handler. It also notifies the superloop in @ref main() that the QRS
- *          buffer is full.
- *
- * @post    The converted sample is placed in the DAQ FIFO, and the DAQ ISR is triggered.
- *
- * @see     DAQ_Handler(), main(), LCD_Handler()
- *
- * @callgraph
- */
 static void Processing_Handler(void) {
     static float32_t sum = 0;
     static uint32_t N = 0;
@@ -251,21 +268,6 @@ static void Processing_Handler(void) {
     }
 }
 
-static uint16_t LCD_prevSampleBuffer[LCD_X_MAX] = { 0 };
-
-/**
- * @brief   Applies a 0.5-40 [Hz] bandpass filter and plots the sample to the waveform.
- * @details This ISR has a priority level of 1 and is triggered by the Processing ISR.
- *          This ISR also plots an intermediate sample to the display to make the waveform
- *          look more continuous.
- *
- * @pre     Initialize the LCD module.
- * @post    The bandpass-filtered sample is plotted to the LCD.
- *
- * @see     LCD_Init(), Processing_Handler()
- *
- * @callgraph
- */
 static void LCD_Handler(void) {
     static uint16_t x = 0;
     static const float32_t maxVal = LOOKUP_DAQ_MAX * 2;
