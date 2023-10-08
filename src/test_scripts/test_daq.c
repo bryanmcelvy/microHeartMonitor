@@ -49,14 +49,14 @@ int main(void) {
     // Initialize/configure LCD
     LCD_Init();
 
-    LCD_setColor(LCD_BLACK_INV);
+    LCD_setColor(LCD_BLACK);
     LCD_Fill();
     LCD_Draw();
 
-    LCD_setColor(LCD_WHITE_INV);
+    LCD_setColor(LCD_WHITE);
     LCD_drawHoriLine(LCD_TOP_LINE, 1);
 
-    LCD_setColor(LCD_RED_INV);
+    LCD_setColor(LCD_RED);
     LCD_setOutputMode(true);
 
     // Initialize DAQ module
@@ -106,14 +106,14 @@ void LCD_plotNewSample(uint16_t x, volatile const float32_t sample) {
     static float32_t maxVoltage = LOOKUP_DAQ_MAX;
 
     // blank out column
-    LCD_setColor(LCD_BLACK_INV);
+    LCD_setColor(LCD_BLACK);
     LCD_drawRectangle(x, 1, LCD_Y_MIN, LCD_NUM_Y_VALS, true);
 
     // plot sample
     maxVoltage = (sample > maxVoltage) ? sample : maxVoltage;
     uint16_t y = LCD_X_AXIS_OFFSET +
                  ((uint16_t) (((sample + maxVoltage) / (maxVoltage * 2)) * LCD_NUM_Y_VALS));
-    LCD_setColor(LCD_RED_INV);
+    LCD_setColor(LCD_RED);
     LCD_drawRectangle(x, 1, y, 1, true);
 
     return;

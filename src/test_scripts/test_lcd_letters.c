@@ -21,11 +21,11 @@ int main(void) {
     LCD_Init();
     LCD_setOutputMode(false);
 
-    LCD_setColor(LCD_BLACK_INV);
+    LCD_setColor(LCD_BLACK);
     LCD_Fill();
 
     // Draw H
-    LCD_setColor(LCD_RED_INV);
+    LCD_setColor(LCD_RED);
     for(uint8_t i = 0; i < 8; i++) {
         LCD_drawRectangle(0 * SQUARE_SIZE, SQUARE_SIZE, i * SQUARE_SIZE, SQUARE_SIZE, true);
         LCD_drawRectangle(4 * SQUARE_SIZE, SQUARE_SIZE, i * SQUARE_SIZE, SQUARE_SIZE, true);

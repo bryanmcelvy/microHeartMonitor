@@ -111,25 +111,6 @@ void LCD_setY(uint16_t y1, uint16_t y2) {
 }
 
 void LCD_setColor(LCD_Color_t color) {
-    // clang-format off
-    /**
-     *  This is simply a convenience function for setting the color using the
-     *  enum values defined in the header file. The ones with the `_INV` suffix
-     *  should be used when the display colors are inverted.
-     *
-     *  hex     | binary | macro
-     *  --------|--------|------------
-     *  0x00    |  000   | LCD_BLACK
-     *  0x01    |  001   | LCD_BLUE
-     *  0x02    |  010   | LCD_GREEN
-     *  0x03    |  011   | LCD_CYAN
-     *  0x04    |  100   | LCD_RED
-     *  0x05    |  101   | LCD_PURPLE
-     *  0x06    |  110   | LCD_YELLOW
-     *  0x07    |  111   | LCD_WHITE
-     */
-    // clang-format on
-
     if(color == LCD_BLACK) {
         lcd.R_val = 1;
         lcd.G_val = 1;

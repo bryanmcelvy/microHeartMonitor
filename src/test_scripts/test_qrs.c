@@ -37,8 +37,8 @@ static void DAQ_Handler(void);
 
 // FIFO Buffers
 enum {
-    DAQ_BUFFER_CAPACITY = 8,
-    DAQ_BUFFER_SIZE = DAQ_BUFFER_CAPACITY + 1,
+    DAQ_FIFO_CAPACITY = 8,
+    DAQ_BUFFER_SIZE = DAQ_FIFO_CAPACITY + 1,
     QRS_BUFFER_SIZE = QRS_NUM_SAMP + 1
 };
 

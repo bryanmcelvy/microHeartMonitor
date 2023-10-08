@@ -178,13 +178,10 @@ int main(void) {
     LCD_Init();
     LCD_setOutputMode(false);
 
-    LCD_setColor(LCD_BLACK_INV);
-    LCD_Fill();
-
-    LCD_setColor(LCD_WHITE_INV);
+    LCD_setColor(LCD_WHITE);
     LCD_drawHoriLine(LCD_TOP_LINE, 1);
 
-    LCD_setColor(LCD_RED_INV);
+    LCD_setColor(LCD_RED);
     LCD_setOutputMode(true);
 
     Debug_SendFromList(DEBUG_LCD_INIT);
@@ -284,11 +281,11 @@ static void LCD_Handler(void) {
 
         // remove previous sample and plot current sample
         uint16_t y = LCD_prevSampleBuffer[x];
-        LCD_plotSample(x, y, LCD_BLACK_INV);
+        LCD_plotSample(x, y, LCD_BLACK);
 
         // shift/scale `sample` from (est.) range [-11, 11) to [LCD_WAVE_Y_MIN, LCD_WAVE_Y_MAX)
         y = LCD_WAVE_Y_MIN + ((uint16_t) (((sample + maxVal) / (maxVal * 2)) * LCD_WAVE_Y_MAX));
-        LCD_plotSample(x, y, LCD_RED_INV);
+        LCD_plotSample(x, y, LCD_RED);
 
         // store y-value and update x
         LCD_prevSampleBuffer[x] = y;

@@ -90,27 +90,17 @@ Color
 
 typedef enum {
     // Bits 2, 1, 0 correspond to R, G, and B values, respectively.
-    // 3-bit Color Codes
-    LCD_BLACK = 0x00,
-    LCD_RED = 0x04,
-    LCD_GREEN = 0x02,
-    LCD_BLUE = 0x01,
-    LCD_YELLOW = 0x06,               // LCD_RED + LCD_GREEN
-    LCD_CYAN = 0x03,                 // LCD_BLUE + LCD_GREEN
-    LCD_PURPLE = 0x05,               // LCD_RED + LCD_BLUE
-    LCD_WHITE = 0x07,                // LCD_RED + LCD_BLUE + LCD_GREEN
+    // NOTE: since the display colors are inverted, these bit patterns are too.
+    LCD_BLACK = ~(0x00) & 0x07,
 
-    // 3-bit Color Codes (Inverted)
-    LCD_BLACK_INV = LCD_WHITE,                // LCD_WHITE - LCD_BLACK
+    LCD_RED = ~(0x04) & 0x07,
+    LCD_GREEN = ~(0x02) & 0x07,
+    LCD_BLUE = ~(0x01) & 0x07,
 
-    LCD_RED_INV = LCD_CYAN,                   // LCD_WHITE - LCD_RED
-    LCD_GREEN_INV = LCD_PURPLE,               // LCD_WHITE - LCD_GREEN
-    LCD_BLUE_INV = LCD_YELLOW,                // LCD_WHITE - LCD_BLUE
-
-    LCD_YELLOW_INV = LCD_BLUE,                // LCD_WHITE - LCD_YELLOW
-    LCD_CYAN_INV = LCD_RED,                   // LCD_WHITE - LCD_CYAN
-    LCD_PURPLE_INV = LCD_GREEN,               // LCD_WHITE - LCD_PURPLE
-    LCD_WHITE_INV = LCD_BLACK                 // LCD_WHITE - LCD_WHITE
+    LCD_YELLOW = ~(0x06) & 0x07,
+    LCD_CYAN = ~(0x03) & 0x07,
+    LCD_PURPLE = ~(0x05) & 0x07,
+    LCD_WHITE = ~(0x07) & 0x07
 } LCD_Color_t;
 
 /**
