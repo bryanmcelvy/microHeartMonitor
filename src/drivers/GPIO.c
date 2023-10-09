@@ -73,8 +73,6 @@ static GpioPortStruct_t GPIO_PTR_ARR[6] = {
 Initialization
 *******************************************************************************/
 
-typedef volatile uint32_t * register_t;
-
 GpioPort_t GPIO_InitPort(GPIO_PortName_t portName) {
     Assert(portName < GPIO_NUM_PORTS);
 

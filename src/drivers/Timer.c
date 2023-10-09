@@ -39,8 +39,6 @@ enum REGISTER_OFFSETS {
     VALUE = 0x054
 };
 
-typedef volatile uint32_t * register_t;
-
 typedef struct TimerStruct_t {
     const timerName_t NAME;
     const uint32_t BASE_ADDR;

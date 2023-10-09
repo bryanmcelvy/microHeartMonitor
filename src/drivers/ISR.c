@@ -104,8 +104,6 @@ void ISR_addToIntTable(ISR_t isr, const uint8_t vectorNum) {
 Individual Interrupts
 *******************************************************************************/
 
-typedef volatile uint32_t * register_t;
-
 void ISR_setPriority(const uint8_t vectorNum, const uint8_t priority) {
     Assert(vectorNum >= 16);
     Assert(vectorNum < VECTOR_TABLE_SIZE);
