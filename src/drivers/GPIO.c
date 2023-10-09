@@ -261,6 +261,10 @@ void GPIO_ConfigNVIC(GpioPort_t gpioPort, uint8_t priority) {
 Basic Functions (Digital I/O)
 *******************************************************************************/
 
+uint32_t GPIO_getDataRegister(GpioPort_t gpioPort) {
+    return gpioPort->DATA_REGISTER;
+}
+
 uint8_t GPIO_ReadPins(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
     return *((register_t) gpioPort->DATA_REGISTER) & pinMask;
 }

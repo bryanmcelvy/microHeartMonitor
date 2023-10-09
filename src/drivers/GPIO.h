@@ -33,7 +33,12 @@ typedef struct GpioPortStruct_t * GpioPort_t;
  */
 GpioPort_t GPIO_InitPort(GPIO_PortName_t portName);
 
-// TODO: Write header
+/**
+ * @brief                   Get the base address of a GPIO port.
+ *
+ * @param[in] gpioPort      Pointer to the specified GPIO port.
+ * @param[out] baseAddress  Base address of the GPIO port.
+ */
 uint32_t GPIO_getBaseAddr(GpioPort_t gpioPort);
 
 /**
@@ -179,6 +184,14 @@ void GPIO_ConfigNVIC(GpioPort_t gpioPort, uint8_t priority);
 /******************************************************************************
 Basic Functions (Digital I/O)
 *******************************************************************************/
+
+/**
+ * @brief                   Get the address of a GPIO port's data register.
+ *
+ * @param[in] gpioPort      Pointer to the specified GPIO port.
+ * @param[out] dataRegister Address of the GPIO port's data register.
+ */
+uint32_t GPIO_getDataRegister(GpioPort_t gpioPort);
 
 /**
  * @brief               Read from the specified GPIO pin.
