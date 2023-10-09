@@ -61,7 +61,6 @@ void ILI9341_Init(Timer_t timer) {
     SPI_Init();
 
     ILI9341_resetHard(timer);
-    Timer_Deinit(timer);
     ILI9341_setInterface();
 
     ili9341.isInit = true;

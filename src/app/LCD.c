@@ -64,9 +64,9 @@ void LCD_Init(void) {
     Timer_t timer2 = Timer_Init(TIMER2);
     ILI9341_Init(timer2);
     ILI9341_setSleepMode(SLEEP_OFF, timer2);
+    Timer_Deinit(timer2);
 
-    // TODO: explain this
-    ILI9341_setMemAccessCtrl(1, 0, 0, 0, 1, 0);
+    ILI9341_setMemAccessCtrl(1, 0, 0, 0, 1, 0);               // TODO: explain this
 
     ILI9341_setColorDepth(COLORDEPTH_16BIT);
     ILI9341_setColorExpression(PARTIAL_COLORS);
@@ -74,11 +74,10 @@ void LCD_Init(void) {
     ILI9341_setDispInversion(INVERT_ON);
     ILI9341_setDispOutput(OUTPUT_OFF);
 
-    // black background
-    LCD_setColor(LCD_BLACK);
-    LCD_Fill();
-
     lcd.isInit = true;
+
+    LCD_setColor(LCD_BLACK);
+    LCD_Fill();                                               // black background
 
     return;
 }
