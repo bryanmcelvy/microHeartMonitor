@@ -21,15 +21,9 @@ int main(void) {
     LCD_Init();
     LCD_setOutputMode(false);
 
-    LCD_setColor(LCD_BLACK);
-    LCD_Fill();
-
-    // Draw H
-    LCD_setColor(LCD_RED);
-    for(uint8_t i = 0; i < 8; i++) {
-        LCD_drawRectangle(0 * SQUARE_SIZE, SQUARE_SIZE, i * SQUARE_SIZE, SQUARE_SIZE, true);
-        LCD_drawRectangle(4 * SQUARE_SIZE, SQUARE_SIZE, i * SQUARE_SIZE, SQUARE_SIZE, true);
-    }
+    LCD_setCursor(0, 0);
+    LCD_writeStr("Heart");
+    LCD_writeStr("Rate");
 
     // Draw R
 
