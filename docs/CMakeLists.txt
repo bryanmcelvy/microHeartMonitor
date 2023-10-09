@@ -18,6 +18,7 @@ if(DOXYGEN_FOUND AND LATEX_FOUND)
                         
                         # generate call graph and pdf documentation
                         COMMAND dot -Tpng doxygen_files/call.dot -o call.png
+                        COMMAND dot -Tpng doxygen_files/data_flow.dot -o data_flow.png
                         COMMAND ${CMAKE_COMMAND} -E chdir ${PATH_DOCS}/doxygen_files doxygen
                         COMMAND ${CMAKE_COMMAND} -E chdir ${LATEX_OUTPUT_DIR} make -s
 

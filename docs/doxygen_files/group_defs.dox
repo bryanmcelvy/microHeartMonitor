@@ -10,36 +10,36 @@
  * @{
  */
 
-        /** @defgroup   adc       Analog-to-Digital Conversion (ADC)
+        /** @defgroup   adc             Analog-to-Digital Conversion (ADC)
         * Functions for differential-input analog-to-digital conversion.
         */
 
-        /** @defgroup   gpio      GPIO
+        /** @defgroup   gpio            General-Purpose Input/Output (GPIO)
         * Functions for using general-purpose input/output (GPIO) ports.
         */
 
-        /** @defgroup   pll       Phase-Locked Loop (PLL)
+        /** @defgroup   pll             Phase-Locked Loop (PLL)
         * Function for initializing the phase-locked loop.
         */
 
-        /** @defgroup   spi       Serial Peripheral Interface (SPI)
+        /** @defgroup   spi             Serial Peripheral Interface (SPI)
         * Functions for SPI-based communication via SSI0 peripheral.
         */
 
-        /** @defgroup   systick   System Tick (SysTick)
+        /** @defgroup   systick         System Tick (SysTick)
         * Functions for timing and periodic interrupts via SysTick.
         */
 
-        /** @defgroup   timer     Timer
+        /** @defgroup   timer           Timer
         * Functions for timing and periodic interrupts via general-purpose timer modules
         * (GPTM).
         */
 
-        /** @defgroup   uart      Universal Asynchronous Receiver/Transmitter (UART)
+        /** @defgroup   uart            Universal Asynchronous Receiver/Transmitter (UART)
         * Functions for UART-based communication.
         */
 
-        /** @defgroup   isr         Interrupt Service Routines
+        /** @defgroup   isr             Interrupt Service Routines
         * Functions for manipulating the interrupt vector table and setting up interrupt handlers via the NVIC.
         */
 
@@ -49,7 +49,25 @@
 //************************************************************************************************
 
 /**
- * @defgroup    middleware      Middleware
+ * @defgroup    common      Common
+ * Modules that are used by multiple layers and/or don't fit into any one layer.
+ * @{
+ */
+
+        /** @defgroup   fifo            FIFO Buffers
+        * Module for using the "first-in first-out (FIFO) buffer" data structure.
+        */
+
+        /** @defgroup   newassert       NewAssert
+        * Module for using a custom `assert` implementation.
+        */
+
+/** @} */
+
+//************************************************************************************************
+
+/**
+ * @defgroup    middleware              Middleware
  * @brief       High-level device driver modules.
  *
  * @details     These modules contain functions for interfacing with external devices/peripherals
@@ -58,11 +76,15 @@
  * @{
  */
 
-        /** @defgroup   ili9341   ILI9341
+        /** @defgroup   debug           Debug
+        * Module for debugging functions, including serial output and assertion.
+        */
+
+        /** @defgroup   ili9341         ILI9341
         * Functions for interfacing an ILI9341-based 240RGBx320 LCD via @ref spi.
         */
 
-        /** @defgroup   led       LED
+        /** @defgroup   led             LED
         * Functions for driving light-emitting diodes (LEDs) via @ref gpio.
         */
 
@@ -78,38 +100,16 @@
  * @{
  */
 
-        /** @defgroup   daq         Data Acquisition (DAQ)
+        /** @defgroup   daq             Data Acquisition (DAQ)
         * Module for managing data acquisition (DAQ) functions.
         */
 
-        /** @defgroup   debug       Debug
-        * Module for debugging functions, including serial output and assertion.
-        */
-
-        /** @defgroup   lcd         LCD
+        /** @defgroup   lcd             Liquid Crystal Display (LCD)
         * Module for displaying graphs on an LCD via the @ref ili9341 module.
         */
 
-        /** @defgroup   qrs         QRS
+        /** @defgroup   qrs             QRS Detector
         * Module for analyzing ECG data to determine heart rate.
-        */
-
-/** @} */
-
-//************************************************************************************************
-
-/**
- * @defgroup    common      Common
- * Modules that are used by multiple layers and/or don't fit into any one layer.
- * @{
- */
-
-        /** @defgroup   fifo         FIFO
-        * Module for using the "first-in first-out (FIFO) buffer" data structure.
-        */
-
-        /** @defgroup   newassert       NewAssert
-        * Module for using a custom `assert` implementation.
         */
 
 /** @} */

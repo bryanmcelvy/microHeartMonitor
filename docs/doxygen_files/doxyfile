@@ -42,7 +42,7 @@ DOXYFILE_ENCODING      = UTF-8
 # title of most generated pages and in a few other places.
 # The default value is: My Project.
 
-PROJECT_NAME           = ECG-HRM
+PROJECT_NAME           = uHeartMonitor
 
 # The PROJECT_NUMBER tag can be used to enter a project or revision number. This
 # could be handy for archiving the generated documentation or if some version
@@ -1045,8 +1045,8 @@ RECURSIVE              = YES
 # run.
 
 EXCLUDE                = ../../src/device \
-                         ../../src/test \
-                         ../../src/old_or_unused
+                         ../../src/old_or_unused \
+                         ../../src/test_scripts
 
 # The EXCLUDE_SYMLINKS tag can be used to select whether or not files or
 # directories that are symbolic links (a Unix file system feature) are excluded
