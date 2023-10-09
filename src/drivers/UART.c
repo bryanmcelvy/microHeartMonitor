@@ -70,9 +70,9 @@ Initialization
 struct UART_t {
     const uint32_t BASE_ADDRESS;
     register_t const FLAG_R_ADDRESS;
-    GPIO_Port_t * GPIO_PORT;               ///< pointer to GPIO port data structure
-    GPIO_Pin_t RX_PIN_NUM;                 ///< GPIO pin number
-    GPIO_Pin_t TX_PIN_NUM;                 ///< GPIO pin number
+    GpioPort_t GPIO_PORT;                ///< pointer to GPIO port data structure
+    GPIO_Pin_t RX_PIN_NUM;               ///< GPIO pin number
+    GPIO_Pin_t TX_PIN_NUM;               ///< GPIO pin number
     bool isInit;
 };
 
@@ -87,7 +87,7 @@ static UART_t UART_ARR[8] = {
     { UART7_BASE, ((register_t) (UART7_BASE + UART_FR_R_OFFSET)), 0, GPIO_PIN0, GPIO_PIN1, false }
 };
 
-UART_t * UART_Init(GPIO_Port_t * port, UART_Num_t uartNum) {
+UART_t * UART_Init(GpioPort_t port, UART_Num_t uartNum) {
     // Check inputs
     Assert(GPIO_isPortInit(port));
     Assert(uartNum < 8);

@@ -23,7 +23,7 @@ typedef enum {
     F
 } GPIO_PortName_t;
 
-typedef struct GPIO_Port_t GPIO_Port_t;
+typedef struct GpioPortStruct_t * GpioPort_t;
 
 /**
  * @brief                   Initialize a GPIO Port and return a pointer to its `struct`.
@@ -31,10 +31,10 @@ typedef struct GPIO_Port_t GPIO_Port_t;
  * @param[in] portName          Name of the chosen port.
  * @return GPIO_Port_t*     Pointer to the GPIO port's `struct`.
  */
-GPIO_Port_t * GPIO_InitPort(GPIO_PortName_t portName);
+GpioPort_t GPIO_InitPort(GPIO_PortName_t portName);
 
 // TODO: Write header
-uint32_t GPIO_getBaseAddr(GPIO_Port_t * gpioPort);
+uint32_t GPIO_getBaseAddr(GpioPort_t gpioPort);
 
 /**
  * @brief                   Check if the GPIO port is initialized.
@@ -43,7 +43,7 @@ uint32_t GPIO_getBaseAddr(GPIO_Port_t * gpioPort);
  * @param[out] true         The GPIO port is initialized.
  * @param[out] false        The GPIO port has not been initialized.
  */
-bool GPIO_isPortInit(GPIO_Port_t * gpioPort);
+bool GPIO_isPortInit(GpioPort_t gpioPort);
 
 /******************************************************************************
 Configuration (Digital I/O)
@@ -80,7 +80,7 @@ enum {
  * @param[in] gpioPort  Pointer to the specified GPIO port.
  * @param[in] bitMask   Bit mask corresponding to the intended `OUTPUT` pin(s).
  */
-void GPIO_ConfigDirOutput(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask);
+void GPIO_ConfigDirOutput(GpioPort_t gpioPort, GPIO_Pin_t pinMask);
 
 /**
  * @brief               Configure the specified GPIO pins as `INPUT` pins. All pins
@@ -90,7 +90,7 @@ void GPIO_ConfigDirOutput(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask);
  * @param[in] gpioPort  Pointer to the specified GPIO port.
  * @param[in] bitMask   Bit mask corresponding to the intended `INPUT` pin(s).
  */
-void GPIO_ConfigDirInput(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask);
+void GPIO_ConfigDirInput(GpioPort_t gpioPort, GPIO_Pin_t pinMask);
 
 /**
  * @brief               Activate the specified pins' internal pull-up resistors.
@@ -98,7 +98,7 @@ void GPIO_ConfigDirInput(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask);
  * @param[in] gpioPort  Pointer to the specified GPIO port.
  * @param[in] pinMask   Bit mask corresponding to the intended pin(s).
  */
-void GPIO_ConfigPullUp(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask);
+void GPIO_ConfigPullUp(GpioPort_t gpioPort, GPIO_Pin_t pinMask);
 
 /**
  * @brief               Activate the specified pins' internal pull-down resistors.
@@ -106,7 +106,7 @@ void GPIO_ConfigPullUp(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask);
  * @param[in] gpioPort  Pointer to the specified GPIO port.
  * @param[in] pinMask   Bit mask corresponding to the intended pin(s).
  */
-void GPIO_ConfigPullDown(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask);
+void GPIO_ConfigPullDown(GpioPort_t gpioPort, GPIO_Pin_t pinMask);
 
 /**
  * @brief               Configure the specified pins' drive strength. Pins are
@@ -117,7 +117,7 @@ void GPIO_ConfigPullDown(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask);
  * @param[in] pinMask   Bit mask corresponding to the intended pin(s).
  * @param[in] drive_mA  Drive strength in [mA]. Should be 2, 4, or 8 [mA].
  */
-void GPIO_ConfigDriveStrength(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask, uint8_t drive_mA);
+void GPIO_ConfigDriveStrength(GpioPort_t gpioPort, GPIO_Pin_t pinMask, uint8_t drive_mA);
 
 /**
  * @brief               Enable digital I/O for the specified pins.
@@ -125,7 +125,7 @@ void GPIO_ConfigDriveStrength(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask, uint8_
  * @param[in] gpioPort  Pointer to the specified GPIO port.
  * @param[in] pinMask   Bit mask corresponding to the intended pin(s).
  */
-void GPIO_EnableDigital(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask);
+void GPIO_EnableDigital(GpioPort_t gpioPort, GPIO_Pin_t pinMask);
 
 /**
  * @brief               Disable digital I/O for the specified pins.
@@ -133,7 +133,7 @@ void GPIO_EnableDigital(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask);
  * @param[in] gpioPort  Pointer to the specified GPIO port.
  * @param[in] pinMask   Bit mask corresponding to the intended pin(s).
  */
-void GPIO_DisableDigital(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask);
+void GPIO_DisableDigital(GpioPort_t gpioPort, GPIO_Pin_t pinMask);
 
 /******************************************************************************
 Configuration (Interrupts)
@@ -147,7 +147,7 @@ Configuration (Interrupts)
  * @param[in] pinMask       Bit mask corresponding to the intended pin(s).
  * @param[in] risingEdge    `true` for rising edge, `false` for falling edge
  */
-void GPIO_ConfigInterrupts_Edge(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask, bool risingEdge);
+void GPIO_ConfigInterrupts_Edge(GpioPort_t gpioPort, GPIO_Pin_t pinMask, bool risingEdge);
 
 /**
  * @brief                   Configure the specified GPIO pins to trigger an
@@ -156,7 +156,7 @@ void GPIO_ConfigInterrupts_Edge(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask, bool
  * @param[in] gpioPort      Pointer to the specified GPIO port.
  * @param[in] pinMask       Bit mask corresponding to the intended pin(s).
  */
-void GPIO_ConfigInterrupts_BothEdges(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask);
+void GPIO_ConfigInterrupts_BothEdges(GpioPort_t gpioPort, GPIO_Pin_t pinMask);
 
 /**
  * @brief                   Configure the specified GPIO pins to trigger an
@@ -166,7 +166,7 @@ void GPIO_ConfigInterrupts_BothEdges(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask)
  * @param[in] pinMask       Bit mask corresponding to the intended pin(s).
  * @param[in] highLevel     `true` for high level, `false` for low level
  */
-void GPIO_ConfigInterrupts_LevelTrig(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask, bool highLevel);
+void GPIO_ConfigInterrupts_LevelTrig(GpioPort_t gpioPort, GPIO_Pin_t pinMask, bool highLevel);
 
 /**
  * @brief                   Configure interrupts for the selected port in the NVIC.
@@ -174,7 +174,7 @@ void GPIO_ConfigInterrupts_LevelTrig(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask,
  * @param[in] gpioPort      Pointer to the specified GPIO port.
  * @param[in] priority      Priority number between 0 (highest) and 7 (lowest).
  */
-void GPIO_ConfigNVIC(GPIO_Port_t * gpioPort, uint8_t priority);
+void GPIO_ConfigNVIC(GpioPort_t gpioPort, uint8_t priority);
 
 /******************************************************************************
 Basic Functions (Digital I/O)
@@ -186,7 +186,7 @@ Basic Functions (Digital I/O)
  * @param[in] gpioPort  Pointer to the specified GPIO port.
  * @param[in] pinMask   Bit mask corresponding to the intended pin(s).
  */
-uint8_t GPIO_ReadPins(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask);
+uint8_t GPIO_ReadPins(GpioPort_t gpioPort, GPIO_Pin_t pinMask);
 
 /**
  * @brief               Write a `1` to the specified GPIO pins.
@@ -194,7 +194,7 @@ uint8_t GPIO_ReadPins(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask);
  * @param[in] gpioPort  Pointer to the specified GPIO port.
  * @param[in] pinMask   Bit mask corresponding to the intended pin(s).
  */
-void GPIO_WriteHigh(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask);
+void GPIO_WriteHigh(GpioPort_t gpioPort, GPIO_Pin_t pinMask);
 
 /**
  * @brief               Write a `0` to the specified GPIO pins.
@@ -202,7 +202,7 @@ void GPIO_WriteHigh(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask);
  * @param[in] gpioPort  Pointer to the specified GPIO port.
  * @param[in] pinMask   Bit mask corresponding to the intended pin(s).
  */
-void GPIO_WriteLow(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask);
+void GPIO_WriteLow(GpioPort_t gpioPort, GPIO_Pin_t pinMask);
 
 /**
  * @brief               Toggle the specified GPIO pins.
@@ -210,7 +210,7 @@ void GPIO_WriteLow(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask);
  * @param[in] gpioPort  Pointer to the specified GPIO port.
  * @param[in] pinMask   Bit mask corresponding to the intended pin(s).
  */
-void GPIO_Toggle(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask);
+void GPIO_Toggle(GpioPort_t gpioPort, GPIO_Pin_t pinMask);
 
 /******************************************************************************
 Configuration (Alternate/Analog Modes)
@@ -222,7 +222,7 @@ Configuration (Alternate/Analog Modes)
  * @param[in] gpioPort  Pointer to the specified GPIO port.
  * @param[in] pinMask   Bit mask corresponding to the intended pin(s).
  */
-void GPIO_ConfigAltMode(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask);
+void GPIO_ConfigAltMode(GpioPort_t gpioPort, GPIO_Pin_t pinMask);
 
 /**
  * @brief               Specify the alternate mode to use for the specified pins.
@@ -231,7 +231,7 @@ void GPIO_ConfigAltMode(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask);
  * @param[in] pinMask   Bit mask corresponding to the intended pin(s).
  * @param[in] fieldEncoding Number corresponding to intended alternate mode.
  */
-void GPIO_ConfigPortCtrl(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask, uint8_t fieldEncoding);
+void GPIO_ConfigPortCtrl(GpioPort_t gpioPort, GPIO_Pin_t pinMask, uint8_t fieldEncoding);
 
 /**
  * @brief               Activate analog mode for the specified GPIO pins.
@@ -239,6 +239,6 @@ void GPIO_ConfigPortCtrl(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask, uint8_t fie
  * @param[in] gpioPort  Pointer to the specified GPIO port.
  * @param[in] pinMask   Bit mask corresponding to the intended pin(s).
  */
-void GPIO_ConfigAnalog(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask);
+void GPIO_ConfigAnalog(GpioPort_t gpioPort, GPIO_Pin_t pinMask);
 
 #endif               // GPIO_H

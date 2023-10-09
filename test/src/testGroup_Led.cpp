@@ -11,7 +11,7 @@ extern "C" {
 }
 
 TEST_GROUP(Group_Led) { 
-    GPIO_Port_t * port;
+    GpioPort_t port;
     const GPIO_Pin_t pin = (GPIO_Pin_t) (1 << (rand() % 8));
     Led_t led;
 
@@ -30,7 +30,7 @@ TEST(Group_Led, AfterInit_isOn) {
 }
 
 TEST(Group_Led, AfterInit_GetPortReturnsCorrectPort) {
-    GPIO_Port_t * newPort = Led_GetPort(led);
+    GpioPort_t newPort = Led_GetPort(led);
     CHECK_EQUAL(port, newPort);
 }
 

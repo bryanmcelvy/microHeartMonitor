@@ -9,7 +9,7 @@ int main(void) {
     Timer_t timer = Timer_Init(TIMER0);
     Timer_setMode(timer, ONESHOT, UP);
 
-    GPIO_Port_t * portF = GPIO_InitPort(F);
+    GpioPort_t portF = GPIO_InitPort(F);
     Led_t led = Led_Init(portF, GPIO_PIN3);
 
     while(1) {

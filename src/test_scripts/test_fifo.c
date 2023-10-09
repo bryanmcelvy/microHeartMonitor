@@ -34,13 +34,13 @@ int main(void) {
     Timer_setMode(timer, ONESHOT, UP);
 
     // Init. LED pins
-    GPIO_Port_t * portF = GPIO_InitPort(F);
+    GpioPort_t portF = GPIO_InitPort(F);
     GPIO_ConfigDirOutput(portF, LED_PINS);
     GPIO_ConfigDriveStrength(portF, LED_PINS, 8);
     GPIO_EnableDigital(portF, LED_PINS);
 
     // Init. UART0
-    GPIO_Port_t * portA = GPIO_InitPort(A);
+    GpioPort_t portA = GPIO_InitPort(A);
     uart = UART_Init(portA, UART0);
     UART_WriteStr(uart, (unsigned char *) "\nTransmission started...\r\n");
 

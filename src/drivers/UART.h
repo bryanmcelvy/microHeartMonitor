@@ -52,7 +52,7 @@ typedef enum {
                                 enumerated constants or an int in range [0, 7].
  * @param[out] UART_t*          (Pointer to) initialized UART peripheral.
  */
-UART_t * UART_Init(GPIO_Port_t * port, UART_Num_t uartNum);
+UART_t * UART_Init(GpioPort_t port, UART_Num_t uartNum);
 
 /******************************************************************************
 Reading

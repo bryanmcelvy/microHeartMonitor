@@ -14,83 +14,83 @@ extern "C" {
 
 #include "stdlib.h"
 
-GPIO_Port_t * GPIO_InitPort(GPIO_PortName_t portName) {
+GpioPort_t GPIO_InitPort(GPIO_PortName_t portName) {
     return 0;
 }
 
-bool GPIO_isPortInit(GPIO_Port_t * gpioPort) {
+bool GPIO_isPortInit(GpioPort_t gpioPort) {
     return true;
 }
 
-void GPIO_ConfigDirOutput(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask) {
+void GPIO_ConfigDirOutput(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
     return;
 }
 
-void GPIO_ConfigDirInput(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask) {
+void GPIO_ConfigDirInput(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
     return;
 }
 
-void GPIO_ConfigPullUp(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask) {
+void GPIO_ConfigPullUp(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
     return;
 }
 
-void GPIO_ConfigPullDown(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask) {
+void GPIO_ConfigPullDown(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
     return;
 }
 
-void GPIO_ConfigDriveStrength(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask, uint8_t drive_mA) {
+void GPIO_ConfigDriveStrength(GpioPort_t gpioPort, GPIO_Pin_t pinMask, uint8_t drive_mA) {
     return;
 }
 
-void GPIO_EnableDigital(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask) {
+void GPIO_EnableDigital(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
     return;
 }
 
-void GPIO_DisableDigital(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask) {
+void GPIO_DisableDigital(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
     return;
 }
 
-void GPIO_ConfigInterrupts_Edge(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask, bool risingEdge) {
+void GPIO_ConfigInterrupts_Edge(GpioPort_t gpioPort, GPIO_Pin_t pinMask, bool risingEdge) {
     return;
 }
 
-void GPIO_ConfigInterrupts_BothEdges(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask) {
+void GPIO_ConfigInterrupts_BothEdges(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
     return;
 }
 
-void GPIO_ConfigInterrupts_LevelTrig(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask, bool highLevel) {
+void GPIO_ConfigInterrupts_LevelTrig(GpioPort_t gpioPort, GPIO_Pin_t pinMask, bool highLevel) {
     return;
 }
 
-void GPIO_ConfigNVIC(GPIO_Port_t * gpioPort, uint8_t priority) {
+void GPIO_ConfigNVIC(GpioPort_t gpioPort, uint8_t priority) {
     return;
 }
 
-uint8_t GPIO_ReadPins(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask) {
+uint8_t GPIO_ReadPins(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
     return (rand() % 16) & pinMask;
 }
 
-void GPIO_WriteHigh(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask) {
+void GPIO_WriteHigh(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
     return;
 }
 
-void GPIO_WriteLow(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask) {
+void GPIO_WriteLow(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
     return;
 }
 
-void GPIO_Toggle(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask) {
+void GPIO_Toggle(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
     return;
 }
 
-void GPIO_ConfigAltMode(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask) {
+void GPIO_ConfigAltMode(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
     return;
 }
 
-void GPIO_ConfigPortCtrl(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask, uint8_t fieldEncoding) {
+void GPIO_ConfigPortCtrl(GpioPort_t gpioPort, GPIO_Pin_t pinMask, uint8_t fieldEncoding) {
     return;
 }
 
-void GPIO_ConfigAnalog(GPIO_Port_t * gpioPort, GPIO_Pin_t pinMask) {
+void GPIO_ConfigAnalog(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
     return;
 }
 

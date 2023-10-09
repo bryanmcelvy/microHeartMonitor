@@ -19,7 +19,7 @@ int main(void) {
     Timer_setMode(timer0, PERIODIC, UP);
 
     // Init. LED pins
-    GPIO_Port_t * portF = GPIO_InitPort(F);
+    GpioPort_t portF = GPIO_InitPort(F);
     GPIO_ConfigDirOutput(portF, LED_PINS);
     GPIO_ConfigDriveStrength(portF, LED_PINS, 8);
     GPIO_EnableDigital(portF, LED_PINS);

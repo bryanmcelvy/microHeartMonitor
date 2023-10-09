@@ -17,7 +17,7 @@
 
 #define LED_PINS (GPIO_Pin_t)(GPIO_PIN1 | GPIO_PIN2 | GPIO_PIN3)
 
-GPIO_Port_t * portF = 0;
+GpioPort_t portF = 0;
 Timer_t timer1 = 0;
 bool isLedOn = false;
 

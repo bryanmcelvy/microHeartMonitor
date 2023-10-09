@@ -23,7 +23,7 @@ Initialization
 *******************************************************************************/
 
 void Debug_Init(void) {
-    GPIO_Port_t * portA = GPIO_InitPort(A);
+    GpioPort_t portA = GPIO_InitPort(A);
     uart0 = UART_Init(portA, UART0);
     Debug_SendMsg((void *) "Starting transmission...\r\n");
     Debug_SendMsg((void *) "Debug module initialized.\r\n");

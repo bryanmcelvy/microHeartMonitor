@@ -35,7 +35,7 @@ typedef struct LedStruct_t * Led_t;
  * @param[in] pin               GPIO pin to use.
  * @param[out] Led_t*           Pointer to LED data structure.
  */
-Led_t Led_Init(GPIO_Port_t * gpioPort, GPIO_Pin_t pin);
+Led_t Led_Init(GpioPort_t gpioPort, GPIO_Pin_t pin);
 
 bool Led_isInit(Led_t led);
 
@@ -49,7 +49,7 @@ Status Checking
  * @param[in] led               Pointer to LED data structure.
  * @param[out] GPIO_Port_t*     Pointer to a GPIO port data structure.
  */
-GPIO_Port_t * Led_GetPort(Led_t led);
+GpioPort_t Led_GetPort(Led_t led);
 
 /**
  * @brief                       Get the GPIO pin associated with the LED.

@@ -5,7 +5,11 @@
 
 #define LED_PINS (GPIO_Pin_t)(GPIO_PIN1 | GPIO_PIN2 | GPIO_PIN3)
 
-enum colors { RED = (uint8_t) 0x02, GREEN = (uint8_t) 0x08, BLUE = (uint8_t) 0x04 };
+enum colors {
+    RED = (uint8_t) 0x02,
+    GREEN = (uint8_t) 0x08,
+    BLUE = (uint8_t) 0x04
+};
 
 int main(void) {
     unsigned char color;
@@ -21,7 +25,7 @@ int main(void) {
     ILI9341_setMemAccessCtrl(0, 0, 0, 0, 1, 0);
 
     // Init. LED pins
-    GPIO_Port_t * portF = GPIO_InitPort(F);
+    GpioPort_t portF = GPIO_InitPort(F);
     GPIO_ConfigDirOutput(portF, LED_PINS);
     GPIO_ConfigDriveStrength(portF, LED_PINS, 8);
     GPIO_EnableDigital(portF, LED_PINS);

@@ -71,7 +71,7 @@ void SPI_Init(void) {
     while((SYSCTL_PRSSI_R & 0x01) == 0) {}
 
     // configure GPIO pins
-    GPIO_Port_t * portA = GPIO_InitPort(A);
+    GpioPort_t portA = GPIO_InitPort(A);
     GPIO_ConfigAltMode(portA, SPI_SSI0_PINS);                   // alt. mode for PA2-5
     GPIO_ConfigPortCtrl(portA, SPI_SSI0_PINS, 2);               // SSI mode for PA2-5
 

@@ -19,7 +19,7 @@ void ADC_Init(void) {
     while((SYSCTL_PRADC_R & 0x01) == 0) {}
 
     // configure GPIO port
-    GPIO_Port_t * portE = GPIO_InitPort(E);
+    GpioPort_t portE = GPIO_InitPort(E);
     GPIO_ConfigDirInput(portE, GPIO_PIN5);
     GPIO_ConfigAltMode(portE, GPIO_PIN5);
     GPIO_DisableDigital(portE, GPIO_PIN5);

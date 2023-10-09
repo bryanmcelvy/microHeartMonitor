@@ -23,7 +23,7 @@ int main(void) {
     Timer_setInterval_ms(debounceTimer, 100);
 
     // Init. LED pins
-    GPIO_Port_t * portF = GPIO_InitPort(F);
+    GpioPort_t portF = GPIO_InitPort(F);
     GPIO_ConfigDirOutput(portF, LED_PINS);
     GPIO_ConfigDriveStrength(portF, LED_PINS, 8);
     GPIO_EnableDigital(portF, LED_PINS);
