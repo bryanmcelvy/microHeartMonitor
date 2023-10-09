@@ -47,12 +47,17 @@ static struct {
     uint16_t y1;                 ///< starting y-value in range [0, y2]
     uint16_t y2;                 ///< ending x-value in range [0, NUM_COLS)
 
+    uint16_t lineNum;
+    uint16_t colNum;
+
     uint8_t R_val;               ///< 5 or 6-bit R value
     uint8_t G_val;               ///< 6-bit G value
     uint8_t B_val;               ///< 5 or 6-bit B value
 
     bool isInit;                 ///< if `true`, LCD has been initialized
-} lcd;
+} lcd = { 0 };
+
+extern const uint8_t * const FONT_ARRAY[26];
 
 /******************************************************************************
 Initialization
@@ -108,7 +113,7 @@ void LCD_setY(uint16_t y1, uint16_t y2) {
 }
 
 void LCD_setColor(LCD_Color_t color) {
-    if(color == LCD_BLACK) {
+    if(color == 0) {
         lcd.R_val = 1;
         lcd.G_val = 1;
         lcd.B_val = 1;
@@ -139,8 +144,8 @@ void LCD_Draw(void) {
 }
 
 void LCD_Fill(void) {
-    LCD_setX(0, LCD_X_MAX - 1);
-    LCD_setY(0, LCD_Y_MAX - 1);
+    LCD_setX(0, LCD_X_MAX);
+    LCD_setY(0, LCD_Y_MAX);
 
     LCD_Draw();
 
@@ -168,12 +173,12 @@ inline static void LCD_drawLine(uint16_t center, uint16_t lineWidth, bool is_hor
     uint16_t start = center - padding;
     uint16_t end = center + padding;
     if(is_horizontal) {
-        LCD_setX(0, (LCD_X_MAX - 1));
+        LCD_setX(0, (LCD_X_MAX));
         LCD_setY(start, end);
     }
     else {
         LCD_setX(start, end);
-        LCD_setY(0, (LCD_Y_MAX - 1));
+        LCD_setY(0, (LCD_Y_MAX));
     }
 
     LCD_Draw();
@@ -248,5 +253,77 @@ void LCD_drawRectangle(uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy, bool 
  * @see                 LCD_setX(), LCD_setY(), LCD_setColor(), LCD_Draw()
  */
 static void LCD_plotSample(uint16_t x, uint16_t y, LCD_Color_t color);
+
+/******************************************************************************
+Writing
+*******************************************************************************/
+
+enum {
+    HEIGHT_CHAR = 8,
+    LEN_CHAR = 5,
+
+    NUM_LINES = 30,
+    NUM_COLS = 64
+};
+
+void LCD_setCursor(uint16_t lineNum, uint16_t colNum) {
+    Assert(lineNum < NUM_LINES);
+    Assert(colNum < NUM_COLS);
+
+    lcd.lineNum = lineNum * HEIGHT_CHAR;
+    lcd.colNum = colNum * LEN_CHAR;
+
+    return;
+}
+
+static void LCD_updateCursor(void) {
+    uint16_t newLineNum = lcd.lineNum / HEIGHT_CHAR;
+    uint16_t newColNum = lcd.colNum / LEN_CHAR;
+
+    newColNum = (newColNum + 1) % NUM_COLS;
+    newLineNum = (newColNum == 0) ? ((newLineNum + 1) % NUM_LINES) : newLineNum;
+
+    lcd.lineNum = newLineNum * HEIGHT_CHAR;
+    lcd.colNum = newColNum * LEN_CHAR;
+
+    return;
+}
+
+void LCD_writeChar(unsigned char inputChar) {
+    // determine letter
+    Assert((inputChar < 'A') == false);
+    inputChar = (inputChar > 'Z') ? (inputChar - 32) : inputChar;
+    Assert((inputChar > 'Z') == false);
+
+    uint16_t lineNum = lcd.lineNum;
+    uint16_t colNum = lcd.colNum;
+
+    const uint8_t * letter = FONT_ARRAY[inputChar - 65];
+
+    for(uint8_t lineIdx = 0; lineIdx < HEIGHT_CHAR; lineIdx++) {
+        uint8_t line = letter[HEIGHT_CHAR - 1 - lineIdx];
+        for(uint8_t colIdx = 0; colIdx < LEN_CHAR; colIdx++) {
+            uint8_t shiftVal = LEN_CHAR - 1 - colIdx;
+            uint8_t pixel = line & (1 << shiftVal);
+
+            LCD_Color_t color = (pixel) ? LCD_RED : LCD_BLACK;
+            LCD_plotSample(colNum + colIdx, lineNum + lineIdx, color);
+        }
+    }
+    LCD_updateCursor();
+    return;
+}
+
+void LCD_writeStr(void * asciiString) {
+    unsigned char * str = (unsigned char *) asciiString;
+    uint8_t idx = 0;
+    while(str[idx] != '\0') {
+        LCD_writeChar(str[idx]);
+        LCD_updateCursor();
+        idx += 1;
+    }
+
+    return;
+}
 
 /** @} */               // lcd

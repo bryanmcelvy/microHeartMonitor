@@ -176,7 +176,26 @@ inline static void LCD_plotSample(uint16_t x, uint16_t y, LCD_Color_t color) {
     return;
 }
 
-/// @}
+/// @} Drawing Functions
+
+/******************************************************************************
+Writing
+*******************************************************************************/
+/** @name Writing Functions */               /// @{
+
+/**
+ * @brief               Set the cursor to line `x`, column `y`.
+ *
+ * @param[in] lineNum   Line number to place characters. Should be in range `[0, 30)`.
+ * @param[in] colNum    Column number to place characters. Should be in range `[0, 64)`.
+ */
+void LCD_setCursor(uint16_t lineNum, uint16_t colNum);
+
+void LCD_writeChar(unsigned char inputChar);
+
+void LCD_writeStr(void * asciiString);
+
+/// @} // Writing Functions
 
 /** @} */               // lcd
 

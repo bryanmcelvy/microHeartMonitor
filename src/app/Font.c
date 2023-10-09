@@ -2,7 +2,7 @@
 
 #include <stdint.h>
 
-uint8_t Font_capA[8] = {
+const uint8_t FONT_CAP_A[8] = {
     0x0E,
     0x11,
     0x11,
@@ -13,7 +13,7 @@ uint8_t Font_capA[8] = {
     0x11
 };
 
-uint8_t Font_capB[8] = {
+const uint8_t FONT_CAP_B[8] = {
     0x1E,
     0x11,
     0x11,
@@ -24,7 +24,7 @@ uint8_t Font_capB[8] = {
     0x1E
 };
 
-uint8_t Font_capC[8] = {
+const uint8_t FONT_CAP_C[8] = {
     0x0E,
     0x11,
     0x10,
@@ -35,7 +35,7 @@ uint8_t Font_capC[8] = {
     0x0E
 };
 
-uint8_t Font_capD[8] = {
+const uint8_t FONT_CAP_D[8] = {
     0x1E,
     0x11,
     0x11,
@@ -46,7 +46,7 @@ uint8_t Font_capD[8] = {
     0x1E
 };
 
-uint8_t Font_capE[8] = {
+const uint8_t FONT_CAP_E[8] = {
     0x1F,
     0x10,
     0x10,
@@ -57,7 +57,7 @@ uint8_t Font_capE[8] = {
     0x1F
 };
 
-uint8_t Font_capF[8] = {
+const uint8_t FONT_CAP_F[8] = {
     0x1F,
     0x10,
     0x10,
@@ -68,7 +68,7 @@ uint8_t Font_capF[8] = {
     0x10
 };
 
-uint8_t Font_capG[8] = {
+const uint8_t FONT_CAP_G[8] = {
     0x0E,
     0x11,
     0x10,
@@ -80,7 +80,7 @@ uint8_t Font_capG[8] = {
 };
 
 
-uint8_t Font_capH[8] = {
+const uint8_t FONT_CAP_H[8] = {
   0x11,
   0x11,
   0x11,
@@ -91,7 +91,7 @@ uint8_t Font_capH[8] = {
   0x11
 };
 
-uint8_t Font_capI[8] = {
+const uint8_t FONT_CAP_I[8] = {
     0x1F,
     0x0A,
     0x0A,
@@ -102,7 +102,7 @@ uint8_t Font_capI[8] = {
     0x1F
 };
 
-uint8_t Font_capJ[8] = {
+const uint8_t FONT_CAP_J[8] = {
     0x0E,
     0x05,
     0x05,
@@ -113,7 +113,7 @@ uint8_t Font_capJ[8] = {
     0x0E
 };
 
-uint8_t Font_capK[8] = {
+const uint8_t FONT_CAP_K[8] = {
     0x12,
     0x14,
     0x18,
@@ -124,7 +124,7 @@ uint8_t Font_capK[8] = {
     0x11
 };
 
-uint8_t Font_capL[8] = {
+const uint8_t FONT_CAP_L[8] = {
     0x10,
     0x10,
     0x10,
@@ -135,7 +135,7 @@ uint8_t Font_capL[8] = {
     0x1F
 };
 
-uint8_t Font_capM[8] = {
+const uint8_t FONT_CAP_M[8] = {
     0x11,
     0x1B,
     0x1B,
@@ -146,7 +146,7 @@ uint8_t Font_capM[8] = {
     0x11
 };
 
-uint8_t Font_capN[8] = {
+const uint8_t FONT_CAP_N[8] = {
     0x11,
     0x19,
     0x19,
@@ -157,7 +157,7 @@ uint8_t Font_capN[8] = {
     0x11
 };
 
-uint8_t Font_capO[8] = {
+const uint8_t FONT_CAP_O[8] = {
     0x0E,
     0x11,
     0x11,
@@ -168,7 +168,7 @@ uint8_t Font_capO[8] = {
     0x0E
 };
 
-uint8_t Font_capP[8] = {
+const uint8_t FONT_CAP_P[8] = {
     0x1E,
     0x11,
     0x11,
@@ -179,7 +179,7 @@ uint8_t Font_capP[8] = {
     0x10
 };
 
-uint8_t Font_capQ[8] = {
+const uint8_t FONT_CAP_Q[8] = {
     0x0E,
     0x11,
     0x11,
@@ -190,7 +190,7 @@ uint8_t Font_capQ[8] = {
     0x0D
 };
 
-uint8_t Font_capR[8] = {
+const uint8_t FONT_CAP_R[8] = {
     0x1E,
     0x11,
     0x11,
@@ -201,7 +201,7 @@ uint8_t Font_capR[8] = {
     0x11
 };
 
-uint8_t Font_capS[8] = {
+const uint8_t FONT_CAP_S[8] = {
     0x0E,
     0x11,
     0x11,
@@ -212,18 +212,18 @@ uint8_t Font_capS[8] = {
     0x0E
 };
 
-uint8_t Font_capT[8] = {
+const uint8_t FONT_CAP_T[8] = {
     0x1F,
-    0x0A,
-    0x0A,
-    0x0A,
-    0x0A,
-    0x0A,
-    0x0A,
-    0x0A
+    0x04,
+    0x04,
+    0x04,
+    0x04,
+    0x04,
+    0x04,
+    0x04
 };
 
-uint8_t Font_capU[8] = {
+const uint8_t FONT_CAP_U[8] = {
     0x11,
     0x11,
     0x11,
@@ -234,7 +234,7 @@ uint8_t Font_capU[8] = {
     0x0E
 };
 
-uint8_t Font_capV[8] = {
+const uint8_t FONT_CAP_V[8] = {
     0x11,
     0x11,
     0x11,
@@ -245,7 +245,7 @@ uint8_t Font_capV[8] = {
     0x04
 };
 
-uint8_t Font_capW[8] = {
+const uint8_t FONT_CAP_W[8] = {
     0x11,
     0x11,
     0x11,
@@ -256,7 +256,7 @@ uint8_t Font_capW[8] = {
     0x11
 };
 
-uint8_t Font_capX[8] = {
+const uint8_t FONT_CAP_X[8] = {
     0x11,
     0x11,
     0x0A,
@@ -267,7 +267,7 @@ uint8_t Font_capX[8] = {
     0x11
 };
 
-uint8_t Font_capY[8] = {
+const uint8_t FONT_CAP_Y[8] = {
     0x11,
     0x11,
     0x11,
@@ -278,7 +278,7 @@ uint8_t Font_capY[8] = {
     0x04
 };
 
-uint8_t Font_capZ[8] = {
+const uint8_t FONT_CAP_Z[8] = {
     0x1F,
     0x01,
     0x01,
@@ -287,4 +287,33 @@ uint8_t Font_capZ[8] = {
     0x08,
     0x10,
     0x1F
+};
+
+extern const uint8_t * const FONT_ARRAY[26] = {
+    FONT_CAP_A,
+    FONT_CAP_B,
+    FONT_CAP_C,
+    FONT_CAP_D,
+    FONT_CAP_E,
+    FONT_CAP_F,
+    FONT_CAP_G,
+    FONT_CAP_H,
+    FONT_CAP_I,
+    FONT_CAP_J,
+    FONT_CAP_K,
+    FONT_CAP_L,
+    FONT_CAP_M,
+    FONT_CAP_N,
+    FONT_CAP_O,
+    FONT_CAP_P,
+    FONT_CAP_Q,
+    FONT_CAP_R,
+    FONT_CAP_S,
+    FONT_CAP_T,
+    FONT_CAP_U,
+    FONT_CAP_V,
+    FONT_CAP_W,
+    FONT_CAP_X,
+    FONT_CAP_Y,
+    FONT_CAP_Z
 };
