@@ -23,7 +23,6 @@ Direct Dependencies
 #include "DAQ.h"
 #include "Debug.h"
 #include "LCD.h"
-#include "lookup.h"
 #include "QRS.h"
 
 // common

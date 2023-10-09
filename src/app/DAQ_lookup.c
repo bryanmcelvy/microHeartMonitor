@@ -7,7 +7,9 @@
  * @brief   Source code for DAQ module's lookup table.
  */
 
-#include "lookup.h"
+#include "DAQ.h"
+
+#include "NewAssert.h"
 
 #include "arm_math_types.h"
 
@@ -17,7 +19,7 @@
  * @brief   Lookup table for converting ADC data from unsigned 12-bit integer
  *          values to 32-bit floating point values.
  */
-static const float32_t LOOKUP_DAQ_TABLE[4096] = {
+static const float32_t DAQ_LOOKUP_TABLE[4096] = {
     -5.499999523162842f, -5.497313499450684f, -5.494627475738525f, -5.491940975189209f,
     -5.489254951477051f, -5.486568927764893f, -5.483882427215576f, -5.481196403503418f,
     -5.47851037979126f, -5.475823879241943f, -5.473137378692627f, -5.470451354980469f,
@@ -1046,8 +1048,9 @@ static const float32_t LOOKUP_DAQ_TABLE[4096] = {
 
 // clang-format on
 
-const float32_t * Lookup_GetPtr(void) {
-    return LOOKUP_DAQ_TABLE;
+float32_t DAQ_convertToMilliVolts(uint16_t sample) {
+    Assert(sample < 0x1000);
+    return DAQ_LOOKUP_TABLE[sample];
 }
 
 /** @} */

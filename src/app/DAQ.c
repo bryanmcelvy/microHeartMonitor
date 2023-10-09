@@ -22,8 +22,6 @@ SECTIONS
 Preprocessor Directives
 *******************************************************************************/
 
-#include "lookup.h"
-
 #include "ADC.h"
 #include "Timer.h"
 
@@ -109,8 +107,6 @@ static const Filter_t * const bandpassFilter = &bandpassFiltStruct;
 Initialization
 ********************************************************************************/
 
-static const float32_t * DAQ_LOOKUP_TABLE = 0;               /// pointer to lookup table
-
 void DAQ_Init(void) {
 
     ADC_Init();
@@ -121,8 +117,6 @@ void DAQ_Init(void) {
     Timer_setInterval_ms(DAQ_Timer, SAMPLING_PERIOD_MS);
     Timer_Start(DAQ_Timer);
 
-    DAQ_LOOKUP_TABLE = Lookup_GetPtr();
-
     return;
 }
 
@@ -132,11 +126,6 @@ Reading Input Data
 
 uint16_t DAQ_readSample(void) {
     return (uint16_t) (ADC0_SSFIFO3_R & 0xFFF);
-}
-
-float32_t DAQ_convertToMilliVolts(uint16_t sample) {
-    Assert(sample < 0x1000);
-    return DAQ_LOOKUP_TABLE[sample];
 }
 
 void DAQ_acknowledgeInterrupt(void) {

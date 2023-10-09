@@ -16,7 +16,6 @@
 
 #include "FIFO.h"
 #include "ISR.h"
-#include "lookup.h"
 
 #include "arm_math_types.h"
 #include <stdbool.h>
