@@ -1,5 +1,5 @@
 ###############################################################################
-# File:         ./clang-format
+# File:         /.clang-format
 # Description:  Style/formatting rules for auto-formatting via clangd
 ###############################################################################
 

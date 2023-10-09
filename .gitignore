@@ -1,3 +1,8 @@
+###############################################################################
+# File:         /.gitignore
+# Description:  Excludes certain files from Git
+###############################################################################
+
 # Cppcheck
 /tools/cppcheck/*
 !/tools/cppcheck/suppressions.txt
