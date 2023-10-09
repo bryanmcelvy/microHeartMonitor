@@ -266,7 +266,7 @@ static void Processing_Handler(void) {
 
 static void LCD_Handler(void) {
     static uint16_t x = 0;
-    static const float32_t maxVal = LOOKUP_DAQ_MAX * 2;
+    static const float32_t maxVal = DAQ_LOOKUP_MAX * 2;
 
     Debug_Assert(FIFO_isEmpty(LCD_Fifo) == false);
 

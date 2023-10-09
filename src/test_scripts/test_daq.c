@@ -102,7 +102,7 @@ void ADC0_SS3_Handler(void) {
 }
 
 void LCD_plotNewSample(uint16_t x, volatile const float32_t sample) {
-    static float32_t maxVoltage = LOOKUP_DAQ_MAX;
+    static float32_t maxVoltage = DAQ_LOOKUP_MAX;
 
     // blank out column
     LCD_setColor(LCD_BLACK);

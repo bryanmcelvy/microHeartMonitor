@@ -29,8 +29,8 @@ Preprocessor Directives
 #include <stdbool.h>
 #include <stdint.h>
 
-#define LOOKUP_DAQ_MAX (float32_t) 5.5
-#define LOOKUP_DAQ_MIN (float32_t)(-5.5)
+#define DAQ_LOOKUP_MAX ((float32_t) 5.5f)
+#define DAQ_LOOKUP_MIN ((float32_t) (-5.5f))
 
 /*******************************************************************************
 Initialization
