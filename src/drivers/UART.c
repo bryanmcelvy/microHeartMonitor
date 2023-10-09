@@ -178,14 +178,14 @@ unsigned char UART_ReadChar(UART_t * uart) {
 Writing
 *******************************************************************************/
 
-void UART_WriteChar(UART_t * uart, unsigned char input_char) {
+void UART_WriteChar(UART_t * uart, unsigned char inputChar) {
     while((*uart->FLAG_R_ADDRESS & 0x20) != 0) {}
-    *((register_t) (uart->BASE_ADDRESS)) = input_char;
+    *((register_t) (uart->BASE_ADDRESS)) = inputChar;
     return;
 }
 
-void UART_WriteStr(UART_t * uart, void * input_str) {
-    unsigned char * str_ptr = input_str;
+void UART_WriteStr(UART_t * uart, void * inputStr) {
+    unsigned char * str_ptr = inputStr;
     while(*str_ptr != '\0') {
         UART_WriteChar(uart, *str_ptr);
         str_ptr += 1;
@@ -219,7 +219,7 @@ void UART_WriteInt(UART_t * uart, int32_t n) {
     return;
 }
 
-void UART_WriteFloat(UART_t * uart, double n, uint8_t num_decimals) {
+void UART_WriteFloat(UART_t * uart, double n, uint8_t numDecimals) {
     // Send negative sign (`-`) if needed
     if(n < 0) {
         UART_WriteChar(uart, '-');
@@ -231,9 +231,9 @@ void UART_WriteFloat(UART_t * uart, double n, uint8_t num_decimals) {
     UART_WriteInt(uart, b);
 
     // Send the decimal part
-    if(num_decimals > 0) {
+    if(numDecimals > 0) {
         UART_WriteChar(uart, '.');
-        for(uint8_t count = 0; count < num_decimals; count++) {
+        for(uint8_t count = 0; count < numDecimals; count++) {
             n = (n - b) * (double) 10;
             b = n / (int32_t) 1;
             UART_WriteChar(uart, ASCII_CONVERSION + b);

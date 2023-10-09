@@ -73,23 +73,23 @@ Writing
 /**
  * @brief                       Write a single character to the UART.
  *
- * @param[in] uart              UART to read from.
+ * @param[in] uart              UART to write to.
  * @param[in] input_char        ASCII character to send.
  */
-void UART_WriteChar(UART_t * uart, unsigned char input_char);
+void UART_WriteChar(UART_t * uart, unsigned char inputChar);
 
 /**
  * @brief                       Write a C string to the UART.
  *
- * @param[in] uart              UART to read from.
+ * @param[in] uart              UART to write to.
  * @param[in] input_str         Array of ASCII characters.
  */
-void UART_WriteStr(UART_t * uart, void * input_str);
+void UART_WriteStr(UART_t * uart, void * inputStr);
 
 /**
  * @brief                       Write a 32-bit unsigned integer the UART.
  *
- * @param[in] uart              UART to read from.
+ * @param[in] uart              UART to write to.
  * @param[in] n                 Unsigned 32-bit `int` to be converted and transmitted.
  */
 void UART_WriteInt(UART_t * uart, int32_t n);
@@ -97,11 +97,11 @@ void UART_WriteInt(UART_t * uart, int32_t n);
 /**
  * @brief                       Write a floating-point number the UART.
  *
- * @param[in] uart              UART to read from.
+ * @param[in] uart              UART to write to.
  * @param[in] n                 Floating-point number to be converted and transmitted.
  * @param[in] num_decimals      Number of digits after the decimal point to include.
  */
-void UART_WriteFloat(UART_t * uart, double n, uint8_t num_decimals);
+void UART_WriteFloat(UART_t * uart, double n, uint8_t numDecimals);
 
 #endif
 
