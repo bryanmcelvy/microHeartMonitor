@@ -82,6 +82,19 @@ Timer_t Timer_Init(timerName_t timerName) {
     return timer;
 }
 
+void Timer_Deinit(Timer_t timer) {
+    if(timer->isInit) {
+        Timer_Stop(timer);
+        timerName_t timerName = Timer_getName(timer);
+
+        // disable clock to timer
+        SYSCTL_RCGCTIMER_R &= ~(1 << timerName);
+        while(SYSCTL_PRTIMER_R & (1 << timerName)) {}
+        timer->isInit = false;
+    }
+    return;
+}
+
 timerName_t Timer_getName(Timer_t timer) {
     Assert(timer->isInit);
     return timer->NAME;

@@ -36,9 +36,20 @@ typedef enum {
  *
  * @post                    The timer is ready to be configured and used.
  *
- * @see                     Timer_isInit()
+ * @see                     Timer_isInit(), Timer_Deinit()
  */
 Timer_t Timer_Init(timerName_t timerName);
+
+/**
+ * @brief                   De-initialize a hardware timer.
+ *
+ * @param[in] timerName     Name of the hardware timer to use.
+ *
+ * @post                    The hardware timer is no longer initialized or receiving power.
+ *
+ * @see                     Timer_Init(), Timer_isInit()
+ */
+void Timer_Deinit(Timer_t timer);
 
 /**
  * @brief                   Get the name of a timer object.
@@ -55,7 +66,7 @@ timerName_t Timer_getName(Timer_t timer);
  * @param[out] true         The timer is initialized.
  * @param[out] false        The timer is not initialized.
  *
- * @see                     Timer_Init()
+ * @see                     Timer_Init(), Timer_Deinit()
  */
 bool Timer_isInit(Timer_t timer);
 
