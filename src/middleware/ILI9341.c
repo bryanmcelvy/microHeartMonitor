@@ -54,13 +54,14 @@ Initialization/Reset
 
 void ILI9341_Init(Timer_t timer) {
     Assert(ili9341.isInit == false);
-    Assert(timer);
+    Assert(Timer_isInit(timer));
 
     ILI9341_Fifo = FIFO_Init(ILI9341_Buffer, 8);
 
     SPI_Init();
 
     ILI9341_resetHard(timer);
+    Timer_Deinit(timer);
     ILI9341_setInterface();
 
     ili9341.isInit = true;
@@ -109,6 +110,7 @@ void ILI9341_resetHard(Timer_t timer) {
      *  signal for >= 10 [us] and an additional 5 [ms] before further commands
      *  can be sent.
      */
+    Assert(Timer_isInit(timer));
     Timer_setMode(timer, ONESHOT, UP);
 
     SPI_CLEAR_RESET();
@@ -119,6 +121,7 @@ void ILI9341_resetHard(Timer_t timer) {
 }
 
 void ILI9341_resetSoft(Timer_t timer) {
+    Assert(Timer_isInit(timer));
     Timer_setMode(timer, ONESHOT, UP);
 
     SPI_WriteCmd(SWRESET);
