@@ -1,8 +1,9 @@
 digraph {
     labelloc="t";
-    label="Call Graph – μHeartMonitor";
+    label="Call Graph\nμHeartMonitor";
     newrank=true;
     ranksep=1.2;
+    ratio=1;
 
     main;
 
@@ -11,9 +12,9 @@ digraph {
         label="App.";
         labeljust="l";
 
-        LCD;
-        QRS;
-        DAQ[label="DAQ/Lookup"];
+        LCD[label="Liquid Crystal Display\n(LCD)"];
+        QRS[label="QRS\nDetector"];
+        DAQ[label="Data Acquisition\n(DAQ)"];
     };
 
     subgraph cluster_ext {

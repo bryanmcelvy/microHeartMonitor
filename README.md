@@ -74,7 +74,17 @@ WIP
 WIP
 
 ### Software
-![call graph](docs/call.png)
+<details>
+<summary> Click to see call graph </summary>
+<img src="docs/call.png" width="500" />
+</details>
+
+<details>
+<summary> Click to see data flow graph </summary>
+<img src="docs/data_flow.png" width="2000" />
+</details>
+
+
 WIP
 
 ## Current Results

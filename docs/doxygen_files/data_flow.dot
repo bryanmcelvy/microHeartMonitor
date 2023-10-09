@@ -1,32 +1,58 @@
 digraph {
-    rankdir=TD;
+    labelloc="t";
+    label="Data Flow Graph\nμHeartMonitor";
+    newrank=true;
+    ratio=0.75;
     
-    Person
+    Person;
 
-    subgraph cluster_afe{
-        label="Hardware"
-        style="dashed"
-        node[shape=rect]
-        AFE, Isolation, PE5
-    };
-
-    subgraph cluster_sw{
-        label="Software"
-        style="dashed"
-        node[shape=ellipse]
-        ADC, DAQ, LCD, QRS, SPI
-    };
-
+    AFE[label="Analog\nFront-End", shape=rect];
+    Isolation[shape=rect];
     MSP2807[shape=rect]
+    Laptop[shape=rect];
+
+    subgraph cluster_mcu{
+        label="TM4C123 Microcontroller"
+        style="dashed"
+
+        subgraph cluster_sw{
+            label="Software"
+            style="dashed"
+            node[shape=ellipse]
+            ADC;
+            DAQ;
+            ILI9341;
+            LCD;
+            QRS;
+            SPI;
+            Debug;
+            UART;
+        };
+
+        node[shape=rect; height=0.2];
+        PA1;
+        PA27[label="PA2, 4-7"];
+        PE5;
+        Timer;
+        PLL;
+        ISR;
+    }
+
 
     // Connections
-    Person -> AFE[label="raw signal"]
-    AFE -> Isolation[label="filtered signal"]
-    Isolation -> PE5[label="filtered signal"]
-    PE5 -> ADC[label="unsigned 12-bit integers"]
-    ADC -> DAQ[label="raw samples"]
-    DAQ -> {LCD, QRS}[label="filtered samples"]
-    QRS -> LCD[label="avg. HR"]
-    LCD -> SPI -> MSP2807[label="image"]
+    Person -> AFE[label="voltage\n[-5, 5) mV"];
+    AFE -> Isolation -> PE5[label="voltage\n[0, 3.5) V"];
+    PE5 -> ADC -> DAQ[label="12-bit\nintegers"];
+    DAQ -> {LCD, QRS}[label="filtered\nvoltage data"];
+    QRS -> LCD[label="avg. HR"];
+    QRS -> Debug -> UART[label="avg. HR"];
+    UART -> PA1 -> Laptop[label="ASCII\ncharacters"];
+    LCD -> ILI9341[label="pixel\ndata"];
+    ILI9341 -> SPI-> PA27 -> MSP2807[label="data/\ncommands"];
+
+    {rank=same; AFE, Isolation, PE5, ADC, DAQ}
+    {rank=same; QRS, Debug, UART};
+    {rank=same; LCD, ILI9341, SPI}
+    {rank=same; PA1, Laptop}
 
 }
