@@ -22,8 +22,7 @@ int main(void) {
     LCD_setOutputMode(false);
 
     LCD_setCursor(0, 0);
-    LCD_writeStr("Heart");
-    LCD_writeStr("Rate");
+    LCD_writeStr("Heart Rate: 75.0 bpm");
 
     // Draw R
 
