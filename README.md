@@ -7,6 +7,7 @@ An electrocardiogram-based heart rate monitor project implemented with a TM4C123
   - [Introduction](#introduction)
     - [Background](#background)
     - [Motivation](#motivation)
+    - [Disclaimer](#disclaimer)
     - [Key Terms](#key-terms)
   - [Materials \& Methods](#materials--methods)
     - [Hardware](#hardware)
@@ -33,34 +34,34 @@ An electrocardiogram-based heart rate monitor project implemented with a TM4C123
 <summary> Click to see navigation </summary>
 
 * [`/cmake_files`](cmake_files) - CMake-specific files for generating the build system.
-* [`/data`](data) - ECG sample data from the publically available  MIT-BIH Arrhythmia Database.
 * [`/docs`](docs) - Documentation for both the project itself and resources used in creating it.
-  * [`/app_notes`](app_notes) - Application notes.
-  * [`/datasheets`](datasheets) - Datasheets for hardware components.
-  * [`/doxygen_files`](doxygen_files) - Files used for documentation generation via Doxygen.
-  * [`/help`](help) - Help text for a few of the command line-based applications used in this project.
-  * [`/manuals`](manuals) - q manuals for some of the software used in this project.
+  * [`/doxygen_files`](/docs/doxygen_files) - Files used for documentation generation via Doxygen.
+  * [`/resources/articles`](docs/resources/articles) - Research articles and application notes.
+  * [`/resources/books`](docs/resources/books) - Open-source/freely available textbooks.
+  * [`/resources/datasheets`](docs/resources/datasheets) - Datasheets for hardware components.
+  * [`/resources/help`](docs/resources/help) - Help text for a few of the command line-based applications used in this project.
+  * [`/resources/manuals`](docs/resources/manuals) - PDF manuals for some of the software used in this project.
 * [`/external`](external) - External software used in this project.
   * [`/CMSIS`](external/CMSIS) - Core CMSIS library by ARM for Cortex-M devices.
   * [`/CMSIS-DSP`](external/CMSIS-DSP/) - DSP library by ARM for Cortex-M devices.
 * [`/src`](src) - Source code for the software modules written for this project.
-  * [`/app`](app) - Application-specific modules.
-  * [`/common`](common) - General-purpose modules used by other modules.
-  * [`/device`](device) - Device-specific files.
-  * [`/drivers`](drivers) - Low-level device drivers for the peripherals used in this project.
-  * [`/middleware`](middleware) - Software modules for interfacing with external hardware via device drivers.
-  * [`/old_or_unused`](old_or_unused) - Old or unused software modules.
-  * [`/test`](test) - Scripts used for manual on-target testing.
+  * [`/app`](/src/app) - Application-specific modules.
+  * [`/common`](/src/common) - General-purpose modules used by other modules.
+  * [`/device`](/src/device) - Device-specific files.
+  * [`/drivers`](/src/drivers) - Low-level device drivers for the peripherals used in this project.
+  * [`/middleware`](/src/middleware) - Software modules for interfacing with external hardware via device drivers.
+  * [`/old_or_unused`](/src/old_or_unused) - Old or unused software modules.
+  * [`/test_scripts`](/src/test_scripts) - Scripts used for manual on-target testing.
 * [`/test`](test) - CppUTest-based unit test suite.
-  * [`/mocks`](mocks) - CppUMock-based mock functions used to substitute a module's depenencies during unit tests.
-  * [`/src`](src) - Source code for unit tests.
-  * [`/stubs`](stubs) - Hard-coded stub functions used to substitute a module's depenencies during unit tests.
+  * [`/mocks`](/test/mocks) - CppUMock-based mock functions used to substitute a module's depenencies during unit tests.
+  * [`/src`](/test/src) - Source code for unit tests.
+  * [`/stubs`](/test/stubs) - Hard-coded stub functions used to substitute a module's depenencies during unit tests.
 * [`/tools`](tools) - Miscellaneous tools used or created for this project.
-  * [`/cppcheck`](cppcheck) - Suppressions list for Cppcheck.
-  * [`/data`](data) - Original files from MIT-BIH Arrhythmia Database, as well as a Python script to convert them to `csv` files.
-  * [`/filter_design`](filter_design) - Python scripts/notebooks used to design the digital filters used in this project.
-  * [`/JDS6600`](JDS6600) - Scripts for interfacing a JDS6600 DDS Signal Generator/Counter.
-  * [`/lookup_table`](lookup_table) - Script for generating the lookup table used in the ADC module.
+  * [`/cppcheck`](/tools/cppcheck) - Suppressions list for Cppcheck.
+  * [`/data`](/tools/data) - ECG sample data from the publically available MIT-BIH Arrhythmia Database, as well as a Python script to convert them to `csv` files.
+  * [`/filter_design`](/tools/filter_design) - Python scripts/notebooks used to design the digital filters used in this project.
+  * [`/JDS6600`](/tools/JDS6600) - Scripts for interfacing a JDS6600 DDS Signal Generator/Counter.
+  * [`/lookup_table`](/tools/lookup_table) - Script for generating the lookup table used in the ADC module.
 
 </details><br>
 
@@ -81,11 +82,17 @@ My primary motivations for doing this project are:
 
 I also hope that anyone interested in any of the fields of knowledge relevant to this project (biomedical/electrical/computer/software engineering) will find this helpful to look at or even use in their own projects.
 
+
+### Disclaimer
+This project is neither a product nor a medical device (by any legal definition, anyway), and is not intended to be either or both of things now or in the future. It is simply a resume-building passion project.
+
 ### Key Terms
 WIP
 * Analog front-end (AFE)
 * Electrocardiogram/Electrocardiography (ECG)
 * Heart rate monitor
+
+[BACK TO TOP](#μheartmonitor-an-ecg-based-heart-rate-monitor)
 
 ## Materials & Methods
 
@@ -163,8 +170,12 @@ This "layer" includes any and all modules that were not written (or at least hea
 #### Common
 The "common" modules are general-purpose modules that don't necessarily fit into the above categories/layers. This category includes the "Fifo" module, which contains a ring buffer-based implementation of the FIFO buffer (AKA "queue") data structure; and "NewAssert", which is essentially just an implementation of the `assert` macro causes a breakpoint (and also doesn't cause a linker error like the built-in one does for some reason).
 
+[BACK TO TOP](#μheartmonitor-an-ecg-based-heart-rate-monitor)
+
 ## Current Results
 WIP
+
+[BACK TO TOP](#μheartmonitor-an-ecg-based-heart-rate-monitor)
 
 ## To-do
 ### Hardware
@@ -186,12 +197,16 @@ WIP
 * Move CMSIS-DSP filters from DAQ and QRS modules to their own module
 * Expand the automated test suite.
 
+[BACK TO TOP](#μheartmonitor-an-ecg-based-heart-rate-monitor)
+
 ## Build Instructions
 ### Hardware
 WIP
 
 ### Software
 WIP
+
+[BACK TO TOP](#μheartmonitor-an-ecg-based-heart-rate-monitor)
 
 ## References
 
@@ -206,3 +221,7 @@ WIP
 [5]&emsp;J. Valvano, Embedded Systems: Introduction to ARM Cortex-M Microcontrollers, 5th edition. Jonathan Valvano, 2013.
 
 [6]&emsp;S. W. Smith, The Scientist and Engineer’s Guide to Digital Signal Processing, 2nd edition. San Diego, Calif: California technical Publishin, 1999.
+
+
+[BACK TO TOP](#μheartmonitor-an-ecg-based-heart-rate-monitor)
+
