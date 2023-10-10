@@ -10,7 +10,15 @@ An electrocardiogram-based heart rate monitor project implemented with a TM4C123
     - [Key Terms](#key-terms)
   - [Materials \& Methods](#materials--methods)
     - [Hardware](#hardware)
+      - [Analog-Front End](#analog-front-end)
+      - [Optical Isolation Circuitry](#optical-isolation-circuitry)
+      - [Microcontroller Circuit](#microcontroller-circuit)
     - [Software](#software)
+      - [Device Drivers](#device-drivers)
+      - [Middleware](#middleware)
+      - [Application-specific Software](#application-specific-software)
+      - [External](#external)
+      - [Common](#common)
   - [Current Results](#current-results)
   - [To-do](#to-do)
     - [Hardware](#hardware-1)
@@ -54,38 +62,106 @@ An electrocardiogram-based heart rate monitor project implemented with a TM4C123
   * [`/JDS6600`](JDS6600) - Scripts for interfacing a JDS6600 DDS Signal Generator/Counter.
   * [`/lookup_table`](lookup_table) - Script for generating the lookup table used in the ADC module.
 
-</details>
+</details><br>
 
 ## Introduction 
+
 ### Background
 WIP
+
 ### Motivation
-WIP
+My primary motivations for doing this project are:
+* Learning more about and gaining exposure to the many different concepts, tools, and challenges involved in embedded systems engineering
+* Applying the skills and knowledge I gained from previous coursework, including but not limited to:
+  * BIOE 4315: Bioinstrumentation
+  * BIOE 4342: Biomedical Signal Processing
+  * COSC 2306: Data Programming
+  * [Embedded Systems – Shape the World](https://users.ece.utexas.edu/~valvano/Volume1/E-Book/)
+* Showing tangible proof of qualification for junior-level embedded software engineering roles to potential employers
+
+I also hope that anyone interested in any of the fields of knowledge relevant to this project (biomedical/electrical/computer/software engineering) will find this helpful to look at or even use in their own projects.
+
 ### Key Terms
 WIP
-* Analog front-end
-* Electrocardiogram
-* Electrocardiography (ECG)
+* Analog front-end (AFE)
+* Electrocardiogram/Electrocardiography (ECG)
 * Heart rate monitor
 
 ## Materials & Methods
 
 ### Hardware
-WIP
+
+<details>
+<summary>Click to see overall circuit</summary>
+<img src="docs/circuit_overall.png" width="500" />
+</details><br>
+
+The hardware is divided into three modules: the analog-front end (AFE), the optical isolation circuit, and the microcontroller/display circuit.
+
+#### Analog-Front End
+<details>
+<summary>Click to see analog-front end circuit</summary>
+<img src="docs/circuit_afe.png" width="500" />
+</details><br>
+
+The AFE consists of an instrumentation amplifier with a gain of $100$; a 2nd-order Sallen-Key high-pass filter with a gain of $1$ and a cutoff frequency of $0.5$ $Hz$; and a 2nd-order Sallen-Key low-pass filter with a passband gain of $10$ and a cutoff frequency of $40$ $Hz$.
+
+#### Optical Isolation Circuitry
+
+<details>
+<summary>Click to see optical isolation circuit</summary>
+<img src="docs/circuit_isolation.png" width="500" />
+</details><br>
+
+The optical isolation circuit uses a linear optocoupler to transmit the ECG signal from the analog-front end circuit to the microcontroller circuit. This circuitry serves as a safety measure against power surges and other potential hazards that can occur as a result of connecting someone directly to mains power (for example, death). 
+
+It also has three resistors on the AFE-side that effectively shift the signal from the projected range of ±$5.5$ $V$ to the range $[0, 3.5)$ $V$, which is necessary for both the optocoupler and the microcontroller's built-in analog-to-digital converter (ADC) circuitry.
+
+#### Microcontroller Circuit
+
+<details>
+<summary>Click to see microcontroller circuit</summary>
+<img src="docs/circuit_mcu.png" width="500" />
+</details><br>
+
+The microcontroller circuit currently consists of a TM4C123 microcontroller mounted on a LaunchPad evaluation kit, and an MSP2807 liquid crystal display (LCD).
 
 ### Software
+
+The call graph and data flow graph (visible through the dropdowns below) visually represent the software architecture.
+
 <details>
 <summary> Click to see call graph </summary>
 <img src="docs/call.png" width="500" />
-</details>
+
+This graph shows which modules communicate with (or "call") each other. Each arrow points from the "caller" to the "callee".
+
+It also somewhat doubles as an `#include` dependency graph.
+</details><br>
 
 <details>
 <summary> Click to see data flow graph </summary>
 <img src="docs/data_flow.png" width="2000" />
-</details>
 
+This graph shows the flow of information from the patient to the LCD (and also the laptop).
+</details><br>
 
-WIP
+The software has a total of 14 modules, 11 of which are (somewhat loosely) divided into three layers: application-specific software, middleware, and device drivers.
+
+#### Device Drivers
+The device driver layer consists of software modules that interface directly with the microcontroller's built-in peripheral devices.
+
+#### Middleware
+The middleware layer consists of higher-level device drivers that interface with some hardware connected to one of the built-in peripherals (i.e. the Debug module connects to UART and the ILI9341 module primarily uses SPI).
+
+#### Application-specific Software
+The application-specific software layer has modules that are at least partially, if not completely built for this project. This layer includes the data acquisition module, whose functions handle receiving raw input samples and denoising them; the QRS detector, which analyzes the filtered signal to determine the average heart rate; and the LCD module, which plots the ECG waveform and displays the heart rate.
+
+#### External
+This "layer" includes any and all modules that were not written (or at least heavily altered) by me. It currently only contains the CMSIS-DSP library (or more specifically, the functions from it that are used by this project).
+
+#### Common
+The "common" modules are general-purpose modules that don't necessarily fit into the above categories/layers. This category includes the "Fifo" module, which contains a ring buffer-based implementation of the FIFO buffer (AKA "queue") data structure; and "NewAssert", which is essentially just an implementation of the `assert` macro causes a breakpoint (and also doesn't cause a linker error like the built-in one does for some reason).
 
 ## Current Results
 WIP
@@ -93,8 +169,10 @@ WIP
 ## To-do
 ### Hardware
 * Design a custom PCB
-* Add electrostatic discharge (ESD) protection
-* Replace most of the op-amps in the AFE circuitry with an AFE IC (e.g. AD8232)
+  * Replace most of the AFE circuitry with an AFE IC (e.g. AD8232)
+  * Add electrostatic discharge (ESD) protection
+  * Add decoupling capacitors
+
 ### Software
 * Rework the structure of/relationship between the LCD and ILI9341 modules
 * Refactor ADC module to be more general
@@ -104,8 +182,9 @@ WIP
   * Thresholding procedure for bandpass-filtered signal (not just integrated signal)
   * Search-back procedure
   * T-wave discrimination
-* Add heart rate variability (HRV)
+* Add heart rate variability (HRV) calculation
 * Move CMSIS-DSP filters from DAQ and QRS modules to their own module
+* Expand the automated test suite.
 
 ## Build Instructions
 ### Hardware
@@ -115,4 +194,15 @@ WIP
 WIP
 
 ## References
-WIP
+
+[1]&emsp;J. Pan and W. J. Tompkins, “A Real-Time QRS Detection Algorithm,” IEEE Trans. Biomed. Eng., vol. BME-32, no. 3, pp. 230–236, Mar. 1985, doi: 10.1109/TBME.1985.325532.
+
+[2]&emsp;R. Martinek et al., “Advanced Bioelectrical Signal Processing Methods: Past, Present and Future Approach—Part I: Cardiac Signals,” Sensors, vol. 21, no. 15, p. 5186, Jul. 2021, doi: 10.3390/s21155186.
+
+[3]&emsp;C. Ünsalan, M. E. Yücel, and H. D. Gürhan, Digital Signal Processing using Arm Cortex-M based Microcontrollers: Theory and Practice. Cambridge: ARM Education Media, 2018.
+
+[4]&emsp;B. B. Winter and J. G. Webster, “Driven-right-leg circuit design,” IEEE Trans Biomed Eng, vol. 30, no. 1, pp. 62–66, Jan. 1983, doi: 10.1109/tbme.1983.325168.
+
+[5]&emsp;J. Valvano, Embedded Systems: Introduction to ARM Cortex-M Microcontrollers, 5th edition. Jonathan Valvano, 2013.
+
+[6]&emsp;S. W. Smith, The Scientist and Engineer’s Guide to Digital Signal Processing, 2nd edition. San Diego, Calif: California technical Publishin, 1999.
