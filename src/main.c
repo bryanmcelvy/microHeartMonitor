@@ -100,32 +100,40 @@ Variable Declarations
 
 // FIFO Buffers
 enum {
-    DAQ_FIFO_CAPACITY = 3,                                 ///< capacity of DAQ's FIFO buffer
-    DAQ_BUFFER_SIZE = DAQ_FIFO_CAPACITY + 1,               ///< actual size of underlying array
+    DAQ_FIFO_CAP = 3,                                   ///< capacity of DAQ's FIFO buffer
+    DAQ_ARRAY_LEN = DAQ_FIFO_CAP + 1,                   ///< actual size of underlying array
 
-    QRS_BUFFER_SIZE = QRS_NUM_SAMP + 1,
+    QRS_FIFO_CAP = QRS_NUM_SAMP,                        ///< capacity of QRS detector's FIFO buffer
+    QRS_ARRAY_LEN = QRS_FIFO_CAP + 1,                   ///< actual size of underlying array
 
-    LCD_FIFO_CAPACITY = DAQ_FIFO_CAPACITY,                 ///< capacity of LCD's FIFO buffer
-    LCD_BUFFER_SIZE = LCD_FIFO_CAPACITY + 1                ///< actual size of underlying array
+    LCD_FIFO_1_CAP = DAQ_FIFO_CAP,                      ///< capacity of LCD's waveform FIFO buffer
+    LCD_ARRAY_1_LEN = LCD_FIFO_1_CAP + 1,               ///< actual size of underlying array
+
+    LCD_FIFO_2_CAP = 1,                                ///< capacity of LCD's heart rate FIFO buffer
+    LCD_ARRAY_2_LEN = LCD_FIFO_2_CAP + 1               ///< actual size of underlying array
 };
 
 static volatile Fifo_t DAQ_Fifo = 0;
-static volatile uint32_t DAQ_fifoBuffer[DAQ_BUFFER_SIZE] = { 0 };
+static volatile uint32_t DAQ_fifoBuffer[DAQ_ARRAY_LEN] = { 0 };
 
 static volatile Fifo_t QRS_Fifo = 0;
-static volatile uint32_t QRS_fifoBuffer[QRS_BUFFER_SIZE] = { 0 };
+static volatile uint32_t QRS_fifoBuffer[QRS_ARRAY_LEN] = { 0 };
 static volatile bool QRS_bufferIsFull = false;
 
-static volatile Fifo_t LCD_Fifo = 0;
-static volatile uint32_t LCD_fifoBuffer[LCD_BUFFER_SIZE] = { 0 };
+static volatile Fifo_t LCD_Fifo1 = 0;
+static volatile uint32_t LCD_fifoBuffer1[LCD_ARRAY_1_LEN] = { 0 };
+
+static volatile Fifo_t LCD_Fifo2 = 0;
+static volatile uint32_t LCD_fifoBuffer2[LCD_ARRAY_2_LEN] = { 0 };
+static volatile bool LCD_heartRateIsReady = false;
 
 // Processing Buffer
 // NOTE: using just one to avoid running out of RAM
-static float32_t QRS_processingBuffer[QRS_BUFFER_SIZE] = { 0 };
+static float32_t QRS_processingBuffer[QRS_ARRAY_LEN] = { 0 };
 
 // LCD Info
 enum {
-    LCD_TOP_LINE = (LCD_Y_MAX - 48),               ///< separates wavefrom from text
+    LCD_TOP_LINE = (LCD_Y_MAX - 24),               ///< separates wavefrom from text
 
     LCD_WAVE_NUM_Y = LCD_TOP_LINE,               ///< num. of y-vals available for plotting waveform
 
@@ -169,9 +177,10 @@ int main(void) {
     ISR_Enable(LCD_VECTOR_NUM);
 
     // Init. FIFOs
-    DAQ_Fifo = FIFO_Init(DAQ_fifoBuffer, DAQ_BUFFER_SIZE);
-    QRS_Fifo = FIFO_Init(QRS_fifoBuffer, QRS_BUFFER_SIZE);
-    LCD_Fifo = FIFO_Init(LCD_fifoBuffer, LCD_BUFFER_SIZE);
+    DAQ_Fifo = FIFO_Init(DAQ_fifoBuffer, DAQ_ARRAY_LEN);
+    QRS_Fifo = FIFO_Init(QRS_fifoBuffer, QRS_ARRAY_LEN);
+    LCD_Fifo1 = FIFO_Init(LCD_fifoBuffer1, LCD_ARRAY_1_LEN);
+    LCD_Fifo2 = FIFO_Init(LCD_fifoBuffer2, LCD_ARRAY_2_LEN);
 
     // Init./config. LCD
     LCD_Init();
@@ -179,6 +188,9 @@ int main(void) {
 
     LCD_setColor(LCD_WHITE);
     LCD_drawHoriLine(LCD_TOP_LINE, 1);
+
+    LCD_setCursor(28, 0);
+    LCD_writeStr("Heart Rate:      bpm");
 
     LCD_setColor(LCD_RED);
     LCD_setOutputMode(true);
@@ -211,8 +223,12 @@ int main(void) {
             Debug_Assert(isnan(heartRate_bpm) == false);
             Debug_Assert(isinf(heartRate_bpm) == false);
 
-            // Output heart rate (TODO: Write to LCD)
+            // Output heart rate to serial port
             Debug_WriteFloat(heartRate_bpm);
+
+            // Output heart rate to LCD
+            FIFO_Put(LCD_Fifo2, *((uint32_t *) &heartRate_bpm));
+            LCD_heartRateIsReady = true;
         }
     }
 }
@@ -251,8 +267,8 @@ static void Processing_Handler(void) {
         Debug_Assert(FIFO_isFull(QRS_Fifo) == false);
         FIFO_Put(QRS_Fifo, *((uint32_t *) (&sample)));
 
-        Debug_Assert(FIFO_isFull(LCD_Fifo) == false);
-        FIFO_Put(LCD_Fifo, *((uint32_t *) (&sample)));
+        Debug_Assert(FIFO_isFull(LCD_Fifo1) == false);
+        FIFO_Put(LCD_Fifo1, *((uint32_t *) (&sample)));
     }
 
     if(FIFO_isFull(QRS_Fifo)) {
@@ -268,14 +284,14 @@ static void LCD_Handler(void) {
     static uint16_t x = 0;
     static const float32_t maxVal = DAQ_LOOKUP_MAX * 2;
 
-    Debug_Assert(FIFO_isEmpty(LCD_Fifo) == false);
+    Debug_Assert(FIFO_isEmpty(LCD_Fifo1) == false);
 
     // NOTE: this `while` is only here in case a sample arrives while the QRS FIFO is being emptied
-    while(FIFO_isEmpty(LCD_Fifo) == false) {
+    while(FIFO_isEmpty(LCD_Fifo1) == false) {
 
         // get sample and apply 0.5-40 [Hz] bandpass filter
         float32_t sample;
-        *((uint32_t *) &sample) = FIFO_Get(LCD_Fifo);
+        *((uint32_t *) &sample) = FIFO_Get(LCD_Fifo1);
         sample = DAQ_BandpassFilter(sample);
 
         // remove previous sample and plot current sample
@@ -289,6 +305,21 @@ static void LCD_Handler(void) {
         // store y-value and update x
         LCD_prevSampleBuffer[x] = y;
         x = (x + 1) % LCD_X_MAX;
+    }
+
+    if(LCD_heartRateIsReady) {
+        volatile float32_t heartRate_bpm;
+        *((uint32_t *) &heartRate_bpm) = FIFO_Get(LCD_Fifo2);
+
+        if(((int32_t) heartRate_bpm) < 100) {
+            LCD_setCursor(28, 25);
+        }
+        else {
+            LCD_setCursor(28, 24);
+        }
+        LCD_writeFloat(heartRate_bpm);
+
+        LCD_heartRateIsReady = false;
     }
 }
 
