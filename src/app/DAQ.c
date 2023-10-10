@@ -29,6 +29,7 @@ Preprocessor Directives
 
 #include "arm_math_types.h"
 #include "dsp/filtering_functions.h"
+#include "tm4c123gh6pm.h"
 
 #include <math.h>
 #include <stdbool.h>

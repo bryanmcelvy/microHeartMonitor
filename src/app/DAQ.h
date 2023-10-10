@@ -24,8 +24,6 @@ Preprocessor Directives
 
 #include "arm_math_types.h"
 
-#include "tm4c123gh6pm.h"
-
 #include <stdbool.h>
 #include <stdint.h>
 

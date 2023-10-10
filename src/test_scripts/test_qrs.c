@@ -12,12 +12,14 @@ Preprocessor Directives
 #include "Debug.h"
 #include "QRS.h"
 
+#include "FIFO.h"
+
+#include "ISR.h"
 #include "PLL.h"
 
-#include "FIFO.h"
-#include "ISR.h"
-
 #include "arm_math_types.h"
+#include "tm4c123gh6pm.h"
+
 #include <math.h>
 #include <stdbool.h>
 #include <stdint.h>
