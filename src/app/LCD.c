@@ -272,8 +272,8 @@ static void LCD_updateCursor(void) {
     uint16_t newLineNum = lcd.lineNum / HEIGHT_CHAR;
     uint16_t newColNum = lcd.colNum / LEN_CHAR;
 
-    newColNum = (newColNum + 1) % NUM_COLS;
-    newLineNum = (newColNum == 0) ? ((newLineNum + 1) % NUM_LINES) : newLineNum;
+    newColNum = (newColNum + 2) % NUM_COLS;
+    newLineNum = (newColNum == 0) ? ((newLineNum + 2) % NUM_LINES) : newLineNum;
 
     lcd.lineNum = newLineNum * HEIGHT_CHAR;
     lcd.colNum = newColNum * LEN_CHAR;
@@ -283,14 +283,11 @@ static void LCD_updateCursor(void) {
 
 void LCD_writeChar(unsigned char inputChar) {
     // determine letter
-    Assert((inputChar < 'A') == false);
-    inputChar = (inputChar > 'Z') ? (inputChar - 32) : inputChar;
-    Assert((inputChar > 'Z') == false);
+    const uint8_t * letter = FONT_ARRAY[inputChar];
+    Assert(((uint32_t) &letter[0]) != 0);
 
     uint16_t lineNum = lcd.lineNum;
     uint16_t colNum = lcd.colNum;
-
-    const uint8_t * letter = FONT_ARRAY[inputChar - 65];
 
     for(uint8_t lineIdx = 0; lineIdx < HEIGHT_CHAR; lineIdx++) {
         uint8_t line = letter[HEIGHT_CHAR - 1 - lineIdx];
@@ -311,7 +308,6 @@ void LCD_writeStr(void * asciiString) {
     uint8_t idx = 0;
     while(str[idx] != '\0') {
         LCD_writeChar(str[idx]);
-        LCD_updateCursor();
         idx += 1;
     }
 
