@@ -258,14 +258,6 @@ static void LCD_plotSample(uint16_t x, uint16_t y, LCD_Color_t color);
 Writing
 *******************************************************************************/
 
-enum {
-    HEIGHT_CHAR = 8,
-    LEN_CHAR = 5,
-
-    NUM_LINES = 30,
-    NUM_COLS = 64
-};
-
 void LCD_setCursor(uint16_t lineNum, uint16_t colNum) {
     Assert(lineNum < NUM_LINES);
     Assert(colNum < NUM_COLS);

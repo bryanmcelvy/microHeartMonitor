@@ -183,6 +183,14 @@ Writing
 *******************************************************************************/
 /** @name Writing Functions */               /// @{
 
+enum {
+    HEIGHT_CHAR = 8,
+    LEN_CHAR = 5,
+
+    NUM_LINES = 30,
+    NUM_COLS = 64
+};
+
 /**
  * @brief               Set the cursor to line `x`, column `y`.
  *
