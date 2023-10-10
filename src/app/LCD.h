@@ -199,9 +199,17 @@ enum {
  */
 void LCD_setCursor(uint16_t lineNum, uint16_t colNum);
 
+// TODO: Write description
 void LCD_writeChar(unsigned char inputChar);
 
+// TODO: Write description
 void LCD_writeStr(void * asciiString);
+
+// TODO: Write description
+void LCD_writeInt(int32_t num);
+
+// TODO: Write description
+void LCD_writeFloat(float num);
 
 /// @} // Writing Functions
 

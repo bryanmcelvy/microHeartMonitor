@@ -318,4 +318,38 @@ void LCD_writeStr(void * asciiString) {
     return;
 }
 
+#define CONVERT_INT_TO_ASCII(X) ((unsigned char) (X + 0x30))
+
+void LCD_writeInt(int32_t num) {
+    //...
+    if(num < 10) {
+        LCD_writeChar(CONVERT_INT_TO_ASCII(num));
+    }
+    else {
+        int32_t nearestPowOf10 = 10;
+        while(num > (nearestPowOf10 * 10)) {
+            nearestPowOf10 *= 10;
+        }
+
+        while(nearestPowOf10 > 0) {
+            LCD_writeChar(CONVERT_INT_TO_ASCII(num / nearestPowOf10));
+            num %= nearestPowOf10;
+            nearestPowOf10 /= 10;
+        }
+    }
+}
+
+void LCD_writeFloat(float num) {
+    //...
+    int32_t intPart = num / (int32_t) 1;
+    LCD_writeInt(intPart);
+
+    LCD_writeChar('.');
+
+    int32_t decPart = (int32_t) ((num - intPart) * 10);
+    LCD_writeChar(CONVERT_INT_TO_ASCII(decPart));
+
+    return;
+}
+
 /** @} */               // lcd
