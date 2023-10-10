@@ -1,0 +1,25 @@
+// clang-format off
+
+/**
+ * @defgroup    middleware              Middleware
+ * @brief       High-level device driver modules.
+ *
+ * @details     These modules contain functions for interfacing with external devices/peripherals
+ *              via the use of low-level drivers.
+ *
+ * @{
+ */
+
+        /** @defgroup   debug           Debug
+         * Module for debugging functions, including serial output and assertions.
+         */
+
+        /** @defgroup   ili9341         ILI9341
+         * Functions for interfacing an ILI9341-based 240RGBx320 LCD via @ref spi.
+         */
+
+        /** @defgroup   led             LED
+         * Functions for driving light-emitting diodes (LEDs) via @ref gpio.
+         */
+
+/** @} */

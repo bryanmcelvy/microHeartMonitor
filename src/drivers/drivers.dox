@@ -1,0 +1,47 @@
+// clang-format off
+
+/**
+ * @defgroup    driver      Device Drivers
+ * @brief       Low level device driver modules.
+ *
+ * @details     These modules contain functions for interfacing with the TM4C123 microcontroller's
+ *              built-in peripherals.
+ *
+ * @{
+ */
+
+        /** @defgroup   adc             Analog-to-Digital Conversion (ADC)
+         * Functions for differential-input analog-to-digital conversion.
+         */
+
+        /** @defgroup   gpio            General-Purpose Input/Output (GPIO)
+         * Functions for using general-purpose input/output (GPIO) ports.
+         */
+
+        /** @defgroup   pll             Phase-Locked Loop (PLL)
+         * Function for initializing the phase-locked loop.
+         */
+
+        /** @defgroup   spi             Serial Peripheral Interface (SPI)
+         * Functions for SPI-based communication via SSI0 peripheral.
+         */
+
+        /** @defgroup   systick         System Tick (SysTick)
+         * Functions for timing and periodic interrupts via SysTick.
+         */
+
+        /** @defgroup   timer           Timer
+         * Functions for timing and periodic interrupts via general-purpose timer modules
+         * (GPTM).
+         */
+
+        /** @defgroup   uart            Universal Asynchronous Receiver/Transmitter (UART)
+         * Functions for UART-based communication.
+         */
+
+        /** @defgroup   isr             Interrupt Service Routines
+         * Functions for manipulating the interrupt vector table and setting up interrupt handlers via the NVIC.
+         */
+
+
+/** @} */

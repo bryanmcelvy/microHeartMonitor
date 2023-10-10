@@ -1,0 +1,23 @@
+// clang-format off
+
+/**
+ * @defgroup    app         Application Software
+ * @brief       Application-specific software modules.
+ *
+ * @details     These modules contain functions built specifically for this project's purposes.
+ * @{
+ */
+
+        /** @defgroup   daq             Data Acquisition (DAQ)
+         * Module for managing data acquisition (DAQ) functions.
+         */
+
+        /** @defgroup   lcd             Liquid Crystal Display (LCD)
+         * Module for displaying graphs on an LCD via the @ref ili9341 module.
+         */
+
+        /** @defgroup   qrs             QRS Detector
+         * Module for analyzing ECG data to determine heart rate.
+         */
+
+/** @} */

@@ -1,0 +1,17 @@
+// clang-format off
+
+/**
+ * @defgroup    common      Common
+ * Modules that are used by multiple layers and/or don't fit into any one layer.
+ * @{
+ */
+
+        /** @defgroup   fifo            FIFO Buffers
+         * Module for using the "first-in first-out (FIFO) buffer" data structure.
+         */
+
+        /** @defgroup   newassert       NewAssert
+         * Module for using a custom `assert` implementation.
+         */
+
+/** @} */
