@@ -39,7 +39,10 @@ Static Declarations
  * @param lineWidth     Width of the line. Should be a positive, odd number.
  * @param is_row        `true` for horizontal line, `false` for vertical line
  */
-inline static void LCD_drawLine(uint16_t center, uint16_t lineWidth, bool is_horizontal);
+static void LCD_drawLine(uint16_t center, uint16_t lineWidth, bool is_horizontal);
+
+/// @brief               Update the cursor for after writing text on the display.
+static void LCD_updateCursor(void);
 
 static struct {
     uint16_t x1;                 ///< starting x-value in range [0, x2]
@@ -152,7 +155,7 @@ void LCD_Fill(void) {
     return;
 }
 
-inline static void LCD_drawLine(uint16_t center, uint16_t lineWidth, bool is_horizontal) {
+static void LCD_drawLine(uint16_t center, uint16_t lineWidth, bool is_horizontal) {
     // ensure `lineWidth` is odd and positive
     lineWidth = (lineWidth > 0) ? lineWidth : 1;
     lineWidth = ((lineWidth % 2) == 0) ? lineWidth : (lineWidth - 1);
