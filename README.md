@@ -2,7 +2,9 @@
 
 An electrocardiogram-based heart rate monitor project implemented with a TM4C123 microcontroller and custom analog front-end circuitry. Please read below for more information on what exactly this project is and why I decided to do it!
 
+## Table of Contents
 - [μHeartMonitor: An ECG-based Heart Rate Monitor](#μheartmonitor-an-ecg-based-heart-rate-monitor)
+  - [Table of Contents](#table-of-contents)
   - [Brief Summary](#brief-summary)
     - [What is this?](#what-is-this)
     - [How does it work?](#how-does-it-work)
@@ -52,7 +54,7 @@ The project is primarily built using CMake, which generates Makefiles based on t
 ### Why'd you do all of this?
 Because I was interested in doing it and saw utility in doing so.
 
-[BACK TO TOP](#μheartmonitor-an-ecg-based-heart-rate-monitor)
+[🔼 BACK TO TOP 🔼](#μheartmonitor-an-ecg-based-heart-rate-monitor)
 
 ## Navigating the Repository
 <details>
@@ -93,7 +95,9 @@ Because I was interested in doing it and saw utility in doing so.
 ## Introduction 
 
 ### Background
-WIP
+Electrocardiography (or ECG) is a diagnostic technique in which the electrical activity of a patient's heart is captured as time series data (AKA the ECG signal) and analyzed to assess cardiovascular health. Specifically, the ECG signal can be analyzed to detect biomarkers for cardiovascular diseases like arrhythmia, myocardiocardial infarction, etc. which manifest as abnormalities in the ECG waveform. In clinical environments, ECG is performed using machines that implement the required hardware and software to acquire, process, and analyze the ECG signal. This must be done in such a way that preserves the important information within the signal while also maintaining the safety of the patient.
+
+The μHeartMonitor is an embedded system that implements the Pan-Tompkins algorithm for QRS detection to calculate a patient's heart rate from their ECG signal. The system consists of both hardware and software that cooperate to achieve this task while also visually outputting the waveform and heart rate to a liquid crystal display (LCD). The text below and the contents of this repository reflect the current progress made, but the end goal is to have the full system mounted on 1-2 printed circuit boards (PCBs) and situated inside an insulated enclosure.
 
 ### Motivation
 My primary motivations for doing this project are:
@@ -107,7 +111,6 @@ My primary motivations for doing this project are:
 
 I also hope that anyone interested in any of the fields of knowledge relevant to this project (biomedical/electrical/computer/software engineering) will find this helpful to look at or even use in their own projects.
 
-
 ### Disclaimer
 This project is neither a product nor a medical device (by any legal definition, anyway), and is not intended to be either or both of things now or in the future. It is simply a resume-building passion project.
 
@@ -117,23 +120,24 @@ WIP
 * Electrocardiogram/Electrocardiography (ECG)
 * Heart rate monitor
 
-[BACK TO TOP](#μheartmonitor-an-ecg-based-heart-rate-monitor)
+[🔼 BACK TO TOP 🔼](#μheartmonitor-an-ecg-based-heart-rate-monitor)
 
 ## Materials & Methods
 
 ### Hardware
 
 <details>
-<summary>Click to see overall circuit</summary>
-<img src="docs/circuit_overall.png" width="500" />
+<summary> ❗️ Click to see overall circuit ❗️ </summary>
+<img src="docs/circuit_overall.png" width="1000" />
 </details><br>
 
 The hardware is divided into three modules: the analog-front end (AFE), the optical isolation circuit, and the microcontroller/display circuit.
 
 #### Analog-Front End
 <details>
-<summary>Click to see analog-front end circuit</summary>
-<img src="docs/circuit_afe.png" width="500" />
+<summary> ❗️ Click to see analog-front end circuit schematic❗️</summary>
+<img src="docs/circuit_afe.png" width="1000" />
+![Alt text](image.png)
 </details><br>
 
 The AFE consists of an instrumentation amplifier with a gain of $100$; a 2nd-order Sallen-Key high-pass filter with a gain of $1$ and a cutoff frequency of $0.5$ $Hz$; and a 2nd-order Sallen-Key low-pass filter with a passband gain of $10$ and a cutoff frequency of $40$ $Hz$.
@@ -141,19 +145,19 @@ The AFE consists of an instrumentation amplifier with a gain of $100$; a 2nd-ord
 #### Optical Isolation Circuitry
 
 <details>
-<summary>Click to see optical isolation circuit</summary>
-<img src="docs/circuit_isolation.png" width="500" />
+<summary> ❗️ Click to see optical isolation circuit schematic❗️ </summary>
+<img src="docs/circuit_isolation.png" width="1000" />
 </details><br>
 
 The optical isolation circuit uses a linear optocoupler to transmit the ECG signal from the analog-front end circuit to the microcontroller circuit. This circuitry serves as a safety measure against power surges and other potential hazards that can occur as a result of connecting someone directly to mains power (for example, death). 
 
-It also has three resistors on the AFE-side that effectively shift the signal from the projected range of ±$5.5$ $V$ to the range $[0, 3.5)$ $V$, which is necessary for both the optocoupler and the microcontroller's built-in analog-to-digital converter (ADC) circuitry.
+It also has three resistors on the AFE-side that effectively shift the signal from the projected output range of ±$5.5$ $V$ to the range $[0, 3.5)$ $V$, which is necessary for both the optocoupler and the microcontroller's built-in analog-to-digital converter (ADC) circuitry.
 
 #### Microcontroller Circuit
 
 <details>
-<summary>Click to see microcontroller circuit</summary>
-<img src="docs/circuit_mcu.png" width="500" />
+<summary> ❗️ Click to see microcontroller circuit schematic❗️ </summary>
+<img src="docs/circuit_mcu.png" width="1000" />
 </details><br>
 
 The microcontroller circuit currently consists of a TM4C123 microcontroller mounted on a LaunchPad evaluation kit, and an MSP2807 liquid crystal display (LCD).
@@ -163,7 +167,7 @@ The microcontroller circuit currently consists of a TM4C123 microcontroller moun
 The call graph and data flow graph (visible through the dropdowns below) visually represent the software architecture.
 
 <details>
-<summary> Click to see call graph </summary>
+<summary> ❗️ Click to see call graph ❗️ </summary>
 <img src="docs/call.png" width="500" />
 
 This graph shows which modules communicate with (or "call") each other. Each arrow points from the "caller" to the "callee".
@@ -172,7 +176,7 @@ It also somewhat doubles as an `#include` dependency graph.
 </details><br>
 
 <details>
-<summary> Click to see data flow graph </summary>
+<summary> ❗️ Click to see data flow graph ❗️ </summary>
 <img src="docs/data_flow.png" width="2000" />
 
 This graph shows the flow of information from the patient to the LCD (and also the laptop).
@@ -195,12 +199,12 @@ This "layer" includes any and all modules that were not written (or at least hea
 #### Common
 The "common" modules are general-purpose modules that don't necessarily fit into the above categories/layers. This category includes the "Fifo" module, which contains a ring buffer-based implementation of the FIFO buffer (AKA "queue") data structure; and "NewAssert", which is essentially just an implementation of the `assert` macro causes a breakpoint (and also doesn't cause a linker error like the built-in one does for some reason).
 
-[BACK TO TOP](#μheartmonitor-an-ecg-based-heart-rate-monitor)
+[🔼 BACK TO TOP 🔼](#μheartmonitor-an-ecg-based-heart-rate-monitor)
 
 ## Current Results
 WIP
 
-[BACK TO TOP](#μheartmonitor-an-ecg-based-heart-rate-monitor)
+[🔼 BACK TO TOP 🔼](#μheartmonitor-an-ecg-based-heart-rate-monitor)
 
 ## To-do
 ### Hardware
@@ -222,7 +226,7 @@ WIP
 * Move CMSIS-DSP filters from DAQ and QRS modules to their own module
 * Expand the automated test suite.
 
-[BACK TO TOP](#μheartmonitor-an-ecg-based-heart-rate-monitor)
+[🔼 BACK TO TOP 🔼](#μheartmonitor-an-ecg-based-heart-rate-monitor)
 
 ## Build Instructions
 ### Hardware
@@ -231,7 +235,7 @@ WIP
 ### Software
 WIP
 
-[BACK TO TOP](#μheartmonitor-an-ecg-based-heart-rate-monitor)
+[🔼 BACK TO TOP 🔼](#μheartmonitor-an-ecg-based-heart-rate-monitor)
 
 ## References
 
@@ -248,5 +252,5 @@ WIP
 [6]&emsp;S. W. Smith, The Scientist and Engineer’s Guide to Digital Signal Processing, 2nd edition. San Diego, Calif: California technical Publishin, 1999.
 
 
-[BACK TO TOP](#μheartmonitor-an-ecg-based-heart-rate-monitor)
+[🔼 BACK TO TOP 🔼](#μheartmonitor-an-ecg-based-heart-rate-monitor)
 
