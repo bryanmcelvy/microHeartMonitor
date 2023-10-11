@@ -3,9 +3,12 @@
 An electrocardiogram-based heart rate monitor project implemented with a TM4C123 microcontroller and custom analog front-end circuitry. Please read below for more information on what exactly this project is and why I decided to do it!
 
 ## Table of Contents
+<details>
+<summary> ❗️ Click to see table of contents ❗️ </summary>
+
 - [μHeartMonitor: An ECG-based Heart Rate Monitor](#μheartmonitor-an-ecg-based-heart-rate-monitor)
   - [Table of Contents](#table-of-contents)
-  - [Brief Summary](#brief-summary)
+  - [Summary](#summary)
     - [What is this?](#what-is-this)
     - [How does it work?](#how-does-it-work)
     - [How is this repository organized?](#how-is-this-repository-organized)
@@ -36,7 +39,9 @@ An electrocardiogram-based heart rate monitor project implemented with a TM4C123
     - [Software](#software-2)
   - [References](#references)
 
-## Brief Summary
+</details>
+
+## Summary
 
 ### What is this?
 μHeartMonitor is a personal project that I made to increase my experience in embedded software engineering and apply my previous coursework in biomedical engineering. Essentially, it's a fully-functional, ECG-based heart rate monitor that runs on the popular Tiva LaunchPad evaluation kit for the TM4C123 microcontroller.
@@ -58,7 +63,7 @@ Because I was interested in doing it and saw utility in doing so.
 
 ## Navigating the Repository
 <details>
-<summary> Click to see navigation </summary>
+<summary> ❗️ Click to see navigation ❗️ </summary>
 
 * [`/cmake_files`](cmake_files) - CMake-specific files for generating the build system.
 * [`/docs`](docs) - Documentation for both the project itself and resources used in creating it.
