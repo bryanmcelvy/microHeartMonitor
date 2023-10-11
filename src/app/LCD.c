@@ -57,7 +57,7 @@ static struct {
     bool isInit;                 ///< if `true`, LCD has been initialized
 } lcd = { 0 };
 
-extern const uint8_t * const FONT_ARRAY[26];
+extern const uint8_t * const FONT_ARRAY[128];
 
 /******************************************************************************
 Initialization

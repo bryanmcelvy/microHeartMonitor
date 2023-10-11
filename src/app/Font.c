@@ -748,7 +748,7 @@ static const uint8_t FONT_LOWER_Z[8] = {
 Font Array
 *******************************************************************************/
 
-extern const uint8_t * const FONT_ARRAY[128] = {
+const uint8_t * const FONT_ARRAY[128] = {
     0,
     0,
     0,
