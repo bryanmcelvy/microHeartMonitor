@@ -27,4 +27,4 @@ target_include_directories( ${MAIN_TARGET}
                                 ${CMSIS_DIRS}
                             )
 target_link_libraries(${MAIN_TARGET} Startup DAQ Debug LCD QRS PLL)
-target_link_options(test_daq.elf PRIVATE "-Wl,-Map=main.map")
+target_link_options(${MAIN_TARGET} PRIVATE "-Wl,-Map=main.map,--cref")
