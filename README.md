@@ -3,7 +3,12 @@
 An electrocardiogram-based heart rate monitor project implemented with a TM4C123 microcontroller and custom analog front-end circuitry. Please read below for more information on what exactly this project is and why I decided to do it!
 
 - [μHeartMonitor: An ECG-based Heart Rate Monitor](#μheartmonitor-an-ecg-based-heart-rate-monitor)
-  - [Navigation](#navigation)
+  - [Brief Summary](#brief-summary)
+    - [What is this?](#what-is-this)
+    - [How does it work?](#how-does-it-work)
+    - [How is this repository organized?](#how-is-this-repository-organized)
+    - [Why'd you do all of this?](#whyd-you-do-all-of-this)
+  - [Navigating the Repository](#navigating-the-repository)
   - [Introduction](#introduction)
     - [Background](#background)
     - [Motivation](#motivation)
@@ -29,7 +34,27 @@ An electrocardiogram-based heart rate monitor project implemented with a TM4C123
     - [Software](#software-2)
   - [References](#references)
 
-## Navigation
+## Brief Summary
+
+### What is this?
+μHeartMonitor is a personal project that I made to increase my experience in embedded software engineering and apply my previous coursework in biomedical engineering. Essentially, it's a fully-functional, ECG-based heart rate monitor that runs on the popular Tiva LaunchPad evaluation kit for the TM4C123 microcontroller.
+
+### How does it work?
+An electrocardiogram (or ECG) is a plot of the electrical activity of the heart over time. The hardware in this project senses a patient's ECG signal and transmits it to the microcontroller circuit. The microcontroller receives, processes, and analyzes this signal to determine the average heart rate throughout the previous 5 seconds of monitoring time. It also displays both the waveform and the heart rate to a liquid crystal display (LCD).
+
+### How is this repository organized?
+The next section of the `README` goes into a bit more detail, but the vast majority of the project-specific source code is within the [`/src`](/src) directory, which hosts different modules (i.e. pairs of `*.c` and `*.h` files) that each implement a particular aspect of the project. The primary code is located in [`main.c`](/src/main.c). 
+
+The [`/docs`](/docs/) directory hosts the project's [reference manual](/docs/refman.pdf), as well as a few of the diagrams explained later in `README` and external resources.
+
+The project is primarily built using CMake, which generates Makefiles based on the commands in each of the different `CMakeLists.txt` files present in many of the directories.
+
+### Why'd you do all of this?
+Because I was interested in doing it and saw utility in doing so.
+
+[BACK TO TOP](#μheartmonitor-an-ecg-based-heart-rate-monitor)
+
+## Navigating the Repository
 <details>
 <summary> Click to see navigation </summary>
 
