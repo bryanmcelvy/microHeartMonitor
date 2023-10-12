@@ -311,16 +311,14 @@ static void LCD_Handler(void) {
         volatile float32_t heartRate_bpm;
         *((uint32_t *) &heartRate_bpm) = FIFO_Get(LCD_Fifo2);
 
-        if(((int32_t) heartRate_bpm) < 100) {
-            LCD_setCursor(28, 25);
-        }
-        else {
-            LCD_setCursor(28, 24);
-        }
+        LCD_setCursor(28, 24);
+        LCD_writeStr((void *) "     ");               // 5 spaces
+
+        LCD_setCursor(28, 24);
         LCD_writeFloat(heartRate_bpm);
 
         LCD_heartRateIsReady = false;
     }
 }
 
-/** @} */               // main
+/** @} */                                             // main
