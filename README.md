@@ -24,7 +24,7 @@ An electrocardiogram-based heart rate monitor project implemented with a TM4C123
       - [Analog-Front End](#analog-front-end)
       - [Optical Isolation Circuitry](#optical-isolation-circuitry)
       - [Microcontroller Circuit](#microcontroller-circuit)
-    - [Software](#software)
+    - [Software Architecture](#software-architecture)
       - [Device Drivers](#device-drivers)
       - [Middleware](#middleware)
       - [Application-specific Software](#application-specific-software)
@@ -33,10 +33,10 @@ An electrocardiogram-based heart rate monitor project implemented with a TM4C123
   - [Current Results](#current-results)
   - [To-do](#to-do)
     - [Hardware](#hardware-1)
-    - [Software](#software-1)
+    - [Software](#software)
   - [Build Instructions](#build-instructions)
     - [Hardware](#hardware-2)
-    - [Software](#software-2)
+    - [Software](#software-1)
   - [References](#references)
 
 </details>
@@ -52,7 +52,7 @@ An electrocardiogram (or ECG) is a plot of the electrical activity of the heart 
 ### How is this repository organized?
 The next section of the `README` goes into a bit more detail, but the vast majority of the project-specific source code is within the [`/src`](/src) directory, which hosts different modules (i.e. pairs of `*.c` and `*.h` files) that each implement a particular aspect of the project. The primary code is located in [`main.c`](/src/main.c). 
 
-The [`/docs`](/docs/) directory hosts the project's [reference manual](/docs/refman.pdf), as well as a few of the diagrams explained later in `README` and external resources.
+The [`/docs`](/docs/) directory hosts the project's [reference manual](/docs/refman.pdf), the diagrams explained later in this `README`, and external resources.
 
 The project is primarily built using CMake, which generates Makefiles based on the commands in each of the different `CMakeLists.txt` files present in many of the directories.
 
@@ -167,7 +167,7 @@ It also has three resistors on the AFE-side that effectively shift the signal fr
 
 The microcontroller circuit currently consists of a TM4C123 microcontroller mounted on a LaunchPad evaluation kit, and an MSP2807 liquid crystal display (LCD).
 
-### Software
+### Software Architecture
 
 The call graph and data flow graph (visible through the dropdowns below) visually represent the software architecture.
 
