@@ -13,3 +13,4 @@ add_library(CMSIS-DSP-f32 OBJECT
                 )
 
 target_include_directories(CMSIS-DSP-f32 PUBLIC ${CMSIS_DIRS})
+target_compile_definitions(CMSIS-DSP-f32 PUBLIC ARM_MATH_LOOPUNROLL)
