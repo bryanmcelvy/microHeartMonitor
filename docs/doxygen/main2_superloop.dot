@@ -1,0 +1,58 @@
+digraph {
+    newrank = true;
+    rankdir = TB;
+    fontname = monospace;
+    compound = true;
+    splines = false;
+    node [shape = rect;];
+    
+    subgraph cluster_suploop {
+        label = "Superloop";
+        style = dashed;
+        color = red;
+        
+        suploop_start [label = "Initialization";shape = ellipse;];
+        suploop_check_qrs [label = "Check QRS buffer flag";];
+        suploop_qrs_status [label = "Is the QRS\nbuffer full?";shape = diamond;];
+        suploop_disable_proc [label = "Disable\nProcessing_Handler";];
+        suploop_flush_fifo [label = "Flush QRS FIFO\ninto processing buffer";];
+        suploop_enable_proc [label = "Enable\nProcessing_Handler";];
+        suploop_qrs_detect [label = "Run QRS detection";];
+        suploop_put_in_lcd [label = "Put heart rate\nin LCD FIFO";];
+        
+        // connections
+        suploop_start -> suploop_check_qrs -> suploop_qrs_status;
+        suploop_qrs_status:s -> suploop_disable_proc:n [label = "Yes";];
+        suploop_disable_proc -> suploop_flush_fifo -> suploop_enable_proc;
+        suploop_enable_proc -> suploop_qrs_detect -> suploop_put_in_lcd;
+        
+        // invisible nodes
+        suploop_invis1 [label = "";shape = none;width = 0;height = 0;];
+        subgraph {
+            rank = same;
+            suploop_invis1;
+            suploop_check_qrs;
+        }
+        
+        suploop_invis2 [label = "";shape = none;width = 0;height = 0;];
+        subgraph {
+            rank = same;
+            suploop_invis2;
+            suploop_qrs_status;
+        }
+        
+        suploop_invis3 [label = "";shape = none;width = 0;height = 0;];
+        subgraph {
+            rank = same;
+            suploop_invis3;
+            suploop_put_in_lcd;
+        }
+        
+        // connections
+        suploop_invis1:e -> suploop_check_qrs:w [constraint = false;];
+        suploop_invis1:e -> suploop_invis2:e [arrowhead = none;];
+        suploop_invis2:e -> suploop_qrs_status:w [arrowhead = none; constraint = false; label = "No";];
+        suploop_invis3:e -> suploop_put_in_lcd:w [arrowhead = none; constraint = false;];
+        suploop_invis3:e -> suploop_invis2:e;
+    }
+}

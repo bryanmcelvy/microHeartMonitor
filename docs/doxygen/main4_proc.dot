@@ -1,0 +1,95 @@
+digraph {
+    newrank = true;
+    rankdir = TB;
+    fontname = monospace;
+    compound = true;
+    splines = false;
+    node [shape = rect;];
+    
+    subgraph cluster_proc {
+        label = "Processing_Handler";
+        style = dashed;
+        color = red;
+        
+        proc_start [label = "DAQ_Handler";shape = ellipse;];
+        
+        proc_check_daq [label = "Check DAQ\nFIFO Buffer";];
+        proc_daq_status [label = "Empty?";shape = diamond;];
+        proc_get_sample [label = "Get sample from\nDAQ FIFO buffer";];
+        proc_run_mean [label = "Subtract\nrunning mean";];
+        proc_notch_filt [label = "Apply 60 Hz\nnotch filter";];
+        proc_put_in_qrs [label = "Put in QRS\nFIFO buffer";];
+        proc_put_in_lcd [label = "Put in LCD\nFIFO buffer";];
+        proc_check_qrs [label = "Check QRS\nFIFO buffer";];
+        proc_qrs_status [label = "Full?";shape = diamond;];
+        proc_set_flag [label = "Set QRS\nbuffer flag";];
+        proc_superloop_end [label = "Superloop";shape = ellipse;];
+        proc_trig_lcd [label = "Trigger\nLCD_Handler";];
+        proc_lcd_end [label = "LCD_Handler";shape = ellipse;];
+        
+        subgraph {
+            rank = same;
+            proc_get_sample;
+            proc_check_qrs;
+        }
+        
+        // connections
+        proc_start -> proc_check_daq -> proc_daq_status;
+        
+        proc_get_sample -> proc_run_mean -> proc_notch_filt;
+        proc_notch_filt:s -> proc_put_in_qrs:n;
+        proc_put_in_qrs:s -> proc_put_in_lcd;
+        
+        proc_check_qrs -> proc_qrs_status;
+        // proc_qrs_status -> proc_set_flag [label = "Yes";];
+        proc_set_flag -> proc_superloop_end;
+        
+        // proc_qrs_status -> proc_trig_lcd [label = "No";];
+        proc_trig_lcd -> proc_lcd_end;
+        
+        // invisible nodes
+        subgraph {
+            rank = same;
+            proc_invis1 [shape = none;label = "";height = 0;width = 0;];
+            proc_invis2 [shape = none;label = "";height = 0;width = 0;];
+            
+            proc_invis1:e -> proc_daq_status:w [arrowhead = none; label = "No";];
+            proc_daq_status:e -> proc_invis2:w [arrowhead = none; label = "Yes";];
+        }
+        
+        proc_invis1:e -> proc_get_sample:n;
+        proc_invis2:w -> proc_check_qrs:n;
+        
+        subgraph {
+            rank = same;
+            proc_invis3 [shape = none;label = "";height = 0;width = 0;];
+            proc_invis3:e -> proc_check_daq:w [constraint = false; constraint = false;];
+        }
+        
+        subgraph {
+            rank = same;
+            proc_invis4 [shape = none;label = "";height = 0;width = 0;];
+            proc_invis4:e -> proc_get_sample:w [arrowhead = none; style = invis; constraint = false;];
+        }
+        
+        subgraph {
+            rank = same;
+            proc_invis5 [shape = none;label = "";height = 0;width = 0;];
+            proc_invis5:e -> proc_put_in_lcd:w [arrowhead = none; constraint = false;];
+        }
+        
+        proc_invis3 -> proc_invis4 -> proc_invis5 [arrowhead = none;];
+        
+        subgraph {
+            rank = same;
+            proc_invis6 [label = "     ";shape = none;width = 0;];
+            proc_invis7 [label = "             ";shape = none;width = 0;];
+            proc_run_mean -> proc_invis6 [style = invis;];
+            proc_invis6:e -> proc_qrs_status:w [arrowhead = none; label = "Yes";];
+            proc_qrs_status:e -> proc_invis7:w [arrowhead = none; label = "No";];
+        }
+        
+        proc_invis6:e -> proc_set_flag;
+        proc_invis7:w -> proc_trig_lcd:n;
+    }
+}

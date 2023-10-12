@@ -63,6 +63,7 @@ enum {
  *
  * @see     DAQ_Init(), Processing_Handler()
  *
+ * @image latex main3_daq.png
  * @callgraph
  */
 static void DAQ_Handler(void);
@@ -77,6 +78,7 @@ static void DAQ_Handler(void);
  *
  * @see     DAQ_Handler(), main(), LCD_Handler()
  *
+ * @image latex main4_proc.png
  * @callgraph
  */
 static void Processing_Handler(void);
@@ -153,7 +155,8 @@ Function Definitions
  * @details         Moves the interrupt vector table to RAM; configures and
  *                  enables the ISRs; initializes all modules and static variables;
  *                  and performs QRS detection once the buffer has been filled.
- *
+ * @image latex main1_init.png "Flowchart for the initialization phase."
+ * @image latex main2_superloop.png "Flowchart for the superloop."
  * @callgraph
  */
 int main(void) {

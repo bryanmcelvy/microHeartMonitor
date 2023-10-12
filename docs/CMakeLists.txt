@@ -17,9 +17,14 @@ if(DOXYGEN_FOUND AND LATEX_FOUND)
                         COMMAND ${CMAKE_COMMAND} -E rm -rf ${LATEX_OUTPUT_DIR}
                         
                         # generate call graph and pdf documentation
-                        COMMAND dot -Tpng doxygen_files/call.dot -o call.png
-                        COMMAND dot -Tpng doxygen_files/data_flow.dot -o data_flow.png
-                        COMMAND ${CMAKE_COMMAND} -E chdir ${PATH_DOCS}/doxygen_files doxygen
+                        COMMAND dot -Tpng ${PATH_DOXYGEN}/call.dot -o call.png
+                        COMMAND dot -Tpng ${PATH_DOXYGEN}/data_flow.dot -o data_flow.png
+                        COMMAND dot -Tpng ${PATH_DOXYGEN}/main1_init.dot -o main1_init.png
+                        COMMAND dot -Tpng ${PATH_DOXYGEN}/main2_superloop.dot -o main2_superloop.png
+                        COMMAND dot -Tpng ${PATH_DOXYGEN}/main3_daq.dot -o main3_daq.png
+                        COMMAND dot -Tpng ${PATH_DOXYGEN}/main4_proc.dot -o main4_proc.png
+                        COMMAND dot -Tpng ${PATH_DOXYGEN}/qrs_preproc.dot -o qrs_preproc.png
+                        COMMAND ${CMAKE_COMMAND} -E chdir ${PATH_DOXYGEN} doxygen
                         COMMAND ${CMAKE_COMMAND} -E chdir ${LATEX_OUTPUT_DIR} make -s
 
                         # copy new pdf and reflog to `docs` directory

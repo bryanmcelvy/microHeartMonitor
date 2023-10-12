@@ -1,0 +1,26 @@
+digraph {
+    newrank = true;
+    rankdir = TB;
+    fontname = monospace;
+    compound = true;
+    splines = false;
+    node [shape = rect;];
+    
+    subgraph cluster_daq {
+        label = "DAQ_Handler";
+        style = dashed;
+        color = red;
+        
+        daq_start [label = "Timer Trigger\n@ 200 Hz";shape = ellipse;];
+        daq_read [label = "Read sample from ADC";];
+        daq_convert [label = "Convert to [mV]";];
+        daq_put_in_proc [label = "Place in DAQ\nFIFO buffer";];
+        daq_trig_proc [label = "Trigger\nProcessing_Handler";];
+        daq_acknowledge [label = "Acknowledge\nADC interrupt";];
+        daq_end [label = "Processing_Handler";shape = ellipse;];
+        
+        // connections
+        daq_start -> daq_read -> daq_convert;
+        daq_convert -> daq_put_in_proc -> daq_trig_proc -> daq_acknowledge -> daq_end;
+    }
+}

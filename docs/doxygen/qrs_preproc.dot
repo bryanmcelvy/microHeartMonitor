@@ -1,0 +1,16 @@
+digraph {
+    node [shape = rect;];
+    rankdir = LR;
+    xn [label = "x[n]";shape = none;];
+    yn [label = "y[n]";shape = none;];
+    subgraph cluster_preprocess {
+        label = "Preprocessing";
+        style = dashed;
+        bpf [label = "Bandpass Filter";];
+        der [label = "Derivative Filter";];
+        sqr [label = "Square";];
+        ma [label = "Moving Average Filter";];
+    }
+    
+    xn -> bpf -> der -> sqr -> ma -> yn;
+}

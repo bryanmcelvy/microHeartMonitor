@@ -1,0 +1,33 @@
+digraph {
+    newrank = true;
+    rankdir = TB;
+    fontname = monospace;
+    compound = true;
+    splines = false;
+    node [shape = rect;];
+    
+    subgraph cluster_init {
+        label = "Initialization";
+        style = dashed;
+        color = red;
+        
+        init_start [label = "Start";shape = ellipse;];
+        init_pll [label = "Initialize PLL";];
+        init_debug [label = "Initialize\nDebug module";];
+        init_disable_isrs [label = "Disable\nall interrupts";];
+        init_move_table [label = "Move interrupt vector\ntable to SRAM";];
+        init_isrs [label = "Configure/enable ISRs";];
+        init_fifo [label = "Initialize\nFIFO buffers";];
+        init_lcd [label = "Initialize/configure\nLCD module";];
+        init_qrs [label = "Initialize\nQRS module";];
+        init_daq [label = "Initialize\nDAQ module";];
+        init_enable_isrs [label = "Enable\nall interrupts";];
+        init_end [label = "Superloop";shape = ellipse;];
+        
+        // connections
+        init_start -> init_pll -> init_debug -> init_disable_isrs;
+        init_disable_isrs -> init_move_table -> init_isrs;
+        init_isrs -> init_fifo -> init_lcd -> init_qrs -> init_daq;
+        init_daq -> init_enable_isrs -> init_end;
+    }
+}

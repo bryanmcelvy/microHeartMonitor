@@ -191,24 +191,7 @@ void QRS_Preprocess(const float32_t xn[], float32_t yn[]) {
      * algorithm, but the high-pass and low-pass filters have been replaced with ones generated
      * using Scipy.
      *
-     * @dot
-     *    digraph {
-     *        node [shape = rect;];
-     *        rankdir = LR;
-     *        xn [label = "x[n]";shape = none;];
-     *        yn [label = "y[n]";shape = none;];
-     *        subgraph cluster_preprocess {
-     *            label = "Preprocessing";
-     *            style = dashed;
-     *            bpf [label = "Bandpass Filter";];
-     *            der [label = "Derivative Filter";];
-     *            sqr [label = "Square";];
-     *            ma [label = "Moving Average Filter";];
-     *        }
-     *
-     *        xn -> bpf -> der -> sqr -> ma -> yn;
-     *    }
-     * @enddot
+     * @image latex qrs_preproc.png
      */
 
     // copy samples from input buffer `xn` to output buffer `yn`
