@@ -13,9 +13,9 @@
 #include "arm_math_types.h"
 #include <stdbool.h>
 
-#define QRS_SAMP_FREQ       ((uint32_t) 200)                  // [Hz]
+#define QRS_SAMP_FREQ       ((uint32_t) 200)                     // [Hz]
 #define QRS_SAMP_PERIOD_SEC ((float32_t) 0.005f)
-#define QRS_NUM_SAMP        ((uint16_t) (1200))               // num. samples to process
+#define QRS_NUM_SAMP        ((uint16_t) (1 << 11))               // num. samples to process
 
 /**
  * @brief                   Initialize the QRS detector.
@@ -52,9 +52,9 @@ void QRS_Preprocess(const float32_t xn[], float32_t yn[]);
  * @post                    Certain information (signal/noise levels, thresholds, etc.) is retained
  *                          between calls and used to improve further detection.
  *
- * @bug                     The current implementation only processes one block at a time and
+ * @warning                 The current implementation only processes one block at a time and
  *                          discards the data immediately after, so peaks that are cut off between
- *                          one block and another are not being counted.
+ *                          one block and another might not be being counted.
  *
  * @see                     QRS_Preprocess()
  */

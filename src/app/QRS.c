@@ -34,7 +34,7 @@ Preprocessor Directives
 #include <stdbool.h>
 #include <stdint.h>
 
-#define QRS_NUM_FID_MARKS               20
+#define QRS_NUM_FID_MARKS               40
 
 #define FLOAT_COMPARE_TOLERANCE         (float32_t)(1E-5f)
 #define IS_GREATER(X, Y)                (bool) ((X - Y) > FLOAT_COMPARE_TOLERANCE)
