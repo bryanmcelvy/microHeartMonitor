@@ -341,6 +341,9 @@ void LCD_writeInt(int32_t num) {
 void LCD_writeFloat(float num) {
     //...
     int32_t intPart = num / (int32_t) 1;
+    if(intPart < 100) {
+        LCD_writeChar(' ');
+    }
     LCD_writeInt(intPart);
 
     LCD_writeChar('.');
