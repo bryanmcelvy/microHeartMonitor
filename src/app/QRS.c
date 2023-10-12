@@ -159,7 +159,6 @@ static float32_t stateBuffer_bandPass[STATE_BUFF_SIZE_BANDPASS] = { 0 };
 static const IIR_Filt_t bandpassFiltStruct = { NUM_STAGES_BANDPASS, stateBuffer_bandPass, COEFF_BANDPASS };
 static const IIR_Filt_t * const bandpassFilter = &bandpassFiltStruct;
 
-
 static float32_t stateBuffer_DerFilt[STATE_BUFF_SIZE_DERFILT] = { 0 };
 static const FIR_Filt_t derivativeFiltStruct = { NUM_COEFF_DERFILT, stateBuffer_DerFilt, COEFF_DERFILT };
 static const FIR_Filt_t * const derivativeFilter = &derivativeFiltStruct;
@@ -191,6 +190,25 @@ void QRS_Preprocess(const float32_t xn[], float32_t yn[]) {
      * This function uses the same overall preprocessing pipeline as the original Pan-Tompkins
      * algorithm, but the high-pass and low-pass filters have been replaced with ones generated
      * using Scipy.
+     *
+     * @dot
+     *    digraph {
+     *        node [shape = rect;];
+     *        rankdir = LR;
+     *        xn [label = "x[n]";shape = none;];
+     *        yn [label = "y[n]";shape = none;];
+     *        subgraph cluster_preprocess {
+     *            label = "Preprocessing";
+     *            style = dashed;
+     *            bpf [label = "Bandpass Filter";];
+     *            der [label = "Derivative Filter";];
+     *            sqr [label = "Square";];
+     *            ma [label = "Moving Average Filter";];
+     *        }
+     *
+     *        xn -> bpf -> der -> sqr -> ma -> yn;
+     *    }
+     * @enddot
      */
 
     // copy samples from input buffer `xn` to output buffer `yn`
@@ -352,6 +370,9 @@ static float32_t QRS_updateLevel(const float32_t peakAmplitude, float32_t level)
      * \f$
      * signalLevel_1    = f(peakAmplitude, signalLevel_0)
      *                  = \frac{1}{8}peakAmplitude + \frac{7}{8}signalLevel_0
+     * \f$
+     *
+     * \f$
      * noiseLevel_1     = f(peakAmplitude, noiseLevel_0)
      *                  = \frac{1}{8}peakAmplitude + \frac{7}{8}noiseLevel_0
      * \f$
