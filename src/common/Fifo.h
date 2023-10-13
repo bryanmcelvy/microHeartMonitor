@@ -63,6 +63,13 @@ Basic Operations
  *
  * @post                If the FIFO is not full, `val` is placed in the buffer.
  *                      If the FIFO is full, nothing happens.
+ *
+ * @bug                 To use `float`s (AKA `float32_t`), type-punning is necessary.
+ * @code
+ * // type-punning example
+ * float num = 4.252603;
+ * FIFO_Put(fifo, *((uint32_t *) &num));
+ * @endcode
  */
 void FIFO_Put(volatile Fifo_t fifo, const uint32_t val);
 
@@ -74,6 +81,13 @@ void FIFO_Put(volatile Fifo_t fifo, const uint32_t val);
  *
  * @post                If the FIFO is not empty, the next value is return
  *                      If the FIFO is empty, `0` is returned.
+ *
+ * @bug                 To use `float`s (AKA `float32_t`), type-punning is necessary.
+ * @code
+ * // type-punning example
+ * float num;
+ * *((uint32_t *) &num) = FIFO_Get(fifo);
+ * @endcode
  */
 uint32_t FIFO_Get(volatile Fifo_t fifo);
 
