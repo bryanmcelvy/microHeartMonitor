@@ -104,6 +104,8 @@ Digital Filtering Functions
  * @post                    \f$ y[n] \f$ is ready for analysis and/or further processing.
  *
  * @see                     DAQ_BandpassFilter()
+ *
+ * @image latex filters/daq_notch.png "Frequency domain parameters for the notch filter."
  */
 float32_t DAQ_NotchFilter(volatile float32_t xn);
 
@@ -118,6 +120,8 @@ float32_t DAQ_NotchFilter(volatile float32_t xn);
  * @post                    \f$ y[n] \f$ is ready for analysis and/or further processing.
  *
  * @see                     DAQ_NotchFilter()
+ *
+ * @image latex filters/daq_bandpass.png "Frequency domain parameters for the bandpass filter."
  */
 float32_t DAQ_BandpassFilter(volatile float32_t xn);
 

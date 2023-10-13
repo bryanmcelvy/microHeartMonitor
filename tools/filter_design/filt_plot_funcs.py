@@ -181,8 +181,9 @@ def plot_domain(b, a, inTimeDomain=True, fs=1, in_dB=False, ax1=None, ax2=None, 
     if not (ax1 and ax2):
         _, [ax1, ax2] = plt.subplots(1, 2, figsize=[9, 4], tight_layout=True)
     
-    if filt_name is not None:
-        plt.suptitle(filt_name)
+    plotTitle = "Time Domain" if inTimeDomain else "Frequency Domain"
+    plotTitle = f"{filt_name}\n{plotTitle}" if (filt_name is not None) else plotTitle
+    plt.suptitle(plotTitle)
 
     if inTimeDomain:
         plot_impulse_resp(b, a, ax1)

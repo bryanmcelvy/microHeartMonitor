@@ -192,6 +192,7 @@ void QRS_Preprocess(const float32_t xn[], float32_t yn[]) {
      * using Scipy.
      *
      * @image latex software/qrs_preproc.png
+     * @image latex software/qrs_preproc_output.png "Output of each preprocessing step."
      */
 
     // copy samples from input buffer `xn` to output buffer `yn`
