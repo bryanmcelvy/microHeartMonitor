@@ -7,15 +7,6 @@
 
 #include <stdbool.h>
 
-// clang-format off
-static const char * const MSG_LIST[] = {
-    "Data acquisition module initialized.\r\n", 
-    "QRS detection module initialized.\r\n",
-    "LCD module initialized.\r\n",
-    "Starting QRS detection...\r\n"
-};
-// clang-format on
-
 static Uart_t debugUart = 0;
 
 /******************************************************************************
@@ -42,7 +33,22 @@ void Debug_SendMsg(void * message) {
 }
 
 void Debug_SendFromList(Msg_t msg) {
-    Debug_SendMsg((void *) MSG_LIST[msg]);
+    switch(msg) {
+        case DEBUG_DAQ_INIT:
+            Debug_SendMsg("Data acquisition module initialized.\r\n");
+            break;
+        case DEBUG_QRS_INIT:
+            Debug_SendMsg("QRS detection module initialized.\r\n");
+            break;
+        case DEBUG_LCD_INIT:
+            Debug_SendMsg("LCD module initialized.\r\n");
+            break;
+        case DEBUG_QRS_START:
+            Debug_SendMsg("Starting QRS detection...\r\n");
+            break;
+        default:
+            Assert(false);
+    }
     return;
 }
 

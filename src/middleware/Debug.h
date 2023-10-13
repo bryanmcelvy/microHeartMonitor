@@ -52,15 +52,12 @@ Serial Output
  */
 void Debug_SendMsg(void * message);
 
-// clang-format off
-typedef enum {               
+typedef enum {
     DEBUG_DAQ_INIT,
     DEBUG_QRS_INIT,
     DEBUG_LCD_INIT,
     DEBUG_QRS_START
 } Msg_t;
-
-// clang-format on
 
 /**
  * @brief               Send a message from the message list.
