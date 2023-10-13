@@ -133,7 +133,7 @@ WIP
 
 <details>
 <summary> ❗️ Click to see overall circuit ❗️ </summary>
-<img src="docs/circuit_overall.png" width="1000" />
+<img src="docs/figures/circuit_schematics/circuit_overall.png" width="1000" />
 </details><br>
 
 The hardware is divided into three modules: the analog-front end (AFE), the optical isolation circuit, and the microcontroller/display circuit.
@@ -141,7 +141,7 @@ The hardware is divided into three modules: the analog-front end (AFE), the opti
 #### Analog-Front End
 <details>
 <summary> ❗️ Click to see analog-front end circuit schematic❗️</summary>
-<img src="docs/circuit_afe.png" width="1000" />
+<img src="docs/figures/circuit_schematics/circuit_afe.png" width="1000" />
 ![Alt text](image.png)
 </details><br>
 
@@ -151,7 +151,7 @@ The AFE consists of an instrumentation amplifier with a gain of $100$; a 2nd-ord
 
 <details>
 <summary> ❗️ Click to see optical isolation circuit schematic❗️ </summary>
-<img src="docs/circuit_isolation.png" width="1000" />
+<img src="docs/figures/circuit_schematics/circuit_isolation.png" width="1000" />
 </details><br>
 
 The optical isolation circuit uses a linear optocoupler to transmit the ECG signal from the analog-front end circuit to the microcontroller circuit. This circuitry serves as a safety measure against power surges and other potential hazards that can occur as a result of connecting someone directly to mains power (for example, death).
@@ -162,7 +162,7 @@ It also has three resistors on the AFE-side that effectively shift the signal fr
 
 <details>
 <summary> ❗️ Click to see microcontroller circuit schematic❗️ </summary>
-<img src="docs/circuit_mcu.png" width="1000" />
+<img src="docs/figures/circuit_schematics/circuit_mcu.png" width="1000" />
 </details><br>
 
 The microcontroller circuit currently consists of a TM4C123 microcontroller mounted on a LaunchPad evaluation kit, and an MSP2807 liquid crystal display (LCD).
@@ -173,7 +173,7 @@ The call graph and data flow graph (visible through the dropdowns below) visuall
 
 <details>
 <summary> ❗️ Click to see call graph ❗️ </summary>
-<img src="docs/call.png" width="500" />
+<img src="docs/figures/software/call.png" width="500" />
 
 This graph shows which modules communicate with (or "call") each other. Each arrow points from the "caller" to the "callee".
 
@@ -182,7 +182,7 @@ It also somewhat doubles as an `#include` dependency graph.
 
 <details>
 <summary> ❗️ Click to see data flow graph ❗️ </summary>
-<img src="docs/data_flow.png" width="2000" />
+<img src="docs/figures/software/data_flow.png" width="2000" />
 
 This graph shows the flow of information from the patient to the LCD (and also the laptop).
 </details><br>

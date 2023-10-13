@@ -191,7 +191,7 @@ void QRS_Preprocess(const float32_t xn[], float32_t yn[]) {
      * algorithm, but the high-pass and low-pass filters have been replaced with ones generated
      * using Scipy.
      *
-     * @image latex qrs_preproc.png
+     * @image latex software/qrs_preproc.png
      */
 
     // copy samples from input buffer `xn` to output buffer `yn`
