@@ -18,7 +18,7 @@
 
 #define LED_PINS (GPIO_Pin_t)(GPIO_PIN1 | GPIO_PIN2 | GPIO_PIN3)
 
-UART_t * uart;
+Uart_t uart;
 
 void FIFO_reportStatus(Fifo_t fifo_ptr);
 

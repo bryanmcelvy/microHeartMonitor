@@ -25,13 +25,14 @@ SECTIONS
 
 #include "GPIO.h"
 
+#include <stdbool.h>
 #include <stdint.h>
 
 /******************************************************************************
 Initialization
 *******************************************************************************/
 
-typedef struct UART_t UART_t;
+typedef struct UartStruct_t * Uart_t;
 
 typedef enum {
     UART0,
@@ -42,7 +43,7 @@ typedef enum {
     UART5,
     UART6,
     UART7
-} UART_Num_t;
+} uartNum_t;
 
 /**
  * @brief                       Initialize the specified UART peripheral.
@@ -50,9 +51,18 @@ typedef enum {
  * @param[in] port              GPIO port to use.
  * @param[in] uartNum           UART number. Should be either one of the
                                 enumerated constants or an int in range [0, 7].
- * @param[out] UART_t*          (Pointer to) initialized UART peripheral.
+ * @param[out] uart             (Pointer to) initialized UART peripheral.
  */
-UART_t * UART_Init(GpioPort_t port, UART_Num_t uartNum);
+Uart_t UART_Init(GpioPort_t port, uartNum_t uartNum);
+
+/**
+ * @brief                       Check if the UART object is initialized.
+ *
+ * @param[in] uart              UART to check.
+ * @param[out] true             The UART object is initialized.
+ * @param[out] false            The UART object is not initialized.
+ */
+bool UART_isInit(Uart_t uart);
 
 /******************************************************************************
 Reading
@@ -64,7 +74,7 @@ Reading
  * @param[in] uart              UART to read from.
  * @param[out] unsigned char    ASCII character from sender.
  */
-unsigned char UART_ReadChar(UART_t * uart);
+unsigned char UART_ReadChar(Uart_t uart);
 
 /******************************************************************************
 Writing
@@ -76,7 +86,7 @@ Writing
  * @param[in] uart              UART to write to.
  * @param[in] input_char        ASCII character to send.
  */
-void UART_WriteChar(UART_t * uart, unsigned char inputChar);
+void UART_WriteChar(Uart_t uart, unsigned char inputChar);
 
 /**
  * @brief                       Write a C string to the UART.
@@ -84,7 +94,7 @@ void UART_WriteChar(UART_t * uart, unsigned char inputChar);
  * @param[in] uart              UART to write to.
  * @param[in] input_str         Array of ASCII characters.
  */
-void UART_WriteStr(UART_t * uart, void * inputStr);
+void UART_WriteStr(Uart_t uart, void * inputStr);
 
 /**
  * @brief                       Write a 32-bit unsigned integer the UART.
@@ -92,7 +102,7 @@ void UART_WriteStr(UART_t * uart, void * inputStr);
  * @param[in] uart              UART to write to.
  * @param[in] n                 Unsigned 32-bit `int` to be converted and transmitted.
  */
-void UART_WriteInt(UART_t * uart, int32_t n);
+void UART_WriteInt(Uart_t uart, int32_t n);
 
 /**
  * @brief                       Write a floating-point number the UART.
@@ -101,7 +111,7 @@ void UART_WriteInt(UART_t * uart, int32_t n);
  * @param[in] n                 Floating-point number to be converted and transmitted.
  * @param[in] num_decimals      Number of digits after the decimal point to include.
  */
-void UART_WriteFloat(UART_t * uart, double n, uint8_t numDecimals);
+void UART_WriteFloat(Uart_t uart, double n, uint8_t numDecimals);
 
 #endif
 

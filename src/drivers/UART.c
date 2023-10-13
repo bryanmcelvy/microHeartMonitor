@@ -65,16 +65,16 @@ enum UART_REG_OFFSETS {
 Initialization
 *******************************************************************************/
 
-struct UART_t {
+typedef struct UartStruct_t {
     const uint32_t BASE_ADDRESS;
     register_t const FLAG_R_ADDRESS;
     GpioPort_t GPIO_PORT;                ///< pointer to GPIO port data structure
     GPIO_Pin_t RX_PIN_NUM;               ///< GPIO pin number
     GPIO_Pin_t TX_PIN_NUM;               ///< GPIO pin number
     bool isInit;
-};
+} UartStruct_t;
 
-static UART_t UART_ARR[8] = {
+static UartStruct_t UART_ARR[8] = {
     { UART0_BASE, ((register_t) (UART0_BASE + UART_FR_R_OFFSET)), 0, GPIO_PIN0, GPIO_PIN1, false },
     { UART1_BASE, ((register_t) (UART1_BASE + UART_FR_R_OFFSET)), 0, GPIO_PIN0, GPIO_PIN1, false },
     { UART2_BASE, ((register_t) (UART2_BASE + UART_FR_R_OFFSET)), 0, GPIO_PIN6, GPIO_PIN7, false },
@@ -85,7 +85,7 @@ static UART_t UART_ARR[8] = {
     { UART7_BASE, ((register_t) (UART7_BASE + UART_FR_R_OFFSET)), 0, GPIO_PIN0, GPIO_PIN1, false }
 };
 
-UART_t * UART_Init(GpioPort_t port, UART_Num_t uartNum) {
+Uart_t UART_Init(GpioPort_t port, uartNum_t uartNum) {
     // Check inputs
     Assert(GPIO_isPortInit(port));
     Assert(uartNum < 8);
@@ -129,7 +129,7 @@ UART_t * UART_Init(GpioPort_t port, UART_Num_t uartNum) {
     // clang-format on
 
     // Initialize UART
-    UART_t * uart = &UART_ARR[uartNum];
+    Uart_t uart = &UART_ARR[uartNum];
     if(uart->isInit == false) {
         SYSCTL_RCGCUART_R |= (1 << uartNum);
         while((SYSCTL_PRUART_R & (1 << uartNum)) == 0) {}
@@ -165,11 +165,15 @@ UART_t * UART_Init(GpioPort_t port, UART_Num_t uartNum) {
     return uart;
 }
 
+bool UART_isInit(Uart_t uart) {
+    return uart->isInit;
+}
+
 /******************************************************************************
 Reading
 *******************************************************************************/
 
-unsigned char UART_ReadChar(UART_t * uart) {
+unsigned char UART_ReadChar(Uart_t uart) {
     while((*uart->FLAG_R_ADDRESS & 0x10) != 0) {}
     return (unsigned char) *((register_t) (uart->BASE_ADDRESS));
 }
@@ -178,13 +182,13 @@ unsigned char UART_ReadChar(UART_t * uart) {
 Writing
 *******************************************************************************/
 
-void UART_WriteChar(UART_t * uart, unsigned char inputChar) {
+void UART_WriteChar(Uart_t uart, unsigned char inputChar) {
     while((*uart->FLAG_R_ADDRESS & 0x20) != 0) {}
     *((register_t) (uart->BASE_ADDRESS)) = inputChar;
     return;
 }
 
-void UART_WriteStr(UART_t * uart, void * inputStr) {
+void UART_WriteStr(Uart_t uart, void * inputStr) {
     unsigned char * str_ptr = inputStr;
     while(*str_ptr != '\0') {
         UART_WriteChar(uart, *str_ptr);
@@ -193,7 +197,7 @@ void UART_WriteStr(UART_t * uart, void * inputStr) {
     return;
 }
 
-void UART_WriteInt(UART_t * uart, int32_t n) {
+void UART_WriteInt(Uart_t uart, int32_t n) {
 
     // Send negative sign (`-`) if needed
     if(n < 0) {
@@ -219,7 +223,7 @@ void UART_WriteInt(UART_t * uart, int32_t n) {
     return;
 }
 
-void UART_WriteFloat(UART_t * uart, double n, uint8_t numDecimals) {
+void UART_WriteFloat(Uart_t uart, double n, uint8_t numDecimals) {
     // Send negative sign (`-`) if needed
     if(n < 0) {
         UART_WriteChar(uart, '-');

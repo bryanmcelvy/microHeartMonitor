@@ -17,7 +17,7 @@ int main(void) {
     Timer_setInterval_ms(timer, 10);
 
     GpioPort_t portB = GPIO_InitPort(B);
-    UART_t * uart1 = UART_Init(portB, UART1);
+    Uart_t uart1 = UART_Init(portB, UART1);
 
     UART_WriteStr(uart1, (unsigned char *) "Starting transmission...\r\n");
 

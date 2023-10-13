@@ -18,7 +18,7 @@ int main(void) {
 
     // Init. UART0
     GpioPort_t portA = GPIO_InitPort(A);
-    UART_t * uart0 = UART_Init(portA, UART0);
+    Uart_t uart0 = UART_Init(portA, UART0);
 
     // Init. LED pins
     GpioPort_t portF = GPIO_InitPort(F);
