@@ -65,9 +65,12 @@ Because I was interested in doing it and saw utility in doing so.
 <details>
 <summary> ❗️ Click to see navigation ❗️ </summary>
 
-* [`/cmake_files`](cmake_files) - CMake-specific files for generating the build system.
+* [`/cmake`](cmake) - CMake-specific files for generating the build system.
 * [`/docs`](docs) - Documentation for both the project itself and resources used in creating it.
-  * [`/doxygen_files`](/docs/doxygen_files) - Files used for documentation generation via Doxygen.
+  * [`/doxygen`](/docs/doxygen) - Files used for documentation generation via Doxygen.
+  * [`/figures/filters`](/docs/figures/filters) - frequency domain graphs for the digital filters used in this project
+  * [`/figures/schematics`](/docs/figures/schematics) – circuit schematics for this project, created using KiCad
+  * [`/figures/software`](/docs/figures/software) – diagrams showing different aspects of the software architecture
   * [`/resources/articles`](docs/resources/articles) - Research articles and application notes.
   * [`/resources/books`](docs/resources/books) - Open-source/freely available textbooks.
   * [`/resources/datasheets`](docs/resources/datasheets) - Datasheets for hardware components.
@@ -133,7 +136,7 @@ WIP
 
 <details>
 <summary> ❗️ Click to see overall circuit ❗️ </summary>
-<img src="docs/figures/circuit_schematics/circuit_overall.png" width="1000" />
+<img src="docs/figures/schematics/circuit_overall.png" width="1000" />
 </details><br>
 
 The hardware is divided into three modules: the analog-front end (AFE), the optical isolation circuit, and the microcontroller/display circuit.
@@ -141,7 +144,7 @@ The hardware is divided into three modules: the analog-front end (AFE), the opti
 #### Analog-Front End
 <details>
 <summary> ❗️ Click to see analog-front end circuit schematic❗️</summary>
-<img src="docs/figures/circuit_schematics/circuit_afe.png" width="1000" />
+<img src="docs/figures/schematics/circuit_afe.png" width="1000" />
 ![Alt text](image.png)
 </details><br>
 
@@ -151,7 +154,7 @@ The AFE consists of an instrumentation amplifier with a gain of $100$; a 2nd-ord
 
 <details>
 <summary> ❗️ Click to see optical isolation circuit schematic❗️ </summary>
-<img src="docs/figures/circuit_schematics/circuit_isolation.png" width="1000" />
+<img src="docs/figures/schematics/circuit_isolation.png" width="1000" />
 </details><br>
 
 The optical isolation circuit uses a linear optocoupler to transmit the ECG signal from the analog-front end circuit to the microcontroller circuit. This circuitry serves as a safety measure against power surges and other potential hazards that can occur as a result of connecting someone directly to mains power (for example, death).
@@ -162,7 +165,7 @@ It also has three resistors on the AFE-side that effectively shift the signal fr
 
 <details>
 <summary> ❗️ Click to see microcontroller circuit schematic❗️ </summary>
-<img src="docs/figures/circuit_schematics/circuit_mcu.png" width="1000" />
+<img src="docs/figures/schematics/circuit_mcu.png" width="1000" />
 </details><br>
 
 The microcontroller circuit currently consists of a TM4C123 microcontroller mounted on a LaunchPad evaluation kit, and an MSP2807 liquid crystal display (LCD).
