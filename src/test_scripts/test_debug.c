@@ -23,7 +23,10 @@ int main(void) {
     GPIO_ConfigDriveStrength(portF, (GPIO_PIN1 | GPIO_PIN2 | GPIO_PIN3), 8);
     GPIO_EnableDigital(portF, (GPIO_PIN1 | GPIO_PIN2 | GPIO_PIN3));
 
-    Debug_Init();
+    GpioPort_t portA = GPIO_InitPort(A);
+    Uart_t uart0 = UART_Init(portA, UART0);
+    Debug_Init(uart0);
+
     for(uint8_t idx = 0; idx < 4; idx++) {
         Debug_SendFromList(idx);
     }

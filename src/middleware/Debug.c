@@ -16,15 +16,17 @@ static const char * const MSG_LIST[] = {
 };
 // clang-format on
 
-static UART_t * uart0;
+static Uart_t debugUart = 0;
 
 /******************************************************************************
 Initialization
 *******************************************************************************/
 
-void Debug_Init(void) {
-    GpioPort_t portA = GPIO_InitPort(A);
-    uart0 = UART_Init(portA, UART0);
+void Debug_Init(Uart_t uart) {
+    Assert(UART_isInit(uart));
+
+    debugUart = uart;
+
     Debug_SendMsg((void *) "Starting transmission...\r\n");
     Debug_SendMsg((void *) "Debug module initialized.\r\n");
     return;
@@ -35,7 +37,7 @@ Serial Output
 *******************************************************************************/
 
 void Debug_SendMsg(void * message) {
-    UART_WriteStr(uart0, message);
+    UART_WriteStr(debugUart, message);
     return;
 }
 
@@ -45,8 +47,8 @@ void Debug_SendFromList(Msg_t msg) {
 }
 
 void Debug_WriteFloat(double value) {
-    UART_WriteFloat(uart0, value, 1);
-    UART_WriteStr(uart0, "\r\n");
+    UART_WriteFloat(debugUart, value, 1);
+    UART_WriteStr(debugUart, "\r\n");
     return;
 }
 

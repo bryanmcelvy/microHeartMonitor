@@ -61,7 +61,10 @@ Main
 
 int main(void) {
     PLL_Init();
-    Debug_Init();
+
+    GpioPort_t portA = GPIO_InitPort(A);
+    Uart_t uart0 = UART_Init(portA, UART0);
+    Debug_Init(uart0);
 
     // Init. vector table and ISRs
     ISR_GlobalDisable();

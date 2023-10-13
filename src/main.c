@@ -155,13 +155,18 @@ Function Definitions
  * @details         Moves the interrupt vector table to RAM; configures and
  *                  enables the ISRs; initializes all modules and static variables;
  *                  and performs QRS detection once the buffer has been filled.
+ *
  * @image latex main1_init.png "Flowchart for the initialization phase."
  * @image latex main2_superloop.png "Flowchart for the superloop."
  * @callgraph
  */
 int main(void) {
     PLL_Init();
-    Debug_Init();
+
+    // Init. debug module
+    GpioPort_t portA = GPIO_InitPort(A);
+    Uart_t uart0 = UART_Init(portA, UART0);
+    Debug_Init(uart0);
 
     // Init. vector table and ISRs
     ISR_GlobalDisable();
@@ -297,7 +302,7 @@ static void LCD_Handler(void) {
         *((uint32_t *) &sample) = FIFO_Get(LCD_Fifo1);
         sample = DAQ_BandpassFilter(sample);
 
-        // remove previous sample and plot current sample
+        // remove previous sample
         uint16_t y = LCD_prevSampleBuffer[x];
         LCD_plotSample(x, y, LCD_BLACK);
 

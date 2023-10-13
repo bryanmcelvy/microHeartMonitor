@@ -43,7 +43,10 @@ int main(void) {
 
     PLL_Init();
     ISR_GlobalDisable();
-    Debug_Init();
+
+    GpioPort_t portA = GPIO_InitPort(A);
+    Uart_t uart0 = UART_Init(portA, UART0);
+    Debug_Init(uart0);
 
     // Initialize/configure LCD
     LCD_Init();

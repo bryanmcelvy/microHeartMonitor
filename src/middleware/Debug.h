@@ -27,11 +27,11 @@ Initialization
 /** @name Initialization */               /// @{
 
 /**
- * @brief              Initialize the Debug module.
- *
- * @post               An initialization message is sent to the serial port (UART0).
+ * @brief               Initialize the Debug module.
+ * @param[in] uart      UART to use for serial output.
+ * @post                An initialization message is sent to the serial port.
  */
-void Debug_Init(void);
+void Debug_Init(Uart_t uart);
 
 /// @} Initialization
 
