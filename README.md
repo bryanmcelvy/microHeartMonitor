@@ -154,9 +154,9 @@ The AFE consists of an instrumentation amplifier with a gain of $100$; a 2nd-ord
 <img src="docs/circuit_isolation.png" width="1000" />
 </details><br>
 
-The optical isolation circuit uses a linear optocoupler to transmit the ECG signal from the analog-front end circuit to the microcontroller circuit. This circuitry serves as a safety measure against power surges and other potential hazards that can occur as a result of connecting someone directly to mains power (for example, death). 
+The optical isolation circuit uses a linear optocoupler to transmit the ECG signal from the analog-front end circuit to the microcontroller circuit. This circuitry serves as a safety measure against power surges and other potential hazards that can occur as a result of connecting someone directly to mains power (for example, death).
 
-It also has three resistors on the AFE-side that effectively shift the signal from the projected output range of ±$5.5$ $V$ to the range $[0, 3.5)$ $V$, which is necessary for both the optocoupler and the microcontroller's built-in analog-to-digital converter (ADC) circuitry.
+It also has three resistors on the AFE-side that effectively shift the signal from the projected output range of ± $5.5$ $V$ to the range $[0, 3.5)$ $V$, which is necessary for both the optocoupler and the microcontroller's built-in analog-to-digital converter (ADC) circuitry.
 
 #### Microcontroller Circuit
 
