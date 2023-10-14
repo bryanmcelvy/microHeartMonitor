@@ -13,14 +13,19 @@
 /******************************************************************************
 Type Definitions + Initialization
 *******************************************************************************/
-
 typedef enum {
-    A,
-    B,
-    C,
-    D,
-    E,
-    F
+    GPIO_PORT_A,
+    GPIO_PORT_B,
+    GPIO_PORT_C,
+    GPIO_PORT_D,
+    GPIO_PORT_E,
+    GPIO_PORT_F,
+    A = GPIO_PORT_A,
+    B = GPIO_PORT_B,
+    C = GPIO_PORT_C,
+    D = GPIO_PORT_D,
+    E = GPIO_PORT_E,
+    F = GPIO_PORT_F
 } GPIO_PortName_t;
 
 typedef struct GpioPortStruct_t * GpioPort_t;
@@ -28,8 +33,8 @@ typedef struct GpioPortStruct_t * GpioPort_t;
 /**
  * @brief                   Initialize a GPIO Port and return a pointer to its `struct`.
  *
- * @param[in] portName          Name of the chosen port.
- * @return GPIO_Port_t*     Pointer to the GPIO port's `struct`.
+ * @param[in] portName      Name of the chosen port.
+ * @param[out] gpioPort     Pointer to the specified GPIO port.
  */
 GpioPort_t GPIO_InitPort(GPIO_PortName_t portName);
 
@@ -66,10 +71,10 @@ typedef enum {
     GPIO_ALL_PINS = ((uint8_t) (0xFF))
 } GPIO_Pin_t;               ///< bit masks for each GPIO pin. Can be `OR`ed together for funcs.
 
-enum {
-    LED_RED = GPIO_PIN1,
-    LED_GREEN = GPIO_PIN3,
-    LED_BLUE = GPIO_PIN2,
+enum GPIO_LAUNCHPAD_LEDS {
+    LED_RED = GPIO_PIN1,                 ///< PF1
+    LED_GREEN = GPIO_PIN3,               ///< PF3
+    LED_BLUE = GPIO_PIN2,                ///< PF2
 
     LED_YELLOW = (LED_RED + LED_GREEN),
     LED_CYAN = (LED_BLUE + LED_GREEN),
