@@ -21,16 +21,20 @@ Direct Dependencies
 
 // application-specific
 #include "DAQ.h"
-#include "Debug.h"
 #include "LCD.h"
 #include "QRS.h"
+
+// middleware
+#include "Debug.h"
 
 // common
 #include "FIFO.h"
 
 // drivers
+#include "GPIO.h"
 #include "ISR.h"
 #include "PLL.h"
+#include "UART.h"
 
 // vendor (i.e. external/device) files
 #include "arm_math_types.h"
@@ -146,6 +150,9 @@ enum {
 
 static uint16_t LCD_prevSampleBuffer[LCD_X_MAX] = { 0 };
 
+static GpioPort_t portA = 0;
+static Uart_t uart0 = 0;
+
 /******************************************************************************
 Function Definitions
 ******************************************************************************/
@@ -164,8 +171,8 @@ int main(void) {
     PLL_Init();
 
     // Init. debug module
-    GpioPort_t portA = GPIO_InitPort(A);
-    Uart_t uart0 = UART_Init(portA, UART0);
+    portA = GPIO_InitPort(A);
+    uart0 = UART_Init(portA, UART0);
     Debug_Init(uart0);
 
     // Init. vector table and ISRs
