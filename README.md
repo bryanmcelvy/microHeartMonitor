@@ -20,22 +20,22 @@ An electrocardiogram-based heart rate monitor project implemented with a TM4C123
     - [Disclaimer](#disclaimer)
     - [Key Terms](#key-terms)
   - [Materials \& Methods](#materials--methods)
-    - [Hardware](#hardware)
+    - [Hardware Design](#hardware-design)
       - [Analog-Front End](#analog-front-end)
       - [Optical Isolation Circuitry](#optical-isolation-circuitry)
       - [Microcontroller Circuit](#microcontroller-circuit)
     - [Software Architecture](#software-architecture)
       - [Device Drivers](#device-drivers)
       - [Middleware](#middleware)
-      - [Application-specific Software](#application-specific-software)
+      - [Application Software](#application-software)
       - [External](#external)
       - [Common](#common)
   - [Current Results](#current-results)
   - [To-do](#to-do)
-    - [Hardware](#hardware-1)
+    - [Hardware](#hardware)
     - [Software](#software)
   - [Build Instructions](#build-instructions)
-    - [Hardware](#hardware-2)
+    - [Hardware](#hardware-1)
     - [Software](#software-1)
   - [References](#references)
 
@@ -50,14 +50,16 @@ An electrocardiogram-based heart rate monitor project implemented with a TM4C123
 An electrocardiogram (or ECG) is a plot of the electrical activity of the heart over time. The hardware in this project senses a patient's ECG signal and transmits it to the microcontroller circuit. The microcontroller receives, processes, and analyzes this signal to determine the average heart rate throughout the previous 5 seconds of monitoring time. It also displays both the waveform and the heart rate to a liquid crystal display (LCD).
 
 ### How is this repository organized?
-The next section of the `README` goes into a bit more detail, but the vast majority of the project-specific source code is within the [`/src`](/src) directory, which hosts different modules (i.e. pairs of `*.c` and `*.h` files) that each implement a particular aspect of the project. The primary code is located in [`main.c`](/src/main.c). 
+The [Navigation](#navigating-the-repository) section goes into a bit more detail, but the vast majority of the project-specific source code is within the [`/src`](/src) directory. [`main.c`](/src/main.c) is the primary script for the project that is loaded on the microcontroller and implements the heart monitor. The other folders in `/src` host different modules (i.e. collections of `*.c` and `*.h` files) that each implement a particular aspect of the project.
 
 The [`/docs`](/docs/) directory hosts the project's [reference manual](/docs/refman.pdf), the diagrams explained later in this `README`, and external resources.
 
 The project is primarily built using CMake, which generates Makefiles based on the commands in each of the different `CMakeLists.txt` files present in many of the directories.
 
 ### Why'd you do all of this?
-Because I was interested in doing it and saw utility in doing so.
+<u>Short version</u>: Because I was interested in doing it and saw utility in doing so.
+
+<u>Long version</u>: See the [Motivation](#motivation) subsection.
 
 [🔼 BACK TO TOP 🔼](#μheartmonitor-an-ecg-based-heart-rate-monitor)
 
@@ -88,12 +90,12 @@ Because I was interested in doing it and saw utility in doing so.
   * [`/old_or_unused`](/src/old_or_unused) - Old or unused software modules.
   * [`/test_scripts`](/src/test_scripts) - Scripts used for manual on-target testing.
 * [`/test`](test) - CppUTest-based unit test suite.
-  * [`/mocks`](/test/mocks) - CppUMock-based mock functions used to substitute a module's depenencies during unit tests.
+  * [`/mocks`](/test/mocks) - CppUMock-based mock functions used to substitute a module's dependencies during unit tests.
   * [`/src`](/test/src) - Source code for unit tests.
-  * [`/stubs`](/test/stubs) - Hard-coded stub functions used to substitute a module's depenencies during unit tests.
+  * [`/stubs`](/test/stubs) - Hard-coded stub functions used to substitute a module's dependencies during unit tests.
 * [`/tools`](tools) - Miscellaneous tools used or created for this project.
   * [`/cppcheck`](/tools/cppcheck) - Suppressions list for Cppcheck.
-  * [`/data`](/tools/data) - ECG sample data from the publically available MIT-BIH Arrhythmia Database, as well as a Python script to convert them to `csv` files.
+  * [`/data`](/tools/data) - ECG sample data from the publicly available MIT-BIH Arrhythmia Database, as well as a Python script to convert them to `csv` files.
   * [`/filter_design`](/tools/filter_design) - Python scripts/notebooks used to design the digital filters used in this project.
   * [`/JDS6600`](/tools/JDS6600) - Scripts for interfacing a JDS6600 DDS Signal Generator/Counter.
   * [`/lookup_table`](/tools/lookup_table) - Script for generating the lookup table used in the ADC module.
@@ -103,9 +105,25 @@ Because I was interested in doing it and saw utility in doing so.
 ## Introduction 
 
 ### Background
-Electrocardiography (or ECG) is a diagnostic technique in which the electrical activity of a patient's heart is captured as time series data (AKA the ECG signal) and analyzed to assess cardiovascular health. Specifically, the ECG signal can be analyzed to detect biomarkers for cardiovascular diseases like arrhythmia, myocardiocardial infarction, etc. which manifest as abnormalities in the ECG waveform. In clinical environments, ECG is performed using machines that implement the required hardware and software to acquire, process, and analyze the ECG signal. This must be done in such a way that preserves the important information within the signal while also maintaining the safety of the patient.
+"**<u>Electrocardiography</u>**" (or "**ECG**") is a diagnostic technique in which the electrical activity of a patient's heart is captured as time series data (AKA the ECG signal) and analyzed to assess cardiovascular health. Specifically, the ECG signal can be analyzed to detect biomarkers for cardiovascular diseases like arrhythmia, myocardial infarction, etc. which manifest as abnormalities in the ECG waveform. In clinical environments, ECG is performed using machines that implement the required hardware and software to acquire, process, and analyze the ECG signal. This must be done in such a way that preserves the important information within the signal (specifically the shape of the ECG waveform) while also maintaining the safety of the patient [[1]](#references).
 
-The μHeartMonitor is an embedded system that implements the Pan-Tompkins algorithm for QRS detection to calculate a patient's heart rate from their ECG signal. The system consists of both hardware and software that cooperate to achieve this task while also visually outputting the waveform and heart rate to a liquid crystal display (LCD). The text below and the contents of this repository reflect the current progress made, but the end goal is to have the full system mounted on 1-2 printed circuit boards (PCBs) and situated inside an insulated enclosure.
+The ECG waveform consists of 5 smaller "waves" – the P, Q, R, S, and T waves – that each give information on a patient's cardiac health both individually and collectively. The term "**<u>QRS complex</u>**" refers to the part of the ECG waveform that is generally taken to be the heart "beat". Thus, ECG-based heart rate monitors commonly use a category of algorithms called "**<u>QRS detectors</u>**" to determine the locations of the R-peaks within a block of ECG signal data and calculate the time period between each adjacent peak (i.e. the "**<u>RR interval</u>**") [[2]](#references). The RR interval is related to the heart rate by this equation:
+
+$$
+RR = \frac{60}{HR}
+$$
+
+...where $RR$ is the time in $[s]$ between two adjacent R peaks, and $HR$ is the heart rate in $[bpm]$ (beats per minute).
+
+<details>
+<summary> ❗️ Click to see ECG sample curve ❗️ </summary>
+<img src="docs/figures/martinek_fig_3.png" width="1000" />
+
+Figure 3 from Martinek, et. al. [[1]](#references)
+
+</details>
+
+The **<u>μHeartMonitor</u>** is an embedded system that implements the Pan-Tompkins algorithm for QRS detection. The system consists of both hardware and software that cooperate to achieve this task while also visually outputting the ECG waveform and heart rate to a liquid crystal display (LCD). The text below and the contents of this repository reflect the current progress made, but the end goal is to have the full system mounted on 1-2 printed circuit boards (PCBs) situated inside an insulated enclosure.
 
 ### Motivation
 My primary motivations for doing this project are:
@@ -120,22 +138,24 @@ My primary motivations for doing this project are:
 I also hope that anyone interested in any of the fields of knowledge relevant to this project (biomedical/electrical/computer/software engineering) will find this helpful to look at or even use in their own projects.
 
 ### Disclaimer
-This project is neither a product nor a medical device (by any legal definition, anyway), and is not intended to be either or both of things now or in the future. It is simply a resume-building passion project.
+This project is neither a product nor a medical device (by any legal definition, anyway), and is not intended to be either or both of things now or in the future. It is simply a passion project.
 
 ### Key Terms
-WIP
-* Analog front-end (AFE)
 * Electrocardiogram/Electrocardiography (ECG)
+* Heart rate
 * Heart rate monitor
+* QRS complex
+* QRS detector
+* RR interval
 
 [🔼 BACK TO TOP 🔼](#μheartmonitor-an-ecg-based-heart-rate-monitor)
 
 ## Materials & Methods
 
-### Hardware
+### Hardware Design
 
 <details>
-<summary> ❗️ Click to see overall circuit ❗️ </summary>
+<summary> ❗️ Click to see overall circuit schematic ❗️ </summary>
 <img src="docs/figures/schematics/circuit_overall.png" width="1000" />
 </details><br>
 
@@ -148,7 +168,7 @@ The hardware is divided into three modules: the analog-front end (AFE), the opti
 ![Alt text](image.png)
 </details><br>
 
-The AFE consists of an instrumentation amplifier with a gain of $100$; a 2nd-order Sallen-Key high-pass filter with a gain of $1$ and a cutoff frequency of $0.5$ $Hz$; and a 2nd-order Sallen-Key low-pass filter with a passband gain of $10$ and a cutoff frequency of $40$ $Hz$.
+The AFE consists of an instrumentation amplifier with a gain of $100$; a 2nd-order Sallen-Key high-pass filter with a gain of $1$ and a cutoff frequency of ~$0.5$ $Hz$; and a 2nd-order Sallen-Key low-pass filter with a passband gain of $11$ and a cutoff frequency of ~$40$ $Hz$. The overall gain is $1100$
 
 #### Optical Isolation Circuitry
 
@@ -198,21 +218,21 @@ The device driver layer consists of software modules that interface directly wit
 #### Middleware
 The middleware layer consists of higher-level device drivers that interface with some hardware connected to one of the built-in peripherals (i.e. the Debug module connects to UART and the ILI9341 module primarily uses SPI).
 
-#### Application-specific Software
-The application-specific software layer has modules that are at least partially, if not completely built for this project. This layer includes the data acquisition module, whose functions handle receiving raw input samples and denoising them; the QRS detector, which analyzes the filtered signal to determine the average heart rate; and the LCD module, which plots the ECG waveform and displays the heart rate.
+#### Application Software
+The application software layer has modules that are at least partially, if not completely built for this project. This layer includes the data acquisition module, whose functions handle receiving raw input samples and denoising them; the QRS detector, which analyzes the filtered signal to determine the average heart rate; and the LCD module, which plots the ECG waveform and displays the heart rate.
 
 #### External
-This "layer" includes any and all modules that were not written (or at least heavily altered) by me. It currently only contains the CMSIS-DSP library (or more specifically, the functions from it that are used by this project).
+This "layer" includes modules/libraries/files that were not written (or at least heavily altered) by me. It currently only contains portions of ARM's CMSIS-Core and CMSIS-DSP libraries.
 
 #### Common
-The "common" modules are general-purpose modules that don't necessarily fit into the above categories/layers. This category includes the "Fifo" module, which contains a ring buffer-based implementation of the FIFO buffer (AKA "queue") data structure; and "NewAssert", which is essentially just an implementation of the `assert` macro causes a breakpoint (and also doesn't cause a linker error like the built-in one does for some reason).
+The "common" modules are general-purpose modules that don't necessarily fit into the above categories/layers. This category includes the "Fifo" module, which contains a ring buffer-based implementation of the FIFO buffer (AKA "queue") data structure; and "NewAssert", which is essentially just an implementation of the `assert` macro that causes a breakpoint (and also doesn't use up as much RAM as the standard implementation does).
 
 [🔼 BACK TO TOP 🔼](#μheartmonitor-an-ecg-based-heart-rate-monitor)
 
 ## Current Results
-WIP
-
 Video Demonstration: [YouTube Link](https://youtu.be/KB2CsFbUgtg)
+
+The project is currently implemented using 2 breadboards and a Tiva C LaunchPad development board. The manual tests I've been running use a clone of the JDS6600 signal generator, which I loaded a sample ECG waveform from the MIT-BIH arrhythmia database onto using scripts in the corresponding [folder](/tools/JDS6600/) in the [`/tools`](/tools/) directory. As can be seen in the video demonstration, the calculated heart rate isn't 100% correct at the moment, but still gets relatively close.
 
 [🔼 BACK TO TOP 🔼](#μheartmonitor-an-ecg-based-heart-rate-monitor)
 
