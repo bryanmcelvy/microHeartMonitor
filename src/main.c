@@ -49,52 +49,59 @@ Direct Dependencies
 Function Declarations
 ******************************************************************************/
 
-// Interrupt Service Routines (ISRs)
-enum {
-    DAQ_VECTOR_NUM = INT_ADC0SS3,
-    PROC_VECTOR_NUM = INT_CAN0,
-    LCD_VECTOR_NUM = INT_TIMER1A
+enum ISR_VECTOR_NUMS {
+    DAQ_VECTOR_NUM = INT_ADC0SS3,               ///< vector number for the @ref DAQ_Handler()
+    PROC_VECTOR_NUM = INT_CAN0,                 ///< vector number for the @ref Processing_Handler()
+    LCD_VECTOR_NUM = INT_TIMER1A                ///< vector number for the @ref LCD_Handler()
 };
 
 /**
+ * @brief   ISR for the data acquisition system.
  *
- * @brief   Reads ADC output, converts to raw voltage sample, and sends to next FIFO.
- * @details This ISR has a priority level of 1, is triggered when the ADC has finished
- *          capturing a sample, and also triggers the intermediate processing handler.
+ * @details This ISR has a priority level of 1, is triggered when the ADC has finished capturing
+ *          a sample, and also triggers the intermediate processing handler. It reads the 12-bit
+ *          ADC output, converts it from an integer to a raw voltage sample, and sends it to the
+ *          processing ISR via the @ref DAQ_Fifo.
  *
  * @pre     Initialize the DAQ module.
- * @post    The converted sample is placed in the DAQ FIFO, and the DAQ ISR is triggered.
+ * @post    The converted sample is placed in the DAQ FIFO, and the processing ISR is triggered.
  *
  * @see     DAQ_Init(), Processing_Handler()
  *
- * @image latex software/main3_daq.png
+ * @image   latex software/main3_daq.png "Flowchart for the DAQ handler."
  * @callgraph
  */
 static void DAQ_Handler(void);
 
 /**
- * @brief   Removes baseline drift and PLI from a sample, and moves it to the QRS/LCD FIFOs.
- * @details This ISR has a priority level of 1, is triggered by the DAQ ISR, and triggers
- *          the LCD Handler. It also notifies the superloop in @ref main() when the QRS
- *          buffer is full.
+ * @brief   ISR for intermediate processing of the input data.
  *
- * @post    The converted sample is placed in the DAQ FIFO, and the DAQ ISR is triggered.
+ * @details This ISR has a priority level of 1, is triggered by the DAQ ISR, and triggers the LCD
+ *          handler. It removes baseline drift and power line interference (PLI) from a sample, and
+ *          then moves it to the @ref QRS_Fifo and the @ref LCD_Fifo. It also notifies the superloop
+ *          in @ref main() when the QRS buffer is full.
+ *
+ * @post    The converted sample is placed in the LCD FIFO, and the LCD ISR is triggered.
+ * @post    The converted sample is placed in the QRS FIFO, and the flag is set.
  *
  * @see     DAQ_Handler(), main(), LCD_Handler()
  *
- * @image latex software/main4_proc.png
+ * @image   latex software/main4_proc.png "Flowchart for the processing handler."
  * @callgraph
  */
 static void Processing_Handler(void);
 
 /**
- * @brief   Applies a 0.5-40 [Hz] bandpass filter and plots the sample to the waveform.
- * @details This ISR has a priority level of 1 and is triggered by the Processing ISR.
+ * @brief   ISR for plotting the waveform and outputting the heart rate to the LCD.
+ *
+ * @details This ISR has a priority level of 1 and is triggered by the Processing ISR. It applies a
+ *          0.5-40 [Hz] bandpass filter to the sample and plots it. It also outputs the heart rate.
  *
  * @pre     Initialize the LCD module.
  * @post    The bandpass-filtered sample is plotted to the LCD.
+ * @post    The heart rate is updated after each block is analyzed.
  *
- * @see     LCD_Init(), Processing_Handler()
+ * @see     LCD_Init(), Processing_Handler(), main()
  *
  * @callgraph
  */
@@ -104,8 +111,7 @@ static void LCD_Handler(void);
 Variable Declarations
 ******************************************************************************/
 
-// FIFO Buffers
-enum {
+enum FIFO_INFO {
     DAQ_FIFO_CAP = 3,                                   ///< capacity of DAQ's FIFO buffer
     DAQ_ARRAY_LEN = DAQ_FIFO_CAP + 1,                   ///< actual size of underlying array
 
@@ -124,34 +130,32 @@ static volatile uint32_t DAQ_fifoBuffer[DAQ_ARRAY_LEN] = { 0 };
 
 static volatile Fifo_t QRS_Fifo = 0;
 static volatile uint32_t QRS_fifoBuffer[QRS_ARRAY_LEN] = { 0 };
-static volatile bool QRS_bufferIsFull = false;
 
 static volatile Fifo_t LCD_Fifo1 = 0;
 static volatile uint32_t LCD_fifoBuffer1[LCD_ARRAY_1_LEN] = { 0 };
 
 static volatile Fifo_t LCD_Fifo2 = 0;
 static volatile uint32_t LCD_fifoBuffer2[LCD_ARRAY_2_LEN] = { 0 };
-static volatile bool LCD_heartRateIsReady = false;
 
-// Processing Buffer
-// NOTE: using just one to avoid running out of RAM
+static volatile bool qrsBufferIsFull = false;                ///< flag for QRS detection to start
+static volatile bool heartRateIsReady = false;               ///< flag for LCD to output heart rate
+
+// NOTE: using just one processing buffer to avoid running out of RAM
 static float32_t QRS_processingBuffer[QRS_ARRAY_LEN] = { 0 };
 
-// LCD Info
-enum {
+enum LCD_INFO {
     LCD_TOP_LINE = (LCD_Y_MAX - 24),               ///< separates wavefrom from text
 
     LCD_WAVE_NUM_Y = LCD_TOP_LINE,               ///< num. of y-vals available for plotting waveform
+    LCD_WAVE_X_OFFSET = 0,                       ///< waveform's offset from X axis
+    LCD_WAVE_Y_MIN = (0 + LCD_WAVE_X_OFFSET),                            ///< waveform's min y-value
+    LCD_WAVE_Y_MAX = (LCD_WAVE_NUM_Y + LCD_WAVE_X_OFFSET),               ///< waveform's max y-value
 
-    LCD_WAVE_X_OFFSET = 0,
-    LCD_WAVE_Y_MIN = (0 + LCD_WAVE_X_OFFSET),
-    LCD_WAVE_Y_MAX = (LCD_WAVE_NUM_Y + LCD_WAVE_X_OFFSET)
+    LCD_TEXT_LINE_NUM = 28,                                              ///< line num. of text
+    LCD_TEXT_COL_NUM = 24               ///< starting col. num. for heart rate
 };
 
 static uint16_t LCD_prevSampleBuffer[LCD_X_MAX] = { 0 };
-
-static GpioPort_t portA = 0;
-static Uart_t uart0 = 0;
 
 /******************************************************************************
 Function Definitions
@@ -168,10 +172,13 @@ Function Definitions
  * @callgraph
  */
 int main(void) {
+    static GpioPort_t portA = 0;
+    static Uart_t uart0 = 0;
+
     PLL_Init();
 
     // Init. debug module
-    portA = GPIO_InitPort(A);
+    portA = GPIO_InitPort(GPIO_PORT_A);
     uart0 = UART_Init(portA, UART0);
     Debug_Init(uart0);
 
@@ -204,7 +211,7 @@ int main(void) {
     LCD_setColor(LCD_WHITE);
     LCD_drawHoriLine(LCD_TOP_LINE, 1);
 
-    LCD_setCursor(28, 0);
+    LCD_setCursor(LCD_TEXT_LINE_NUM, 0);
     LCD_writeStr("Heart Rate:      bpm");
 
     LCD_setColor(LCD_RED);
@@ -212,21 +219,22 @@ int main(void) {
 
     Debug_SendFromList(DEBUG_LCD_INIT);
 
-    // Init. app. modules
+    // Init. other app. modules
     QRS_Init();
     Debug_SendFromList(DEBUG_QRS_INIT);
 
     DAQ_Init();
     Debug_SendFromList(DEBUG_DAQ_INIT);
 
+    // Enable interrupts and start
     ISR_GlobalEnable();
     while(1) {
-        if(QRS_bufferIsFull) {               // flag set by Processing_Handler()
+        if(qrsBufferIsFull) {               // flag set by Processing_Handler()
             // Transfer samples from FIFO
             ISR_Disable(PROC_VECTOR_NUM);
 
             FIFO_Flush(QRS_Fifo, (uint32_t *) QRS_processingBuffer);
-            QRS_bufferIsFull = false;
+            qrsBufferIsFull = false;
 
             ISR_Enable(PROC_VECTOR_NUM);
 
@@ -243,7 +251,7 @@ int main(void) {
 
             // Output heart rate to LCD
             FIFO_Put(LCD_Fifo2, *((uint32_t *) &heartRate_bpm));
-            LCD_heartRateIsReady = true;
+            heartRateIsReady = true;
         }
     }
 }
@@ -287,7 +295,7 @@ static void Processing_Handler(void) {
     }
 
     if(FIFO_isFull(QRS_Fifo)) {
-        QRS_bufferIsFull = true;
+        qrsBufferIsFull = true;
     }
     else {
         // doesn't trigger if QRS detection is ready to start
@@ -322,17 +330,17 @@ static void LCD_Handler(void) {
         x = (x + 1) % LCD_X_MAX;
     }
 
-    if(LCD_heartRateIsReady) {
+    if(heartRateIsReady) {
         volatile float32_t heartRate_bpm;
         *((uint32_t *) &heartRate_bpm) = FIFO_Get(LCD_Fifo2);
 
-        LCD_setCursor(28, 24);
+        LCD_setCursor(LCD_TEXT_LINE_NUM, LCD_TEXT_COL_NUM);
         LCD_writeStr((void *) "     ");               // 5 spaces
 
-        LCD_setCursor(28, 24);
+        LCD_setCursor(LCD_TEXT_LINE_NUM, LCD_TEXT_COL_NUM);
         LCD_writeFloat(heartRate_bpm);
 
-        LCD_heartRateIsReady = false;
+        heartRateIsReady = false;
     }
 }
 

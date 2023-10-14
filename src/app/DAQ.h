@@ -36,10 +36,13 @@ Initialization
 /** @name Initialization */               /// @{
 
 /**
- * @brief                  Initialize the data acquisition (DAQ) module.
+ * @brief               Initialize the data acquisition (DAQ) module.
  *
- * @post                   The ADC and Timer are initialized, and the DAQ module
- *                         has access to its lookup table (LUT).
+ * @post                The analog-to-digital converter (ADC) is initialized and
+ *                      configured for timer-triggered sample capture.
+ * @post                The timer is initialized in `PERIODIC` mode and triggers the
+ *                      ADC every \f$ 5 ms \f$ (i.e. sampling frequency \f$ f_s = 200 Hz \f$).
+ * @post                The DAQ module has access to its lookup table (LUT).
  */
 void DAQ_Init(void);
 
@@ -51,38 +54,39 @@ Reading Input Data
 /** @name Reading Input Data */               /// @{
 
 /**
- * @brief                   Read a sample from the ADC.
+ * @brief               Read a sample from the ADC.
  *
- * @pre                     Initialize the DAQ module.
- * @pre                     This should be used in an interrupt handler and/or at a
- *                          consistent rate (i.e. the sampling frequency).
+ * @pre                 Initialize the DAQ module.
+ * @pre                 This should be used in an interrupt handler and/or at a
+ *                      consistent rate (i.e. the sampling frequency).
  *
- * @param[out] sample       12-bit sample in range `[0x000, 0xFFF]`
+ * @param[out] sample   12-bit sample in range `[0x000, 0xFFF]`
  *
- * @post                    The sample can now be converted to millivolts.
+ * @post                The sample can now be converted to millivolts.
  *
- * @see                     DAQ_convertToMilliVolts()
+ * @see                 DAQ_convertToMilliVolts()
  */
 uint16_t DAQ_readSample(void);
 
 /**
- * @brief                   Convert a 12-bit ADC sample to a floating-point
- *                          voltage value via LUT.
+ * @brief               Convert a 12-bit ADC sample to a floating-point
+ *                      voltage value via LUT.
  *
- * @pre                     Read a sample from the ADC.
+ * @pre                 Read a sample from the ADC.
  *
- * @param[in] sample        12-bit sample in range `[0x000, 0xFFF]`
- * @param[out] xn           Voltage value in range \f$ [-5.5, 5.5) [mV] \f$
+ * @param[in] sample    12-bit sample in range `[0x000, 0xFFF]`
+ * @param[out] xn       Voltage value in range \f$ [-5.5, 5.5) [mV] \f$
  *
- * @post                    The sample \f$ x[n] \f$ is ready for filtering.
+ * @post                The sample \f$ x[n] \f$ is ready for filtering.
  *
- * @see                     DAQ_readSample()
+ * @see                 DAQ_readSample()
+ * @note                Defined in @ref DAQ_lookup.c rather than @ref DAQ.c.
  */
 float32_t DAQ_convertToMilliVolts(uint16_t sample);
 
 /**
- * @brief                   Acknowledge the ADC interrupt.
- *
+ * @brief               Acknowledge the ADC interrupt.
+ * @pre                 This should be used within an interrupt handler.
  */
 void DAQ_acknowledgeInterrupt(void);
 
@@ -94,32 +98,32 @@ Digital Filtering Functions
 /** @name Digital Filtering Functions */               /// @{
 
 /**
- * @brief                   Apply a 60 [Hz] notch filter to an input sample.
+ * @brief               Apply a 60 [Hz] notch filter to an input sample.
  *
- * @pre                     Read a sample from the ADC and convert it to millivolts.
+ * @pre                 Read a sample from the ADC and convert it to millivolts.
  *
- * @param[in] xn            Raw input sample
- * @param[out] yn           Filtered output sample
+ * @param[in] xn        Raw input sample
+ * @param[out] yn       Filtered output sample
  *
- * @post                    \f$ y[n] \f$ is ready for analysis and/or further processing.
+ * @post                \f$ y[n] \f$ is ready for analysis and/or further processing.
  *
- * @see                     DAQ_BandpassFilter()
+ * @see                 DAQ_BandpassFilter()
  *
  * @image latex filters/daq_notch.png "Frequency domain parameters for the notch filter."
  */
 float32_t DAQ_NotchFilter(volatile float32_t xn);
 
 /**
- * @brief                   Apply a 0.5-40 [Hz] bandpass filter to an input sample.
+ * @brief               Apply a 0.5-40 [Hz] bandpass filter to an input sample.
  *
- * @pre                     Read a sample from the ADC and convert it to millivolts.
+ * @pre                 Read a sample from the ADC and convert it to millivolts.
  *
- * @param[in] xn            Input sample
- * @param[out] yn           Filtered output sample
+ * @param[in] xn        Input sample
+ * @param[out] yn       Filtered output sample
  *
- * @post                    \f$ y[n] \f$ is ready for analysis and/or further processing.
+ * @post                \f$ y[n] \f$ is ready for analysis and/or further processing.
  *
- * @see                     DAQ_NotchFilter()
+ * @see                 DAQ_NotchFilter()
  *
  * @image latex filters/daq_bandpass.png "Frequency domain parameters for the bandpass filter."
  */

@@ -11,7 +11,7 @@
 
 /******************************************************************************
 SECTIONS
-        Static Declarations
+        Declarations
         Initialization
         Plotting Parameters
         Drawing
@@ -26,9 +26,13 @@ SECTIONS
 #include <stdbool.h>
 #include <stdint.h>
 
+#define CONVERT_INT_TO_ASCII(X) ((unsigned char) (X + 0x30))
+
 /******************************************************************************
-Static Declarations
+Declarations
 *******************************************************************************/
+
+/** @name Helper Functions */               /// @{
 
 /**
  * @brief               Helper function for drawing straight lines.
@@ -44,20 +48,22 @@ static void LCD_drawLine(uint16_t center, uint16_t lineWidth, bool is_horizontal
 /// @brief               Update the cursor for after writing text on the display.
 static void LCD_updateCursor(void);
 
+/** @} */                           // Helper Functions
+
 static struct {
-    uint16_t x1;                 ///< starting x-value in range [0, x2]
-    uint16_t x2;                 ///< ending x-value in range [0, NUM_ROWS)
-    uint16_t y1;                 ///< starting y-value in range [0, y2]
-    uint16_t y2;                 ///< ending x-value in range [0, NUM_COLS)
+    uint16_t x1;                    ///< starting x-value in range [0, x2]
+    uint16_t x2;                    ///< ending x-value in range [0, NUM_ROWS)
+    uint16_t y1;                    ///< starting y-value in range [0, y2]
+    uint16_t y2;                    ///< ending x-value in range [0, NUM_COLS)
 
-    uint16_t lineNum;
-    uint16_t colNum;
+    uint16_t lineNum;               ///< line number for text; in range `[0, NUM_LINES)`
+    uint16_t colNum;                ///< column number for text; in range `[0, NUM_COLS)`
 
-    uint8_t R_val;               ///< 5 or 6-bit R value
-    uint8_t G_val;               ///< 6-bit G value
-    uint8_t B_val;               ///< 5 or 6-bit B value
+    uint8_t R_val;                  ///< 5 R value
+    uint8_t G_val;                  ///< 6-bit G value
+    uint8_t B_val;                  ///< 5 B value
 
-    bool isInit;                 ///< if `true`, LCD has been initialized
+    bool isInit;                    ///< if `true`, LCD has been initialized
 } lcd = { 0 };
 
 extern const uint8_t * const FONT_ARRAY[128];
@@ -316,8 +322,6 @@ void LCD_writeStr(void * asciiString) {
 
     return;
 }
-
-#define CONVERT_INT_TO_ASCII(X) ((unsigned char) (X + 0x30))
 
 void LCD_writeInt(int32_t num) {
     //...

@@ -19,7 +19,7 @@
 
 /**
  * @brief                   Initialize the QRS detector.
- * @warning                 This function isn't necessary anymore, but I'm keeping it here
+ * @note                    This function isn't necessary anymore, but I'm keeping it here
  *                          just in case.
  */
 void QRS_Init(void);

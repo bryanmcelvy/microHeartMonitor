@@ -26,7 +26,7 @@ SECTIONS
 /******************************************************************************
 Initialization
 *******************************************************************************/
-/** @name Init./Config. Functions */               /// @{
+/** @name Initialization & Configuration */               /// @{
 
 /**
  * @brief               Initialize the LCD.
@@ -49,7 +49,7 @@ void LCD_setOutputMode(bool isOn);
 Plotting Parameters
 *******************************************************************************/
 
-enum {
+enum LCD_PLOT_INFO {
     LCD_X_MAX = ILI9341_NUM_ROWS - 1,
     LCD_Y_MAX = ILI9341_NUM_COLS - 1
 };
@@ -100,12 +100,12 @@ typedef enum {
  */
 void LCD_setColor(LCD_Color_t color);
 
-/// @}
+/** @} */               // Initialization & Configuration
 
 /******************************************************************************
 Drawing
 *******************************************************************************/
-/** @name Drawing Functions */               /// @{
+/** @name Drawing */               /// @{
 
 /**
  * @brief               Draw on the LCD.
@@ -176,14 +176,14 @@ inline static void LCD_plotSample(uint16_t x, uint16_t y, LCD_Color_t color) {
     return;
 }
 
-/// @} Drawing Functions
+/** @} */               // Drawing
 
 /******************************************************************************
 Writing
 *******************************************************************************/
-/** @name Writing Functions */               /// @{
+/** @name Writing */               /// @{
 
-enum {
+enum LCD_WRITING_INFO {
     HEIGHT_CHAR = 8,
     LEN_CHAR = 5,
 
@@ -211,7 +211,7 @@ void LCD_writeInt(int32_t num);
 // TODO: Write description
 void LCD_writeFloat(float num);
 
-/// @} // Writing Functions
+/// @} // Writing
 
 /** @} */               // lcd
 

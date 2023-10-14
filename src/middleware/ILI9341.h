@@ -69,7 +69,7 @@ typedef enum {
 } Cmd_t;
 
 // clang-format off
-/** Currently unused commands
+/* Currently unused commands
 #define RDDST                   (uint8_t) 0x09          /// Read Display Status
 #define RDDMADCTL               (uint8_t) 0x0B          /// Read Display MADCTL
 #define RDDCOLMOD               (uint8_t) 0x0C          /// Read Display Pixel Format

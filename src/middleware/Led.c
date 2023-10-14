@@ -12,7 +12,7 @@
 /******************************************************************************
 SECTIONS
         Initialization
-        Configuration
+        Status Checking
         Operations
 *******************************************************************************/
 
@@ -30,7 +30,7 @@ Initialization
 typedef struct LedStruct_t {
     GpioPort_t GPIO_PORT_PTR;               ///< pointer to GPIO port data structure
     GPIO_Pin_t GPIO_PIN;                    ///< GPIO pin number
-    bool is_ON;                             ///< state indicator
+    bool isOn;                              ///< state indicator
     bool isInit;
 } LedStruct_t;
 
@@ -53,19 +53,11 @@ Led_t Led_Init(GpioPort_t gpioPort, GPIO_Pin_t pin) {
 
     led->GPIO_PORT_PTR = gpioPort;
     led->GPIO_PIN = pin;
-    led->is_ON = false;
+    led->isOn = false;
     led->isInit = true;
 
     return led;
 }
-
-bool Led_isInit(Led_t led) {
-    return led->isInit;
-}
-
-/******************************************************************************
-Configuration
-*******************************************************************************/
 
 GpioPort_t Led_GetPort(Led_t led) {
     Assert(led->isInit);
@@ -77,9 +69,17 @@ GPIO_Pin_t Led_GetPin(Led_t led) {
     return led->GPIO_PIN;
 }
 
+/******************************************************************************
+Status Checking
+*******************************************************************************/
+
+bool Led_isInit(Led_t led) {
+    return led->isInit;
+}
+
 bool Led_isOn(Led_t led) {
     Assert(led->isInit);
-    return led->is_ON;
+    return led->isOn;
 }
 
 /******************************************************************************
@@ -89,21 +89,21 @@ Operations
 void Led_TurnOn(Led_t led) {
     Assert(led->isInit);
     GPIO_WriteHigh(led->GPIO_PORT_PTR, led->GPIO_PIN);
-    led->is_ON = true;
+    led->isOn = true;
     return;
 }
 
 void Led_TurnOff(Led_t led) {
     Assert(led->isInit);
     GPIO_WriteLow(led->GPIO_PORT_PTR, led->GPIO_PIN);
-    led->is_ON = false;
+    led->isOn = false;
     return;
 }
 
 void Led_Toggle(Led_t led) {
     Assert(led->isInit);
     GPIO_Toggle(led->GPIO_PORT_PTR, led->GPIO_PIN);
-    led->is_ON = !led->is_ON;
+    led->isOn = !led->isOn;
     return;
 }
 
