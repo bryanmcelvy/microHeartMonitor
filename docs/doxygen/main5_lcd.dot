@@ -1,0 +1,65 @@
+digraph {
+    newrank = true;
+    rankdir = TB;
+    fontname = monospace;
+    compound = true;
+    splines = false;
+    node [shape = rect;];
+    
+    subgraph cluster_lcd {
+        label = "LCD_Handler";
+        style = dashed;
+        color = red;
+        
+        // nodes
+        lcd_start [label = "Processing_Handler";shape = ellipse;];
+        
+        lcd_check_wave_fifo [label = "Check LCD\nwaveform FIFO";];
+        lcd_wave_fifo_status [label = "Is the\nbuffer empty?";shape = diamond;];
+        lcd_get_sample [label = "Get a sample\nfrom the FIFO buffer";];
+        lcd_bpf [label = "Apply 0.5-40 [Hz]\nbandpass filter";];
+        lcd_rem_prev_y [label = "Remove previous\ny-value from LCD";];
+        lcd_shift_scale_y [label = "Calculate next\ny-value";];
+        lcd_plot_curr_y [label = "Plot y-value";];
+        
+        lcd_check_hr_flag [label = "Check heart\nrate flag";];
+        lcd_hr_status [label = "Is the heart rate\nready to plot?";shape = diamond;];
+        lcd_get_hr [label = "Get heart\nrate value";];
+        lcd_rem_prev_hr [label = "Erase previous\nheart rate value";];
+        lcd_plot_curr_hr [label = "Write current\nheart rate value";];
+        
+        subgraph {
+            rank = same;
+            lcd_clear_flag [label = "Clear the flag";];
+            lcd_end [label = "End";shape = ellipse;];
+        }
+        
+        // connections
+        lcd_start:s -> lcd_check_wave_fifo:n;
+        lcd_check_wave_fifo:s -> lcd_wave_fifo_status:n;
+        
+        lcd_wave_fifo_status:s -> lcd_get_sample:n [weight = 10;];
+        lcd_get_sample:s -> lcd_bpf:n;
+        lcd_bpf -> lcd_rem_prev_y -> lcd_shift_scale_y -> lcd_plot_curr_y;
+        
+        lcd_check_hr_flag:s -> lcd_hr_status:n [weight = 10;];
+        lcd_hr_status -> lcd_get_hr;
+        lcd_get_hr -> lcd_rem_prev_hr -> lcd_plot_curr_hr -> lcd_clear_flag -> lcd_end;
+        
+        node [shape = none; style = invis; height = 0; width = 0;];
+        
+        lcd_wave_status_invis_l:e -> lcd_plot_y_invis:e [arrowhead = none;];
+        lcd_wave_status_invis_r:w -> lcd_check_hr_flag [constraint = true;];
+        
+        subgraph {
+            rank = same;
+            lcd_wave_status_invis_l -> lcd_wave_fifo_status;
+            lcd_wave_fifo_status -> lcd_wave_status_invis_r:w [arrowhead = none;];
+        }
+        
+        subgraph {
+            rank = same;
+            lcd_plot_y_invis -> lcd_plot_curr_y [arrowhead = none; constraint = false;];
+        }
+    }
+}
