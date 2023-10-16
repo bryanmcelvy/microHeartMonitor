@@ -35,7 +35,7 @@ Preprocessor Directives
 #include <stdbool.h>
 #include <stdint.h>
 
-#define SAMPLING_PERIOD_MS 5               ///< sampling period in ms (\f$ T_s = 1 / f_s \f$)
+#define SAMPLING_PERIOD_MS 5               ///< sampling period in ms (\f$ T_s = \frac{1}{f_s} \f$)
 
 /******************************************************************************
 Digital Filter Variables
