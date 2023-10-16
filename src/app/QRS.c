@@ -115,12 +115,12 @@ enum {
 
     // Derivative Filter
     NUM_COEFF_DERFILT = 5,
-    BLOCK_SIZE_DERFILT = 1,
+    BLOCK_SIZE_DERFILT = (1 << 8),
     STATE_BUFF_SIZE_DERFILT = NUM_COEFF_DERFILT + BLOCK_SIZE_DERFILT - 1,
 
     // Moving Average Filter
-    BLOCK_SIZE_MOVAVG = 1,
     NUM_COEFF_MOVAVG = 10,
+    BLOCK_SIZE_MOVAVG = BLOCK_SIZE_DERFILT,
     STATE_BUFF_SIZE_MOVAVG = NUM_COEFF_MOVAVG + BLOCK_SIZE_MOVAVG - 1,
 };
 
@@ -204,18 +204,10 @@ void QRS_Preprocess(const float32_t xn[], float32_t yn[]) {
 
     arm_biquad_cascade_df1_f32(bandpassFilter, yn, yn, QRS_NUM_SAMP);
 
-    for(uint16_t n = 0; n < QRS_NUM_SAMP; n++) {
-        // NOTE: filtering one-at-a-time so that the state buffer doesn't take up too much memory
+    for(uint16_t n = 0; n < QRS_NUM_SAMP; n = n + BLOCK_SIZE_DERFILT) {
+        // NOTE: filtering in blocks so that the state buffers don't take up too much memory
         arm_fir_f32(derivativeFilter, &yn[n], &yn[n], BLOCK_SIZE_DERFILT);
-    }
-
-    // square
-    for(uint16_t n = 0; n < QRS_NUM_SAMP; n++) {
-        yn[n] = yn[n] * yn[n];
-    }
-
-    for(uint16_t n = 0; n < QRS_NUM_SAMP; n++) {
-        // NOTE: filtering one-at-a-time so that the state buffer doesn't take up too much memory
+        arm_mult_f32(&yn[n], &yn[n], &yn[n], BLOCK_SIZE_DERFILT);               // square
         arm_fir_f32(movingAverageFilter, &yn[n], &yn[n], BLOCK_SIZE_MOVAVG);
     }
 
