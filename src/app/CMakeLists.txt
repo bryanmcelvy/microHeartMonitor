@@ -16,8 +16,6 @@ add_library(QRS STATIC QRS.c QRS.h)
 target_include_directories(QRS PRIVATE ${CMSIS_DIRS})
 target_link_libraries(QRS CMSIS-DSP-f32)
 
-add_library(Font OBJECT Font.c)
-
-add_library(LCD STATIC LCD.c LCD.h)
+add_library(LCD STATIC LCD.c LCD.h Font.c)
 target_include_directories(LCD PRIVATE ${PATH_MIDDLEWARE})
-target_link_libraries(LCD ILI9341 Font)
+target_link_libraries(LCD ILI9341)
