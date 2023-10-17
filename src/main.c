@@ -233,7 +233,7 @@ int main(void) {
             // Transfer samples from FIFO
             ISR_Disable(PROC_VECTOR_NUM);
 
-            FIFO_Flush(QRS_Fifo, (uint32_t *) QRS_processingBuffer);
+            FIFO_FlushFloat(QRS_Fifo, QRS_processingBuffer);
             qrsBufferIsFull = false;
 
             ISR_Enable(PROC_VECTOR_NUM);
@@ -250,7 +250,7 @@ int main(void) {
             Debug_WriteFloat(heartRate_bpm);
 
             // Output heart rate to LCD
-            FIFO_Put(LCD_Fifo2, *((uint32_t *) &heartRate_bpm));
+            FIFO_PutFloat(LCD_Fifo2, heartRate_bpm);
             heartRateIsReady = true;
         }
     }
@@ -263,7 +263,7 @@ static void DAQ_Handler(void) {
 
     // send to intermediate processing handler
     Debug_Assert(FIFO_isFull(DAQ_Fifo) == false);
-    FIFO_Put(DAQ_Fifo, *((uint32_t *) &sample));
+    FIFO_PutFloat(DAQ_Fifo, sample);
     ISR_triggerInterrupt(PROC_VECTOR_NUM);
 
     DAQ_acknowledgeInterrupt();
@@ -275,8 +275,7 @@ static void Processing_Handler(void) {
 
     // NOTE: this `while` is only here in case a sample arrives while the QRS FIFO is being emptied
     while(FIFO_isEmpty(DAQ_Fifo) == false) {
-        volatile float32_t sample;
-        *((uint32_t *) &sample) = FIFO_Get(DAQ_Fifo);
+        volatile float32_t sample = FIFO_GetFloat(DAQ_Fifo);
 
         // apply running mean subtraction to remove baseline drift
         sum += sample;
@@ -288,10 +287,10 @@ static void Processing_Handler(void) {
 
         // place in FIFO buffers
         Debug_Assert(FIFO_isFull(QRS_Fifo) == false);
-        FIFO_Put(QRS_Fifo, *((uint32_t *) (&sample)));
+        FIFO_PutFloat(QRS_Fifo, sample);
 
         Debug_Assert(FIFO_isFull(LCD_Fifo1) == false);
-        FIFO_Put(LCD_Fifo1, *((uint32_t *) (&sample)));
+        FIFO_PutFloat(LCD_Fifo1, sample);
     }
 
     if(FIFO_isFull(QRS_Fifo)) {
@@ -313,11 +312,10 @@ static void LCD_Handler(void) {
     while(FIFO_isEmpty(LCD_Fifo1) == false) {
 
         // get sample and apply 0.5-40 [Hz] bandpass filter
-        float32_t sample;
-        *((uint32_t *) &sample) = FIFO_Get(LCD_Fifo1);
+        float32_t sample = FIFO_GetFloat(LCD_Fifo1);
         sample = DAQ_BandpassFilter(sample);
 
-        // remove previous sample
+        // remove previous y-value from LCD
         uint16_t y = LCD_prevSampleBuffer[x];
         LCD_plotSample(x, y, LCD_BLACK);
 
@@ -331,8 +329,7 @@ static void LCD_Handler(void) {
     }
 
     if(heartRateIsReady) {
-        volatile float32_t heartRate_bpm;
-        *((uint32_t *) &heartRate_bpm) = FIFO_Get(LCD_Fifo2);
+        volatile float32_t heartRate_bpm = FIFO_GetFloat(LCD_Fifo2);
 
         LCD_setCursor(LCD_TEXT_LINE_NUM, LCD_TEXT_COL_NUM);
         LCD_writeStr((void *) "     ");               // 5 spaces
