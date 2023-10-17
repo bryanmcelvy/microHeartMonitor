@@ -30,6 +30,7 @@ Preprocessor Directives
 #include "arm_math_types.h"
 #include "dsp/filtering_functions.h"
 #include "dsp/statistics_functions.h"
+#include "dsp/support_functions.h"
 
 #include <stdbool.h>
 #include <stdint.h>
@@ -197,9 +198,7 @@ void QRS_Preprocess(const float32_t xn[], float32_t yn[]) {
 
     // copy samples from input buffer `xn` to output buffer `yn`
     if(((uint32_t) &xn[0]) != ((uint32_t) &yn[0])) {               // skip if they're the same
-        for(uint16_t n = 0; n < QRS_NUM_SAMP; n++) {
-            yn[n] = xn[n];
-        }
+        arm_copy_f32(xn, yn, QRS_NUM_SAMP);
     }
 
     arm_biquad_cascade_df1_f32(bandpassFilter, yn, yn, QRS_NUM_SAMP);

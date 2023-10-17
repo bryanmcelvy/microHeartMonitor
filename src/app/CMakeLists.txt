@@ -14,7 +14,7 @@ target_link_libraries(DAQ ADC CMSIS_DSP_IIR NewAssert Timer)
 
 add_library(QRS STATIC QRS.c QRS.h)
 target_include_directories(QRS PRIVATE ${CMSIS_DIRS})
-target_link_libraries(QRS CMSIS_DSP_IIR CMSIS_DSP_FIR CMSIS_DSP_Math CMSIS_DSP_Stats)
+target_link_libraries(QRS CMSIS_DSP_IIR CMSIS_DSP_FIR CMSIS_DSP_Math CMSIS_DSP_Stats CMSIS_DSP_Support)
 
 add_library(LCD STATIC LCD.c LCD.h Font.c)
 target_include_directories(LCD PRIVATE ${PATH_MIDDLEWARE})
