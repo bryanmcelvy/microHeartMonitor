@@ -52,8 +52,8 @@ enum {
     STATE_BUFF_SIZE_BANDPASS = NUM_STAGES_BANDPASS * 4
 };
 
-// clang-format off
-static const float32_t COEFFS_NOTCH[NUM_COEFFS_NOTCH] = {
+/* clang-format off */
+static const float32_t COEFFS_NOTCH[NUM_COEFFS_NOTCH] = { 
     // Section 1
     0.8856732845306396f, 0.5476464033126831f, 0.8856732845306396f, 
     -0.5850160717964172f, -0.9409302473068237f, 
@@ -87,9 +87,7 @@ static const float32_t COEFFS_BANDPASS[NUM_COEFFS_DAQ_BANDPASS] = {
     // Section 4
     1.0f, -1.9997893571853638f, 1.0f, 
     1.994096040725708f, -0.9943605065345764f, 
-};
-
-// clang-format on
+};                                         /* clang-format on */
 
 typedef arm_biquad_casd_df1_inst_f32 Filter_t;
 
@@ -102,7 +100,7 @@ static const Filter_t bandpassFiltStruct = { NUM_STAGES_BANDPASS, stateBuffer_Ba
                                              COEFFS_BANDPASS };
 static const Filter_t * const bandpassFilter = &bandpassFiltStruct;
 
-/** @} */               // Digital Filters
+/** @} */                                  // Digital Filters
 
 /*******************************************************************************
 Initialization
@@ -139,12 +137,9 @@ Digital Filtering Functions
 ********************************************************************************/
 
 float32_t DAQ_NotchFilter(volatile float32_t inputSample) {
-    float32_t * inputPtr = &inputSample;
-
     float32_t outputSample = 0;
-    float32_t * outputPtr = &outputSample;
 
-    arm_biquad_cascade_df1_f32(notchFilter, inputPtr, outputPtr, 1);
+    arm_biquad_cascade_df1_f32(notchFilter, (const float32_t *) &inputSample, &outputSample, 1);
     Assert(isinf(outputSample) == false);
     Assert(isnan(outputSample) == false);
 
@@ -152,12 +147,9 @@ float32_t DAQ_NotchFilter(volatile float32_t inputSample) {
 }
 
 float32_t DAQ_BandpassFilter(volatile float32_t inputSample) {
-    float32_t * inputPtr = &inputSample;
-
     float32_t outputSample = 0;
-    float32_t * outputPtr = &outputSample;
 
-    arm_biquad_cascade_df1_f32(bandpassFilter, inputPtr, outputPtr, 1);
+    arm_biquad_cascade_df1_f32(bandpassFilter, (const float32_t *) &inputSample, &outputSample, 1);
     Assert(isinf(outputSample) == false);
     Assert(isnan(outputSample) == false);
 
