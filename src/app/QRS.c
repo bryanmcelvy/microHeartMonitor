@@ -125,8 +125,6 @@ enum {
     STATE_BUFF_SIZE_MOVAVG = NUM_COEFF_MOVAVG + BLOCK_SIZE_MOVAVG - 1,
 };
 
-/* Filter Coefficients */
-
 // clang-format off
 static const float32_t COEFF_BANDPASS[NUM_COEFF_HIGHPASS] = {
     // Section 1
@@ -201,10 +199,14 @@ void QRS_Preprocess(const float32_t xn[], float32_t yn[]) {
         arm_copy_f32(xn, yn, QRS_NUM_SAMP);
     }
 
+    // apply filters
     arm_biquad_cascade_df1_f32(bandpassFilter, yn, yn, QRS_NUM_SAMP);
 
-    for(uint16_t n = 0; n < QRS_NUM_SAMP; n = n + BLOCK_SIZE_DERFILT) {
-        // NOTE: filtering in blocks so that the state buffers don't take up too much memory
+    for(uint16_t n = 0; n < QRS_NUM_SAMP; n += BLOCK_SIZE_DERFILT) {
+        /**
+         * @note    The FIR filters are applied in blocks to decrease the amount
+         *          of memory needed for their state buffers.
+         */
         arm_fir_f32(derivativeFilter, &yn[n], &yn[n], BLOCK_SIZE_DERFILT);
         arm_mult_f32(&yn[n], &yn[n], &yn[n], BLOCK_SIZE_DERFILT);               // square
         arm_fir_f32(movingAverageFilter, &yn[n], &yn[n], BLOCK_SIZE_MOVAVG);
@@ -282,7 +284,7 @@ float32_t QRS_runDetection(const float32_t xn[], float32_t yn[]) {
 Static Function Definitions
 ********************************************************************************/
 
-/** @name Implementation-specific Functions */               /// @{
+/** @name Implementation */                    /// @{
 
 static void QRS_initLevels(const float32_t yn[], float32_t * sigLvlPtr, float32_t * noiseLvlPtr) {
     float32_t max;
@@ -298,7 +300,7 @@ static void QRS_initLevels(const float32_t yn[], float32_t * sigLvlPtr, float32_
 }
 
 static uint8_t QRS_findFiducialMarks(const float32_t yn[], uint16_t fidMarkArray[]) {
-    uint8_t numMarks = 0;                                    // running counter of peak candidates
+    uint8_t numMarks = 0;                      // running counter of peak candidates
     uint16_t countSincePrev = 1;               // samples checked since previous peak candidate
     uint16_t n_prevMark = 0;                   // sample number of previous peak candidate
 
