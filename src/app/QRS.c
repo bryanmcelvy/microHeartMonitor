@@ -303,11 +303,6 @@ static uint8_t QRS_findFiducialMarks(const float32_t yn[], uint16_t fidMarkArray
     uint16_t countSincePrev = 1;               // samples checked since previous peak candidate
     uint16_t n_prevMark = 0;                   // sample number of previous peak candidate
 
-    // reset fidMarkArray
-    for(uint8_t i = 0; i < QRS_NUM_FID_MARKS; i++) {
-        fidMarkArray[i] = 0;
-    }
-
     for(uint16_t n = 1; n < (QRS_NUM_SAMP - 1); n++) {
         if(IS_PEAK(yn[n - 1], yn[n], yn[n + 1])) {               // Verify `y[n]` is a peak
             /**
