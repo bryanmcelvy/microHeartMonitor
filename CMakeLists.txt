@@ -1,8 +1,8 @@
-#[[*********************************************************************************************
-File:           /CMakeLists.txt
-Description:    Sets minimum CMake version, links toolchain file, and declares project;
-                adds subdirectories, options, and path variables; and configures Cppcheck.
-#***********************************************************************************************    ]]
+#**************************************************************************************************
+# File:             /CMakeLists.txt
+# Description:      Sets minimum CMake version, links toolchain file, and declares project;
+#                   adds subdirectories, options, and path variables; and configures Cppcheck.
+#**************************************************************************************************
 cmake_minimum_required(VERSION 3.20)
 set(CMAKE_TOOLCHAIN_FILE "cmake/tm4c123g.cmake")          # must be placed before project()
 project(ecg_hrm C)

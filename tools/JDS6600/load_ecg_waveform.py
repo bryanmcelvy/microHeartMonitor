@@ -1,3 +1,7 @@
+#**************************************************************************************************
+# File:         /tools/JDS6600/load_ecg_waveform.py
+# Description:  Script that loads the generated ECG waveform onto the function generator
+#**************************************************************************************************
 from jds6600 import SigGen
 import numpy as np
 import pandas as pd

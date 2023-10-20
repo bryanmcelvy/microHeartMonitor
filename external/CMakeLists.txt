@@ -1,7 +1,7 @@
-#[[***********************************************************************************************
-File:           /external/CMSIS-DSP/CMakeLists.txt
-Description:    Builds selected functions from Arm's CMSIS-DSP library
-**************************************************************************************************  ]]
+#**************************************************************************************************
+# File:           /external/CMSIS-DSP/CMakeLists.txt
+# Description:    Builds selected functions from Arm's CMSIS-DSP library
+#**************************************************************************************************
 include_directories(${CMSIS_DIRS})
 add_compile_definitions(ARM_MATH_LOOPUNROLL)
 add_compile_options("-Ofast")

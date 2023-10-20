@@ -1,11 +1,8 @@
-"""!
-@file jds6600.py
-@author Bryan McElvy
-@brief Library for communicating with a JDS6600 Signal Generator (or derivative) via a serial port.
-"""
-
+#**************************************************************************************************
+# File:         tools/JDS6600/jds6600.py
+# Description:  Library for communicating with a JDS6600 Signal Generator (or derivative) via serial port.
+#**************************************************************************************************
 import serial
-
 
 class SigGen:
     """

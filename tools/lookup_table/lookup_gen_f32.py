@@ -1,3 +1,8 @@
+#**************************************************************************************************
+# File:         /tools/lookup_table/lookup_gen_f32.py
+# Description:  Script for generating the DAQ's lookup table
+#**************************************************************************************************
+
 import numpy as np
 
 # define constants
@@ -20,7 +25,7 @@ v_in = (v_out - b_1) / m_1                      # [-5.5, 5.5)
 
 # output to .txt file
 with open("tools/lookup_table/adc_lookup_f32.txt", "w") as file:
-    file.write("static const float32_t ADC_LOOKUP[4096] = {\n" + (4 * " "))
+    file.write("static const float32_t DAQ_LOOKUP_TABLE[4096] = {\n" + (4 * " "))
 
     for n in range(NUM_VALS):
         file.write(f"{v_in[n]}")

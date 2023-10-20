@@ -1,3 +1,7 @@
+#**************************************************************************************************
+# File:         /docs/doc_gen.py
+# Description:  Generates images and pdf documentation
+#**************************************************************************************************
 import os
 import shutil
 from subprocess import run

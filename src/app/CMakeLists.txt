@@ -1,7 +1,7 @@
-#[[*********************************************************************************************
-File:           /src/app/CMakeLists.txt
-Description:    Adds application software libraries and link to driver libraries.
-#***********************************************************************************************    ]]
+#**************************************************************************************************
+# File:           /src/app/CMakeLists.txt
+# Description:    Adds application software libraries and link to driver libraries.
+#**************************************************************************************************
 include_directories(
                     ${PATH_COMMON}
                     ${PATH_DEVICE}

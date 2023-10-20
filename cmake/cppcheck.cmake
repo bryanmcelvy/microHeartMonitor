@@ -1,7 +1,7 @@
-#[[*********************************************************************************************
-File:           /cmake_files/cppcheck.cmake
-Description:    Sets Cppcheck configuration.
-#***********************************************************************************************    ]]
+#**************************************************************************************************
+# File:           /cmake/cppcheck.cmake
+# Description:    Sets Cppcheck configuration.
+#**************************************************************************************************
 find_program(CPPCHECK_EXEC NAMES cppcheck)
 if(CPPCHECK_EXEC)
     list(APPEND CMAKE_C_CPPCHECK

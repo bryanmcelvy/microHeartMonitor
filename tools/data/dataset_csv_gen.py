@@ -1,3 +1,7 @@
+#**************************************************************************************************
+# File:         /tools/data/dataset_csv_gen.py
+# Description:  Converts MIT-BIH dataset files into csv files
+#**************************************************************************************************
 import numpy as np
 import pandas as pd
 from scipy import signal

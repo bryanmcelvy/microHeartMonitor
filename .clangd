@@ -1,12 +1,13 @@
-###############################################################################
+#**************************************************************************************************
 # File:         /.clangd
 # Description:  Configuration file for language server protocol (LSP)
-###############################################################################
+#**************************************************************************************************
 CompileFlags:
   Add: [-c, -W*]
   Remove: -mfp16-format*
+
 Diagnostics:
-  Suppress: -Wincompatible-pointer-types-discards-qualifiers
   ClangTidy:
     Add: [bugprone*, misc*]
     Remove: bugprone-easily-swappable-parameters
+  Suppress: -Wincompatible-pointer-types-discards-qualifiers

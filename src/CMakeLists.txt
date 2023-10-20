@@ -1,7 +1,7 @@
-#[[***********************************************************************************************
-File:           /src/CMakeLists.txt
-Description:    Adds subdirectories and main target executable
-**************************************************************************************************  ]]
+#**************************************************************************************************
+# File:           /src/CMakeLists.txt
+# Description:    Adds subdirectories and main target executable
+#**************************************************************************************************
 
 # Add startup file as Object Library
 add_library(Startup OBJECT ${PATH_DEVICE}/startup_gcc.c)

@@ -1,3 +1,7 @@
+#**************************************************************************************************
+# File:         /cmake/cpputest.cmake
+# Description:  Adds pre-built CppUTest binaries as imported targets
+#**************************************************************************************************
 set(CPPUTEST_HOME $ENV{CPPUTEST})
 set(CPPUTEST_INCLUDE_DIR ${CPPUTEST_HOME}/include)
 set(CPPUTEST_LIB_DIR ${CPPUTEST_HOME}/lib)

@@ -1,7 +1,7 @@
-#[[*********************************************************************************************
-File:         /docs/CMakeLists.txt
-Description:  Generate documentation using Doxygen and pdfLaTeX.
-#***********************************************************************************************    ]]
+#**************************************************************************************************
+# File:         /docs/CMakeLists.txt
+# Description:  Generate documentation using Doxygen and pdfLaTeX.
+#**************************************************************************************************
 find_package(Doxygen REQUIRED dot)
 find_package(LATEX COMPONENTS PDFLATEX)
 find_package(Python REQUIRED)

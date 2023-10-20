@@ -1,7 +1,7 @@
-#[[***********************************************************************************************
-File:           /src/drivers/CMakeLists.txt
-Description:    Adds static libraries for low-level device drivers.
-**************************************************************************************************  ]]
+#**************************************************************************************************
+# File:           /src/drivers/CMakeLists.txt
+# Description:    Adds static libraries for low-level device drivers.
+#**************************************************************************************************
 
 # Include Directories and Link Libraries for all targets
 include_directories(${PATH_COMMON} ${PATH_DEVICE} ${PATH_DRIVERS})
