@@ -310,7 +310,6 @@ static void LCD_Handler(void) {
 
     // NOTE: this `while` is only here in case a sample arrives while the QRS FIFO is being emptied
     while(FIFO_isEmpty(LCD_Fifo1) == false) {
-
         // get sample and apply 0.5-40 [Hz] bandpass filter
         float32_t sample = FIFO_GetFloat(LCD_Fifo1);
         sample = DAQ_BandpassFilter(sample);

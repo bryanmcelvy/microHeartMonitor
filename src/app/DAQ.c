@@ -107,7 +107,6 @@ Initialization
 ********************************************************************************/
 
 void DAQ_Init(void) {
-
     ADC_Init();
 
     Timer_t DAQ_Timer = Timer_Init(TIMER3);

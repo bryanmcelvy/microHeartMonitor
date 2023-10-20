@@ -3,6 +3,9 @@
 # Description:  Style/formatting rules for auto-formatting via clangd
 #**************************************************************************************************
 
+# command: 
+#       clang-format --verbose --style=file -i src/main.c src/**/*.h src/**/*.c
+
 ---
 Language: Cpp
 BasedOnStyle: LLVM
@@ -12,15 +15,15 @@ UseTab: Never
 ColumnLimit: 100
 
 AlignConsecutiveMacros: AcrossEmptyLinesAndComments
+AlignTrailingComments:
+  Kind: Always
+  OverEmptyLines: 100
 AllowAllArgumentsOnNextLine: true
 AllowShortBlocksOnASingleLine: Empty
 AllowShortCaseLabelsOnASingleLine: false
 AllowShortEnumsOnASingleLine: False
 AllowShortFunctionsOnASingleLine: Empty
 AllowShortIfStatementsOnASingleLine: true
-AlignTrailingComments:
-  Kind: Always
-  OverEmptyLines: 100
 
 BreakBeforeBraces: Custom
 BraceWrapping:
@@ -33,16 +36,27 @@ DerivePointerAlignment: false
 IndentCaseLabels: true
 InsertNewlineAtEOF: true
 
+KeepEmptyLinesAtTheStartOfBlocks: false
+
 MaxEmptyLinesToKeep: 1
 
 PointerAlignment: Middle
 
-SpaceAfterCStyleCast: true
-SpaceBeforeParens: Never
-SpaceBeforeSquareBrackets: false
-SpaceInEmptyBlock: false
-SpacesBeforeTrailingComments: 15
-SpacesInCStyleCastParentheses: false
+QualifierAlignment: Custom
+QualifierOrder: ['inline', 'static', 'volatile', 'const', 'type']
+
+ReferenceAlignment: Right
+RemoveSemicolon: true
+
 SeparateDefinitionBlocks: Always
 SortIncludes: Never
+SpaceAfterCStyleCast: true
+SpaceAfterLogicalNot: false
+SpaceBeforeCaseColon: false
+SpaceBeforeParens: Never
+SpaceBeforeSquareBrackets: false
+SpaceBeforeAssignmentOperators: true
+SpacesBeforeTrailingComments: 15
+SpaceInEmptyBlock: false
+SpacesInCStyleCastParentheses: false
 ---

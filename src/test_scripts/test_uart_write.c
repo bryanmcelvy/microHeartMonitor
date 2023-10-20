@@ -13,7 +13,6 @@ volatile unsigned char in_char;
 uint32_t counter;
 
 int main(void) {
-
     PLL_Init();
 
     // Init. UART0

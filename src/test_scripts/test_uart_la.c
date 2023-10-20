@@ -10,7 +10,6 @@
 #include "UART.h"
 
 int main(void) {
-
     PLL_Init();
     Timer_t timer = Timer_Init(TIMER0);
     Timer_setMode(timer, ONESHOT, UP);

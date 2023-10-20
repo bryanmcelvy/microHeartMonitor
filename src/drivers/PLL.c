@@ -12,7 +12,6 @@
 #include "tm4c123gh6pm.h"
 
 void PLL_Init(void) {
-
     // Disable PLL and system clock divider
     SYSCTL_RCC_R &= ~(1 << 22);                // disable system clock divider
     SYSCTL_RCC2_R |= 0x80000000;               // use RCC2 register for more freq. options

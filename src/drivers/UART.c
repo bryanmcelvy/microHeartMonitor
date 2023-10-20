@@ -67,7 +67,7 @@ Initialization
 
 typedef struct UartStruct_t {
     const uint32_t BASE_ADDRESS;
-    register_t const FLAG_R_ADDRESS;
+    register_t FLAG_R_ADDRESS;
     GpioPort_t GPIO_PORT;                ///< pointer to GPIO port data structure
     GPIO_Pin_t RX_PIN_NUM;               ///< GPIO pin number
     GPIO_Pin_t TX_PIN_NUM;               ///< GPIO pin number
@@ -198,7 +198,6 @@ void UART_WriteStr(Uart_t uart, void * inputStr) {
 }
 
 void UART_WriteInt(Uart_t uart, int32_t n) {
-
     // Send negative sign (`-`) if needed
     if(n < 0) {
         UART_WriteChar(uart, '-');

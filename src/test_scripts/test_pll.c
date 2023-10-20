@@ -15,7 +15,6 @@
 void GPIO_PortF_Init(void);
 
 int main() {
-
     uint8_t color;
 
     PLL_Init();               // set bus frequency to 80 MHz
@@ -32,9 +31,15 @@ int main() {
 
         // Decide next color
         switch(color) {
-            case(RED + GREEN): color = GREEN + BLUE; break;
-            case(GREEN + BLUE): color = RED + BLUE; break;
-            case(RED + BLUE): color = RED + GREEN; break;
+            case(RED + GREEN):
+                color = GREEN + BLUE;
+                break;
+            case(GREEN + BLUE):
+                color = RED + BLUE;
+                break;
+            case(RED + BLUE):
+                color = RED + GREEN;
+                break;
         }
     }
 }

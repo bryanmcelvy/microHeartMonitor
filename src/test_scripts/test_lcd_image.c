@@ -50,7 +50,6 @@ int main(void) {
 
     GPIO_Toggle(portF, LED_GREEN);
     while(1) {
-
         while(Timer_isCounting(timer)) {}
         LCD_drawRectangle(x, SIZE, y, SIZE, true);
         Timer_Start(timer);
