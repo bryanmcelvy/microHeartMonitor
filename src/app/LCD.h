@@ -76,20 +76,20 @@ void LCD_setX(uint16_t x1, uint16_t x2);
  */
 void LCD_setY(uint16_t y1, uint16_t y2);
 
-typedef enum {
+enum LCD_COLORS {
     // Bits 2, 1, 0 correspond to R, G, and B values, respectively.
     // NOTE: since the display colors are inverted, these bit patterns are too.
-    LCD_BLACK = ~(0x00) & 0x07,
+    LCD_BLACK = 0x00 ^ 0x07,
 
-    LCD_RED = ~(0x04) & 0x07,
-    LCD_GREEN = ~(0x02) & 0x07,
-    LCD_BLUE = ~(0x01) & 0x07,
+    LCD_RED = 0x04 ^ 0x07,
+    LCD_GREEN = 0x02 ^ 0x07,
+    LCD_BLUE = 0x01 ^ 0x07,
 
-    LCD_YELLOW = ~(0x06) & 0x07,
-    LCD_CYAN = ~(0x03) & 0x07,
-    LCD_PURPLE = ~(0x05) & 0x07,
-    LCD_WHITE = ~(0x07) & 0x07
-} LCD_Color_t;
+    LCD_YELLOW = 0x06 ^ 0x07,
+    LCD_CYAN = 0x03 ^ 0x07,
+    LCD_PURPLE = 0x05 ^ 0x07,
+    LCD_WHITE = 0x07 ^ 0x07
+};
 
 /**
  * @brief               Set the color value.
@@ -98,7 +98,7 @@ typedef enum {
  *
  * @post                Outgoing pixel data will use the selected color.
  */
-void LCD_setColor(LCD_Color_t color);
+void LCD_setColor(uint8_t color);
 
 /** @} */               // Initialization & Configuration
 
@@ -116,6 +116,7 @@ Drawing
  *                      the selected color.
  *
  * @see                 LCD_setX(), LCD_setY(), LCD_setColor()
+ * @showrefs
  */
 void LCD_Draw(void);
 
@@ -167,7 +168,7 @@ void LCD_drawVertLine(uint16_t xCenter, uint16_t lineWidth);
  */
 void LCD_drawRectangle(uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy);
 
-inline static void LCD_plotSample(uint16_t x, uint16_t y, LCD_Color_t color) {
+inline static void LCD_plotSample(uint16_t x, uint16_t y, uint8_t color) {
     LCD_setColor(color);
     LCD_setX(x, x);
     LCD_setY(y, y);

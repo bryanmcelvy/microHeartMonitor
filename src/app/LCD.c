@@ -59,9 +59,7 @@ static struct {
     uint16_t lineNum;               ///< line number for text; in range `[0, NUM_LINES)`
     uint16_t colNum;                ///< column number for text; in range `[0, NUM_COLS)`
 
-    uint8_t R_val;                  ///< 5 R value
-    uint8_t G_val;                  ///< 6-bit G value
-    uint8_t B_val;                  ///< 5 B value
+    uint8_t color;
 
     bool isInit;                    ///< if `true`, LCD has been initialized
 } lcd = { 0 };
@@ -121,18 +119,9 @@ void LCD_setY(uint16_t y1, uint16_t y2) {
     return;
 }
 
-void LCD_setColor(LCD_Color_t color) {
-    if(color == 0) {
-        lcd.R_val = 1;
-        lcd.G_val = 1;
-        lcd.B_val = 1;
-    }
-    else {
-        lcd.R_val = 0x1F * (color & 0x04);
-        lcd.B_val = 0x1F * (color & 0x01);
-        lcd.G_val = 0x3F * (color & 0x02);
-    }
-
+void LCD_setColor(uint8_t color) {
+    Assert(color < 0x08);
+    lcd.color = color;
     return;
 }
 
@@ -141,12 +130,23 @@ Drawing
 *******************************************************************************/
 
 void LCD_Draw(void) {
-    /// @showrefs
-    uint32_t numPixels = (uint32_t) ((lcd.x2 - lcd.x1) + 1) * ((lcd.y2 - lcd.y1) + 1);
+    // determine RGB values
+    uint8_t R, G, B;
+    if(lcd.color == 0) {
+        R = 1;
+        G = 1;
+        B = 1;
+    }
+    else {
+        R = 0x1F * (lcd.color & 0x04);
+        B = 0x1F * (lcd.color & 0x01);
+        G = 0x3F * (lcd.color & 0x02);
+    }
 
+    uint32_t numPixels = (uint32_t) ((lcd.x2 - lcd.x1) + 1) * ((lcd.y2 - lcd.y1) + 1);
     ILI9341_writeMemCmd();
     for(uint32_t count = 0; count < numPixels; count++) {
-        ILI9341_writePixel(lcd.R_val, lcd.G_val, lcd.B_val);
+        ILI9341_writePixel(R, G, B);
     }
 
     return;
@@ -162,15 +162,12 @@ void LCD_Fill(void) {
 }
 
 static void LCD_drawLine(uint16_t center, uint16_t lineWidth, bool is_horizontal) {
-    // ensure `lineWidth` is odd and positive
-    lineWidth = (lineWidth > 0) ? lineWidth : 1;
-    lineWidth = ((lineWidth % 2) == 0) ? lineWidth : (lineWidth - 1);
-
-    uint16_t padding = ((lineWidth - 1) / 2);
+    Assert(lineWidth > 0);
+    Assert((lineWidth % 2) == 0);
 
     // ensure line does not go out-of-bounds
+    uint16_t padding = ((lineWidth - 1) / 2);
     uint16_t MAX_NUM = (is_horizontal) ? LCD_Y_MAX : LCD_X_MAX;
-
     if(center < padding) {
         center = padding + 1;
     }
@@ -229,7 +226,7 @@ void LCD_drawRectangle(uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy) {
  *
  * @see                 LCD_setX(), LCD_setY(), LCD_setColor(), LCD_Draw()
  */
-static void LCD_plotSample(uint16_t x, uint16_t y, LCD_Color_t color);
+static void LCD_plotSample(uint16_t x, uint16_t y, uint8_t color);
 
 /******************************************************************************
 Writing
@@ -272,7 +269,7 @@ void LCD_writeChar(unsigned char inputChar) {
             uint8_t shiftVal = LEN_CHAR - 1 - colIdx;
             uint8_t pixel = line & (1 << shiftVal);
 
-            LCD_Color_t color = (pixel) ? LCD_RED : LCD_BLACK;
+            uint8_t color = (pixel > 0) ? lcd.color : LCD_BLACK;
             LCD_plotSample(colNum + colIdx, lineNum + lineIdx, color);
         }
     }
