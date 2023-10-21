@@ -162,11 +162,10 @@ void LCD_drawVertLine(uint16_t xCenter, uint16_t lineWidth);
  * @param[in] dx        length (horizontal distance) of the rectangle
  * @param[in] y1        lowest (bottom-most) y-coordinate
  * @param[in] dy        height (vertical distance) of the rectangle
- * @param[in] isFilled  `true` to fill the rectangle, `false` to leave it unfilled
  *
  * @see                 LCD_Draw(), LCD_Fill(), LCD_drawHoriLine(), LCD_drawVertLine()
  */
-void LCD_drawRectangle(uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy, bool isFilled);
+void LCD_drawRectangle(uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy);
 
 inline static void LCD_plotSample(uint16_t x, uint16_t y, LCD_Color_t color) {
     LCD_setColor(color);

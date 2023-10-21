@@ -205,49 +205,17 @@ void LCD_drawVertLine(uint16_t xCenter, uint16_t lineWidth) {
     return;
 }
 
-void LCD_drawRectangle(uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy, bool isFilled) {
-    uint16_t x2;
-    uint16_t y2;
+void LCD_drawRectangle(uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy) {
+    Assert(x1 <= LCD_X_MAX);
+    Assert(x1 + dx <= LCD_X_MAX);
+    Assert(y1 <= LCD_Y_MAX);
+    Assert((y1 + dy) <= LCD_Y_MAX);
 
-    // ensure startRow and startCol are less than their max numbers
-    x1 = (x1 <= LCD_X_MAX) ? x1 : LCD_X_MAX;
-    y1 = (y1 <= LCD_Y_MAX) ? y1 : LCD_Y_MAX;
-
-    // ensure lines don't go out of bounds
-    if((x1 + dx) > LCD_X_MAX) {
-        dx = (LCD_X_MAX - x1 - 1);
-    }
-    if((y1 + dy) > LCD_Y_MAX) {
-        dy = (LCD_Y_MAX - y1 - 1);
-    }
-
-    // draw rectangle based on `is_filled`
-    x2 = (x1 + dx) - 1;
-    y2 = (y1 + dy) - 1;
-    if(isFilled) {
-        LCD_setX(x1, x2);
-        LCD_setY(y1, y2);
-        LCD_Draw();
-    }
-    else {
-        // left side
-        LCD_setX(x1, x2);
-        LCD_setY(y1, y1);
-        LCD_Draw();
-
-        // right side
-        LCD_setY(y2, y2);
-        LCD_Draw();
-
-        // top side
-        LCD_setX(x1, x1);
-        LCD_setY(y1, y2);
-        LCD_Draw();
-
-        // right side
-        LCD_setX(x2, x2);
-        LCD_Draw();
-    }
+    uint16_t x2 = (x1 + dx) - 1;
+    uint16_t y2 = (y1 + dy) - 1;
+    LCD_setX(x1, x2);
+    LCD_setY(y1, y2);
+    LCD_Draw();
 
     return;
 }

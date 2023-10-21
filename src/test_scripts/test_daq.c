@@ -109,14 +109,14 @@ void LCD_plotNewSample(uint16_t x, volatile const float32_t sample) {
 
     // blank out column
     LCD_setColor(LCD_BLACK);
-    LCD_drawRectangle(x, 1, LCD_Y_MIN, LCD_NUM_Y_VALS, true);
+    LCD_drawRectangle(x, 1, LCD_Y_MIN, LCD_NUM_Y_VALS);
 
     // plot sample
     maxVoltage = (sample > maxVoltage) ? sample : maxVoltage;
     uint16_t y = LCD_X_AXIS_OFFSET +
                  ((uint16_t) (((sample + maxVoltage) / (maxVoltage * 2)) * LCD_NUM_Y_VALS));
     LCD_setColor(LCD_RED);
-    LCD_drawRectangle(x, 1, y, 1, true);
+    LCD_drawRectangle(x, 1, y, 1);
 
     return;
 }
