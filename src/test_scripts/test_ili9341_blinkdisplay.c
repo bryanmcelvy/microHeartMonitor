@@ -3,7 +3,7 @@
 #include "Timer.h"
 #include "GPIO.h"
 
-#define LED_PINS (GPIO_Pin_t)(GPIO_PIN1 | GPIO_PIN2 | GPIO_PIN3)
+#define LED_PINS (GpioPin_t)(GPIO_PIN1 | GPIO_PIN2 | GPIO_PIN3)
 
 enum colors {
     RED = (uint8_t) 0x02,

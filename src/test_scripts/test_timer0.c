@@ -8,7 +8,7 @@
 #include "PLL.h"
 #include "Timer.h"
 
-#define LED_PINS (GPIO_Pin_t)(GPIO_PIN1 | GPIO_PIN2 | GPIO_PIN3)
+#define LED_PINS (GpioPin_t)(GPIO_PIN1 | GPIO_PIN2 | GPIO_PIN3)
 
 int main(void) {
     const uint8_t color_table[6] = { 0x02, 0x06, 0x04, 0x0C, 0x08, 0x0A };

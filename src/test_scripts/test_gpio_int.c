@@ -8,8 +8,8 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#define LED_PINS (GPIO_Pin_t)(GPIO_PIN1 | GPIO_PIN2 | GPIO_PIN3)
-#define SW_PINS  (GPIO_Pin_t)(GPIO_PIN0 | GPIO_PIN4)
+#define LED_PINS (GpioPin_t)(GPIO_PIN1 | GPIO_PIN2 | GPIO_PIN3)
+#define SW_PINS  (GpioPin_t)(GPIO_PIN0 | GPIO_PIN4)
 
 Timer_t debounceTimer = 0;
 volatile uint8_t color;

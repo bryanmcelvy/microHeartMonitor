@@ -16,7 +16,7 @@
 
 #define FIFO_LEN 10
 
-#define LED_PINS (GPIO_Pin_t)(GPIO_PIN1 | GPIO_PIN2 | GPIO_PIN3)
+#define LED_PINS (GpioPin_t)(GPIO_PIN1 | GPIO_PIN2 | GPIO_PIN3)
 
 Uart_t uart;
 

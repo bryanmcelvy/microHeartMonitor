@@ -16,7 +16,7 @@
 #include "tm4c123gh6pm.h"
 #include <stdint.h>
 
-#define LED_PINS           (GPIO_Pin_t)(GPIO_PIN1 | GPIO_PIN2 | GPIO_PIN3)
+#define LED_PINS           (GpioPin_t)(GPIO_PIN1 | GPIO_PIN2 | GPIO_PIN3)
 
 #define SAMPLING_PERIOD_MS (uint32_t) 5
 #define NUM_SAMPLES        (uint32_t) 1000

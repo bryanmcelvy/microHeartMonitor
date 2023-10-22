@@ -19,7 +19,7 @@
 #define X_OFFSET (uint16_t) 0
 #define SIZE     (uint16_t) 4
 
-#define LED_PINS (GPIO_Pin_t)(GPIO_PIN1 | GPIO_PIN2 | GPIO_PIN3)
+#define LED_PINS (GpioPin_t)(GPIO_PIN1 | GPIO_PIN2 | GPIO_PIN3)
 
 const uint8_t COLOR_ARR[6] = { LCD_RED, LCD_YELLOW, LCD_GREEN, LCD_CYAN, LCD_BLUE, LCD_PURPLE };
 uint8_t color_idx;
