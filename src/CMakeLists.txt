@@ -24,7 +24,7 @@ target_include_directories( ${MAIN_TARGET}
                                 ${PATH_DEVICE}
                                 ${PATH_DRIVERS}
                                 ${PATH_MIDDLEWARE}
-                                ${CMSIS_DIRS}
+                                ${PATH_CMSIS_INCLUDE}
                             )
 target_link_libraries(${MAIN_TARGET} Startup DAQ Debug LCD QRS PLL)
 target_link_options(${MAIN_TARGET} PRIVATE "-Wl,-Map=main.map,--cref")

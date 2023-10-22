@@ -21,8 +21,10 @@ set(PATH_DOXYGEN ${PATH_DOCS}/doxygen)
 
 set(PATH_EXTERNAL ${PROJECT_SOURCE_DIR}/external)
 set(PATH_CMSIS ${PATH_EXTERNAL}/CMSIS-DSP)
-list(APPEND CMSIS_DIRS                  
-                ${PATH_CMSIS}/Include
+set(PATH_CMSIS_INCLUDE ${PATH_CMSIS}/Include)
+set(PATH_CMSIS_SOURCE ${PATH_CMSIS}/Source)
+list(APPEND CMSIS_ALL_INCLUDE_DIRS                  
+                ${PATH_CMSIS_INCLUDE}
                 ${PATH_CMSIS}/PrivateInclude
                 ${PATH_EXTERNAL}/CMSIS/Core/Include)
 

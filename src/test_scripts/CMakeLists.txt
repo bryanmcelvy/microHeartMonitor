@@ -97,18 +97,18 @@ target_link_libraries(test_lcd_image.elf LCD GPIO Timer)
 
 # DAQ Test
 add_executable(test_daq.elf test_daq.c)
-target_include_directories(test_daq.elf PRIVATE ${PATH_APP} ${CMSIS_DIRS})
+target_include_directories(test_daq.elf PRIVATE ${PATH_APP} ${PATH_CMSIS_INCLUDE})
 target_link_libraries(test_daq.elf DAQ Debug Fifo ISR LCD)
 target_link_options(test_daq.elf PRIVATE "-Wl,-Map=test_daq.map")
 
 # Debug Module Test
 add_executable(test_debug.elf test_debug.c)
-target_include_directories(test_debug.elf PRIVATE ${PATH_APP} ${CMSIS_DIRS})
+target_include_directories(test_debug.elf PRIVATE ${PATH_APP} ${PATH_CMSIS_INCLUDE})
 target_link_libraries(test_debug.elf Debug GPIO Timer)
 
 # QRS Test
 add_executable(test_qrs.elf test_qrs.c)
-target_include_directories(test_qrs.elf PRIVATE ${PATH_APP} ${CMSIS_DIRS})
+target_include_directories(test_qrs.elf PRIVATE ${PATH_APP} ${PATH_CMSIS_INCLUDE})
 target_link_libraries(test_qrs.elf DAQ Debug ISR LCD QRS)
 
 # LED Letter Test
