@@ -57,9 +57,9 @@ The [`/docs`](/docs/) directory hosts the project's [reference manual](/docs/ref
 The project is primarily built using CMake, which generates Makefiles based on the commands in each of the different `CMakeLists.txt` files present in many of the directories.
 
 ### Why'd you do all of this?
-<u>Short version</u>: Because I was interested in doing it and saw utility in doing so.
+***Short version***: Because I was interested in doing it and saw utility in doing so.
 
-<u>Long version</u>: See the [Motivation](#motivation) subsection.
+***Long version***: See the [Motivation](#motivation) subsection.
 
 [🔼 BACK TO TOP 🔼](#μheartmonitor-an-ecg-based-heart-rate-monitor)
 
@@ -105,9 +105,9 @@ The project is primarily built using CMake, which generates Makefiles based on t
 ## Introduction 
 
 ### Background
-"**<u>Electrocardiography</u>**" (or "**ECG**") is a diagnostic technique in which the electrical activity of a patient's heart is captured as time series data (AKA the ECG signal) and analyzed to assess cardiovascular health. Specifically, the ECG signal can be analyzed to detect biomarkers for cardiovascular diseases like arrhythmia, myocardial infarction, etc. which manifest as abnormalities in the ECG waveform. In clinical environments, ECG is performed using machines that implement the required hardware and software to acquire, process, and analyze the ECG signal. This must be done in such a way that preserves the important information within the signal (specifically the shape of the ECG waveform) while also maintaining the safety of the patient [[1]](#references).
+"***Electrocardiography***" (or "***ECG***") is a diagnostic technique in which the electrical activity of a patient's heart is captured as time series data (AKA the ECG signal) and analyzed to assess cardiovascular health. Specifically, the ECG signal can be analyzed to detect biomarkers for cardiovascular diseases like arrhythmia, myocardial infarction, etc. which manifest as abnormalities in the ECG waveform. In clinical environments, ECG is performed using machines that implement the required hardware and software to acquire, process, and analyze the ECG signal. This must be done in such a way that preserves the important information within the signal (specifically the shape of the ECG waveform) while also maintaining the safety of the patient [[1]](#references).
 
-The ECG waveform consists of 5 smaller "waves" – the P, Q, R, S, and T waves – that each give information on a patient's cardiac health both individually and collectively. The term "**<u>QRS complex</u>**" refers to the part of the ECG waveform that is generally taken to be the heart "beat". Thus, ECG-based heart rate monitors commonly use a category of algorithms called "**<u>QRS detectors</u>**" to determine the locations of the R-peaks within a block of ECG signal data and calculate the time period between each adjacent peak (i.e. the "**<u>RR interval</u>**") [[2]](#references). The RR interval is related to the heart rate by this equation:
+The ECG waveform consists of 5 smaller "waves" – the P, Q, R, S, and T waves – that each give information on a patient's cardiac health both individually and collectively. The term "***QRS complex***" refers to the part of the ECG waveform that is generally taken to be the heart "beat". Thus, ECG-based heart rate monitors commonly use a category of algorithms called "***QRS detectors***" to determine the locations of the R-peaks within a block of ECG signal data and calculate the time period between each adjacent peak (i.e. the "***RR interval***") [[2]](#references). The RR interval is related to the heart rate by this equation:
 
 $$
 RR = \frac{60}{HR}
@@ -123,7 +123,7 @@ Figure 3 from Martinek, et. al. [[1]](#references)
 
 </details>
 
-The **<u>μHeartMonitor</u>** is an embedded system that implements the Pan-Tompkins algorithm for QRS detection. The system consists of both hardware and software that cooperate to achieve this task while also visually outputting the ECG waveform and heart rate to a liquid crystal display (LCD). The text below and the contents of this repository reflect the current progress made, but the end goal is to have the full system mounted on 1-2 printed circuit boards (PCBs) situated inside an insulated enclosure.
+The ***μHeartMonitor*** is an embedded system that implements the Pan-Tompkins algorithm for QRS detection. The system consists of both hardware and software that cooperate to achieve this task while also visually outputting the ECG waveform and heart rate to a liquid crystal display (LCD). The text below and the contents of this repository reflect the current progress made, but the end goal is to have the full system mounted on 1-2 printed circuit boards (PCBs) situated inside an insulated enclosure.
 
 ### Motivation
 My primary motivations for doing this project are:
@@ -254,7 +254,7 @@ The project is currently implemented using 2 breadboards and a Tiva C LaunchPad 
   * T-wave discrimination
 * Add heart rate variability (HRV) calculation
 * Move CMSIS-DSP filters from DAQ and QRS modules to their own module
-* Expand the automated test suite.
+* Expand the automated test suite
 
 [🔼 BACK TO TOP 🔼](#μheartmonitor-an-ecg-based-heart-rate-monitor)
 
