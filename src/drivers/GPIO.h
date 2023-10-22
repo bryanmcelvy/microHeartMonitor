@@ -196,7 +196,7 @@ Basic Functions (Digital I/O)
  * @param[in] gpioPort      Pointer to the specified GPIO port.
  * @param[out] dataRegister Address of the GPIO port's data register.
  */
-uint32_t GPIO_getDataRegister(GpioPort_t gpioPort);
+volatile uint32_t * GPIO_getDataRegister(GpioPort_t gpioPort);
 
 /**
  * @brief               Read from the specified GPIO pin.
