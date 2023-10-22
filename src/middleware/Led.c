@@ -30,6 +30,7 @@ Initialization
 typedef struct LedStruct_t {
     GpioPort_t GPIO_PORT_PTR;               ///< pointer to GPIO port data structure
     GpioPin_t GPIO_PIN;                     ///< GPIO pin number
+    volatile uint32_t * gpioDataRegister;
     bool isOn;                              ///< state indicator
     bool isInit;
 } LedStruct_t;
@@ -53,6 +54,7 @@ Led_t Led_Init(GpioPort_t gpioPort, GpioPin_t pin) {
 
     led->GPIO_PORT_PTR = gpioPort;
     led->GPIO_PIN = pin;
+    led->gpioDataRegister = GPIO_getDataRegister(gpioPort);
     led->isOn = false;
     led->isInit = true;
 
@@ -88,21 +90,21 @@ Operations
 
 void Led_TurnOn(Led_t led) {
     Assert(led->isInit);
-    GPIO_WriteHigh(led->GPIO_PORT_PTR, led->GPIO_PIN);
+    *led->gpioDataRegister |= led->GPIO_PIN;
     led->isOn = true;
     return;
 }
 
 void Led_TurnOff(Led_t led) {
     Assert(led->isInit);
-    GPIO_WriteLow(led->GPIO_PORT_PTR, led->GPIO_PIN);
+    *led->gpioDataRegister &= ~(led->GPIO_PIN);
     led->isOn = false;
     return;
 }
 
 void Led_Toggle(Led_t led) {
     Assert(led->isInit);
-    GPIO_Toggle(led->GPIO_PORT_PTR, led->GPIO_PIN);
+    *led->gpioDataRegister ^= led->GPIO_PIN;
     led->isOn = !led->isOn;
     return;
 }
