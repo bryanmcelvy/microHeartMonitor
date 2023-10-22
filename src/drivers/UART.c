@@ -68,9 +68,9 @@ Initialization
 typedef struct UartStruct_t {
     const uint32_t BASE_ADDRESS;
     register_t FLAG_R_ADDRESS;
-    GpioPort_t GPIO_PORT;                ///< pointer to GPIO port data structure
-    GPIO_Pin_t RX_PIN_NUM;               ///< GPIO pin number
-    GPIO_Pin_t TX_PIN_NUM;               ///< GPIO pin number
+    GpioPort_t GPIO_PORT;               ///< pointer to GPIO port data structure
+    GpioPin_t RX_PIN_NUM;               ///< GPIO pin number
+    GpioPin_t TX_PIN_NUM;               ///< GPIO pin number
     bool isInit;
 } UartStruct_t;
 

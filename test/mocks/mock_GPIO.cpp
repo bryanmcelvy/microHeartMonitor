@@ -25,35 +25,35 @@ bool GPIO_isPortInit(GpioPort_t gpioPort) {
         .returnBoolValueOrDefault(true);
 }
 
-void GPIO_ConfigDirOutput(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
+void GPIO_ConfigDirOutput(GpioPort_t gpioPort, GpioPin_t pinMask) {
     mock()
         .actualCall(__func__)
         .withParameter("gpioPort", gpioPort)
         .withParameter("pinMask", pinMask);
 }
 
-void GPIO_ConfigDirInput(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
+void GPIO_ConfigDirInput(GpioPort_t gpioPort, GpioPin_t pinMask) {
     mock()
         .actualCall(__func__)
         .withParameter("gpioPort", gpioPort)
         .withParameter("pinMask", pinMask);
 }
 
-void GPIO_ConfigPullUp(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
+void GPIO_ConfigPullUp(GpioPort_t gpioPort, GpioPin_t pinMask) {
     mock()
         .actualCall(__func__)
         .withParameter("gpioPort", gpioPort)
         .withParameter("pinMask", pinMask);
 }
 
-void GPIO_ConfigPullDown(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
+void GPIO_ConfigPullDown(GpioPort_t gpioPort, GpioPin_t pinMask) {
     mock()
         .actualCall(__func__)
         .withParameter("gpioPort", gpioPort)
         .withParameter("pinMask", pinMask);
 }
 
-void GPIO_ConfigDriveStrength(GpioPort_t gpioPort, GPIO_Pin_t pinMask, uint8_t drive_mA) {
+void GPIO_ConfigDriveStrength(GpioPort_t gpioPort, GpioPin_t pinMask, uint8_t drive_mA) {
     mock()
         .actualCall(__func__)
         .withParameter("gpioPort", gpioPort)
@@ -61,21 +61,21 @@ void GPIO_ConfigDriveStrength(GpioPort_t gpioPort, GPIO_Pin_t pinMask, uint8_t d
         .withParameter("drive_mA", drive_mA);
 }
 
-void GPIO_EnableDigital(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
+void GPIO_EnableDigital(GpioPort_t gpioPort, GpioPin_t pinMask) {
     mock()
         .actualCall(__func__)
         .withParameter("gpioPort", gpioPort)
         .withParameter("pinMask", pinMask);
 }
 
-void GPIO_DisableDigital(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
+void GPIO_DisableDigital(GpioPort_t gpioPort, GpioPin_t pinMask) {
     mock()
         .actualCall(__func__)
         .withParameter("gpioPort", gpioPort)
         .withParameter("pinMask", pinMask);
 }
 
-void GPIO_ConfigInterrupts_Edge(GpioPort_t gpioPort, GPIO_Pin_t pinMask, bool risingEdge) {
+void GPIO_ConfigInterrupts_Edge(GpioPort_t gpioPort, GpioPin_t pinMask, bool risingEdge) {
     mock()
         .actualCall(__func__)
         .withParameter("gpioPort", gpioPort)
@@ -83,14 +83,14 @@ void GPIO_ConfigInterrupts_Edge(GpioPort_t gpioPort, GPIO_Pin_t pinMask, bool ri
         .withParameter("risingEdge", risingEdge);
 }
 
-void GPIO_ConfigInterrupts_BothEdges(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
+void GPIO_ConfigInterrupts_BothEdges(GpioPort_t gpioPort, GpioPin_t pinMask) {
     mock()
         .actualCall(__func__)
         .withParameter("gpioPort", gpioPort)
         .withParameter("pinMask", pinMask);
 }
 
-void GPIO_ConfigInterrupts_LevelTrig(GpioPort_t gpioPort, GPIO_Pin_t pinMask, bool highLevel) {
+void GPIO_ConfigInterrupts_LevelTrig(GpioPort_t gpioPort, GpioPin_t pinMask, bool highLevel) {
     mock()
         .actualCall(__func__)
         .withParameter("gpioPort", gpioPort)
@@ -105,7 +105,7 @@ void GPIO_ConfigNVIC(GpioPort_t gpioPort, uint8_t priority) {
         .withParameter("priority", priority);
 }
 
-uint8_t GPIO_ReadPins(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
+uint8_t GPIO_ReadPins(GpioPort_t gpioPort, GpioPin_t pinMask) {
     return mock()
         .actualCall(__func__)
         .withParameter("gpioPort", gpioPort)
@@ -113,35 +113,35 @@ uint8_t GPIO_ReadPins(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
         .returnUnsignedLongIntValueOrDefault(pinMask & 1);
 }
 
-void GPIO_WriteHigh(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
+void GPIO_WriteHigh(GpioPort_t gpioPort, GpioPin_t pinMask) {
     mock()
         .actualCall(__func__)
         .withParameter("gpioPort", gpioPort)
         .withParameter("pinMask", pinMask);
 }
 
-void GPIO_WriteLow(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
+void GPIO_WriteLow(GpioPort_t gpioPort, GpioPin_t pinMask) {
     mock()
         .actualCall(__func__)
         .withParameter("gpioPort", gpioPort)
         .withParameter("pinMask", pinMask);
 }
 
-void GPIO_Toggle(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
+void GPIO_Toggle(GpioPort_t gpioPort, GpioPin_t pinMask) {
     mock()
         .actualCall(__func__)
         .withParameter("gpioPort", gpioPort)
         .withParameter("pinMask", pinMask);
 }
 
-void GPIO_ConfigAltMode(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
+void GPIO_ConfigAltMode(GpioPort_t gpioPort, GpioPin_t pinMask) {
     mock()
         .actualCall(__func__)
         .withParameter("gpioPort", gpioPort)
         .withParameter("pinMask", pinMask);
 }
 
-void GPIO_ConfigPortCtrl(GpioPort_t gpioPort, GPIO_Pin_t pinMask, uint8_t fieldEncoding) {
+void GPIO_ConfigPortCtrl(GpioPort_t gpioPort, GpioPin_t pinMask, uint8_t fieldEncoding) {
     mock()
         .actualCall(__func__)
         .withParameter("gpioPort", gpioPort)
@@ -149,7 +149,7 @@ void GPIO_ConfigPortCtrl(GpioPort_t gpioPort, GPIO_Pin_t pinMask, uint8_t fieldE
         .withParameter("fieldEncoding", fieldEncoding);
 }
 
-void GPIO_ConfigAnalog(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
+void GPIO_ConfigAnalog(GpioPort_t gpioPort, GpioPin_t pinMask) {
     mock()
         .actualCall(__func__)
         .withParameter("gpioPort", gpioPort)

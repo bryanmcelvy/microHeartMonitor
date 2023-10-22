@@ -12,7 +12,7 @@ extern "C" {
 
 TEST_GROUP(Group_Led) { 
     GpioPort_t port;
-    const GPIO_Pin_t pin = (GPIO_Pin_t) (1 << (rand() % 8));
+    const GpioPin_t pin = (GpioPin_t) (1 << (rand() % 8));
     Led_t led;
 
     void setup() {
@@ -35,7 +35,7 @@ TEST(Group_Led, AfterInit_GetPortReturnsCorrectPort) {
 }
 
 TEST(Group_Led, AfterInit_GetPinReturnsCorrectPin) {
-    GPIO_Pin_t newPin = Led_GetPin(led);
+    GpioPin_t newPin = Led_GetPin(led);
     CHECK_EQUAL(pin, newPin);
 }
 

@@ -80,7 +80,7 @@ int main(void) {
 
     // Blink
     while(1) {
-        GPIO_Toggle(portF, (GPIO_Pin_t) LED_GREEN);
+        GPIO_Toggle(portF, (GpioPin_t) LED_GREEN);
         Timer_Wait1ms(timer, 500);
     }
 }

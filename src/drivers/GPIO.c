@@ -110,27 +110,27 @@ uint32_t GPIO_getBaseAddr(GpioPort_t gpioPort) {
 Configuration (Digital I/O)
 *******************************************************************************/
 
-void GPIO_ConfigDirOutput(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
+void GPIO_ConfigDirOutput(GpioPort_t gpioPort, GpioPin_t pinMask) {
     *((register_t) (gpioPort->BASE_ADDRESS + GPIO_DIR_R_OFFSET)) |= pinMask;
     return;
 }
 
-void GPIO_ConfigDirInput(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
+void GPIO_ConfigDirInput(GpioPort_t gpioPort, GpioPin_t pinMask) {
     *((register_t) (gpioPort->BASE_ADDRESS + GPIO_DIR_R_OFFSET)) &= ~(pinMask);
     return;
 }
 
-void GPIO_ConfigPullUp(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
+void GPIO_ConfigPullUp(GpioPort_t gpioPort, GpioPin_t pinMask) {
     *((register_t) (gpioPort->BASE_ADDRESS + GPIO_PUR_R_OFFSET)) |= pinMask;
     return;
 }
 
-void GPIO_ConfigPullDown(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
+void GPIO_ConfigPullDown(GpioPort_t gpioPort, GpioPin_t pinMask) {
     *((register_t) (gpioPort->BASE_ADDRESS + GPIO_PDR_R_OFFSET)) |= pinMask;
     return;
 }
 
-void GPIO_ConfigDriveStrength(GpioPort_t gpioPort, GPIO_Pin_t pinMask, uint8_t drive_mA) {
+void GPIO_ConfigDriveStrength(GpioPort_t gpioPort, GpioPin_t pinMask, uint8_t drive_mA) {
     uint32_t driveSelectRegister_Offset;
     switch(drive_mA) {
         case 2:
@@ -150,12 +150,12 @@ void GPIO_ConfigDriveStrength(GpioPort_t gpioPort, GPIO_Pin_t pinMask, uint8_t d
     return;
 }
 
-void GPIO_EnableDigital(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
+void GPIO_EnableDigital(GpioPort_t gpioPort, GpioPin_t pinMask) {
     *((register_t) (gpioPort->BASE_ADDRESS + GPIO_DEN_R_OFFSET)) |= pinMask;
     return;
 }
 
-void GPIO_DisableDigital(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
+void GPIO_DisableDigital(GpioPort_t gpioPort, GpioPin_t pinMask) {
     *((register_t) (gpioPort->BASE_ADDRESS + GPIO_DEN_R_OFFSET)) &= ~pinMask;
     return;
 }
@@ -164,7 +164,7 @@ void GPIO_DisableDigital(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
 Configuration (Interrupts)
 *******************************************************************************/
 
-void GPIO_ConfigInterrupts_Edge(GpioPort_t gpioPort, GPIO_Pin_t pinMask, bool risingEdge) {
+void GPIO_ConfigInterrupts_Edge(GpioPort_t gpioPort, GpioPin_t pinMask, bool risingEdge) {
     // Disable interrupts
     *((register_t) (gpioPort->BASE_ADDRESS + GPIO_IM_R_OFFSET)) &= ~(pinMask);
 
@@ -187,7 +187,7 @@ void GPIO_ConfigInterrupts_Edge(GpioPort_t gpioPort, GPIO_Pin_t pinMask, bool ri
     return;
 }
 
-void GPIO_ConfigInterrupts_BothEdges(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
+void GPIO_ConfigInterrupts_BothEdges(GpioPort_t gpioPort, GpioPin_t pinMask) {
     // Disable interrupts
     *((register_t) (gpioPort->BASE_ADDRESS + GPIO_IM_R_OFFSET)) &= ~(pinMask);
 
@@ -202,7 +202,7 @@ void GPIO_ConfigInterrupts_BothEdges(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
     return;
 }
 
-void GPIO_ConfigInterrupts_LevelTrig(GpioPort_t gpioPort, GPIO_Pin_t pinMask, bool highLevel) {
+void GPIO_ConfigInterrupts_LevelTrig(GpioPort_t gpioPort, GpioPin_t pinMask, bool highLevel) {
     // Disable interrupts
     *((register_t) (gpioPort->BASE_ADDRESS + GPIO_IM_R_OFFSET)) &= ~(pinMask);
 
@@ -265,21 +265,21 @@ uint32_t GPIO_getDataRegister(GpioPort_t gpioPort) {
     return gpioPort->DATA_REGISTER;
 }
 
-uint8_t GPIO_ReadPins(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
+uint8_t GPIO_ReadPins(GpioPort_t gpioPort, GpioPin_t pinMask) {
     return *((register_t) gpioPort->DATA_REGISTER) & pinMask;
 }
 
-void GPIO_WriteHigh(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
+void GPIO_WriteHigh(GpioPort_t gpioPort, GpioPin_t pinMask) {
     *((register_t) gpioPort->DATA_REGISTER) |= pinMask;
     return;
 }
 
-void GPIO_WriteLow(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
+void GPIO_WriteLow(GpioPort_t gpioPort, GpioPin_t pinMask) {
     *((register_t) gpioPort->DATA_REGISTER) &= ~(pinMask);
     return;
 }
 
-void GPIO_Toggle(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
+void GPIO_Toggle(GpioPort_t gpioPort, GpioPin_t pinMask) {
     *((register_t) gpioPort->DATA_REGISTER) ^= pinMask;
     return;
 }
@@ -288,12 +288,12 @@ void GPIO_Toggle(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
 Configuration (Alternate/Analog Modes)
 *******************************************************************************/
 
-void GPIO_ConfigAltMode(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
+void GPIO_ConfigAltMode(GpioPort_t gpioPort, GpioPin_t pinMask) {
     *((register_t) (gpioPort->BASE_ADDRESS + GPIO_AFSEL_R_OFFSET)) |= pinMask;
     return;
 }
 
-void GPIO_ConfigPortCtrl(GpioPort_t gpioPort, GPIO_Pin_t pinMask, uint8_t fieldEncoding) {
+void GPIO_ConfigPortCtrl(GpioPort_t gpioPort, GpioPin_t pinMask, uint8_t fieldEncoding) {
     // TODO: Write explanation
     register_t portCtrlRegister = (register_t) (gpioPort->BASE_ADDRESS + GPIO_PCTL_R_OFFSET);
     for(uint8_t i = 0; i < 8; i++) {
@@ -304,7 +304,7 @@ void GPIO_ConfigPortCtrl(GpioPort_t gpioPort, GPIO_Pin_t pinMask, uint8_t fieldE
     return;
 }
 
-void GPIO_ConfigAnalog(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
+void GPIO_ConfigAnalog(GpioPort_t gpioPort, GpioPin_t pinMask) {
     *((register_t) (gpioPort->BASE_ADDRESS + GPIO_AMSEL_R_OFFSET)) |= pinMask;
     return;
 }

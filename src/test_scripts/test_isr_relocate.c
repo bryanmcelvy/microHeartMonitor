@@ -19,7 +19,7 @@
 
 void Timer_Handler(void);
 
-const GPIO_Pin_t LED_PIN = GPIO_PIN3;
+const GpioPin_t LED_PIN = GPIO_PIN3;
 
 GpioPort_t portF = 0;
 Led_t led = 0;

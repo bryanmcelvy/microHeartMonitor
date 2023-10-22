@@ -29,7 +29,7 @@ Initialization
 
 typedef struct LedStruct_t {
     GpioPort_t GPIO_PORT_PTR;               ///< pointer to GPIO port data structure
-    GPIO_Pin_t GPIO_PIN;                    ///< GPIO pin number
+    GpioPin_t GPIO_PIN;                     ///< GPIO pin number
     bool isOn;                              ///< state indicator
     bool isInit;
 } LedStruct_t;
@@ -37,7 +37,7 @@ typedef struct LedStruct_t {
 static LedStruct_t Led_ObjPool[LED_POOL_SIZE] = { 0 };
 static uint8_t num_free_leds = LED_POOL_SIZE;
 
-Led_t Led_Init(GpioPort_t gpioPort, GPIO_Pin_t pin) {
+Led_t Led_Init(GpioPort_t gpioPort, GpioPin_t pin) {
     Assert(GPIO_isPortInit(gpioPort));
     Assert(num_free_leds > 0);
 
@@ -64,7 +64,7 @@ GpioPort_t Led_GetPort(Led_t led) {
     return led->GPIO_PORT_PTR;
 }
 
-GPIO_Pin_t Led_GetPin(Led_t led) {
+GpioPin_t Led_GetPin(Led_t led) {
     Assert(led->isInit);
     return led->GPIO_PIN;
 }
