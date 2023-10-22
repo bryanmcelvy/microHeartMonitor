@@ -14,6 +14,15 @@ extern "C" {
 
 #include "stdlib.h"
 
+static struct {
+    uint32_t data;
+    bool isInit;
+} GpioPortStub;
+
+/******************************************************************************
+Initialization
+*******************************************************************************/
+
 GpioPort_t GPIO_InitPort(GPIO_PortName_t portName) {
     return 0;
 }
@@ -22,43 +31,51 @@ bool GPIO_isPortInit(GpioPort_t gpioPort) {
     return true;
 }
 
-void GPIO_ConfigDirOutput(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
+/******************************************************************************
+Configuration (Digital I/O)
+*******************************************************************************/
+
+void GPIO_ConfigDirOutput(GpioPort_t gpioPort, GpioPin_t pinMask) {
     return;
 }
 
-void GPIO_ConfigDirInput(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
+void GPIO_ConfigDirInput(GpioPort_t gpioPort, GpioPin_t pinMask) {
     return;
 }
 
-void GPIO_ConfigPullUp(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
+void GPIO_ConfigPullUp(GpioPort_t gpioPort, GpioPin_t pinMask) {
     return;
 }
 
-void GPIO_ConfigPullDown(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
+void GPIO_ConfigPullDown(GpioPort_t gpioPort, GpioPin_t pinMask) {
     return;
 }
 
-void GPIO_ConfigDriveStrength(GpioPort_t gpioPort, GPIO_Pin_t pinMask, uint8_t drive_mA) {
+void GPIO_ConfigDriveStrength(GpioPort_t gpioPort, GpioPin_t pinMask, uint8_t drive_mA) {
     return;
 }
 
-void GPIO_EnableDigital(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
+void GPIO_EnableDigital(GpioPort_t gpioPort, GpioPin_t pinMask) {
     return;
 }
 
-void GPIO_DisableDigital(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
+void GPIO_DisableDigital(GpioPort_t gpioPort, GpioPin_t pinMask) {
     return;
 }
 
-void GPIO_ConfigInterrupts_Edge(GpioPort_t gpioPort, GPIO_Pin_t pinMask, bool risingEdge) {
+/******************************************************************************
+Configuration (Interrupts)
+*******************************************************************************/
+
+void GPIO_ConfigInterrupts_Edge(GpioPort_t gpioPort, GpioPin_t pinMask, bool risingEdge) {
     return;
 }
 
-void GPIO_ConfigInterrupts_BothEdges(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
+void GPIO_ConfigInterrupts_BothEdges(GpioPort_t gpioPort, GpioPin_t pinMask) {
     return;
 }
 
-void GPIO_ConfigInterrupts_LevelTrig(GpioPort_t gpioPort, GPIO_Pin_t pinMask, bool highLevel) {
+void GPIO_ConfigInterrupts_LevelTrig(GpioPort_t gpioPort, GpioPin_t pinMask, bool highLevel) {
     return;
 }
 
@@ -66,31 +83,46 @@ void GPIO_ConfigNVIC(GpioPort_t gpioPort, uint8_t priority) {
     return;
 }
 
-uint8_t GPIO_ReadPins(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
+uint8_t GPIO_ReadPins(GpioPort_t gpioPort, GpioPin_t pinMask) {
     return (rand() % 16) & pinMask;
 }
 
-void GPIO_WriteHigh(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
+/******************************************************************************
+Basic Functions (Digital I/O)
+*******************************************************************************/
+
+volatile uint32_t * GPIO_getDataRegister(GpioPort_t gpioPort) {
+    return &GpioPortStub.data;
+}
+
+void GPIO_WriteHigh(GpioPort_t gpioPort, GpioPin_t pinMask) {
+    GpioPortStub.data |= pinMask;
     return;
 }
 
-void GPIO_WriteLow(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
+void GPIO_WriteLow(GpioPort_t gpioPort, GpioPin_t pinMask) {
+    GpioPortStub.data &= ~(pinMask);
     return;
 }
 
-void GPIO_Toggle(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
+void GPIO_Toggle(GpioPort_t gpioPort, GpioPin_t pinMask) {
+    GpioPortStub.data ^= pinMask;
     return;
 }
 
-void GPIO_ConfigAltMode(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
+/******************************************************************************
+Configuration (Alternate/Analog Modes)
+*******************************************************************************/
+
+void GPIO_ConfigAltMode(GpioPort_t gpioPort, GpioPin_t pinMask) {
     return;
 }
 
-void GPIO_ConfigPortCtrl(GpioPort_t gpioPort, GPIO_Pin_t pinMask, uint8_t fieldEncoding) {
+void GPIO_ConfigPortCtrl(GpioPort_t gpioPort, GpioPin_t pinMask, uint8_t fieldEncoding) {
     return;
 }
 
-void GPIO_ConfigAnalog(GpioPort_t gpioPort, GPIO_Pin_t pinMask) {
+void GPIO_ConfigAnalog(GpioPort_t gpioPort, GpioPin_t pinMask) {
     return;
 }
 
