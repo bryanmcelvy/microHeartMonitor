@@ -5,37 +5,39 @@
  * @{
  */
 
-        /** @defgroup   adc             Analog-to-Digital Conversion (ADC)
-         * Functions for differential-input analog-to-digital conversion.
+        /**
+         * @defgroup   adc             Analog-to-Digital Conversion (ADC)
+         * @brief    Functions for analog-to-digital conversion.
          */
 
-        /** @defgroup   gpio            General-Purpose Input/Output (GPIO)
-         * Functions for using general-purpose input/output (GPIO) ports.
+        /**
+         * @defgroup   gpio            General-Purpose Input/Output (GPIO)
+         * @brief    Functions for using GPIO ports.
          */
 
-        /** @defgroup   pll             Phase-Locked Loop (PLL)
-         * Function for initializing the phase-locked loop.
+        /**
+         * @defgroup   pll             Phase-Locked Loop (PLL)
+         * @brief    Function for initializing the phase-locked loop.
          */
 
-        /** @defgroup   spi             Serial Peripheral Interface (SPI)
-         * Functions for SPI-based communication via SSI0 peripheral.
+        /**
+         * @defgroup   spi             Serial Peripheral Interface (SPI)
+         * @brief    Functions for SPI-based communication via the SSI peripheral.
          */
 
-        /** @defgroup   systick         System Tick (SysTick)
-         * Functions for timing and periodic interrupts via SysTick.
+        /**
+         * @defgroup   timer           Timer
+         * @brief    Functions for using hardware timers.
          */
 
-        /** @defgroup   timer           Timer
-         * Functions for timing and periodic interrupts via general-purpose timer modules
-         * (GPTM).
+        /**
+         * @defgroup   uart            Universal Asynchronous Receiver/Transmitter (UART)
+         * @brief    Functions for serial communication via the UART peripheral.
          */
 
-        /** @defgroup   uart            Universal Asynchronous Receiver/Transmitter (UART)
-         * Functions for UART-based communication.
-         */
-
-        /** @defgroup   isr             Interrupt Service Routines
-         * Functions for manipulating the interrupt vector table and setting up interrupt handlers via the NVIC.
+        /**
+         * @defgroup   isr             Interrupt Service Routines
+         * @brief    Functions for manipulating the interrupt vector table and setting up interrupt handlers via the NVIC.
          */
 
 /** @} */

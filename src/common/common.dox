@@ -5,12 +5,14 @@
  * @{
  */
 
-        /** @defgroup   fifo            FIFO Buffers
-         * Module for using the "first-in first-out (FIFO) buffer" data structure.
+        /**
+         * @defgroup        fifo            FIFO Buffers
+         * @brief           Module for using the "first-in first-out (FIFO) buffer" data structure.
          */
 
-        /** @defgroup   newassert       NewAssert
-         * Module for using a custom `assert` implementation.
+        /**
+         * @defgroup        newassert       NewAssert
+         * @brief           Module for using a custom `assert` implementation.
          */
 
 /** @} */
