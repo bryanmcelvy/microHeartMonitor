@@ -1,0 +1,29 @@
+// clang-format off
+
+/**
+ * @defgroup    app         Application Software
+ * @brief       Application-specific software modules.
+ *
+ * @details     These modules contain functions built specifically for this project's purposes.
+ */
+
+/**
+ * @defgroup    common      Common
+ * @brief       Modules that are used by multiple layers and/or don't fit into any one layer.
+ */
+
+/**
+ * @defgroup    middleware              Middleware
+ * @brief       High-level device driver modules.
+ *
+ * @details     These modules contain functions for interfacing with external devices/peripherals
+ *              using low-level drivers.
+ */
+
+/**
+ * @defgroup    driver      Device Drivers
+ * @brief       Low level device driver modules.
+ *
+ * @details     These modules contain functions for interfacing with the TM4C123 microcontroller's
+ *              built-in peripherals.
+ */

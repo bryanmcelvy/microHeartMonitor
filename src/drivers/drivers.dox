@@ -1,12 +1,7 @@
 // clang-format off
 
 /**
- * @defgroup    driver      Device Drivers
- * @brief       Low level device driver modules.
- *
- * @details     These modules contain functions for interfacing with the TM4C123 microcontroller's
- *              built-in peripherals.
- *
+ * @addtogroup driver
  * @{
  */
 
@@ -42,6 +37,5 @@
         /** @defgroup   isr             Interrupt Service Routines
          * Functions for manipulating the interrupt vector table and setting up interrupt handlers via the NVIC.
          */
-
 
 /** @} */

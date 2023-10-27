@@ -1,8 +1,7 @@
 // clang-format off
 
 /**
- * @defgroup    common      Common
- * Modules that are used by multiple layers and/or don't fit into any one layer.
+ * @addtogroup common
  * @{
  */
 

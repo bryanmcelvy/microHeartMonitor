@@ -1,12 +1,7 @@
 // clang-format off
 
 /**
- * @defgroup    middleware              Middleware
- * @brief       High-level device driver modules.
- *
- * @details     These modules contain functions for interfacing with external devices/peripherals
- *              via the use of low-level drivers.
- *
+ * @addtogroup middleware
  * @{
  */
 
