@@ -1,4 +1,7 @@
 /**
+ * @addtogroup gpio
+ * @{
+ *
  * @file
  * @author  Bryan McElvy
  * @brief   Header file for general-purpose input/output (GPIO) device driver.
@@ -259,4 +262,6 @@ void GPIO_ConfigPortCtrl(GpioPort_t gpioPort, GpioPin_t pinMask, uint8_t fieldEn
  */
 void GPIO_ConfigAnalog(GpioPort_t gpioPort, GpioPin_t pinMask);
 
-#endif               // GPIO_H
+#endif                  // GPIO_H
+
+/** @} */               // gpio

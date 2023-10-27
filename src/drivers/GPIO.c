@@ -1,4 +1,7 @@
 /**
+ * @addtogroup gpio
+ * @{
+ *
  * @file
  * @author  Bryan McElvy
  * @brief   Source code for GPIO module.
@@ -308,3 +311,5 @@ void GPIO_ConfigAnalog(GpioPort_t gpioPort, GpioPin_t pinMask) {
     *((register_t) (gpioPort->BASE_ADDRESS + GPIO_AMSEL_R_OFFSET)) |= pinMask;
     return;
 }
+
+/** @} */               // gpio
