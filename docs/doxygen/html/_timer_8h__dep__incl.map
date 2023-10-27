@@ -1,0 +1,20 @@
+<map id="Timer.h" name="Timer.h">
+<area shape="rect" id="Node000001" title="Device driver for general&#45;purpose timer modules." alt="" coords="135,5,199,31"/>
+<area shape="rect" id="Node000002" href="$_d_a_q_8c.html" title="Source code for DAQ module." alt="" coords="5,79,67,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="133,41,60,81,57,76,130,36"/>
+<area shape="rect" id="Node000003" href="$_i_l_i9341_8c.html" title="Source code for ILI9341 module." alt="" coords="141,153,216,178"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="172,46,180,152,175,152,166,47"/>
+<area shape="rect" id="Node000004" href="$_i_l_i9341_8h.html" title="Driver module for interfacing with an ILI9341 LCD driver." alt="" coords="204,79,279,105"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="192,40,231,77,227,81,188,44"/>
+<area shape="rect" id="Node000005" href="$_l_c_d_8c.html" title="Source code for LCD module." alt="" coords="214,226,274,252"/>
+<area shape="poly" id="edge9_Node000001_Node000005" title=" " alt="" coords="152,46,137,74,125,108,122,144,125,161,132,177,148,196,170,211,215,229,213,234,167,216,145,200,127,180,119,163,116,144,120,107,133,72,148,43"/>
+<area shape="rect" id="Node000008" href="$_timer_8c.html" title="Source code for Timer module." alt="" coords="303,79,367,105"/>
+<area shape="poly" id="edge10_Node000001_Node000008" title=" " alt="" coords="210,35,307,76,305,81,208,40"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="223,118,191,154,187,150,219,115"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="244,120,246,226,241,226,239,120"/>
+<area shape="rect" id="Node000006" href="$_l_c_d_8h.html" title="Header file for LCD module." alt="" coords="290,153,350,178"/>
+<area shape="poly" id="edge6_Node000004_Node000006" title=" " alt="" coords="267,113,309,150,305,154,264,117"/>
+<area shape="poly" id="edge7_Node000006_Node000005" title=" " alt="" coords="298,191,259,228,255,224,294,187"/>
+<area shape="rect" id="Node000007" href="$main_8c.html" title="Main program file." alt="" coords="298,226,358,252"/>
+<area shape="poly" id="edge8_Node000006_Node000007" title=" " alt="" coords="326,193,329,226,324,226,320,194"/>
+</map>

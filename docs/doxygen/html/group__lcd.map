@@ -1,0 +1,4 @@
+<map id="Liquid Crystal Display (LCD)" name="Liquid Crystal Display (LCD)">
+<area shape="rect" id="Node000002" href="$group__app.html" title="Application&#45;specific software modules." alt="" coords="5,13,147,39"/>
+<area shape="rect" id="Node000001" title="Module for displaying graphs on an LCD via the ILI9341 module." alt="" coords="195,5,344,46"/>
+</map>

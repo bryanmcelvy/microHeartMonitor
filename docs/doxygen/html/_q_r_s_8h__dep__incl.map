@@ -1,0 +1,7 @@
+<map id="QRS.h" name="QRS.h">
+<area shape="rect" id="Node000001" title="Header file for QRS detection module." alt="" coords="48,5,109,31"/>
+<area shape="rect" id="Node000002" href="$_q_r_s_8c.html" title="Source code for QRS detection module." alt="" coords="5,79,67,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="66,46,45,80,41,77,62,43"/>
+<area shape="rect" id="Node000003" href="$main_8c.html" title="Main program file." alt="" coords="91,79,152,105"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="96,43,116,77,112,80,91,46"/>
+</map>

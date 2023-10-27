@@ -1,0 +1,6 @@
+<map id="Middleware" name="Middleware">
+<area shape="rect" id="Node000002" href="$group__debug.html" title="Module for debugging functions, including serial output and assertions." alt="" coords="143,5,203,31"/>
+<area shape="rect" id="Node000003" href="$group__ili9341.html" title="Functions for interfacing an ILI9341&#45;based 240RGBx320 LCD via Serial Peripheral Interface (SPI)." alt="" coords="141,55,205,80"/>
+<area shape="rect" id="Node000004" href="$group__led.html" title="Functions for driving light&#45;emitting diodes (LEDs) via General&#45;Purpose Input/Output (GPIO)." alt="" coords="149,104,197,130"/>
+<area shape="rect" id="Node000001" title="High&#45;level device driver modules." alt="" coords="5,55,93,80"/>
+</map>

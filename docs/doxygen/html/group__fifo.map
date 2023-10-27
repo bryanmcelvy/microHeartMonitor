@@ -1,0 +1,4 @@
+<map id="FIFO Buffers" name="FIFO Buffers">
+<area shape="rect" id="Node000002" href="$group__common.html" title="Modules that are used by multiple layers and/or don&#39;t fit into any one layer." alt="" coords="5,5,80,31"/>
+<area shape="rect" id="Node000001" title="Module for using the &quot;first&#45;in first&#45;out (FIFO) buffer&quot; data structure." alt="" coords="128,5,225,31"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="Application Software" name="Application Software">
+<area shape="rect" id="Node000001" title="Application&#45;specific software modules." alt="" coords="5,92,147,118"/>
+<area shape="rect" id="Node000002" href="$group__daq.html" title="Module for managing data acquisition (DAQ) functions." alt="" coords="195,5,352,31"/>
+<area shape="rect" id="Node000003" href="$group__lcd.html" title="Module for displaying graphs on an LCD via the ILI9341 module." alt="" coords="199,55,348,96"/>
+<area shape="rect" id="Node000005" href="$group__main.html" title="Main program file." alt="" coords="249,120,298,146"/>
+<area shape="rect" id="Node000004" href="$group__qrs.html" title="Module for analyzing ECG data to determine heart rate." alt="" coords="221,169,326,195"/>
+</map>

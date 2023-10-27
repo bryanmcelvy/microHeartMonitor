@@ -1,0 +1,4 @@
+<map id="Data Acquisition (DAQ)" name="Data Acquisition (DAQ)">
+<area shape="rect" id="Node000002" href="$group__app.html" title="Application&#45;specific software modules." alt="" coords="5,5,147,31"/>
+<area shape="rect" id="Node000001" title="Module for managing data acquisition (DAQ) functions." alt="" coords="195,5,352,31"/>
+</map>

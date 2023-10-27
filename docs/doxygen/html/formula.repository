@@ -1,0 +1,25 @@
+\_form#0=43x18:$ T_s = \frac{1}{f_s} $
+\_form#1=23x9:$ 5 ms $
+\_form#2=64x13:$ f_s = 200 Hz $
+\_form#3=83x14:$ [-5.5, 5.5) [mV] $
+\_form#4=21x14:$ x[n] $
+\_form#5=21x14:$ y[n] $
+\_form#6=150x13:$ 0 <= x1 <= x2 <= X_{MAX} $
+\_form#7=145x13:$ 0 <= y1 <= y2 <= Y_{MAX} $
+\_form#8=461x16:$
+signalLevel_1    = f(peakAmplitude, signalLevel_0)
+                 = \frac{1}{8}peakAmplitude + \frac{7}{8}signalLevel_0
+$
+\_form#9=446x16:$
+noiseLevel_1     = f(peakAmplitude, noiseLevel_0)
+                 = \frac{1}{8}peakAmplitude + \frac{7}{8}noiseLevel_0
+$
+\_form#10=429x29:$
+threshold = f(signalLevel, noiseLevel) = noiseLevel + 0.25(signalLevel - noiseLevel)
+$
+\_form#11=21x14:$y[n]$
+\_form#12=210x14:$ BR = f_{bus} / ( CPSDVSR * (1 + SCR) ) $
+\_form#13=88x14:$ f_{bus} = 80 [MHz] $
+\_form#14=128x14:$ BRD = f_{bus}/(16*BR) $
+\_form#15=110x14:$ IBRD = int( BRD ) $
+\_form#16=223x14:$ FBRD = int( ( mod(BRD,1) * 64 ) + 0.5 ) $

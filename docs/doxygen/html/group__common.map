@@ -1,0 +1,5 @@
+<map id="Common" name="Common">
+<area shape="rect" id="Node000001" title="Modules that are used by multiple layers and/or don&#39;t fit into any one layer." alt="" coords="5,31,80,56"/>
+<area shape="rect" id="Node000002" href="$group__fifo.html" title="Module for using the &quot;first&#45;in first&#45;out (FIFO) buffer&quot; data structure." alt="" coords="128,5,225,31"/>
+<area shape="rect" id="Node000003" href="$group__newassert.html" title="Module for using a custom assert implementation." alt="" coords="133,55,220,80"/>
+</map>

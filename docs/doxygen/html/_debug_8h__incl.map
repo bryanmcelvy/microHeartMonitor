@@ -1,0 +1,14 @@
+<map id="Debug.h" name="Debug.h">
+<area shape="rect" id="Node000001" title="Functions to output debugging information to a serial port via UART." alt="" coords="109,5,179,31"/>
+<area shape="rect" id="Node000002" href="$_u_a_r_t_8h.html" title="Driver module for serial communication via UART0 and UART 1." alt="" coords="76,79,143,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="141,32,124,66,120,64,136,30"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="118,226,192,252"/>
+<area shape="poly" id="edge7_Node000001_Node000004" title=" " alt="" coords="150,31,157,79,160,150,159,211,154,211,155,150,152,79,144,32"/>
+<area shape="rect" id="Node000003" href="$_g_p_i_o_8h.html" title="Header file for general&#45;purpose input/output (GPIO) device driver." alt="" coords="52,153,117,178"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="108,106,96,139,91,137,103,104"/>
+<area shape="poly" id="edge5_Node000002_Node000004" title=" " alt="" coords="116,104,132,152,150,211,145,212,127,153,111,106"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="5,226,70,252"/>
+<area shape="poly" id="edge6_Node000002_Node000005" title=" " alt="" coords="88,107,62,127,41,154,34,183,35,211,30,211,29,182,36,152,58,123,85,103"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="98,177,134,213,130,217,94,180"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="79,180,56,215,51,212,74,177"/>
+</map>

@@ -1,0 +1,9 @@
+<map id="SPI.h" name="SPI.h">
+<area shape="rect" id="Node000001" title="Header file for serial peripheral interface (SPI) module." alt="" coords="160,5,215,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,79,127,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="168,34,101,73,98,68,165,29"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="150,79,225,105"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="190,31,190,63,185,63,185,31"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="249,79,313,105"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="205,29,255,67,251,72,202,34"/>
+</map>

@@ -1,0 +1,11 @@
+<map id="UART.h" name="UART.h">
+<area shape="rect" id="Node000001" title="Driver module for serial communication via UART0 and UART 1." alt="" coords="56,5,123,31"/>
+<area shape="rect" id="Node000002" href="$_g_p_i_o_8h.html" title="Header file for general&#45;purpose input/output (GPIO) device driver." alt="" coords="57,79,122,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="92,31,92,63,87,63,87,31"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,153,80,178"/>
+<area shape="poly" id="edge4_Node000001_Node000003" title=" " alt="" coords="78,33,61,54,46,80,41,109,41,137,36,137,36,108,41,78,56,51,74,30"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="116,153,180,178"/>
+<area shape="poly" id="edge5_Node000001_Node000004" title=" " alt="" coords="103,30,121,51,137,78,146,108,150,137,144,137,141,109,132,80,117,54,99,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="84,106,61,141,56,138,79,103"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="101,103,130,139,126,142,97,107"/>
+</map>

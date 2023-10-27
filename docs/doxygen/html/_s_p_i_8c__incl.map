@@ -1,0 +1,18 @@
+<map id="SPI.c" name="SPI.c">
+<area shape="rect" id="Node000001" title="Source code for serial peripheral interface (SPI) module." alt="" coords="158,5,212,31"/>
+<area shape="rect" id="Node000002" href="$_s_p_i_8h.html" title="Header file for serial peripheral interface (SPI) module." alt="" coords="158,79,212,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="187,31,187,63,182,63,182,31"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,153,127,178"/>
+<area shape="poly" id="edge8_Node000001_Node000003" title=" " alt="" coords="177,33,87,142,83,139,173,30"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="150,153,225,178"/>
+<area shape="poly" id="edge9_Node000001_Node000004" title=" " alt="" coords="175,33,153,65,147,84,149,104,157,122,168,139,164,142,152,125,143,105,142,84,149,63,171,30"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="249,153,313,178"/>
+<area shape="poly" id="edge10_Node000001_Node000005" title=" " alt="" coords="213,21,239,27,267,38,295,54,316,78,322,94,320,111,303,142,299,140,315,110,316,95,312,80,291,58,265,43,237,32,211,26"/>
+<area shape="rect" id="Node000006" href="$_g_p_i_o_8h.html" title="Header file for general&#45;purpose input/output (GPIO) device driver." alt="" coords="236,79,301,105"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="201,30,245,67,241,71,197,34"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="166,107,100,147,98,142,163,103"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="188,105,189,137,184,137,182,105"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="203,103,254,141,251,146,199,107"/>
+<area shape="poly" id="edge6_Node000006_Node000004" title=" " alt="" coords="257,107,214,144,211,140,253,103"/>
+<area shape="poly" id="edge7_Node000006_Node000005" title=" " alt="" coords="273,104,279,137,273,138,268,105"/>
+</map>
