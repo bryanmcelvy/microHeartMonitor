@@ -1,14 +1,19 @@
 #**************************************************************************************************
 # File:         /docs/doc_gen.py
-# Description:  Generates images and pdf documentation
+# Description:  Generates images and documentation
 #**************************************************************************************************
 import os
-import shutil
+from shutil import copy2, move, rmtree
 from subprocess import run
 
-PROJECT_ROOT_DIR = os.getcwd()
-LATEX_OUTPUT_DIR = f"{PROJECT_ROOT_DIR}/build/docs/latex"
-PATH_DOCS = f"{PROJECT_ROOT_DIR}/docs"
+'''NOTE: this script should be run from the root directory'''
+PATH_ROOT = os.getcwd()
+
+PATH_OUTPUT = f"{PATH_ROOT}/build/docs"
+PATH_OUTPUT_HTML = f"{PATH_ROOT}/build/docs/html"
+PATH_OUTPUT_LATEX = f"{PATH_ROOT}/build/docs/latex"
+
+PATH_DOCS = f"{PATH_ROOT}/docs"
 PATH_DOXYGEN = f"{PATH_DOCS}/doxygen"
 
 print("Generating documentation...")
@@ -24,10 +29,12 @@ for file in os.listdir(PATH_DOXYGEN):
 os.chdir(PATH_DOXYGEN)
 run(['doxygen'])
 
-os.chdir(LATEX_OUTPUT_DIR)
+os.chdir(PATH_OUTPUT_LATEX)
 run(['make', '-s'])
 
-# copy new pdf and reflog to `docs` directory
+# copy output to `docs` directory
 os.chdir(PATH_DOCS)
-shutil.copy2(src=f"{LATEX_OUTPUT_DIR}/refman.pdf", dst=PATH_DOCS)
-shutil.copy2(src=f"{LATEX_OUTPUT_DIR}/refman.log", dst=PATH_DOXYGEN)
+rmtree(path=f"{PATH_DOXYGEN}/html")
+move(src=PATH_OUTPUT_HTML, dst=f"{PATH_DOXYGEN}/html")
+copy2(src=f"{PATH_OUTPUT_LATEX}/refman.pdf", dst=PATH_DOCS)
+copy2(src=f"{PATH_OUTPUT_LATEX}/refman.log", dst=PATH_DOXYGEN)
