@@ -63,6 +63,6 @@ void SPI_WriteCmd(uint8_t cmd);
  */
 void SPI_WriteData(uint8_t data);
 
-#endif               // SPI_H
+#endif                  // SPI_H
 
-/** @} */
+/** @} */               // spi

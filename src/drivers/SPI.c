@@ -101,4 +101,4 @@ void SPI_WriteData(uint8_t data) {
     return;
 }
 
-/** @} */
+/** @} */                                              // spi
