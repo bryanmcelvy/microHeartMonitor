@@ -5,26 +5,49 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>uHeartMonitor: Data Acquisition (DAQ)</title>
+<title>uHeartMonitor: An ECG-based Heart Rate Monitor: Data Acquisition (DAQ)</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript">var page_layout=1;</script>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+  $(document).ready(function() { init_search(); });
+/* @license-end */
+</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
+<div id="side-nav" class="ui-resizable side-nav-resizable"><!-- do not remove this div, it is closed by doxygen! -->
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">uHeartMonitor
+   <div id="projectname">uHeartMonitor: An ECG-based Heart Rate Monitor
    </div>
   </td>
  </tr>
+   <tr><td colspan="2">        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect"                onmouseover="return searchBox.OnSearchSelectShow()"                onmouseout="return searchBox.OnSearchSelectHide()">&#160;</span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.svg" alt=""/></a>
+          </span>
+        </div>
+</td></tr>
  </tbody>
 </table>
 </div>
@@ -35,18 +58,22 @@
 var searchBox = new SearchBox("searchBox", "search/",'.html');
 /* @license-end */
 </script>
-<script type="text/javascript" src="menudata.js"></script>
-<script type="text/javascript" src="menu.js"></script>
+</div><!-- top -->
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function() {
-  initMenu('',true,false,'search.php','Search');
-  $(document).ready(function() { init_search(); });
-});
+$(document).ready(function(){initNavTree('group__daq.html',''); initResizable(); });
 /* @license-end */
 </script>
-<div id="main-nav"></div>
-</div><!-- top -->
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -105,7 +132,7 @@ Files</h2></td></tr>
 Macros</h2></td></tr>
 <tr class="memitem:ga0c53804fcabd03cb2d1bba3293c4cd94" id="r_ga0c53804fcabd03cb2d1bba3293c4cd94"><td class="memItemLeft" align="right" valign="top"><a id="ga0c53804fcabd03cb2d1bba3293c4cd94" name="ga0c53804fcabd03cb2d1bba3293c4cd94"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>SAMPLING_PERIOD_MS</b>&#160;&#160;&#160;5</td></tr>
-<tr class="memdesc:ga0c53804fcabd03cb2d1bba3293c4cd94"><td class="mdescLeft">&#160;</td><td class="mdescRight">sampling period in ms ( <img class="formulaInl" alt="$ T_s = \frac{1}{f_s} $" src="form_0.png" width="43" height="18"/>) <br /></td></tr>
+<tr class="memdesc:ga0c53804fcabd03cb2d1bba3293c4cd94"><td class="mdescLeft">&#160;</td><td class="mdescRight">sampling period in ms ( <img class="formulaInl" alt="$ T_s = \frac{1}{f_s} $" src="form_15.png" width="43" height="18"/>) <br /></td></tr>
 <tr class="separator:ga0c53804fcabd03cb2d1bba3293c4cd94"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gafce256bc3a685807bf3bda6a48ada170" id="r_gafce256bc3a685807bf3bda6a48ada170"><td class="memItemLeft" align="right" valign="top"><a id="gafce256bc3a685807bf3bda6a48ada170" name="gafce256bc3a685807bf3bda6a48ada170"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>DAQ_LOOKUP_MAX</b>&#160;&#160;&#160;((float32_t) 5.5f)</td></tr>
@@ -206,7 +233,7 @@ static const Filter_t *const&#160;</td><td class="memItemRight" valign="bottom">
 <p>Initialize the data acquisition (DAQ) module. </p>
 <dl class="section post"><dt>Postcondition</dt><dd>The analog-to-digital converter (ADC) is initialized and configured for timer-triggered sample capture. </dd>
 <dd>
-The timer is initialized in <code>PERIODIC</code> mode and triggers the ADC every <img class="formulaInl" alt="$ 5 ms $" src="form_1.png" width="23" height="9"/> (i.e. sampling frequency <img class="formulaInl" alt="$ f_s = 200 Hz $" src="form_2.png" width="64" height="13"/>). </dd>
+The timer is initialized in <code>PERIODIC</code> mode and triggers the ADC every <img class="formulaInl" alt="$ 5 ms $" src="form_16.png" width="23" height="9"/> (i.e. sampling frequency <img class="formulaInl" alt="$ f_s = 200 Hz $" src="form_17.png" width="64" height="13"/>). </dd>
 <dd>
 The DAQ module has access to its lookup table (LUT). </dd></dl>
 
@@ -289,7 +316,7 @@ This should be used in an interrupt handler and/or at a consistent rate (i.e. th
   </table>
   </dd>
 </dl>
-<dl class="section post"><dt>Postcondition</dt><dd><img class="formulaInl" alt="$ y[n] $" src="form_5.png" width="21" height="14"/> is ready for analysis and/or further processing.</dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd><img class="formulaInl" alt="$ y[n] $" src="form_20.png" width="21" height="14"/> is ready for analysis and/or further processing.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group__daq.html#ga35ff46e91eea5df8ef60023803f63bda" title="Apply a 0.5-40 [Hz] bandpass filter to an input sample.">DAQ_BandpassFilter()</a></dd></dl>
  
 </div>
@@ -319,7 +346,7 @@ This should be used in an interrupt handler and/or at a consistent rate (i.e. th
   </table>
   </dd>
 </dl>
-<dl class="section post"><dt>Postcondition</dt><dd><img class="formulaInl" alt="$ y[n] $" src="form_5.png" width="21" height="14"/> is ready for analysis and/or further processing.</dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd><img class="formulaInl" alt="$ y[n] $" src="form_20.png" width="21" height="14"/> is ready for analysis and/or further processing.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group__daq.html#ga6c281c9655bd48e71078f03438e3bb01" title="Apply a 60 [Hz] notch filter to an input sample.">DAQ_NotchFilter()</a></dd></dl>
  
 </div>
@@ -345,11 +372,11 @@ This should be used in an interrupt handler and/or at a consistent rate (i.e. th
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">sample</td><td>12-bit sample in range <code>[0x000, 0xFFF]</code> </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">xn</td><td>Voltage value in range <img class="formulaInl" alt="$ [-5.5, 5.5) [mV] $" src="form_3.png" width="83" height="14"/></td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">xn</td><td>Voltage value in range <img class="formulaInl" alt="$ [-5.5, 5.5) [mV] $" src="form_18.png" width="83" height="14"/></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section post"><dt>Postcondition</dt><dd>The sample <img class="formulaInl" alt="$ x[n] $" src="form_4.png" width="21" height="14"/> is ready for filtering.</dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd>The sample <img class="formulaInl" alt="$ x[n] $" src="form_19.png" width="21" height="14"/> is ready for filtering.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group__daq.html#gafd2f671cea1ac5b39db136608c614a46" title="Read a sample from the ADC.">DAQ_readSample()</a> </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Defined in <a class="el" href="_d_a_q__lookup_8c.html">DAQ_lookup.c</a> rather than <a class="el" href="_d_a_q_8c.html">DAQ.c</a>. </dd></dl>
 
@@ -459,9 +486,12 @@ This should be used in an interrupt handler and/or at a consistent rate (i.e. th
 </div>
 </div>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
 </body>
 </html>
