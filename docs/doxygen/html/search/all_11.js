@@ -1,19 +1,17 @@
 var searchData=
 [
-  ['sampling_5fperiod_5fms_0',['SAMPLING_PERIOD_MS',['../group__daq.html#ga0c53804fcabd03cb2d1bba3293c4cd94',1,'DAQ.c']]],
-  ['serial_20peripheral_20interface_20spi_1',['Serial Peripheral Interface (SPI)',['../group__spi.html',1,'']]],
-  ['service_20routines_2',['Interrupt Service Routines',['../group__isr.html',1,'']]],
-  ['signallevel_3',['signallevel',['../group__qrs.html#ga2560a6c23055f6bd47dfe6bc678979c1',1,'@2::signalLevel'],['../_q_r_s_8c.html#a5802584806ac0a13e91c5d6c59d35a1d',1,'signalLevel:&#160;QRS.c']]],
-  ['software_4',['software',['../group__app.html',1,'Application Software'],['../index.html#sec_meth_app',1,'Application Software'],['../index.html#sec_todo_sw',1,'Software'],['../index.html#sec_build_sw',1,'Software']]],
-  ['software_20architecture_5',['Software Architecture',['../index.html#sec_meth_soft',1,'']]],
-  ['spi_6',['Serial Peripheral Interface (SPI)',['../group__spi.html',1,'']]],
-  ['spi_2ec_7',['SPI.c',['../_s_p_i_8c.html',1,'']]],
-  ['spi_2eh_8',['SPI.h',['../_s_p_i_8h.html',1,'']]],
-  ['spi_5finit_9',['SPI_Init',['../group__spi.html#ga292196e767158c66f03cbcc244fc802b',1,'SPI.c']]],
-  ['spi_5fread_10',['SPI_Read',['../group__spi.html#ga6242f21fb4eeb0b0d458a2dab99a2552',1,'SPI.c']]],
-  ['spi_5fwritecmd_11',['SPI_WriteCmd',['../group__spi.html#ga4af5374bd5bd835b362adca35fab1217',1,'SPI.c']]],
-  ['spi_5fwritedata_12',['SPI_WriteData',['../group__spi.html#gab05978905b571422f5d88afef9727241',1,'SPI.c']]],
-  ['splin_13',['SPLIN',['../group__ili9341.html#gga13f208b6f7f5cab976154336d1acf3c4a0fa0d53ce445892ec288066afe1263f5',1,'ILI9341.h']]],
-  ['splout_14',['SPLOUT',['../group__ili9341.html#gga13f208b6f7f5cab976154336d1acf3c4a6d888f3a83df6e6f01a7d23aa13b7239',1,'ILI9341.h']]],
-  ['swreset_15',['SWRESET',['../group__ili9341.html#gga13f208b6f7f5cab976154336d1acf3c4a2b6e6a6d371db8991b4d51dd86ff7746',1,'ILI9341.h']]]
+  ['uart_0',['Universal Asynchronous Receiver/Transmitter (UART)',['../group__uart.html',1,'']]],
+  ['uart_2ec_1',['UART.c',['../_u_a_r_t_8c.html',1,'']]],
+  ['uart_2eh_2',['UART.h',['../_u_a_r_t_8h.html',1,'']]],
+  ['uart_5finit_3',['UART_Init',['../group__uart.html#gab13890d58fe68c4dd80f64e6dba54f66',1,'UART.c']]],
+  ['uart_5fisinit_4',['UART_isInit',['../group__uart.html#ga3630497eb4a7aebac65927777d338e58',1,'UART.c']]],
+  ['uart_5freadchar_5',['UART_ReadChar',['../group__uart.html#gab11162426f2741c0496356f8edad275d',1,'UART.c']]],
+  ['uart_5fwritechar_6',['UART_WriteChar',['../group__uart.html#ga6be4e376fe7b0be8626fe1fb9f2f11fb',1,'UART.c']]],
+  ['uart_5fwritefloat_7',['UART_WriteFloat',['../group__uart.html#ga53e057e6d10802f09acb9a82c22197b7',1,'UART.c']]],
+  ['uart_5fwriteint_8',['UART_WriteInt',['../group__uart.html#ga2af852bc5962865b200b9717ae2bdb9d',1,'UART.c']]],
+  ['uart_5fwritestr_9',['UART_WriteStr',['../group__uart.html#gaf29f2cf48664205e0b651fbaeb5bc88c',1,'UART.c']]],
+  ['uartstruct_5ft_10',['UartStruct_t',['../struct_uart_struct__t.html',1,'']]],
+  ['universal_20asynchronous_20receiver_20transmitter_20uart_11',['Universal Asynchronous Receiver/Transmitter (UART)',['../group__uart.html',1,'']]],
+  ['up_12',['UP',['../group__timer.html#gga18fb5bff40adc5a80cd7d8d4be9222afaba595d8bca8bc5e67c37c0a9d89becfa',1,'Timer.h']]],
+  ['utilitybuffer1_13',['utilitybuffer1',['../_q_r_s_8c.html#ad738f5f6dcb1317cd664bcb81f96714f',1,'utilityBuffer1:&#160;QRS.c'],['../group__qrs.html#ga8800defb2475c8837871fd62b69c028f',1,'@2::utilityBuffer1']]]
 ];

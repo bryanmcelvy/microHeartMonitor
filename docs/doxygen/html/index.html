@@ -5,49 +5,26 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>uHeartMonitor: An ECG-based Heart Rate Monitor: uHeartMonitor: An ECG-based Heart Rate Monitor</title>
+<title>uHeartMonitor: Main Page</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript">var page_layout=1;</script>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
-<link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="resize.js"></script>
-<script type="text/javascript" src="navtreedata.js"></script>
-<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-  $(document).ready(function() { init_search(); });
-/* @license-end */
-</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-<div id="side-nav" class="ui-resizable side-nav-resizable"><!-- do not remove this div, it is closed by doxygen! -->
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">uHeartMonitor: An ECG-based Heart Rate Monitor
+   <div id="projectname">uHeartMonitor
    </div>
   </td>
  </tr>
-   <tr><td colspan="2">        <div id="MSearchBox" class="MSearchBoxInactive">
-        <span class="left">
-          <span id="MSearchSelect"                onmouseover="return searchBox.OnSearchSelectShow()"                onmouseout="return searchBox.OnSearchSelectHide()">&#160;</span>
-          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
-               onfocus="searchBox.OnSearchFieldFocus(true)" 
-               onblur="searchBox.OnSearchFieldFocus(false)" 
-               onkeyup="searchBox.OnSearchFieldChange(event)"/>
-          </span><span class="right">
-            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.svg" alt=""/></a>
-          </span>
-        </div>
-</td></tr>
  </tbody>
 </table>
 </div>
@@ -58,22 +35,18 @@
 var searchBox = new SearchBox("searchBox", "search/",'.html');
 /* @license-end */
 </script>
-</div><!-- top -->
-  <div id="nav-tree">
-    <div id="nav-tree-contents">
-      <div id="nav-sync" class="sync"></div>
-    </div>
-  </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
-       class="ui-resizable-handle">
-  </div>
-</div>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('index.html',''); initResizable(); });
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
 /* @license-end */
 </script>
-<div id="doc-content">
+<div id="main-nav"></div>
+</div><!-- top -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -95,228 +68,14 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 </div>
 </div>
 
-<div><div class="header">
-  <div class="headertitle"><div class="title">uHeartMonitor: An ECG-based Heart Rate Monitor </div></div>
+<div class="header">
+  <div class="headertitle"><div class="title">uHeartMonitor Documentation</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="toc"><h3>Table of Contents</h3>
-<ul><li class="level1"><a href="#sec_intro">Introduction</a><ul><li class="level2"><a href="#sec_intro_bg">Background</a></li>
-<li class="level2"><a href="#sec_intro_mot">Motivation</a></li>
-<li class="level2"><a href="#sec_intro_dis">Disclaimer</a></li>
-<li class="level2"><a href="#sec_terms">Key Terms</a></li>
-</ul>
-</li>
-<li class="level1"><a href="#sec_meth">Materials &amp; Methods</a><ul><li class="level2"><a href="#sec_meth_hard">Hardware Design</a><ul><li class="level3"><a href="#sec_meth_afe">Analog-Front End</a></li>
-<li class="level3"><a href="#sec_meth_iso">Optical Isolation Circuitry</a></li>
-<li class="level3"><a href="#sec_meth_mcu">Microcontroller Circuit</a></li>
-</ul>
-</li>
-<li class="level2"><a href="#sec_meth_soft">Software Architecture</a><ul><li class="level3"><a href="#sec_meth_device">Device Drivers</a></li>
-<li class="level3"><a href="#sec_meth_mid">Middleware</a></li>
-<li class="level3"><a href="#sec_meth_app">Application Software</a></li>
-<li class="level3"><a href="#sec_meth_ext">External</a></li>
-<li class="level3"><a href="#sec_meth_com">Common</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="level1"><a href="#sec_results">Current Results</a></li>
-<li class="level1"><a href="#sec_todo">To-do</a><ul><li class="level2"><a href="#sec_todo_hw">Hardware</a></li>
-<li class="level2"><a href="#sec_todo_sw">Software</a></li>
-</ul>
-</li>
-<li class="level1"><a href="#sec_build">Build Instructions</a><ul><li class="level2"><a href="#sec_build_hw">Hardware</a></li>
-<li class="level2"><a href="#sec_build_sw">Software</a></li>
-</ul>
-</li>
-<li class="level1"><a href="#sec_ref">References</a></li>
-</ul>
-</div>
-<div class="textblock"><p>option HTML option LaTeX</p>
-<h1><a class="anchor" id="sec_intro"></a>
-Introduction</h1>
-<h2><a class="anchor" id="sec_intro_bg"></a>
-Background</h2>
-<p><em><b>Electrocardiography</b></em> (or <em><b>ECG</b></em>) is a diagnostic technique in which the electrical activity of a patient's heart is captured as time series data (AKA the ECG signal) and analyzed to assess cardiovascular health. Specifically, the ECG signal can be analyzed to detect biomarkers for cardiovascular diseases like arrhythmia, myocardial infarction, etc. which manifest as abnormalities in the ECG waveform. In clinical environments, ECG is performed using machines that implement the required hardware and software to acquire, process, and analyze the ECG signal. This must be done in such a way that preserves the important information within the signal (specifically the shape of the ECG waveform) while also maintaining the safety of the patient [1].</p>
-<p>The ECG waveform consists of 5 smaller "waves" – the P, Q, R, S, and T waves – that each give information on a patient's cardiac health both individually and collectively. The term <em><b>QRS complex</b></em> refers to the part of the ECG waveform that is generally taken to be the heart "beat". Thus, ECG-based heart rate monitors commonly use a category of algorithms called <em><b>QRS detectors</b></em> to determine the locations of the R-peaks within a block of ECG signal data and calculate the time period between each adjacent peak (i.e. the <em><b>RR interval</b></em>) [2]. The RR interval is related to the heart rate by this equation:</p>
-<p><img class="formulaInl" alt="$
-RR = \frac{60}{HR}
-$" src="form_0.png" width="54" height="16"/></p>
-<p>...where <img class="formulaInl" alt="$RR$" src="form_1.png" width="19" height="10"/> is the time in <img class="formulaInl" alt="$[s]$" src="form_2.png" width="11" height="14"/> between two adjacent R peaks, and <img class="formulaInl" alt="$HR$" src="form_3.png" width="21" height="10"/> is the heart rate in <img class="formulaInl" alt="$[bpm]$" src="form_4.png" width="29" height="14"/> (beats per minute).</p>
-<p> 
-<details>
-<summary> ❗️ Click to see ECG sample curve ❗️ </summary>
-<img src="../../figures/martinek_fig_3.png" width="750" /><br>
-Figure 3 from Martinek, et. al. [1]
-</details>
-</p>
-<p></p>
-<p>The <em><b>μHeartMonitor</b></em> is an embedded system that implements the Pan-Tompkins algorithm for QRS detection. The system consists of both hardware and software that cooperate to achieve this task while also visually outputting the ECG waveform and heart rate to a liquid crystal display (LCD). The text below and the contents of this repository reflect the current progress made, but the end goal is to have the full system mounted on 1-2 printed circuit boards (PCBs) situated inside an insulated enclosure.</p>
-<h2><a class="anchor" id="sec_intro_mot"></a>
-Motivation</h2>
-<p>My primary motivations for doing this project are:</p><ul>
-<li>Learning more about and gaining exposure to the many different concepts, tools, and challenges involved in embedded systems engineering</li>
-<li>Applying the skills and knowledge I gained from previous coursework, including but not limited to:<ul>
-<li>BIOE 4315: Bioinstrumentation</li>
-<li>BIOE 4342: Biomedical Signal Processing</li>
-<li>COSC 2306: Data Programming</li>
-<li><a href="https://users.ece.utexas.edu/~valvano/Volume1/E-Book/">Embedded Systems – Shape the World</a></li>
-</ul>
-</li>
-<li>Showing tangible proof of qualification for junior-level embedded software engineering roles to potential employers</li>
-</ul>
-<p>I also hope that anyone interested in any of the fields of knowledge relevant to this project (biomedical/electrical/computer/software engineering) will find this helpful to look at or even use in their own projects.</p>
-<h2><a class="anchor" id="sec_intro_dis"></a>
-Disclaimer</h2>
-<p>This project is neither a product nor a medical device (by any legal definition, anyway), and is not intended to be either or both of things now or in the future. It is simply a passion project.</p>
-<h2><a class="anchor" id="sec_terms"></a>
-Key Terms</h2>
-<ul>
-<li>Electrocardiogram/Electrocardiography (ECG)</li>
-<li>Heart rate</li>
-<li>Heart rate monitor</li>
-<li>QRS complex</li>
-<li>QRS detector</li>
-<li>RR interval</li>
-</ul>
-<h1><a class="anchor" id="sec_meth"></a>
-Materials &amp; Methods</h1>
-<h2><a class="anchor" id="sec_meth_hard"></a>
-Hardware Design</h2>
-<p> 
-<details>
-<summary> ❗️ Click to see overall circuit schematic ❗️ </summary>
-<img src="../../figures/schematics/circuit_overall.png" width="750" />
-</details>
-</p>
-<p></p>
-<p>The hardware is divided into three modules: the analog-front end (AFE), the optical isolation circuit, and the microcontroller/display circuit.</p>
-<h3><a class="anchor" id="sec_meth_afe"></a>
-Analog-Front End</h3>
-<p> 
-<details>
-<summary> ❗️ Click to see analog-front end circuit schematic❗️</summary>
-<img src="../../figures/schematics/circuit_afe.png" width="750" />
-</details>
-</p>
-<p></p>
-<p>The AFE consists of an instrumentation amplifier with a gain of <img class="formulaInl" alt="$100$" src="form_5.png" width="19" height="9"/>; a 2nd-order Sallen-Key high-pass filter with a gain of <img class="formulaInl" alt="$1$" src="form_6.png" width="5" height="9"/> and a cutoff frequency of ~ <img class="formulaInl" alt="$0.5$" src="form_7.png" width="16" height="9"/> <img class="formulaInl" alt="$Hz$" src="form_8.png" width="18" height="10"/>; and a 2nd-order Sallen-Key low-pass filter with a passband gain of <img class="formulaInl" alt="$11$" src="form_9.png" width="11" height="9"/> and a cutoff frequency of ~ <img class="formulaInl" alt="$40$" src="form_10.png" width="14" height="9"/> <img class="formulaInl" alt="$Hz$" src="form_8.png" width="18" height="10"/>. The overall gain is <img class="formulaInl" alt="$1100$" src="form_11.png" width="25" height="9"/></p>
-<h3><a class="anchor" id="sec_meth_iso"></a>
-Optical Isolation Circuitry</h3>
-<p> 
-<details>
-<summary> ❗️ Click to see optical isolation circuit schematic❗️ </summary>
-<img src="../../figures/schematics/circuit_isolation.png" width="750" />
-</details>
-</p>
-<p></p>
-<p>The optical isolation circuit uses a linear optocoupler to transmit the ECG signal from the analog-front end circuit to the microcontroller circuit. This circuitry serves as a safety measure against power surges and other potential hazards that can occur as a result of connecting someone directly to mains power (for example, death).</p>
-<p>It also has three resistors on the AFE-side that effectively shift the signal from the projected output range of ± <img class="formulaInl" alt="$5.5$" src="form_12.png" width="15" height="9"/> <img class="formulaInl" alt="$V$" src="form_13.png" width="10" height="10"/> to the range <img class="formulaInl" alt="$[0, 3.5)$" src="form_14.png" width="35" height="14"/> <img class="formulaInl" alt="$V$" src="form_13.png" width="10" height="10"/>, which is necessary for both the optocoupler and the microcontroller's built-in analog-to-digital converter (ADC) circuitry.</p>
-<h3><a class="anchor" id="sec_meth_mcu"></a>
-Microcontroller Circuit</h3>
-<p> 
-<details>
-<summary> ❗️ Click to see microcontroller circuit schematic❗️ </summary>
-<img src="../../figures/schematics/circuit_mcu.png" width="750" />
-</details>
-</p>
-<p></p>
-<p>The microcontroller circuit currently consists of a TM4C123 microcontroller mounted on a LaunchPad evaluation kit, and an MSP2807 liquid crystal display (LCD).</p>
-<h2><a class="anchor" id="sec_meth_soft"></a>
-Software Architecture</h2>
-<p>The software has a total of 14 modules, 11 of which are (somewhat loosely) divided into three layers: application-specific software, middleware, and device drivers. The call graph and data flow graph visually represent the software architecture.</p>
-<p> 
-<details>
-<summary> ❗️ Click to see call graph ❗️ </summary>
-<img src="../../figures/software/call.png" width="500" />
-</p>
-<p></p>
-<p>This graph shows which modules communicate with (or "call") each other. Each arrow points from the "caller" to the "callee".</p>
-<p>It also somewhat doubles as an <code>#include</code> dependency graph.</p>
-<p> 
-</details>
-
-<details>
-<summary> ❗️ Click to see data flow graph ❗️ </summary>
-<img src="../../figures/software/data_flow.png" width="750" />
-</p>
-<p></p>
-<p>This graph shows the flow of information from the patient to the LCD (and also the laptop).</p>
-<p> 
-</details>
-</p>
-<h3><a class="anchor" id="sec_meth_device"></a>
-Device Drivers</h3>
-<p>The device driver layer consists of software modules that interface directly with the microcontroller's built-in peripheral devices. </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="group__driver.html">Device Drivers</a></dd></dl>
-<h3><a class="anchor" id="sec_meth_mid"></a>
-Middleware</h3>
-<p>The middleware layer consists of higher-level device drivers that interface with some hardware connected to one of the built-in peripherals (i.e. the Debug module connects to UART and the ILI9341 module primarily uses SPI). </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="group__middleware.html">Middleware</a></dd></dl>
-<h3><a class="anchor" id="sec_meth_app"></a>
-Application Software</h3>
-<p>The application software layer has modules that are at least partially, if not completely built for this project. This layer includes the data acquisition module, whose functions handle receiving raw input samples and denoising them; the QRS detector, which analyzes the filtered signal to determine the average heart rate; and the LCD module, which plots the ECG waveform and displays the heart rate. </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="group__app.html">Application Software</a></dd></dl>
-<h3><a class="anchor" id="sec_meth_ext"></a>
-External</h3>
-<p>This "layer" includes modules/libraries/files that were not written (or at least heavily altered) by me. It currently only contains portions of ARM's CMSIS-Core and CMSIS-DSP libraries.</p>
-<h3><a class="anchor" id="sec_meth_com"></a>
-Common</h3>
-<p>The "common" modules are general-purpose modules that don't necessarily fit into the above categories/layers. This category includes the "Fifo" module, which contains a ring buffer-based implementation of the FIFO buffer (AKA "queue") data structure; and "NewAssert", which is essentially just an implementation of the <code>assert</code> macro that causes a breakpoint (and also doesn't use up as much RAM as the standard implementation does). </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="group__common.html">Common</a></dd></dl>
-<h1><a class="anchor" id="sec_results"></a>
-Current Results</h1>
-<p>Video Demonstration: <a href="https://youtu.be/KB2CsFbUgtg">YouTube Link</a></p>
-<p>The project is currently implemented using 2 breadboards and a Tiva C LaunchPad development board. The manual tests I've been running use a clone of the JDS6600 signal generator, which I loaded a sample ECG waveform from the MIT-BIH arrhythmia database onto using scripts in the corresponding folder in the <code>/tools</code> directory. As can be seen in the video demonstration, the calculated heart rate isn't 100% correct at the moment, but still gets relatively close.</p>
-<h1><a class="anchor" id="sec_todo"></a>
-To-do</h1>
-<h2><a class="anchor" id="sec_todo_hw"></a>
-Hardware</h2>
-<ul>
-<li>Design a custom PCB<ul>
-<li>Replace most of the AFE circuitry with an AFE IC (e.g. AD8232)</li>
-<li>Add electrostatic discharge (ESD) protection</li>
-<li>Add decoupling capacitors</li>
-</ul>
-</li>
-</ul>
-<h2><a class="anchor" id="sec_todo_sw"></a>
-Software</h2>
-<ul>
-<li>Rework the structure of/relationship between the LCD and ILI9341 modules</li>
-<li>Refactor ADC module to be more general</li>
-<li>Refactor SPI module to be more general</li>
-<li>Remove statically-allocated data structures for unused Timers and GPIO ports</li>
-<li>Add remaining parts of the Pan-Tompkins algorithm<ul>
-<li>Thresholding procedure for bandpass-filtered signal (not just integrated signal)</li>
-<li>Search-back procedure</li>
-<li>T-wave discrimination</li>
-</ul>
-</li>
-<li>Add heart rate variability (HRV) calculation</li>
-<li>Move CMSIS-DSP filters from DAQ and QRS modules to their own module</li>
-<li>Expand the automated test suite</li>
-</ul>
-<h1><a class="anchor" id="sec_build"></a>
-Build Instructions</h1>
-<h2><a class="anchor" id="sec_build_hw"></a>
-Hardware</h2>
-<p>WIP</p>
-<h2><a class="anchor" id="sec_build_sw"></a>
-Software</h2>
-<p>WIP</p>
-<h1><a class="anchor" id="sec_ref"></a>
-References</h1>
-<p>[1] J. Pan and W. J. Tompkins, “A Real-Time QRS Detection Algorithm,” IEEE Trans. Biomed. Eng., vol. BME-32, no. 3, pp. 230–236, Mar. 1985, doi: 10.1109/TBME.1985.325532.</p>
-<p>[2] R. Martinek et al., “Advanced Bioelectrical Signal Processing Methods: Past, Present and Future Approach—Part I: Cardiac Signals,” Sensors, vol. 21, no. 15, p. 5186, Jul. 2021, doi: 10.3390/s21155186.</p>
-<p>[3] C. Ünsalan, M. E. Yücel, and H. D. Gürhan, Digital Signal Processing using Arm Cortex-M based Microcontrollers: Theory and Practice. Cambridge: ARM Education Media, 2018.</p>
-<p>[4] B. B. Winter and J. G. Webster, “Driven-right-leg circuit design,” IEEE Trans Biomed Eng, vol. 30, no. 1, pp. 62–66, Jan. 1983, doi: 10.1109/tbme.1983.325168.</p>
-<p>[5] J. Valvano, Embedded Systems: Introduction to ARM Cortex-M Microcontrollers, 5th edition. Jonathan Valvano, 2013.</p>
-<p>[6] S. W. Smith, The Scientist and Engineer’s Guide to Digital Signal Processing, 2nd edition. San Diego, Calif: California technical Publishin, 1999. </p>
-</div></div><!-- PageDoc -->
 </div><!-- contents -->
-</div><!-- doc-content -->
 <!-- start footer part -->
-<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
-  <ul>
-    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
-  </ul>
-</div>
+<hr class="footer"/><address class="footer"><small>
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+</small></address>
 </body>
 </html>
