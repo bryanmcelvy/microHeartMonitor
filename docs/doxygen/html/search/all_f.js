@@ -1,18 +1,17 @@
 var searchData=
 [
-  ['sampling_5fperiod_5fms_0',['SAMPLING_PERIOD_MS',['../group__daq.html#ga0c53804fcabd03cb2d1bba3293c4cd94',1,'DAQ.c']]],
-  ['serial_20peripheral_20interface_20spi_1',['Serial Peripheral Interface (SPI)',['../group__spi.html',1,'']]],
-  ['service_20routines_2',['Interrupt Service Routines',['../group__isr.html',1,'']]],
-  ['signallevel_3',['signallevel',['../group__qrs.html#ga2560a6c23055f6bd47dfe6bc678979c1',1,'@2::signalLevel'],['../_q_r_s_8c.html#a5802584806ac0a13e91c5d6c59d35a1d',1,'signalLevel:&#160;QRS.c']]],
-  ['software_4',['Application Software',['../group__app.html',1,'']]],
-  ['spi_5',['Serial Peripheral Interface (SPI)',['../group__spi.html',1,'']]],
-  ['spi_2ec_6',['SPI.c',['../_s_p_i_8c.html',1,'']]],
-  ['spi_2eh_7',['SPI.h',['../_s_p_i_8h.html',1,'']]],
-  ['spi_5finit_8',['SPI_Init',['../group__spi.html#ga292196e767158c66f03cbcc244fc802b',1,'SPI.c']]],
-  ['spi_5fread_9',['SPI_Read',['../group__spi.html#ga6242f21fb4eeb0b0d458a2dab99a2552',1,'SPI.c']]],
-  ['spi_5fwritecmd_10',['SPI_WriteCmd',['../group__spi.html#ga4af5374bd5bd835b362adca35fab1217',1,'SPI.c']]],
-  ['spi_5fwritedata_11',['SPI_WriteData',['../group__spi.html#gab05978905b571422f5d88afef9727241',1,'SPI.c']]],
-  ['splin_12',['SPLIN',['../group__ili9341.html#gga13f208b6f7f5cab976154336d1acf3c4a0fa0d53ce445892ec288066afe1263f5',1,'ILI9341.h']]],
-  ['splout_13',['SPLOUT',['../group__ili9341.html#gga13f208b6f7f5cab976154336d1acf3c4a6d888f3a83df6e6f01a7d23aa13b7239',1,'ILI9341.h']]],
-  ['swreset_14',['SWRESET',['../group__ili9341.html#gga13f208b6f7f5cab976154336d1acf3c4a2b6e6a6d371db8991b4d51dd86ff7746',1,'ILI9341.h']]]
+  ['qrs_20detector_0',['QRS Detector',['../group__qrs.html',1,'']]],
+  ['qrs_2ec_1',['QRS.c',['../_q_r_s_8c.html',1,'']]],
+  ['qrs_2eh_2',['QRS.h',['../_q_r_s_8h.html',1,'']]],
+  ['qrs_5fapplydecisionrules_3',['QRS_applyDecisionRules',['../group__qrs.html#ga189dec78669b6441ec04fc100f16b8fc',1,'QRS.c']]],
+  ['qrs_5farray_5flen_4',['QRS_ARRAY_LEN',['../group__main.html#gga95e0e119cc9e0315570044cf179b61f4a9a6d1f2945cb4855f28d7326015a9336',1,'main.c']]],
+  ['qrs_5ffifo_5fcap_5',['QRS_FIFO_CAP',['../group__main.html#gga95e0e119cc9e0315570044cf179b61f4ad43fd2d4f4acec45ac058b883cdfdbf5',1,'main.c']]],
+  ['qrs_5ffindfiducialmarks_6',['QRS_findFiducialMarks',['../group__qrs.html#gaa2a304ae511c523eae57e1dd9337945b',1,'QRS.c']]],
+  ['qrs_5finit_7',['QRS_Init',['../group__qrs.html#ga66b93594125ecb89623cf21c02ae6621',1,'QRS.c']]],
+  ['qrs_5finitlevels_8',['QRS_initLevels',['../group__qrs.html#gaf8d42a9b040b0c2ccb2e0b0f9328a1e8',1,'QRS.c']]],
+  ['qrs_5fpreprocess_9',['QRS_Preprocess',['../group__qrs.html#ga23e7aac4cbf3423df23afce8a43de44d',1,'QRS.c']]],
+  ['qrs_5frundetection_10',['QRS_runDetection',['../group__qrs.html#ga5565e1314bc6a6f027d346b79603a668',1,'QRS.c']]],
+  ['qrs_5fupdatelevel_11',['QRS_updateLevel',['../group__qrs.html#ga9f8ddd773a00840ebbbfb073193e1aa3',1,'QRS.c']]],
+  ['qrs_5fupdatethreshold_12',['QRS_updateThreshold',['../group__qrs.html#gadf2f697327fa1c76f94afca729bf9f30',1,'QRS.c']]],
+  ['qrsbufferisfull_13',['qrsBufferIsFull',['../group__main.html#ga73c5b898e31504d234eb8deee2afccd0',1,'main.c']]]
 ];
