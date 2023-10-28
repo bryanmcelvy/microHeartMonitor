@@ -13,7 +13,7 @@ An electrocardiogram-based heart rate monitor project implemented with a TM4C123
     - [How does it work?](#how-does-it-work)
     - [How is this repository organized?](#how-is-this-repository-organized)
     - [Why'd you do all of this?](#whyd-you-do-all-of-this)
-  - [Navigating the Repository](#navigating-the-repository)
+  - [Navigation](#navigation)
   - [Introduction](#introduction)
     - [Background](#background)
     - [Motivation](#motivation)
@@ -63,44 +63,16 @@ The project is primarily built using CMake, which generates Makefiles based on t
 
 [🔼 BACK TO TOP 🔼](#μheartmonitor-an-ecg-based-heart-rate-monitor)
 
-## Navigating the Repository
-<details>
-<summary> ❗️ Click to see navigation ❗️ </summary>
+## Navigation
 
-* [`/cmake`](cmake) - CMake-specific files for generating the build system.
-* [`/docs`](docs) - Documentation for both the project itself and resources used in creating it.
-  * [`/doxygen`](/docs/doxygen) - Files used for documentation generation via Doxygen.
-  * [`/figures/filters`](/docs/figures/filters) - frequency domain graphs for the digital filters used in this project
-  * [`/figures/schematics`](/docs/figures/schematics) – circuit schematics for this project, created using KiCad
-  * [`/figures/software`](/docs/figures/software) – diagrams showing different aspects of the software architecture
-  * [`/resources/articles`](docs/resources/articles) - Research articles and application notes.
-  * [`/resources/books`](docs/resources/books) - Open-source/freely available textbooks.
-  * [`/resources/datasheets`](docs/resources/datasheets) - Datasheets for hardware components.
-  * [`/resources/help`](docs/resources/help) - Help text for a few of the command line-based applications used in this project.
-  * [`/resources/manuals`](docs/resources/manuals) - PDF manuals for some of the software used in this project.
-* [`/external`](external) - External software used in this project.
-  * [`/CMSIS`](external/CMSIS) - Core CMSIS library by ARM for Cortex-M devices.
-  * [`/CMSIS-DSP`](external/CMSIS-DSP/) - DSP library by ARM for Cortex-M devices.
-* [`/src`](src) - Source code for the software modules written for this project.
-  * [`/app`](/src/app) - Application-specific modules.
-  * [`/common`](/src/common) - General-purpose modules used by other modules.
-  * [`/device`](/src/device) - Device-specific files.
-  * [`/drivers`](/src/drivers) - Low-level device drivers for the peripherals used in this project.
-  * [`/middleware`](/src/middleware) - Software modules for interfacing with external hardware via device drivers.
-  * [`/old_or_unused`](/src/old_or_unused) - Old or unused software modules.
-  * [`/test_scripts`](/src/test_scripts) - Scripts used for manual on-target testing.
-* [`/test`](test) - CppUTest-based unit test suite.
-  * [`/mocks`](/test/mocks) - CppUMock-based mock functions used to substitute a module's dependencies during unit tests.
-  * [`/src`](/test/src) - Source code for unit tests.
-  * [`/stubs`](/test/stubs) - Hard-coded stub functions used to substitute a module's dependencies during unit tests.
-* [`/tools`](tools) - Miscellaneous tools used or created for this project.
-  * [`/cppcheck`](/tools/cppcheck) - Suppressions list for Cppcheck.
-  * [`/data`](/tools/data) - ECG sample data from the publicly available MIT-BIH Arrhythmia Database, as well as a Python script to convert them to `csv` files.
-  * [`/filter_design`](/tools/filter_design) - Python scripts/notebooks used to design the digital filters used in this project.
-  * [`/JDS6600`](/tools/JDS6600) - Scripts for interfacing a JDS6600 DDS Signal Generator/Counter.
-  * [`/lookup_table`](/tools/lookup_table) - Script for generating the lookup table used in the ADC module.
-
-</details><br>
+| Directory               | Description                                          |
+| ----------------------- | ---------------------------------------------------- |
+| [`/cmake`](cmake)       | CMake-specific files for generating the build system |
+| [`/docs`](docs)         | Project documentation and external resources         |
+| [`/external`](external) | Third-party software used in this project            |
+| [`/src`](src)           | Source code                                          |
+| [`/test`](test)         | CppUTest-based unit test suite                       |
+| [`/tools`](tools)       | Miscellaneous tools used or created for this project |
 
 ## Introduction 
 
@@ -117,7 +89,7 @@ $$
 
 <details>
 <summary> ❗️ Click to see ECG sample curve ❗️ </summary>
-<img src="docs/figures/martinek_fig_3.png" width="1000" />
+<img src="docs/figures/martinek_fig_3.png" width="500" />
 
 Figure 3 from Martinek, et. al. [[1]](#references)
 
@@ -156,7 +128,7 @@ This project is neither a product nor a medical device (by any legal definition,
 
 <details>
 <summary> ❗️ Click to see overall circuit schematic ❗️ </summary>
-<img src="docs/figures/schematics/circuit_overall.png" width="1000" />
+<img src="docs/figures/schematics/circuit_overall.png" width="500" />
 </details><br>
 
 The hardware is divided into three modules: the analog-front end (AFE), the optical isolation circuit, and the microcontroller/display circuit.
@@ -164,7 +136,7 @@ The hardware is divided into three modules: the analog-front end (AFE), the opti
 #### Analog-Front End
 <details>
 <summary> ❗️ Click to see analog-front end circuit schematic❗️</summary>
-<img src="docs/figures/schematics/circuit_afe.png" width="1000" />
+<img src="docs/figures/schematics/circuit_afe.png" width="500" />
 ![Alt text](image.png)
 </details><br>
 
@@ -174,10 +146,10 @@ The AFE consists of an instrumentation amplifier with a gain of $100$; a 2nd-ord
 
 <details>
 <summary> ❗️ Click to see optical isolation circuit schematic❗️ </summary>
-<img src="docs/figures/schematics/circuit_isolation.png" width="1000" />
+<img src="docs/figures/schematics/circuit_isolation.png" width="500" />
 </details><br>
 
-The optical isolation circuit uses a linear optocoupler to transmit the ECG signal from the analog-front end circuit to the microcontroller circuit. This circuitry serves as a safety measure against power surges and other potential hazards that can occur as a result of connecting someone directly to mains power (for example, death).
+The optical isolation circuit uses a linear optocoupler to transmit the ECG signal from the analog-front end circuit to the microcontroller circuit. This circuitry serves as a safety measure against power surges and other potential hazards that can occur as a result of connecting someone directly to mains power.
 
 It also has three resistors on the AFE-side that effectively shift the signal from the projected output range of ± $5.5$ $V$ to the range $[0, 3.5)$ $V$, which is necessary for both the optocoupler and the microcontroller's built-in analog-to-digital converter (ADC) circuitry.
 
@@ -185,7 +157,7 @@ It also has three resistors on the AFE-side that effectively shift the signal fr
 
 <details>
 <summary> ❗️ Click to see microcontroller circuit schematic❗️ </summary>
-<img src="docs/figures/schematics/circuit_mcu.png" width="1000" />
+<img src="docs/figures/schematics/circuit_mcu.png" width="500" />
 </details><br>
 
 The microcontroller circuit currently consists of a TM4C123 microcontroller mounted on a LaunchPad evaluation kit, and an MSP2807 liquid crystal display (LCD).
@@ -205,7 +177,7 @@ It also somewhat doubles as an `#include` dependency graph.
 
 <details>
 <summary> ❗️ Click to see data flow graph ❗️ </summary>
-<img src="docs/figures/software/data_flow.png" width="2000" />
+<img src="docs/figures/software/data_flow.png" width="500" />
 
 This graph shows the flow of information from the patient to the LCD (and also the laptop).
 </details><br>
