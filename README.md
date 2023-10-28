@@ -2,44 +2,16 @@
 
 An electrocardiogram-based heart rate monitor project implemented with a TM4C123 microcontroller and custom analog front-end circuitry. Please read below for more information on what exactly this project is and why I decided to do it!
 
-## Table of Contents
-<details>
-<summary> ❗️ Click to see table of contents ❗️ </summary>
+## Navigation
 
-- [μHeartMonitor: An ECG-based Heart Rate Monitor](#μheartmonitor-an-ecg-based-heart-rate-monitor)
-  - [Table of Contents](#table-of-contents)
-  - [Summary](#summary)
-    - [What is this?](#what-is-this)
-    - [How does it work?](#how-does-it-work)
-    - [How is this repository organized?](#how-is-this-repository-organized)
-    - [Why'd you do all of this?](#whyd-you-do-all-of-this)
-  - [Navigation](#navigation)
-  - [Introduction](#introduction)
-    - [Background](#background)
-    - [Motivation](#motivation)
-    - [Disclaimer](#disclaimer)
-    - [Key Terms](#key-terms)
-  - [Materials \& Methods](#materials--methods)
-    - [Hardware Design](#hardware-design)
-      - [Analog-Front End](#analog-front-end)
-      - [Optical Isolation Circuitry](#optical-isolation-circuitry)
-      - [Microcontroller Circuit](#microcontroller-circuit)
-    - [Software Architecture](#software-architecture)
-      - [Device Drivers](#device-drivers)
-      - [Middleware](#middleware)
-      - [Application Software](#application-software)
-      - [External](#external)
-      - [Common](#common)
-  - [Current Results](#current-results)
-  - [To-do](#to-do)
-    - [Hardware](#hardware)
-    - [Software](#software)
-  - [Build Instructions](#build-instructions)
-    - [Hardware](#hardware-1)
-    - [Software](#software-1)
-  - [References](#references)
-
-</details>
+| Directory               | Description                                          |
+| ----------------------- | ---------------------------------------------------- |
+| [`/cmake`](cmake)       | CMake-specific files for generating the build system |
+| [`/docs`](docs)         | Project documentation and external resources         |
+| [`/external`](external) | Third-party software used in this project            |
+| [`/src`](src)           | Source code                                          |
+| [`/test`](test)         | CppUTest-based unit test suite                       |
+| [`/tools`](tools)       | Miscellaneous tools used or created for this project |
 
 ## Summary
 
@@ -59,200 +31,9 @@ The project is primarily built using CMake, which generates Makefiles based on t
 ### Why'd you do all of this?
 ***Short version***: Because I was interested in doing it and saw utility in doing so.
 
-***Long version***: See the [Motivation](#motivation) subsection.
+***Long version***: See the "Motivation" subsection in the documentation.
 
-[🔼 BACK TO TOP 🔼](#μheartmonitor-an-ecg-based-heart-rate-monitor)
+## Documentation
+**HTML/Github Pages Documentation**: [Link](https://bryanmcelvy.github.io/microHeartMonitor)
 
-## Navigation
-
-| Directory               | Description                                          |
-| ----------------------- | ---------------------------------------------------- |
-| [`/cmake`](cmake)       | CMake-specific files for generating the build system |
-| [`/docs`](docs)         | Project documentation and external resources         |
-| [`/external`](external) | Third-party software used in this project            |
-| [`/src`](src)           | Source code                                          |
-| [`/test`](test)         | CppUTest-based unit test suite                       |
-| [`/tools`](tools)       | Miscellaneous tools used or created for this project |
-
-## Introduction 
-
-### Background
-"***Electrocardiography***" (or "***ECG***") is a diagnostic technique in which the electrical activity of a patient's heart is captured as time series data (AKA the ECG signal) and analyzed to assess cardiovascular health. Specifically, the ECG signal can be analyzed to detect biomarkers for cardiovascular diseases like arrhythmia, myocardial infarction, etc. which manifest as abnormalities in the ECG waveform. In clinical environments, ECG is performed using machines that implement the required hardware and software to acquire, process, and analyze the ECG signal. This must be done in such a way that preserves the important information within the signal (specifically the shape of the ECG waveform) while also maintaining the safety of the patient [[1]](#references).
-
-The ECG waveform consists of 5 smaller "waves" – the P, Q, R, S, and T waves – that each give information on a patient's cardiac health both individually and collectively. The term "***QRS complex***" refers to the part of the ECG waveform that is generally taken to be the heart "beat". Thus, ECG-based heart rate monitors commonly use a category of algorithms called "***QRS detectors***" to determine the locations of the R-peaks within a block of ECG signal data and calculate the time period between each adjacent peak (i.e. the "***RR interval***") [[2]](#references). The RR interval is related to the heart rate by this equation:
-
-$$
-RR = \frac{60}{HR}
-$$
-
-...where $RR$ is the time in $[s]$ between two adjacent R peaks, and $HR$ is the heart rate in $[bpm]$ (beats per minute).
-
-<details>
-<summary> ❗️ Click to see ECG sample curve ❗️ </summary>
-<img src="docs/figures/martinek_fig_3.png" width="500" />
-
-Figure 3 from Martinek, et. al. [[1]](#references)
-
-</details>
-
-The ***μHeartMonitor*** is an embedded system that implements the Pan-Tompkins algorithm for QRS detection. The system consists of both hardware and software that cooperate to achieve this task while also visually outputting the ECG waveform and heart rate to a liquid crystal display (LCD). The text below and the contents of this repository reflect the current progress made, but the end goal is to have the full system mounted on 1-2 printed circuit boards (PCBs) situated inside an insulated enclosure.
-
-### Motivation
-My primary motivations for doing this project are:
-* Learning more about and gaining exposure to the many different concepts, tools, and challenges involved in embedded systems engineering
-* Applying the skills and knowledge I gained from previous coursework, including but not limited to:
-  * BIOE 4315: Bioinstrumentation
-  * BIOE 4342: Biomedical Signal Processing
-  * COSC 2306: Data Programming
-  * [Embedded Systems – Shape the World](https://users.ece.utexas.edu/~valvano/Volume1/E-Book/)
-* Showing tangible proof of qualification for junior-level embedded software engineering roles to potential employers
-
-I also hope that anyone interested in any of the fields of knowledge relevant to this project (biomedical/electrical/computer/software engineering) will find this helpful to look at or even use in their own projects.
-
-### Disclaimer
-This project is neither a product nor a medical device (by any legal definition, anyway), and is not intended to be either or both of things now or in the future. It is simply a passion project.
-
-### Key Terms
-* Electrocardiogram/Electrocardiography (ECG)
-* Heart rate
-* Heart rate monitor
-* QRS complex
-* QRS detector
-* RR interval
-
-[🔼 BACK TO TOP 🔼](#μheartmonitor-an-ecg-based-heart-rate-monitor)
-
-## Materials & Methods
-
-### Hardware Design
-
-<details>
-<summary> ❗️ Click to see overall circuit schematic ❗️ </summary>
-<img src="docs/figures/schematics/circuit_overall.png" width="500" />
-</details><br>
-
-The hardware is divided into three modules: the analog-front end (AFE), the optical isolation circuit, and the microcontroller/display circuit.
-
-#### Analog-Front End
-<details>
-<summary> ❗️ Click to see analog-front end circuit schematic❗️</summary>
-<img src="docs/figures/schematics/circuit_afe.png" width="500" />
-![Alt text](image.png)
-</details><br>
-
-The AFE consists of an instrumentation amplifier with a gain of $100$; a 2nd-order Sallen-Key high-pass filter with a gain of $1$ and a cutoff frequency of ~$0.5$ $Hz$; and a 2nd-order Sallen-Key low-pass filter with a passband gain of $11$ and a cutoff frequency of ~$40$ $Hz$. The overall gain is $1100$
-
-#### Optical Isolation Circuitry
-
-<details>
-<summary> ❗️ Click to see optical isolation circuit schematic❗️ </summary>
-<img src="docs/figures/schematics/circuit_isolation.png" width="500" />
-</details><br>
-
-The optical isolation circuit uses a linear optocoupler to transmit the ECG signal from the analog-front end circuit to the microcontroller circuit. This circuitry serves as a safety measure against power surges and other potential hazards that can occur as a result of connecting someone directly to mains power.
-
-It also has three resistors on the AFE-side that effectively shift the signal from the projected output range of ± $5.5$ $V$ to the range $[0, 3.5)$ $V$, which is necessary for both the optocoupler and the microcontroller's built-in analog-to-digital converter (ADC) circuitry.
-
-#### Microcontroller Circuit
-
-<details>
-<summary> ❗️ Click to see microcontroller circuit schematic❗️ </summary>
-<img src="docs/figures/schematics/circuit_mcu.png" width="500" />
-</details><br>
-
-The microcontroller circuit currently consists of a TM4C123 microcontroller mounted on a LaunchPad evaluation kit, and an MSP2807 liquid crystal display (LCD).
-
-### Software Architecture
-
-The call graph and data flow graph (visible through the dropdowns below) visually represent the software architecture.
-
-<details>
-<summary> ❗️ Click to see call graph ❗️ </summary>
-<img src="docs/figures/software/call.png" width="500" />
-
-This graph shows which modules communicate with (or "call") each other. Each arrow points from the "caller" to the "callee".
-
-It also somewhat doubles as an `#include` dependency graph.
-</details><br>
-
-<details>
-<summary> ❗️ Click to see data flow graph ❗️ </summary>
-<img src="docs/figures/software/data_flow.png" width="500" />
-
-This graph shows the flow of information from the patient to the LCD (and also the laptop).
-</details><br>
-
-The software has a total of 14 modules, 11 of which are (somewhat loosely) divided into three layers: application-specific software, middleware, and device drivers.
-
-#### Device Drivers
-The device driver layer consists of software modules that interface directly with the microcontroller's built-in peripheral devices.
-
-#### Middleware
-The middleware layer consists of higher-level device drivers that interface with some hardware connected to one of the built-in peripherals (i.e. the Debug module connects to UART and the ILI9341 module primarily uses SPI).
-
-#### Application Software
-The application software layer has modules that are at least partially, if not completely built for this project. This layer includes the data acquisition module, whose functions handle receiving raw input samples and denoising them; the QRS detector, which analyzes the filtered signal to determine the average heart rate; and the LCD module, which plots the ECG waveform and displays the heart rate.
-
-#### External
-This "layer" includes modules/libraries/files that were not written (or at least heavily altered) by me. It currently only contains portions of ARM's CMSIS-Core and CMSIS-DSP libraries.
-
-#### Common
-The "common" modules are general-purpose modules that don't necessarily fit into the above categories/layers. This category includes the "Fifo" module, which contains a ring buffer-based implementation of the FIFO buffer (AKA "queue") data structure; and "NewAssert", which is essentially just an implementation of the `assert` macro that causes a breakpoint (and also doesn't use up as much RAM as the standard implementation does).
-
-[🔼 BACK TO TOP 🔼](#μheartmonitor-an-ecg-based-heart-rate-monitor)
-
-## Current Results
-Video Demonstration: [YouTube Link](https://youtu.be/KB2CsFbUgtg)
-
-The project is currently implemented using 2 breadboards and a Tiva C LaunchPad development board. The manual tests I've been running use a clone of the JDS6600 signal generator, which I loaded a sample ECG waveform from the MIT-BIH arrhythmia database onto using scripts in the corresponding [folder](/tools/JDS6600/) in the [`/tools`](/tools/) directory. As can be seen in the video demonstration, the calculated heart rate isn't 100% correct at the moment, but still gets relatively close.
-
-[🔼 BACK TO TOP 🔼](#μheartmonitor-an-ecg-based-heart-rate-monitor)
-
-## To-do
-### Hardware
-* Design a custom PCB
-  * Replace most of the AFE circuitry with an AFE IC (e.g. AD8232)
-  * Add electrostatic discharge (ESD) protection
-  * Add decoupling capacitors
-
-### Software
-* Rework the structure of/relationship between the LCD and ILI9341 modules
-* Refactor ADC module to be more general
-* Refactor SPI module to be more general
-* Remove statically-allocated data structures for unused Timers and GPIO ports
-* Add remaining parts of the Pan-Tompkins algorithm
-  * Thresholding procedure for bandpass-filtered signal (not just integrated signal)
-  * Search-back procedure
-  * T-wave discrimination
-* Add heart rate variability (HRV) calculation
-* Move CMSIS-DSP filters from DAQ and QRS modules to their own module
-* Expand the automated test suite
-
-[🔼 BACK TO TOP 🔼](#μheartmonitor-an-ecg-based-heart-rate-monitor)
-
-## Build Instructions
-### Hardware
-WIP
-
-### Software
-WIP
-
-[🔼 BACK TO TOP 🔼](#μheartmonitor-an-ecg-based-heart-rate-monitor)
-
-## References
-
-[1]&emsp;J. Pan and W. J. Tompkins, “A Real-Time QRS Detection Algorithm,” IEEE Trans. Biomed. Eng., vol. BME-32, no. 3, pp. 230–236, Mar. 1985, doi: 10.1109/TBME.1985.325532.
-
-[2]&emsp;R. Martinek et al., “Advanced Bioelectrical Signal Processing Methods: Past, Present and Future Approach—Part I: Cardiac Signals,” Sensors, vol. 21, no. 15, p. 5186, Jul. 2021, doi: 10.3390/s21155186.
-
-[3]&emsp;C. Ünsalan, M. E. Yücel, and H. D. Gürhan, Digital Signal Processing using Arm Cortex-M based Microcontrollers: Theory and Practice. Cambridge: ARM Education Media, 2018.
-
-[4]&emsp;B. B. Winter and J. G. Webster, “Driven-right-leg circuit design,” IEEE Trans Biomed Eng, vol. 30, no. 1, pp. 62–66, Jan. 1983, doi: 10.1109/tbme.1983.325168.
-
-[5]&emsp;J. Valvano, Embedded Systems: Introduction to ARM Cortex-M Microcontrollers, 5th edition. Jonathan Valvano, 2013.
-
-[6]&emsp;S. W. Smith, The Scientist and Engineer’s Guide to Digital Signal Processing, 2nd edition. San Diego, Calif: California technical Publishin, 1999.
-
-
-[🔼 BACK TO TOP 🔼](#μheartmonitor-an-ecg-based-heart-rate-monitor)
-
+**PDF Documentation**: [Link](/docs/refman.pdf)
