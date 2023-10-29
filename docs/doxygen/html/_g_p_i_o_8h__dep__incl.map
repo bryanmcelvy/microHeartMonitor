@@ -1,6 +1,6 @@
 <map id="GPIO.h" name="GPIO.h">
 <area shape="rect" id="Node000001" title="Header file for general&#45;purpose input/output (GPIO) device driver." alt="" coords="265,5,330,31"/>
-<area shape="rect" id="Node000002" href="$_a_d_c_8c.html" title="Source code ffor analog&#45;to&#45;digital conversion (ADC) module." alt="" coords="5,79,67,105"/>
+<area shape="rect" id="Node000002" href="$_a_d_c_8c.html" title="Source code for analog&#45;to&#45;digital conversion (ADC) module." alt="" coords="5,79,67,105"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="250,35,68,85,67,79,249,30"/>
 <area shape="rect" id="Node000003" href="$_g_p_i_o_8c.html" title="Source code for GPIO module." alt="" coords="91,79,157,105"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="255,40,155,81,153,76,253,35"/>

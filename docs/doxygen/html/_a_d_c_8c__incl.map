@@ -1,5 +1,5 @@
 <map id="ADC.c" name="ADC.c">
-<area shape="rect" id="Node000001" title="Source code ffor analog&#45;to&#45;digital conversion (ADC) module." alt="" coords="93,5,155,31"/>
+<area shape="rect" id="Node000001" title="Source code for analog&#45;to&#45;digital conversion (ADC) module." alt="" coords="93,5,155,31"/>
 <area shape="rect" id="Node000002" href="$_a_d_c_8h.html" title="Header file for analog&#45;to&#45;digital conversion (ADC) module." alt="" coords="5,79,67,105"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="111,34,64,71,61,67,107,29"/>
 <area shape="rect" id="Node000003" href="$_g_p_i_o_8h.html" title="Header file for general&#45;purpose input/output (GPIO) device driver." alt="" coords="91,79,157,105"/>

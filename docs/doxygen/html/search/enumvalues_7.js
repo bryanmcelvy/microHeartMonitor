@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['oneshot_0',['ONESHOT',['../group__timer.html#gga0a1ee199efad781cb768fbd05ab38a6ca2724fa87f252403cd2c93f7437f34fd5',1,'Timer.h']]]
+  ['nop_0',['NOP',['../group__ili9341.html#gga13f208b6f7f5cab976154336d1acf3c4af811bef354b292ff0713c50d7652c026',1,'ILI9341.h']]],
+  ['noron_1',['NORON',['../group__ili9341.html#gga13f208b6f7f5cab976154336d1acf3c4a604886686cf0c220d632eab518d3cd11',1,'ILI9341.h']]]
 ];

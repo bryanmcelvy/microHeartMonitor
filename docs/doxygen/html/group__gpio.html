@@ -101,7 +101,6 @@ $(document).ready(function(){initNavTree('group__gpio.html',''); initResizable()
 <a href="#nested-classes">Data Structures</a> &#124;
 <a href="#define-members">Macros</a> &#124;
 <a href="#enum-members">Enumerations</a> &#124;
-<a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">General-Purpose Input/Output (GPIO)<div class="ingroups"><a class="el" href="group__driver.html">Device Drivers</a></div></div></div>
 </div><!--header-->
@@ -141,7 +140,7 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:gadc29c2ff13d900c2f185ee95427fb06c" id="r_gadc29c2ff13d900c2f185ee95427fb06c"><td class="memItemLeft" align="right" valign="top"><a id="gadc29c2ff13d900c2f185ee95427fb06c" name="gadc29c2ff13d900c2f185ee95427fb06c"></a>enum &#160;</td><td class="memItemRight" valign="bottom">{ <br />
+<tr class="memitem:ga89db67b783afd655c23c4538f88ad5d2" id="r_ga89db67b783afd655c23c4538f88ad5d2"><td class="memItemLeft" align="right" valign="top"><a id="ga89db67b783afd655c23c4538f88ad5d2" name="ga89db67b783afd655c23c4538f88ad5d2"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>GPIO_PORT_BASE_ADDRESSES</b> { <br />
 &#160;&#160;<b>GPIO_PORTA_BASE_ADDRESS</b> = (uint32_t) 0x40004000
 , <b>GPIO_PORTB_BASE_ADDRESS</b> = (uint32_t) 0x40005000
 , <b>GPIO_PORTC_BASE_ADDRESS</b> = (uint32_t) 0x40006000
@@ -151,33 +150,40 @@ Enumerations</h2></td></tr>
 , <b>GPIO_PORTF_BASE_ADDRESS</b> = (uint32_t) 0x40025000
 <br />
  }</td></tr>
-<tr class="separator:gadc29c2ff13d900c2f185ee95427fb06c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga61dadd085c1777f559549e05962b2c9e" id="r_ga61dadd085c1777f559549e05962b2c9e"><td class="memItemLeft" align="right" valign="top"><a id="ga61dadd085c1777f559549e05962b2c9e" name="ga61dadd085c1777f559549e05962b2c9e"></a>enum &#160;</td><td class="memItemRight" valign="bottom">{ <br />
-&#160;&#160;<b>GPIO_DATA_R_OFFSET</b> = (uint32_t) 0x03FC
-, <b>GPIO_DIR_R_OFFSET</b> = (uint32_t) 0x0400
-, <b>GPIO_IS_R_OFFSET</b> = (uint32_t) 0x0404
-, <b>GPIO_IBE_R_OFFSET</b> = (uint32_t) 0x0408
+<tr class="separator:ga89db67b783afd655c23c4538f88ad5d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac31f938af7d335ce902b2f89f622fb5a" id="r_gac31f938af7d335ce902b2f89f622fb5a"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__gpio.html#gac31f938af7d335ce902b2f89f622fb5a">GPIO_REGISTER_OFFSETS</a> { <br />
+&#160;&#160;<a class="el" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aa41620dff2b5eac69b50f3ce0b07cf87f">GPIO_DATA_R_OFFSET</a> = (uint32_t) 0x03FC
+, <a class="el" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aa4d20878977368aa1c9a1cf0693315ea3">GPIO_DIR_R_OFFSET</a> = (uint32_t) 0x0400
+, <a class="el" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aad0ee0fd8ec45100a3fcabc48bf33f1d9">GPIO_IS_R_OFFSET</a> = (uint32_t) 0x0404
+, <a class="el" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aaa274f951d5d1cdab31c3da91d170d9e4">GPIO_IBE_R_OFFSET</a> = (uint32_t) 0x0408
 , <br />
-&#160;&#160;<b>GPIO_IEV_R_OFFSET</b> = (uint32_t) 0x040C
-, <b>GPIO_IM_R_OFFSET</b> = (uint32_t) 0x0410
-, <b>GPIO_ICR_R_OFFSET</b> = (uint32_t) 0x041C
-, <b>GPIO_AFSEL_R_OFFSET</b> = (uint32_t) 0x0420
+&#160;&#160;<a class="el" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aa4fc7c9b489956cfc9dcb8a16921d56c8">GPIO_IEV_R_OFFSET</a> = (uint32_t) 0x040C
+, <a class="el" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aa7de52c7cd5cd1bd2f20ad1396143a8ca">GPIO_IM_R_OFFSET</a> = (uint32_t) 0x0410
+, <a class="el" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aaf714eebcc73d4d80915dfe52e885b6db">GPIO_ICR_R_OFFSET</a> = (uint32_t) 0x041C
+, <a class="el" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aaaa2659b49cc51369d6b6891f28f1f3ad">GPIO_AFSEL_R_OFFSET</a> = (uint32_t) 0x0420
 , <br />
-&#160;&#160;<b>GPIO_DR2R_R_OFFSET</b> = (uint32_t) 0x0500
-, <b>GPIO_DR4R_R_OFFSET</b> = (uint32_t) 0x0504
-, <b>GPIO_DR8R_R_OFFSET</b> = (uint32_t) 0x0508
-, <b>GPIO_PUR_R_OFFSET</b> = (uint32_t) 0x0510
+&#160;&#160;<a class="el" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aa9816b4f97e2d19b512d5068e7adb41eb">GPIO_DR2R_R_OFFSET</a> = (uint32_t) 0x0500
+, <a class="el" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aa3b8b6ab7253694470208660d4b93b61a">GPIO_DR4R_R_OFFSET</a> = (uint32_t) 0x0504
+, <a class="el" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aaf6b51d0b8ec2b43a80210fd0e85bc88e">GPIO_DR8R_R_OFFSET</a> = (uint32_t) 0x0508
+, <a class="el" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aa6426f004b52d6c80c7362b15061daa95">GPIO_PUR_R_OFFSET</a> = (uint32_t) 0x0510
 , <br />
-&#160;&#160;<b>GPIO_PDR_R_OFFSET</b> = (uint32_t) 0x0518
-, <b>GPIO_DEN_R_OFFSET</b> = (uint32_t) 0x051C
-, <b>GPIO_LOCK_R_OFFSET</b> = (uint32_t) 0x0520
-, <b>GPIO_COMMIT_R_OFFSET</b> = (uint32_t) 0x0524
+&#160;&#160;<a class="el" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aacdf1c72f3607fcd6302c7f5072da6280">GPIO_PDR_R_OFFSET</a> = (uint32_t) 0x0518
+, <a class="el" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aa427707c497edf113c50c0d5a543098bd">GPIO_DEN_R_OFFSET</a> = (uint32_t) 0x051C
+, <a class="el" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aa256c6788e8fc51ca0ded0cd7a8afb652">GPIO_LOCK_R_OFFSET</a> = (uint32_t) 0x0520
+, <a class="el" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aa326f0e9e1894f5a70c0e75e6e6805eca">GPIO_COMMIT_R_OFFSET</a> = (uint32_t) 0x0524
 , <br />
-&#160;&#160;<b>GPIO_AMSEL_R_OFFSET</b> = (uint32_t) 0x0528
-, <b>GPIO_PCTL_R_OFFSET</b> = (uint32_t) 0x052C
+&#160;&#160;<a class="el" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aa52bb732d5f4f0e0e42003e9ad1358045">GPIO_AMSEL_R_OFFSET</a> = (uint32_t) 0x0528
+, <a class="el" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aaff27f44fbdd2d387df9027193e07ceb5">GPIO_PCTL_R_OFFSET</a> = (uint32_t) 0x052C
 <br />
  }</td></tr>
-<tr class="separator:ga61dadd085c1777f559549e05962b2c9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:gac31f938af7d335ce902b2f89f622fb5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:ga9bca73cfe42ee57ef38fcb28e45fbd60" id="r_ga9bca73cfe42ee57ef38fcb28e45fbd60"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="struct_gpio_port_struct__t.html">GpioPortStruct_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__gpio.html#ga9bca73cfe42ee57ef38fcb28e45fbd60">GPIO_PTR_ARR</a> [6]</td></tr>
+<tr class="separator:ga9bca73cfe42ee57ef38fcb28e45fbd60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader">Initialization</h2></td></tr>
 <tr class="memitem:gae2dc8857000c42daf9b963ca3fbdf547" id="r_gae2dc8857000c42daf9b963ca3fbdf547"><td class="memItemLeft" align="right" valign="top"><a id="gae2dc8857000c42daf9b963ca3fbdf547" name="gae2dc8857000c42daf9b963ca3fbdf547"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>GPIO_PortName_t</b> { <br />
 &#160;&#160;<b>GPIO_PORT_A</b>
 , <b>GPIO_PORT_B</b>
@@ -196,6 +202,17 @@ Enumerations</h2></td></tr>
 <br />
  }</td></tr>
 <tr class="separator:gae2dc8857000c42daf9b963ca3fbdf547"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga08dc5447832fe78e237240adfc3ad12e" id="r_ga08dc5447832fe78e237240adfc3ad12e"><td class="memItemLeft" align="right" valign="top">GpioPort_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__gpio.html#ga08dc5447832fe78e237240adfc3ad12e">GPIO_InitPort</a> (GPIO_PortName_t portName)</td></tr>
+<tr class="memdesc:ga08dc5447832fe78e237240adfc3ad12e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize a GPIO Port and return a pointer to its <code>struct</code>.  <br /></td></tr>
+<tr class="separator:ga08dc5447832fe78e237240adfc3ad12e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gada2450873e062684ed25f816e43651a7" id="r_gada2450873e062684ed25f816e43651a7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__gpio.html#gada2450873e062684ed25f816e43651a7">GPIO_isPortInit</a> (GpioPort_t gpioPort)</td></tr>
+<tr class="memdesc:gada2450873e062684ed25f816e43651a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the GPIO port is initialized.  <br /></td></tr>
+<tr class="separator:gada2450873e062684ed25f816e43651a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7a9c70ddf6fe9d1858d5d8c04dbac401" id="r_ga7a9c70ddf6fe9d1858d5d8c04dbac401"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__gpio.html#ga7a9c70ddf6fe9d1858d5d8c04dbac401">GPIO_getBaseAddr</a> (GpioPort_t gpioPort)</td></tr>
+<tr class="memdesc:ga7a9c70ddf6fe9d1858d5d8c04dbac401"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the base address of a GPIO port.  <br /></td></tr>
+<tr class="separator:ga7a9c70ddf6fe9d1858d5d8c04dbac401"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader">Configuration (Digital I/O)</h2></td></tr>
 <tr class="memitem:ga8ee522f657c96d285131bcd924498f73" id="r_ga8ee522f657c96d285131bcd924498f73"><td class="memItemLeft" align="right" valign="top"><a id="ga8ee522f657c96d285131bcd924498f73" name="ga8ee522f657c96d285131bcd924498f73"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>GpioPin_t</b> { <br />
 &#160;&#160;<b>GPIO_PIN0</b> = ((uint8_t) 1)
 , <b>GPIO_PIN1</b> = ((uint8_t) (1 &lt;&lt; 1))
@@ -223,30 +240,20 @@ Enumerations</h2></td></tr>
 <br />
  }</td></tr>
 <tr class="separator:ga646e75bb4c4aaab2e492e374e9a611aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:ga08dc5447832fe78e237240adfc3ad12e" id="r_ga08dc5447832fe78e237240adfc3ad12e"><td class="memItemLeft" align="right" valign="top">GpioPort_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__gpio.html#ga08dc5447832fe78e237240adfc3ad12e">GPIO_InitPort</a> (GPIO_PortName_t portName)</td></tr>
-<tr class="memdesc:ga08dc5447832fe78e237240adfc3ad12e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize a GPIO Port and return a pointer to its <code>struct</code>.  <br /></td></tr>
-<tr class="separator:ga08dc5447832fe78e237240adfc3ad12e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gada2450873e062684ed25f816e43651a7" id="r_gada2450873e062684ed25f816e43651a7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__gpio.html#gada2450873e062684ed25f816e43651a7">GPIO_isPortInit</a> (GpioPort_t gpioPort)</td></tr>
-<tr class="memdesc:gada2450873e062684ed25f816e43651a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the GPIO port is initialized.  <br /></td></tr>
-<tr class="separator:gada2450873e062684ed25f816e43651a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7a9c70ddf6fe9d1858d5d8c04dbac401" id="r_ga7a9c70ddf6fe9d1858d5d8c04dbac401"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__gpio.html#ga7a9c70ddf6fe9d1858d5d8c04dbac401">GPIO_getBaseAddr</a> (GpioPort_t gpioPort)</td></tr>
-<tr class="memdesc:ga7a9c70ddf6fe9d1858d5d8c04dbac401"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the base address of a GPIO port.  <br /></td></tr>
-<tr class="separator:ga7a9c70ddf6fe9d1858d5d8c04dbac401"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga5ea5e2c13b47602b8dd51992ae8e56cd" id="r_ga5ea5e2c13b47602b8dd51992ae8e56cd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__gpio.html#ga5ea5e2c13b47602b8dd51992ae8e56cd">GPIO_ConfigDirOutput</a> (GpioPort_t gpioPort, GpioPin_t pinMask)</td></tr>
-<tr class="memdesc:ga5ea5e2c13b47602b8dd51992ae8e56cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure the direction of the specified GPIO pins. All pins are configured to <code>INPUT</code> by default, so this function should only be called to specify <code>OUTPUT</code> pins.  <br /></td></tr>
-<tr class="separator:ga5ea5e2c13b47602b8dd51992ae8e56cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga331175da99105096420782c051fffec6" id="r_ga331175da99105096420782c051fffec6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__gpio.html#ga331175da99105096420782c051fffec6">GPIO_ConfigDirInput</a> (GpioPort_t gpioPort, GpioPin_t pinMask)</td></tr>
-<tr class="memdesc:ga331175da99105096420782c051fffec6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure the specified GPIO pins as <code>INPUT</code> pins. All pins are configured to <code>INPUT</code> by default, so this function is technically unnecessary, but useful for code readability.  <br /></td></tr>
-<tr class="separator:ga331175da99105096420782c051fffec6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga395746f9403d5ab8ac37333e1b860149" id="r_ga395746f9403d5ab8ac37333e1b860149"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__gpio.html#ga395746f9403d5ab8ac37333e1b860149">GPIO_ConfigPullUp</a> (GpioPort_t gpioPort, GpioPin_t pinMask)</td></tr>
-<tr class="memdesc:ga395746f9403d5ab8ac37333e1b860149"><td class="mdescLeft">&#160;</td><td class="mdescRight">Activate the specified pins' internal pull-up resistors.  <br /></td></tr>
-<tr class="separator:ga395746f9403d5ab8ac37333e1b860149"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8e605e3e74a7a34d0470b6fa44122187" id="r_ga8e605e3e74a7a34d0470b6fa44122187"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__gpio.html#ga8e605e3e74a7a34d0470b6fa44122187">GPIO_ConfigPullDown</a> (GpioPort_t gpioPort, GpioPin_t pinMask)</td></tr>
-<tr class="memdesc:ga8e605e3e74a7a34d0470b6fa44122187"><td class="mdescLeft">&#160;</td><td class="mdescRight">Activate the specified pins' internal pull-down resistors.  <br /></td></tr>
-<tr class="separator:ga8e605e3e74a7a34d0470b6fa44122187"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3a63dcddb5d60dc7e91ff7e73695fa30" id="r_ga3a63dcddb5d60dc7e91ff7e73695fa30"><td class="memItemLeft" align="right" valign="top"><a id="ga3a63dcddb5d60dc7e91ff7e73695fa30" name="ga3a63dcddb5d60dc7e91ff7e73695fa30"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>gpioDir_t</b> { <b>GPIO_INPUT</b>
+, <b>GPIO_OUTPUT</b>
+ }</td></tr>
+<tr class="separator:ga3a63dcddb5d60dc7e91ff7e73695fa30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaba08c1f40d6bad9ca7dc04b0ba68bbbe" id="r_gaba08c1f40d6bad9ca7dc04b0ba68bbbe"><td class="memItemLeft" align="right" valign="top"><a id="gaba08c1f40d6bad9ca7dc04b0ba68bbbe" name="gaba08c1f40d6bad9ca7dc04b0ba68bbbe"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>gpioResistor_t</b> { <b>PULLUP</b>
+, <b>PULLDOWN</b>
+ }</td></tr>
+<tr class="separator:gaba08c1f40d6bad9ca7dc04b0ba68bbbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3964ec3bfa307a3fb05c46bc6e667d14" id="r_ga3964ec3bfa307a3fb05c46bc6e667d14"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__gpio.html#ga3964ec3bfa307a3fb05c46bc6e667d14">GPIO_configDirection</a> (GpioPort_t gpioPort, GpioPin_t pinMask, gpioDir_t direction)</td></tr>
+<tr class="memdesc:ga3964ec3bfa307a3fb05c46bc6e667d14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure the direction of the specified GPIO pins.  <br /></td></tr>
+<tr class="separator:ga3964ec3bfa307a3fb05c46bc6e667d14"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga44c9d83952ff847b15023517d8bc7cbf" id="r_ga44c9d83952ff847b15023517d8bc7cbf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__gpio.html#ga44c9d83952ff847b15023517d8bc7cbf">GPIO_configResistor</a> (GpioPort_t gpioPort, GpioPin_t pinMask, gpioResistor_t resistor)</td></tr>
+<tr class="memdesc:ga44c9d83952ff847b15023517d8bc7cbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Activate the specified pins' internal pull-up or pull-down resistors.  <br /></td></tr>
+<tr class="separator:ga44c9d83952ff847b15023517d8bc7cbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gabfe461bdbf09ddc962589a846349fc44" id="r_gabfe461bdbf09ddc962589a846349fc44"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__gpio.html#gabfe461bdbf09ddc962589a846349fc44">GPIO_ConfigDriveStrength</a> (GpioPort_t gpioPort, GpioPin_t pinMask, uint8_t drive_mA)</td></tr>
 <tr class="memdesc:gabfe461bdbf09ddc962589a846349fc44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure the specified pins' drive strength. Pins are initialized with 2[mA] drive strength, so this is only needed for a drive strength of 4[mA] or 8[mA].  <br /></td></tr>
 <tr class="separator:gabfe461bdbf09ddc962589a846349fc44"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -256,6 +263,8 @@ Functions</h2></td></tr>
 <tr class="memitem:ga432b99ac6a78dddca5aea920d8431fad" id="r_ga432b99ac6a78dddca5aea920d8431fad"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__gpio.html#ga432b99ac6a78dddca5aea920d8431fad">GPIO_DisableDigital</a> (GpioPort_t gpioPort, GpioPin_t pinMask)</td></tr>
 <tr class="memdesc:ga432b99ac6a78dddca5aea920d8431fad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable digital I/O for the specified pins.  <br /></td></tr>
 <tr class="separator:ga432b99ac6a78dddca5aea920d8431fad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader">Configuration (Interrupts)</h2></td></tr>
 <tr class="memitem:gae203792f563b09cedbfa743162942f31" id="r_gae203792f563b09cedbfa743162942f31"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__gpio.html#gae203792f563b09cedbfa743162942f31">GPIO_ConfigInterrupts_Edge</a> (GpioPort_t gpioPort, GpioPin_t pinMask, bool risingEdge)</td></tr>
 <tr class="memdesc:gae203792f563b09cedbfa743162942f31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure the specified GPIO pins to trigger an interrupt on the rising or falling edge of an input.  <br /></td></tr>
 <tr class="separator:gae203792f563b09cedbfa743162942f31"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -268,6 +277,8 @@ Functions</h2></td></tr>
 <tr class="memitem:ga81046d70e2215c6cf8e7f42cd847bd27" id="r_ga81046d70e2215c6cf8e7f42cd847bd27"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__gpio.html#ga81046d70e2215c6cf8e7f42cd847bd27">GPIO_ConfigNVIC</a> (GpioPort_t gpioPort, uint8_t priority)</td></tr>
 <tr class="memdesc:ga81046d70e2215c6cf8e7f42cd847bd27"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure interrupts for the selected port in the NVIC.  <br /></td></tr>
 <tr class="separator:ga81046d70e2215c6cf8e7f42cd847bd27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader">Basic Functions (Digital I/O)</h2></td></tr>
 <tr class="memitem:ga8da0e45bb698c55d81528b9daba51aed" id="r_ga8da0e45bb698c55d81528b9daba51aed"><td class="memItemLeft" align="right" valign="top">volatile uint32_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__gpio.html#ga8da0e45bb698c55d81528b9daba51aed">GPIO_getDataRegister</a> (GpioPort_t gpioPort)</td></tr>
 <tr class="memdesc:ga8da0e45bb698c55d81528b9daba51aed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the address of a GPIO port's data register.  <br /></td></tr>
 <tr class="separator:ga8da0e45bb698c55d81528b9daba51aed"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -283,6 +294,8 @@ Functions</h2></td></tr>
 <tr class="memitem:ga3f78788432f3b55bf1369deff777400f" id="r_ga3f78788432f3b55bf1369deff777400f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__gpio.html#ga3f78788432f3b55bf1369deff777400f">GPIO_Toggle</a> (GpioPort_t gpioPort, GpioPin_t pinMask)</td></tr>
 <tr class="memdesc:ga3f78788432f3b55bf1369deff777400f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Toggle the specified GPIO pins.  <br /></td></tr>
 <tr class="separator:ga3f78788432f3b55bf1369deff777400f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader">Configuration (Alternate/Analog Modes)</h2></td></tr>
 <tr class="memitem:ga4829449a6f8fe7c2e02223ea7cbdff40" id="r_ga4829449a6f8fe7c2e02223ea7cbdff40"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__gpio.html#ga4829449a6f8fe7c2e02223ea7cbdff40">GPIO_ConfigAltMode</a> (GpioPort_t gpioPort, GpioPin_t pinMask)</td></tr>
 <tr class="memdesc:ga4829449a6f8fe7c2e02223ea7cbdff40"><td class="mdescLeft">&#160;</td><td class="mdescRight">Activate the alternate mode for the specified pins.  <br /></td></tr>
 <tr class="separator:ga4829449a6f8fe7c2e02223ea7cbdff40"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -292,15 +305,62 @@ Functions</h2></td></tr>
 <tr class="memitem:ga0a3c512bdacf252db8b525ccc3135f41" id="r_ga0a3c512bdacf252db8b525ccc3135f41"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__gpio.html#ga0a3c512bdacf252db8b525ccc3135f41">GPIO_ConfigAnalog</a> (GpioPort_t gpioPort, GpioPin_t pinMask)</td></tr>
 <tr class="memdesc:ga0a3c512bdacf252db8b525ccc3135f41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Activate analog mode for the specified GPIO pins.  <br /></td></tr>
 <tr class="separator:ga0a3c512bdacf252db8b525ccc3135f41"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:ga9bca73cfe42ee57ef38fcb28e45fbd60" id="r_ga9bca73cfe42ee57ef38fcb28e45fbd60"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="struct_gpio_port_struct__t.html">GpioPortStruct_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__gpio.html#ga9bca73cfe42ee57ef38fcb28e45fbd60">GPIO_PTR_ARR</a> [6]</td></tr>
-<tr class="separator:ga9bca73cfe42ee57ef38fcb28e45fbd60"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Functions for using GPIO ports. </p>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="gac31f938af7d335ce902b2f89f622fb5a" name="gac31f938af7d335ce902b2f89f622fb5a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac31f938af7d335ce902b2f89f622fb5a">&#9670;&#160;</a></span>GPIO_REGISTER_OFFSETS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="group__gpio.html#gac31f938af7d335ce902b2f89f622fb5a">GPIO_REGISTER_OFFSETS</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ggac31f938af7d335ce902b2f89f622fb5aa41620dff2b5eac69b50f3ce0b07cf87f" name="ggac31f938af7d335ce902b2f89f622fb5aa41620dff2b5eac69b50f3ce0b07cf87f"></a>GPIO_DATA_R_OFFSET&#160;</td><td class="fielddoc"><p>data </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggac31f938af7d335ce902b2f89f622fb5aa4d20878977368aa1c9a1cf0693315ea3" name="ggac31f938af7d335ce902b2f89f622fb5aa4d20878977368aa1c9a1cf0693315ea3"></a>GPIO_DIR_R_OFFSET&#160;</td><td class="fielddoc"><p>direction </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggac31f938af7d335ce902b2f89f622fb5aad0ee0fd8ec45100a3fcabc48bf33f1d9" name="ggac31f938af7d335ce902b2f89f622fb5aad0ee0fd8ec45100a3fcabc48bf33f1d9"></a>GPIO_IS_R_OFFSET&#160;</td><td class="fielddoc"><p>interrupt sense </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggac31f938af7d335ce902b2f89f622fb5aaa274f951d5d1cdab31c3da91d170d9e4" name="ggac31f938af7d335ce902b2f89f622fb5aaa274f951d5d1cdab31c3da91d170d9e4"></a>GPIO_IBE_R_OFFSET&#160;</td><td class="fielddoc"><p>interrupt both edges </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggac31f938af7d335ce902b2f89f622fb5aa4fc7c9b489956cfc9dcb8a16921d56c8" name="ggac31f938af7d335ce902b2f89f622fb5aa4fc7c9b489956cfc9dcb8a16921d56c8"></a>GPIO_IEV_R_OFFSET&#160;</td><td class="fielddoc"><p>interrupt event </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggac31f938af7d335ce902b2f89f622fb5aa7de52c7cd5cd1bd2f20ad1396143a8ca" name="ggac31f938af7d335ce902b2f89f622fb5aa7de52c7cd5cd1bd2f20ad1396143a8ca"></a>GPIO_IM_R_OFFSET&#160;</td><td class="fielddoc"><p>interrupt mask </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggac31f938af7d335ce902b2f89f622fb5aaf714eebcc73d4d80915dfe52e885b6db" name="ggac31f938af7d335ce902b2f89f622fb5aaf714eebcc73d4d80915dfe52e885b6db"></a>GPIO_ICR_R_OFFSET&#160;</td><td class="fielddoc"><p>interrupt clear </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggac31f938af7d335ce902b2f89f622fb5aaaa2659b49cc51369d6b6891f28f1f3ad" name="ggac31f938af7d335ce902b2f89f622fb5aaaa2659b49cc51369d6b6891f28f1f3ad"></a>GPIO_AFSEL_R_OFFSET&#160;</td><td class="fielddoc"><p>alternate function select </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggac31f938af7d335ce902b2f89f622fb5aa9816b4f97e2d19b512d5068e7adb41eb" name="ggac31f938af7d335ce902b2f89f622fb5aa9816b4f97e2d19b512d5068e7adb41eb"></a>GPIO_DR2R_R_OFFSET&#160;</td><td class="fielddoc"><p>drive strength (2 [ma]) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggac31f938af7d335ce902b2f89f622fb5aa3b8b6ab7253694470208660d4b93b61a" name="ggac31f938af7d335ce902b2f89f622fb5aa3b8b6ab7253694470208660d4b93b61a"></a>GPIO_DR4R_R_OFFSET&#160;</td><td class="fielddoc"><p>drive strength (4 [ma]) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggac31f938af7d335ce902b2f89f622fb5aaf6b51d0b8ec2b43a80210fd0e85bc88e" name="ggac31f938af7d335ce902b2f89f622fb5aaf6b51d0b8ec2b43a80210fd0e85bc88e"></a>GPIO_DR8R_R_OFFSET&#160;</td><td class="fielddoc"><p>drive strength (8 [ma]) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggac31f938af7d335ce902b2f89f622fb5aa6426f004b52d6c80c7362b15061daa95" name="ggac31f938af7d335ce902b2f89f622fb5aa6426f004b52d6c80c7362b15061daa95"></a>GPIO_PUR_R_OFFSET&#160;</td><td class="fielddoc"><p>pull-up resistor </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggac31f938af7d335ce902b2f89f622fb5aacdf1c72f3607fcd6302c7f5072da6280" name="ggac31f938af7d335ce902b2f89f622fb5aacdf1c72f3607fcd6302c7f5072da6280"></a>GPIO_PDR_R_OFFSET&#160;</td><td class="fielddoc"><p>pull-down resistor </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggac31f938af7d335ce902b2f89f622fb5aa427707c497edf113c50c0d5a543098bd" name="ggac31f938af7d335ce902b2f89f622fb5aa427707c497edf113c50c0d5a543098bd"></a>GPIO_DEN_R_OFFSET&#160;</td><td class="fielddoc"><p>digital enable </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggac31f938af7d335ce902b2f89f622fb5aa256c6788e8fc51ca0ded0cd7a8afb652" name="ggac31f938af7d335ce902b2f89f622fb5aa256c6788e8fc51ca0ded0cd7a8afb652"></a>GPIO_LOCK_R_OFFSET&#160;</td><td class="fielddoc"><p>lock </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggac31f938af7d335ce902b2f89f622fb5aa326f0e9e1894f5a70c0e75e6e6805eca" name="ggac31f938af7d335ce902b2f89f622fb5aa326f0e9e1894f5a70c0e75e6e6805eca"></a>GPIO_COMMIT_R_OFFSET&#160;</td><td class="fielddoc"><p>commit </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggac31f938af7d335ce902b2f89f622fb5aa52bb732d5f4f0e0e42003e9ad1358045" name="ggac31f938af7d335ce902b2f89f622fb5aa52bb732d5f4f0e0e42003e9ad1358045"></a>GPIO_AMSEL_R_OFFSET&#160;</td><td class="fielddoc"><p>alternate mode select </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggac31f938af7d335ce902b2f89f622fb5aaff27f44fbdd2d387df9027193e07ceb5" name="ggac31f938af7d335ce902b2f89f622fb5aaff27f44fbdd2d387df9027193e07ceb5"></a>GPIO_PCTL_R_OFFSET&#160;</td><td class="fielddoc"><p>port control </p>
+</td></tr>
+</table>
+
+</div>
+</div>
 <a id="ga646e75bb4c4aaab2e492e374e9a611aa" name="ga646e75bb4c4aaab2e492e374e9a611aa"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga646e75bb4c4aaab2e492e374e9a611aa">&#9670;&#160;</a></span>GPIO_LAUNCHPAD_LEDS</h2>
 
@@ -406,14 +466,14 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="ga5ea5e2c13b47602b8dd51992ae8e56cd" name="ga5ea5e2c13b47602b8dd51992ae8e56cd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga5ea5e2c13b47602b8dd51992ae8e56cd">&#9670;&#160;</a></span>GPIO_ConfigDirOutput()</h2>
+<a id="ga3964ec3bfa307a3fb05c46bc6e667d14" name="ga3964ec3bfa307a3fb05c46bc6e667d14"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3964ec3bfa307a3fb05c46bc6e667d14">&#9670;&#160;</a></span>GPIO_configDirection()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void GPIO_ConfigDirOutput </td>
+          <td class="memname">void GPIO_configDirection </td>
           <td>(</td>
           <td class="paramtype">GpioPort_t&#160;</td>
           <td class="paramname"><em>gpioPort</em>, </td>
@@ -422,7 +482,13 @@ Variables</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">GpioPin_t&#160;</td>
-          <td class="paramname"><em>pinMask</em>&#160;</td>
+          <td class="paramname"><em>pinMask</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gpioDir_t&#160;</td>
+          <td class="paramname"><em>direction</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -432,99 +498,29 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Configure the direction of the specified GPIO pins. All pins are configured to <code>INPUT</code> by default, so this function should only be called to specify <code>OUTPUT</code> pins. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">gpioPort</td><td>Pointer to the specified GPIO port. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">bitMask</td><td>Bit mask corresponding to the intended <code>OUTPUT</code> pin(s). </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="ga331175da99105096420782c051fffec6" name="ga331175da99105096420782c051fffec6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga331175da99105096420782c051fffec6">&#9670;&#160;</a></span>GPIO_ConfigDirInput()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void GPIO_ConfigDirInput </td>
-          <td>(</td>
-          <td class="paramtype">GpioPort_t&#160;</td>
-          <td class="paramname"><em>gpioPort</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">GpioPin_t&#160;</td>
-          <td class="paramname"><em>pinMask</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Configure the specified GPIO pins as <code>INPUT</code> pins. All pins are configured to <code>INPUT</code> by default, so this function is technically unnecessary, but useful for code readability. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">gpioPort</td><td>Pointer to the specified GPIO port. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">bitMask</td><td>Bit mask corresponding to the intended <code>INPUT</code> pin(s). </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="ga395746f9403d5ab8ac37333e1b860149" name="ga395746f9403d5ab8ac37333e1b860149"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga395746f9403d5ab8ac37333e1b860149">&#9670;&#160;</a></span>GPIO_ConfigPullUp()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void GPIO_ConfigPullUp </td>
-          <td>(</td>
-          <td class="paramtype">GpioPort_t&#160;</td>
-          <td class="paramname"><em>gpioPort</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">GpioPin_t&#160;</td>
-          <td class="paramname"><em>pinMask</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Activate the specified pins' internal pull-up resistors. </p>
+<p>Configure the direction of the specified GPIO pins. </p>
+<dl class="section pre"><dt>Precondition</dt><dd>Initialize the GPIO port.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">gpioPort</td><td>Pointer to the specified GPIO port. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">pinMask</td><td>Bit mask corresponding to the intended pin(s). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">direction</td><td>The direction for the intended pin(s).</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section post"><dt>Postcondition</dt><dd>The specified GPIO pins are now configured as inputs or outputs.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__gpio.html#ga08dc5447832fe78e237240adfc3ad12e" title="Initialize a GPIO Port and return a pointer to its struct.">GPIO_InitPort()</a> </dd></dl>
 
 </div>
 </div>
-<a id="ga8e605e3e74a7a34d0470b6fa44122187" name="ga8e605e3e74a7a34d0470b6fa44122187"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga8e605e3e74a7a34d0470b6fa44122187">&#9670;&#160;</a></span>GPIO_ConfigPullDown()</h2>
+<a id="ga44c9d83952ff847b15023517d8bc7cbf" name="ga44c9d83952ff847b15023517d8bc7cbf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga44c9d83952ff847b15023517d8bc7cbf">&#9670;&#160;</a></span>GPIO_configResistor()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void GPIO_ConfigPullDown </td>
+          <td class="memname">void GPIO_configResistor </td>
           <td>(</td>
           <td class="paramtype">GpioPort_t&#160;</td>
           <td class="paramname"><em>gpioPort</em>, </td>
@@ -533,7 +529,13 @@ Variables</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">GpioPin_t&#160;</td>
-          <td class="paramname"><em>pinMask</em>&#160;</td>
+          <td class="paramname"><em>pinMask</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gpioResistor_t&#160;</td>
+          <td class="paramname"><em>resistor</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -543,14 +545,18 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Activate the specified pins' internal pull-down resistors. </p>
+<p>Activate the specified pins' internal pull-up or pull-down resistors. </p>
+<dl class="section pre"><dt>Precondition</dt><dd>Initialize the GPIO port.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">gpioPort</td><td>Pointer to the specified GPIO port. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">pinMask</td><td>Bit mask corresponding to the intended pin(s). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">resistor</td><td>The type of resistor to use.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section post"><dt>Postcondition</dt><dd>The pull-up/pull-down resistor(s) are now activated.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__gpio.html#ga08dc5447832fe78e237240adfc3ad12e" title="Initialize a GPIO Port and return a pointer to its struct.">GPIO_InitPort()</a> </dd></dl>
 
 </div>
 </div>
@@ -1148,12 +1154,12 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">    { GPIO_PORTA_BASE_ADDRESS, (GPIO_PORTA_BASE_ADDRESS + GPIO_DATA_R_OFFSET), <span class="keyword">false</span> },</div>
-<div class="line">    { GPIO_PORTB_BASE_ADDRESS, (GPIO_PORTB_BASE_ADDRESS + GPIO_DATA_R_OFFSET), <span class="keyword">false</span> },</div>
-<div class="line">    { GPIO_PORTC_BASE_ADDRESS, (GPIO_PORTC_BASE_ADDRESS + GPIO_DATA_R_OFFSET), <span class="keyword">false</span> },</div>
-<div class="line">    { GPIO_PORTD_BASE_ADDRESS, (GPIO_PORTD_BASE_ADDRESS + GPIO_DATA_R_OFFSET), <span class="keyword">false</span> },</div>
-<div class="line">    { GPIO_PORTE_BASE_ADDRESS, (GPIO_PORTE_BASE_ADDRESS + GPIO_DATA_R_OFFSET), <span class="keyword">false</span> },</div>
-<div class="line">    { GPIO_PORTF_BASE_ADDRESS, (GPIO_PORTF_BASE_ADDRESS + GPIO_DATA_R_OFFSET), <span class="keyword">false</span> },</div>
+<div class="line">    { GPIO_PORTA_BASE_ADDRESS, (GPIO_PORTA_BASE_ADDRESS + <a class="code hl_enumvalue" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aa41620dff2b5eac69b50f3ce0b07cf87f" title="data">GPIO_DATA_R_OFFSET</a>), <span class="keyword">false</span> },</div>
+<div class="line">    { GPIO_PORTB_BASE_ADDRESS, (GPIO_PORTB_BASE_ADDRESS + <a class="code hl_enumvalue" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aa41620dff2b5eac69b50f3ce0b07cf87f" title="data">GPIO_DATA_R_OFFSET</a>), <span class="keyword">false</span> },</div>
+<div class="line">    { GPIO_PORTC_BASE_ADDRESS, (GPIO_PORTC_BASE_ADDRESS + <a class="code hl_enumvalue" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aa41620dff2b5eac69b50f3ce0b07cf87f" title="data">GPIO_DATA_R_OFFSET</a>), <span class="keyword">false</span> },</div>
+<div class="line">    { GPIO_PORTD_BASE_ADDRESS, (GPIO_PORTD_BASE_ADDRESS + <a class="code hl_enumvalue" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aa41620dff2b5eac69b50f3ce0b07cf87f" title="data">GPIO_DATA_R_OFFSET</a>), <span class="keyword">false</span> },</div>
+<div class="line">    { GPIO_PORTE_BASE_ADDRESS, (GPIO_PORTE_BASE_ADDRESS + <a class="code hl_enumvalue" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aa41620dff2b5eac69b50f3ce0b07cf87f" title="data">GPIO_DATA_R_OFFSET</a>), <span class="keyword">false</span> },</div>
+<div class="line">    { GPIO_PORTF_BASE_ADDRESS, (GPIO_PORTF_BASE_ADDRESS + <a class="code hl_enumvalue" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aa41620dff2b5eac69b50f3ce0b07cf87f" title="data">GPIO_DATA_R_OFFSET</a>), <span class="keyword">false</span> },</div>
 <div class="line">}</div>
 </div><!-- fragment -->
 </div>

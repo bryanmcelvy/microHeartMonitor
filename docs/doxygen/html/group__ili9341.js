@@ -2,8 +2,8 @@ var group__ili9341 =
 [
     [ "ILI9341.c", "_i_l_i9341_8c.html", null ],
     [ "ILI9341.h", "_i_l_i9341_8h.html", [
-      [ "ILI9341_NUM_COLS", "group__ili9341.html#ggab04a0655cd1e3bcac5e8f48c18df1a57a14867b965c7b6eee2b3d5cc5b4d6afa2", null ],
-      [ "ILI9341_NUM_ROWS", "group__ili9341.html#ggab04a0655cd1e3bcac5e8f48c18df1a57a7fda642615e69a390b702f7a3532f6ff", null ]
+      [ "ILI9341_NUM_COLS", "group__ili9341.html#gga726ca809ffd3d67ab4b8476646f26635a14867b965c7b6eee2b3d5cc5b4d6afa2", null ],
+      [ "ILI9341_NUM_ROWS", "group__ili9341.html#gga726ca809ffd3d67ab4b8476646f26635a7fda642615e69a390b702f7a3532f6ff", null ]
     ] ],
     [ "Cmd_t", "group__ili9341.html#ga13f208b6f7f5cab976154336d1acf3c4", [
       [ "NOP", "group__ili9341.html#gga13f208b6f7f5cab976154336d1acf3c4af811bef354b292ff0713c50d7652c026", null ],
