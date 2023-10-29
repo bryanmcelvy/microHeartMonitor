@@ -1,10 +1,10 @@
-/** @addtogroup led
+/**
+ * @addtogroup led
  * @{
  *
  * @file
  * @author  Bryan McElvy
  * @brief   Source code for LED module.
- * @ingroup led
  */
 
 #include "Led.h"
@@ -43,8 +43,9 @@ Led_t Led_Init(GpioPort_t gpioPort, GpioPin_t pin) {
     Assert(num_free_leds > 0);
 
     // Initialize GPIO port pin
-    GPIO_ConfigDirOutput(gpioPort, pin);
-    GPIO_ConfigPullDown(gpioPort, pin);
+    GPIO_configDirection(gpioPort, pin, GPIO_OUTPUT);
+    GPIO_configResistor(gpioPort, pin, PULLDOWN);
+
     GPIO_EnableDigital(gpioPort, pin);
     GPIO_WriteLow(gpioPort, pin);
 
@@ -109,4 +110,4 @@ void Led_Toggle(Led_t led) {
     return;
 }
 
-/// @}
+/** @} */               // led

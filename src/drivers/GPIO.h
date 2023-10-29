@@ -85,41 +85,45 @@ enum GPIO_LAUNCHPAD_LEDS {
     LED_WHITE = (LED_RED + LED_BLUE + LED_GREEN)
 };
 
-/**
- * @brief               Configure the direction of the specified GPIO pins. All pins
- *                      are configured to `INPUT` by default, so this function should
- *                      only be called to specify `OUTPUT` pins.
- *
- * @param[in] gpioPort  Pointer to the specified GPIO port.
- * @param[in] bitMask   Bit mask corresponding to the intended `OUTPUT` pin(s).
- */
-void GPIO_ConfigDirOutput(GpioPort_t gpioPort, GpioPin_t pinMask);
+typedef enum {
+    GPIO_INPUT,
+    GPIO_OUTPUT
+} gpioDir_t;
 
 /**
- * @brief               Configure the specified GPIO pins as `INPUT` pins. All pins
- *                      are configured to `INPUT` by default, so this function is
- *                      technically unnecessary, but useful for code readability.
+ * @brief               Configure the direction of the specified GPIO pins.
  *
- * @param[in] gpioPort  Pointer to the specified GPIO port.
- * @param[in] bitMask   Bit mask corresponding to the intended `INPUT` pin(s).
- */
-void GPIO_ConfigDirInput(GpioPort_t gpioPort, GpioPin_t pinMask);
-
-/**
- * @brief               Activate the specified pins' internal pull-up resistors.
+ * @pre                 Initialize the GPIO port.
  *
  * @param[in] gpioPort  Pointer to the specified GPIO port.
  * @param[in] pinMask   Bit mask corresponding to the intended pin(s).
+ * @param[in] direction The direction for the intended pin(s).
+ *
+ * @post                The specified GPIO pins are now configured as inputs or outputs.
+ *
+ * @see                 GPIO_InitPort()
  */
-void GPIO_ConfigPullUp(GpioPort_t gpioPort, GpioPin_t pinMask);
+void GPIO_configDirection(GpioPort_t gpioPort, GpioPin_t pinMask, gpioDir_t direction);
+
+typedef enum {
+    PULLUP,
+    PULLDOWN
+} gpioResistor_t;
 
 /**
- * @brief               Activate the specified pins' internal pull-down resistors.
+ * @brief               Activate the specified pins' internal pull-up or pull-down resistors.
+ *
+ * @pre                 Initialize the GPIO port.
  *
  * @param[in] gpioPort  Pointer to the specified GPIO port.
  * @param[in] pinMask   Bit mask corresponding to the intended pin(s).
+ * @param[in] resistor  The type of resistor to use.
+ *
+ * @post                The pull-up/pull-down resistor(s) are now activated.
+ *
+ * @see                 GPIO_InitPort()
  */
-void GPIO_ConfigPullDown(GpioPort_t gpioPort, GpioPin_t pinMask);
+void GPIO_configResistor(GpioPort_t gpioPort, GpioPin_t pinMask, gpioResistor_t resistor);
 
 /**
  * @brief               Configure the specified pins' drive strength. Pins are

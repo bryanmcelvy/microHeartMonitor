@@ -4,7 +4,7 @@
  *
  * @file
  * @author      Bryan McElvy
- * @brief       Source code ffor analog-to-digital conversion (ADC) module.
+ * @brief       Source code for analog-to-digital conversion (ADC) module.
  */
 
 #include "ADC.h"
@@ -20,7 +20,7 @@ void ADC_Init(void) {
 
     // configure GPIO port
     GpioPort_t portE = GPIO_InitPort(E);
-    GPIO_ConfigDirInput(portE, GPIO_PIN5);
+    GPIO_configDirection(portE, GPIO_PIN5, GPIO_INPUT);
     GPIO_ConfigAltMode(portE, GPIO_PIN5);
     GPIO_DisableDigital(portE, GPIO_PIN5);
     GPIO_ConfigAnalog(portE, GPIO_PIN5);

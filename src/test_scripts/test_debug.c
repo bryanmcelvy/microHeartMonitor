@@ -19,7 +19,7 @@ int main(void) {
 
     // Init. LED pins
     GpioPort_t portF = GPIO_InitPort(F);
-    GPIO_ConfigDirOutput(portF, (GPIO_PIN1 | GPIO_PIN2 | GPIO_PIN3));
+    GPIO_configDirection(portF, (GPIO_PIN1 | GPIO_PIN2 | GPIO_PIN3), GPIO_OUTPUT);
     GPIO_ConfigDriveStrength(portF, (GPIO_PIN1 | GPIO_PIN2 | GPIO_PIN3), 8);
     GPIO_EnableDigital(portF, (GPIO_PIN1 | GPIO_PIN2 | GPIO_PIN3));
 

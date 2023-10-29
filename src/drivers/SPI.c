@@ -18,21 +18,21 @@
 #define SPI_IS_BUSY      (SSI0_SR_R & 0x10)
 #define SPI_TX_ISNOTFULL (SSI0_SR_R & 0x02)
 
-enum {
+enum PINS {
     // SSI0 pins
-    SPI_CLK_PIN = GPIO_PIN2,
-    SPI_CS_PIN = GPIO_PIN3,
-    SPI_RX_PIN = GPIO_PIN4,
-    SPI_TX_PIN = GPIO_PIN5,
+    CLK_PIN = GPIO_PIN2,
+    CS_PIN = GPIO_PIN3,
+    RX_PIN = GPIO_PIN4,
+    TX_PIN = GPIO_PIN5,
 
     // GPIO pins
-    SPI_DC_PIN = GPIO_PIN6,
-    SPI_RESET_PIN = GPIO_PIN7,
+    DC_PIN = GPIO_PIN6,
+    RESET_PIN = GPIO_PIN7,
 
     // pin groups
-    SPI_SSI0_PINS = (SPI_CLK_PIN | SPI_CS_PIN | SPI_RX_PIN | SPI_TX_PIN),
-    SPI_GPIO_PINS = (SPI_DC_PIN | SPI_RESET_PIN),
-    SPI_ALL_PINS = (SPI_SSI0_PINS | SPI_GPIO_PINS)
+    SSI0_PINS = (CLK_PIN | CS_PIN | RX_PIN | TX_PIN),
+    GPIO_PINS = (DC_PIN | RESET_PIN),
+    ALL_PINS = (SSI0_PINS | GPIO_PINS)
 };
 
 static register_t gpioPortReg = 0;
@@ -57,13 +57,13 @@ void SPI_Init(void) {
 
     // configure GPIO pins
     GpioPort_t portA = GPIO_InitPort(A);
-    GPIO_ConfigAltMode(portA, SPI_SSI0_PINS);                   // alt. mode for PA2-5
-    GPIO_ConfigPortCtrl(portA, SPI_SSI0_PINS, 2);               // SSI mode for PA2-5
-    GPIO_ConfigDirOutput(portA, SPI_GPIO_PINS);                 // use PA6/7 as output pins
-    GPIO_EnableDigital(portA, SPI_ALL_PINS);
+    GPIO_ConfigAltMode(portA, SSI0_PINS);                   // alt. mode for PA2-5
+    GPIO_ConfigPortCtrl(portA, SSI0_PINS, 2);               // SSI mode for PA2-5
+    GPIO_configDirection(portA, DC_PIN | RESET_PIN, GPIO_OUTPUT);
+    GPIO_EnableDigital(portA, ALL_PINS);
 
     gpioPortReg = GPIO_getDataRegister(portA);
-    *gpioPortReg |= SPI_RESET_PIN;                              // hold `HIGH` (i.e. active `LOW`)
+    *gpioPortReg |= RESET_PIN;                              // hold `HIGH` (i.e. active `LOW`)
 
     // configure SSI0
     SSI0_CR1_R &= ~(0x02);                   // disable SSI0
@@ -86,7 +86,7 @@ uint8_t SPI_Read(void) {
 
 void SPI_WriteCmd(uint8_t cmd) {
     while(SPI_IS_BUSY) {}
-    *gpioPortReg &= ~(SPI_DC_PIN);                     // signal incoming command to peripheral
+    *gpioPortReg &= ~(DC_PIN);                         // signal incoming command to peripheral
     SSI0_DR_R = cmd;
     while(SPI_IS_BUSY) {}                              // wait for transmission to finish
 
@@ -95,7 +95,7 @@ void SPI_WriteCmd(uint8_t cmd) {
 
 void SPI_WriteData(uint8_t data) {
     while(SPI_TX_ISNOTFULL == 0) {}
-    *gpioPortReg |= SPI_DC_PIN;                        // signal incoming data to peripheral
+    *gpioPortReg |= DC_PIN;                            // signal incoming data to peripheral
     SSI0_DR_R = data;                                  // write command
 
     return;

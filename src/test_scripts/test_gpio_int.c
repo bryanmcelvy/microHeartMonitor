@@ -24,13 +24,13 @@ int main(void) {
 
     // Init. LED pins
     GpioPort_t portF = GPIO_InitPort(F);
-    GPIO_ConfigDirOutput(portF, LED_PINS);
+    GPIO_configDirection(portF, LED_PINS, GPIO_OUTPUT);
     GPIO_ConfigDriveStrength(portF, LED_PINS, 8);
     GPIO_EnableDigital(portF, LED_PINS);
 
     // Init. Sw1/2
-    GPIO_ConfigDirInput(portF, SW_PINS);
-    GPIO_ConfigPullUp(portF, SW_PINS);
+    GPIO_configDirection(portF, SW_PINS, GPIO_INPUT);
+    GPIO_configResistor(portF, SW_PINS, PULLUP);
     GPIO_ConfigInterrupts_Edge(portF, SW_PINS, false);
     GPIO_ConfigNVIC(portF, 0);
     GPIO_EnableDigital(portF, SW_PINS);

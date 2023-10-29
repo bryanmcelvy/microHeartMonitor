@@ -27,7 +27,7 @@ int main(void) {
 
     // Init. LED pins
     portF = GPIO_InitPort(F);
-    GPIO_ConfigDirOutput(portF, LED_PINS);
+    GPIO_configDirection(portF, LED_PINS, GPIO_OUTPUT);
     GPIO_ConfigDriveStrength(portF, LED_PINS, 8);
     GPIO_EnableDigital(portF, LED_PINS);
     GPIO_WriteLow(portF, LED_PINS);               // turn off all LEDs

@@ -34,20 +34,11 @@ bool GPIO_isPortInit(GpioPort_t gpioPort) {
 /******************************************************************************
 Configuration (Digital I/O)
 *******************************************************************************/
-
-void GPIO_ConfigDirOutput(GpioPort_t gpioPort, GpioPin_t pinMask) {
+void GPIO_configDirection(GpioPort_t gpioPort, GpioPin_t pinMask, gpioDir_t direction) {
     return;
 }
 
-void GPIO_ConfigDirInput(GpioPort_t gpioPort, GpioPin_t pinMask) {
-    return;
-}
-
-void GPIO_ConfigPullUp(GpioPort_t gpioPort, GpioPin_t pinMask) {
-    return;
-}
-
-void GPIO_ConfigPullDown(GpioPort_t gpioPort, GpioPin_t pinMask) {
+void GPIO_configResistor(GpioPort_t gpioPort, GpioPin_t pinMask, gpioResistor_t resistor) {
     return;
 }
 

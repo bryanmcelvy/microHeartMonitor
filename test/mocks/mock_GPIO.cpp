@@ -25,34 +25,6 @@ bool GPIO_isPortInit(GpioPort_t gpioPort) {
         .returnBoolValueOrDefault(true);
 }
 
-void GPIO_ConfigDirOutput(GpioPort_t gpioPort, GpioPin_t pinMask) {
-    mock()
-        .actualCall(__func__)
-        .withParameter("gpioPort", gpioPort)
-        .withParameter("pinMask", pinMask);
-}
-
-void GPIO_ConfigDirInput(GpioPort_t gpioPort, GpioPin_t pinMask) {
-    mock()
-        .actualCall(__func__)
-        .withParameter("gpioPort", gpioPort)
-        .withParameter("pinMask", pinMask);
-}
-
-void GPIO_ConfigPullUp(GpioPort_t gpioPort, GpioPin_t pinMask) {
-    mock()
-        .actualCall(__func__)
-        .withParameter("gpioPort", gpioPort)
-        .withParameter("pinMask", pinMask);
-}
-
-void GPIO_ConfigPullDown(GpioPort_t gpioPort, GpioPin_t pinMask) {
-    mock()
-        .actualCall(__func__)
-        .withParameter("gpioPort", gpioPort)
-        .withParameter("pinMask", pinMask);
-}
-
 void GPIO_ConfigDriveStrength(GpioPort_t gpioPort, GpioPin_t pinMask, uint8_t drive_mA) {
     mock()
         .actualCall(__func__)

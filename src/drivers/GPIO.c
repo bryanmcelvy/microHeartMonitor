@@ -113,23 +113,39 @@ uint32_t GPIO_getBaseAddr(GpioPort_t gpioPort) {
 Configuration (Digital I/O)
 *******************************************************************************/
 
-void GPIO_ConfigDirOutput(GpioPort_t gpioPort, GpioPin_t pinMask) {
-    *((register_t) (gpioPort->BASE_ADDRESS + GPIO_DIR_R_OFFSET)) |= pinMask;
+void GPIO_configDirection(GpioPort_t gpioPort, GpioPin_t pinMask, gpioDir_t direction) {
+    Assert(gpioPort->isInit);
+
+    switch(direction) {
+        case GPIO_INPUT:
+            *((register_t) (gpioPort->BASE_ADDRESS + GPIO_DIR_R_OFFSET)) &= ~(pinMask);
+            break;
+        case GPIO_OUTPUT:
+            *((register_t) (gpioPort->BASE_ADDRESS + GPIO_DIR_R_OFFSET)) |= pinMask;
+            break;
+        default:
+            Assert(false);
+    }
+
     return;
 }
 
-void GPIO_ConfigDirInput(GpioPort_t gpioPort, GpioPin_t pinMask) {
-    *((register_t) (gpioPort->BASE_ADDRESS + GPIO_DIR_R_OFFSET)) &= ~(pinMask);
-    return;
-}
+void GPIO_configResistor(GpioPort_t gpioPort, GpioPin_t pinMask, gpioResistor_t resistor) {
+    Assert(gpioPort->isInit);
 
-void GPIO_ConfigPullUp(GpioPort_t gpioPort, GpioPin_t pinMask) {
-    *((register_t) (gpioPort->BASE_ADDRESS + GPIO_PUR_R_OFFSET)) |= pinMask;
-    return;
-}
+    uint32_t registerOffset;
+    switch(resistor) {
+        case PULLUP:
+            registerOffset = GPIO_PUR_R_OFFSET;
+            break;
+        case PULLDOWN:
+            registerOffset = GPIO_PDR_R_OFFSET;
+            break;
+        default:
+            Assert(false);
+    }
 
-void GPIO_ConfigPullDown(GpioPort_t gpioPort, GpioPin_t pinMask) {
-    *((register_t) (gpioPort->BASE_ADDRESS + GPIO_PDR_R_OFFSET)) |= pinMask;
+    *((register_t) (gpioPort->BASE_ADDRESS + registerOffset)) |= pinMask;
     return;
 }
 
