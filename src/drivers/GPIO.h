@@ -14,8 +14,10 @@
 #include <stdint.h>
 
 /******************************************************************************
-Type Definitions + Initialization
+Initialization
 *******************************************************************************/
+/** @name Initialization */               /// @{
+
 typedef enum {
     GPIO_PORT_A,
     GPIO_PORT_B,
@@ -58,9 +60,12 @@ uint32_t GPIO_getBaseAddr(GpioPort_t gpioPort);
  */
 bool GPIO_isPortInit(GpioPort_t gpioPort);
 
+/** @} */               // Initialization
+
 /******************************************************************************
 Configuration (Digital I/O)
 *******************************************************************************/
+/** @name Configuration (Digital I/O) */               /// @{
 
 typedef enum {
     GPIO_PIN0 = ((uint8_t) 1),
@@ -152,9 +157,12 @@ void GPIO_EnableDigital(GpioPort_t gpioPort, GpioPin_t pinMask);
  */
 void GPIO_DisableDigital(GpioPort_t gpioPort, GpioPin_t pinMask);
 
+/** @} */               // Configuration (Digital I/O)
+
 /******************************************************************************
 Configuration (Interrupts)
 *******************************************************************************/
+/** @name Configuration (Interrupts) */               /// @{
 
 /**
  * @brief                   Configure the specified GPIO pins to trigger an
@@ -193,9 +201,12 @@ void GPIO_ConfigInterrupts_LevelTrig(GpioPort_t gpioPort, GpioPin_t pinMask, boo
  */
 void GPIO_ConfigNVIC(GpioPort_t gpioPort, uint8_t priority);
 
+/** @} */               // Configuration (Interrupts)
+
 /******************************************************************************
 Basic Functions (Digital I/O)
 *******************************************************************************/
+/** @name Basic Functions (Digital I/O) */               /// @{
 
 /**
  * @brief                   Get the address of a GPIO port's data register.
@@ -237,9 +248,12 @@ void GPIO_WriteLow(GpioPort_t gpioPort, GpioPin_t pinMask);
  */
 void GPIO_Toggle(GpioPort_t gpioPort, GpioPin_t pinMask);
 
+/** @} */               // Basic Functions (Digital I/O)
+
 /******************************************************************************
 Configuration (Alternate/Analog Modes)
 *******************************************************************************/
+/** @name Configuration (Alternate/Analog Modes) */               /// @{
 
 /**
  * @brief               Activate the alternate mode for the specified pins.
@@ -265,6 +279,8 @@ void GPIO_ConfigPortCtrl(GpioPort_t gpioPort, GpioPin_t pinMask, uint8_t fieldEn
  * @param[in] pinMask   Bit mask corresponding to the intended pin(s).
  */
 void GPIO_ConfigAnalog(GpioPort_t gpioPort, GpioPin_t pinMask);
+
+/** @} */               // Configuration (Alternate/Analog Modes)
 
 #endif                  // GPIO_H
 

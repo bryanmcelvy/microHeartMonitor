@@ -16,13 +16,14 @@ Preprocessor Directives
 #include <NewAssert.h>
 
 #include "tm4c123gh6pm.h"
+
 #include <stdbool.h>
 #include <stdint.h>
 
 #define GPIO_NUM_PORTS 6
 
 // Base Addresses
-enum {
+enum GPIO_PORT_BASE_ADDRESSES {
     GPIO_PORTA_BASE_ADDRESS = (uint32_t) 0x40004000,
     GPIO_PORTB_BASE_ADDRESS = (uint32_t) 0x40005000,
     GPIO_PORTC_BASE_ADDRESS = (uint32_t) 0x40006000,
@@ -32,25 +33,25 @@ enum {
 };
 
 // Register Offsets
-enum {
-    GPIO_DATA_R_OFFSET = (uint32_t) 0x03FC,
-    GPIO_DIR_R_OFFSET = (uint32_t) 0x0400,
-    GPIO_IS_R_OFFSET = (uint32_t) 0x0404,
-    GPIO_IBE_R_OFFSET = (uint32_t) 0x0408,
-    GPIO_IEV_R_OFFSET = (uint32_t) 0x040C,
-    GPIO_IM_R_OFFSET = (uint32_t) 0x0410,
-    GPIO_ICR_R_OFFSET = (uint32_t) 0x041C,
-    GPIO_AFSEL_R_OFFSET = (uint32_t) 0x0420,
-    GPIO_DR2R_R_OFFSET = (uint32_t) 0x0500,
-    GPIO_DR4R_R_OFFSET = (uint32_t) 0x0504,
-    GPIO_DR8R_R_OFFSET = (uint32_t) 0x0508,
-    GPIO_PUR_R_OFFSET = (uint32_t) 0x0510,
-    GPIO_PDR_R_OFFSET = (uint32_t) 0x0518,
-    GPIO_DEN_R_OFFSET = (uint32_t) 0x051C,
-    GPIO_LOCK_R_OFFSET = (uint32_t) 0x0520,
-    GPIO_COMMIT_R_OFFSET = (uint32_t) 0x0524,
-    GPIO_AMSEL_R_OFFSET = (uint32_t) 0x0528,
-    GPIO_PCTL_R_OFFSET = (uint32_t) 0x052C
+enum GPIO_REGISTER_OFFSETS {
+    GPIO_DATA_R_OFFSET = (uint32_t) 0x03FC,                 ///< data
+    GPIO_DIR_R_OFFSET = (uint32_t) 0x0400,                  ///< direction
+    GPIO_IS_R_OFFSET = (uint32_t) 0x0404,                   ///< interrupt sense
+    GPIO_IBE_R_OFFSET = (uint32_t) 0x0408,                  ///< interrupt both edges
+    GPIO_IEV_R_OFFSET = (uint32_t) 0x040C,                  ///< interrupt event
+    GPIO_IM_R_OFFSET = (uint32_t) 0x0410,                   ///< interrupt mask
+    GPIO_ICR_R_OFFSET = (uint32_t) 0x041C,                  ///< interrupt clear
+    GPIO_AFSEL_R_OFFSET = (uint32_t) 0x0420,                ///< alternate function select
+    GPIO_DR2R_R_OFFSET = (uint32_t) 0x0500,                 ///< drive strength (2 [ma])
+    GPIO_DR4R_R_OFFSET = (uint32_t) 0x0504,                 ///< drive strength (4 [ma])
+    GPIO_DR8R_R_OFFSET = (uint32_t) 0x0508,                 ///< drive strength (8 [ma])
+    GPIO_PUR_R_OFFSET = (uint32_t) 0x0510,                  ///< pull-up resistor
+    GPIO_PDR_R_OFFSET = (uint32_t) 0x0518,                  ///< pull-down resistor
+    GPIO_DEN_R_OFFSET = (uint32_t) 0x051C,                  ///< digital enable
+    GPIO_LOCK_R_OFFSET = (uint32_t) 0x0520,                 ///< lock
+    GPIO_COMMIT_R_OFFSET = (uint32_t) 0x0524,               ///< commit
+    GPIO_AMSEL_R_OFFSET = (uint32_t) 0x0528,                ///< alternate mode select
+    GPIO_PCTL_R_OFFSET = (uint32_t) 0x052C                  ///< port control
 };
 
 /******************************************************************************
