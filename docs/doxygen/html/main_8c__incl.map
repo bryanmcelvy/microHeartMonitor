@@ -12,7 +12,7 @@
 <area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="699,30,508,81,506,76,698,25"/>
 <area shape="rect" id="Node000009" href="$_q_r_s_8h.html" title="Header file for QRS detection module." alt="" coords="41,79,102,105"/>
 <area shape="poly" id="edge13_Node000001_Node000009" title=" " alt="" coords="698,24,459,41,291,58,121,82,118,82,117,77,120,76,291,53,458,36,698,18"/>
-<area shape="rect" id="Node000010" href="$_debug_8h.html" title="Functions to output debugging information to a serial port via UART." alt="" coords="596,79,667,105"/>
+<area shape="rect" id="Node000010" href="$_debug_8h.html" title="Header file for Debug module." alt="" coords="596,79,667,105"/>
 <area shape="poly" id="edge16_Node000001_Node000010" title=" " alt="" coords="714,34,661,72,658,68,711,29"/>
 <area shape="rect" id="Node000011" href="$_u_a_r_t_8h.html" title="Driver module for serial communication via UART0 and UART 1." alt="" coords="599,153,666,178"/>
 <area shape="poly" id="edge31_Node000001_Node000011" title=" " alt="" coords="725,33,680,106,654,142,650,139,676,103,720,30"/>

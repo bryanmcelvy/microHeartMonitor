@@ -1,6 +1,14 @@
+/**
+ * @addtogroup debug
+ * @{
+ *
+ * @file
+ * @author  Bryan McElvy
+ * @brief   Source code for Debug module.
+ */
+
 #include "Debug.h"
 
-#include "GPIO.h"
 #include "UART.h"
 
 #include "NewAssert.h"

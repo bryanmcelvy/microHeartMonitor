@@ -1,5 +1,7 @@
 <map id="Debug.h" name="Debug.h">
-<area shape="rect" id="Node000001" title="Functions to output debugging information to a serial port via UART." alt="" coords="5,5,76,31"/>
-<area shape="rect" id="Node000002" href="$main_8c.html" title="Main program file." alt="" coords="10,79,71,105"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="43,46,43,79,38,79,38,46"/>
+<area shape="rect" id="Node000001" title="Header file for Debug module." alt="" coords="49,5,120,31"/>
+<area shape="rect" id="Node000002" href="$_debug_8c.html" title="Source code for Debug module." alt="" coords="5,79,76,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="71,46,50,80,46,77,67,43"/>
+<area shape="rect" id="Node000003" href="$main_8c.html" title="Main program file." alt="" coords="100,79,160,105"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="102,42,124,77,120,80,98,45"/>
 </map>

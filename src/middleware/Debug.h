@@ -4,7 +4,7 @@
  *
  * @file
  * @author  Bryan McElvy
- * @brief   Functions to output debugging information to a serial port via UART.
+ * @brief   Header file for Debug module.
  */
 
 #ifndef DEBUG_H
@@ -28,12 +28,16 @@ Initialization
 
 /**
  * @brief               Initialize the Debug module.
+ *
+ * @pre                 Initialize the UART.
  * @param[in] uart      UART to use for serial output.
  * @post                An initialization message is sent to the serial port.
+ *
+ * @see                 UART_Init()
  */
 void Debug_Init(Uart_t uart);
 
-/// @} Initialization
+/** @} */               // Initialization
 
 /******************************************************************************
 Serial Output
@@ -81,7 +85,7 @@ void Debug_SendFromList(Msg_t msg);
  */
 void Debug_WriteFloat(double value);
 
-/// @} Serial Output
+/** @} */               // Serial Output
 
 /******************************************************************************
 Assertions
@@ -100,7 +104,7 @@ Assertions
  */
 void Debug_Assert(bool condition);
 
-/// @} Assertions
+/** @} */               // Assertions
 
 #endif                  // DEBUG_H
 

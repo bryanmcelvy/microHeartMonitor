@@ -1,5 +1,6 @@
 var group__debug =
 [
+    [ "Debug.c", "_debug_8c.html", null ],
     [ "Debug.h", "_debug_8h.html", null ],
     [ "Debug_Init", "group__debug.html#ga9e063501839d003061cfd09ed4d2fdfa", null ],
     [ "Debug_SendMsg", "group__debug.html#ga4454c84f101ce12e4f4d485cbe5416ad", null ],

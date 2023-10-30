@@ -1,5 +1,5 @@
 <map id="Debug.h" name="Debug.h">
-<area shape="rect" id="Node000001" title="Functions to output debugging information to a serial port via UART." alt="" coords="109,5,179,31"/>
+<area shape="rect" id="Node000001" title="Header file for Debug module." alt="" coords="109,5,179,31"/>
 <area shape="rect" id="Node000002" href="$_u_a_r_t_8h.html" title="Driver module for serial communication via UART0 and UART 1." alt="" coords="76,79,143,105"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="141,32,124,66,120,64,136,30"/>
 <area shape="rect" id="Node000004" title=" " alt="" coords="118,226,192,252"/>

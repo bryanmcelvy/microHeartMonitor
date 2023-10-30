@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>uHeartMonitor: An ECG-based Heart Rate Monitor: GPIO.h File Reference</title>
+<title>uHeartMonitor: An ECG-based Heart Rate Monitor: Debug.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript">var page_layout=1;</script>
 <script type="text/javascript" src="jquery.js"></script>
@@ -70,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('_g_p_i_o_8h.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('_debug_8c.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -96,55 +96,36 @@ $(document).ready(function(){initNavTree('_g_p_i_o_8h.html',''); initResizable()
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">GPIO.h File Reference<div class="ingroups"><a class="el" href="group__driver.html">Device Drivers</a> &raquo; <a class="el" href="group__gpio.html">General-Purpose Input/Output (GPIO)</a></div></div></div>
+  <div class="headertitle"><div class="title">Debug.c File Reference<div class="ingroups"><a class="el" href="group__middleware.html">Middleware</a> &raquo; <a class="el" href="group__debug.html">Debug</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Header file for general-purpose input/output (GPIO) device driver.  
+<p>Source code for Debug module.  
 <a href="#details">More...</a></p>
 <div class="textblock"><div class="dynheader">
-Include dependency graph for GPIO.h:</div>
+Include dependency graph for Debug.c:</div>
 <div class="dyncontent">
-<div class="center"><img src="_g_p_i_o_8h__incl.png" border="0" usemap="#a_g_p_i_o_8h" alt=""/></div>
-<map name="a_g_p_i_o_8h" id="a_g_p_i_o_8h">
-<area shape="rect" title="Header file for general&#45;purpose input/output (GPIO) device driver." alt="" coords="57,5,122,31"/>
-<area shape="rect" title=" " alt="" coords="5,79,80,105"/>
-<area shape="poly" title=" " alt="" coords="84,33,61,67,56,64,79,30"/>
-<area shape="rect" title=" " alt="" coords="104,79,168,105"/>
-<area shape="poly" title=" " alt="" coords="99,30,122,64,117,67,95,33"/>
-</map>
-</div>
-</div><div class="textblock"><div class="dynheader">
-This graph shows which files directly or indirectly include this file:</div>
-<div class="dyncontent">
-<div class="center"><img src="_g_p_i_o_8h__dep__incl.png" border="0" usemap="#a_g_p_i_o_8hdep" alt=""/></div>
-<map name="a_g_p_i_o_8hdep" id="a_g_p_i_o_8hdep">
-<area shape="rect" title="Header file for general&#45;purpose input/output (GPIO) device driver." alt="" coords="265,5,330,31"/>
-<area shape="rect" href="_a_d_c_8c.html" title="Source code for analog&#45;to&#45;digital conversion (ADC) module." alt="" coords="5,79,67,105"/>
-<area shape="poly" title=" " alt="" coords="250,35,68,85,67,79,249,30"/>
-<area shape="rect" href="_g_p_i_o_8c.html" title="Source code for GPIO module." alt="" coords="91,79,157,105"/>
-<area shape="poly" title=" " alt="" coords="255,40,155,81,153,76,253,35"/>
-<area shape="rect" href="_led_8c.html" title="Source code for LED module." alt="" coords="212,153,265,178"/>
-<area shape="poly" title=" " alt="" coords="260,41,239,58,222,80,218,99,220,118,234,152,229,154,215,119,213,98,218,78,235,55,257,37"/>
-<area shape="rect" href="_led_8h.html" title="Interface for LED module." alt="" coords="232,79,285,105"/>
-<area shape="poly" title=" " alt="" coords="286,46,268,80,263,77,281,43"/>
-<area shape="rect" href="_s_p_i_8c.html" title="Source code for serial peripheral interface (SPI) module." alt="" coords="309,79,363,105"/>
-<area shape="poly" title=" " alt="" coords="313,43,332,77,327,80,309,46"/>
-<area shape="rect" href="_u_a_r_t_8c.html" title="Source code for UART module." alt="" coords="313,153,380,178"/>
-<area shape="poly" title=" " alt="" coords="338,37,360,55,377,78,381,99,377,120,359,153,354,151,372,118,376,99,372,80,356,58,334,41"/>
-<area shape="rect" href="_u_a_r_t_8h.html" title="Driver module for serial communication via UART0 and UART 1." alt="" coords="437,79,504,105"/>
-<area shape="poly" title=" " alt="" coords="342,35,442,76,440,81,340,40"/>
-<area shape="rect" href="main_8c.html" title="Main program file." alt="" coords="531,226,592,252"/>
-<area shape="poly" title=" " alt="" coords="346,20,386,26,431,36,476,53,518,77,537,93,549,109,564,152,569,193,566,226,561,226,563,193,559,153,544,112,533,97,514,81,474,57,429,41,385,31,345,25"/>
-<area shape="poly" title=" " alt="" coords="254,120,245,153,239,151,249,119"/>
-<area shape="poly" title=" " alt="" coords="438,115,369,154,366,150,435,110"/>
-<area shape="rect" href="_debug_8c.html" title="Source code for Debug module." alt="" coords="410,226,481,252"/>
-<area shape="poly" title=" " alt="" coords="458,119,445,153,442,193,446,226,440,226,437,193,440,152,453,117"/>
-<area shape="rect" href="_debug_8h.html" title="Header file for Debug module." alt="" coords="454,153,525,178"/>
-<area shape="poly" title=" " alt="" coords="480,119,489,152,484,153,475,120"/>
-<area shape="poly" title=" " alt="" coords="502,113,521,130,538,151,555,191,562,225,557,227,550,192,534,154,518,134,499,116"/>
-<area shape="poly" title=" " alt="" coords="476,193,455,227,450,224,472,190"/>
-<area shape="poly" title=" " alt="" coords="514,187,551,224,547,228,510,191"/>
+<div class="center"><img src="_debug_8c__incl.png" border="0" usemap="#a_debug_8c" alt=""/></div>
+<map name="a_debug_8c" id="a_debug_8c">
+<area shape="rect" title="Source code for Debug module." alt="" coords="173,5,243,31"/>
+<area shape="rect" href="_debug_8h.html" title="Header file for Debug module." alt="" coords="137,79,207,105"/>
+<area shape="poly" title=" " alt="" coords="205,32,187,66,183,64,200,30"/>
+<area shape="rect" href="_u_a_r_t_8h.html" title="Driver module for serial communication via UART0 and UART 1." alt="" coords="67,153,134,178"/>
+<area shape="poly" title=" " alt="" coords="185,34,155,53,128,81,114,109,106,138,101,136,109,107,123,77,151,49,182,29"/>
+<area shape="rect" title=" " alt="" coords="156,300,231,326"/>
+<area shape="poly" title=" " alt="" coords="214,31,221,79,223,137,218,194,203,285,197,284,213,193,217,136,216,79,208,32"/>
+<area shape="rect" href="_new_assert_8h.html" title="Header file for custom assert implementation." alt="" coords="282,153,380,178"/>
+<area shape="poly" title=" " alt="" coords="222,30,265,77,315,139,311,142,261,81,218,33"/>
+<area shape="poly" title=" " alt="" coords="162,107,125,143,121,140,158,103"/>
+<area shape="poly" title=" " alt="" coords="176,105,194,284,188,285,171,105"/>
+<area shape="rect" href="_g_p_i_o_8h.html" title="Header file for general&#45;purpose input/output (GPIO) device driver." alt="" coords="40,226,105,252"/>
+<area shape="poly" title=" " alt="" coords="98,180,85,213,80,211,93,178"/>
+<area shape="poly" title=" " alt="" coords="110,177,180,285,175,288,106,180"/>
+<area shape="rect" title=" " alt="" coords="5,300,70,326"/>
+<area shape="poly" title=" " alt="" coords="78,181,51,200,29,228,25,241,24,256,30,285,25,286,19,257,20,241,24,225,47,196,75,177"/>
+<area shape="poly" title=" " alt="" coords="94,250,161,289,158,294,91,255"/>
+<area shape="poly" title=" " alt="" coords="69,253,52,287,48,285,64,251"/>
+<area shape="poly" title=" " alt="" coords="324,181,299,214,265,254,223,292,219,288,261,250,295,211,320,177"/>
 </map>
 </div>
 </div></div><!-- contents -->
@@ -152,7 +133,7 @@ This graph shows which files directly or indirectly include this file:</div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_c718a368270b13c54d94892d20736f45.html">drivers</a></li><li class="navelem"><a class="el" href="_g_p_i_o_8h.html">GPIO.h</a></li>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_ccce3f3ba5dcde1c4229acd5d660ca44.html">middleware</a></li><li class="navelem"><a class="el" href="_debug_8c.html">Debug.c</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>

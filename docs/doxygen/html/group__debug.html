@@ -97,7 +97,8 @@ $(document).ready(function(){initNavTree('group__debug.html',''); initResizable(
 
 <div class="header">
   <div class="summary">
-<a href="#files">Files</a>  </div>
+<a href="#files">Files</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">Debug<div class="ingroups"><a class="el" href="group__middleware.html">Middleware</a></div></div></div>
 </div><!--header-->
 <div class="contents">
@@ -116,9 +117,18 @@ Collaboration diagram for Debug:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="files" name="files"></a>
 Files</h2></td></tr>
-<tr class="memitem:_debug_8h" id="r__debug_8h"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_debug_8h.html">Debug.h</a></td></tr>
-<tr class="memdesc:_debug_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Functions to output debugging information to a serial port via UART. <br /></td></tr>
+<tr class="memitem:_debug_8c" id="r__debug_8c"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_debug_8c.html">Debug.c</a></td></tr>
+<tr class="memdesc:_debug_8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Source code for Debug module. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:_debug_8h" id="r__debug_8h"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_debug_8h.html">Debug.h</a></td></tr>
+<tr class="memdesc:_debug_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Header file for Debug module. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:ga47aea52f8d3646b1e17bef139ce8ec23" id="r_ga47aea52f8d3646b1e17bef139ce8ec23"><td class="memItemLeft" align="right" valign="top"><a id="ga47aea52f8d3646b1e17bef139ce8ec23" name="ga47aea52f8d3646b1e17bef139ce8ec23"></a>
+static Uart_t&#160;</td><td class="memItemRight" valign="bottom"><b>debugUart</b> = 0</td></tr>
+<tr class="separator:ga47aea52f8d3646b1e17bef139ce8ec23"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader">Serial Output</h2></td></tr>
 <tr class="memitem:ga6a08abd695884a7804da8ecc8e00d801" id="r_ga6a08abd695884a7804da8ecc8e00d801"><td class="memItemLeft" align="right" valign="top"><a id="ga6a08abd695884a7804da8ecc8e00d801" name="ga6a08abd695884a7804da8ecc8e00d801"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>Msg_t</b> { <b>DEBUG_DAQ_INIT</b>
@@ -167,13 +177,15 @@ Files</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Initialize the Debug module. </p>
+<dl class="section pre"><dt>Precondition</dt><dd>Initialize the UART. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">uart</td><td>UART to use for serial output. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section post"><dt>Postcondition</dt><dd>An initialization message is sent to the serial port. </dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd>An initialization message is sent to the serial port.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__uart.html#gab13890d58fe68c4dd80f64e6dba54f66" title="Initialize the specified UART peripheral.">UART_Init()</a> </dd></dl>
 
 </div>
 </div>
