@@ -25,6 +25,8 @@ SECTIONS
         Memory Writing
 *******************************************************************************/
 
+#include "GPIO.h"
+#include "SPI.h"
 #include "Timer.h"
 
 #include <stdbool.h>
@@ -93,7 +95,7 @@ Initialization/Reset
  *
  * @param[in] timer     Hardware timer to use during initialization.
  */
-void ILI9341_Init(Timer_t timer);
+void ILI9341_Init(GpioPort_t resetPinPort, GpioPin_t resetPin, Spi_t spi, Timer_t timer);
 
 /**
  * @brief               Sets the interface for the ILI9341.

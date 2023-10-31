@@ -45,21 +45,32 @@ static struct {
     outputMode_t outputMode;
     colorDepth_t colorDepth;
 
+    volatile uint32_t * resetPinDataRegister;
+    GpioPin_t resetPin;
+
+    Spi_t spi;
     bool isInit;
-} ili9341 = { SLEEP_ON, NORMAL_AREA, FULL_COLORS, INVERT_OFF, OUTPUT_ON, COLORDEPTH_16BIT, false };
+} ili9341 = { SLEEP_ON,         NORMAL_AREA, FULL_COLORS, INVERT_OFF, OUTPUT_ON,
+              COLORDEPTH_16BIT, 0,           0,           0,          false };
 
 /******************************************************************************
 Initialization/Reset
 *******************************************************************************/
 
-void ILI9341_Init(Timer_t timer) {
+void ILI9341_Init(GpioPort_t resetPinPort, GpioPin_t resetPin, Spi_t spi, Timer_t timer) {
     Assert(ili9341.isInit == false);
+    Assert(GPIO_isPortInit(resetPinPort));
+    Assert(SPI_isInit(spi));
     Assert(Timer_isInit(timer));
 
     ILI9341_Fifo = FIFO_Init(ILI9341_Buffer, 8);
 
-    SPI_Init();
+    GPIO_configDirection(resetPinPort, resetPin, GPIO_OUTPUT);
+    GPIO_EnableDigital(resetPinPort, resetPin);
+    ili9341.resetPinDataRegister = GPIO_getDataRegister(resetPinPort);
+    ili9341.resetPin = resetPin;
 
+    ili9341.spi = spi;
     ILI9341_resetHard(timer);
     ILI9341_setInterface();
 
@@ -96,10 +107,10 @@ void ILI9341_setInterface(void) {
      *   aren't used.
      */
 
-    SPI_WriteData(IFCTL);
-    SPI_WriteData(0);
-    SPI_WriteData(0);
-    SPI_WriteData(0);
+    SPI_WriteCmd(ili9341.spi, IFCTL);
+    SPI_WriteData(ili9341.spi, 0);
+    SPI_WriteData(ili9341.spi, 0);
+    SPI_WriteData(ili9341.spi, 0);
     return;
 }
 
@@ -112,9 +123,9 @@ void ILI9341_resetHard(Timer_t timer) {
     Assert(Timer_isInit(timer));
     Timer_setMode(timer, ONESHOT, UP);
 
-    SPI_CLEAR_RESET();
+    *ili9341.resetPinDataRegister &= ~(ili9341.resetPin);
     Timer_Wait1ms(timer, 1);
-    SPI_SET_RESET();
+    *ili9341.resetPinDataRegister |= ili9341.resetPin;
     Timer_Wait1ms(timer, 5);
     return;
 }
@@ -123,7 +134,7 @@ void ILI9341_resetSoft(Timer_t timer) {
     Assert(Timer_isInit(timer));
     Timer_setMode(timer, ONESHOT, UP);
 
-    SPI_WriteCmd(SWRESET);
+    SPI_WriteCmd(ili9341.spi, SWRESET);
     Timer_Wait1ms(timer, 5);               /// the driver needs 5 [ms] before another command
     return;
 }
@@ -134,8 +145,6 @@ Configuration
 
 static void ILI9341_setMode(uint8_t param) {
     /**
-     * @fn      ILI9341_setMode()
-     *
      *          This function simply groups each of the configuration functions
      *          into one to reduce code duplication.
      */
@@ -143,33 +152,33 @@ static void ILI9341_setMode(uint8_t param) {
     switch(param) {
         case(SLEEP_ON):
         case(SLEEP_OFF):
-            SPI_WriteCmd(param);
+            SPI_WriteCmd(ili9341.spi, param);
             ili9341.sleepMode = param;
             break;
         case(NORMAL_AREA):
         case(PARTIAL_AREA):
-            SPI_WriteCmd(param);
+            SPI_WriteCmd(ili9341.spi, param);
             ili9341.displayArea = param;
             break;
         case(FULL_COLORS):
         case(PARTIAL_COLORS):
-            SPI_WriteCmd(param);
+            SPI_WriteCmd(ili9341.spi, param);
             ili9341.colorExpression = param;
             break;
         case(INVERT_OFF):
         case(INVERT_ON):
-            SPI_WriteCmd(param);
+            SPI_WriteCmd(ili9341.spi, param);
             ili9341.invertMode = param;
             break;
         case(OUTPUT_OFF):
         case(OUTPUT_ON):
-            SPI_WriteCmd(param);
+            SPI_WriteCmd(ili9341.spi, param);
             ili9341.outputMode = param;
             break;
         case(COLORDEPTH_16BIT):
         case(COLORDEPTH_18BIT):
-            SPI_WriteCmd(PIXSET);
-            SPI_WriteData(param);
+            SPI_WriteCmd(ili9341.spi, PIXSET);
+            SPI_WriteData(ili9341.spi, param);
             break;
         default:
             Assert(false);
@@ -188,13 +197,13 @@ static void ILI9341_setMode(uint8_t param) {
  */
 static void ILI9341_sendParams(Cmd_t cmd) {
     if(cmd != NOP) {
-        SPI_WriteCmd(cmd);
+        SPI_WriteCmd(ili9341.spi, cmd);
     }
 
     uint8_t numParams = FIFO_getCurrSize(ILI9341_Fifo);
     while(numParams > 0) {
         uint8_t data = FIFO_Get(ILI9341_Fifo);
-        SPI_WriteData(data);
+        SPI_WriteData(ili9341.spi, data);
 
         numParams -= 1;
     }
@@ -294,8 +303,8 @@ void ILI9341_setMemAccessCtrl(bool areRowsFlipped, bool areColsFlipped, bool are
     param = (isColorOrderFlipped) ? (param | 0x08) : param;
     param = (isHorRefreshFlipped) ? (param | 0x04) : param;
 
-    SPI_WriteCmd(MADCTL);
-    SPI_WriteData(param);
+    SPI_WriteCmd(ili9341.spi, MADCTL);
+    SPI_WriteData(ili9341.spi, param);
     return;
 }
 
@@ -317,9 +326,9 @@ void ILI9341_setFrameRate(uint8_t divisionRatio, uint8_t clocksPerLine) {
         cmd = (ili9341.displayArea == NORMAL_AREA) ? FRMCTR1 : FRMCTR3;
     }
 
-    SPI_WriteCmd((uint8_t) cmd);
-    SPI_WriteData(divisionRatio & 0x03);
-    SPI_WriteData(clocksPerLine & 0x1F);
+    SPI_WriteCmd(ili9341.spi, (uint8_t) cmd);
+    SPI_WriteData(ili9341.spi, divisionRatio & 0x03);
+    SPI_WriteData(ili9341.spi, clocksPerLine & 0x1F);
     return;
 }
 
@@ -383,7 +392,7 @@ void ILI9341_setColAddress(uint16_t startCol, uint16_t endCol) {
 }
 
 void ILI9341_writeMemCmd(void) {
-    SPI_WriteCmd(RAMWR);
+    SPI_WriteCmd(ili9341.spi, RAMWR);
     return;
 }
 

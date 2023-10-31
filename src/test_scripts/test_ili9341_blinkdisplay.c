@@ -16,13 +16,19 @@ int main(void) {
     uint8_t red_val, green_val, blue_val;
 
     PLL_Init();
-    Timer_t timer0 = Timer_Init(TIMER0);
 
     // Initialize driver
-    ILI9341_Init(timer0);
+    GpioPort_t portA = GPIO_InitPort(GPIO_PORT_A);
+    Spi_t spi = SPI_Init(portA, GPIO_PIN6, SSI0);
+    Timer_t timer0 = Timer_Init(TIMER0);
+
+    ILI9341_Init(portA, GPIO_PIN7, spi, timer0);
     ILI9341_setRowAddress(0, ILI9341_NUM_ROWS - 1);
     ILI9341_setColAddress(0, ILI9341_NUM_COLS - 1);
     ILI9341_setMemAccessCtrl(0, 0, 0, 0, 1, 0);
+
+    ILI9341_setSleepMode(SLEEP_OFF, timer0);
+    Timer_Deinit(timer0);
 
     // Init. LED pins
     GpioPort_t portF = GPIO_InitPort(F);
