@@ -24,8 +24,6 @@ int main(void) {
     LCD_setCursor(0, 0);
     LCD_writeStr("Heart Rate: 75.0 bpm");
 
-    // Draw R
-
     LCD_setOutputMode(true);
     while(1) {
         Timer_Wait1ms(timer, 500);
