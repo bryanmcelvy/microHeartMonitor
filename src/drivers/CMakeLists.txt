@@ -8,7 +8,7 @@ include_directories(${PATH_COMMON} ${PATH_DEVICE} ${PATH_DRIVERS})
 
 # Targets
 add_library(ISR OBJECT ISR.c ISR.h)
-target_include_directories(ISR PUBLIC ${PATH_DEVICE})
+target_include_directories(ISR PUBLIC ${PATH_DEVICE} PRIVATE ${PATH_EXTERNAL}/CMSIS/Core/Include)
 
 add_library(PLL STATIC PLL.c PLL.h)
 

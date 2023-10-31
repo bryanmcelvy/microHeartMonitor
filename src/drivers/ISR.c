@@ -23,6 +23,7 @@ Preprocessor Directives
 
 #include "NewAssert.h"
 
+#include "m-profile/cmsis_gcc_m.h"
 #include "tm4c123gh6pm.h"
 
 #include <stdint.h>
@@ -45,23 +46,15 @@ Global Interrupt Configuration
 static bool interruptsAreEnabled = true;
 
 void ISR_GlobalDisable(void) {
-    // NOTE: Does not affect Reset, NMI, or hard faults
     interruptsAreEnabled = false;
-    __asm__("   CPSID   I\n\t"                // Set I bit in PRIMASK
-
-            "   BX      LR\n\t"               // Return
-
-    );
+    __set_PRIMASK(1);
+    return;
 }
 
 void ISR_GlobalEnable(void) {
-    // NOTE: Does not affect Reset, NMI, or hard faults
     interruptsAreEnabled = true;
-    __asm__("   CPSIE   I\n\t"               // Clear I bit in PRIMASK
-
-            "   BX      LR"                  // Return
-
-    );
+    __set_PRIMASK(0);
+    return;
 }
 
 /******************************************************************************
