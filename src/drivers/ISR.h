@@ -22,22 +22,28 @@ SECTIONS
 /******************************************************************************
 Global Interrupt Configuration
 *******************************************************************************/
+/** @name Global Interrupt Configuration */               /// @{
 
 /**
  * @brief                   Disable all interrupts globally.
+ * @note                    Does not affect Reset, NMI, or hard faults.
  * @see                     ISR_GlobalEnable()
  */
 void ISR_GlobalDisable(void);
 
 /**
  * @brief                   Enable all interrupts globally.
+ * @note                    Does not affect Reset, NMI, or hard faults.
  * @see                     ISR_GlobalDisable()
  */
 void ISR_GlobalEnable(void);
 
+/** @} */               // Global Interrupt Configuration
+
 /******************************************************************************
 Interrupt Vector Table Configuration
 *******************************************************************************/
+/** @name Interrupt Vector Table Configuration */               /// @{
 
 /**
  * @brief                   Relocate the vector table to RAM.
@@ -52,7 +58,7 @@ void ISR_InitNewTableInRam(void);
 
 /**
  * @typedef                 void (*ISR_t)(void)
- * @brief                   Type definition for function pointers representing ISRs.
+ * @brief                   Interrupt service routine (ISR) function pointers.
  */
 typedef void (*ISR_t)(void);
 
@@ -71,9 +77,12 @@ typedef void (*ISR_t)(void);
  */
 void ISR_addToIntTable(ISR_t isr, const uint8_t vectorNum);
 
+/** @} */               // Interrupt Vector Table Configuration
+
 /******************************************************************************
-Individual Interrupts
+Individual Interrupt Configuration
 *******************************************************************************/
+/** @name Individual Interrupt Configuration */               /// @{
 
 /**
  * @brief                   Set the priority for an interrupt.
@@ -133,6 +142,8 @@ void ISR_Disable(const uint8_t vectorNum);
  * @see                     ISR_clearPending()
  */
 void ISR_triggerInterrupt(const uint8_t vectorNum);
+
+/** @} */               // Individual Interrupt Configuration
 
 #endif                  // ISR_H
 

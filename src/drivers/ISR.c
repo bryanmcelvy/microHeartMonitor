@@ -65,7 +65,8 @@ Interrupt Vector Table Configuration
 extern void (*const interruptVectorTable[])(void);
 
 // New table, located in SRAM and defined here
-static ISR_t newVectorTable[VECTOR_TABLE_SIZE] __attribute__((aligned(VECTOR_TABLE_ALIGNMENT)));
+static ISR_t newVectorTable[VECTOR_TABLE_SIZE] /** @cond */ __attribute__((
+    aligned(VECTOR_TABLE_ALIGNMENT))) /** @endcond */;
 
 static bool isTableCopiedToRam = false;
 
