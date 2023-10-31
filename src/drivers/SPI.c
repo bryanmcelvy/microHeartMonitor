@@ -11,94 +11,248 @@
 
 #include "GPIO.h"
 
+#include "NewAssert.h"
+
 #include "tm4c123gh6pm.h"
+
 #include <stdbool.h>
 #include <stdint.h>
 
-#define SPI_IS_BUSY      (SSI0_SR_R & 0x10)
-#define SPI_TX_ISNOTFULL (SSI0_SR_R & 0x02)
+/******************************************************************************
+Constant Declarations
+*******************************************************************************/
 
-enum PINS {
-    // SSI0 pins
-    CLK_PIN = GPIO_PIN2,
-    CS_PIN = GPIO_PIN3,
-    RX_PIN = GPIO_PIN4,
-    TX_PIN = GPIO_PIN5,
-
-    // GPIO pins
-    DC_PIN = GPIO_PIN6,
-    RESET_PIN = GPIO_PIN7,
-
-    // pin groups
-    SSI0_PINS = (CLK_PIN | CS_PIN | RX_PIN | TX_PIN),
-    GPIO_PINS = (DC_PIN | RESET_PIN),
-    ALL_PINS = (SSI0_PINS | GPIO_PINS)
+enum GPIO_PORT_BASE_ADDRESSES {
+    GPIO_PORTA_BASE_ADDRESS = (uint32_t) 0x40004000,
+    GPIO_PORTB_BASE_ADDRESS = (uint32_t) 0x40005000,
+    GPIO_PORTC_BASE_ADDRESS = (uint32_t) 0x40006000,
+    GPIO_PORTD_BASE_ADDRESS = (uint32_t) 0x40007000,
+    GPIO_PORTE_BASE_ADDRESS = (uint32_t) 0x40024000,
+    GPIO_PORTF_BASE_ADDRESS = (uint32_t) 0x40025000,
 };
 
-static register_t gpioPortReg = 0;
+enum SSI_BASE_ADDRESSES {
+    SSI0_BASE_ADDR = (uint32_t) 0x40008000,
+    SSI1_BASE_ADDR = (uint32_t) 0x40009000,
+    SSI2_BASE_ADDR = (uint32_t) 0x4000A000,
+    SSI3_BASE_ADDR = (uint32_t) 0x4000B000,
+};
 
-void SPI_Init(void) {
-    /**
-     *  The bit rate `BR` is set using the (positive, even-numbered) clock
-     *  prescale divisor `CPSDVSR` and the `SCR` field in the SSI Control 0 (`CR0`) register:
-     *
-     *  \f$ BR = f_{bus} / ( CPSDVSR * (1 + SCR) ) \f$
-     *
-     *  The ILI9341 driver has a min. read cycle of 150 [ns]
-     *  and a min. write cycle of 100 [ns], so the bit rate `BR` is set to be
-     *  equal to the bus frequency
-     *  (\f$ f_{bus} = 80 [MHz] \f$) divided by 8, allowing a bit rate of
-     *  10 [MHz], or a period of 100 [ns].
-     */
+enum SSI_REGISTER_OFFSETS {
+    CTRL0_OFFSET = (uint32_t) 0,
+    CTRL1_OFFSET = (uint32_t) 0x004,
+    DATA_OFFSET = (uint32_t) 0x008,
+    STATUS_OFFSET = (uint32_t) 0x00C,
+    CLK_PRESCALE_OFFSET = (uint32_t) 0x010,
+    INT_MASK_OFFSET = (uint32_t) 0x014,
+    RAW_INT_STATUS_OFFSET = (uint32_t) 0x018,
+    MASKED_INT_STATUS_OFFSET = (uint32_t) 0x01C,
+    INT_CLEAR_OFFSET = (uint32_t) 0x020,
+};
 
-    // activate SSI0 clock and wait for it to be ready
-    SYSCTL_RCGCSSI_R |= 1;
-    while((SYSCTL_PRSSI_R & 0x01) == 0) {}
+/******************************************************************************
+Initialization
+*******************************************************************************/
 
-    // configure GPIO pins
-    GpioPort_t portA = GPIO_InitPort(A);
-    GPIO_ConfigAltMode(portA, SSI0_PINS);                   // alt. mode for PA2-5
-    GPIO_ConfigPortCtrl(portA, SSI0_PINS, 2);               // SSI mode for PA2-5
-    GPIO_configDirection(portA, DC_PIN | RESET_PIN, GPIO_OUTPUT);
-    GPIO_EnableDigital(portA, ALL_PINS);
+typedef struct SpiStruct_t {
+    const uint32_t BASE_ADDRESS;
+    volatile uint32_t * const DATA_REGISTER;
+    volatile uint32_t * const STATUS_REGISTER;
 
-    gpioPortReg = GPIO_getDataRegister(portA);
-    *gpioPortReg |= RESET_PIN;                              // hold `HIGH` (i.e. active `LOW`)
+    volatile uint32_t * gpioDataRegister;
+    GpioPin_t gpioDataCommPin;
 
-    // configure SSI0
-    SSI0_CR1_R &= ~(0x02);                   // disable SSI0
-    SSI0_CR1_R &= ~(0x15);                   /* controller (M) mode, interrupt when Tx
-                                               FIFO is half-empty, no loopback to RX */
-    SSI0_CC_R &= ~(0x0F);                    // system clock
-    SSI0_CPSR_R = (SSI0_CPSR_R & ~(0xFF)) | 4;
-    SSI0_CR0_R &= ~(0xFFFF);                 // clk. phase = 0, clk. polarity = 0, SPI mode
-    SSI0_CR0_R |= 0x0107;                    // SCR = 1, 8-bit data
+    uint8_t dataSize;
+    bool isEnabled;
+    bool isInit;
+} SpiStruct_t;
 
-    SSI0_CR1_R |= 0x02;                      // re-enable SSI0
+static SpiStruct_t SPI_ARR[4] = {
+    { SSI0_BASE_ADDR, (volatile uint32_t *) (SSI0_BASE_ADDR + DATA_OFFSET),
+      (volatile uint32_t *) (SSI0_BASE_ADDR + STATUS_OFFSET), 0, 0, 0, false, false },
+    { SSI1_BASE_ADDR, (volatile uint32_t *) (SSI1_BASE_ADDR + DATA_OFFSET),
+      (volatile uint32_t *) (SSI1_BASE_ADDR + STATUS_OFFSET), 0, 0, 0, false, false },
+    { SSI2_BASE_ADDR, (volatile uint32_t *) (SSI2_BASE_ADDR + DATA_OFFSET),
+      (volatile uint32_t *) (SSI2_BASE_ADDR + STATUS_OFFSET), 0, 0, 0, false, false },
+    { SSI3_BASE_ADDR, (volatile uint32_t *) (SSI3_BASE_ADDR + DATA_OFFSET),
+      (volatile uint32_t *) (SSI3_BASE_ADDR + STATUS_OFFSET), 0, 0, 0, false, false },
+};
+
+Spi_t SPI_Init(GpioPort_t gpioPort, GpioPin_t dcPin, SsiNum_t ssiNum) {
+    Assert(GPIO_isPortInit(gpioPort));
+    Assert(dcPin <= GPIO_PIN7);
+
+    // check GPIO pins
+    uint32_t gpio_baseAddress = GPIO_getBaseAddr(gpioPort);
+    GpioPin_t gpioPins;
+
+    switch(ssiNum) {
+        case SSI0:
+            Assert(gpio_baseAddress == GPIO_PORTA_BASE_ADDRESS);
+            gpioPins = GPIO_PIN2 | GPIO_PIN3 | GPIO_PIN4 | GPIO_PIN5;
+            break;
+        case SSI1:
+            Assert(gpio_baseAddress == GPIO_PORTF_BASE_ADDRESS);
+            gpioPins = GPIO_PIN0 | GPIO_PIN1 | GPIO_PIN2 | GPIO_PIN3;
+            break;
+        case SSI2:
+            Assert(gpio_baseAddress == GPIO_PORTB_BASE_ADDRESS);
+            gpioPins = GPIO_PIN4 | GPIO_PIN5 | GPIO_PIN6 | GPIO_PIN7;
+            break;
+        case SSI3:
+            Assert(gpio_baseAddress == GPIO_PORTD_BASE_ADDRESS);
+            gpioPins = GPIO_PIN0 | GPIO_PIN1 | GPIO_PIN2 | GPIO_PIN3;
+            break;
+        default:
+            Assert(false);
+    }
+
+    Assert((dcPin & gpioPins) == 0);
+
+    // initialize SSI peripheral in SPI mode
+    Spi_t spi = &SPI_ARR[ssiNum];
+    if(spi->isInit == false) {
+        // config. GPIO pins
+        GPIO_ConfigAltMode(gpioPort, gpioPins);
+        GPIO_ConfigPortCtrl(gpioPort, gpioPins, 2);
+
+        GPIO_configDirection(gpioPort, dcPin, GPIO_OUTPUT);
+
+        GPIO_EnableDigital(gpioPort, gpioPins | dcPin);
+
+        // enable clock to SSI, and wait for it to be ready
+        SYSCTL_RCGCSSI_R |= (1 << ssiNum);
+        while((SYSCTL_PRSSI_R & (1 << ssiNum)) == 0) {}
+
+        // config control registers
+        register_t ctrlRegister0 = (register_t) (spi->BASE_ADDRESS + CTRL0_OFFSET);
+        register_t ctrlRegister1 = (register_t) (spi->BASE_ADDRESS + CTRL1_OFFSET);
+        register_t clkPrescaleReg = (register_t) (spi->BASE_ADDRESS + CLK_PRESCALE_OFFSET);
+
+        *ctrlRegister1 &= ~(0x02);               // disable
+        *ctrlRegister1 &= ~(0x15);               // controller (master) mode, no EOT, no loopback
+
+        *ctrlRegister0 &= ~(0x30);               // SPI frame format
+
+        // set bit rate to 10 [MHz]
+        *clkPrescaleReg = (*clkPrescaleReg & ~(0xFF)) | 4;
+        *ctrlRegister0 = (*ctrlRegister0 & ~(0xFF00)) | (0x0100);
+
+        spi->gpioDataRegister = GPIO_getDataRegister(gpioPort);
+        spi->gpioDataCommPin = dcPin;
+        spi->isEnabled = false;
+        spi->isInit = true;
+    }
+
+    return spi;
+}
+
+bool SPI_isInit(Spi_t spi) {
+    return spi->isInit;
+}
+
+/******************************************************************************
+Configuration
+*******************************************************************************/
+
+void SPI_configClock(Spi_t spi, SpiClockPhase_t clockPhase, SpiClockPolarity_t clockPolarity) {
+    Assert(spi->isInit);
+    Assert(spi->isEnabled == false);
+
+    register_t ctrlRegister0 = (register_t) (spi->BASE_ADDRESS + CTRL0_OFFSET);
+
+    switch(clockPhase) {
+        case SPI_RISING_EDGE:
+            *ctrlRegister0 &= ~(1 << 7);
+            break;
+        case SPI_FALLING_EDGE:
+            *ctrlRegister0 |= (1 << 7);
+            break;
+        default:
+            Assert(false);
+    }
+
+    switch(clockPolarity) {
+        case SPI_STEADY_STATE_LOW:
+            *ctrlRegister0 &= ~(1 << 6);
+            break;
+        case SPI_STEADY_STATE_HIGH:
+            *ctrlRegister0 |= (1 << 6);
+            break;
+        default:
+            Assert(false);
+    }
 
     return;
 }
 
-uint8_t SPI_Read(void) {
-    while(SSI0_SR_R & 0x04) {}               // wait until Rx FIFO is empty
-    return (uint8_t) (SSI0_DR_R & 0xFF);               // return data from data register
+void SPI_setDataSize(Spi_t spi, uint8_t dataSize) {
+    Assert(spi->isInit);
+    Assert(spi->isEnabled == false);
+    Assert(dataSize >= 4);
+    Assert(dataSize <= 16);
+
+    register_t ctrlRegister0 = (register_t) (spi->BASE_ADDRESS + CTRL0_OFFSET);
+    *ctrlRegister0 = (*ctrlRegister0 & ~(0x0F)) | (dataSize - 1);
+
+    spi->dataSize = dataSize;
+    return;
 }
 
-void SPI_WriteCmd(uint8_t cmd) {
-    while(SPI_IS_BUSY) {}
-    *gpioPortReg &= ~(DC_PIN);                         // signal incoming command to peripheral
-    SSI0_DR_R = cmd;
-    while(SPI_IS_BUSY) {}                              // wait for transmission to finish
+void SPI_Enable(Spi_t spi) {
+    Assert(spi->isInit);
+    Assert(spi->dataSize > 0);
+    if(spi->isEnabled == false) {
+        register_t ctrlRegister1 = (register_t) (spi->BASE_ADDRESS + CTRL1_OFFSET);
+        *ctrlRegister1 |= 0x02;
+        spi->isEnabled = true;
+    }
+    return;
+}
+
+void SPI_Disable(Spi_t spi) {
+    Assert(spi->isInit);
+    if(spi->isEnabled) {
+        register_t ctrlRegister1 = (register_t) (spi->BASE_ADDRESS + CTRL1_OFFSET);
+        *ctrlRegister1 &= ~(0x02);
+        spi->isEnabled = false;
+    }
+}
+
+/******************************************************************************
+Operations
+*******************************************************************************/
+
+uint16_t SPI_Read(Spi_t spi) {
+    Assert(spi->isInit);
+    Assert(spi->isEnabled);
+
+    return *spi->DATA_REGISTER;
+}
+
+void SPI_WriteCmd(Spi_t spi, uint16_t cmd) {
+    Assert(spi->isInit);
+    Assert(spi->isEnabled);
+
+    while(*spi->STATUS_REGISTER & 0x10) {}                           // wait while SPI is busy
+
+    *spi->gpioDataRegister &= ~(spi->gpioDataCommPin);               // signal incoming command
+    *spi->DATA_REGISTER = cmd & ((1 << spi->dataSize) - 1);
+
+    while(*spi->STATUS_REGISTER & 0x10) {}                        // wait for transmission to finish
+    return;
+}
+
+void SPI_WriteData(Spi_t spi, uint16_t data) {
+    Assert(spi->isInit);
+    Assert(spi->isEnabled);
+
+    while((*spi->STATUS_REGISTER & 0x02) == 0) {}                 // wait while TX FIFO is full
+
+    *spi->gpioDataRegister |= spi->gpioDataCommPin;               // signal incoming data
+    *spi->DATA_REGISTER = data & ((1 << spi->dataSize) - 1);
 
     return;
 }
 
-void SPI_WriteData(uint8_t data) {
-    while(SPI_TX_ISNOTFULL == 0) {}
-    *gpioPortReg |= DC_PIN;                            // signal incoming data to peripheral
-    SSI0_DR_R = data;                                  // write command
-
-    return;
-}
-
-/** @} */                                              // spi
+/** @} */                                                         // spi
