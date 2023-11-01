@@ -168,13 +168,16 @@ void LCD_drawVertLine(uint16_t xCenter, uint16_t lineWidth);
  */
 void LCD_drawRectangle(uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy);
 
-inline static void LCD_plotSample(uint16_t x, uint16_t y, uint8_t color) {
-    LCD_setColor(color);
-    LCD_setX(x, x);
-    LCD_setY(y, y);
-    LCD_Draw();
-    return;
-}
+/**
+ * @brief               Plot a sample at coordinates `(x, y)`.
+ *
+ * @param[in] x         x-coordinate (i.e. sample number) in range `[0, X_MAX]`
+ * @param[in] y         y-coordinate (i.e. amplitude) in range `[0, Y_MAX]`
+ * @param[in] color     Color to use
+ *
+ * @see                 LCD_setX(), LCD_setY(), LCD_setColor(), LCD_Draw()
+ */
+void LCD_plotSample(uint16_t x, uint16_t y, uint8_t color);
 
 /** @} */               // Drawing
 
