@@ -99,7 +99,6 @@ $(document).ready(function(){initNavTree('group__isr.html',''); initResizable();
   <div class="summary">
 <a href="#files">Files</a> &#124;
 <a href="#define-members">Macros</a> &#124;
-<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">Interrupt Service Routines<div class="ingroups"><a class="el" href="group__driver.html">Device Drivers</a></div></div></div>
@@ -151,33 +150,48 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>NVIC_UNPEND_BASE_ADDR</b>&#160;&#160;&#160;((uint32_t) 0xE000E280)</td></tr>
 <tr class="separator:ga0d14958e7371ff4faec594508e83172a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:ga93eb09d046efa22c54d889eed521ede9" id="r_ga93eb09d046efa22c54d889eed521ede9"><td class="memItemLeft" align="right" valign="top"><a id="ga93eb09d046efa22c54d889eed521ede9" name="ga93eb09d046efa22c54d889eed521ede9"></a>
-typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><b>ISR_t</b>) (void)</td></tr>
-<tr class="memdesc:ga93eb09d046efa22c54d889eed521ede9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type definition for function pointers representing ISRs. <br /></td></tr>
-<tr class="separator:ga93eb09d046efa22c54d889eed521ede9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ga8081ff631d3db3d137b2b3e11ed2f14a" id="r_ga8081ff631d3db3d137b2b3e11ed2f14a"><td class="memItemLeft" align="right" valign="top"><a id="ga8081ff631d3db3d137b2b3e11ed2f14a" name="ga8081ff631d3db3d137b2b3e11ed2f14a"></a>
 static void&#160;</td><td class="memItemRight" valign="bottom"><b>ISR_setStatus</b> (const uint8_t vectorNum, const bool isEnabled)</td></tr>
 <tr class="separator:ga8081ff631d3db3d137b2b3e11ed2f14a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga23a5ef027b6d1b3aeac0a98b611fca0c" id="r_ga23a5ef027b6d1b3aeac0a98b611fca0c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__isr.html#ga23a5ef027b6d1b3aeac0a98b611fca0c">ISR_GlobalDisable</a> (void)</td></tr>
-<tr class="memdesc:ga23a5ef027b6d1b3aeac0a98b611fca0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable all interrupts globally.  <br /></td></tr>
-<tr class="separator:ga23a5ef027b6d1b3aeac0a98b611fca0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa18a80bd0870828cb40c0bf26faee065" id="r_gaa18a80bd0870828cb40c0bf26faee065"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__isr.html#gaa18a80bd0870828cb40c0bf26faee065">ISR_GlobalEnable</a> (void)</td></tr>
-<tr class="memdesc:gaa18a80bd0870828cb40c0bf26faee065"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable all interrupts globally.  <br /></td></tr>
-<tr class="separator:gaa18a80bd0870828cb40c0bf26faee065"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga4bce802cc0b018d42dccecab228c2e21" id="r_ga4bce802cc0b018d42dccecab228c2e21"><td class="memItemLeft" align="right" valign="top"><a id="ga4bce802cc0b018d42dccecab228c2e21" name="ga4bce802cc0b018d42dccecab228c2e21"></a>
-static <a class="el" href="group__isr.html#ga93eb09d046efa22c54d889eed521ede9">ISR_t</a> newVectorTable[VECTOR_TABLE_SIZE]&#160;</td><td class="memItemRight" valign="bottom"><b>__attribute__</b> ((aligned(VECTOR_TABLE_ALIGNMENT)))</td></tr>
-<tr class="separator:ga4bce802cc0b018d42dccecab228c2e21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:gaae694e561bc445078897466999749522" id="r_gaae694e561bc445078897466999749522"><td class="memItemLeft" align="right" valign="top"><a id="gaae694e561bc445078897466999749522" name="gaae694e561bc445078897466999749522"></a>
+static bool&#160;</td><td class="memItemRight" valign="bottom"><b>interruptsAreEnabled</b> = true</td></tr>
+<tr class="separator:gaae694e561bc445078897466999749522"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa2685783973222a5a44e8dac594f2e8a" id="r_gaa2685783973222a5a44e8dac594f2e8a"><td class="memItemLeft" align="right" valign="top"><a id="gaa2685783973222a5a44e8dac594f2e8a" name="gaa2685783973222a5a44e8dac594f2e8a"></a>
+void(*const&#160;</td><td class="memItemRight" valign="bottom"><b>interruptVectorTable</b> [])(void)</td></tr>
+<tr class="separator:gaa2685783973222a5a44e8dac594f2e8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga205bbfc068de286ba4a8e30dbb114697" id="r_ga205bbfc068de286ba4a8e30dbb114697"><td class="memItemLeft" align="right" valign="top"><a id="ga205bbfc068de286ba4a8e30dbb114697" name="ga205bbfc068de286ba4a8e30dbb114697"></a>
+static <a class="el" href="group__isr.html#ga93eb09d046efa22c54d889eed521ede9">ISR_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>newVectorTable</b> [VECTOR_TABLE_SIZE]</td></tr>
+<tr class="separator:ga205bbfc068de286ba4a8e30dbb114697"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf44abed68e51b847e7426f39784b95b6" id="r_gaf44abed68e51b847e7426f39784b95b6"><td class="memItemLeft" align="right" valign="top"><a id="gaf44abed68e51b847e7426f39784b95b6" name="gaf44abed68e51b847e7426f39784b95b6"></a>
+static bool&#160;</td><td class="memItemRight" valign="bottom"><b>isTableCopiedToRam</b> = false</td></tr>
+<tr class="separator:gaf44abed68e51b847e7426f39784b95b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader">Interrupt Vector Table Configuration</h2></td></tr>
+<tr class="memitem:ga93eb09d046efa22c54d889eed521ede9" id="r_ga93eb09d046efa22c54d889eed521ede9"><td class="memItemLeft" align="right" valign="top"><a id="ga93eb09d046efa22c54d889eed521ede9" name="ga93eb09d046efa22c54d889eed521ede9"></a>
+typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><b>ISR_t</b>) (void)</td></tr>
+<tr class="memdesc:ga93eb09d046efa22c54d889eed521ede9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt service routine (ISR) function pointers. <br /></td></tr>
+<tr class="separator:ga93eb09d046efa22c54d889eed521ede9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga1a8cdef6eb7ae1b0782060ad424ffe84" id="r_ga1a8cdef6eb7ae1b0782060ad424ffe84"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__isr.html#ga1a8cdef6eb7ae1b0782060ad424ffe84">ISR_InitNewTableInRam</a> (void)</td></tr>
 <tr class="memdesc:ga1a8cdef6eb7ae1b0782060ad424ffe84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Relocate the vector table to RAM.  <br /></td></tr>
 <tr class="separator:ga1a8cdef6eb7ae1b0782060ad424ffe84"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaeffe767c18c92a042f2dce7f90b2c7e8" id="r_gaeffe767c18c92a042f2dce7f90b2c7e8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__isr.html#gaeffe767c18c92a042f2dce7f90b2c7e8">ISR_addToIntTable</a> (<a class="el" href="group__isr.html#ga93eb09d046efa22c54d889eed521ede9">ISR_t</a> isr, const uint8_t vectorNum)</td></tr>
 <tr class="memdesc:gaeffe767c18c92a042f2dce7f90b2c7e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add an ISR to the interrupt table.  <br /></td></tr>
 <tr class="separator:gaeffe767c18c92a042f2dce7f90b2c7e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader">Global Interrupt Configuration</h2></td></tr>
+<tr class="memitem:ga23a5ef027b6d1b3aeac0a98b611fca0c" id="r_ga23a5ef027b6d1b3aeac0a98b611fca0c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__isr.html#ga23a5ef027b6d1b3aeac0a98b611fca0c">ISR_GlobalDisable</a> (void)</td></tr>
+<tr class="memdesc:ga23a5ef027b6d1b3aeac0a98b611fca0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable all interrupts globally.  <br /></td></tr>
+<tr class="separator:ga23a5ef027b6d1b3aeac0a98b611fca0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa18a80bd0870828cb40c0bf26faee065" id="r_gaa18a80bd0870828cb40c0bf26faee065"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__isr.html#gaa18a80bd0870828cb40c0bf26faee065">ISR_GlobalEnable</a> (void)</td></tr>
+<tr class="memdesc:gaa18a80bd0870828cb40c0bf26faee065"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable all interrupts globally.  <br /></td></tr>
+<tr class="separator:gaa18a80bd0870828cb40c0bf26faee065"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader">Individual Interrupt Configuration</h2></td></tr>
 <tr class="memitem:ga11659defe8dcb444a43fd6868dc85192" id="r_ga11659defe8dcb444a43fd6868dc85192"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__isr.html#ga11659defe8dcb444a43fd6868dc85192">ISR_setPriority</a> (const uint8_t vectorNum, const uint8_t priority)</td></tr>
 <tr class="memdesc:ga11659defe8dcb444a43fd6868dc85192"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the priority for an interrupt.  <br /></td></tr>
 <tr class="separator:ga11659defe8dcb444a43fd6868dc85192"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -190,18 +204,6 @@ static <a class="el" href="group__isr.html#ga93eb09d046efa22c54d889eed521ede9">I
 <tr class="memitem:gac004fff65fc230dae1cf4567dd221f13" id="r_gac004fff65fc230dae1cf4567dd221f13"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__isr.html#gac004fff65fc230dae1cf4567dd221f13">ISR_triggerInterrupt</a> (const uint8_t vectorNum)</td></tr>
 <tr class="memdesc:gac004fff65fc230dae1cf4567dd221f13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a software-generated interrupt (SGI).  <br /></td></tr>
 <tr class="separator:gac004fff65fc230dae1cf4567dd221f13"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:gaae694e561bc445078897466999749522" id="r_gaae694e561bc445078897466999749522"><td class="memItemLeft" align="right" valign="top"><a id="gaae694e561bc445078897466999749522" name="gaae694e561bc445078897466999749522"></a>
-static bool&#160;</td><td class="memItemRight" valign="bottom"><b>interruptsAreEnabled</b> = true</td></tr>
-<tr class="separator:gaae694e561bc445078897466999749522"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa2685783973222a5a44e8dac594f2e8a" id="r_gaa2685783973222a5a44e8dac594f2e8a"><td class="memItemLeft" align="right" valign="top"><a id="gaa2685783973222a5a44e8dac594f2e8a" name="gaa2685783973222a5a44e8dac594f2e8a"></a>
-void(*const&#160;</td><td class="memItemRight" valign="bottom"><b>interruptVectorTable</b> [])(void)</td></tr>
-<tr class="separator:gaa2685783973222a5a44e8dac594f2e8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf44abed68e51b847e7426f39784b95b6" id="r_gaf44abed68e51b847e7426f39784b95b6"><td class="memItemLeft" align="right" valign="top"><a id="gaf44abed68e51b847e7426f39784b95b6" name="gaf44abed68e51b847e7426f39784b95b6"></a>
-static bool&#160;</td><td class="memItemRight" valign="bottom"><b>isTableCopiedToRam</b> = false</td></tr>
-<tr class="separator:gaf44abed68e51b847e7426f39784b95b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Functions for manipulating the interrupt vector table and setting up interrupt handlers via the NVIC. </p>
@@ -223,6 +225,7 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>isTableCopiedT
 </div><div class="memdoc">
 
 <p>Disable all interrupts globally. </p>
+<dl class="section note"><dt>Note</dt><dd>Does not affect Reset, NMI, or hard faults. </dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group__isr.html#gaa18a80bd0870828cb40c0bf26faee065" title="Enable all interrupts globally.">ISR_GlobalEnable()</a> </dd></dl>
 
 </div>
@@ -244,6 +247,7 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>isTableCopiedT
 </div><div class="memdoc">
 
 <p>Enable all interrupts globally. </p>
+<dl class="section note"><dt>Note</dt><dd>Does not affect Reset, NMI, or hard faults. </dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group__isr.html#ga23a5ef027b6d1b3aeac0a98b611fca0c" title="Disable all interrupts globally.">ISR_GlobalDisable()</a> </dd></dl>
 
 </div>
