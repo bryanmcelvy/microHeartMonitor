@@ -211,10 +211,10 @@ int main(void) {
     LCD_setColor(LCD_WHITE);
     LCD_drawHoriLine(LCD_TOP_LINE, 1);
 
+    LCD_setColor(LCD_RED);
     LCD_setCursor(LCD_TEXT_LINE_NUM, 0);
     LCD_writeStr("Heart Rate:      bpm");
 
-    LCD_setColor(LCD_RED);
     LCD_setOutputMode(true);
 
     Debug_SendFromList(DEBUG_LCD_INIT);
