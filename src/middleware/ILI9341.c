@@ -65,6 +65,7 @@ void ILI9341_Init(GpioPort_t resetPinPort, GpioPin_t resetPin, Spi_t spi, Timer_
 
     ILI9341_Fifo = FIFO_Init(ILI9341_Buffer, 8);
 
+    GPIO_DisableDigital(resetPinPort, resetPin);
     GPIO_configDirection(resetPinPort, resetPin, GPIO_OUTPUT);
     GPIO_EnableDigital(resetPinPort, resetPin);
     ili9341.resetPinDataRegister = GPIO_getDataRegister(resetPinPort);
@@ -78,7 +79,6 @@ void ILI9341_Init(GpioPort_t resetPinPort, GpioPin_t resetPin, Spi_t spi, Timer_
 
     ILI9341_resetHard(timer);
     ILI9341_setInterface();
-
     ili9341.isInit = true;
     return;
 }
@@ -125,6 +125,7 @@ void ILI9341_resetHard(Timer_t timer) {
      *  signal for >= 10 [us] and an additional 5 [ms] before further commands
      *  can be sent.
      */
+    Assert(ili9341.resetPinDataRegister != 0);
     Assert(Timer_isInit(timer));
     Timer_setMode(timer, ONESHOT, UP);
 
