@@ -163,7 +163,7 @@ void LCD_Fill(void) {
 
 static void LCD_drawLine(uint16_t center, uint16_t lineWidth, bool is_horizontal) {
     Assert(lineWidth > 0);
-    Assert((lineWidth % 2) == 0);
+    Assert((lineWidth % 2) != 0);
 
     // ensure line does not go out-of-bounds
     uint16_t padding = ((lineWidth - 1) / 2);
