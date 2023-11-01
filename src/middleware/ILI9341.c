@@ -58,7 +58,7 @@ Initialization/Reset
 *******************************************************************************/
 
 void ILI9341_Init(GpioPort_t resetPinPort, GpioPin_t resetPin, Spi_t spi, Timer_t timer) {
-    Assert(ili9341.isInit == false);
+    Assert(ili9341.isInit == false);               // should only be initialized once
     Assert(GPIO_isPortInit(resetPinPort));
     Assert(SPI_isInit(spi));
     Assert(Timer_isInit(timer));

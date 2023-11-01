@@ -91,9 +91,22 @@ Initialization/Reset
 *******************************************************************************/
 
 /**
- * @brief               Initialize the LCD driver and the SPI module.
+ * @brief                   Initialize the LCD driver.
  *
- * @param[in] timer     Hardware timer to use during initialization.
+ * @pre                     Initialize the GPIO port.
+ * @pre                     Initialize the SPI module.
+ * @pre                     Initialize the Timer.
+ *
+ * @param[in] resetPinPort  The GPIO port that the `RESET` pin belongs to.
+ * @param[in] resetPin      The GPIO pin used as the `RESET` pin.
+ * @param[in] spi           The SPI module to use for communication.
+ * @param[in] timer         The hardware timer to use during initialization.
+ *
+ * @post                    The `RESET` is configured as a digital `OUTPUT` pin.
+ * @post                    The SPI is configured and enabled.
+ * @post                    The LCD driver is initialized and ready to accept commands.
+ *
+ * @see                     GPIO_InitPort(), SPI_Init(), Timer_Init()
  */
 void ILI9341_Init(GpioPort_t resetPinPort, GpioPin_t resetPin, Spi_t spi, Timer_t timer);
 
