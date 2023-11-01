@@ -70,7 +70,12 @@ void ILI9341_Init(GpioPort_t resetPinPort, GpioPin_t resetPin, Spi_t spi, Timer_
     ili9341.resetPinDataRegister = GPIO_getDataRegister(resetPinPort);
     ili9341.resetPin = resetPin;
 
+    SPI_Disable(spi);
+    SPI_configClock(spi, SPI_RISING_EDGE, SPI_STEADY_STATE_LOW);
+    SPI_setDataSize(spi, 8);
+    SPI_Enable(spi);
     ili9341.spi = spi;
+
     ILI9341_resetHard(timer);
     ILI9341_setInterface();
 

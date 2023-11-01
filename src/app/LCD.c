@@ -73,15 +73,11 @@ Initialization
 *******************************************************************************/
 
 void LCD_Init(void) {
-    Assert(lcd.isInit == false);
+    Assert(lcd.isInit == false);                              // should only be initialized once
 
     GpioPort_t portA = GPIO_InitPort(GPIO_PORT_A);
-    Timer_t timer2 = Timer_Init(TIMER2);
-
     Spi_t spi = SPI_Init(portA, GPIO_PIN6, SSI0);
-    SPI_configClock(spi, SPI_RISING_EDGE, SPI_STEADY_STATE_LOW);
-    SPI_setDataSize(spi, 8);
-    SPI_Enable(spi);
+    Timer_t timer2 = Timer_Init(TIMER2);
 
     ILI9341_Init(portA, GPIO_PIN7, spi, timer2);
     ILI9341_setSleepMode(SLEEP_OFF, timer2);
