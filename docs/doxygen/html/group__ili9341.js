@@ -35,7 +35,7 @@ var group__ili9341 =
     [ "ILI9341_setMode", "group__ili9341.html#ga7c2b817d9e62bdaae9658fde0ca4cfbc", null ],
     [ "ILI9341_setAddress", "group__ili9341.html#ga41ef82a67a674f5567aa5e81a326a1aa", null ],
     [ "ILI9341_sendParams", "group__ili9341.html#gad8506db0d5f17efc227d357cb00508b3", null ],
-    [ "ILI9341_Init", "group__ili9341.html#ga25f956211b3a0b127406cfe1919b6a0a", null ],
+    [ "ILI9341_Init", "group__ili9341.html#ga81e55f413bd2f505a6cd6a2a67f58d35", null ],
     [ "ILI9341_setInterface", "group__ili9341.html#ga96d94a4a6d65157a22f3663edd006863", null ],
     [ "ILI9341_resetHard", "group__ili9341.html#gaa9d8b9fb6740c1a6c84b3095c5438b50", null ],
     [ "ILI9341_resetSoft", "group__ili9341.html#ga33117548c2e2b50614d40d56c0899d50", null ],

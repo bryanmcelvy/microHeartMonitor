@@ -1,11 +1,20 @@
 <map id="ILI9341.h" name="ILI9341.h">
-<area shape="rect" id="Node000001" title="Driver module for interfacing with an ILI9341 LCD driver." alt="" coords="64,5,139,31"/>
-<area shape="rect" id="Node000002" href="$_timer_8h.html" title="Device driver for general&#45;purpose timer modules." alt="" coords="69,79,133,105"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="104,31,104,63,99,63,99,31"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="5,153,80,178"/>
-<area shape="poly" id="edge4_Node000001_Node000003" title=" " alt="" coords="92,33,75,54,60,80,51,109,47,137,41,137,46,108,55,78,70,51,87,30"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="126,153,191,178"/>
-<area shape="poly" id="edge5_Node000001_Node000004" title=" " alt="" coords="115,30,132,51,148,78,156,108,160,137,155,137,151,109,143,80,128,54,111,33"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="94,107,64,142,60,139,89,103"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="113,103,141,139,137,142,109,107"/>
+<area shape="rect" id="Node000001" title="Driver module for interfacing with an ILI9341 LCD driver." alt="" coords="104,5,180,31"/>
+<area shape="rect" id="Node000002" href="$_g_p_i_o_8h.html" title="Header file for general&#45;purpose input/output (GPIO) device driver." alt="" coords="109,153,175,178"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="145,31,145,137,139,137,139,31"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="59,226,134,252"/>
+<area shape="poly" id="edge11_Node000001_Node000003" title=" " alt="" coords="124,34,96,53,64,81,34,115,11,153,9,172,18,189,34,204,54,217,52,221,31,208,14,192,4,173,6,152,30,111,61,77,93,49,121,29"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="194,226,258,252"/>
+<area shape="poly" id="edge12_Node000001_Node000004" title=" " alt="" coords="181,28,219,46,237,60,251,78,262,112,261,149,253,184,241,213,237,211,248,183,256,149,257,113,246,80,233,64,216,51,179,32"/>
+<area shape="rect" id="Node000005" href="$_s_p_i_8h.html" title="Header file for serial peripheral interface (SPI) module." alt="" coords="183,79,237,105"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="155,29,190,66,186,70,151,33"/>
+<area shape="rect" id="Node000006" href="$_timer_8h.html" title="Device driver for general&#45;purpose timer modules." alt="" coords="20,153,85,178"/>
+<area shape="poly" id="edge8_Node000001_Node000006" title=" " alt="" coords="137,33,70,141,66,138,132,30"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="137,180,115,215,110,212,132,177"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="158,177,202,214,198,218,154,181"/>
+<area shape="poly" id="edge5_Node000005_Node000002" title=" " alt="" coords="201,107,166,143,162,140,197,103"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="212,106,206,141,200,161,189,180,167,203,140,221,137,217,163,199,185,177,195,159,201,139,207,105"/>
+<area shape="poly" id="edge7_Node000005_Node000004" title=" " alt="" coords="218,104,234,152,236,183,233,212,228,211,230,183,229,153,213,106"/>
+<area shape="poly" id="edge9_Node000006_Node000003" title=" " alt="" coords="62,177,83,211,79,214,58,180"/>
+<area shape="poly" id="edge10_Node000006_Node000004" title=" " alt="" coords="83,176,183,218,181,222,81,181"/>
 </map>

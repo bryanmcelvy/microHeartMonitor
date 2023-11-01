@@ -99,7 +99,6 @@ $(document).ready(function(){initNavTree('group__lcd.html',''); initResizable();
   <div class="summary">
 <a href="#files">Files</a> &#124;
 <a href="#define-members">Macros</a> &#124;
-<a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">Liquid Crystal Display (LCD)<div class="ingroups"><a class="el" href="group__app.html">Application Software</a></div></div></div>
 </div><!--header-->
@@ -134,12 +133,6 @@ Macros</h2></td></tr>
 <tr class="memitem:ga67906d33c4f25ce1e4ac27cc1a72a89d" id="r_ga67906d33c4f25ce1e4ac27cc1a72a89d"><td class="memItemLeft" align="right" valign="top"><a id="ga67906d33c4f25ce1e4ac27cc1a72a89d" name="ga67906d33c4f25ce1e4ac27cc1a72a89d"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>CONVERT_INT_TO_ASCII</b>(X)&#160;&#160;&#160;((unsigned char) (X + 0x30))</td></tr>
 <tr class="separator:ga67906d33c4f25ce1e4ac27cc1a72a89d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:gaf2d5d3d71c8f7428ce3d63af9c67ee0d" id="r_gaf2d5d3d71c8f7428ce3d63af9c67ee0d"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lcd.html#gaf2d5d3d71c8f7428ce3d63af9c67ee0d">LCD_plotSample</a> (uint16_t x, uint16_t y, uint8_t color)</td></tr>
-<tr class="memdesc:gaf2d5d3d71c8f7428ce3d63af9c67ee0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Plot a sample at coordinates <code>(x, y)</code>.  <br /></td></tr>
-<tr class="separator:gaf2d5d3d71c8f7428ce3d63af9c67ee0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -221,7 +214,7 @@ const uint8_t *const&#160;</td><td class="memItemRight" valign="bottom"><b>FONT_
 <tr class="separator:ga0144733d5f74031c48da53d3eb5fb551"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader">Writing</h2></td></tr>
-<tr class="memitem:gab2ad7c69d2022e2f414ed88414343635" id="r_gab2ad7c69d2022e2f414ed88414343635"><td class="memItemLeft" align="right" valign="top"><a id="gab2ad7c69d2022e2f414ed88414343635" name="gab2ad7c69d2022e2f414ed88414343635"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>LCD_WRITING_INFO</b> { <b>HEIGHT_CHAR</b> = 8
+<tr class="memitem:gab2ad7c69d2022e2f414ed88414343635" id="r_gab2ad7c69d2022e2f414ed88414343635"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lcd.html#gab2ad7c69d2022e2f414ed88414343635">LCD_WRITING_INFO</a> { <b>HEIGHT_CHAR</b> = 8
 , <b>LEN_CHAR</b> = 5
 , <b>NUM_LINES</b> = 30
 , <b>NUM_COLS</b> = 64
@@ -406,9 +399,28 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>LCD_updateCurs
 <tr class="memitem:ga7376d48d050abfcb9a9aa9f63c764089" id="r_ga7376d48d050abfcb9a9aa9f63c764089"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lcd.html#ga7376d48d050abfcb9a9aa9f63c764089">LCD_drawRectangle</a> (uint16_t <a class="el" href="_l_c_d_8c.html#aedb5fdfe3c1d1a915b668ba7f3950753">x1</a>, uint16_t dx, uint16_t <a class="el" href="_l_c_d_8c.html#a47ada631c22a9d40348069145654f255">y1</a>, uint16_t dy)</td></tr>
 <tr class="memdesc:ga7376d48d050abfcb9a9aa9f63c764089"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a rectangle of size <code>dx</code> x <code>dy</code> onto the display. The bottom-left corner will be located at <code>(x1, y1)</code>.  <br /></td></tr>
 <tr class="separator:ga7376d48d050abfcb9a9aa9f63c764089"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7083e0c0d2ef4ae2b9d8fe1b4c6dcdcd" id="r_ga7083e0c0d2ef4ae2b9d8fe1b4c6dcdcd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lcd.html#ga7083e0c0d2ef4ae2b9d8fe1b4c6dcdcd">LCD_plotSample</a> (uint16_t x, uint16_t y, uint8_t color)</td></tr>
+<tr class="memdesc:ga7083e0c0d2ef4ae2b9d8fe1b4c6dcdcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Plot a sample at coordinates <code>(x, y)</code>.  <br /></td></tr>
+<tr class="separator:ga7083e0c0d2ef4ae2b9d8fe1b4c6dcdcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Module for displaying graphs on an LCD via the <a class="el" href="group__ili9341.html">ILI9341</a> module. </p>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="gab2ad7c69d2022e2f414ed88414343635" name="gab2ad7c69d2022e2f414ed88414343635"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab2ad7c69d2022e2f414ed88414343635">&#9670;&#160;</a></span>LCD_WRITING_INFO</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="group__lcd.html#gab2ad7c69d2022e2f414ed88414343635">LCD_WRITING_INFO</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000001">Bug:</a></b></dt><dd>Writing words to the display is not functional at the moment due to the SPI refactor </dd></dl>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="ga226bd4545458e4c0b7841ed116061239" name="ga226bd4545458e4c0b7841ed116061239"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga226bd4545458e4c0b7841ed116061239">&#9670;&#160;</a></span>LCD_drawLine()</h2>
@@ -791,17 +803,14 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>LCD_updateCurs
 
 </div>
 </div>
-<a id="gaf2d5d3d71c8f7428ce3d63af9c67ee0d" name="gaf2d5d3d71c8f7428ce3d63af9c67ee0d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaf2d5d3d71c8f7428ce3d63af9c67ee0d">&#9670;&#160;</a></span>LCD_plotSample()</h2>
+<a id="ga7083e0c0d2ef4ae2b9d8fe1b4c6dcdcd" name="ga7083e0c0d2ef4ae2b9d8fe1b4c6dcdcd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7083e0c0d2ef4ae2b9d8fe1b4c6dcdcd">&#9670;&#160;</a></span>LCD_plotSample()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static void LCD_plotSample </td>
+          <td class="memname">void LCD_plotSample </td>
           <td>(</td>
           <td class="paramtype">uint16_t&#160;</td>
           <td class="paramname"><em>x</em>, </td>
@@ -824,11 +833,6 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>LCD_updateCurs
           <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 <p>Plot a sample at coordinates <code>(x, y)</code>. </p>

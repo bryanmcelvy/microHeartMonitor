@@ -98,7 +98,7 @@ $(document).ready(function(){initNavTree('group__spi.html',''); initResizable();
 <div class="header">
   <div class="summary">
 <a href="#files">Files</a> &#124;
-<a href="#define-members">Macros</a> &#124;
+<a href="#nested-classes">Data Structures</a> &#124;
 <a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
@@ -127,106 +127,336 @@ Files</h2></td></tr>
 <tr class="memdesc:_s_p_i_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Header file for serial peripheral interface (SPI) module. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:ga49a7a9f52181391f13e59dc23c562456" id="r_ga49a7a9f52181391f13e59dc23c562456"><td class="memItemLeft" align="right" valign="top"><a id="ga49a7a9f52181391f13e59dc23c562456" name="ga49a7a9f52181391f13e59dc23c562456"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>SPI_IS_BUSY</b>&#160;&#160;&#160;(SSI0_SR_R &amp; 0x10)</td></tr>
-<tr class="separator:ga49a7a9f52181391f13e59dc23c562456"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gadc3cc3688a7a13463d90aad4e861e525" id="r_gadc3cc3688a7a13463d90aad4e861e525"><td class="memItemLeft" align="right" valign="top"><a id="gadc3cc3688a7a13463d90aad4e861e525" name="gadc3cc3688a7a13463d90aad4e861e525"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>SPI_TX_ISNOTFULL</b>&#160;&#160;&#160;(SSI0_SR_R &amp; 0x02)</td></tr>
-<tr class="separator:gadc3cc3688a7a13463d90aad4e861e525"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae2b968b0c4496b52bfdebb1b39866b8f" id="r_gae2b968b0c4496b52bfdebb1b39866b8f"><td class="memItemLeft" align="right" valign="top"><a id="gae2b968b0c4496b52bfdebb1b39866b8f" name="gae2b968b0c4496b52bfdebb1b39866b8f"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>SPI_CLEAR_RESET</b>()&#160;&#160;&#160;(GPIO_PORTA_DATA_R &amp;= ~(0x80))</td></tr>
-<tr class="separator:gae2b968b0c4496b52bfdebb1b39866b8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga12d7a81280b41afa9edf31de10bcde9f" id="r_ga12d7a81280b41afa9edf31de10bcde9f"><td class="memItemLeft" align="right" valign="top"><a id="ga12d7a81280b41afa9edf31de10bcde9f" name="ga12d7a81280b41afa9edf31de10bcde9f"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>SPI_SET_RESET</b>()&#160;&#160;&#160;(GPIO_PORTA_DATA_R |= 0x80)</td></tr>
-<tr class="separator:ga12d7a81280b41afa9edf31de10bcde9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Data Structures</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_spi_struct__t.html">Spi_t</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:ga96e322779949665cfb60efb2589b0bbc" id="r_ga96e322779949665cfb60efb2589b0bbc"><td class="memItemLeft" align="right" valign="top"><a id="ga96e322779949665cfb60efb2589b0bbc" name="ga96e322779949665cfb60efb2589b0bbc"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>PINS</b> { <br />
-&#160;&#160;<b>CLK_PIN</b> = GPIO_PIN2
-, <b>CS_PIN</b> = GPIO_PIN3
-, <b>RX_PIN</b> = GPIO_PIN4
-, <b>TX_PIN</b> = GPIO_PIN5
+<tr class="memitem:ga89db67b783afd655c23c4538f88ad5d2" id="r_ga89db67b783afd655c23c4538f88ad5d2"><td class="memItemLeft" align="right" valign="top"><a id="ga89db67b783afd655c23c4538f88ad5d2" name="ga89db67b783afd655c23c4538f88ad5d2"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>GPIO_PORT_BASE_ADDRESSES</b> { <br />
+&#160;&#160;<b>GPIO_PORTA_BASE_ADDRESS</b> = (uint32_t) 0x40004000
+, <b>GPIO_PORTB_BASE_ADDRESS</b> = (uint32_t) 0x40005000
+, <b>GPIO_PORTC_BASE_ADDRESS</b> = (uint32_t) 0x40006000
+, <b>GPIO_PORTD_BASE_ADDRESS</b> = (uint32_t) 0x40007000
 , <br />
-&#160;&#160;<b>DC_PIN</b> = GPIO_PIN6
-, <b>RESET_PIN</b> = GPIO_PIN7
-, <b>SSI0_PINS</b> = (CLK_PIN | CS_PIN | RX_PIN | TX_PIN)
-, <b>GPIO_PINS</b> = (DC_PIN | RESET_PIN)
-, <br />
-&#160;&#160;<b>ALL_PINS</b> = (SSI0_PINS | GPIO_PINS)
+&#160;&#160;<b>GPIO_PORTE_BASE_ADDRESS</b> = (uint32_t) 0x40024000
+, <b>GPIO_PORTF_BASE_ADDRESS</b> = (uint32_t) 0x40025000
 <br />
  }</td></tr>
-<tr class="separator:ga96e322779949665cfb60efb2589b0bbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:ga89db67b783afd655c23c4538f88ad5d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga17df1ee42e40458cec1f6af78019cd17" id="r_ga17df1ee42e40458cec1f6af78019cd17"><td class="memItemLeft" align="right" valign="top"><a id="ga17df1ee42e40458cec1f6af78019cd17" name="ga17df1ee42e40458cec1f6af78019cd17"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>SSI_BASE_ADDRESSES</b> { <b>SSI0_BASE_ADDR</b> = (uint32_t) 0x40008000
+, <b>SSI1_BASE_ADDR</b> = (uint32_t) 0x40009000
+, <b>SSI2_BASE_ADDR</b> = (uint32_t) 0x4000A000
+, <b>SSI3_BASE_ADDR</b> = (uint32_t) 0x4000B000
+ }</td></tr>
+<tr class="separator:ga17df1ee42e40458cec1f6af78019cd17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5a30e9d024377e33bfaa041a502478b5" id="r_ga5a30e9d024377e33bfaa041a502478b5"><td class="memItemLeft" align="right" valign="top"><a id="ga5a30e9d024377e33bfaa041a502478b5" name="ga5a30e9d024377e33bfaa041a502478b5"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>SSI_REGISTER_OFFSETS</b> { <br />
+&#160;&#160;<b>CTRL0_OFFSET</b> = (uint32_t) 0
+, <b>CTRL1_OFFSET</b> = (uint32_t) 0x004
+, <b>DATA_OFFSET</b> = (uint32_t) 0x008
+, <b>STATUS_OFFSET</b> = (uint32_t) 0x00C
+, <br />
+&#160;&#160;<b>CLK_PRESCALE_OFFSET</b> = (uint32_t) 0x010
+, <b>INT_MASK_OFFSET</b> = (uint32_t) 0x014
+, <b>RAW_INT_STATUS_OFFSET</b> = (uint32_t) 0x018
+, <b>MASKED_INT_STATUS_OFFSET</b> = (uint32_t) 0x01C
+, <br />
+&#160;&#160;<b>INT_CLEAR_OFFSET</b> = (uint32_t) 0x020
+<br />
+ }</td></tr>
+<tr class="separator:ga5a30e9d024377e33bfaa041a502478b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga81987b6205172db9810f1820bbc2bd9d" id="r_ga81987b6205172db9810f1820bbc2bd9d"><td class="memItemLeft" align="right" valign="top"><a id="ga81987b6205172db9810f1820bbc2bd9d" name="ga81987b6205172db9810f1820bbc2bd9d"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>SsiNum_t</b> { <b>SSI0</b>
+, <b>SSI1</b>
+, <b>SSI2</b>
+, <b>SSI3</b>
+ }</td></tr>
+<tr class="separator:ga81987b6205172db9810f1820bbc2bd9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga71bd9fe10b382c6b1bfb0787a69ce09f" id="r_ga71bd9fe10b382c6b1bfb0787a69ce09f"><td class="memItemLeft" align="right" valign="top"><a id="ga71bd9fe10b382c6b1bfb0787a69ce09f" name="ga71bd9fe10b382c6b1bfb0787a69ce09f"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>SpiClockPhase_t</b> { <b>SPI_RISING_EDGE</b>
+, <b>SPI_FALLING_EDGE</b>
+ }</td></tr>
+<tr class="separator:ga71bd9fe10b382c6b1bfb0787a69ce09f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga79a975dc59fde1f3c76eee3cc3b6e665" id="r_ga79a975dc59fde1f3c76eee3cc3b6e665"><td class="memItemLeft" align="right" valign="top"><a id="ga79a975dc59fde1f3c76eee3cc3b6e665" name="ga79a975dc59fde1f3c76eee3cc3b6e665"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>SpiClockPolarity_t</b> { <b>SPI_STEADY_STATE_LOW</b>
+, <b>SPI_STEADY_STATE_HIGH</b>
+ }</td></tr>
+<tr class="separator:ga79a975dc59fde1f3c76eee3cc3b6e665"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga292196e767158c66f03cbcc244fc802b" id="r_ga292196e767158c66f03cbcc244fc802b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__spi.html#ga292196e767158c66f03cbcc244fc802b">SPI_Init</a> (void)</td></tr>
-<tr class="memdesc:ga292196e767158c66f03cbcc244fc802b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize SSI0 to act as an SPI Controller (AKA Master) in mode 0.  <br /></td></tr>
-<tr class="separator:ga292196e767158c66f03cbcc244fc802b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6242f21fb4eeb0b0d458a2dab99a2552" id="r_ga6242f21fb4eeb0b0d458a2dab99a2552"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__spi.html#ga6242f21fb4eeb0b0d458a2dab99a2552">SPI_Read</a> (void)</td></tr>
-<tr class="memdesc:ga6242f21fb4eeb0b0d458a2dab99a2552"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read data from the serial port.  <br /></td></tr>
-<tr class="separator:ga6242f21fb4eeb0b0d458a2dab99a2552"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga4af5374bd5bd835b362adca35fab1217" id="r_ga4af5374bd5bd835b362adca35fab1217"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__spi.html#ga4af5374bd5bd835b362adca35fab1217">SPI_WriteCmd</a> (uint8_t cmd)</td></tr>
-<tr class="memdesc:ga4af5374bd5bd835b362adca35fab1217"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a command to the serial port.  <br /></td></tr>
-<tr class="separator:ga4af5374bd5bd835b362adca35fab1217"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab05978905b571422f5d88afef9727241" id="r_gab05978905b571422f5d88afef9727241"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__spi.html#gab05978905b571422f5d88afef9727241">SPI_WriteData</a> (uint8_t data)</td></tr>
-<tr class="memdesc:gab05978905b571422f5d88afef9727241"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write data to the serial port.  <br /></td></tr>
-<tr class="separator:gab05978905b571422f5d88afef9727241"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga83e904678d18299d6f71a172a86c3bfa" id="r_ga83e904678d18299d6f71a172a86c3bfa"><td class="memItemLeft" align="right" valign="top">Spi_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__spi.html#ga83e904678d18299d6f71a172a86c3bfa">SPI_Init</a> (GpioPort_t gpioPort, GpioPin_t dcPin, SsiNum_t ssiNum)</td></tr>
+<tr class="memdesc:ga83e904678d18299d6f71a172a86c3bfa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize an SSI as an SPI controller.  <br /></td></tr>
+<tr class="separator:ga83e904678d18299d6f71a172a86c3bfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9191a8e825d0d05e089a9dc97d28d020" id="r_ga9191a8e825d0d05e089a9dc97d28d020"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__spi.html#ga9191a8e825d0d05e089a9dc97d28d020">SPI_isInit</a> (Spi_t spi)</td></tr>
+<tr class="memdesc:ga9191a8e825d0d05e089a9dc97d28d020"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if a given SPI is initialized.  <br /></td></tr>
+<tr class="separator:ga9191a8e825d0d05e089a9dc97d28d020"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga95e1631b8a3aeaecf665db7074b2f468" id="r_ga95e1631b8a3aeaecf665db7074b2f468"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__spi.html#ga95e1631b8a3aeaecf665db7074b2f468">SPI_configClock</a> (Spi_t spi, SpiClockPhase_t clockPhase, SpiClockPolarity_t clockPolarity)</td></tr>
+<tr class="memdesc:ga95e1631b8a3aeaecf665db7074b2f468"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure an SPI's clock settings.  <br /></td></tr>
+<tr class="separator:ga95e1631b8a3aeaecf665db7074b2f468"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafd950db236a4bc5c02978247cf281cf5" id="r_gafd950db236a4bc5c02978247cf281cf5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__spi.html#gafd950db236a4bc5c02978247cf281cf5">SPI_setDataSize</a> (Spi_t spi, uint8_t dataSize)</td></tr>
+<tr class="separator:gafd950db236a4bc5c02978247cf281cf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga394283ad2fe9941dfedb2f776b277807" id="r_ga394283ad2fe9941dfedb2f776b277807"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__spi.html#ga394283ad2fe9941dfedb2f776b277807">SPI_Enable</a> (Spi_t spi)</td></tr>
+<tr class="memdesc:ga394283ad2fe9941dfedb2f776b277807"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable an SPI.  <br /></td></tr>
+<tr class="separator:ga394283ad2fe9941dfedb2f776b277807"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9a15b09160ad8db6fda07c3172c6d950" id="r_ga9a15b09160ad8db6fda07c3172c6d950"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__spi.html#ga9a15b09160ad8db6fda07c3172c6d950">SPI_Disable</a> (Spi_t spi)</td></tr>
+<tr class="memdesc:ga9a15b09160ad8db6fda07c3172c6d950"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable an SPI.  <br /></td></tr>
+<tr class="separator:ga9a15b09160ad8db6fda07c3172c6d950"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga20d0c5a87f8b5a10b54a6f6a3b46f5cf" id="r_ga20d0c5a87f8b5a10b54a6f6a3b46f5cf"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__spi.html#ga20d0c5a87f8b5a10b54a6f6a3b46f5cf">SPI_Read</a> (Spi_t spi)</td></tr>
+<tr class="memdesc:ga20d0c5a87f8b5a10b54a6f6a3b46f5cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read data from the serial port.  <br /></td></tr>
+<tr class="separator:ga20d0c5a87f8b5a10b54a6f6a3b46f5cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad82bd4615394e5a432f7182e203128a2" id="r_gad82bd4615394e5a432f7182e203128a2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__spi.html#gad82bd4615394e5a432f7182e203128a2">SPI_WriteCmd</a> (Spi_t spi, uint16_t cmd)</td></tr>
+<tr class="memdesc:gad82bd4615394e5a432f7182e203128a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a command to the serial port.  <br /></td></tr>
+<tr class="separator:gad82bd4615394e5a432f7182e203128a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad906c842af313047ff35e271b9a5f4c3" id="r_gad906c842af313047ff35e271b9a5f4c3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__spi.html#gad906c842af313047ff35e271b9a5f4c3">SPI_WriteData</a> (Spi_t spi, uint16_t data)</td></tr>
+<tr class="memdesc:gad906c842af313047ff35e271b9a5f4c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write data to the serial port.  <br /></td></tr>
+<tr class="separator:gad906c842af313047ff35e271b9a5f4c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:ga805d1db6ebdaa2daede9ae079c2a8ed4" id="r_ga805d1db6ebdaa2daede9ae079c2a8ed4"><td class="memItemLeft" align="right" valign="top"><a id="ga805d1db6ebdaa2daede9ae079c2a8ed4" name="ga805d1db6ebdaa2daede9ae079c2a8ed4"></a>
-static register_t&#160;</td><td class="memItemRight" valign="bottom"><b>gpioPortReg</b> = 0</td></tr>
-<tr class="separator:ga805d1db6ebdaa2daede9ae079c2a8ed4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabfa81201ae7c989c1725114e427a9d87" id="r_gabfa81201ae7c989c1725114e427a9d87"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="struct_spi_struct__t.html">SpiStruct_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__spi.html#gabfa81201ae7c989c1725114e427a9d87">SPI_ARR</a> [4]</td></tr>
+<tr class="separator:gabfa81201ae7c989c1725114e427a9d87"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Functions for SPI-based communication via the SSI peripheral. </p>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="ga292196e767158c66f03cbcc244fc802b" name="ga292196e767158c66f03cbcc244fc802b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga292196e767158c66f03cbcc244fc802b">&#9670;&#160;</a></span>SPI_Init()</h2>
+<a id="ga83e904678d18299d6f71a172a86c3bfa" name="ga83e904678d18299d6f71a172a86c3bfa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga83e904678d18299d6f71a172a86c3bfa">&#9670;&#160;</a></span>SPI_Init()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void SPI_Init </td>
+          <td class="memname">Spi_t SPI_Init </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">GpioPort_t&#160;</td>
+          <td class="paramname"><em>gpioPort</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GpioPin_t&#160;</td>
+          <td class="paramname"><em>dcPin</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SsiNum_t&#160;</td>
+          <td class="paramname"><em>ssiNum</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initialize an SSI as an SPI controller. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">gpioPort</td><td>GPIO port to use. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">dcPin</td><td>GPIO pin to use. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ssiNum</td><td>SSI to use. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">Spi_t</td><td>(Pointer to) initialized SPI peripheral. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ga9191a8e825d0d05e089a9dc97d28d020" name="ga9191a8e825d0d05e089a9dc97d28d020"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9191a8e825d0d05e089a9dc97d28d020">&#9670;&#160;</a></span>SPI_isInit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SPI_isInit </td>
+          <td>(</td>
+          <td class="paramtype">Spi_t&#160;</td>
+          <td class="paramname"><em>spi</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Initialize SSI0 to act as an SPI Controller (AKA Master) in mode 0. </p>
-<p>The bit rate <code>BR</code> is set using the (positive, even-numbered) clock prescale divisor <code>CPSDVSR</code> and the <code>SCR</code> field in the SSI Control 0 (<code>CR0</code>) register:</p>
-<p><img class="formulaInl" alt="$ BR = f_{bus} / ( CPSDVSR * (1 + SCR) ) $" src="form_27.png" width="210" height="14"/></p>
-<p>The ILI9341 driver has a min. read cycle of 150 [ns] and a min. write cycle of 100 [ns], so the bit rate <code>BR</code> is set to be equal to the bus frequency ( <img class="formulaInl" alt="$ f_{bus} = 80 [MHz] $" src="form_28.png" width="88" height="14"/>) divided by 8, allowing a bit rate of 10 [MHz], or a period of 100 [ns].</p>
+<p>Check if a given SPI is initialized. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">spi</td><td>SPI to check. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">true</td><td>The SPI is initialized. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">false</td><td>The SPI is not initialized. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
-<a id="ga6242f21fb4eeb0b0d458a2dab99a2552" name="ga6242f21fb4eeb0b0d458a2dab99a2552"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga6242f21fb4eeb0b0d458a2dab99a2552">&#9670;&#160;</a></span>SPI_Read()</h2>
+<a id="ga95e1631b8a3aeaecf665db7074b2f468" name="ga95e1631b8a3aeaecf665db7074b2f468"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga95e1631b8a3aeaecf665db7074b2f468">&#9670;&#160;</a></span>SPI_configClock()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t SPI_Read </td>
+          <td class="memname">void SPI_configClock </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">Spi_t&#160;</td>
+          <td class="paramname"><em>spi</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SpiClockPhase_t&#160;</td>
+          <td class="paramname"><em>clockPhase</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SpiClockPolarity_t&#160;</td>
+          <td class="paramname"><em>clockPolarity</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Configure an SPI's clock settings. </p>
+<dl class="section pre"><dt>Precondition</dt><dd>Initialize the SPI. </dd>
+<dd>
+Disable the SPI.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">spi</td><td>SPI to configure. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">clockPhase</td><td></td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">clockPolarity</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="gafd950db236a4bc5c02978247cf281cf5" name="gafd950db236a4bc5c02978247cf281cf5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gafd950db236a4bc5c02978247cf281cf5">&#9670;&#160;</a></span>SPI_setDataSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SPI_setDataSize </td>
+          <td>(</td>
+          <td class="paramtype">Spi_t&#160;</td>
+          <td class="paramname"><em>spi</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>dataSize</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section pre"><dt>Precondition</dt><dd>Initialize the SPI. </dd>
+<dd>
+Disable the SPI.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">spi</td><td></td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">dataSize</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ga394283ad2fe9941dfedb2f776b277807" name="ga394283ad2fe9941dfedb2f776b277807"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga394283ad2fe9941dfedb2f776b277807">&#9670;&#160;</a></span>SPI_Enable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SPI_Enable </td>
+          <td>(</td>
+          <td class="paramtype">Spi_t&#160;</td>
+          <td class="paramname"><em>spi</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enable an SPI. </p>
+<dl class="section pre"><dt>Precondition</dt><dd>Initialize the SPI. </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">spi</td><td>SPI to enable. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section post"><dt>Postcondition</dt><dd>The SPI is enable.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__spi.html#ga9a15b09160ad8db6fda07c3172c6d950" title="Disable an SPI.">SPI_Disable()</a> </dd></dl>
+
+</div>
+</div>
+<a id="ga9a15b09160ad8db6fda07c3172c6d950" name="ga9a15b09160ad8db6fda07c3172c6d950"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9a15b09160ad8db6fda07c3172c6d950">&#9670;&#160;</a></span>SPI_Disable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SPI_Disable </td>
+          <td>(</td>
+          <td class="paramtype">Spi_t&#160;</td>
+          <td class="paramname"><em>spi</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Disable an SPI. </p>
+<dl class="section pre"><dt>Precondition</dt><dd>Initialize the SPI. </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">spi</td><td>SPI to disable. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section post"><dt>Postcondition</dt><dd>The SPI is disabled.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__spi.html#ga394283ad2fe9941dfedb2f776b277807" title="Enable an SPI.">SPI_Enable()</a> </dd></dl>
+
+</div>
+</div>
+<a id="ga20d0c5a87f8b5a10b54a6f6a3b46f5cf" name="ga20d0c5a87f8b5a10b54a6f6a3b46f5cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga20d0c5a87f8b5a10b54a6f6a3b46f5cf">&#9670;&#160;</a></span>SPI_Read()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t SPI_Read </td>
+          <td>(</td>
+          <td class="paramtype">Spi_t&#160;</td>
+          <td class="paramname"><em>spi</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Read data from the serial port. </p>
-<dl class="section pre"><dt>Precondition</dt><dd>Initialize the SPI module.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>Initialize the SPI. </dd>
+<dd>
+Enable the SPI.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">spi</td><td>SPI to read from. </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">data</td><td>8-bit data received from the hardware's receive FIFO. </td></tr>
   </table>
   </dd>
@@ -234,8 +464,8 @@ static register_t&#160;</td><td class="memItemRight" valign="bottom"><b>gpioPort
 
 </div>
 </div>
-<a id="ga4af5374bd5bd835b362adca35fab1217" name="ga4af5374bd5bd835b362adca35fab1217"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga4af5374bd5bd835b362adca35fab1217">&#9670;&#160;</a></span>SPI_WriteCmd()</h2>
+<a id="gad82bd4615394e5a432f7182e203128a2" name="gad82bd4615394e5a432f7182e203128a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad82bd4615394e5a432f7182e203128a2">&#9670;&#160;</a></span>SPI_WriteCmd()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -243,29 +473,42 @@ static register_t&#160;</td><td class="memItemRight" valign="bottom"><b>gpioPort
         <tr>
           <td class="memname">void SPI_WriteCmd </td>
           <td>(</td>
-          <td class="paramtype">uint8_t&#160;</td>
-          <td class="paramname"><em>cmd</em></td><td>)</td>
+          <td class="paramtype">Spi_t&#160;</td>
+          <td class="paramname"><em>spi</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>cmd</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Write a command to the serial port. </p>
-<dl class="section pre"><dt>Precondition</dt><dd>Initialize the SPI module.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>Initialize the SPI. </dd>
+<dd>
+Enable the SPI.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">cmd</td><td>8-bit command to write.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">spi</td><td>SPI to write to. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">cmd</td><td>Command to write.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section post"><dt>Postcondition</dt><dd>The D/C pin is cleared. </dd>
 <dd>
-The data is added to the hardware's transmit FIFO. </dd></dl>
+The command is added to the hardware's transmit FIFO. </dd></dl>
 
 </div>
 </div>
-<a id="gab05978905b571422f5d88afef9727241" name="gab05978905b571422f5d88afef9727241"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gab05978905b571422f5d88afef9727241">&#9670;&#160;</a></span>SPI_WriteData()</h2>
+<a id="gad906c842af313047ff35e271b9a5f4c3" name="gad906c842af313047ff35e271b9a5f4c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad906c842af313047ff35e271b9a5f4c3">&#9670;&#160;</a></span>SPI_WriteData()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -273,18 +516,31 @@ The data is added to the hardware's transmit FIFO. </dd></dl>
         <tr>
           <td class="memname">void SPI_WriteData </td>
           <td>(</td>
-          <td class="paramtype">uint8_t&#160;</td>
-          <td class="paramname"><em>data</em></td><td>)</td>
+          <td class="paramtype">Spi_t&#160;</td>
+          <td class="paramname"><em>spi</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>data</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Write data to the serial port. </p>
-<dl class="section pre"><dt>Precondition</dt><dd>Initialize the SPI module.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>Initialize the SPI. </dd>
+<dd>
+Enable the SPI.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">data</td><td>8-bit data to write.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">spi</td><td>SPI to write to. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">data</td><td>Data to write.</td></tr>
   </table>
   </dd>
 </dl>
@@ -292,6 +548,39 @@ The data is added to the hardware's transmit FIFO. </dd></dl>
 <dd>
 The data is added to the hardware's transmit FIFO. </dd></dl>
 
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="gabfa81201ae7c989c1725114e427a9d87" name="gabfa81201ae7c989c1725114e427a9d87"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gabfa81201ae7c989c1725114e427a9d87">&#9670;&#160;</a></span>SPI_ARR</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_spi_struct__t.html">SpiStruct_t</a> SPI_ARR[4]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    { SSI0_BASE_ADDR, (<span class="keyword">volatile</span> uint32_t *) (SSI0_BASE_ADDR + DATA_OFFSET),</div>
+<div class="line">      (<span class="keyword">volatile</span> uint32_t *) (SSI0_BASE_ADDR + STATUS_OFFSET), 0, 0, 0, <span class="keyword">false</span>, <span class="keyword">false</span> },</div>
+<div class="line">    { SSI1_BASE_ADDR, (<span class="keyword">volatile</span> uint32_t *) (SSI1_BASE_ADDR + DATA_OFFSET),</div>
+<div class="line">      (<span class="keyword">volatile</span> uint32_t *) (SSI1_BASE_ADDR + STATUS_OFFSET), 0, 0, 0, <span class="keyword">false</span>, <span class="keyword">false</span> },</div>
+<div class="line">    { SSI2_BASE_ADDR, (<span class="keyword">volatile</span> uint32_t *) (SSI2_BASE_ADDR + DATA_OFFSET),</div>
+<div class="line">      (<span class="keyword">volatile</span> uint32_t *) (SSI2_BASE_ADDR + STATUS_OFFSET), 0, 0, 0, <span class="keyword">false</span>, <span class="keyword">false</span> },</div>
+<div class="line">    { SSI3_BASE_ADDR, (<span class="keyword">volatile</span> uint32_t *) (SSI3_BASE_ADDR + DATA_OFFSET),</div>
+<div class="line">      (<span class="keyword">volatile</span> uint32_t *) (SSI3_BASE_ADDR + STATUS_OFFSET), 0, 0, 0, <span class="keyword">false</span>, <span class="keyword">false</span> },</div>
+<div class="line">}</div>
+</div><!-- fragment -->
 </div>
 </div>
 </div><!-- contents -->

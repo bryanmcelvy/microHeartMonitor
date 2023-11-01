@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['ili9341_5finit_0',['ILI9341_Init',['../group__ili9341.html#ga25f956211b3a0b127406cfe1919b6a0a',1,'ILI9341.c']]],
+  ['ili9341_5finit_0',['ILI9341_Init',['../group__ili9341.html#ga81e55f413bd2f505a6cd6a2a67f58d35',1,'ILI9341.c']]],
   ['ili9341_5fresethard_1',['ILI9341_resetHard',['../group__ili9341.html#gaa9d8b9fb6740c1a6c84b3095c5438b50',1,'ILI9341.c']]],
   ['ili9341_5fresetsoft_2',['ILI9341_resetSoft',['../group__ili9341.html#ga33117548c2e2b50614d40d56c0899d50',1,'ILI9341.c']]],
   ['ili9341_5fsendparams_3',['ILI9341_sendParams',['../group__ili9341.html#gad8506db0d5f17efc227d357cb00508b3',1,'ILI9341.c']]],

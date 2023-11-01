@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['uartstruct_5ft_0',['UartStruct_t',['../struct_uart_struct__t.html',1,'']]]
+  ['timerstruct_5ft_0',['TimerStruct_t',['../struct_timer_struct__t.html',1,'']]]
 ];

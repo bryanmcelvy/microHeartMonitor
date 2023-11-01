@@ -35,8 +35,6 @@ $
 threshold = f(signalLevel, noiseLevel) = noiseLevel + 0.25(signalLevel - noiseLevel)
 $
 \_form#26=21x14:$y[n]$
-\_form#27=210x14:$ BR = f_{bus} / ( CPSDVSR * (1 + SCR) ) $
-\_form#28=88x14:$ f_{bus} = 80 [MHz] $
-\_form#29=128x14:$ BRD = f_{bus}/(16*BR) $
-\_form#30=110x14:$ IBRD = int( BRD ) $
-\_form#31=223x14:$ FBRD = int( ( mod(BRD,1) * 64 ) + 0.5 ) $
+\_form#27=128x14:$ BRD = f_{bus}/(16*BR) $
+\_form#28=110x14:$ IBRD = int( BRD ) $
+\_form#29=223x14:$ FBRD = int( ( mod(BRD,1) * 64 ) + 0.5 ) $

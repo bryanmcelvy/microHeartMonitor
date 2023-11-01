@@ -5,5 +5,6 @@ var searchData=
   ['based_20heart_20rate_20monitor_2',['uHeartMonitor: An ECG-based Heart Rate Monitor',['../index.html',1,'']]],
   ['buffer_3',['buffer',['../struct_fifo_struct__t.html#a6c7fdab148d70895ae931a6fecf7cf0c',1,'FifoStruct_t']]],
   ['buffers_4',['FIFO Buffers',['../group__fifo.html',1,'']]],
-  ['build_20instructions_5',['Build Instructions',['../index.html#sec_build',1,'']]]
+  ['bug_20list_5',['Bug List',['../bug.html',1,'']]],
+  ['build_20instructions_6',['Build Instructions',['../index.html#sec_build',1,'']]]
 ];

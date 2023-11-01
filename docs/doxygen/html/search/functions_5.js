@@ -8,7 +8,7 @@ var searchData=
   ['lcd_5ffill_5',['LCD_Fill',['../group__lcd.html#ga41b39e813f1fd856470d1a92f2c28244',1,'LCD.c']]],
   ['lcd_5fhandler_6',['LCD_Handler',['../group__main.html#ga1890a82316e87ba37054b38f1e602102',1,'main.c']]],
   ['lcd_5finit_7',['LCD_Init',['../group__lcd.html#gaa53c9d40f3aa552a9974cd55ac510cb3',1,'LCD.c']]],
-  ['lcd_5fplotsample_8',['LCD_plotSample',['../group__lcd.html#gaf2d5d3d71c8f7428ce3d63af9c67ee0d',1,'LCD.c']]],
+  ['lcd_5fplotsample_8',['LCD_plotSample',['../group__lcd.html#ga7083e0c0d2ef4ae2b9d8fe1b4c6dcdcd',1,'LCD.c']]],
   ['lcd_5fsetcolor_9',['LCD_setColor',['../group__lcd.html#ga0144733d5f74031c48da53d3eb5fb551',1,'LCD.c']]],
   ['lcd_5fsetcursor_10',['LCD_setCursor',['../group__lcd.html#ga57ddc181b0786fe5c1de439c4eb66a4c',1,'LCD.c']]],
   ['lcd_5fsetoutputmode_11',['LCD_setOutputMode',['../group__lcd.html#ga6ed60bd705f235e845e5c65507862b25',1,'LCD.c']]],

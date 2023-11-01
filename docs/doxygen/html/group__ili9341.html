@@ -201,9 +201,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gad8506db0d5f17efc227d357cb00508b3" id="r_gad8506db0d5f17efc227d357cb00508b3"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ili9341.html#gad8506db0d5f17efc227d357cb00508b3">ILI9341_sendParams</a> (<a class="el" href="group__ili9341.html#ga13f208b6f7f5cab976154336d1acf3c4">Cmd_t</a> cmd)</td></tr>
 <tr class="memdesc:gad8506db0d5f17efc227d357cb00508b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a command and/or the data within the FIFO buffer. A command is only sent when <code>cmd != NOP</code> (where <code>NOP = 0</code>). Data is only sent if the FIFO buffer is not empty.  <br /></td></tr>
 <tr class="separator:gad8506db0d5f17efc227d357cb00508b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga25f956211b3a0b127406cfe1919b6a0a" id="r_ga25f956211b3a0b127406cfe1919b6a0a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ili9341.html#ga25f956211b3a0b127406cfe1919b6a0a">ILI9341_Init</a> (Timer_t timer)</td></tr>
-<tr class="memdesc:ga25f956211b3a0b127406cfe1919b6a0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the LCD driver and the SPI module.  <br /></td></tr>
-<tr class="separator:ga25f956211b3a0b127406cfe1919b6a0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga81e55f413bd2f505a6cd6a2a67f58d35" id="r_ga81e55f413bd2f505a6cd6a2a67f58d35"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ili9341.html#ga81e55f413bd2f505a6cd6a2a67f58d35">ILI9341_Init</a> (GpioPort_t resetPinPort, GpioPin_t resetPin, Spi_t spi, Timer_t timer)</td></tr>
+<tr class="memdesc:ga81e55f413bd2f505a6cd6a2a67f58d35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the LCD driver.  <br /></td></tr>
+<tr class="separator:ga81e55f413bd2f505a6cd6a2a67f58d35"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga96d94a4a6d65157a22f3663edd006863" id="r_ga96d94a4a6d65157a22f3663edd006863"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ili9341.html#ga96d94a4a6d65157a22f3663edd006863">ILI9341_setInterface</a> (void)</td></tr>
 <tr class="memdesc:ga96d94a4a6d65157a22f3663edd006863"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the interface for the ILI9341.  <br /></td></tr>
 <tr class="separator:ga96d94a4a6d65157a22f3663edd006863"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -261,8 +261,7 @@ static uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>ILI9341_Bu
 <tr class="memitem:gaa2e76ddc2a3599d7a5843d3dffbb32e7" id="r_gaa2e76ddc2a3599d7a5843d3dffbb32e7"><td class="memItemLeft" align="right" valign="top"><a id="gaa2e76ddc2a3599d7a5843d3dffbb32e7" name="gaa2e76ddc2a3599d7a5843d3dffbb32e7"></a>
 static Fifo_t&#160;</td><td class="memItemRight" valign="bottom"><b>ILI9341_Fifo</b></td></tr>
 <tr class="separator:gaa2e76ddc2a3599d7a5843d3dffbb32e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gad8281adc30a5a5615889b9b3ee9ce58f" id="r_gad8281adc30a5a5615889b9b3ee9ce58f"><td class="memItemLeft" ><a id="gad8281adc30a5a5615889b9b3ee9ce58f" name="gad8281adc30a5a5615889b9b3ee9ce58f"></a>
-struct {&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="memitem:gad8281adc30a5a5615889b9b3ee9ce58f" id="r_gad8281adc30a5a5615889b9b3ee9ce58f"><td class="memItemLeft" >struct {&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga57b4117f67af946fa8fb2f39b6bd772f" id="r_ga57b4117f67af946fa8fb2f39b6bd772f"><td class="memItemLeft" >
 &#160;&#160;&#160;sleepMode_t&#160;&#160;&#160;<b>sleepMode</b>&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
@@ -282,10 +281,19 @@ struct {&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
 <tr class="memitem:gaac52664691a57ae0ba57c03321b00e9d" id="r_gaac52664691a57ae0ba57c03321b00e9d"><td class="memItemLeft" >
 &#160;&#160;&#160;colorDepth_t&#160;&#160;&#160;<b>colorDepth</b>&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
 <tr class="separator:gaac52664691a57ae0ba57c03321b00e9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa556d7546816cd0f57573b478c8be23c" id="r_gaa556d7546816cd0f57573b478c8be23c"><td class="memItemLeft" >
+&#160;&#160;&#160;volatile uint32_t *&#160;&#160;&#160;<b>resetPinDataRegister</b>&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="separator:gaa556d7546816cd0f57573b478c8be23c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac8f6e5521f6462663df8793c04dde48c" id="r_gac8f6e5521f6462663df8793c04dde48c"><td class="memItemLeft" >
+&#160;&#160;&#160;GpioPin_t&#160;&#160;&#160;<b>resetPin</b>&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="separator:gac8f6e5521f6462663df8793c04dde48c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga122b330046418212850e6c539ae4d5e3" id="r_ga122b330046418212850e6c539ae4d5e3"><td class="memItemLeft" >
+&#160;&#160;&#160;Spi_t&#160;&#160;&#160;<b>spi</b>&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="separator:ga122b330046418212850e6c539ae4d5e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae99ff99d9f8e8936406ef57716d5c752" id="r_gae99ff99d9f8e8936406ef57716d5c752"><td class="memItemLeft" >
 &#160;&#160;&#160;bool&#160;&#160;&#160;<b>isInit</b>&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
 <tr class="separator:gae99ff99d9f8e8936406ef57716d5c752"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gad8281adc30a5a5615889b9b3ee9ce58f" id="r_gad8281adc30a5a5615889b9b3ee9ce58f"><td class="memItemLeft" valign="top">}&#160;</td><td class="memItemRight" valign="bottom"><b>ili9341</b> = { SLEEP_ON, NORMAL_AREA, FULL_COLORS, INVERT_OFF, OUTPUT_ON, COLORDEPTH_16BIT, false }&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="memitem:gad8281adc30a5a5615889b9b3ee9ce58f" id="r_gad8281adc30a5a5615889b9b3ee9ce58f"><td class="memItemLeft" valign="top">}&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ili9341.html#gad8281adc30a5a5615889b9b3ee9ce58f">ili9341</a>&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
 <tr class="separator:gad8281adc30a5a5615889b9b3ee9ce58f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -403,9 +411,8 @@ of rows available on the display</h1>
   </tr>
 </table>
 </div><div class="memdoc">
-<pre class="fragment">     This function simply groups each of the configuration functions
-     into one to reduce code duplication.
-</pre>
+<p>This function simply groups each of the configuration functions into one to reduce code duplication.</p>
+
 </div>
 </div>
 <a id="ga41ef82a67a674f5567aa5e81a326a1aa" name="ga41ef82a67a674f5567aa5e81a326a1aa"></a>
@@ -488,8 +495,8 @@ Address Set" (<code>PASET</code>) commands from p. 110-113 of the ILI9341 datash
 
 </div>
 </div>
-<a id="ga25f956211b3a0b127406cfe1919b6a0a" name="ga25f956211b3a0b127406cfe1919b6a0a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga25f956211b3a0b127406cfe1919b6a0a">&#9670;&#160;</a></span>ILI9341_Init()</h2>
+<a id="ga81e55f413bd2f505a6cd6a2a67f58d35" name="ga81e55f413bd2f505a6cd6a2a67f58d35"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga81e55f413bd2f505a6cd6a2a67f58d35">&#9670;&#160;</a></span>ILI9341_Init()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -497,20 +504,56 @@ Address Set" (<code>PASET</code>) commands from p. 110-113 of the ILI9341 datash
         <tr>
           <td class="memname">void ILI9341_Init </td>
           <td>(</td>
-          <td class="paramtype">Timer_t&#160;</td>
-          <td class="paramname"><em>timer</em></td><td>)</td>
+          <td class="paramtype">GpioPort_t&#160;</td>
+          <td class="paramname"><em>resetPinPort</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">GpioPin_t&#160;</td>
+          <td class="paramname"><em>resetPin</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Spi_t&#160;</td>
+          <td class="paramname"><em>spi</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Timer_t&#160;</td>
+          <td class="paramname"><em>timer</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Initialize the LCD driver and the SPI module. </p>
+<p>Initialize the LCD driver. </p>
+<dl class="section pre"><dt>Precondition</dt><dd>Initialize the GPIO port. </dd>
+<dd>
+Initialize the SPI module. </dd>
+<dd>
+Initialize the Timer.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">timer</td><td>Hardware timer to use during initialization. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">resetPinPort</td><td>The GPIO port that the <code>RESET</code> pin belongs to. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">resetPin</td><td>The GPIO pin used as the <code>RESET</code> pin. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">spi</td><td>The SPI module to use for communication. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">timer</td><td>The hardware timer to use during initialization.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section post"><dt>Postcondition</dt><dd>The <code>RESET</code> is configured as a digital <code>OUTPUT</code> pin. </dd>
+<dd>
+The SPI is configured and enabled. </dd>
+<dd>
+The LCD driver is initialized and ready to accept commands.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__gpio.html#ga08dc5447832fe78e237240adfc3ad12e" title="Initialize a GPIO Port and return a pointer to its struct.">GPIO_InitPort()</a>, <a class="el" href="group__spi.html#ga83e904678d18299d6f71a172a86c3bfa" title="Initialize an SSI as an SPI controller.">SPI_Init()</a>, <a class="el" href="group__timer.html#gabbe7ddfee80710ee275fa049b2ec4b72" title="Initialize a hardware timer.">Timer_Init()</a> </dd></dl>
 
 </div>
 </div>
@@ -1125,6 +1168,23 @@ Set the desired color depth for the display.</dd></dl>
 <td class="markdownTableBodyNone">Value   </td><td class="markdownTableBodyNone">R5   </td><td class="markdownTableBodyNone">R4   </td><td class="markdownTableBodyNone">R3   </td><td class="markdownTableBodyNone">R2   </td><td class="markdownTableBodyNone">R1   </td><td class="markdownTableBodyNone">R0   </td><td class="markdownTableBodyNone">0/1   </td><td class="markdownTableBodyNone">0/1   </td><td class="markdownTableBodyNone">G5   </td><td class="markdownTableBodyNone">G4   </td><td class="markdownTableBodyNone">...   </td></tr>
 </table>
 
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="gad8281adc30a5a5615889b9b3ee9ce58f" name="gad8281adc30a5a5615889b9b3ee9ce58f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad8281adc30a5a5615889b9b3ee9ce58f">&#9670;&#160;</a></span>[struct]</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct  { ... }  ili9341</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= { SLEEP_ON,         NORMAL_AREA, FULL_COLORS, INVERT_OFF, OUTPUT_ON,</div>
+<div class="line">              COLORDEPTH_16BIT, 0,           0,           0,          <span class="keyword">false</span> }</div>
+</div><!-- fragment -->
 </div>
 </div>
 </div><!-- contents -->
