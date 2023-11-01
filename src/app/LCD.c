@@ -138,9 +138,9 @@ void LCD_Draw(void) {
         B = 1;
     }
     else {
-        R = 0x1F * (lcd.color & 0x04);
+        R = 0x1F * ((lcd.color & 0x04) >> 2);
+        G = 0x3F * ((lcd.color & 0x02) >> 1);
         B = 0x1F * (lcd.color & 0x01);
-        G = 0x3F * (lcd.color & 0x02);
     }
 
     uint32_t numPixels = (uint32_t) ((lcd.x2 - lcd.x1) + 1) * ((lcd.y2 - lcd.y1) + 1);
