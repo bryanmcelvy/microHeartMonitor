@@ -24,7 +24,13 @@ Figure 3 from Martinek, et. al. [1]
 
 @image latex figures/martinek_fig_3.png width=15cm
 
+@htmlonly
 The ***μHeartMonitor*** is an embedded system that implements the Pan-Tompkins algorithm for QRS detection. The system consists of both hardware and software that cooperate to achieve this task while also visually outputting the ECG waveform and heart rate to a liquid crystal display (LCD). The text below and the contents of this repository reflect the current progress made, but the end goal is to have the full system mounted on 1-2 printed circuit boards (PCBs) situated inside an insulated enclosure.
+@endhtmlonly
+
+@latexonly
+The uHeartMonitor is an embedded system that implements the Pan-Tompkins algorithm for QRS detection. The system consists of both hardware and software that cooperate to achieve this task while also visually outputting the ECG waveform and heart rate to a liquid crystal display (LCD). The text below and the contents of this repository reflect the current progress made, but the end goal is to have the full system mounted on 1-2 printed circuit boards (PCBs) situated inside an insulated enclosure.
+@endlatexonly
 
 @subsection sec_intro_mot Motivation
 My primary motivations for doing this project are:

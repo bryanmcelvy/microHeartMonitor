@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['list_0',['Bug List',['../bug.html',1,'']]]
+  ['monitor_0',['uHeartMonitor: An ECG-based Heart Rate Monitor',['../index.html',1,'']]]
 ];

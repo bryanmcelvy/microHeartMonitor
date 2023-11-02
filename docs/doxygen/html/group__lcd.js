@@ -3,7 +3,6 @@ var group__lcd =
     [ "Font.c", "_font_8c.html", null ],
     [ "LCD.c", "_l_c_d_8c.html", null ],
     [ "LCD.h", "_l_c_d_8h.html", null ],
-    [ "LCD_WRITING_INFO", "group__lcd.html#gab2ad7c69d2022e2f414ed88414343635", null ],
     [ "LCD_drawLine", "group__lcd.html#ga226bd4545458e4c0b7841ed116061239", null ],
     [ "LCD_updateCursor", "group__lcd.html#ga2b4011314152b7f7acf20b4794f32b48", null ],
     [ "LCD_Init", "group__lcd.html#gaa53c9d40f3aa552a9974cd55ac510cb3", null ],

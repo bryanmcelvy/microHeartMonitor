@@ -329,7 +329,11 @@ static uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>LCD_prevSa
 <dl class="section pre"><dt>Precondition</dt><dd>Initialize the DAQ module. </dd></dl>
 <dl class="section post"><dt>Postcondition</dt><dd>The converted sample is placed in the DAQ FIFO, and the processing ISR is triggered.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group__daq.html#ga1d718b59416dc3f6b886f8e8925985ee" title="Initialize the data acquisition (DAQ) module.">DAQ_Init()</a>, <a class="el" href="group__main.html#gabd64590c20b3a5a03ce696dbcda3d3b0" title="ISR for intermediate processing of the input data.">Processing_Handler()</a></dd></dl>
- 
+<div class="image">
+<img src="main3_daq.png" alt="" width="150cm"/>
+<div class="caption">
+Flowchart for the DAQ handler.</div></div>
+  
 </div>
 </div>
 <a id="gabd64590c20b3a5a03ce696dbcda3d3b0" name="gabd64590c20b3a5a03ce696dbcda3d3b0"></a>
@@ -362,7 +366,11 @@ static uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>LCD_prevSa
 <dd>
 The converted sample is placed in the QRS FIFO, and the flag is set.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group__main.html#gaaa87dec0608c075f264acaa28d298293" title="ISR for the data acquisition system.">DAQ_Handler()</a>, <a class="el" href="group__main.html#ga840291bc02cba5474a4cb46a9b9566fe" title="Main function for the project.">main()</a>, <a class="el" href="group__main.html#ga1890a82316e87ba37054b38f1e602102" title="ISR for plotting the waveform and outputting the heart rate to the LCD.">LCD_Handler()</a></dd></dl>
- 
+<div class="image">
+<img src="main4_proc.png" alt="" width="350cm"/>
+<div class="caption">
+Flowchart for the processing handler.</div></div>
+  
 </div>
 </div>
 <a id="ga1890a82316e87ba37054b38f1e602102" name="ga1890a82316e87ba37054b38f1e602102"></a>
@@ -395,8 +403,12 @@ The converted sample is placed in the QRS FIFO, and the flag is set.</dd></dl>
 <dl class="section post"><dt>Postcondition</dt><dd>The bandpass-filtered sample is plotted to the LCD. </dd>
 <dd>
 The heart rate is updated after each block is analyzed.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__lcd.html#gaa53c9d40f3aa552a9974cd55ac510cb3" title="Initialize the LCD.">LCD_Init()</a>, <a class="el" href="group__main.html#gabd64590c20b3a5a03ce696dbcda3d3b0" title="ISR for intermediate processing of the input data.">Processing_Handler()</a>, <a class="el" href="group__main.html#ga840291bc02cba5474a4cb46a9b9566fe" title="Main function for the project.">main()</a> </dd></dl>
-
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__lcd.html#gaa53c9d40f3aa552a9974cd55ac510cb3" title="Initialize the LCD.">LCD_Init()</a>, <a class="el" href="group__main.html#gabd64590c20b3a5a03ce696dbcda3d3b0" title="ISR for intermediate processing of the input data.">Processing_Handler()</a>, <a class="el" href="group__main.html#ga840291bc02cba5474a4cb46a9b9566fe" title="Main function for the project.">main()</a></dd></dl>
+<div class="image">
+<img src="main5_lcd.png" alt="" width="350cm"/>
+<div class="caption">
+Flowchart for the LCD handler.</div></div>
+  
 </div>
 </div>
 <a id="ga840291bc02cba5474a4cb46a9b9566fe" name="ga840291bc02cba5474a4cb46a9b9566fe"></a>
@@ -417,8 +429,15 @@ The heart rate is updated after each block is analyzed.</dd></dl>
 
 <p>Main function for the project. </p>
 <p>Moves the interrupt vector table to RAM; configures and enables the ISRs; initializes all modules and static variables; and performs QRS detection once the buffer has been filled.</p>
-<p>  </p>
-<div class="dynheader">
+<div class="image">
+<img src="main1_init.png" alt="" width="150cm"/>
+<div class="caption">
+Flowchart for the initialization phase.</div></div>
+  <div class="image">
+<img src="main2_superloop.png" alt="" width="150cm"/>
+<div class="caption">
+Flowchart for the superloop.</div></div>
+  <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__main_ga840291bc02cba5474a4cb46a9b9566fe_cgraph.png" border="0" usemap="#agroup__main_ga840291bc02cba5474a4cb46a9b9566fe_cgraph" alt=""/></div>
