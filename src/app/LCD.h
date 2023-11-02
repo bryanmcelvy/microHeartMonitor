@@ -186,8 +186,6 @@ Writing
 *******************************************************************************/
 /** @name Writing */               /// @{
 
-/// @bug Writing words to the display is not functional at the moment due to the SPI refactor
-
 enum LCD_WRITING_INFO {
     HEIGHT_CHAR = 8,
     LEN_CHAR = 5,
