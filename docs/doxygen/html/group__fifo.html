@@ -108,15 +108,6 @@ $(document).ready(function(){initNavTree('group__fifo.html',''); initResizable()
 
 <p>Module for using the "first-in first-out (FIFO) buffer" data structure.  
 <a href="#details">More...</a></p>
-<div class="dynheader">
-Collaboration diagram for FIFO Buffers:</div>
-<div class="dyncontent">
-<div class="center"><img src="group__fifo.png" border="0" usemap="#agroup____fifo" alt=""/></div>
-<map name="agroup____fifo" id="agroup____fifo">
-<area shape="rect" href="group__common.html" title="Modules that are used by multiple layers and/or don&#39;t fit into any one layer." alt="" coords="5,5,80,31"/>
-<area shape="rect" title="Module for using the &quot;first&#45;in first&#45;out (FIFO) buffer&quot; data structure." alt="" coords="128,5,225,31"/>
-</map>
-</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="files" name="files"></a>
 Files</h2></td></tr>
@@ -140,12 +131,12 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga525c571d68ff9ac5100c83e27283b113" id="r_ga525c571d68ff9ac5100c83e27283b113"><td class="memItemLeft" align="right" valign="top">Fifo_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__fifo.html#ga525c571d68ff9ac5100c83e27283b113">FIFO_Init</a> (volatile uint32_t buffer[], const uint32_t N)</td></tr>
-<tr class="memdesc:ga525c571d68ff9ac5100c83e27283b113"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize a FIFO buffer of length <code>N</code>.  <br /></td></tr>
-<tr class="separator:ga525c571d68ff9ac5100c83e27283b113"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga2d5c86b5fe502bb97abf6e2ae493f3ce" id="r_ga2d5c86b5fe502bb97abf6e2ae493f3ce"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__fifo.html#ga2d5c86b5fe502bb97abf6e2ae493f3ce">FIFO_Reset</a> (volatile Fifo_t fifo)</td></tr>
-<tr class="memdesc:ga2d5c86b5fe502bb97abf6e2ae493f3ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset the FIFO buffer.  <br /></td></tr>
-<tr class="separator:ga2d5c86b5fe502bb97abf6e2ae493f3ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga633860451fbd13513862ed1126cea143" id="r_ga633860451fbd13513862ed1126cea143"><td class="memItemLeft" align="right" valign="top">Fifo_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__fifo.html#ga633860451fbd13513862ed1126cea143">Fifo_Init</a> (volatile uint32_t buffer[], const uint32_t N)</td></tr>
+<tr class="memdesc:ga633860451fbd13513862ed1126cea143"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize a FIFO buffer of length <code>N</code>.  <br /></td></tr>
+<tr class="separator:ga633860451fbd13513862ed1126cea143"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0a83842220ad1e1684490f0c8c3ca1e9" id="r_ga0a83842220ad1e1684490f0c8c3ca1e9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__fifo.html#ga0a83842220ad1e1684490f0c8c3ca1e9">Fifo_Reset</a> (volatile Fifo_t fifo)</td></tr>
+<tr class="memdesc:ga0a83842220ad1e1684490f0c8c3ca1e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset the FIFO buffer.  <br /></td></tr>
+<tr class="separator:ga0a83842220ad1e1684490f0c8c3ca1e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -158,55 +149,55 @@ static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>numFreeFifo
 <tr class="separator:ga6ac176fb7da63751ba78059515a0f880"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader">Basic Operations</h2></td></tr>
-<tr class="memitem:ga4fc0e1d9f0ab9af996430200051f022f" id="r_ga4fc0e1d9f0ab9af996430200051f022f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__fifo.html#ga4fc0e1d9f0ab9af996430200051f022f">FIFO_Put</a> (volatile Fifo_t fifo, const uint32_t val)</td></tr>
-<tr class="memdesc:ga4fc0e1d9f0ab9af996430200051f022f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a value to the end of the buffer.  <br /></td></tr>
-<tr class="separator:ga4fc0e1d9f0ab9af996430200051f022f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga086981b6f2851ab9ac7e9ed6c06046be" id="r_ga086981b6f2851ab9ac7e9ed6c06046be"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__fifo.html#ga086981b6f2851ab9ac7e9ed6c06046be">FIFO_Get</a> (volatile Fifo_t fifo)</td></tr>
-<tr class="memdesc:ga086981b6f2851ab9ac7e9ed6c06046be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove the first value of the buffer.  <br /></td></tr>
-<tr class="separator:ga086981b6f2851ab9ac7e9ed6c06046be"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7fc114414a6171bab23317d02e7077bf" id="r_ga7fc114414a6171bab23317d02e7077bf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__fifo.html#ga7fc114414a6171bab23317d02e7077bf">FIFO_Flush</a> (volatile Fifo_t fifo, uint32_t outputBuffer[])</td></tr>
-<tr class="memdesc:ga7fc114414a6171bab23317d02e7077bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Empty the FIFO buffer's contents into an array.  <br /></td></tr>
-<tr class="separator:ga7fc114414a6171bab23317d02e7077bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8adfbc9bf1730dc691e5d10073ab823d" id="r_ga8adfbc9bf1730dc691e5d10073ab823d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__fifo.html#ga8adfbc9bf1730dc691e5d10073ab823d">FIFO_PutFloat</a> (volatile Fifo_t fifo, const float val)</td></tr>
-<tr class="memdesc:ga8adfbc9bf1730dc691e5d10073ab823d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a floating-point value to the end of the buffer.  <br /></td></tr>
-<tr class="separator:ga8adfbc9bf1730dc691e5d10073ab823d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa5263a767ddc95fb7975f825f929a924" id="r_gaa5263a767ddc95fb7975f825f929a924"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__fifo.html#gaa5263a767ddc95fb7975f825f929a924">FIFO_GetFloat</a> (volatile Fifo_t fifo)</td></tr>
-<tr class="memdesc:gaa5263a767ddc95fb7975f825f929a924"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove the first value of the buffer, and cast it to <code>float</code>.  <br /></td></tr>
-<tr class="separator:gaa5263a767ddc95fb7975f825f929a924"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaabd652676894094bec0ed79e7892be38" id="r_gaabd652676894094bec0ed79e7892be38"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__fifo.html#gaabd652676894094bec0ed79e7892be38">FIFO_FlushFloat</a> (volatile Fifo_t fifo, float outputBuffer[])</td></tr>
-<tr class="memdesc:gaabd652676894094bec0ed79e7892be38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Empty the FIFO buffer into an array of floating-point values.  <br /></td></tr>
-<tr class="separator:gaabd652676894094bec0ed79e7892be38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf68b2cfb40ab050d1de771f7ce276ae1" id="r_gaf68b2cfb40ab050d1de771f7ce276ae1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__fifo.html#gaf68b2cfb40ab050d1de771f7ce276ae1">Fifo_Put</a> (volatile Fifo_t fifo, const uint32_t val)</td></tr>
+<tr class="memdesc:gaf68b2cfb40ab050d1de771f7ce276ae1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a value to the end of the buffer.  <br /></td></tr>
+<tr class="separator:gaf68b2cfb40ab050d1de771f7ce276ae1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6a20ad9b707e4b8ccbef29f6ebaf7ea8" id="r_ga6a20ad9b707e4b8ccbef29f6ebaf7ea8"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__fifo.html#ga6a20ad9b707e4b8ccbef29f6ebaf7ea8">Fifo_Get</a> (volatile Fifo_t fifo)</td></tr>
+<tr class="memdesc:ga6a20ad9b707e4b8ccbef29f6ebaf7ea8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove the first value of the buffer.  <br /></td></tr>
+<tr class="separator:ga6a20ad9b707e4b8ccbef29f6ebaf7ea8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga52f0797f2c3af8db878babcdacc6242c" id="r_ga52f0797f2c3af8db878babcdacc6242c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__fifo.html#ga52f0797f2c3af8db878babcdacc6242c">Fifo_Flush</a> (volatile Fifo_t fifo, uint32_t outputBuffer[])</td></tr>
+<tr class="memdesc:ga52f0797f2c3af8db878babcdacc6242c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Empty the FIFO buffer's contents into an array.  <br /></td></tr>
+<tr class="separator:ga52f0797f2c3af8db878babcdacc6242c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga666d3b6d48902e82cd5c33883a9ccf23" id="r_ga666d3b6d48902e82cd5c33883a9ccf23"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__fifo.html#ga666d3b6d48902e82cd5c33883a9ccf23">Fifo_PutFloat</a> (volatile Fifo_t fifo, const float val)</td></tr>
+<tr class="memdesc:ga666d3b6d48902e82cd5c33883a9ccf23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a floating-point value to the end of the buffer.  <br /></td></tr>
+<tr class="separator:ga666d3b6d48902e82cd5c33883a9ccf23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa380ef9605518fc998d51d06cc2b65fc" id="r_gaa380ef9605518fc998d51d06cc2b65fc"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__fifo.html#gaa380ef9605518fc998d51d06cc2b65fc">Fifo_GetFloat</a> (volatile Fifo_t fifo)</td></tr>
+<tr class="memdesc:gaa380ef9605518fc998d51d06cc2b65fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove the first value of the buffer, and cast it to <code>float</code>.  <br /></td></tr>
+<tr class="separator:gaa380ef9605518fc998d51d06cc2b65fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6e95564c4286c38fbec21c15213566ad" id="r_ga6e95564c4286c38fbec21c15213566ad"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__fifo.html#ga6e95564c4286c38fbec21c15213566ad">Fifo_FlushFloat</a> (volatile Fifo_t fifo, float outputBuffer[])</td></tr>
+<tr class="memdesc:ga6e95564c4286c38fbec21c15213566ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Empty the FIFO buffer into an array of floating-point values.  <br /></td></tr>
+<tr class="separator:ga6e95564c4286c38fbec21c15213566ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader">Peeking</h2></td></tr>
-<tr class="memitem:gac0a9a1831d213f0b28b762969b8a8a6b" id="r_gac0a9a1831d213f0b28b762969b8a8a6b"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__fifo.html#gac0a9a1831d213f0b28b762969b8a8a6b">FIFO_PeekOne</a> (volatile Fifo_t fifo)</td></tr>
-<tr class="memdesc:gac0a9a1831d213f0b28b762969b8a8a6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">See the first element in the FIFO without removing it.  <br /></td></tr>
-<tr class="separator:gac0a9a1831d213f0b28b762969b8a8a6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf5e5f067eee84e89063cf45faf4418e6" id="r_gaf5e5f067eee84e89063cf45faf4418e6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__fifo.html#gaf5e5f067eee84e89063cf45faf4418e6">FIFO_PeekAll</a> (volatile Fifo_t fifo, uint32_t outputBuffer[])</td></tr>
-<tr class="memdesc:gaf5e5f067eee84e89063cf45faf4418e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">See the FIFO buffer's contents without removing them.  <br /></td></tr>
-<tr class="separator:gaf5e5f067eee84e89063cf45faf4418e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga29a8388a2915767fa7885b0f1627d1f0" id="r_ga29a8388a2915767fa7885b0f1627d1f0"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__fifo.html#ga29a8388a2915767fa7885b0f1627d1f0">Fifo_PeekOne</a> (volatile Fifo_t fifo)</td></tr>
+<tr class="memdesc:ga29a8388a2915767fa7885b0f1627d1f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">See the first element in the FIFO without removing it.  <br /></td></tr>
+<tr class="separator:ga29a8388a2915767fa7885b0f1627d1f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab70a834e9ca12db9817f15f9342d9fb7" id="r_gab70a834e9ca12db9817f15f9342d9fb7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__fifo.html#gab70a834e9ca12db9817f15f9342d9fb7">Fifo_PeekAll</a> (volatile Fifo_t fifo, uint32_t outputBuffer[])</td></tr>
+<tr class="memdesc:gab70a834e9ca12db9817f15f9342d9fb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">See the FIFO buffer's contents without removing them.  <br /></td></tr>
+<tr class="separator:gab70a834e9ca12db9817f15f9342d9fb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader">Status Checks</h2></td></tr>
-<tr class="memitem:gacf3244c97c4f567bc1ee42c926f228de" id="r_gacf3244c97c4f567bc1ee42c926f228de"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__fifo.html#gacf3244c97c4f567bc1ee42c926f228de">FIFO_isFull</a> (volatile Fifo_t fifo)</td></tr>
-<tr class="memdesc:gacf3244c97c4f567bc1ee42c926f228de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the FIFO buffer is full.  <br /></td></tr>
-<tr class="separator:gacf3244c97c4f567bc1ee42c926f228de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga89c83b8b9afc2d78f9d03a6a34eef0b6" id="r_ga89c83b8b9afc2d78f9d03a6a34eef0b6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__fifo.html#ga89c83b8b9afc2d78f9d03a6a34eef0b6">FIFO_isEmpty</a> (volatile Fifo_t fifo)</td></tr>
-<tr class="memdesc:ga89c83b8b9afc2d78f9d03a6a34eef0b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the FIFO buffer is empty.  <br /></td></tr>
-<tr class="separator:ga89c83b8b9afc2d78f9d03a6a34eef0b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga05e8dac96888da8a28db5337d4dd95c9" id="r_ga05e8dac96888da8a28db5337d4dd95c9"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__fifo.html#ga05e8dac96888da8a28db5337d4dd95c9">FIFO_getCurrSize</a> (volatile Fifo_t fifo)</td></tr>
-<tr class="memdesc:ga05e8dac96888da8a28db5337d4dd95c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the current size of the FIFO buffer.  <br /></td></tr>
-<tr class="separator:ga05e8dac96888da8a28db5337d4dd95c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga27bfb943ac834fd7a1bf79cbce3e4af8" id="r_ga27bfb943ac834fd7a1bf79cbce3e4af8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__fifo.html#ga27bfb943ac834fd7a1bf79cbce3e4af8">Fifo_isFull</a> (volatile Fifo_t fifo)</td></tr>
+<tr class="memdesc:ga27bfb943ac834fd7a1bf79cbce3e4af8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the FIFO buffer is full.  <br /></td></tr>
+<tr class="separator:ga27bfb943ac834fd7a1bf79cbce3e4af8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae944d60dc7c317e611e1a06712eb60a3" id="r_gae944d60dc7c317e611e1a06712eb60a3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__fifo.html#gae944d60dc7c317e611e1a06712eb60a3">Fifo_isEmpty</a> (volatile Fifo_t fifo)</td></tr>
+<tr class="memdesc:gae944d60dc7c317e611e1a06712eb60a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the FIFO buffer is empty.  <br /></td></tr>
+<tr class="separator:gae944d60dc7c317e611e1a06712eb60a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7c7a581b982e97b236cdc2840ce956f0" id="r_ga7c7a581b982e97b236cdc2840ce956f0"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__fifo.html#ga7c7a581b982e97b236cdc2840ce956f0">Fifo_getCurrSize</a> (volatile Fifo_t fifo)</td></tr>
+<tr class="memdesc:ga7c7a581b982e97b236cdc2840ce956f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the current size of the FIFO buffer.  <br /></td></tr>
+<tr class="separator:ga7c7a581b982e97b236cdc2840ce956f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Module for using the "first-in first-out (FIFO) buffer" data structure. </p>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="ga525c571d68ff9ac5100c83e27283b113" name="ga525c571d68ff9ac5100c83e27283b113"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga525c571d68ff9ac5100c83e27283b113">&#9670;&#160;</a></span>FIFO_Init()</h2>
+<a id="ga633860451fbd13513862ed1126cea143" name="ga633860451fbd13513862ed1126cea143"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga633860451fbd13513862ed1126cea143">&#9670;&#160;</a></span>Fifo_Init()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">Fifo_t FIFO_Init </td>
+          <td class="memname">Fifo_t Fifo_Init </td>
           <td>(</td>
           <td class="paramtype">volatile uint32_t&#160;</td>
           <td class="paramname"><em>buffer</em>[], </td>
@@ -239,14 +230,14 @@ static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>numFreeFifo
 
 </div>
 </div>
-<a id="ga2d5c86b5fe502bb97abf6e2ae493f3ce" name="ga2d5c86b5fe502bb97abf6e2ae493f3ce"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga2d5c86b5fe502bb97abf6e2ae493f3ce">&#9670;&#160;</a></span>FIFO_Reset()</h2>
+<a id="ga0a83842220ad1e1684490f0c8c3ca1e9" name="ga0a83842220ad1e1684490f0c8c3ca1e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga0a83842220ad1e1684490f0c8c3ca1e9">&#9670;&#160;</a></span>Fifo_Reset()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void FIFO_Reset </td>
+          <td class="memname">void Fifo_Reset </td>
           <td>(</td>
           <td class="paramtype">volatile Fifo_t&#160;</td>
           <td class="paramname"><em>fifo</em></td><td>)</td>
@@ -266,14 +257,14 @@ static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>numFreeFifo
 
 </div>
 </div>
-<a id="ga4fc0e1d9f0ab9af996430200051f022f" name="ga4fc0e1d9f0ab9af996430200051f022f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga4fc0e1d9f0ab9af996430200051f022f">&#9670;&#160;</a></span>FIFO_Put()</h2>
+<a id="gaf68b2cfb40ab050d1de771f7ce276ae1" name="gaf68b2cfb40ab050d1de771f7ce276ae1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf68b2cfb40ab050d1de771f7ce276ae1">&#9670;&#160;</a></span>Fifo_Put()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void FIFO_Put </td>
+          <td class="memname">void Fifo_Put </td>
           <td>(</td>
           <td class="paramtype">volatile Fifo_t&#160;</td>
           <td class="paramname"><em>fifo</em>, </td>
@@ -301,18 +292,18 @@ static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>numFreeFifo
   </dd>
 </dl>
 <dl class="section post"><dt>Postcondition</dt><dd>If the FIFO is not full, <code>val</code> is placed in the buffer. If the FIFO is full, nothing happens.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__fifo.html#ga8adfbc9bf1730dc691e5d10073ab823d" title="Add a floating-point value to the end of the buffer.">FIFO_PutFloat()</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__fifo.html#ga666d3b6d48902e82cd5c33883a9ccf23" title="Add a floating-point value to the end of the buffer.">Fifo_PutFloat()</a> </dd></dl>
 
 </div>
 </div>
-<a id="ga086981b6f2851ab9ac7e9ed6c06046be" name="ga086981b6f2851ab9ac7e9ed6c06046be"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga086981b6f2851ab9ac7e9ed6c06046be">&#9670;&#160;</a></span>FIFO_Get()</h2>
+<a id="ga6a20ad9b707e4b8ccbef29f6ebaf7ea8" name="ga6a20ad9b707e4b8ccbef29f6ebaf7ea8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6a20ad9b707e4b8ccbef29f6ebaf7ea8">&#9670;&#160;</a></span>Fifo_Get()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint32_t FIFO_Get </td>
+          <td class="memname">uint32_t Fifo_Get </td>
           <td>(</td>
           <td class="paramtype">volatile Fifo_t&#160;</td>
           <td class="paramname"><em>fifo</em></td><td>)</td>
@@ -330,18 +321,18 @@ static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>numFreeFifo
   </dd>
 </dl>
 <dl class="section post"><dt>Postcondition</dt><dd>If the FIFO is not empty, the next value is returned. If the FIFO is empty, <code>0</code> is returned.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__fifo.html#gaa5263a767ddc95fb7975f825f929a924" title="Remove the first value of the buffer, and cast it to float.">FIFO_GetFloat()</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__fifo.html#gaa380ef9605518fc998d51d06cc2b65fc" title="Remove the first value of the buffer, and cast it to float.">Fifo_GetFloat()</a> </dd></dl>
 
 </div>
 </div>
-<a id="ga7fc114414a6171bab23317d02e7077bf" name="ga7fc114414a6171bab23317d02e7077bf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga7fc114414a6171bab23317d02e7077bf">&#9670;&#160;</a></span>FIFO_Flush()</h2>
+<a id="ga52f0797f2c3af8db878babcdacc6242c" name="ga52f0797f2c3af8db878babcdacc6242c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga52f0797f2c3af8db878babcdacc6242c">&#9670;&#160;</a></span>Fifo_Flush()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void FIFO_Flush </td>
+          <td class="memname">void Fifo_Flush </td>
           <td>(</td>
           <td class="paramtype">volatile Fifo_t&#160;</td>
           <td class="paramname"><em>fifo</em>, </td>
@@ -369,18 +360,18 @@ static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>numFreeFifo
   </dd>
 </dl>
 <dl class="section post"><dt>Postcondition</dt><dd>The FIFO buffer's contents are transferred to the output buffer.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__fifo.html#gaabd652676894094bec0ed79e7892be38" title="Empty the FIFO buffer into an array of floating-point values.">FIFO_FlushFloat()</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__fifo.html#ga6e95564c4286c38fbec21c15213566ad" title="Empty the FIFO buffer into an array of floating-point values.">Fifo_FlushFloat()</a> </dd></dl>
 
 </div>
 </div>
-<a id="ga8adfbc9bf1730dc691e5d10073ab823d" name="ga8adfbc9bf1730dc691e5d10073ab823d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga8adfbc9bf1730dc691e5d10073ab823d">&#9670;&#160;</a></span>FIFO_PutFloat()</h2>
+<a id="ga666d3b6d48902e82cd5c33883a9ccf23" name="ga666d3b6d48902e82cd5c33883a9ccf23"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga666d3b6d48902e82cd5c33883a9ccf23">&#9670;&#160;</a></span>Fifo_PutFloat()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void FIFO_PutFloat </td>
+          <td class="memname">void Fifo_PutFloat </td>
           <td>(</td>
           <td class="paramtype">volatile Fifo_t&#160;</td>
           <td class="paramname"><em>fifo</em>, </td>
@@ -410,22 +401,22 @@ static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>numFreeFifo
 <dl class="section post"><dt>Postcondition</dt><dd>If the FIFO is not full, <code>val</code> is placed in the buffer. If the FIFO is full, nothing happens.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This was added to avoid needing to type-pun floating-point values. <div class="fragment"><div class="line"><span class="comment">// type-punning example</span></div>
 <div class="line"><span class="keywordtype">float</span> num = 4.252603;</div>
-<div class="line"><a class="code hl_function" href="group__fifo.html#ga4fc0e1d9f0ab9af996430200051f022f" title="Add a value to the end of the buffer.">FIFO_Put</a>(fifo, *((uint32_t *) &amp;num));</div>
-<div class="line"><a class="code hl_function" href="group__fifo.html#ga8adfbc9bf1730dc691e5d10073ab823d" title="Add a floating-point value to the end of the buffer.">FIFO_PutFloat</a>(fifo, num); <span class="comment">// same thing, but cleaner</span></div>
+<div class="line"><a class="code hl_function" href="group__fifo.html#gaf68b2cfb40ab050d1de771f7ce276ae1" title="Add a value to the end of the buffer.">Fifo_Put</a>(fifo, *((uint32_t *) &amp;num));</div>
+<div class="line"><a class="code hl_function" href="group__fifo.html#ga666d3b6d48902e82cd5c33883a9ccf23" title="Add a floating-point value to the end of the buffer.">Fifo_PutFloat</a>(fifo, num); <span class="comment">// same thing, but cleaner</span></div>
 </div><!-- fragment --></dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__fifo.html#ga4fc0e1d9f0ab9af996430200051f022f" title="Add a value to the end of the buffer.">FIFO_Put()</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__fifo.html#gaf68b2cfb40ab050d1de771f7ce276ae1" title="Add a value to the end of the buffer.">Fifo_Put()</a> </dd></dl>
 <dl class="section remark"><dt>Remarks</dt><dd>To properly use floating-point values, type-punning is necessary.</dd></dl>
 
 </div>
 </div>
-<a id="gaa5263a767ddc95fb7975f825f929a924" name="gaa5263a767ddc95fb7975f825f929a924"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaa5263a767ddc95fb7975f825f929a924">&#9670;&#160;</a></span>FIFO_GetFloat()</h2>
+<a id="gaa380ef9605518fc998d51d06cc2b65fc" name="gaa380ef9605518fc998d51d06cc2b65fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa380ef9605518fc998d51d06cc2b65fc">&#9670;&#160;</a></span>Fifo_GetFloat()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">float FIFO_GetFloat </td>
+          <td class="memname">float Fifo_GetFloat </td>
           <td>(</td>
           <td class="paramtype">volatile Fifo_t&#160;</td>
           <td class="paramname"><em>fifo</em></td><td>)</td>
@@ -445,22 +436,22 @@ static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>numFreeFifo
 <dl class="section post"><dt>Postcondition</dt><dd>If the FIFO is not empty, the next value is returned. If the FIFO is empty, <code>0</code> is returned.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This was added to avoid needing to type-pun floating-point values. <div class="fragment"><div class="line"><span class="comment">// type-punning example</span></div>
 <div class="line"><span class="keywordtype">float</span> num;</div>
-<div class="line">*((uint32_t *) &amp;num) = <a class="code hl_function" href="group__fifo.html#ga086981b6f2851ab9ac7e9ed6c06046be" title="Remove the first value of the buffer.">FIFO_Get</a>(fifo);</div>
-<div class="line">num = <a class="code hl_function" href="group__fifo.html#gaa5263a767ddc95fb7975f825f929a924" title="Remove the first value of the buffer, and cast it to float.">FIFO_GetFloat</a>(fifo);</div>
+<div class="line">*((uint32_t *) &amp;num) = <a class="code hl_function" href="group__fifo.html#ga6a20ad9b707e4b8ccbef29f6ebaf7ea8" title="Remove the first value of the buffer.">Fifo_Get</a>(fifo);</div>
+<div class="line">num = <a class="code hl_function" href="group__fifo.html#gaa380ef9605518fc998d51d06cc2b65fc" title="Remove the first value of the buffer, and cast it to float.">Fifo_GetFloat</a>(fifo);</div>
 </div><!-- fragment --></dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__fifo.html#ga086981b6f2851ab9ac7e9ed6c06046be" title="Remove the first value of the buffer.">FIFO_Get()</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__fifo.html#ga6a20ad9b707e4b8ccbef29f6ebaf7ea8" title="Remove the first value of the buffer.">Fifo_Get()</a> </dd></dl>
 <dl class="section remark"><dt>Remarks</dt><dd>To properly use floating-point values, type-punning is necessary.</dd></dl>
 
 </div>
 </div>
-<a id="gaabd652676894094bec0ed79e7892be38" name="gaabd652676894094bec0ed79e7892be38"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaabd652676894094bec0ed79e7892be38">&#9670;&#160;</a></span>FIFO_FlushFloat()</h2>
+<a id="ga6e95564c4286c38fbec21c15213566ad" name="ga6e95564c4286c38fbec21c15213566ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6e95564c4286c38fbec21c15213566ad">&#9670;&#160;</a></span>Fifo_FlushFloat()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void FIFO_FlushFloat </td>
+          <td class="memname">void Fifo_FlushFloat </td>
           <td>(</td>
           <td class="paramtype">volatile Fifo_t&#160;</td>
           <td class="paramname"><em>fifo</em>, </td>
@@ -489,21 +480,21 @@ static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>numFreeFifo
 </dl>
 <dl class="section post"><dt>Postcondition</dt><dd>The FIFO buffer's contents are transferred to the output buffer.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This was added to avoid needing to type-pun floating-point values. <div class="fragment"><div class="line"><span class="comment">// type-punning example</span></div>
-<div class="line"><a class="code hl_function" href="group__fifo.html#ga7fc114414a6171bab23317d02e7077bf" title="Empty the FIFO buffer&#39;s contents into an array.">FIFO_Flush</a>(fifo, (uint32_t *) outputBuffer);</div>
-<div class="line"><a class="code hl_function" href="group__fifo.html#gaabd652676894094bec0ed79e7892be38" title="Empty the FIFO buffer into an array of floating-point values.">FIFO_FlushFloat</a>(fifo, outputBuffer); <span class="comment">// same thing, but cleaner</span></div>
+<div class="line"><a class="code hl_function" href="group__fifo.html#ga52f0797f2c3af8db878babcdacc6242c" title="Empty the FIFO buffer&#39;s contents into an array.">Fifo_Flush</a>(fifo, (uint32_t *) outputBuffer);</div>
+<div class="line"><a class="code hl_function" href="group__fifo.html#ga6e95564c4286c38fbec21c15213566ad" title="Empty the FIFO buffer into an array of floating-point values.">Fifo_FlushFloat</a>(fifo, outputBuffer); <span class="comment">// same thing, but cleaner</span></div>
 </div><!-- fragment --></dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__fifo.html#ga7fc114414a6171bab23317d02e7077bf" title="Empty the FIFO buffer&#39;s contents into an array.">FIFO_Flush()</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__fifo.html#ga52f0797f2c3af8db878babcdacc6242c" title="Empty the FIFO buffer&#39;s contents into an array.">Fifo_Flush()</a> </dd></dl>
 
 </div>
 </div>
-<a id="gac0a9a1831d213f0b28b762969b8a8a6b" name="gac0a9a1831d213f0b28b762969b8a8a6b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gac0a9a1831d213f0b28b762969b8a8a6b">&#9670;&#160;</a></span>FIFO_PeekOne()</h2>
+<a id="ga29a8388a2915767fa7885b0f1627d1f0" name="ga29a8388a2915767fa7885b0f1627d1f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga29a8388a2915767fa7885b0f1627d1f0">&#9670;&#160;</a></span>Fifo_PeekOne()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint32_t FIFO_PeekOne </td>
+          <td class="memname">uint32_t Fifo_PeekOne </td>
           <td>(</td>
           <td class="paramtype">volatile Fifo_t&#160;</td>
           <td class="paramname"><em>fifo</em></td><td>)</td>
@@ -523,14 +514,14 @@ static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>numFreeFifo
 
 </div>
 </div>
-<a id="gaf5e5f067eee84e89063cf45faf4418e6" name="gaf5e5f067eee84e89063cf45faf4418e6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaf5e5f067eee84e89063cf45faf4418e6">&#9670;&#160;</a></span>FIFO_PeekAll()</h2>
+<a id="gab70a834e9ca12db9817f15f9342d9fb7" name="gab70a834e9ca12db9817f15f9342d9fb7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab70a834e9ca12db9817f15f9342d9fb7">&#9670;&#160;</a></span>Fifo_PeekAll()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void FIFO_PeekAll </td>
+          <td class="memname">void Fifo_PeekAll </td>
           <td>(</td>
           <td class="paramtype">volatile Fifo_t&#160;</td>
           <td class="paramname"><em>fifo</em>, </td>
@@ -561,14 +552,14 @@ static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>numFreeFifo
 
 </div>
 </div>
-<a id="gacf3244c97c4f567bc1ee42c926f228de" name="gacf3244c97c4f567bc1ee42c926f228de"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gacf3244c97c4f567bc1ee42c926f228de">&#9670;&#160;</a></span>FIFO_isFull()</h2>
+<a id="ga27bfb943ac834fd7a1bf79cbce3e4af8" name="ga27bfb943ac834fd7a1bf79cbce3e4af8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga27bfb943ac834fd7a1bf79cbce3e4af8">&#9670;&#160;</a></span>Fifo_isFull()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool FIFO_isFull </td>
+          <td class="memname">bool Fifo_isFull </td>
           <td>(</td>
           <td class="paramtype">volatile Fifo_t&#160;</td>
           <td class="paramname"><em>fifo</em></td><td>)</td>
@@ -589,14 +580,14 @@ static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>numFreeFifo
 
 </div>
 </div>
-<a id="ga89c83b8b9afc2d78f9d03a6a34eef0b6" name="ga89c83b8b9afc2d78f9d03a6a34eef0b6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga89c83b8b9afc2d78f9d03a6a34eef0b6">&#9670;&#160;</a></span>FIFO_isEmpty()</h2>
+<a id="gae944d60dc7c317e611e1a06712eb60a3" name="gae944d60dc7c317e611e1a06712eb60a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae944d60dc7c317e611e1a06712eb60a3">&#9670;&#160;</a></span>Fifo_isEmpty()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool FIFO_isEmpty </td>
+          <td class="memname">bool Fifo_isEmpty </td>
           <td>(</td>
           <td class="paramtype">volatile Fifo_t&#160;</td>
           <td class="paramname"><em>fifo</em></td><td>)</td>
@@ -617,14 +608,14 @@ static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>numFreeFifo
 
 </div>
 </div>
-<a id="ga05e8dac96888da8a28db5337d4dd95c9" name="ga05e8dac96888da8a28db5337d4dd95c9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga05e8dac96888da8a28db5337d4dd95c9">&#9670;&#160;</a></span>FIFO_getCurrSize()</h2>
+<a id="ga7c7a581b982e97b236cdc2840ce956f0" name="ga7c7a581b982e97b236cdc2840ce956f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7c7a581b982e97b236cdc2840ce956f0">&#9670;&#160;</a></span>Fifo_getCurrSize()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint32_t FIFO_getCurrSize </td>
+          <td class="memname">uint32_t Fifo_getCurrSize </td>
           <td>(</td>
           <td class="paramtype">volatile Fifo_t&#160;</td>
           <td class="paramname"><em>fifo</em></td><td>)</td>

@@ -2,6 +2,7 @@
 
 /**
  * @defgroup    app         Application Software
+ * @groupgraph
  * @brief       Application-specific software modules.
  *
  * @details     These modules contain functions built specifically for this project's purposes.
@@ -9,11 +10,13 @@
 
 /**
  * @defgroup    common      Common
+ * @groupgraph
  * @brief       Modules that are used by multiple layers and/or don't fit into any one layer.
  */
 
 /**
  * @defgroup    middleware              Middleware
+ * @groupgraph
  * @brief       High-level device driver modules.
  *
  * @details     These modules contain functions for interfacing with external devices/peripherals
@@ -22,6 +25,7 @@
 
 /**
  * @defgroup    driver      Device Drivers
+ * @groupgraph
  * @brief       Low level device driver modules.
  *
  * @details     These modules contain functions for interfacing with the TM4C123 microcontroller's

@@ -1,4 +1,0 @@
-<map id="QRS Detector" name="QRS Detector">
-<area shape="rect" id="Node000002" href="$group__app.html" title="Application&#45;specific software modules." alt="" coords="5,5,147,31"/>
-<area shape="rect" id="Node000001" title="Module for analyzing ECG data to determine heart rate." alt="" coords="195,5,299,31"/>
-</map>

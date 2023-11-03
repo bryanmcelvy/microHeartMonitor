@@ -1,4 +1,0 @@
-<map id="Interrupt Service Routines" name="Interrupt Service Routines">
-<area shape="rect" id="Node000002" href="$group__driver.html" title="Low level device driver modules." alt="" coords="5,5,114,31"/>
-<area shape="rect" id="Node000001" title="Functions for manipulating the interrupt vector table and setting up interrupt handlers via the NVIC." alt="" coords="162,5,335,31"/>
-</map>
