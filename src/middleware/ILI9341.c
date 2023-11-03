@@ -63,7 +63,7 @@ void ILI9341_Init(GpioPort_t resetPinPort, GpioPin_t resetPin, Spi_t spi, Timer_
     Assert(SPI_isInit(spi));
     Assert(Timer_isInit(timer));
 
-    ILI9341_Fifo = FIFO_Init(ILI9341_Buffer, 8);
+    ILI9341_Fifo = Fifo_Init(ILI9341_Buffer, 8);
 
     GPIO_DisableDigital(resetPinPort, resetPin);
     GPIO_configDirection(resetPinPort, resetPin, GPIO_OUTPUT);
@@ -206,9 +206,9 @@ static void ILI9341_sendParams(Cmd_t cmd) {
         SPI_WriteCmd(ili9341.spi, cmd);
     }
 
-    uint8_t numParams = FIFO_getCurrSize(ILI9341_Fifo);
+    uint8_t numParams = Fifo_getCurrSize(ILI9341_Fifo);
     while(numParams > 0) {
-        uint8_t data = FIFO_Get(ILI9341_Fifo);
+        uint8_t data = Fifo_Get(ILI9341_Fifo);
         SPI_WriteData(ili9341.spi, data);
 
         numParams -= 1;
@@ -257,10 +257,10 @@ void ILI9341_setPartialArea(uint16_t rowStart, uint16_t rowEnd) {
     rowStart = (rowStart < rowEnd) ? rowStart : rowEnd;
 
     // configure and send command sequence
-    FIFO_Put(ILI9341_Fifo, ((rowStart & 0xFF00) >> 8));
-    FIFO_Put(ILI9341_Fifo, (rowStart & 0x00FF));
-    FIFO_Put(ILI9341_Fifo, ((rowEnd & 0xFF00) >> 8));
-    FIFO_Put(ILI9341_Fifo, (rowEnd & 0x00FF));
+    Fifo_Put(ILI9341_Fifo, ((rowStart & 0xFF00) >> 8));
+    Fifo_Put(ILI9341_Fifo, (rowStart & 0x00FF));
+    Fifo_Put(ILI9341_Fifo, ((rowEnd & 0xFF00) >> 8));
+    Fifo_Put(ILI9341_Fifo, (rowEnd & 0x00FF));
     ILI9341_sendParams(PLTAR);
 
     return;
@@ -367,10 +367,10 @@ static void ILI9341_setAddress(uint16_t startAddress, uint16_t endAddress, bool 
     Assert(startAddress <= endAddress);
 
     // configure and send command sequence
-    FIFO_Put(ILI9341_Fifo, ((startAddress & 0xFF00) >> 8));
-    FIFO_Put(ILI9341_Fifo, (startAddress & 0x00FF));
-    FIFO_Put(ILI9341_Fifo, ((endAddress & 0xFF00) >> 8));
-    FIFO_Put(ILI9341_Fifo, (endAddress & 0x00FF));
+    Fifo_Put(ILI9341_Fifo, ((startAddress & 0xFF00) >> 8));
+    Fifo_Put(ILI9341_Fifo, (startAddress & 0x00FF));
+    Fifo_Put(ILI9341_Fifo, ((endAddress & 0xFF00) >> 8));
+    Fifo_Put(ILI9341_Fifo, (endAddress & 0x00FF));
 
     ILI9341_sendParams(cmd);
 
@@ -428,15 +428,15 @@ void ILI9341_writePixel(uint8_t red, uint8_t green, uint8_t blue) {
     // clang-format on
 
     if(ili9341.colorDepth == COLORDEPTH_16BIT) {
-        FIFO_Put(ILI9341_Fifo, ((red & 0x1F) << 3) | ((green & 0x38) >> 3));
-        FIFO_Put(ILI9341_Fifo, ((green & 0x07) << 5) | (blue & 0x1F));
+        Fifo_Put(ILI9341_Fifo, ((red & 0x1F) << 3) | ((green & 0x38) >> 3));
+        Fifo_Put(ILI9341_Fifo, ((green & 0x07) << 5) | (blue & 0x1F));
     }
     else {
         // bits 1 and 0 are set to prevent the TM4C from
         // attempting to right-justify the RGB data
-        FIFO_Put(ILI9341_Fifo, ((red & 0x3F) << 2) + 0x03);
-        FIFO_Put(ILI9341_Fifo, ((green & 0x3F) << 2) + 0x03);
-        FIFO_Put(ILI9341_Fifo, ((blue & 0x3F) << 2) + 0x03);
+        Fifo_Put(ILI9341_Fifo, ((red & 0x3F) << 2) + 0x03);
+        Fifo_Put(ILI9341_Fifo, ((green & 0x3F) << 2) + 0x03);
+        Fifo_Put(ILI9341_Fifo, ((blue & 0x3F) << 2) + 0x03);
     }
 
     ILI9341_sendParams(NOP);

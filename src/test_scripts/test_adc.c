@@ -34,7 +34,7 @@ int main(void) {
     // UART0_Init();
     // UART0_WriteStr("Starting transmission...\r\n");
 
-    fifo_ptr = FIFO_Init(fifo_buffer, NUM_SAMPLES);
+    fifo_ptr = Fifo_Init(fifo_buffer, NUM_SAMPLES);
 
     // Init. LED pins
     GpioPort_t portF = GPIO_InitPort(F);
@@ -68,8 +68,8 @@ void ADC0_SS3_Handler(void) {
 
     raw_sample = ADC0_SSFIFO3_R & 0xFFF;
     if(buffer_is_full == false) {
-        FIFO_Put(fifo_ptr, raw_sample);
-        buffer_is_full = FIFO_isFull(fifo_ptr);
+        Fifo_Put(fifo_ptr, raw_sample);
+        buffer_is_full = Fifo_isFull(fifo_ptr);
     }
     else {
         buffer_is_full = true;

@@ -79,8 +79,8 @@ int main(void) {
     ISR_Enable(DAQ_VECTOR_NUM);
 
     // Init. FIFOs
-    DAQ_Fifo = FIFO_Init(DAQ_Buffer, DAQ_BUFFER_SIZE);
-    QRS_Fifo = FIFO_Init(QRS_FifoBuffer, QRS_BUFFER_SIZE);
+    DAQ_Fifo = Fifo_Init(DAQ_Buffer, DAQ_BUFFER_SIZE);
+    QRS_Fifo = Fifo_Init(QRS_FifoBuffer, QRS_BUFFER_SIZE);
 
     // Init. app. modules
     DAQ_Init();
@@ -95,7 +95,7 @@ int main(void) {
             // Transfer samples from FIFO
             ISR_Disable(DAQ_VECTOR_NUM);
 
-            FIFO_Flush(QRS_Fifo, (uint32_t *) QRS_InputBuffer);
+            Fifo_Flush(QRS_Fifo, (uint32_t *) QRS_InputBuffer);
             QRS_bufferIsFull = false;
 
             ISR_Enable(DAQ_VECTOR_NUM);
@@ -117,10 +117,10 @@ Interrupt Service Routines
 ******************************************************************************/
 
 static void ADC_Handler(void) {
-    Debug_Assert(FIFO_isFull(DAQ_Fifo) == false);
+    Debug_Assert(Fifo_isFull(DAQ_Fifo) == false);
 
     uint16_t rawSample = DAQ_readSample();
-    FIFO_Put(DAQ_Fifo, (volatile uint32_t) rawSample);
+    Fifo_Put(DAQ_Fifo, (volatile uint32_t) rawSample);
 
     DAQ_acknowledgeInterrupt();
     ISR_triggerInterrupt(DAQ_VECTOR_NUM);
@@ -130,8 +130,8 @@ static void DAQ_Handler(void) {
     static float32_t sum = 0.0f;
     static uint32_t N = 0;
 
-    while(FIFO_isEmpty(DAQ_Fifo) == false) {
-        volatile uint16_t rawSample = FIFO_Get(DAQ_Fifo);
+    while(Fifo_isEmpty(DAQ_Fifo) == false) {
+        volatile uint16_t rawSample = Fifo_Get(DAQ_Fifo);
         volatile float32_t sample = DAQ_convertToMilliVolts(rawSample);
 
         sum += sample;
@@ -140,8 +140,8 @@ static void DAQ_Handler(void) {
 
         sample = DAQ_NotchFilter(sample);
 
-        FIFO_Put(QRS_Fifo, *((uint32_t *) (&sample)));
-        if(FIFO_isFull(QRS_Fifo)) {
+        Fifo_Put(QRS_Fifo, *((uint32_t *) (&sample)));
+        if(Fifo_isFull(QRS_Fifo)) {
             QRS_bufferIsFull = true;
         }
     }

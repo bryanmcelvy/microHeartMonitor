@@ -62,7 +62,7 @@ int main(void) {
     LCD_setOutputMode(true);
 
     // Initialize DAQ module
-    inputFifo = FIFO_Init(inputBuffer, DAQ_BUFFER_SIZE);
+    inputFifo = Fifo_Init(inputBuffer, DAQ_BUFFER_SIZE);
     DAQ_Init();
 
     uint16_t x = 0;
@@ -72,8 +72,8 @@ int main(void) {
         while(sampleReady == false) {}
 
         // collect sample
-        volatile uint16_t raw_sample = FIFO_Get(inputFifo);
-        sampleReady = !FIFO_isEmpty(inputFifo);
+        volatile uint16_t raw_sample = Fifo_Get(inputFifo);
+        sampleReady = !Fifo_isEmpty(inputFifo);
 
         // convert and filter
         volatile float32_t sample = DAQ_convertToMilliVolts(raw_sample);
@@ -95,9 +95,9 @@ int main(void) {
 /********************************************************************************/
 
 void ADC0_SS3_Handler(void) {
-    Debug_Assert(FIFO_isFull(inputFifo) == false);
+    Debug_Assert(Fifo_isFull(inputFifo) == false);
     uint16_t rawSample = DAQ_readSample();
-    FIFO_Put(inputFifo, (volatile uint32_t) rawSample);
+    Fifo_Put(inputFifo, (volatile uint32_t) rawSample);
     sampleReady = true;
 
     DAQ_acknowledgeInterrupt();

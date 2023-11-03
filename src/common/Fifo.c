@@ -37,7 +37,7 @@ typedef struct FifoStruct_t {
 static FifoStruct_t fifoPool[FIFO_POOL_SIZE] = { 0 };               ///< pre-allocated pool
 static uint8_t numFreeFifos = FIFO_POOL_SIZE;
 
-Fifo_t FIFO_Init(volatile uint32_t buffer[], const uint32_t N) {
+Fifo_t Fifo_Init(volatile uint32_t buffer[], const uint32_t N) {
     /// TODO: Add details
     volatile Fifo_t fifo = 0;
 
@@ -53,7 +53,7 @@ Fifo_t FIFO_Init(volatile uint32_t buffer[], const uint32_t N) {
     return fifo;
 }
 
-void FIFO_Reset(volatile Fifo_t fifo) {
+void Fifo_Reset(volatile Fifo_t fifo) {
     fifo->backIdx = fifo->frontIdx;
     return;
 }
@@ -62,7 +62,7 @@ void FIFO_Reset(volatile Fifo_t fifo) {
 Basic Operations (Int)
 *******************************************************************************/
 
-void FIFO_Put(volatile Fifo_t fifo, const uint32_t val) {
+void Fifo_Put(volatile Fifo_t fifo, const uint32_t val) {
     // NOTE: not using FIFO_isFull() here to reduce call stack usage
     bool isFifoFull = (((fifo->backIdx + 1) % fifo->N) == fifo->frontIdx) ? true : false;
 
@@ -74,7 +74,7 @@ void FIFO_Put(volatile Fifo_t fifo, const uint32_t val) {
     return;
 }
 
-uint32_t FIFO_Get(volatile Fifo_t fifo) {
+uint32_t Fifo_Get(volatile Fifo_t fifo) {
     uint32_t val;
 
     // NOTE: not using FIFO_isEmpty() here to reduce call stack usage
@@ -91,10 +91,10 @@ uint32_t FIFO_Get(volatile Fifo_t fifo) {
     return val;
 }
 
-void FIFO_Flush(volatile Fifo_t fifo, uint32_t outputBuffer[]) {
+void Fifo_Flush(volatile Fifo_t fifo, uint32_t outputBuffer[]) {
     uint32_t idx = 0;
 
-    while(FIFO_isEmpty(fifo) == false) {
+    while(Fifo_isEmpty(fifo) == false) {
         outputBuffer[idx++] = fifo->buffer[fifo->frontIdx];
         fifo->frontIdx = (fifo->frontIdx + 1) % fifo->N;               // wrap around to end
     }
@@ -104,21 +104,21 @@ void FIFO_Flush(volatile Fifo_t fifo, uint32_t outputBuffer[]) {
 Basic Operations (Float)
 *******************************************************************************/
 
-void FIFO_PutFloat(volatile Fifo_t fifo, const float val) {
+void Fifo_PutFloat(volatile Fifo_t fifo, const float val) {
     /// @remark To properly use floating-point values, type-punning is necessary.
-    FIFO_Put(fifo, *((uint32_t *) &val));
+    Fifo_Put(fifo, *((uint32_t *) &val));
     return;
 }
 
-float FIFO_GetFloat(volatile Fifo_t fifo) {
+float Fifo_GetFloat(volatile Fifo_t fifo) {
     /// @remark To properly use floating-point values, type-punning is necessary.
     float val;
-    *((uint32_t *) &val) = FIFO_Get(fifo);
+    *((uint32_t *) &val) = Fifo_Get(fifo);
     return val;
 }
 
-void FIFO_FlushFloat(volatile Fifo_t fifo, float outputBuffer[]) {
-    FIFO_Flush(fifo, (uint32_t *) outputBuffer);
+void Fifo_FlushFloat(volatile Fifo_t fifo, float outputBuffer[]) {
+    Fifo_Flush(fifo, (uint32_t *) outputBuffer);
     return;
 }
 
@@ -126,10 +126,10 @@ void FIFO_FlushFloat(volatile Fifo_t fifo, float outputBuffer[]) {
 Peeking
 *******************************************************************************/
 
-uint32_t FIFO_PeekOne(volatile Fifo_t fifo) {
+uint32_t Fifo_PeekOne(volatile Fifo_t fifo) {
     uint32_t ret_val;
 
-    if(FIFO_isEmpty(fifo)) {
+    if(Fifo_isEmpty(fifo)) {
         ret_val = 0;
     }
     else {
@@ -139,7 +139,7 @@ uint32_t FIFO_PeekOne(volatile Fifo_t fifo) {
     return ret_val;
 }
 
-void FIFO_PeekAll(volatile Fifo_t fifo, uint32_t outputBuffer[]) {
+void Fifo_PeekAll(volatile Fifo_t fifo, uint32_t outputBuffer[]) {
     uint32_t frontIdx = fifo->frontIdx;
     uint32_t idx = 0;
 
@@ -157,21 +157,21 @@ void FIFO_PeekAll(volatile Fifo_t fifo, uint32_t outputBuffer[]) {
 Status Checks
 *******************************************************************************/
 
-bool FIFO_isFull(volatile Fifo_t fifo) {
+bool Fifo_isFull(volatile Fifo_t fifo) {
     return (bool) (((fifo->backIdx + 1) % fifo->N) == fifo->frontIdx);
 }
 
-bool FIFO_isEmpty(volatile Fifo_t fifo) {
+bool Fifo_isEmpty(volatile Fifo_t fifo) {
     return (bool) (fifo->frontIdx == fifo->backIdx);
 }
 
-uint32_t FIFO_getCurrSize(volatile Fifo_t fifo) {
+uint32_t Fifo_getCurrSize(volatile Fifo_t fifo) {
     uint32_t size;
 
-    if(FIFO_isEmpty(fifo)) {
+    if(Fifo_isEmpty(fifo)) {
         size = 0;
     }
-    else if(FIFO_isFull(fifo)) {
+    else if(Fifo_isFull(fifo)) {
         size = fifo->N - 1;
     }
     else if(fifo->frontIdx < fifo->backIdx) {

@@ -34,20 +34,20 @@ TEST_GROUP(Group_FIFO_AfterInit) {
     volatile uint32_t fifoBuffer[FIFO_BUFFER_SIZE] = { 0 };
 
     void setup() {
-        fifo = FIFO_Init(fifoBuffer, FIFO_BUFFER_SIZE);
+        fifo = Fifo_Init(fifoBuffer, FIFO_BUFFER_SIZE);
     } 
 
     void teardown() {
-        FIFO_Reset(fifo);
+        Fifo_Reset(fifo);
     } 
 };
 
 TEST(Group_FIFO_AfterInit, AfterInit_isNotFull) {
-    CHECK_FALSE(FIFO_isFull(fifo));
+    CHECK_FALSE(Fifo_isFull(fifo));
 }
 
 TEST(Group_FIFO_AfterInit, AfterInit_isEmpty) {
-    CHECK_TRUE(FIFO_isEmpty(fifo));
+    CHECK_TRUE(Fifo_isEmpty(fifo));
 }
 
 /******************************************************************************
@@ -61,12 +61,12 @@ TEST_GROUP(Group_FIFO_AfterReset) {
     uint8_t randNum;
 
     void setup() {
-        fifo = FIFO_Init(fifoBuffer, FIFO_BUFFER_SIZE);
+        fifo = Fifo_Init(fifoBuffer, FIFO_BUFFER_SIZE);
 
         // Fill with a random number in range [1, FIFO_CAPACITY]
         randNum = 1 + (rand() % (FIFO_CAPACITY - 1));
         for(uint8_t n = 0; n < randNum; n++) {
-            FIFO_Put(fifo, randArray[n]);
+            Fifo_Put(fifo, randArray[n]);
         }
     } 
 
@@ -74,18 +74,18 @@ TEST_GROUP(Group_FIFO_AfterReset) {
 };
 
 TEST(Group_FIFO_AfterReset, AfterReset_SizeIsZero) {
-    FIFO_Reset(fifo);
-    CHECK_TRUE(FIFO_getCurrSize(fifo) == 0);
+    Fifo_Reset(fifo);
+    CHECK_TRUE(Fifo_getCurrSize(fifo) == 0);
 }
 
 TEST(Group_FIFO_AfterReset, AfterReset_isEmpty) {
-    FIFO_Reset(fifo);
-    CHECK_TRUE(FIFO_isEmpty(fifo));
+    Fifo_Reset(fifo);
+    CHECK_TRUE(Fifo_isEmpty(fifo));
 }
 
 TEST(Group_FIFO_AfterReset, AfterReset_isNotFull) {
-    FIFO_Reset(fifo);
-    CHECK_FALSE(FIFO_isFull(fifo));
+    Fifo_Reset(fifo);
+    CHECK_FALSE(Fifo_isFull(fifo));
 }
 
 /******************************************************************************
@@ -99,12 +99,12 @@ TEST_GROUP(Group_FIFO_AfterPut) {
     uint8_t randNum;
 
     void setup() {
-        fifo = FIFO_Init(fifoBuffer, FIFO_BUFFER_SIZE);
+        fifo = Fifo_Init(fifoBuffer, FIFO_BUFFER_SIZE);
 
         // Fill with a random number in range [1, FIFO_CAPACITY]
         randNum = 1 + (rand() % (FIFO_CAPACITY - 1));
         for(uint8_t n = 0; n < randNum; n++) {
-            FIFO_Put(fifo, randArray[n]);
+            Fifo_Put(fifo, randArray[n]);
         }
     } 
 
@@ -112,16 +112,16 @@ TEST_GROUP(Group_FIFO_AfterPut) {
 };
 
 TEST(Group_FIFO_AfterPut, AfterPut_SizeIncreases) {
-    uint8_t sizeBeforePut = FIFO_getCurrSize(fifo);
-    FIFO_Put(fifo, randArray[randNum]);
-    uint8_t sizeAfterPut = FIFO_getCurrSize(fifo);
+    uint8_t sizeBeforePut = Fifo_getCurrSize(fifo);
+    Fifo_Put(fifo, randArray[randNum]);
+    uint8_t sizeAfterPut = Fifo_getCurrSize(fifo);
 
     CHECK_EQUAL(sizeBeforePut + 1, sizeAfterPut);
 }
 
 TEST(Group_FIFO_AfterPut, AfterPut_isNotEmpty) {
-    FIFO_Put(fifo, randArray[randNum]);
-    CHECK_FALSE(FIFO_isEmpty(fifo));
+    Fifo_Put(fifo, randArray[randNum]);
+    CHECK_FALSE(Fifo_isEmpty(fifo));
 }
 
 /******************************************************************************
@@ -135,12 +135,12 @@ TEST_GROUP(Group_FIFO_AfterGet) {
     uint8_t randNum;
 
     void setup() {
-        fifo = FIFO_Init(fifoBuffer, FIFO_BUFFER_SIZE);
+        fifo = Fifo_Init(fifoBuffer, FIFO_BUFFER_SIZE);
 
         // Fill with a random number in range [1, FIFO_CAPACITY]
         randNum = 1 + (rand() % (FIFO_CAPACITY - 1));
         for(uint8_t n = 0; n < randNum; n++) {
-            FIFO_Put(fifo, randArray[n]);
+            Fifo_Put(fifo, randArray[n]);
         }
     } 
 
@@ -148,9 +148,9 @@ TEST_GROUP(Group_FIFO_AfterGet) {
 };
 
 TEST(Group_FIFO_AfterGet, AfterGet_SizeDecreases) {
-    uint8_t sizeBeforeGet = FIFO_getCurrSize(fifo);
-    FIFO_Get(fifo);
-    uint8_t sizeAfterGet = FIFO_getCurrSize(fifo);
+    uint8_t sizeBeforeGet = Fifo_getCurrSize(fifo);
+    Fifo_Get(fifo);
+    uint8_t sizeAfterGet = Fifo_getCurrSize(fifo);
 
     CHECK_EQUAL(sizeBeforeGet - 1, sizeAfterGet);
 }
@@ -167,12 +167,12 @@ TEST_GROUP(Group_FIFO_AfterFlush) {
     uint8_t randNum;
 
     void setup() {
-        fifo = FIFO_Init(fifoBuffer, FIFO_BUFFER_SIZE);
+        fifo = Fifo_Init(fifoBuffer, FIFO_BUFFER_SIZE);
 
         // Fill with a random number in range [1, FIFO_CAPACITY]
         randNum = 1 + (rand() % (FIFO_CAPACITY - 1));
         for(uint8_t n = 0; n < randNum; n++) {
-            FIFO_Put(fifo, randArray[n]);
+            Fifo_Put(fifo, randArray[n]);
         }
     } 
 
@@ -180,12 +180,12 @@ TEST_GROUP(Group_FIFO_AfterFlush) {
 };
 
 TEST(Group_FIFO_AfterFlush, AfterFlush_isEmpty) {
-    FIFO_Flush(fifo, outputArray);
-    CHECK_TRUE(FIFO_isEmpty(fifo));
+    Fifo_Flush(fifo, outputArray);
+    CHECK_TRUE(Fifo_isEmpty(fifo));
 }
 
 TEST(Group_FIFO_AfterFlush, AfterFlush_OutputHasCorrectVals) {
-    FIFO_Flush(fifo, outputArray);
+    Fifo_Flush(fifo, outputArray);
 
     bool areAllCorrect = true;
     for(uint8_t n = 0; n < randNum; n++) {
@@ -210,12 +210,12 @@ TEST_GROUP(Group_FIFO_AfterPeek) {
     uint8_t randNum;
 
     void setup() {
-        fifo = FIFO_Init(fifoBuffer, FIFO_BUFFER_SIZE);
+        fifo = Fifo_Init(fifoBuffer, FIFO_BUFFER_SIZE);
 
         // Fill with a random number in range [1, FIFO_CAPACITY]
         randNum = 1 + (rand() % (FIFO_CAPACITY - 1));
         for(uint8_t n = 0; n < randNum; n++) {
-            FIFO_Put(fifo, randArray[n]);
+            Fifo_Put(fifo, randArray[n]);
         }
     } 
 
@@ -223,31 +223,31 @@ TEST_GROUP(Group_FIFO_AfterPeek) {
 };
 
 TEST(Group_FIFO_AfterPeek, AfterPeekOne_SizeDoesNotChange) {
-    uint32_t sizeBeforePeek = FIFO_getCurrSize(fifo);
-    FIFO_PeekOne(fifo);
-    uint32_t sizeAfterPeek = FIFO_getCurrSize(fifo);
+    uint32_t sizeBeforePeek = Fifo_getCurrSize(fifo);
+    Fifo_PeekOne(fifo);
+    uint32_t sizeAfterPeek = Fifo_getCurrSize(fifo);
     CHECK_EQUAL(sizeBeforePeek, sizeAfterPeek);
 }
 
 TEST(Group_FIFO_AfterPeek, AfterPeekOne_ReturnValIsCorrect) {
-    uint32_t peekVal = FIFO_PeekOne(fifo);
-    uint32_t getVal = FIFO_Get(fifo);
+    uint32_t peekVal = Fifo_PeekOne(fifo);
+    uint32_t getVal = Fifo_Get(fifo);
     CHECK_EQUAL(getVal, peekVal);
 }
 
 TEST(Group_FIFO_AfterPeek, AfterPeekAll_SizeDoesNotChange) {
-    uint32_t sizeBeforePeek = FIFO_getCurrSize(fifo);
-    FIFO_PeekAll(fifo, outputArray);
-    uint32_t sizeAfterPeek = FIFO_getCurrSize(fifo);
+    uint32_t sizeBeforePeek = Fifo_getCurrSize(fifo);
+    Fifo_PeekAll(fifo, outputArray);
+    uint32_t sizeAfterPeek = Fifo_getCurrSize(fifo);
 
     CHECK_EQUAL(sizeBeforePeek, sizeAfterPeek);
 }
 
 TEST(Group_FIFO_AfterPeek, AfterPeekAll_OutputHasCorrectVals) {
-    FIFO_PeekAll(fifo, outputArray);
+    Fifo_PeekAll(fifo, outputArray);
     bool areAllCorrect = true;
     for(uint8_t n = 0; n < randNum; n++) {
-        uint32_t temp_val = FIFO_Get(fifo);
+        uint32_t temp_val = Fifo_Get(fifo);
         if(outputArray[n] != temp_val) {
             areAllCorrect = false;
             break;
@@ -267,9 +267,9 @@ TEST_GROUP(Group_FIFO_AfterReachingCapacity) {
     uint32_t randArray[FIFO_CAPACITY] = {29, 81, 73, 79, 2, 40, 21, 60, 93};
 
     void setup() {
-        fifo = FIFO_Init(fifoBuffer, FIFO_BUFFER_SIZE);
+        fifo = Fifo_Init(fifoBuffer, FIFO_BUFFER_SIZE);
         for(uint8_t n = 0; n < FIFO_CAPACITY; n++) {
-            FIFO_Put(fifo, randArray[n]);
+            Fifo_Put(fifo, randArray[n]);
         }
     } 
 
@@ -277,16 +277,16 @@ TEST_GROUP(Group_FIFO_AfterReachingCapacity) {
 };
 
 TEST(Group_FIFO_AfterReachingCapacity, AfterReachingCapacity_isFull) {
-    CHECK_TRUE(FIFO_isFull(fifo));
+    CHECK_TRUE(Fifo_isFull(fifo));
 }
 
 TEST(Group_FIFO_AfterReachingCapacity, AfterReachingCapacity_isNotEmpty) {
-    CHECK_FALSE(FIFO_isEmpty(fifo));
+    CHECK_FALSE(Fifo_isEmpty(fifo));
 }
 
 TEST(Group_FIFO_AfterReachingCapacity, AfterReachingCapacity_isNotFullAfterGet) {
-    FIFO_Get(fifo);
-    CHECK_FALSE(FIFO_isFull(fifo));
+    Fifo_Get(fifo);
+    CHECK_FALSE(Fifo_isFull(fifo));
 }
 
 /******************************************************************************
@@ -305,12 +305,12 @@ TEST_GROUP(Group_FIFO_Float) {
     uint8_t randNum;
 
     void setup() {
-        fifo = FIFO_Init(fifoBuffer, FIFO_BUFFER_SIZE);
+        fifo = Fifo_Init(fifoBuffer, FIFO_BUFFER_SIZE);
 
         // Fill with a random number in range [1, FIFO_CAPACITY]
         randNum = 1 + (rand() % (FIFO_CAPACITY - 1));
         for(uint8_t n = 0; n < randNum; n++) {
-            FIFO_Put(fifo, *((uint32_t *) &randArray[n]));
+            Fifo_Put(fifo, *((uint32_t *) &randArray[n]));
         }
     } 
 
@@ -318,7 +318,7 @@ TEST_GROUP(Group_FIFO_Float) {
 };
 
 TEST(Group_FIFO_Float, AfterFlush_OutputHasCorrectFloatVals) {
-    FIFO_Flush(fifo, (uint32_t *) outputArray);
+    Fifo_Flush(fifo, (uint32_t *) outputArray);
 
     for(uint8_t n = 0; n < randNum; n++) {
         DOUBLES_EQUAL(randArray[n], (float32_t) outputArray[n], 10e-6);
@@ -327,16 +327,16 @@ TEST(Group_FIFO_Float, AfterFlush_OutputHasCorrectFloatVals) {
 
 TEST(Group_FIFO_Float, AfterPeekOne_ReturnValIsCorrectFloat) {
     float32_t peekVal, getVal;
-    *((uint32_t *) &peekVal) = FIFO_PeekOne(fifo);
-    *((uint32_t *) &getVal) = FIFO_Get(fifo);
+    *((uint32_t *) &peekVal) = Fifo_PeekOne(fifo);
+    *((uint32_t *) &getVal) = Fifo_Get(fifo);
     DOUBLES_EQUAL(getVal, peekVal, 10e-6);
 }
 
 TEST(Group_FIFO_Float, AfterPeekAll_OutputHasCorrectFloatVals) {
-    FIFO_PeekAll(fifo, (uint32_t *) outputArray);
+    Fifo_PeekAll(fifo, (uint32_t *) outputArray);
     for(uint8_t n = 0; n < randNum; n++) {
         float32_t getVal;
-        *((uint32_t *) &getVal) = FIFO_Get(fifo);
+        *((uint32_t *) &getVal) = Fifo_Get(fifo);
         DOUBLES_EQUAL(getVal, outputArray[n], 10e-6);
     }
 }

@@ -7,8 +7,8 @@
  * @brief   Header file for FIFO buffer implementation.
  */
 
-#ifndef FIFO_H
-#define FIFO_H
+#ifndef Fifo_H
+#define Fifo_H
 
 /******************************************************************************
 SECTIONS
@@ -28,7 +28,7 @@ Preprocessor Directives
 #include <stdint.h>
 
 // Number of pre-allocated FIFO buffers can be defined at compile-time
-// (e.g. "arm-none-eabi-gcc -DFIFO_POOL_SIZE=<VALUE> ...") or hard-coded
+// (e.g. "arm-none-eabi-gcc -DFifo_POOL_SIZE=<VALUE> ...") or hard-coded
 #ifndef FIFO_POOL_SIZE
 #define FIFO_POOL_SIZE 5               // default val
 #endif
@@ -48,7 +48,7 @@ typedef struct FifoStruct_t * Fifo_t;
  *
  * @post                The number of available FIFO buffers is reduced by 1.
  */
-Fifo_t FIFO_Init(volatile uint32_t buffer[], const uint32_t N);
+Fifo_t Fifo_Init(volatile uint32_t buffer[], const uint32_t N);
 
 /**
  * @brief               Reset the FIFO buffer.
@@ -58,7 +58,7 @@ Fifo_t FIFO_Init(volatile uint32_t buffer[], const uint32_t N);
  * @post                The FIFO is now considered empty.
  *                      The underlying buffer's contents are not affected.
  */
-void FIFO_Reset(volatile Fifo_t fifo);
+void Fifo_Reset(volatile Fifo_t fifo);
 
 /******************************************************************************
 Basic Operations (Int)
@@ -74,9 +74,9 @@ Basic Operations (Int)
  * @post                If the FIFO is not full, `val` is placed in the buffer.
  *                      If the FIFO is full, nothing happens.
  *
- * @see                 FIFO_PutFloat()
+ * @see                 Fifo_PutFloat()
  */
-void FIFO_Put(volatile Fifo_t fifo, const uint32_t val);
+void Fifo_Put(volatile Fifo_t fifo, const uint32_t val);
 
 /**
  * @brief               Remove the first value of the buffer.
@@ -87,9 +87,9 @@ void FIFO_Put(volatile Fifo_t fifo, const uint32_t val);
  * @post                If the FIFO is not empty, the next value is returned.
  *                      If the FIFO is empty, `0` is returned.
  *
- * @see                 FIFO_GetFloat()
+ * @see                 Fifo_GetFloat()
  */
-uint32_t FIFO_Get(volatile Fifo_t fifo);
+uint32_t Fifo_Get(volatile Fifo_t fifo);
 
 /**
  * @brief                       Empty the FIFO buffer's contents into an array.
@@ -100,9 +100,9 @@ uint32_t FIFO_Get(volatile Fifo_t fifo);
  *
  * @post                        The FIFO buffer's contents are transferred to the output buffer.
  *
- * @see                         FIFO_FlushFloat()
+ * @see                         Fifo_FlushFloat()
  */
-void FIFO_Flush(volatile Fifo_t fifo, uint32_t outputBuffer[]);
+void Fifo_Flush(volatile Fifo_t fifo, uint32_t outputBuffer[]);
 
 /******************************************************************************
 Basic Operations (Float)
@@ -121,13 +121,13 @@ Basic Operations (Float)
  * @code
  *      // type-punning example
  *      float num = 4.252603;
- *      FIFO_Put(fifo, *((uint32_t *) &num));
- *      FIFO_PutFloat(fifo, num); // same thing, but cleaner
+ *      Fifo_Put(fifo, *((uint32_t *) &num));
+ *      Fifo_PutFloat(fifo, num); // same thing, but cleaner
  * @endcode
  *
- * @see                 FIFO_Put()
+ * @see                 Fifo_Put()
  */
-void FIFO_PutFloat(volatile Fifo_t fifo, const float val);
+void Fifo_PutFloat(volatile Fifo_t fifo, const float val);
 
 /**
  * @brief               Remove the first value of the buffer, and cast it to `float`.
@@ -142,13 +142,13 @@ void FIFO_PutFloat(volatile Fifo_t fifo, const float val);
  * @code
  *      // type-punning example
  *      float num;
- *      *((uint32_t *) &num) = FIFO_Get(fifo);
- *      num = FIFO_GetFloat(fifo);
+ *      *((uint32_t *) &num) = Fifo_Get(fifo);
+ *      num = Fifo_GetFloat(fifo);
  * @endcode
  *
- * @see                 FIFO_Get()
+ * @see                 Fifo_Get()
  */
-float FIFO_GetFloat(volatile Fifo_t fifo);
+float Fifo_GetFloat(volatile Fifo_t fifo);
 
 /**
  * @brief                       Empty the FIFO buffer into an array of floating-point values.
@@ -162,13 +162,13 @@ float FIFO_GetFloat(volatile Fifo_t fifo);
  * @note                        This was added to avoid needing to type-pun floating-point values.
  * @code
  *      // type-punning example
- *      FIFO_Flush(fifo, (uint32_t *) outputBuffer);
- *      FIFO_FlushFloat(fifo, outputBuffer); // same thing, but cleaner
+ *      Fifo_Flush(fifo, (uint32_t *) outputBuffer);
+ *      Fifo_FlushFloat(fifo, outputBuffer); // same thing, but cleaner
  * @endcode
  *
- * @see                         FIFO_Flush()
+ * @see                         Fifo_Flush()
  */
-void FIFO_FlushFloat(volatile Fifo_t fifo, float outputBuffer[]);
+void Fifo_FlushFloat(volatile Fifo_t fifo, float outputBuffer[]);
 
 /** @} */               // Basic Operations
 
@@ -183,7 +183,7 @@ Peeking
  * @param[in] fifo      Pointer to FIFO object
  * @param[out] val      First sample in the FIFO.
  */
-uint32_t FIFO_PeekOne(volatile Fifo_t fifo);
+uint32_t Fifo_PeekOne(volatile Fifo_t fifo);
 
 /**
  * @brief                       See the FIFO buffer's contents without removing them.
@@ -194,7 +194,7 @@ uint32_t FIFO_PeekOne(volatile Fifo_t fifo);
  *
  * @post                        The FIFO buffer's contents are copied to the output buffer.
  */
-void FIFO_PeekAll(volatile Fifo_t fifo, uint32_t outputBuffer[]);
+void Fifo_PeekAll(volatile Fifo_t fifo, uint32_t outputBuffer[]);
 
 /** @} */               // Peeking
 
@@ -210,7 +210,7 @@ Status Checks
  * @param[out] true     The FIFO buffer is full.
  * @param[out] false    The FIFO buffer is not full.
  */
-bool FIFO_isFull(volatile Fifo_t fifo);
+bool Fifo_isFull(volatile Fifo_t fifo);
 
 /**
  * @brief               Check if the FIFO buffer is empty.
@@ -219,7 +219,7 @@ bool FIFO_isFull(volatile Fifo_t fifo);
  * @param[out] true     The FIFO buffer is empty.
  * @param[out] false    The FIFO buffer is not empty.
  */
-bool FIFO_isEmpty(volatile Fifo_t fifo);
+bool Fifo_isEmpty(volatile Fifo_t fifo);
 
 /**
  * @brief               Get the current size of the FIFO buffer.
@@ -227,10 +227,10 @@ bool FIFO_isEmpty(volatile Fifo_t fifo);
  * @param[in] fifo      Pointer to the FIFO buffer.
  * @param[out] size     Current number of values in the FIFO buffer.
  */
-uint32_t FIFO_getCurrSize(volatile Fifo_t fifo);
+uint32_t Fifo_getCurrSize(volatile Fifo_t fifo);
 
 /** @} */               // Status Checks
 
-#endif                  // FIFO_H
+#endif                  // Fifo_H
 
 /** @} */
