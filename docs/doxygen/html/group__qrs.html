@@ -127,9 +127,6 @@ Macros</h2></td></tr>
 <tr class="memitem:gacf320bd9c50a335acc2fe8591331e40e" id="r_gacf320bd9c50a335acc2fe8591331e40e"><td class="memItemLeft" align="right" valign="top"><a id="gacf320bd9c50a335acc2fe8591331e40e" name="gacf320bd9c50a335acc2fe8591331e40e"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>IS_GREATER</b>(X,  Y)&#160;&#160;&#160;(bool) ((X - Y) &gt; FLOAT_COMPARE_TOLERANCE)</td></tr>
 <tr class="separator:gacf320bd9c50a335acc2fe8591331e40e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab356d160751a04b5b13c1286070a6a74" id="r_gab356d160751a04b5b13c1286070a6a74"><td class="memItemLeft" align="right" valign="top"><a id="gab356d160751a04b5b13c1286070a6a74" name="gab356d160751a04b5b13c1286070a6a74"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>IS_PEAK</b>(X_MINUS_1,  X,  X_PLUS_1)&#160;&#160;&#160;(bool) (IS_GREATER(X, X_MINUS_1) &amp;&amp; IS_GREATER(X, X_PLUS_1))</td></tr>
-<tr class="separator:gab356d160751a04b5b13c1286070a6a74"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8897fc681e7d799ace372966481c1c78" id="r_ga8897fc681e7d799ace372966481c1c78"><td class="memItemLeft" align="right" valign="top"><a id="ga8897fc681e7d799ace372966481c1c78" name="ga8897fc681e7d799ace372966481c1c78"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>QRS_SAMP_FREQ</b>&#160;&#160;&#160;((uint32_t) 200)</td></tr>
 <tr class="separator:ga8897fc681e7d799ace372966481c1c78"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -173,10 +170,10 @@ struct {&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
 <tr class="memitem:ga396b5235bf6e7bad06cee2fb528c0f54" id="r_ga396b5235bf6e7bad06cee2fb528c0f54"><td class="memItemLeft" valign="top">}&#160;</td><td class="memItemRight" valign="bottom"><b>Detector</b> = { false, 0.0f, 0.0f, 0.0f, { 0 }, { 0 }, { 0 } }&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
 <tr class="separator:ga396b5235bf6e7bad06cee2fb528c0f54"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader">Digital Filters</h2></td></tr>
-<tr class="memitem:gabc6126af1d45847bc59afa0aa3216b04" id="r_gabc6126af1d45847bc59afa0aa3216b04"><td class="memItemLeft" align="right" valign="top"><a id="gabc6126af1d45847bc59afa0aa3216b04" name="gabc6126af1d45847bc59afa0aa3216b04"></a>enum &#160;</td><td class="memItemRight" valign="bottom">{ <br />
+<tr class="heading"><td colspan="2"><h2 class="groupheader">Digital Filter Variables</h2></td></tr>
+<tr class="memitem:ga2775f0e0c9c1fbf3479fba15da7b8293" id="r_ga2775f0e0c9c1fbf3479fba15da7b8293"><td class="memItemLeft" align="right" valign="top"><a id="ga2775f0e0c9c1fbf3479fba15da7b8293" name="ga2775f0e0c9c1fbf3479fba15da7b8293"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>DIGITAL_FILTER_PARAMS</b> { <br />
 &#160;&#160;<b>NUM_STAGES_BANDPASS</b> = 4
-, <b>NUM_COEFF_HIGHPASS</b> = NUM_STAGES_BANDPASS * 5
+, <b>NUM_COEFF_BANDPASS</b> = NUM_STAGES_BANDPASS * 5
 , <b>STATE_BUFF_SIZE_BANDPASS</b> = NUM_STAGES_BANDPASS * 4
 , <b>NUM_COEFF_DERFILT</b> = 5
 , <br />
@@ -188,15 +185,15 @@ struct {&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
 &#160;&#160;<b>STATE_BUFF_SIZE_MOVAVG</b> = NUM_COEFF_MOVAVG + BLOCK_SIZE_MOVAVG - 1
 <br />
  }</td></tr>
-<tr class="separator:gabc6126af1d45847bc59afa0aa3216b04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:ga2775f0e0c9c1fbf3479fba15da7b8293"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga70063441c7f7c0cf6f11bcdd9c284e41" id="r_ga70063441c7f7c0cf6f11bcdd9c284e41"><td class="memItemLeft" align="right" valign="top"><a id="ga70063441c7f7c0cf6f11bcdd9c284e41" name="ga70063441c7f7c0cf6f11bcdd9c284e41"></a>
 typedef arm_biquad_casd_df1_inst_f32&#160;</td><td class="memItemRight" valign="bottom"><b>IIR_Filt_t</b></td></tr>
 <tr class="separator:ga70063441c7f7c0cf6f11bcdd9c284e41"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga194c44a95aeb188161636e7eb78a1032" id="r_ga194c44a95aeb188161636e7eb78a1032"><td class="memItemLeft" align="right" valign="top"><a id="ga194c44a95aeb188161636e7eb78a1032" name="ga194c44a95aeb188161636e7eb78a1032"></a>
 typedef arm_fir_instance_f32&#160;</td><td class="memItemRight" valign="bottom"><b>FIR_Filt_t</b></td></tr>
 <tr class="separator:ga194c44a95aeb188161636e7eb78a1032"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaaf5fe592d42c2c1ce8186005bd4727ce" id="r_gaaf5fe592d42c2c1ce8186005bd4727ce"><td class="memItemLeft" align="right" valign="top">static const float32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qrs.html#gaaf5fe592d42c2c1ce8186005bd4727ce">COEFF_BANDPASS</a> [NUM_COEFF_HIGHPASS]</td></tr>
-<tr class="separator:gaaf5fe592d42c2c1ce8186005bd4727ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa81f10d3bedfb58d09a3538c8d477814" id="r_gaa81f10d3bedfb58d09a3538c8d477814"><td class="memItemLeft" align="right" valign="top">static const float32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qrs.html#gaa81f10d3bedfb58d09a3538c8d477814">COEFF_BANDPASS</a> [NUM_COEFF_BANDPASS]</td></tr>
+<tr class="separator:gaa81f10d3bedfb58d09a3538c8d477814"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga89e51f5c593608b2deb597c865993e60" id="r_ga89e51f5c593608b2deb597c865993e60"><td class="memItemLeft" align="right" valign="top">static const float32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qrs.html#ga89e51f5c593608b2deb597c865993e60">COEFF_DERFILT</a> [NUM_COEFF_DERFILT]</td></tr>
 <tr class="separator:ga89e51f5c593608b2deb597c865993e60"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga00c285b355f2c44be9326901aceda6e9" id="r_ga00c285b355f2c44be9326901aceda6e9"><td class="memItemLeft" align="right" valign="top">static const float32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qrs.html#ga00c285b355f2c44be9326901aceda6e9">COEFF_MOVAVG</a> [NUM_COEFF_MOVAVG]</td></tr>
@@ -229,19 +226,19 @@ static const FIR_Filt_t&#160;</td><td class="memItemRight" valign="bottom"><b>mo
 static const FIR_Filt_t *const&#160;</td><td class="memItemRight" valign="bottom"><b>movingAverageFilter</b> = &amp;movingAvgFiltStruct</td></tr>
 <tr class="separator:gaa663272fbf6747beab383a9fc4bd6cd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader">Implementation</h2></td></tr>
-<tr class="memitem:gaa2a304ae511c523eae57e1dd9337945b" id="r_gaa2a304ae511c523eae57e1dd9337945b"><td class="memItemLeft" align="right" valign="top">static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qrs.html#gaa2a304ae511c523eae57e1dd9337945b">QRS_findFiducialMarks</a> (const float32_t yn[], uint16_t fidMarkArray[])</td></tr>
-<tr class="memdesc:gaa2a304ae511c523eae57e1dd9337945b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mark local peaks in the input signal <code>y</code> as potential candidates for QRS complexes (AKA "fiducial marks").  <br /></td></tr>
-<tr class="separator:gaa2a304ae511c523eae57e1dd9337945b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf8d42a9b040b0c2ccb2e0b0f9328a1e8" id="r_gaf8d42a9b040b0c2ccb2e0b0f9328a1e8"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qrs.html#gaf8d42a9b040b0c2ccb2e0b0f9328a1e8">QRS_initLevels</a> (const float32_t yn[], float32_t *sigLvlPtr, float32_t *noiseLvlPtr)</td></tr>
-<tr class="memdesc:gaf8d42a9b040b0c2ccb2e0b0f9328a1e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the signal and noise levels for the QRS detector using the initial block of input signal data.  <br /></td></tr>
-<tr class="separator:gaf8d42a9b040b0c2ccb2e0b0f9328a1e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9f8ddd773a00840ebbbfb073193e1aa3" id="r_ga9f8ddd773a00840ebbbfb073193e1aa3"><td class="memItemLeft" align="right" valign="top">static float32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qrs.html#ga9f8ddd773a00840ebbbfb073193e1aa3">QRS_updateLevel</a> (const float32_t peakAmplitude, float32_t level)</td></tr>
-<tr class="memdesc:ga9f8ddd773a00840ebbbfb073193e1aa3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the signal level (if a fiducial mark is a confirmed peak) or the noise level (if a fiducial mark is rejected).  <br /></td></tr>
-<tr class="separator:ga9f8ddd773a00840ebbbfb073193e1aa3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gadf2f697327fa1c76f94afca729bf9f30" id="r_gadf2f697327fa1c76f94afca729bf9f30"><td class="memItemLeft" align="right" valign="top">static float32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qrs.html#gadf2f697327fa1c76f94afca729bf9f30">QRS_updateThreshold</a> (const float32_t <a class="el" href="_q_r_s_8c.html#a5802584806ac0a13e91c5d6c59d35a1d">signalLevel</a>, const float32_t <a class="el" href="_q_r_s_8c.html#a9eef3c7be031e34630901e275d9d55ff">noiseLevel</a>)</td></tr>
-<tr class="memdesc:gadf2f697327fa1c76f94afca729bf9f30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the amplitude threshold used to identify peaks based on the signal and noise levels.  <br /></td></tr>
-<tr class="separator:gadf2f697327fa1c76f94afca729bf9f30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader">Implementation-specific Functions</h2></td></tr>
+<tr class="memitem:gad28d61d6286aab2f3d949965bca5b3c3" id="r_gad28d61d6286aab2f3d949965bca5b3c3"><td class="memItemLeft" align="right" valign="top">static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qrs.html#gad28d61d6286aab2f3d949965bca5b3c3">findFiducialMarks</a> (const float32_t yn[], uint16_t fidMarkArray[])</td></tr>
+<tr class="memdesc:gad28d61d6286aab2f3d949965bca5b3c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mark local peaks in the input signal <code>y</code> as potential candidates for QRS complexes (AKA "fiducial marks").  <br /></td></tr>
+<tr class="separator:gad28d61d6286aab2f3d949965bca5b3c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga030cd959d6a985645111d4918a2adf24" id="r_ga030cd959d6a985645111d4918a2adf24"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qrs.html#ga030cd959d6a985645111d4918a2adf24">initLevels</a> (const float32_t yn[], float32_t *sigLvlPtr, float32_t *noiseLvlPtr)</td></tr>
+<tr class="memdesc:ga030cd959d6a985645111d4918a2adf24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the signal and noise levels for the QRS detector using the initial block of input signal data.  <br /></td></tr>
+<tr class="separator:ga030cd959d6a985645111d4918a2adf24"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf32e3d936d9e3538a7b9cf0dcdab93b3" id="r_gaf32e3d936d9e3538a7b9cf0dcdab93b3"><td class="memItemLeft" align="right" valign="top">static float32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qrs.html#gaf32e3d936d9e3538a7b9cf0dcdab93b3">updateLevel</a> (const float32_t peakAmplitude, float32_t level)</td></tr>
+<tr class="memdesc:gaf32e3d936d9e3538a7b9cf0dcdab93b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the signal level (if a fiducial mark is a confirmed peak) or the noise level (if a fiducial mark is rejected).  <br /></td></tr>
+<tr class="separator:gaf32e3d936d9e3538a7b9cf0dcdab93b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5b611d004725bb35743710c3f18b4022" id="r_ga5b611d004725bb35743710c3f18b4022"><td class="memItemLeft" align="right" valign="top">static float32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qrs.html#ga5b611d004725bb35743710c3f18b4022">updateThreshold</a> (const float32_t <a class="el" href="_q_r_s_8c.html#a5802584806ac0a13e91c5d6c59d35a1d">signalLevel</a>, const float32_t <a class="el" href="_q_r_s_8c.html#a9eef3c7be031e34630901e275d9d55ff">noiseLevel</a>)</td></tr>
+<tr class="memdesc:ga5b611d004725bb35743710c3f18b4022"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the amplitude threshold used to identify peaks based on the signal and noise levels.  <br /></td></tr>
+<tr class="separator:ga5b611d004725bb35743710c3f18b4022"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader">Interface Functions</h2></td></tr>
 <tr class="memitem:ga66b93594125ecb89623cf21c02ae6621" id="r_ga66b93594125ecb89623cf21c02ae6621"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qrs.html#ga66b93594125ecb89623cf21c02ae6621">QRS_Init</a> (void)</td></tr>
@@ -260,8 +257,8 @@ static const FIR_Filt_t *const&#160;</td><td class="memItemRight" valign="bottom
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Module for analyzing ECG data to determine heart rate. </p>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="gaa2a304ae511c523eae57e1dd9337945b" name="gaa2a304ae511c523eae57e1dd9337945b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaa2a304ae511c523eae57e1dd9337945b">&#9670;&#160;</a></span>QRS_findFiducialMarks()</h2>
+<a id="gad28d61d6286aab2f3d949965bca5b3c3" name="gad28d61d6286aab2f3d949965bca5b3c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad28d61d6286aab2f3d949965bca5b3c3">&#9670;&#160;</a></span>findFiducialMarks()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -270,7 +267,7 @@ static const FIR_Filt_t *const&#160;</td><td class="memItemRight" valign="bottom
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static uint8_t QRS_findFiducialMarks </td>
+          <td class="memname">static uint8_t findFiducialMarks </td>
           <td>(</td>
           <td class="paramtype">const float32_t&#160;</td>
           <td class="paramname"><em>yn</em>[], </td>
@@ -308,8 +305,8 @@ static const FIR_Filt_t *const&#160;</td><td class="memItemRight" valign="bottom
 
 </div>
 </div>
-<a id="gaf8d42a9b040b0c2ccb2e0b0f9328a1e8" name="gaf8d42a9b040b0c2ccb2e0b0f9328a1e8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaf8d42a9b040b0c2ccb2e0b0f9328a1e8">&#9670;&#160;</a></span>QRS_initLevels()</h2>
+<a id="ga030cd959d6a985645111d4918a2adf24" name="ga030cd959d6a985645111d4918a2adf24"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga030cd959d6a985645111d4918a2adf24">&#9670;&#160;</a></span>initLevels()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -318,7 +315,7 @@ static const FIR_Filt_t *const&#160;</td><td class="memItemRight" valign="bottom
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static void QRS_initLevels </td>
+          <td class="memname">static void initLevels </td>
           <td>(</td>
           <td class="paramtype">const float32_t&#160;</td>
           <td class="paramname"><em>yn</em>[], </td>
@@ -361,8 +358,8 @@ static const FIR_Filt_t *const&#160;</td><td class="memItemRight" valign="bottom
 
 </div>
 </div>
-<a id="ga9f8ddd773a00840ebbbfb073193e1aa3" name="ga9f8ddd773a00840ebbbfb073193e1aa3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga9f8ddd773a00840ebbbfb073193e1aa3">&#9670;&#160;</a></span>QRS_updateLevel()</h2>
+<a id="gaf32e3d936d9e3538a7b9cf0dcdab93b3" name="gaf32e3d936d9e3538a7b9cf0dcdab93b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf32e3d936d9e3538a7b9cf0dcdab93b3">&#9670;&#160;</a></span>updateLevel()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -371,7 +368,7 @@ static const FIR_Filt_t *const&#160;</td><td class="memItemRight" valign="bottom
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static float32_t QRS_updateLevel </td>
+          <td class="memname">static float32_t updateLevel </td>
           <td>(</td>
           <td class="paramtype">const float32_t&#160;</td>
           <td class="paramname"><em>peakAmplitude</em>, </td>
@@ -404,6 +401,7 @@ static const FIR_Filt_t *const&#160;</td><td class="memItemRight" valign="bottom
   </table>
   </dd>
 </dl>
+<p>This function updates the signal level or noise level using the amplitude of a peak that was marked as a QRS candidate via the following equations:</p>
 <p><img class="formulaInl" alt="$
 signalLevel_1    = f(peakAmplitude, signalLevel_0)
                  = \frac{1}{8}peakAmplitude + \frac{7}{8}signalLevel_0
@@ -415,8 +413,8 @@ $" src="form_24.png" width="446" height="16"/></p>
 
 </div>
 </div>
-<a id="gadf2f697327fa1c76f94afca729bf9f30" name="gadf2f697327fa1c76f94afca729bf9f30"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gadf2f697327fa1c76f94afca729bf9f30">&#9670;&#160;</a></span>QRS_updateThreshold()</h2>
+<a id="ga5b611d004725bb35743710c3f18b4022" name="ga5b611d004725bb35743710c3f18b4022"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5b611d004725bb35743710c3f18b4022">&#9670;&#160;</a></span>updateThreshold()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -425,7 +423,7 @@ $" src="form_24.png" width="446" height="16"/></p>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static float32_t QRS_updateThreshold </td>
+          <td class="memname">static float32_t updateThreshold </td>
           <td>(</td>
           <td class="paramtype">const float32_t&#160;</td>
           <td class="paramname"><em>signalLevel</em>, </td>
@@ -458,7 +456,7 @@ $" src="form_24.png" width="446" height="16"/></p>
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__qrs.html#ga9f8ddd773a00840ebbbfb073193e1aa3" title="Update the signal level (if a fiducial mark is a confirmed peak) or the noise level (if a fiducial ma...">QRS_updateLevel()</a>, <a class="el" href="group__qrs.html#ga189dec78669b6441ec04fc100f16b8fc" title="Calculate the average heart rate (HR) using predetermined decision rules.">QRS_applyDecisionRules</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd>QRS_updateLevel(), <a class="el" href="group__qrs.html#ga189dec78669b6441ec04fc100f16b8fc" title="Calculate the average heart rate (HR) using predetermined decision rules.">QRS_applyDecisionRules</a> </dd></dl>
 <p><img class="formulaInl" alt="$
 threshold = f(signalLevel, noiseLevel) = noiseLevel + 0.25(signalLevel - noiseLevel)
 $" src="form_25.png" width="429" height="29"/></p>
@@ -525,7 +523,16 @@ $" src="form_25.png" width="429" height="29"/></p>
 <dl class="section post"><dt>Postcondition</dt><dd>The preprocessed signal data <img class="formulaInl" alt="$y[n]$" src="form_26.png" width="21" height="14"/> is stored in <code>yn</code> and is ready to be analyzed to calculate the heart rate in [bpm].</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group__qrs.html#ga189dec78669b6441ec04fc100f16b8fc" title="Calculate the average heart rate (HR) using predetermined decision rules.">QRS_applyDecisionRules()</a> </dd></dl>
 <p>This function uses the same overall preprocessing pipeline as the original Pan-Tompkins algorithm, but the high-pass and low-pass filters have been replaced with ones generated using Scipy.</p>
-<p> </p>
+<div class="image">
+<img src="qrs_preproc.png" alt="" width="750cm"/>
+<div class="caption">
+The algorithm's preprocessing pipeline.</div></div>
+ <div class="image">
+<img src="qrs_preproc_output.png" alt="" width="750cm"/>
+<div class="caption">
+Output of each preprocessing step.</div></div>
+<p> <br  />
+  </p>
 <dl class="section note"><dt>Note</dt><dd>The FIR filters are applied in blocks to decrease the amount of memory needed for their state buffers.</dd></dl>
 
 </div>
@@ -556,8 +563,9 @@ $" src="form_25.png" width="429" height="29"/></p>
   </dd>
 </dl>
 <dl class="section post"><dt>Postcondition</dt><dd>Certain information (signal/noise levels, thresholds, etc.) is retained between calls and used to improve further detection.</dd></dl>
-<dl class="section warning"><dt>Warning</dt><dd>The current implementation only processes one block at a time and discards the data immediately after, so peaks that are cut off between one block and another might not be being counted.</dd></dl>
+<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000001">Bug:</a></b></dt><dd>The current implementation processes one block of data at a time and discards the entire block immediately after. As a result, QRS complexes that are cutoff between one block and another are not being counted.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group__qrs.html#ga23e7aac4cbf3423df23afce8a43de44d" title="Preprocess the ECG data to remove noise and/or exaggerate the signal characteristic(s) of interest.">QRS_Preprocess()</a> </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>Write implementation explanation </dd></dl>
 
 </div>
 </div>
@@ -605,8 +613,8 @@ Certain information (signal/noise levels, thresholds, etc.) is retained between 
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
-<a id="gaaf5fe592d42c2c1ce8186005bd4727ce" name="gaaf5fe592d42c2c1ce8186005bd4727ce"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaaf5fe592d42c2c1ce8186005bd4727ce">&#9670;&#160;</a></span>COEFF_BANDPASS</h2>
+<a id="gaa81f10d3bedfb58d09a3538c8d477814" name="gaa81f10d3bedfb58d09a3538c8d477814"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa81f10d3bedfb58d09a3538c8d477814">&#9670;&#160;</a></span>COEFF_BANDPASS</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -615,7 +623,7 @@ Certain information (signal/noise levels, thresholds, etc.) is retained between 
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const float32_t COEFF_BANDPASS[NUM_COEFF_HIGHPASS]</td>
+          <td class="memname">const float32_t COEFF_BANDPASS[NUM_COEFF_BANDPASS]</td>
         </tr>
       </table>
   </td>

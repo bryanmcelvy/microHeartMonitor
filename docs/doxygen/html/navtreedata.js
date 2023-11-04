@@ -55,6 +55,8 @@ var NAVTREE =
       [ "Software", "index.html#sec_build_sw", null ]
     ] ],
     [ "References", "index.html#sec_ref", null ],
+    [ "Todo List", "todo.html", null ],
+    [ "Bug List", "bug.html", null ],
     [ "Topics", "topics.html", "topics" ],
     [ "Data Structures", "annotated.html", [
       [ "Data Structures", "annotated.html", "annotated_dup" ],
@@ -82,7 +84,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_a_d_c_8c.html",
-"group__main.html#gacee97e0210293aa25555dac80f1f2d4b"
+"group__main.html#gacb915975c73f153d903100564abd605a"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

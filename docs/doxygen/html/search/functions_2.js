@@ -12,5 +12,6 @@ var searchData=
   ['fifo_5fpeekone_9',['Fifo_PeekOne',['../group__fifo.html#ga29a8388a2915767fa7885b0f1627d1f0',1,'Fifo.c']]],
   ['fifo_5fput_10',['Fifo_Put',['../group__fifo.html#gaf68b2cfb40ab050d1de771f7ce276ae1',1,'Fifo.c']]],
   ['fifo_5fputfloat_11',['Fifo_PutFloat',['../group__fifo.html#ga666d3b6d48902e82cd5c33883a9ccf23',1,'Fifo.c']]],
-  ['fifo_5freset_12',['Fifo_Reset',['../group__fifo.html#ga0a83842220ad1e1684490f0c8c3ca1e9',1,'Fifo.c']]]
+  ['fifo_5freset_12',['Fifo_Reset',['../group__fifo.html#ga0a83842220ad1e1684490f0c8c3ca1e9',1,'Fifo.c']]],
+  ['findfiducialmarks_13',['findFiducialMarks',['../group__qrs.html#gad28d61d6286aab2f3d949965bca5b3c3',1,'QRS.c']]]
 ];

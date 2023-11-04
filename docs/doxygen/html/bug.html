@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>uHeartMonitor: An ECG-based Heart Rate Monitor: Globals</title>
+<title>uHeartMonitor: An ECG-based Heart Rate Monitor: Bug List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript">var page_layout=1;</script>
 <script type="text/javascript" src="jquery.js"></script>
@@ -70,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('globals_f.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('bug.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -95,31 +95,16 @@ $(document).ready(function(){initNavTree('globals_f.html',''); initResizable(); 
 </div>
 </div>
 
+<div><div class="header">
+  <div class="headertitle"><div class="title">Bug List</div></div>
+</div><!--header-->
 <div class="contents">
-<div class="textblock">Here is a list of all documented functions, variables, defines, enums, and typedefs with links to the documentation:</div>
-
-<h3><a id="index_f" name="index_f"></a>- f -</h3><ul>
-<li>Fifo_Flush()&#160;:&#160;<a class="el" href="group__fifo.html#ga52f0797f2c3af8db878babcdacc6242c">Fifo.c</a></li>
-<li>Fifo_FlushFloat()&#160;:&#160;<a class="el" href="group__fifo.html#ga6e95564c4286c38fbec21c15213566ad">Fifo.c</a></li>
-<li>Fifo_Get()&#160;:&#160;<a class="el" href="group__fifo.html#ga6a20ad9b707e4b8ccbef29f6ebaf7ea8">Fifo.c</a></li>
-<li>Fifo_getCurrSize()&#160;:&#160;<a class="el" href="group__fifo.html#ga7c7a581b982e97b236cdc2840ce956f0">Fifo.c</a></li>
-<li>Fifo_GetFloat()&#160;:&#160;<a class="el" href="group__fifo.html#gaa380ef9605518fc998d51d06cc2b65fc">Fifo.c</a></li>
-<li>FIFO_INFO&#160;:&#160;<a class="el" href="group__main.html#ga95e0e119cc9e0315570044cf179b61f4">main.c</a></li>
-<li>Fifo_Init()&#160;:&#160;<a class="el" href="group__fifo.html#ga633860451fbd13513862ed1126cea143">Fifo.c</a></li>
-<li>Fifo_isEmpty()&#160;:&#160;<a class="el" href="group__fifo.html#gae944d60dc7c317e611e1a06712eb60a3">Fifo.c</a></li>
-<li>Fifo_isFull()&#160;:&#160;<a class="el" href="group__fifo.html#ga27bfb943ac834fd7a1bf79cbce3e4af8">Fifo.c</a></li>
-<li>Fifo_PeekAll()&#160;:&#160;<a class="el" href="group__fifo.html#gab70a834e9ca12db9817f15f9342d9fb7">Fifo.c</a></li>
-<li>Fifo_PeekOne()&#160;:&#160;<a class="el" href="group__fifo.html#ga29a8388a2915767fa7885b0f1627d1f0">Fifo.c</a></li>
-<li>Fifo_Put()&#160;:&#160;<a class="el" href="group__fifo.html#gaf68b2cfb40ab050d1de771f7ce276ae1">Fifo.c</a></li>
-<li>Fifo_PutFloat()&#160;:&#160;<a class="el" href="group__fifo.html#ga666d3b6d48902e82cd5c33883a9ccf23">Fifo.c</a></li>
-<li>Fifo_Reset()&#160;:&#160;<a class="el" href="group__fifo.html#ga0a83842220ad1e1684490f0c8c3ca1e9">Fifo.c</a></li>
-<li>fifoPool&#160;:&#160;<a class="el" href="group__fifo.html#ga43a21a8d954df409f746591c279f570b">Fifo.c</a></li>
-<li>findFiducialMarks()&#160;:&#160;<a class="el" href="group__qrs.html#gad28d61d6286aab2f3d949965bca5b3c3">QRS.c</a></li>
-<li>FRMCTR1&#160;:&#160;<a class="el" href="group__ili9341.html#gga13f208b6f7f5cab976154336d1acf3c4a7acf7573dc16c6b056da7496f793db12">ILI9341.h</a></li>
-<li>FRMCTR2&#160;:&#160;<a class="el" href="group__ili9341.html#gga13f208b6f7f5cab976154336d1acf3c4a815e7c357bc58f944faa77de59eb5ae8">ILI9341.h</a></li>
-<li>FRMCTR3&#160;:&#160;<a class="el" href="group__ili9341.html#gga13f208b6f7f5cab976154336d1acf3c4aad9db5d58deb519a7a3e7c1309fbeb03">ILI9341.h</a></li>
-</ul>
-</div><!-- contents -->
+<div class="textblock"><dl class="reflist">
+<dt>Global <a class="el" href="group__qrs.html#ga189dec78669b6441ec04fc100f16b8fc">QRS_applyDecisionRules</a>  (const float32_t yn[])</dt>
+<dd><a class="anchor" id="_bug000001"></a>The current implementation processes one block of data at a time and discards the entire block immediately after. As a result, QRS complexes that are cutoff between one block and another are not being counted.</dd>
+</dl>
+</div></div><!-- contents -->
+</div><!-- PageDoc -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

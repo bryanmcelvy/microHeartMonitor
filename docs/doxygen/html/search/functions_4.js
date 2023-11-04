@@ -20,12 +20,13 @@ var searchData=
   ['ili9341_5fsetsleepmode_17',['ILI9341_setSleepMode',['../group__ili9341.html#gac543bba8c3191decaaecf7b487b1fa97',1,'ILI9341.c']]],
   ['ili9341_5fwritememcmd_18',['ILI9341_writeMemCmd',['../group__ili9341.html#gabdc8507774e954a61b47ffd21430a1ef',1,'ILI9341.c']]],
   ['ili9341_5fwritepixel_19',['ILI9341_writePixel',['../group__ili9341.html#ga09d58ab5a7d51d6d080ecd1f87a34b00',1,'ILI9341.c']]],
-  ['isr_5faddtointtable_20',['ISR_addToIntTable',['../group__isr.html#gaeffe767c18c92a042f2dce7f90b2c7e8',1,'ISR.c']]],
-  ['isr_5fdisable_21',['ISR_Disable',['../group__isr.html#ga6b616eb63eb69bd461785555aa89d027',1,'ISR.c']]],
-  ['isr_5fenable_22',['ISR_Enable',['../group__isr.html#ga3d747d4c00d6bd2baf42e4a5efc1c6b7',1,'ISR.c']]],
-  ['isr_5fglobaldisable_23',['ISR_GlobalDisable',['../group__isr.html#ga23a5ef027b6d1b3aeac0a98b611fca0c',1,'ISR.c']]],
-  ['isr_5fglobalenable_24',['ISR_GlobalEnable',['../group__isr.html#gaa18a80bd0870828cb40c0bf26faee065',1,'ISR.c']]],
-  ['isr_5finitnewtableinram_25',['ISR_InitNewTableInRam',['../group__isr.html#ga1a8cdef6eb7ae1b0782060ad424ffe84',1,'ISR.c']]],
-  ['isr_5fsetpriority_26',['ISR_setPriority',['../group__isr.html#ga11659defe8dcb444a43fd6868dc85192',1,'ISR.c']]],
-  ['isr_5ftriggerinterrupt_27',['ISR_triggerInterrupt',['../group__isr.html#gac004fff65fc230dae1cf4567dd221f13',1,'ISR.c']]]
+  ['initlevels_20',['initLevels',['../group__qrs.html#ga030cd959d6a985645111d4918a2adf24',1,'QRS.c']]],
+  ['isr_5faddtointtable_21',['ISR_addToIntTable',['../group__isr.html#gaeffe767c18c92a042f2dce7f90b2c7e8',1,'ISR.c']]],
+  ['isr_5fdisable_22',['ISR_Disable',['../group__isr.html#ga6b616eb63eb69bd461785555aa89d027',1,'ISR.c']]],
+  ['isr_5fenable_23',['ISR_Enable',['../group__isr.html#ga3d747d4c00d6bd2baf42e4a5efc1c6b7',1,'ISR.c']]],
+  ['isr_5fglobaldisable_24',['ISR_GlobalDisable',['../group__isr.html#ga23a5ef027b6d1b3aeac0a98b611fca0c',1,'ISR.c']]],
+  ['isr_5fglobalenable_25',['ISR_GlobalEnable',['../group__isr.html#gaa18a80bd0870828cb40c0bf26faee065',1,'ISR.c']]],
+  ['isr_5finitnewtableinram_26',['ISR_InitNewTableInRam',['../group__isr.html#ga1a8cdef6eb7ae1b0782060ad424ffe84',1,'ISR.c']]],
+  ['isr_5fsetpriority_27',['ISR_setPriority',['../group__isr.html#ga11659defe8dcb444a43fd6868dc85192',1,'ISR.c']]],
+  ['isr_5ftriggerinterrupt_28',['ISR_triggerInterrupt',['../group__isr.html#gac004fff65fc230dae1cf4567dd221f13',1,'ISR.c']]]
 ];

@@ -48,6 +48,7 @@ var searchData=
   ['ledstruct_5ft_45',['LedStruct_t',['../struct_led_struct__t.html',1,'']]],
   ['linenum_46',['linenum',['../_l_c_d_8c.html#a32676687d446a8cc07c57b2e8e8144ee',1,'lineNum:&#160;LCD.c'],['../group__lcd.html#gaa0e4432e263f8031ee92ab044873d0ce',1,'@1::lineNum']]],
   ['liquid_20crystal_20display_20lcd_47',['Liquid Crystal Display (LCD)',['../group__lcd.html',1,'']]],
-  ['locked_20loop_20pll_48',['Phase-Locked Loop (PLL)',['../group__pll.html',1,'']]],
-  ['loop_20pll_49',['Phase-Locked Loop (PLL)',['../group__pll.html',1,'']]]
+  ['list_48',['list',['../bug.html',1,'Bug List'],['../todo.html',1,'Todo List']]],
+  ['locked_20loop_20pll_49',['Phase-Locked Loop (PLL)',['../group__pll.html',1,'']]],
+  ['loop_20pll_50',['Phase-Locked Loop (PLL)',['../group__pll.html',1,'']]]
 ];

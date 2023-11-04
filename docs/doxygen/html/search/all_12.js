@@ -26,6 +26,7 @@ var searchData=
   ['timerstruct_5ft_23',['TimerStruct_t',['../struct_timer_struct__t.html',1,'']]],
   ['to_20digital_20conversion_20adc_24',['Analog-to-Digital Conversion (ADC)',['../group__adc.html',1,'']]],
   ['to_20do_25',['To-do',['../index.html#sec_todo',1,'']]],
-  ['transmitter_20uart_26',['Universal Asynchronous Receiver/Transmitter (UART)',['../group__uart.html',1,'']]],
-  ['tx_5fpin_5fnum_27',['TX_PIN_NUM',['../struct_uart_struct__t.html#ab5fcaf405651bdb3d927cfdeb159d205',1,'UartStruct_t']]]
+  ['todo_20list_26',['Todo List',['../todo.html',1,'']]],
+  ['transmitter_20uart_27',['Universal Asynchronous Receiver/Transmitter (UART)',['../group__uart.html',1,'']]],
+  ['tx_5fpin_5fnum_28',['TX_PIN_NUM',['../struct_uart_struct__t.html#ab5fcaf405651bdb3d927cfdeb159d205',1,'UartStruct_t']]]
 ];

@@ -14,5 +14,7 @@ var searchData=
   ['uheartmonitor_3a_20an_20ecg_20based_20heart_20rate_20monitor_11',['uHeartMonitor: An ECG-based Heart Rate Monitor',['../index.html',1,'']]],
   ['universal_20asynchronous_20receiver_20transmitter_20uart_12',['Universal Asynchronous Receiver/Transmitter (UART)',['../group__uart.html',1,'']]],
   ['up_13',['UP',['../group__timer.html#gga18fb5bff40adc5a80cd7d8d4be9222afaba595d8bca8bc5e67c37c0a9d89becfa',1,'Timer.h']]],
-  ['utilitybuffer1_14',['utilitybuffer1',['../_q_r_s_8c.html#ad738f5f6dcb1317cd664bcb81f96714f',1,'utilityBuffer1:&#160;QRS.c'],['../group__qrs.html#ga8800defb2475c8837871fd62b69c028f',1,'@2::utilityBuffer1']]]
+  ['updatelevel_14',['updateLevel',['../group__qrs.html#gaf32e3d936d9e3538a7b9cf0dcdab93b3',1,'QRS.c']]],
+  ['updatethreshold_15',['updateThreshold',['../group__qrs.html#ga5b611d004725bb35743710c3f18b4022',1,'QRS.c']]],
+  ['utilitybuffer1_16',['utilitybuffer1',['../group__qrs.html#ga8800defb2475c8837871fd62b69c028f',1,'@2::utilityBuffer1'],['../_q_r_s_8c.html#ad738f5f6dcb1317cd664bcb81f96714f',1,'utilityBuffer1:&#160;QRS.c']]]
 ];
