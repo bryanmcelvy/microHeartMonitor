@@ -35,11 +35,10 @@ Preprocessor Directives
 #include <stdbool.h>
 #include <stdint.h>
 
-#define QRS_NUM_FID_MARKS               40
+#define QRS_NUM_FID_MARKS       40
 
-#define FLOAT_COMPARE_TOLERANCE         (float32_t)(1E-5f)
-#define IS_GREATER(X, Y)                (bool) ((X - Y) > FLOAT_COMPARE_TOLERANCE)
-#define IS_PEAK(X_MINUS_1, X, X_PLUS_1) (bool) (IS_GREATER(X, X_MINUS_1) && IS_GREATER(X, X_PLUS_1))
+#define FLOAT_COMPARE_TOLERANCE (float32_t)(1E-5f)
+#define IS_GREATER(X, Y)        (bool) ((X - Y) > FLOAT_COMPARE_TOLERANCE)
 
 /*******************************************************************************
 Static Declarations
@@ -305,7 +304,8 @@ static uint8_t QRS_findFiducialMarks(const float32_t yn[], uint16_t fidMarkArray
     uint16_t n_prevMark = 0;                   // sample number of previous peak candidate
 
     for(uint16_t n = 1; n < (QRS_NUM_SAMP - 1); n++) {
-        if(IS_PEAK(yn[n - 1], yn[n], yn[n + 1])) {               // Verify `y[n]` is a peak
+        if(IS_GREATER(yn[n], yn[n - 1]) &&
+           IS_GREATER(yn[n], yn[n + 1])) {               // Verify `y[n]` is a peak
             /**
              * The fiducial marks must be spaced apart by at least 200 [ms] (40 samples
              * @ fs = 200 [Hz]). If a peak is found within this range, the one with the
