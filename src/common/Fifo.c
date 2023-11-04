@@ -38,13 +38,11 @@ static FifoStruct_t fifoPool[FIFO_POOL_SIZE] = { 0 };               ///< pre-all
 static uint8_t numFreeFifos = FIFO_POOL_SIZE;
 
 Fifo_t Fifo_Init(volatile uint32_t buffer[], const uint32_t N) {
-    /// TODO: Add details
-    volatile Fifo_t fifo = 0;
-
     Assert(numFreeFifos > 0);
-    numFreeFifos -= 1;
 
-    fifo = &(fifoPool[numFreeFifos]);
+    numFreeFifos -= 1;
+    volatile Fifo_t fifo = &(fifoPool[numFreeFifos]);
+
     fifo->buffer = buffer;
     fifo->N = N;
     fifo->frontIdx = 0;
@@ -78,9 +76,7 @@ uint32_t Fifo_Get(volatile Fifo_t fifo) {
     uint32_t val;
 
     // NOTE: not using FIFO_isEmpty() here to reduce call stack usage
-    bool isFifoEmpty = (fifo->frontIdx == fifo->backIdx) ? true : false;
-
-    if(isFifoEmpty) {
+    if(fifo->frontIdx == fifo->backIdx) {
         val = 0;
     }
     else {
@@ -94,10 +90,13 @@ uint32_t Fifo_Get(volatile Fifo_t fifo) {
 void Fifo_Flush(volatile Fifo_t fifo, uint32_t outputBuffer[]) {
     uint32_t idx = 0;
 
-    while(Fifo_isEmpty(fifo) == false) {
+    // NOTE: not using FIFO_isEmpty() here to reduce call stack usage
+    while(fifo->frontIdx != fifo->backIdx) {
         outputBuffer[idx++] = fifo->buffer[fifo->frontIdx];
-        fifo->frontIdx = (fifo->frontIdx + 1) % fifo->N;               // wrap around to end
+        fifo->frontIdx = (fifo->frontIdx + 1) % fifo->N;
     }
+
+    return;
 }
 
 /******************************************************************************
