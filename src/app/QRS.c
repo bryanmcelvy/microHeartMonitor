@@ -54,7 +54,7 @@ Static Declarations
  *
  * @post                        `fidMarkArray` will hold the values of the fiducial marks.
  */
-static uint8_t QRS_findFiducialMarks(const float32_t yn[], uint16_t fidMarkArray[]);
+static uint8_t findFiducialMarks(const float32_t yn[], uint16_t fidMarkArray[]);
 
 /**
  * @brief                       Initialize the signal and noise levels for the QRS detector
@@ -66,7 +66,7 @@ static uint8_t QRS_findFiducialMarks(const float32_t yn[], uint16_t fidMarkArray
  *
  * @post                        The signal and noise levels are initialized.
  */
-static void QRS_initLevels(const float32_t yn[], float32_t * sigLvlPtr, float32_t * noiseLvlPtr);
+static void initLevels(const float32_t yn[], float32_t * sigLvlPtr, float32_t * noiseLvlPtr);
 
 /**
  * @brief                       Update the signal level (if a fiducial mark is a confirmed peak)
@@ -76,7 +76,7 @@ static void QRS_initLevels(const float32_t yn[], float32_t * sigLvlPtr, float32_
  * @param[in] level             The current value of the signal level or noise level
  * @param[out] newLevel         The updated value of the signal level or noise level
  */
-static float32_t QRS_updateLevel(const float32_t peakAmplitude, float32_t level);
+static float32_t updateLevel(const float32_t peakAmplitude, float32_t level);
 
 /**
  * @brief                       Update the amplitude threshold used to identify peaks based on the
@@ -88,7 +88,7 @@ static float32_t QRS_updateLevel(const float32_t peakAmplitude, float32_t level)
  *
  * @see                         QRS_updateLevel(), QRS_applyDecisionRules
  */
-static float32_t QRS_updateThreshold(const float32_t signalLevel, const float32_t noiseLevel);
+static float32_t updateThreshold(const float32_t signalLevel, const float32_t noiseLevel);
 
 static struct {
     bool isCalibrated;
@@ -105,27 +105,27 @@ static struct {
 /*******************************************************************************
 Digital Filters
 ********************************************************************************/
-/** @name Digital Filters */               /// @{
+/** @name Digital Filter Variables */               /// @{
 
-enum {
-    // Bandpass Filter
+enum DIGITAL_FILTER_PARAMS {
+    // IIR Bandpass Filter
     NUM_STAGES_BANDPASS = 4,
-    NUM_COEFF_HIGHPASS = NUM_STAGES_BANDPASS * 5,
+    NUM_COEFF_BANDPASS = NUM_STAGES_BANDPASS * 5,
     STATE_BUFF_SIZE_BANDPASS = NUM_STAGES_BANDPASS * 4,
 
-    // Derivative Filter
+    // FIR Derivative Filter
     NUM_COEFF_DERFILT = 5,
     BLOCK_SIZE_DERFILT = (1 << 8),
     STATE_BUFF_SIZE_DERFILT = NUM_COEFF_DERFILT + BLOCK_SIZE_DERFILT - 1,
 
-    // Moving Average Filter
+    // FIR Moving Average Filter
     NUM_COEFF_MOVAVG = 10,
     BLOCK_SIZE_MOVAVG = BLOCK_SIZE_DERFILT,
     STATE_BUFF_SIZE_MOVAVG = NUM_COEFF_MOVAVG + BLOCK_SIZE_MOVAVG - 1,
 };
 
 // clang-format off
-static const float32_t COEFF_BANDPASS[NUM_COEFF_HIGHPASS] = {
+static const float32_t COEFF_BANDPASS[NUM_COEFF_BANDPASS] = {
     // Section 1
     0.002937758108600974f, 0.005875516217201948f, 0.002937758108600974f, 
     1.0485996007919312f, -0.2961403429508209f, 
@@ -189,7 +189,10 @@ void QRS_Preprocess(const float32_t xn[], float32_t yn[]) {
      * algorithm, but the high-pass and low-pass filters have been replaced with ones generated
      * using Scipy.
      *
-     * @image latex software/qrs_preproc.png
+     * @image html software/qrs_preproc.png "The algorithm's preprocessing pipeline." width=750cm
+     * @image html software/qrs_preproc_output.png "Output of each preprocessing step." width=750cm
+     * <br>
+     * @image latex software/qrs_preproc.png "The algorithm's preprocessing pipeline."
      * @image latex software/qrs_preproc_output.png "Output of each preprocessing step."
      */
 
@@ -215,7 +218,7 @@ void QRS_Preprocess(const float32_t xn[], float32_t yn[]) {
 }
 
 float32_t QRS_applyDecisionRules(const float32_t yn[]) {
-    // TODO: Write implementation explanation
+    /// @todo Write implementation explanation
 
     // copy variables from `Detector` for readability
     float32_t signalLevel = Detector.signalLevel;
@@ -229,13 +232,13 @@ float32_t QRS_applyDecisionRules(const float32_t yn[]) {
 
     // calibrate detector on first pass
     if(Detector.isCalibrated == false) {
-        QRS_initLevels(yn, &signalLevel, &noiseLevel);
-        threshold = QRS_updateThreshold(signalLevel, noiseLevel);
+        initLevels(yn, &signalLevel, &noiseLevel);
+        threshold = updateThreshold(signalLevel, noiseLevel);
         Detector.isCalibrated = true;
     }
 
     // classify fiducial marks as signal (confirmed R peaks) or noise
-    uint8_t numMarks = QRS_findFiducialMarks(yn, fidMarkArray);
+    uint8_t numMarks = findFiducialMarks(yn, fidMarkArray);
     uint8_t numPeaks = 0;
 
     for(uint8_t idx = 0; idx < numMarks; idx++) {
@@ -245,13 +248,13 @@ float32_t QRS_applyDecisionRules(const float32_t yn[]) {
             timeBuffer[numPeaks] = n * QRS_SAMP_PERIOD_SEC;
             numPeaks += 1;
 
-            signalLevel = QRS_updateLevel(yn[n], signalLevel);
+            signalLevel = updateLevel(yn[n], signalLevel);
         }
         else {
-            noiseLevel = QRS_updateLevel(yn[n], noiseLevel);
+            noiseLevel = updateLevel(yn[n], noiseLevel);
         }
 
-        threshold = QRS_updateThreshold(signalLevel, noiseLevel);
+        threshold = updateThreshold(signalLevel, noiseLevel);
     }
 
     // store updated values in `Detector`
@@ -283,9 +286,9 @@ float32_t QRS_runDetection(const float32_t xn[], float32_t yn[]) {
 Static Function Definitions
 ********************************************************************************/
 
-/** @name Implementation */                    /// @{
+/** @name Implementation-specific Functions */               /// @{
 
-static void QRS_initLevels(const float32_t yn[], float32_t * sigLvlPtr, float32_t * noiseLvlPtr) {
+static void initLevels(const float32_t yn[], float32_t * sigLvlPtr, float32_t * noiseLvlPtr) {
     float32_t max;
     uint32_t maxIdx;
     arm_max_f32(yn, QRS_SAMP_FREQ * 2, &max, &maxIdx);
@@ -298,8 +301,8 @@ static void QRS_initLevels(const float32_t yn[], float32_t * sigLvlPtr, float32_
     return;
 }
 
-static uint8_t QRS_findFiducialMarks(const float32_t yn[], uint16_t fidMarkArray[]) {
-    uint8_t numMarks = 0;                      // running counter of peak candidates
+static uint8_t findFiducialMarks(const float32_t yn[], uint16_t fidMarkArray[]) {
+    uint8_t numMarks = 0;                                    // running counter of peak candidates
     uint16_t countSincePrev = 1;               // samples checked since previous peak candidate
     uint16_t n_prevMark = 0;                   // sample number of previous peak candidate
 
@@ -337,8 +340,11 @@ static uint8_t QRS_findFiducialMarks(const float32_t yn[], uint16_t fidMarkArray
     return numMarks;
 }
 
-static float32_t QRS_updateLevel(const float32_t peakAmplitude, float32_t level) {
+static float32_t updateLevel(const float32_t peakAmplitude, float32_t level) {
     /**
+     * This function updates the signal level or noise level using the amplitude of a peak
+     * that was marked as a QRS candidate via the following equations:
+     *
      * \f$
      * signalLevel_1    = f(peakAmplitude, signalLevel_0)
      *                  = \frac{1}{8}peakAmplitude + \frac{7}{8}signalLevel_0
@@ -352,7 +358,7 @@ static float32_t QRS_updateLevel(const float32_t peakAmplitude, float32_t level)
     return ((0.125f * peakAmplitude) + (0.875f * level));
 }
 
-static float32_t QRS_updateThreshold(const float32_t signalLevel, const float32_t noiseLevel) {
+static float32_t updateThreshold(const float32_t signalLevel, const float32_t noiseLevel) {
     /**
      * \f$
      * threshold = f(signalLevel, noiseLevel) = noiseLevel + 0.25(signalLevel - noiseLevel)

@@ -52,9 +52,9 @@ void QRS_Preprocess(const float32_t xn[], float32_t yn[]);
  * @post                    Certain information (signal/noise levels, thresholds, etc.) is retained
  *                          between calls and used to improve further detection.
  *
- * @warning                 The current implementation only processes one block at a time and
- *                          discards the data immediately after, so peaks that are cut off between
- *                          one block and another might not be being counted.
+ * @bug                     The current implementation only processes one block of data at a time,
+ *                          discards the entire block immediately after. As a result, QRS complexes
+ *                          that are cutoff between one block and another are not being counted.
  *
  * @see                     QRS_Preprocess()
  */
