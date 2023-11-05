@@ -24,7 +24,7 @@ An electrocardiogram (or ECG) is a plot of the electrical activity of the heart 
 ### How is this repository organized?
 The [Navigation](#navigating-the-repository) section goes into a bit more detail, but the vast majority of the project-specific source code is within the [`/src`](/src) directory. [`main.c`](/src/main.c) is the primary script for the project that is loaded on the microcontroller and implements the heart monitor. The other folders in `/src` host different modules (i.e. collections of `*.c` and `*.h` files) that each implement a particular aspect of the project.
 
-The [`/docs`](/docs/) directory hosts the project's [reference manual](/docs/refman.pdf), the diagrams explained later in this `README`, and external resources.
+The [`/docs`](/docs/) directory hosts the project's [reference manual](/docs/refman.pdf), the diagrams explained within the HTML/PDF documentation, and external resources.
 
 The project is primarily built using CMake, which generates Makefiles based on the commands in each of the different `CMakeLists.txt` files present in many of the directories.
 
