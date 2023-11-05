@@ -6,35 +6,40 @@ import os
 from shutil import copy2, move, rmtree
 from subprocess import run
 
-'''NOTE: this script should be run from the root directory'''
-PATH_ROOT = os.getcwd()
-
-PATH_OUTPUT = f"{PATH_ROOT}/build/docs"
-PATH_OUTPUT_HTML = f"{PATH_ROOT}/build/docs/html"
-PATH_OUTPUT_LATEX = f"{PATH_ROOT}/build/docs/latex"
-
-PATH_DOCS = f"{PATH_ROOT}/docs"
-PATH_DOXYGEN = f"{PATH_DOCS}/doxygen"
-
 print("Generating documentation...")
 
+'''NOTE: this script should be run from the project's root directory'''
+PATH_ROOT = os.getcwd()
+
 # generate images
-os.chdir(PATH_DOCS)
+PATH_DOCS = os.path.join(PATH_ROOT, "docs")
+PATH_DOXYGEN = os.path.join(PATH_DOCS, "doxygen")
+PATH_FIG_OUTPUT = os.path.join(PATH_DOCS, "figures", "software")
+
 for file in os.listdir(PATH_DOXYGEN):
     filename, file_extension = os.path.splitext(file)
     if file_extension == '.dot':
-        run(['dot', '-Tpng', f"{PATH_DOXYGEN}/{file}", '-o', f"figures/software/{filename}.png"])
+        input_file_path = os.path.join(PATH_DOXYGEN, file)
+        output_file_path = os.path.join(PATH_FIG_OUTPUT, filename) + ".png"
+        run(['dot', '-Tpng', input_file_path, '-o', output_file_path])
 
-# generate pdf documentation
+# generate Doxygen documentation
+PATH_OUTPUT = os.path.join(PATH_ROOT, "build", "docs")
+PATH_OUTPUT_HTML = os.path.join(PATH_OUTPUT, "html")
+PATH_OUTPUT_LATEX = os.path.join(PATH_OUTPUT, "latex")
+
 os.chdir(PATH_DOXYGEN)
 run(['doxygen'])
 
+# move html output
+rmtree(path=f"{PATH_DOXYGEN}/html")
+move(src=PATH_OUTPUT_HTML, dst=f"{PATH_DOXYGEN}/html")
+
+# generate pdf documentation and move to correct directory
 os.chdir(PATH_OUTPUT_LATEX)
 run(['make', '-s'])
 
-# copy output to `docs` directory
-os.chdir(PATH_DOCS)
-rmtree(path=f"{PATH_DOXYGEN}/html")
-move(src=PATH_OUTPUT_HTML, dst=f"{PATH_DOXYGEN}/html")
 copy2(src=f"{PATH_OUTPUT_LATEX}/refman.pdf", dst=PATH_DOCS)
 copy2(src=f"{PATH_OUTPUT_LATEX}/refman.log", dst=PATH_DOXYGEN)
+
+print("...done.")
