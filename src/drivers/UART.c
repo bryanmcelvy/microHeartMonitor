@@ -9,6 +9,14 @@
 
 #include "UART.h"
 
+/******************************************************************************
+SECTIONS
+        Constant Declarations
+        Initialization
+        Reading
+        Writing
+*******************************************************************************/
+
 #include "GPIO.h"
 
 #include "NewAssert.h"
@@ -19,14 +27,6 @@
 #include <stdint.h>
 
 #define ASCII_CONVERSION 0x30
-
-/******************************************************************************
-SECTIONS
-        Constant Declarations
-        Initialization
-        Reading
-        Writing
-*******************************************************************************/
 
 /******************************************************************************
 Constant Declarations
