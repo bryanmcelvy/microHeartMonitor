@@ -53,6 +53,27 @@ enum {
 };
 
 /* clang-format off */
+
+/**
+ * @brief   Coefficients of the 60 [Hz] notch filter in biquad (AKA second-order section, or "sos") form.
+ * 
+ * @details These coefficients were generated with the following Python code:
+ *          @code{.py}
+ *                  import numpy as np
+ *                  from scipy import signal
+ *
+ *                  fs = 200
+ *
+ *                  sos_notch = signal.iirfilter(N=6, Wn=[59, 61], btype='bandstop', output='sos', fs=fs)
+ *          @endcode
+ *
+ * @note    CMSIS-DSP and Scipy use different formats for biquad filters. To convert the output 
+ *          to CMSIS-DSP format, the \f$a_0\f$ coefficients were removed from each section, and
+ *          the other denominator coefficients were negated.
+ *
+ * @image html filters/daq_notch.png "" width=750cm
+ * @image latex filters/daq_notch.png ""
+ */
 static const float32_t COEFFS_NOTCH[NUM_COEFFS_NOTCH] = { 
     // Section 1
     0.8856732845306396f, 0.5476464033126831f, 0.8856732845306396f, 
@@ -74,6 +95,36 @@ static const float32_t COEFFS_NOTCH[NUM_COEFFS_NOTCH] = {
     -0.6700929999351501f, -0.9840363264083862f, 
 };
 
+/**
+ * @brief   Coefficients of the bandpass filter in biquad (AKA second-order section, or "sos") form.
+ * 
+ * @details These coefficients were generated with the following Python code:
+ *          @code{.py}
+ *                  import numpy as np
+ *                  from scipy import signal
+ *
+ *                  fs = 200
+ *
+ *                  sos_high = signal.iirfilter(N=4, Wn=0.5, btype="highpass", rs=10, ftype='cheby2', fs=fs, output='sos')
+ *                  z_high, p_high, k_high = signal.sos2zpk(sos_high)
+ *
+ *                  sos_low = signal.iirfilter(N=4, Wn=40, btype="lowpass", rs=10, ftype='cheby2', fs=fs, output='sos')
+ *                  z_low, p_low, k_low = signal.sos2zpk(sos_low)
+ *
+ *                  z_bandpass = np.concatenate([z_high, z_low])
+ *                  p_bandpass = np.concatenate([p_high, p_low])
+ *                  k_bandpass = k_high * k_low
+ *
+ *                  sos_bandpass = signal.zpk2sos(z_bandpass, p_bandpass, k_bandpass)
+ *          @endcode
+ *
+ * @note    CMSIS-DSP and Scipy use different formats for biquad filters. To convert the output 
+ *          to CMSIS-DSP format, the \f$a_0\f$ coefficients were removed from each section, and
+ *          the other denominator coefficients were negated.
+ *
+ * @image html filters/daq_bandpass.png "" width=750cm
+ * @image latex filters/daq_bandpass.png ""
+ */
 static const float32_t COEFFS_BANDPASS[NUM_COEFFS_DAQ_BANDPASS] = {
     // Section 1
     0.3240305185317993f, 0.3665695786476135f, 0.3240305185317993f, 

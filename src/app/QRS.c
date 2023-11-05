@@ -129,6 +129,36 @@ enum DIGITAL_FILTER_PARAMS {
 };
 
 // clang-format off
+
+/**
+ * @brief   Coefficients of the bandpass filter in biquad (AKA second-order section, or "sos") form.
+ * 
+ * @details These coefficients were generated with the following Python code:
+ *          @code{.py}
+ *                   import numpy as np
+ *                   from scipy import signal
+ *
+ *                   fs = 200
+ *
+ *                   sos_high = signal.iirfilter(N=4, Wn=12, btype='highpass', output='sos', fs=fs)
+ *                   z_high, p_high, k_high = signal.sos2zpk(sos_high)
+ *
+ *                   sos_low = signal.iirfilter(N=4, Wn=20, btype='lowpass', output='sos', fs=fs)
+ *                   z_low, p_low, k_low = signal.sos2zpk(sos_low)
+ *
+ *                   z_bpf = np.concatenate([z_high, z_low])
+ *                   p_bpf = np.concatenate([p_high, p_low])
+ *                   k_bpf = k_high * k_low
+ *
+ *                   sos_bpf = signal.zpk2sos(z_bpf, p_bpf, k_bpf)
+ *          @endcode
+ * @note    CMSIS-DSP and Scipy use different formats for biquad filters. To convert output 
+ *          variable `sos_bpf` to CMSIS-DSP format, the \f$a_0\f$ coefficients were removed 
+ *          from each section, and the other denominator coefficients were negated.
+ *
+ * @image html filters/qrs_bandpass.png "" width=750cm
+ * @image latex filters/qrs_bandpass.png ""
+ */
 static const float32_t COEFF_BANDPASS[NUM_COEFF_BANDPASS] = {
     // Section 1
     0.002937758108600974f, 0.005875516217201948f, 0.002937758108600974f, 
@@ -144,10 +174,22 @@ static const float32_t COEFF_BANDPASS[NUM_COEFF_BANDPASS] = {
     1.6299355030059814f, -0.7530401945114136f, 
 };
 
+/**
+ * @brief           Coefficients of the derivative filter, written in time-reversed order.
+ * 
+ * @image html filters/qrs_derivative.png "" width=750cm
+ * @image latex filters/qrs_derivative.png ""
+ */
 static const float32_t COEFF_DERFILT[NUM_COEFF_DERFILT] = {
     -0.125f, -0.25f, 0.0f, 0.25f, 0.125f
 };
 
+/**
+ * @brief           Coefficients of the moving average (AKA moving-window integration) filter.
+ * 
+ * @image html filters/qrs_moving_avg.png "" width=750cm
+ * @image latex filters/qrs_moving_avg.png ""
+ */
 static const float32_t COEFF_MOVAVG[NUM_COEFF_MOVAVG] = {
     0.10000000149011612f, 0.10000000149011612f, 0.10000000149011612f, 
     0.10000000149011612f, 0.10000000149011612f, 0.10000000149011612f,
@@ -193,11 +235,11 @@ void QRS_Preprocess(const float32_t xn[], float32_t yn[]) {
      * algorithm, but the high-pass and low-pass filters have been replaced with ones generated
      * using Scipy.
      *
-     * @image html software/qrs_preproc.png "The algorithm's preprocessing pipeline." width=750cm
-     * @image html software/qrs_preproc_output.png "Output of each preprocessing step." width=750cm
+     * @image html software/qrs_preproc.png "" width=750cm
+     * @image html software/qrs_preproc_output.png "" width=750cm
      * <br>
-     * @image latex software/qrs_preproc.png "The algorithm's preprocessing pipeline."
-     * @image latex software/qrs_preproc_output.png "Output of each preprocessing step."
+     * @image latex software/qrs_preproc.png ""
+     * @image latex software/qrs_preproc_output.png ""
      */
 
     // copy samples from input buffer `xn` to output buffer `yn`
