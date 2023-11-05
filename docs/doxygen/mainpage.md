@@ -1,9 +1,19 @@
-@mainpage
+@mainpage Overview
+
+μHeartMonitor is a personal project that I made to increase my experience in embedded software engineering and apply my previous coursework in biomedical engineering. Essentially, it's a fully-functional, ECG-based heart rate monitor that runs on the popular Tiva LaunchPad evaluation kit for the TM4C123 microcontroller.
+
+@htmlonly
+Please visit the sidebar for more information on how the project works.
+@endhtmlonly
+
+Github Repository Link: https://github.com/bryanmcelvy/microHeartMonitor
+
+Introduction: @ref page_intro "Link"
+
+@page page_intro Introduction 
 @tableofcontents
 
-@section sec_intro Introduction 
-
-@subsection sec_intro_bg Background
+@section sec_intro_bg Background
 ***Electrocardiography*** (or ***ECG***) is a diagnostic technique in which the electrical activity of a patient's heart is captured as time series data (AKA the ECG signal) and analyzed to assess cardiovascular health. Specifically, the ECG signal can be analyzed to detect biomarkers for cardiovascular diseases like arrhythmia, myocardial infarction, etc. which manifest as abnormalities in the ECG waveform. In clinical environments, ECG is performed using machines that implement the required hardware and software to acquire, process, and analyze the ECG signal. This must be done in such a way that preserves the important information within the signal (specifically the shape of the ECG waveform) while also maintaining the safety of the patient [1].
 
 The ECG waveform consists of 5 smaller "waves" – the P, Q, R, S, and T waves – that each give information on a patient's cardiac health both individually and collectively. The term ***QRS complex*** refers to the part of the ECG waveform that is generally taken to be the heart "beat". Thus, ECG-based heart rate monitors commonly use a category of algorithms called ***QRS detectors*** to determine the locations of the R-peaks within a block of ECG signal data and calculate the time period between each adjacent peak (i.e. the ***RR interval***) [2]. The RR interval is related to the heart rate by this equation:
@@ -32,7 +42,7 @@ The ***μHeartMonitor*** is an embedded system that implements the Pan-Tompkins 
 The uHeartMonitor is an embedded system that implements the Pan-Tompkins algorithm for QRS detection. The system consists of both hardware and software that cooperate to achieve this task while also visually outputting the ECG waveform and heart rate to a liquid crystal display (LCD). The text below and the contents of this repository reflect the current progress made, but the end goal is to have the full system mounted on 1-2 printed circuit boards (PCBs) situated inside an insulated enclosure.
 @endlatexonly
 
-@subsection sec_intro_mot Motivation
+@section sec_intro_mot Motivation
 My primary motivations for doing this project are:
 * Learning more about and gaining exposure to the many different concepts, tools, and challenges involved in embedded systems engineering
 * Applying the skills and knowledge I gained from previous coursework, including but not limited to:
@@ -44,10 +54,10 @@ My primary motivations for doing this project are:
 
 I also hope that anyone interested in any of the fields of knowledge relevant to this project (biomedical/electrical/computer/software engineering) will find this helpful to look at or even use in their own projects.
 
-@subsection sec_intro_dis Disclaimer
+@section sec_intro_dis Disclaimer
 This project is neither a product nor a medical device (by any legal definition, anyway), and is not intended to be either or both of things now or in the future. It is simply a passion project.
 
-@subsection sec_terms Key Terms
+@section sec_terms Key Terms
 * Electrocardiogram/Electrocardiography (ECG)
 * Heart rate
 * Heart rate monitor
@@ -55,9 +65,10 @@ This project is neither a product nor a medical device (by any legal definition,
 * QRS detector
 * RR interval
 
-@section sec_meth Materials & Methods
+@page page_meth Materials & Methods
+@tableofcontents
 
-@subsection sec_meth_hard Hardware Design
+@section sec_meth_hard Hardware Design
 
 @htmlonly
 <details>
@@ -110,7 +121,7 @@ It also has three resistors on the AFE-side that effectively shift the signal fr
 
 The microcontroller circuit currently consists of a TM4C123 microcontroller mounted on a LaunchPad evaluation kit, and an MSP2807 liquid crystal display (LCD).
 
-@subsection sec_meth_soft Software Architecture
+@section sec_meth_soft Software Architecture
 
 The software has a total of 14 modules, 11 of which are (somewhat loosely) divided into three layers: application-specific software, middleware, and device drivers.
 The call graph and data flow graph visually represent the software architecture.
@@ -162,12 +173,25 @@ This "layer" includes modules/libraries/files that were not written (or at least
 The "common" modules are general-purpose modules that don't necessarily fit into the above categories/layers. This category includes the "Fifo" module, which contains a ring buffer-based implementation of the FIFO buffer (AKA "queue") data structure; and "NewAssert", which is essentially just an implementation of the `assert` macro that causes a breakpoint (and also doesn't use up as much RAM as the standard implementation does).
 @see @ref common
 
-@section sec_results Current Results
+@section page_build Build Instructions
+
+@subsection sec_build_hw Hardware
+WIP
+
+@subsection sec_build_sw Software
+WIP
+
+@page page_results Results
+@tableofcontents
+
+@section sec_curr_result Current Results
 Video Demonstration: [YouTube Link](https://youtu.be/KB2CsFbUgtg)
 
 The project is currently implemented using 2 breadboards and a Tiva C LaunchPad development board. The manual tests I've been running use a clone of the JDS6600 signal generator, which I loaded a sample ECG waveform from the MIT-BIH arrhythmia database onto using scripts in the corresponding folder in the `/tools` directory. As can be seen in the video demonstration, the calculated heart rate isn't 100% correct at the moment, but still gets relatively close.
 
 @section sec_todo To-do
+@tableofcontents
+
 @subsection sec_todo_hw Hardware
 * Design a custom PCB
   * Replace most of the AFE circuitry with an AFE IC (e.g. AD8232)
@@ -175,26 +199,10 @@ The project is currently implemented using 2 breadboards and a Tiva C LaunchPad 
   * Add decoupling capacitors
 
 @subsection sec_todo_sw Software
-* Rework the structure of/relationship between the LCD and ILI9341 modules
-* Refactor ADC module to be more general
-* Refactor SPI module to be more general
-* Remove statically-allocated data structures for unused Timers and GPIO ports
-* Add remaining parts of the Pan-Tompkins algorithm
-  * Thresholding procedure for bandpass-filtered signal (not just integrated signal)
-  * Search-back procedure
-  * T-wave discrimination
-* Add heart rate variability (HRV) calculation
-* Move CMSIS-DSP filters from DAQ and QRS modules to their own module
 * Expand the automated test suite
+@note See the other Todo List section for other software-related todos.
 
-@section sec_build Build Instructions
-@subsection sec_build_hw Hardware
-WIP
-
-@subsection sec_build_sw Software
-WIP
-
-@section sec_ref References
+@page page_ref References
 
 [1] J. Pan and W. J. Tompkins, “A Real-Time QRS Detection Algorithm,” IEEE Trans. Biomed. Eng., vol. BME-32, no. 3, pp. 230–236, Mar. 1985, doi: 10.1109/TBME.1985.325532.
 

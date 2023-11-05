@@ -18,6 +18,7 @@
         /** 
          * @defgroup        qrs             QRS Detector
          * @brief           Module for analyzing ECG data to determine heart rate.
+         * @todo            Add heart rate variability (HRV) calculation.
          */
 
        /** 

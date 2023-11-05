@@ -10,6 +10,10 @@
  *          Specifically, this version currently only uses the integrated signal for the
  *          thresholding, and also completely omits the searchback and T wave discrimination parts
  *          of the original.
+ *
+ * @todo    Add thresholding for bandpass filtered signal.
+ * @todo    Add searchback procedure via RR intervals.
+ * @todo    Add T-wave discrimination.
  */
 
 #include "QRS.h"
