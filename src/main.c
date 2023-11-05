@@ -249,8 +249,7 @@ int main(void) {
 
             QRS_Preprocess(QRS_processingBuffer, QRS_processingBuffer);
             float32_t heartRate_bpm = QRS_applyDecisionRules(QRS_processingBuffer);
-            Debug_Assert(isnan(heartRate_bpm) == false);
-            Debug_Assert(isinf(heartRate_bpm) == false);
+            Debug_Assert(isfinite(heartRate_bpm));
 
             // Output heart rate to serial port
             Debug_WriteFloat(heartRate_bpm);
