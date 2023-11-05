@@ -193,16 +193,19 @@ typedef arm_biquad_casd_df1_inst_f32&#160;</td><td class="memItemRight" valign="
 typedef arm_fir_instance_f32&#160;</td><td class="memItemRight" valign="bottom"><b>FIR_Filt_t</b></td></tr>
 <tr class="separator:ga194c44a95aeb188161636e7eb78a1032"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaa81f10d3bedfb58d09a3538c8d477814" id="r_gaa81f10d3bedfb58d09a3538c8d477814"><td class="memItemLeft" align="right" valign="top">static const float32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qrs.html#gaa81f10d3bedfb58d09a3538c8d477814">COEFF_BANDPASS</a> [NUM_COEFF_BANDPASS]</td></tr>
+<tr class="memdesc:gaa81f10d3bedfb58d09a3538c8d477814"><td class="mdescLeft">&#160;</td><td class="mdescRight">Coefficients of the bandpass filter in biquad (AKA second-order section, or "sos") form.  <br /></td></tr>
 <tr class="separator:gaa81f10d3bedfb58d09a3538c8d477814"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga89e51f5c593608b2deb597c865993e60" id="r_ga89e51f5c593608b2deb597c865993e60"><td class="memItemLeft" align="right" valign="top">static const float32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qrs.html#ga89e51f5c593608b2deb597c865993e60">COEFF_DERFILT</a> [NUM_COEFF_DERFILT]</td></tr>
+<tr class="memdesc:ga89e51f5c593608b2deb597c865993e60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Coefficients of the derivative filter, written in time-reversed order.  <br /></td></tr>
 <tr class="separator:ga89e51f5c593608b2deb597c865993e60"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga00c285b355f2c44be9326901aceda6e9" id="r_ga00c285b355f2c44be9326901aceda6e9"><td class="memItemLeft" align="right" valign="top">static const float32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qrs.html#ga00c285b355f2c44be9326901aceda6e9">COEFF_MOVAVG</a> [NUM_COEFF_MOVAVG]</td></tr>
+<tr class="memdesc:ga00c285b355f2c44be9326901aceda6e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Coefficients of the moving average (AKA moving-window integration) filter.  <br /></td></tr>
 <tr class="separator:ga00c285b355f2c44be9326901aceda6e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf8b1ef5a139506ea5871d6fc1186d270" id="r_gaf8b1ef5a139506ea5871d6fc1186d270"><td class="memItemLeft" align="right" valign="top"><a id="gaf8b1ef5a139506ea5871d6fc1186d270" name="gaf8b1ef5a139506ea5871d6fc1186d270"></a>
 static float32_t&#160;</td><td class="memItemRight" valign="bottom"><b>stateBuffer_bandPass</b> [STATE_BUFF_SIZE_BANDPASS] = { 0 }</td></tr>
 <tr class="separator:gaf8b1ef5a139506ea5871d6fc1186d270"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga00c97417289fb75c55a68a11bd15c214" id="r_ga00c97417289fb75c55a68a11bd15c214"><td class="memItemLeft" align="right" valign="top"><a id="ga00c97417289fb75c55a68a11bd15c214" name="ga00c97417289fb75c55a68a11bd15c214"></a>
-static const IIR_Filt_t&#160;</td><td class="memItemRight" valign="bottom"><b>bandpassFiltStruct</b> = { NUM_STAGES_BANDPASS, stateBuffer_bandPass, COEFF_BANDPASS }</td></tr>
+static const IIR_Filt_t&#160;</td><td class="memItemRight" valign="bottom"><b>bandpassFiltStruct</b> = { NUM_STAGES_BANDPASS, stateBuffer_bandPass, <a class="el" href="group__qrs.html#gaa81f10d3bedfb58d09a3538c8d477814">COEFF_BANDPASS</a> }</td></tr>
 <tr class="separator:ga00c97417289fb75c55a68a11bd15c214"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6ba4ee92fc40b1cf8ca2dba85f0c6fd2" id="r_ga6ba4ee92fc40b1cf8ca2dba85f0c6fd2"><td class="memItemLeft" align="right" valign="top"><a id="ga6ba4ee92fc40b1cf8ca2dba85f0c6fd2" name="ga6ba4ee92fc40b1cf8ca2dba85f0c6fd2"></a>
 static const IIR_Filt_t *const&#160;</td><td class="memItemRight" valign="bottom"><b>bandpassFilter</b> = &amp;bandpassFiltStruct</td></tr>
@@ -211,7 +214,7 @@ static const IIR_Filt_t *const&#160;</td><td class="memItemRight" valign="bottom
 static float32_t&#160;</td><td class="memItemRight" valign="bottom"><b>stateBuffer_DerFilt</b> [STATE_BUFF_SIZE_DERFILT] = { 0 }</td></tr>
 <tr class="separator:ga6f006095b4d56c8f6c37e00b1815364c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga0e14d893187762ee51abcc65bfc4995d" id="r_ga0e14d893187762ee51abcc65bfc4995d"><td class="memItemLeft" align="right" valign="top"><a id="ga0e14d893187762ee51abcc65bfc4995d" name="ga0e14d893187762ee51abcc65bfc4995d"></a>
-static const FIR_Filt_t&#160;</td><td class="memItemRight" valign="bottom"><b>derivativeFiltStruct</b> = { NUM_COEFF_DERFILT, stateBuffer_DerFilt, COEFF_DERFILT }</td></tr>
+static const FIR_Filt_t&#160;</td><td class="memItemRight" valign="bottom"><b>derivativeFiltStruct</b> = { NUM_COEFF_DERFILT, stateBuffer_DerFilt, <a class="el" href="group__qrs.html#ga89e51f5c593608b2deb597c865993e60">COEFF_DERFILT</a> }</td></tr>
 <tr class="separator:ga0e14d893187762ee51abcc65bfc4995d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga746de8e4933cec58d016d15c60889720" id="r_ga746de8e4933cec58d016d15c60889720"><td class="memItemLeft" align="right" valign="top"><a id="ga746de8e4933cec58d016d15c60889720" name="ga746de8e4933cec58d016d15c60889720"></a>
 static const FIR_Filt_t *const&#160;</td><td class="memItemRight" valign="bottom"><b>derivativeFilter</b> = &amp;derivativeFiltStruct</td></tr>
@@ -220,7 +223,7 @@ static const FIR_Filt_t *const&#160;</td><td class="memItemRight" valign="bottom
 static float32_t&#160;</td><td class="memItemRight" valign="bottom"><b>stateBuffer_MovingAvg</b> [STATE_BUFF_SIZE_MOVAVG] = { 0 }</td></tr>
 <tr class="separator:ga72ce31948fa328359dcf375929ebf185"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab331ee8284225236dec1d4d2f042cc71" id="r_gab331ee8284225236dec1d4d2f042cc71"><td class="memItemLeft" align="right" valign="top"><a id="gab331ee8284225236dec1d4d2f042cc71" name="gab331ee8284225236dec1d4d2f042cc71"></a>
-static const FIR_Filt_t&#160;</td><td class="memItemRight" valign="bottom"><b>movingAvgFiltStruct</b> = { NUM_COEFF_MOVAVG, stateBuffer_MovingAvg, COEFF_MOVAVG }</td></tr>
+static const FIR_Filt_t&#160;</td><td class="memItemRight" valign="bottom"><b>movingAvgFiltStruct</b> = { NUM_COEFF_MOVAVG, stateBuffer_MovingAvg, <a class="el" href="group__qrs.html#ga00c285b355f2c44be9326901aceda6e9">COEFF_MOVAVG</a> }</td></tr>
 <tr class="separator:gab331ee8284225236dec1d4d2f042cc71"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaa663272fbf6747beab383a9fc4bd6cd0" id="r_gaa663272fbf6747beab383a9fc4bd6cd0"><td class="memItemLeft" align="right" valign="top"><a id="gaa663272fbf6747beab383a9fc4bd6cd0" name="gaa663272fbf6747beab383a9fc4bd6cd0"></a>
 static const FIR_Filt_t *const&#160;</td><td class="memItemRight" valign="bottom"><b>movingAverageFilter</b> = &amp;movingAvgFiltStruct</td></tr>
@@ -250,12 +253,10 @@ static const FIR_Filt_t *const&#160;</td><td class="memItemRight" valign="bottom
 <tr class="memitem:ga189dec78669b6441ec04fc100f16b8fc" id="r_ga189dec78669b6441ec04fc100f16b8fc"><td class="memItemLeft" align="right" valign="top">float32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qrs.html#ga189dec78669b6441ec04fc100f16b8fc">QRS_applyDecisionRules</a> (const float32_t yn[])</td></tr>
 <tr class="memdesc:ga189dec78669b6441ec04fc100f16b8fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the average heart rate (HR) using predetermined decision rules.  <br /></td></tr>
 <tr class="separator:ga189dec78669b6441ec04fc100f16b8fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga5565e1314bc6a6f027d346b79603a668" id="r_ga5565e1314bc6a6f027d346b79603a668"><td class="memItemLeft" align="right" valign="top">float32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qrs.html#ga5565e1314bc6a6f027d346b79603a668">QRS_runDetection</a> (const float32_t xn[], float32_t yn[])</td></tr>
-<tr class="memdesc:ga5565e1314bc6a6f027d346b79603a668"><td class="mdescLeft">&#160;</td><td class="mdescRight">Run the full algorithm (preprocessing and decision rules) on the inputted ECG data.  <br /></td></tr>
-<tr class="separator:ga5565e1314bc6a6f027d346b79603a668"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Module for analyzing ECG data to determine heart rate. </p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>Add heart rate variability (HRV) calculation. </dd></dl>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="gad28d61d6286aab2f3d949965bca5b3c3" name="gad28d61d6286aab2f3d949965bca5b3c3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gad28d61d6286aab2f3d949965bca5b3c3">&#9670;&#160;</a></span>findFiducialMarks()</h2>
@@ -294,7 +295,7 @@ static const FIR_Filt_t *const&#160;</td><td class="memItemRight" valign="bottom
 <p>Mark local peaks in the input signal <code>y</code> as potential candidates for QRS complexes (AKA "fiducial marks"). </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">yn</td><td>Array containing the preprocessed ECG signal <img class="formulaInl" alt="$ y[n] $" src="form_20.png" width="21" height="14"/> </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">yn</td><td>Array containing the preprocessed ECG signal <img class="formulaInl" alt="$ y[n] $" src="form_21.png" width="21" height="14"/> </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">fidMarkArray</td><td>Array to place the fiducial mark's sample indices into. </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">numMarks</td><td>Number of identified fiducial marks</td></tr>
   </table>
@@ -348,7 +349,7 @@ static const FIR_Filt_t *const&#160;</td><td class="memItemRight" valign="bottom
 <p>Initialize the signal and noise levels for the QRS detector using the initial block of input signal data. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">yn</td><td>Array containing the preprocessed ECG signal <img class="formulaInl" alt="$ y[n] $" src="form_20.png" width="21" height="14"/> </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">yn</td><td>Array containing the preprocessed ECG signal <img class="formulaInl" alt="$ y[n] $" src="form_21.png" width="21" height="14"/> </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">sigLvlPtr</td><td>Pointer to variable holding the signal level value. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">noiseLvlPtr</td><td>Pointer to variable holding the noise level value.</td></tr>
   </table>
@@ -395,7 +396,7 @@ static const FIR_Filt_t *const&#160;</td><td class="memItemRight" valign="bottom
 <p>Update the signal level (if a fiducial mark is a confirmed peak) or the noise level (if a fiducial mark is rejected). </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">peakAmplitude</td><td>Amplitude of the fiducial mark in signal <img class="formulaInl" alt="$ y[n] $" src="form_20.png" width="21" height="14"/> </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">peakAmplitude</td><td>Amplitude of the fiducial mark in signal <img class="formulaInl" alt="$ y[n] $" src="form_21.png" width="21" height="14"/> </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">level</td><td>The current value of the signal level or noise level </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">newLevel</td><td>The updated value of the signal level or noise level </td></tr>
   </table>
@@ -405,11 +406,11 @@ static const FIR_Filt_t *const&#160;</td><td class="memItemRight" valign="bottom
 <p><img class="formulaInl" alt="$
 signalLevel_1    = f(peakAmplitude, signalLevel_0)
                  = \frac{1}{8}peakAmplitude + \frac{7}{8}signalLevel_0
-$" src="form_23.png" width="461" height="16"/></p>
+$" src="form_24.png" width="461" height="16"/></p>
 <p><img class="formulaInl" alt="$
 noiseLevel_1     = f(peakAmplitude, noiseLevel_0)
                  = \frac{1}{8}peakAmplitude + \frac{7}{8}noiseLevel_0
-$" src="form_24.png" width="446" height="16"/></p>
+$" src="form_25.png" width="446" height="16"/></p>
 
 </div>
 </div>
@@ -459,7 +460,7 @@ $" src="form_24.png" width="446" height="16"/></p>
 <dl class="section see"><dt>See also</dt><dd>QRS_updateLevel(), <a class="el" href="group__qrs.html#ga189dec78669b6441ec04fc100f16b8fc" title="Calculate the average heart rate (HR) using predetermined decision rules.">QRS_applyDecisionRules</a> </dd></dl>
 <p><img class="formulaInl" alt="$
 threshold = f(signalLevel, noiseLevel) = noiseLevel + 0.25(signalLevel - noiseLevel)
-$" src="form_25.png" width="429" height="29"/></p>
+$" src="form_26.png" width="429" height="29"/></p>
 
 </div>
 </div>
@@ -520,17 +521,15 @@ $" src="form_25.png" width="429" height="29"/></p>
   </table>
   </dd>
 </dl>
-<dl class="section post"><dt>Postcondition</dt><dd>The preprocessed signal data <img class="formulaInl" alt="$y[n]$" src="form_26.png" width="21" height="14"/> is stored in <code>yn</code> and is ready to be analyzed to calculate the heart rate in [bpm].</dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd>The preprocessed signal data <img class="formulaInl" alt="$y[n]$" src="form_27.png" width="21" height="14"/> is stored in <code>yn</code> and is ready to be analyzed to calculate the heart rate in [bpm].</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group__qrs.html#ga189dec78669b6441ec04fc100f16b8fc" title="Calculate the average heart rate (HR) using predetermined decision rules.">QRS_applyDecisionRules()</a> </dd></dl>
 <p>This function uses the same overall preprocessing pipeline as the original Pan-Tompkins algorithm, but the high-pass and low-pass filters have been replaced with ones generated using Scipy.</p>
 <div class="image">
 <img src="qrs_preproc.png" alt="" width="750cm"/>
-<div class="caption">
-The algorithm's preprocessing pipeline.</div></div>
+</div>
  <div class="image">
 <img src="qrs_preproc_output.png" alt="" width="750cm"/>
-<div class="caption">
-Output of each preprocessing step.</div></div>
+</div>
 <p> <br  />
   </p>
 <dl class="section note"><dt>Note</dt><dd>The FIR filters are applied in blocks to decrease the amount of memory needed for their state buffers.</dd></dl>
@@ -565,50 +564,7 @@ Output of each preprocessing step.</div></div>
 <dl class="section post"><dt>Postcondition</dt><dd>Certain information (signal/noise levels, thresholds, etc.) is retained between calls and used to improve further detection.</dd></dl>
 <dl class="bug"><dt><b><a class="el" href="bug.html#_bug000001">Bug:</a></b></dt><dd>The current implementation processes one block of data at a time and discards the entire block immediately after. As a result, QRS complexes that are cutoff between one block and another are not being counted.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group__qrs.html#ga23e7aac4cbf3423df23afce8a43de44d" title="Preprocess the ECG data to remove noise and/or exaggerate the signal characteristic(s) of interest.">QRS_Preprocess()</a> </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>Write implementation explanation </dd></dl>
-
-</div>
-</div>
-<a id="ga5565e1314bc6a6f027d346b79603a668" name="ga5565e1314bc6a6f027d346b79603a668"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga5565e1314bc6a6f027d346b79603a668">&#9670;&#160;</a></span>QRS_runDetection()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float32_t QRS_runDetection </td>
-          <td>(</td>
-          <td class="paramtype">const float32_t&#160;</td>
-          <td class="paramname"><em>xn</em>[], </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float32_t&#160;</td>
-          <td class="paramname"><em>yn</em>[]&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Run the full algorithm (preprocessing and decision rules) on the inputted ECG data. </p>
-<p>This function simply combines the preprocessing and decision rules functions into a single function.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">xn</td><td>Array of raw ECG signal values. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">yn</td><td>Array used to hold preprocessed ECG signal values. </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">heartRate</td><td>Average heart rate in [bpm].</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section post"><dt>Postcondition</dt><dd><code>yn</code> will contain the preprocessed data. </dd>
-<dd>
-Certain information (signal/noise levels, thresholds, etc.) is retained between calls.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__qrs.html#ga23e7aac4cbf3423df23afce8a43de44d" title="Preprocess the ECG data to remove noise and/or exaggerate the signal characteristic(s) of interest.">QRS_Preprocess()</a>, <a class="el" href="group__qrs.html#ga189dec78669b6441ec04fc100f16b8fc" title="Calculate the average heart rate (HR) using predetermined decision rules.">QRS_applyDecisionRules()</a> </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000003">Todo:</a></b></dt><dd>Write implementation explanation </dd></dl>
 
 </div>
 </div>
@@ -647,6 +603,28 @@ Certain information (signal/noise levels, thresholds, etc.) is retained between 
 <div class="line">    1.6299355030059814f, -0.7530401945114136f, </div>
 <div class="line">}</div>
 </div><!-- fragment -->
+<p>Coefficients of the bandpass filter in biquad (AKA second-order section, or "sos") form. </p>
+<p>These coefficients were generated with the following Python code: </p><div class="fragment"><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div>
+<div class="line"><span class="keyword">from</span> scipy <span class="keyword">import</span> signal</div>
+<div class="line"> </div>
+<div class="line">fs = 200</div>
+<div class="line"> </div>
+<div class="line">sos_high = signal.iirfilter(N=4, Wn=12, btype=<span class="stringliteral">&#39;highpass&#39;</span>, output=<span class="stringliteral">&#39;sos&#39;</span>, fs=fs)</div>
+<div class="line">z_high, p_high, k_high = signal.sos2zpk(sos_high)</div>
+<div class="line"> </div>
+<div class="line">sos_low = signal.iirfilter(N=4, Wn=20, btype=<span class="stringliteral">&#39;lowpass&#39;</span>, output=<span class="stringliteral">&#39;sos&#39;</span>, fs=fs)</div>
+<div class="line">z_low, p_low, k_low = signal.sos2zpk(sos_low)</div>
+<div class="line"> </div>
+<div class="line">z_bpf = np.concatenate([z_high, z_low])</div>
+<div class="line">p_bpf = np.concatenate([p_high, p_low])</div>
+<div class="line">k_bpf = k_high * k_low</div>
+<div class="line"> </div>
+<div class="line">sos_bpf = signal.zpk2sos(z_bpf, p_bpf, k_bpf)</div>
+</div><!-- fragment --> <dl class="section note"><dt>Note</dt><dd>CMSIS-DSP and Scipy use different formats for biquad filters. To convert output variable <code>sos_bpf</code> to CMSIS-DSP format, the <img class="formulaInl" alt="$a_0$" src="form_16.png" width="11" height="9"/> coefficients were removed from each section, and the other denominator coefficients were negated.</dd></dl>
+<div class="image">
+<img src="qrs_bandpass.png" alt="" width="750cm"/>
+</div>
+  
 </div>
 </div>
 <a id="ga89e51f5c593608b2deb597c865993e60" name="ga89e51f5c593608b2deb597c865993e60"></a>
@@ -672,6 +650,11 @@ Certain information (signal/noise levels, thresholds, etc.) is retained between 
 <div class="line">    -0.125f, -0.25f, 0.0f, 0.25f, 0.125f</div>
 <div class="line">}</div>
 </div><!-- fragment -->
+<p>Coefficients of the derivative filter, written in time-reversed order. </p>
+<div class="image">
+<img src="qrs_derivative.png" alt="" width="750cm"/>
+</div>
+  
 </div>
 </div>
 <a id="ga00c285b355f2c44be9326901aceda6e9" name="ga00c285b355f2c44be9326901aceda6e9"></a>
@@ -699,6 +682,11 @@ Certain information (signal/noise levels, thresholds, etc.) is retained between 
 <div class="line">    0.10000000149011612f, 0.10000000149011612f, 0.10000000149011612f, 0.10000000149011612f</div>
 <div class="line">}</div>
 </div><!-- fragment -->
+<p>Coefficients of the moving average (AKA moving-window integration) filter. </p>
+<div class="image">
+<img src="qrs_moving_avg.png" alt="" width="750cm"/>
+</div>
+  
 </div>
 </div>
 </div><!-- contents -->

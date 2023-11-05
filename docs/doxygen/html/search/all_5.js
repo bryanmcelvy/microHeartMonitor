@@ -24,6 +24,6 @@ var searchData=
   ['frmctr1_21',['FRMCTR1',['../group__ili9341.html#gga13f208b6f7f5cab976154336d1acf3c4a7acf7573dc16c6b056da7496f793db12',1,'ILI9341.h']]],
   ['frmctr2_22',['FRMCTR2',['../group__ili9341.html#gga13f208b6f7f5cab976154336d1acf3c4a815e7c357bc58f944faa77de59eb5ae8',1,'ILI9341.h']]],
   ['frmctr3_23',['FRMCTR3',['../group__ili9341.html#gga13f208b6f7f5cab976154336d1acf3c4aad9db5d58deb519a7a3e7c1309fbeb03',1,'ILI9341.h']]],
-  ['front_20end_24',['Analog-Front End',['../index.html#sec_meth_afe',1,'']]],
+  ['front_20end_24',['Analog-Front End',['../page_meth.html#sec_meth_afe',1,'']]],
   ['frontidx_25',['frontIdx',['../struct_fifo_struct__t.html#a2b2ced7801d6d8695f687f9f9ec2c746',1,'FifoStruct_t']]]
 ];

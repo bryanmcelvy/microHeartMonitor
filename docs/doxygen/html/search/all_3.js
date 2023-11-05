@@ -26,18 +26,18 @@ var searchData=
   ['debug_5fsendfromlist_23',['Debug_SendFromList',['../group__debug.html#ga1d61d286494b31c9564310305f006d8c',1,'Debug.c']]],
   ['debug_5fsendmsg_24',['Debug_SendMsg',['../group__debug.html#ga4454c84f101ce12e4f4d485cbe5416ad',1,'Debug.c']]],
   ['debug_5fwritefloat_25',['Debug_WriteFloat',['../group__debug.html#gaa11645a0bee9501f3d74367ff1a5d09f',1,'Debug.c']]],
-  ['design_26',['Hardware Design',['../index.html#sec_meth_hard',1,'']]],
+  ['design_26',['Hardware Design',['../page_meth.html#sec_meth_hard',1,'']]],
   ['detector_27',['QRS Detector',['../group__qrs.html',1,'']]],
-  ['device_20drivers_28',['device drivers',['../index.html#sec_meth_device',1,'Device Drivers'],['../group__driver.html',1,'Device Drivers']]],
+  ['device_20drivers_28',['device drivers',['../page_meth.html#sec_meth_device',1,'Device Drivers'],['../group__driver.html',1,'Device Drivers']]],
   ['digital_20conversion_20adc_29',['Analog-to-Digital Conversion (ADC)',['../group__adc.html',1,'']]],
   ['dinvoff_30',['DINVOFF',['../group__ili9341.html#gga13f208b6f7f5cab976154336d1acf3c4aa2dc2d833b87d2e61c29a96ad6aac833',1,'ILI9341.h']]],
   ['dinvon_31',['DINVON',['../group__ili9341.html#gga13f208b6f7f5cab976154336d1acf3c4a9b83f1148a15fc73d310e9f7bc0c9290',1,'ILI9341.h']]],
-  ['disclaimer_32',['Disclaimer',['../index.html#sec_intro_dis',1,'']]],
+  ['disclaimer_32',['Disclaimer',['../page_intro.html#sec_intro_dis',1,'']]],
   ['display_33',['display',['../group__ili9341.html#autotoc_md0',1,'of columns available on the display'],['../group__ili9341.html#autotoc_md1',1,'of rows available on the display']]],
   ['display_20lcd_34',['Liquid Crystal Display (LCD)',['../group__lcd.html',1,'']]],
   ['dispoff_35',['DISPOFF',['../group__ili9341.html#gga13f208b6f7f5cab976154336d1acf3c4a6c5a0132c9028ab6f7f7461b6f3f6626',1,'ILI9341.h']]],
   ['dispon_36',['DISPON',['../group__ili9341.html#gga13f208b6f7f5cab976154336d1acf3c4a7a16c98b568f2e2c43a0427ed48c8ade',1,'ILI9341.h']]],
-  ['do_37',['To-do',['../index.html#sec_todo',1,'']]],
+  ['do_37',['To-do',['../page_results.html#sec_todo',1,'']]],
   ['down_38',['DOWN',['../group__timer.html#gga18fb5bff40adc5a80cd7d8d4be9222afa9b0b4a95b99523966e0e34ffdadac9da',1,'Timer.h']]],
-  ['drivers_39',['drivers',['../group__driver.html',1,'Device Drivers'],['../index.html#sec_meth_device',1,'Device Drivers']]]
+  ['drivers_39',['drivers',['../group__driver.html',1,'Device Drivers'],['../page_meth.html#sec_meth_device',1,'Device Drivers']]]
 ];

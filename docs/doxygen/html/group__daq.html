@@ -157,14 +157,16 @@ static const float32_t&#160;</td><td class="memItemRight" valign="bottom"><b>DAQ
 typedef arm_biquad_casd_df1_inst_f32&#160;</td><td class="memItemRight" valign="bottom"><b>Filter_t</b></td></tr>
 <tr class="separator:ga8afdb680657cd571ba5101fbd24add59"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga2cd0db35fb97172da32574f77a4d4feb" id="r_ga2cd0db35fb97172da32574f77a4d4feb"><td class="memItemLeft" align="right" valign="top">static const float32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__daq.html#ga2cd0db35fb97172da32574f77a4d4feb">COEFFS_NOTCH</a> [NUM_COEFFS_NOTCH]</td></tr>
+<tr class="memdesc:ga2cd0db35fb97172da32574f77a4d4feb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Coefficients of the 60 [Hz] notch filter in biquad (AKA second-order section, or "sos") form.  <br /></td></tr>
 <tr class="separator:ga2cd0db35fb97172da32574f77a4d4feb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga2321e63207682b5cbd068d5b60eecc58" id="r_ga2321e63207682b5cbd068d5b60eecc58"><td class="memItemLeft" align="right" valign="top">static const float32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__daq.html#ga2321e63207682b5cbd068d5b60eecc58">COEFFS_BANDPASS</a> [NUM_COEFFS_DAQ_BANDPASS]</td></tr>
+<tr class="memdesc:ga2321e63207682b5cbd068d5b60eecc58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Coefficients of the bandpass filter in biquad (AKA second-order section, or "sos") form.  <br /></td></tr>
 <tr class="separator:ga2321e63207682b5cbd068d5b60eecc58"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga899ab6aa32c2b7dc5667a05ab641c451" id="r_ga899ab6aa32c2b7dc5667a05ab641c451"><td class="memItemLeft" align="right" valign="top"><a id="ga899ab6aa32c2b7dc5667a05ab641c451" name="ga899ab6aa32c2b7dc5667a05ab641c451"></a>
 static float32_t&#160;</td><td class="memItemRight" valign="bottom"><b>stateBuffer_Notch</b> [STATE_BUFF_SIZE_NOTCH]</td></tr>
 <tr class="separator:ga899ab6aa32c2b7dc5667a05ab641c451"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gadb0d75d0e5fae3bde3e55226ebfa79d0" id="r_gadb0d75d0e5fae3bde3e55226ebfa79d0"><td class="memItemLeft" align="right" valign="top"><a id="gadb0d75d0e5fae3bde3e55226ebfa79d0" name="gadb0d75d0e5fae3bde3e55226ebfa79d0"></a>
-static const Filter_t&#160;</td><td class="memItemRight" valign="bottom"><b>notchFiltStruct</b> = { NUM_STAGES_NOTCH, stateBuffer_Notch, COEFFS_NOTCH }</td></tr>
+static const Filter_t&#160;</td><td class="memItemRight" valign="bottom"><b>notchFiltStruct</b> = { NUM_STAGES_NOTCH, stateBuffer_Notch, <a class="el" href="group__daq.html#ga2cd0db35fb97172da32574f77a4d4feb">COEFFS_NOTCH</a> }</td></tr>
 <tr class="separator:gadb0d75d0e5fae3bde3e55226ebfa79d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga74bc73b0bba6ce71337089b38d900608" id="r_ga74bc73b0bba6ce71337089b38d900608"><td class="memItemLeft" align="right" valign="top"><a id="ga74bc73b0bba6ce71337089b38d900608" name="ga74bc73b0bba6ce71337089b38d900608"></a>
 static const Filter_t *const&#160;</td><td class="memItemRight" valign="bottom"><b>notchFilter</b> = &amp;notchFiltStruct</td></tr>
@@ -224,7 +226,7 @@ static const Filter_t *const&#160;</td><td class="memItemRight" valign="bottom">
 <p>Initialize the data acquisition (DAQ) module. </p>
 <dl class="section post"><dt>Postcondition</dt><dd>The analog-to-digital converter (ADC) is initialized and configured for timer-triggered sample capture. </dd>
 <dd>
-The timer is initialized in <code>PERIODIC</code> mode and triggers the ADC every <img class="formulaInl" alt="$ 5 ms $" src="form_16.png" width="23" height="9"/> (i.e. sampling frequency <img class="formulaInl" alt="$ f_s = 200 Hz $" src="form_17.png" width="64" height="13"/>). </dd>
+The timer is initialized in <code>PERIODIC</code> mode and triggers the ADC every <img class="formulaInl" alt="$ 5 ms $" src="form_17.png" width="23" height="9"/> (i.e. sampling frequency <img class="formulaInl" alt="$ f_s = 200 Hz $" src="form_18.png" width="64" height="13"/>). </dd>
 <dd>
 The DAQ module has access to its lookup table (LUT). </dd></dl>
 
@@ -307,7 +309,7 @@ This should be used in an interrupt handler and/or at a consistent rate (i.e. th
   </table>
   </dd>
 </dl>
-<dl class="section post"><dt>Postcondition</dt><dd><img class="formulaInl" alt="$ y[n] $" src="form_20.png" width="21" height="14"/> is ready for analysis and/or further processing.</dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd><img class="formulaInl" alt="$ y[n] $" src="form_21.png" width="21" height="14"/> is ready for analysis and/or further processing.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group__daq.html#ga35ff46e91eea5df8ef60023803f63bda" title="Apply a 0.5-40 [Hz] bandpass filter to an input sample.">DAQ_BandpassFilter()</a></dd></dl>
  
 </div>
@@ -337,7 +339,7 @@ This should be used in an interrupt handler and/or at a consistent rate (i.e. th
   </table>
   </dd>
 </dl>
-<dl class="section post"><dt>Postcondition</dt><dd><img class="formulaInl" alt="$ y[n] $" src="form_20.png" width="21" height="14"/> is ready for analysis and/or further processing.</dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd><img class="formulaInl" alt="$ y[n] $" src="form_21.png" width="21" height="14"/> is ready for analysis and/or further processing.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group__daq.html#ga6c281c9655bd48e71078f03438e3bb01" title="Apply a 60 [Hz] notch filter to an input sample.">DAQ_NotchFilter()</a></dd></dl>
  
 </div>
@@ -363,11 +365,11 @@ This should be used in an interrupt handler and/or at a consistent rate (i.e. th
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">sample</td><td>12-bit sample in range <code>[0x000, 0xFFF]</code> </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">xn</td><td>Voltage value in range <img class="formulaInl" alt="$ [-5.5, 5.5) [mV] $" src="form_18.png" width="83" height="14"/></td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">xn</td><td>Voltage value in range <img class="formulaInl" alt="$ [-5.5, 5.5) [mV] $" src="form_19.png" width="83" height="14"/></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section post"><dt>Postcondition</dt><dd>The sample <img class="formulaInl" alt="$ x[n] $" src="form_19.png" width="21" height="14"/> is ready for filtering.</dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd>The sample <img class="formulaInl" alt="$ x[n] $" src="form_20.png" width="21" height="14"/> is ready for filtering.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group__daq.html#gafd2f671cea1ac5b39db136608c614a46" title="Read a sample from the ADC.">DAQ_readSample()</a> </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Defined in <a class="el" href="_d_a_q__lookup_8c.html">DAQ_lookup.c</a> rather than <a class="el" href="_d_a_q_8c.html">DAQ.c</a>. </dd></dl>
 
@@ -414,6 +416,18 @@ This should be used in an interrupt handler and/or at a consistent rate (i.e. th
 <div class="line">    -0.6700929999351501f, -0.9840363264083862f, </div>
 <div class="line">}</div>
 </div><!-- fragment -->
+<p>Coefficients of the 60 [Hz] notch filter in biquad (AKA second-order section, or "sos") form. </p>
+<p>These coefficients were generated with the following Python code: </p><div class="fragment"><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div>
+<div class="line"><span class="keyword">from</span> scipy <span class="keyword">import</span> signal</div>
+<div class="line"> </div>
+<div class="line">fs = 200</div>
+<div class="line"> </div>
+<div class="line">sos_notch = signal.iirfilter(N=6, Wn=[59, 61], btype=<span class="stringliteral">&#39;bandstop&#39;</span>, output=<span class="stringliteral">&#39;sos&#39;</span>, fs=fs)</div>
+</div><!-- fragment --><dl class="section note"><dt>Note</dt><dd>CMSIS-DSP and Scipy use different formats for biquad filters. To convert the output to CMSIS-DSP format, the <img class="formulaInl" alt="$a_0$" src="form_16.png" width="11" height="9"/> coefficients were removed from each section, and the other denominator coefficients were negated.</dd></dl>
+<div class="image">
+<img src="daq_notch.png" alt="" width="750cm"/>
+</div>
+  
 </div>
 </div>
 <a id="ga2321e63207682b5cbd068d5b60eecc58" name="ga2321e63207682b5cbd068d5b60eecc58"></a>
@@ -450,6 +464,28 @@ This should be used in an interrupt handler and/or at a consistent rate (i.e. th
 <div class="line">    1.994096040725708f, -0.9943605065345764f, </div>
 <div class="line">}</div>
 </div><!-- fragment -->
+<p>Coefficients of the bandpass filter in biquad (AKA second-order section, or "sos") form. </p>
+<p>These coefficients were generated with the following Python code: </p><div class="fragment"><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div>
+<div class="line"><span class="keyword">from</span> scipy <span class="keyword">import</span> signal</div>
+<div class="line"> </div>
+<div class="line">fs = 200</div>
+<div class="line"> </div>
+<div class="line">sos_high = signal.iirfilter(N=4, Wn=0.5, btype=<span class="stringliteral">&quot;highpass&quot;</span>, rs=10, ftype=<span class="stringliteral">&#39;cheby2&#39;</span>, fs=fs, output=<span class="stringliteral">&#39;sos&#39;</span>)</div>
+<div class="line">z_high, p_high, k_high = signal.sos2zpk(sos_high)</div>
+<div class="line"> </div>
+<div class="line">sos_low = signal.iirfilter(N=4, Wn=40, btype=<span class="stringliteral">&quot;lowpass&quot;</span>, rs=10, ftype=<span class="stringliteral">&#39;cheby2&#39;</span>, fs=fs, output=<span class="stringliteral">&#39;sos&#39;</span>)</div>
+<div class="line">z_low, p_low, k_low = signal.sos2zpk(sos_low)</div>
+<div class="line"> </div>
+<div class="line">z_bandpass = np.concatenate([z_high, z_low])</div>
+<div class="line">p_bandpass = np.concatenate([p_high, p_low])</div>
+<div class="line">k_bandpass = k_high * k_low</div>
+<div class="line"> </div>
+<div class="line">sos_bandpass = signal.zpk2sos(z_bandpass, p_bandpass, k_bandpass)</div>
+</div><!-- fragment --><dl class="section note"><dt>Note</dt><dd>CMSIS-DSP and Scipy use different formats for biquad filters. To convert the output to CMSIS-DSP format, the <img class="formulaInl" alt="$a_0$" src="form_16.png" width="11" height="9"/> coefficients were removed from each section, and the other denominator coefficients were negated.</dd></dl>
+<div class="image">
+<img src="daq_bandpass.png" alt="" width="750cm"/>
+</div>
+  
 </div>
 </div>
 <a id="gaea198473a0309006daef1b60eca81987" name="gaea198473a0309006daef1b60eca81987"></a>
@@ -472,7 +508,7 @@ This should be used in an interrupt handler and/or at a consistent rate (i.e. th
 </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= { NUM_STAGES_BANDPASS, stateBuffer_Bandpass,</div>
-<div class="line">                                             COEFFS_BANDPASS }</div>
+<div class="line">                                             <a class="code hl_variable" href="group__daq.html#ga2321e63207682b5cbd068d5b60eecc58" title="Coefficients of the bandpass filter in biquad (AKA second-order section, or &quot;sos&quot;) form.">COEFFS_BANDPASS</a> }</div>
 </div><!-- fragment -->
 </div>
 </div>

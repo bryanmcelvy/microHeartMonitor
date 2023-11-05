@@ -12,5 +12,7 @@ var group__daq =
     [ "DAQ_NotchFilter", "group__daq.html#ga6c281c9655bd48e71078f03438e3bb01", null ],
     [ "DAQ_BandpassFilter", "group__daq.html#ga35ff46e91eea5df8ef60023803f63bda", null ],
     [ "DAQ_convertToMilliVolts", "group__daq.html#gab3247b9add055361e5ae8892b7cba861", null ],
+    [ "COEFFS_NOTCH", "group__daq.html#ga2cd0db35fb97172da32574f77a4d4feb", null ],
+    [ "COEFFS_BANDPASS", "group__daq.html#ga2321e63207682b5cbd068d5b60eecc58", null ],
     [ "DAQ_LOOKUP_TABLE", "group__daq.html#ga92afda5245062312b17b66bc65807c54", null ]
 ];

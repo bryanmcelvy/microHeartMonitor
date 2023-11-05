@@ -212,6 +212,7 @@ Variables</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Functions for serial communication via the UART peripheral. </p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000007">Todo:</a></b></dt><dd>Remove statically-allocated data structures for unused UARTs. </dd></dl>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="gab13890d58fe68c4dd80f64e6dba54f66" name="gab13890d58fe68c4dd80f64e6dba54f66"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gab13890d58fe68c4dd80f64e6dba54f66">&#9670;&#160;</a></span>UART_Init()</h2>
@@ -248,9 +249,9 @@ Variables</h2></td></tr>
   </table>
   </dd>
 </dl>
-<p>Given the bus frequency (<code>f_bus</code>) and desired baud rate (<code>BR</code>), the baud rate divisor (<code>BRD</code>) can be calculated: <img class="formulaInl" alt="$ BRD = f_{bus}/(16*BR) $" src="form_27.png" width="128" height="14"/></p>
-<p>The integer BRD (<code>IBRD</code>) is simply the integer part of the BRD: <img class="formulaInl" alt="$ IBRD = int( BRD ) $" src="form_28.png" width="110" height="14"/></p>
-<p>The fractional BRD (<code>FBRD</code>) is calculated using the fractional part (<code>mod(BRD,1)</code>) of the BRD: <img class="formulaInl" alt="$ FBRD = int( ( mod(BRD,1) * 64 ) + 0.5 ) $" src="form_29.png" width="223" height="14"/></p>
+<p>Given the bus frequency (<code>f_bus</code>) and desired baud rate (<code>BR</code>), the baud rate divisor (<code>BRD</code>) can be calculated: <img class="formulaInl" alt="$ BRD = f_{bus}/(16*BR) $" src="form_28.png" width="128" height="14"/></p>
+<p>The integer BRD (<code>IBRD</code>) is simply the integer part of the BRD: <img class="formulaInl" alt="$ IBRD = int( BRD ) $" src="form_29.png" width="110" height="14"/></p>
+<p>The fractional BRD (<code>FBRD</code>) is calculated using the fractional part (<code>mod(BRD,1)</code>) of the BRD: <img class="formulaInl" alt="$ FBRD = int( ( mod(BRD,1) * 64 ) + 0.5 ) $" src="form_30.png" width="223" height="14"/></p>
 
 </div>
 </div>

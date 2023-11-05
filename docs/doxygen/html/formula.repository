@@ -16,25 +16,26 @@ $
 \_form#13=10x10:$V$
 \_form#14=35x14:$[0, 3.5)$
 \_form#15=43x18:$ T_s = \frac{1}{f_s} $
-\_form#16=23x9:$ 5 ms $
-\_form#17=64x13:$ f_s = 200 Hz $
-\_form#18=83x14:$ [-5.5, 5.5) [mV] $
-\_form#19=21x14:$ x[n] $
-\_form#20=21x14:$ y[n] $
-\_form#21=150x13:$ 0 <= x1 <= x2 <= X_{MAX} $
-\_form#22=145x13:$ 0 <= y1 <= y2 <= Y_{MAX} $
-\_form#23=461x16:$
+\_form#16=11x9:$a_0$
+\_form#17=23x9:$ 5 ms $
+\_form#18=64x13:$ f_s = 200 Hz $
+\_form#19=83x14:$ [-5.5, 5.5) [mV] $
+\_form#20=21x14:$ x[n] $
+\_form#21=21x14:$ y[n] $
+\_form#22=150x13:$ 0 <= x1 <= x2 <= X_{MAX} $
+\_form#23=145x13:$ 0 <= y1 <= y2 <= Y_{MAX} $
+\_form#24=461x16:$
 signalLevel_1    = f(peakAmplitude, signalLevel_0)
                  = \frac{1}{8}peakAmplitude + \frac{7}{8}signalLevel_0
 $
-\_form#24=446x16:$
+\_form#25=446x16:$
 noiseLevel_1     = f(peakAmplitude, noiseLevel_0)
                  = \frac{1}{8}peakAmplitude + \frac{7}{8}noiseLevel_0
 $
-\_form#25=429x29:$
+\_form#26=429x29:$
 threshold = f(signalLevel, noiseLevel) = noiseLevel + 0.25(signalLevel - noiseLevel)
 $
-\_form#26=21x14:$y[n]$
-\_form#27=128x14:$ BRD = f_{bus}/(16*BR) $
-\_form#28=110x14:$ IBRD = int( BRD ) $
-\_form#29=223x14:$ FBRD = int( ( mod(BRD,1) * 64 ) + 0.5 ) $
+\_form#27=21x14:$y[n]$
+\_form#28=128x14:$ BRD = f_{bus}/(16*BR) $
+\_form#29=110x14:$ IBRD = int( BRD ) $
+\_form#30=223x14:$ FBRD = int( ( mod(BRD,1) * 64 ) + 0.5 ) $

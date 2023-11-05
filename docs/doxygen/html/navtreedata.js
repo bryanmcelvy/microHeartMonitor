@@ -25,36 +25,29 @@
 var NAVTREE =
 [
   [ "uHeartMonitor: An ECG-based Heart Rate Monitor", "index.html", [
-    [ "Introduction", "index.html#sec_intro", [
-      [ "Background", "index.html#sec_intro_bg", null ],
-      [ "Motivation", "index.html#sec_intro_mot", null ],
-      [ "Disclaimer", "index.html#sec_intro_dis", null ],
-      [ "Key Terms", "index.html#sec_terms", null ]
+    [ "Overview", "index.html", null ],
+    [ "Introduction", "page_intro.html", [
+      [ "Background", "page_intro.html#sec_intro_bg", null ],
+      [ "Motivation", "page_intro.html#sec_intro_mot", null ],
+      [ "Disclaimer", "page_intro.html#sec_intro_dis", null ],
+      [ "Key Terms", "page_intro.html#sec_terms", null ]
     ] ],
-    [ "Materials & Methods", "index.html#sec_meth", [
-      [ "Hardware Design", "index.html#sec_meth_hard", [
-        [ "Analog-Front End", "index.html#sec_meth_afe", null ],
-        [ "Optical Isolation Circuitry", "index.html#sec_meth_iso", null ],
-        [ "Microcontroller Circuit", "index.html#sec_meth_mcu", null ]
-      ] ],
-      [ "Software Architecture", "index.html#sec_meth_soft", [
-        [ "Device Drivers", "index.html#sec_meth_device", null ],
-        [ "Middleware", "index.html#sec_meth_mid", null ],
-        [ "Application Software", "index.html#sec_meth_app", null ],
-        [ "External", "index.html#sec_meth_ext", null ],
-        [ "Common", "index.html#sec_meth_com", null ]
+    [ "Materials & Methods", "page_meth.html", [
+      [ "Hardware Design", "page_meth.html#sec_meth_hard", null ],
+      [ "Software Architecture", "page_meth.html#sec_meth_soft", null ],
+      [ "Build Instructions", "page_meth.html#page_build", [
+        [ "Hardware", "page_meth.html#sec_build_hw", null ],
+        [ "Software", "page_meth.html#sec_build_sw", null ]
       ] ]
     ] ],
-    [ "Current Results", "index.html#sec_results", null ],
-    [ "To-do", "index.html#sec_todo", [
-      [ "Hardware", "index.html#sec_todo_hw", null ],
-      [ "Software", "index.html#sec_todo_sw", null ]
+    [ "Results", "page_results.html", [
+      [ "Current Results", "page_results.html#sec_curr_result", null ],
+      [ "To-do", "page_results.html#sec_todo", [
+        [ "Hardware", "page_results.html#sec_todo_hw", null ],
+        [ "Software", "page_results.html#sec_todo_sw", null ]
+      ] ]
     ] ],
-    [ "Build Instructions", "index.html#sec_build", [
-      [ "Hardware", "index.html#sec_build_hw", null ],
-      [ "Software", "index.html#sec_build_sw", null ]
-    ] ],
-    [ "References", "index.html#sec_ref", null ],
+    [ "References", "page_ref.html", null ],
     [ "Todo List", "todo.html", null ],
     [ "Bug List", "bug.html", null ],
     [ "Topics", "topics.html", "topics" ],
@@ -84,7 +77,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_a_d_c_8c.html",
-"group__main.html#gacb915975c73f153d903100564abd605a"
+"group__main.html#gaaa87dec0608c075f264acaa28d298293"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

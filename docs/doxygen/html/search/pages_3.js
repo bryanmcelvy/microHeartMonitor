@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['heart_20rate_20monitor_0',['uHeartMonitor: An ECG-based Heart Rate Monitor',['../index.html',1,'']]]
+  ['materials_20methods_0',['Materials &amp; Methods',['../page_meth.html',1,'']]],
+  ['methods_1',['Materials &amp; Methods',['../page_meth.html',1,'']]]
 ];

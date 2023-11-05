@@ -11,10 +11,9 @@ var searchData=
   ['uart_5fwriteint_8',['UART_WriteInt',['../group__uart.html#ga2af852bc5962865b200b9717ae2bdb9d',1,'UART.c']]],
   ['uart_5fwritestr_9',['UART_WriteStr',['../group__uart.html#gaf29f2cf48664205e0b651fbaeb5bc88c',1,'UART.c']]],
   ['uartstruct_5ft_10',['UartStruct_t',['../struct_uart_struct__t.html',1,'']]],
-  ['uheartmonitor_3a_20an_20ecg_20based_20heart_20rate_20monitor_11',['uHeartMonitor: An ECG-based Heart Rate Monitor',['../index.html',1,'']]],
-  ['universal_20asynchronous_20receiver_20transmitter_20uart_12',['Universal Asynchronous Receiver/Transmitter (UART)',['../group__uart.html',1,'']]],
-  ['up_13',['UP',['../group__timer.html#gga18fb5bff40adc5a80cd7d8d4be9222afaba595d8bca8bc5e67c37c0a9d89becfa',1,'Timer.h']]],
-  ['updatelevel_14',['updateLevel',['../group__qrs.html#gaf32e3d936d9e3538a7b9cf0dcdab93b3',1,'QRS.c']]],
-  ['updatethreshold_15',['updateThreshold',['../group__qrs.html#ga5b611d004725bb35743710c3f18b4022',1,'QRS.c']]],
-  ['utilitybuffer1_16',['utilitybuffer1',['../group__qrs.html#ga8800defb2475c8837871fd62b69c028f',1,'@2::utilityBuffer1'],['../_q_r_s_8c.html#ad738f5f6dcb1317cd664bcb81f96714f',1,'utilityBuffer1:&#160;QRS.c']]]
+  ['universal_20asynchronous_20receiver_20transmitter_20uart_11',['Universal Asynchronous Receiver/Transmitter (UART)',['../group__uart.html',1,'']]],
+  ['up_12',['UP',['../group__timer.html#gga18fb5bff40adc5a80cd7d8d4be9222afaba595d8bca8bc5e67c37c0a9d89becfa',1,'Timer.h']]],
+  ['updatelevel_13',['updateLevel',['../group__qrs.html#gaf32e3d936d9e3538a7b9cf0dcdab93b3',1,'QRS.c']]],
+  ['updatethreshold_14',['updateThreshold',['../group__qrs.html#ga5b611d004725bb35743710c3f18b4022',1,'QRS.c']]],
+  ['utilitybuffer1_15',['utilitybuffer1',['../_q_r_s_8c.html#ad738f5f6dcb1317cd664bcb81f96714f',1,'utilityBuffer1:&#160;QRS.c'],['../group__qrs.html#ga8800defb2475c8837871fd62b69c028f',1,'@2::utilityBuffer1']]]
 ];

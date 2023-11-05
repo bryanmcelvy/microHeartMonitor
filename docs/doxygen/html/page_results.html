@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>uHeartMonitor: An ECG-based Heart Rate Monitor: Globals</title>
+<title>uHeartMonitor: An ECG-based Heart Rate Monitor: Results</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript">var page_layout=1;</script>
 <script type="text/javascript" src="jquery.js"></script>
@@ -70,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('globals_q.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('page_results.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -95,18 +95,42 @@ $(document).ready(function(){initNavTree('globals_q.html',''); initResizable(); 
 </div>
 </div>
 
+<div><div class="header">
+  <div class="headertitle"><div class="title">Results</div></div>
+</div><!--header-->
 <div class="contents">
-<div class="textblock">Here is a list of all documented functions, variables, defines, enums, and typedefs with links to the documentation:</div>
-
-<h3><a id="index_q" name="index_q"></a>- q -</h3><ul>
-<li>QRS_applyDecisionRules()&#160;:&#160;<a class="el" href="group__qrs.html#ga189dec78669b6441ec04fc100f16b8fc">QRS.c</a></li>
-<li>QRS_ARRAY_LEN&#160;:&#160;<a class="el" href="group__main.html#gga95e0e119cc9e0315570044cf179b61f4a9a6d1f2945cb4855f28d7326015a9336">main.c</a></li>
-<li>QRS_FIFO_CAP&#160;:&#160;<a class="el" href="group__main.html#gga95e0e119cc9e0315570044cf179b61f4ad43fd2d4f4acec45ac058b883cdfdbf5">main.c</a></li>
-<li>QRS_Init()&#160;:&#160;<a class="el" href="group__qrs.html#ga66b93594125ecb89623cf21c02ae6621">QRS.c</a></li>
-<li>QRS_Preprocess()&#160;:&#160;<a class="el" href="group__qrs.html#ga23e7aac4cbf3423df23afce8a43de44d">QRS.c</a></li>
-<li>qrsBufferIsFull&#160;:&#160;<a class="el" href="group__main.html#ga73c5b898e31504d234eb8deee2afccd0">main.c</a></li>
+<div class="toc"><h3>Table of Contents</h3>
+<ul><li class="level1"><a href="#sec_curr_result">Current Results</a></li>
+<li class="level1"><a href="#sec_todo">To-do</a><ul><li class="level2"><a href="#sec_todo_hw">Hardware</a></li>
+<li class="level2"><a href="#sec_todo_sw">Software</a></li>
 </ul>
-</div><!-- contents -->
+</li>
+</ul>
+</div>
+<div class="textblock"><h1><a class="anchor" id="sec_curr_result"></a>
+Current Results</h1>
+<p>Video Demonstration: <a href="https://youtu.be/KB2CsFbUgtg">YouTube Link</a></p>
+<p>The project is currently implemented using 2 breadboards and a Tiva C LaunchPad development board. The manual tests I've been running use a clone of the JDS6600 signal generator, which I loaded a sample ECG waveform from the MIT-BIH arrhythmia database onto using scripts in the corresponding folder in the <code>/tools</code> directory. As can be seen in the video demonstration, the calculated heart rate isn't 100% correct at the moment, but still gets relatively close.</p>
+<h1><a class="anchor" id="sec_todo"></a>
+To-do</h1>
+<h2><a class="anchor" id="sec_todo_hw"></a>
+Hardware</h2>
+<ul>
+<li>Design a custom PCB<ul>
+<li>Replace most of the AFE circuitry with an AFE IC (e.g. AD8232)</li>
+<li>Add electrostatic discharge (ESD) protection</li>
+<li>Add decoupling capacitors</li>
+</ul>
+</li>
+</ul>
+<h2><a class="anchor" id="sec_todo_sw"></a>
+Software</h2>
+<ul>
+<li>Expand the automated test suite <dl class="section note"><dt>Note</dt><dd>See the other Todo List section for other software-related todos. </dd></dl>
+</li>
+</ul>
+</div></div><!-- contents -->
+</div><!-- PageDoc -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
