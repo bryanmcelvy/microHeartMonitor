@@ -273,13 +273,6 @@ float32_t QRS_applyDecisionRules(const float32_t yn[]) {
     return avgHeartRate_bpm;
 }
 
-float32_t QRS_runDetection(const float32_t xn[], float32_t yn[]) {
-    QRS_Preprocess(xn, yn);
-    float32_t heartRate_bpm = QRS_applyDecisionRules(yn);
-
-    return heartRate_bpm;
-}
-
 /** @} */               // Interface Functions
 
 /*******************************************************************************
