@@ -37,26 +37,49 @@
 //
 //*****************************************************************************
 
-// clang-format off
+/**
+ * @file
+ * @author  Texas Instruments Incorporated.
+ * @author  Bryan McElvy
+ * @brief   Startup code for use with GNU tools.
+ */
 
 #include "tm4c123gh6pm.h"
 #include <stdint.h>
 
-//*****************************************************************************
-//
-// Forward declaration of the default fault handlers.
-//
-//*****************************************************************************
+/******************************************************************************
+Core Interrupt Handler Declarations
+******************************************************************************/
+
+/**
+ * @brief Reset handler.
+ *
+ */
 void ResetISR(void);
+
+/**
+ * @brief Non-maskable interrupt (NMI) handler.
+ *
+ */
 static void NmiSR(void);
+
+/**
+ * @brief Hard fault handler.
+ *
+ */
 static void FaultISR(void);
+
+/**
+ * @brief Default interrupt handler.
+ *
+ */
 static void IntDefaultHandler(void);
 
-//*****************************************************************************
-//
+/******************************************************************************
+Interrupt Vector Table
+******************************************************************************/
+
 // External declarations for the interrupt handlers used by the application.
-//
-//*****************************************************************************
 void __attribute__((weak, alias("IntDefaultHandler"))) ADC0_SS3_Handler(void);
 void __attribute__((weak, alias("IntDefaultHandler"))) GPIO_PortF_Handler(void);
 void __attribute__((weak, alias("IntDefaultHandler"))) SSI0_Handler(void);
@@ -75,26 +98,10 @@ void __attribute__((weak, alias("IntDefaultHandler"))) Timer5A_Handler(void);
 void __attribute__((weak, alias("IntDefaultHandler"))) Timer5B_Handler(void);
 void __attribute__((weak, alias("IntDefaultHandler"))) UART0_Handler(void);
 
-//*****************************************************************************
-//
-// The entry point for the application.
-//
-//*****************************************************************************
-extern int main(void);
-
-//*****************************************************************************
-//
-// Reserve space for the system stack.
-//
-//*****************************************************************************
 static uint32_t SystemStack[0x200];
 
-//*****************************************************************************
-//
-// The vector table.  Note that the proper constructs must be placed on this to
-// ensure that it ends up at physical address 0x0000.0000.
-//
-//*****************************************************************************
+// clang-format off
+
 __attribute__((section(".isr_vector"))) void (*const interruptVectorTable[])(void) = {
     (void (*)(void))((uint32_t) SystemStack + sizeof(SystemStack)), // The initial stack pointer
     ResetISR,                              // The reset handler
@@ -252,111 +259,65 @@ __attribute__((section(".isr_vector"))) void (*const interruptVectorTable[])(voi
     IntDefaultHandler,                     // PWM 1 Generator 3
     IntDefaultHandler                      // PWM 1 Fault
 };
+// clang-format on
 
-//*****************************************************************************
-//
-// The following are constructs created by the linker, indicating where the
-// the "data" and "bss" segments reside in memory.  The initializers for the
-// for the "data" segment resides immediately following the "text" segment.
-//
-//*****************************************************************************
+/******************************************************************************
+Core Interrupt Handler Definitions
+******************************************************************************/
+
 extern uint32_t _ldata;
-extern uint32_t _data;
-extern uint32_t _edata;
-extern uint32_t _bss;
-extern uint32_t _ebss;
+extern uint32_t _data;                ///< start of data segment
+extern uint32_t _edata;               ///< end of data segment
+extern uint32_t _bss;                 ///< start of bss segment
+extern uint32_t _ebss;                ///< end of bss segment
 
-//*****************************************************************************
-//
-// This is the code that gets called when the processor first starts execution
-// following a reset event.  Only the absolutely necessary set is performed,
-// after which the application supplied entry() routine is called.  Any fancy
-// actions (such as making decisions based on the reset cause register, and
-// resetting the bits in that register) are left solely in the hands of the
-// application.
-//
-//*****************************************************************************
+extern int main(void);
+
 void ResetISR(void) {
-    uint32_t *srcPtr, *destPtr;
+    /**
+     * This is the code that gets called when the processor first starts execution
+     * following a reset event.  Only the absolutely necessary set is performed,
+     * after which the application supplied entry() routine is called.  Any fancy
+     * actions (such as making decisions based on the reset cause register, and
+     * resetting the bits in that register) are left solely in the hands of the
+     * application.
+     */
 
-    //
     // Copy the data segment initializers from flash to SRAM.
-    //
-    srcPtr = &_ldata;
-    for(destPtr = &_data; destPtr < &_edata;) {
+    uint32_t * srcPtr = &_ldata;
+    uint32_t * destPtr = &_data;
+    while(destPtr < &_edata) {
         *destPtr++ = *srcPtr++;
     }
 
-    //
     // Zero fill the bss segment.
-    //
-    __asm("    ldr     r0, =_bss\n"
-          "    ldr     r1, =_ebss\n"
-          "    mov     r2, #0\n"
-          "    .thumb_func\n"
-          "zero_loop:\n"
-          "        cmp     r0, r1\n"
-          "        it      lt\n"
-          "        strlt   r2, [r0], #4\n"
-          "        blt     zero_loop");
+    uint32_t * bssStartPtr = &_bss;
+    while(bssStartPtr < &_ebss) {
+        *bssStartPtr++ = 0;
+    }
 
-    //
-    // Enable the floating-point unit.  This must be done here to handle the
-    // case where main() uses floating-point and the function prologue saves
-    // floating-point registers (which will fault if floating-point is not
-    // enabled).  Any configuration of the floating-point unit using DriverLib
-    // APIs must be done here prior to the floating-point unit being enabled.
-    //
-    // Note that this does not use DriverLib since it might not be included in
-    // this project.
-    //
+    /*
+     * Enable the floating-point unit. This must be done here to handle the
+     * case where main() uses floating-point and the function prologue saves
+     * floating-point registers (which will fault if floating-point is not
+     * enabled).
+     */
     NVIC_CPAC_R = ((NVIC_CPAC_R & ~(NVIC_CPAC_CP10_M | NVIC_CPAC_CP11_M)) | NVIC_CPAC_CP10_FULL |
                    NVIC_CPAC_CP11_FULL);
 
-    //
-    // Call the application's entry point.
-    //
     main();
 }
 
-//*****************************************************************************
-//
-// This is the code that gets called when the processor receives a NMI.  This
-// simply enters an infinite loop, preserving the system state for examination
-// by a debugger.
-//
-//*****************************************************************************
 static void NmiSR(void) {
-    //
-    // Enter an infinite loop.
-    //
     while(1) {}
 }
 
-//*****************************************************************************
-//
-// This is the code that gets called when the processor receives a fault
-// interrupt.  This simply enters an infinite loop, preserving the system state
-// for examination by a debugger.
-//
-//*****************************************************************************
 static void FaultISR(void) {
-    //
-    // Enter an infinite loop.
-    //
     while(1) {}
 }
 
-//*****************************************************************************
-//
-// This is the code that gets called when the processor receives an unexpected
-// interrupt.  This simply enters an infinite loop, preserving the system state
-// for examination by a debugger.
-//
-//*****************************************************************************
 static void IntDefaultHandler(void) {
-    //
-    // Go into an infinite loop.
-    //
     while(1) {}
 }
+
+/** @} */               // device
