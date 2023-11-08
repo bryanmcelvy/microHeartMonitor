@@ -16,10 +16,14 @@ option(OPT_TESTING      "Build test scripts when building `all`"                
 #*****************************************************************************
 # Path Variables
 #*****************************************************************************
+
+# documentation
 set(PATH_DOCS ${PROJECT_SOURCE_DIR}/docs)
 set(PATH_DOXYGEN ${PATH_DOCS}/doxygen)
 
+# external libraries
 set(PATH_EXTERNAL ${PROJECT_SOURCE_DIR}/external)
+
 set(PATH_CMSIS ${PATH_EXTERNAL}/CMSIS-DSP)
 set(PATH_CMSIS_INCLUDE ${PATH_CMSIS}/Include)
 set(PATH_CMSIS_SOURCE ${PATH_CMSIS}/Source)
@@ -28,10 +32,17 @@ list(APPEND CMSIS_ALL_INCLUDE_DIRS
                 ${PATH_CMSIS}/PrivateInclude
                 ${PATH_EXTERNAL}/CMSIS/Core/Include)
 
+set(PATH_FREERTOS ${PATH_EXTERNAL}/FreeRTOS)
+set(PATH_FREERTOS_SOURCE ${PATH_FREERTOS}/Source)
+set(PATH_FREERTOS_INCLUDE ${PATH_FREERTOS_SOURCE}/include)
+
+# tools
 set(PATH_TOOLS ${PROJECT_SOURCE_DIR}/tools)
 set(PATH_CPPCHECK ${PATH_TOOLS}/cppcheck)
 
+# source code
 set(PATH_SRC ${PROJECT_SOURCE_DIR}/src)
+
 set(PATH_APP ${PATH_SRC}/app)
 set(PATH_COMMON ${PATH_SRC}/common)
 set(PATH_DEVICE ${PATH_SRC}/device)
@@ -39,6 +50,7 @@ set(PATH_DRIVERS ${PATH_SRC}/drivers)
 set(PATH_MIDDLEWARE ${PATH_SRC}/middleware)
 set(PATH_TEST_SCRIPTS ${PATH_SRC}/test_scripts)
 
+# unit tests
 set(PATH_UNIT_TESTS ${PROJECT_SOURCE_DIR}/test)
 
 #*****************************************************************************
