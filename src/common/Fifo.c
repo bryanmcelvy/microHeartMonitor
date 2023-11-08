@@ -22,6 +22,7 @@ SECTIONS
 
 #include <stdbool.h>
 #include <stdint.h>
+#include <string.h>
 
 /******************************************************************************
 Initialization
@@ -62,10 +63,8 @@ Basic Operations (Int)
 
 void Fifo_Put(volatile Fifo_t fifo, const uint32_t val) {
     // NOTE: not using FIFO_isFull() here to reduce call stack usage
-    bool isFifoFull = (((fifo->backIdx + 1) % fifo->N) == fifo->frontIdx) ? true : false;
-
-    if(isFifoFull == false) {
-        fifo->buffer[fifo->backIdx] = val;
+    if(((fifo->backIdx + 1) % fifo->N) != fifo->frontIdx) {
+        memcpy(&fifo->buffer[fifo->backIdx], &val, sizeof(fifo->buffer[0]));
         fifo->backIdx = (fifo->backIdx + 1) % fifo->N;
     }
 
@@ -80,7 +79,7 @@ uint32_t Fifo_Get(volatile Fifo_t fifo) {
         val = 0;
     }
     else {
-        val = fifo->buffer[fifo->frontIdx];
+        memcpy(&val, &fifo->buffer[fifo->frontIdx], sizeof(fifo->buffer[0]));
         fifo->frontIdx = (fifo->frontIdx + 1) % fifo->N;
     }
 
@@ -92,7 +91,8 @@ void Fifo_Flush(volatile Fifo_t fifo, uint32_t outputBuffer[]) {
 
     // NOTE: not using FIFO_isEmpty() here to reduce call stack usage
     while(fifo->frontIdx != fifo->backIdx) {
-        outputBuffer[idx++] = fifo->buffer[fifo->frontIdx];
+        memcpy(&outputBuffer[idx], &fifo->buffer[fifo->frontIdx], sizeof(fifo->buffer[0]));
+        idx += 1;
         fifo->frontIdx = (fifo->frontIdx + 1) % fifo->N;
     }
 
@@ -128,11 +128,11 @@ Peeking
 uint32_t Fifo_PeekOne(volatile Fifo_t fifo) {
     uint32_t ret_val;
 
-    if(Fifo_isEmpty(fifo)) {
+    if(fifo->frontIdx == fifo->backIdx) {
         ret_val = 0;
     }
     else {
-        ret_val = fifo->buffer[fifo->frontIdx];
+        memcpy(&ret_val, &fifo->buffer[fifo->frontIdx], sizeof(fifo->buffer[0]));
     }
 
     return ret_val;
@@ -143,9 +143,8 @@ void Fifo_PeekAll(volatile Fifo_t fifo, uint32_t outputBuffer[]) {
     uint32_t idx = 0;
 
     while(frontIdx != fifo->backIdx) {
-        outputBuffer[idx] = fifo->buffer[frontIdx];
+        memcpy(&outputBuffer[idx], &fifo->buffer[frontIdx], sizeof(fifo->buffer[0]));
         idx += 1;
-
         frontIdx = (frontIdx + 1) % fifo->N;               // wrap around to end
     }
 
@@ -167,10 +166,10 @@ bool Fifo_isEmpty(volatile Fifo_t fifo) {
 uint32_t Fifo_getCurrSize(volatile Fifo_t fifo) {
     uint32_t size;
 
-    if(Fifo_isEmpty(fifo)) {
+    if(fifo->frontIdx == fifo->backIdx) {                                      // empty
         size = 0;
     }
-    else if(Fifo_isFull(fifo)) {
+    else if(((fifo->backIdx + 1) % fifo->N) == fifo->frontIdx) {               // full
         size = fifo->N - 1;
     }
     else if(fifo->frontIdx < fifo->backIdx) {
