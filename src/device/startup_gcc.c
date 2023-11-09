@@ -80,10 +80,13 @@ Interrupt Vector Table
 ******************************************************************************/
 
 // External declarations for the interrupt handlers used by the application.
+void __attribute__((weak, alias("IntDefaultHandler"))) SVC_Handler(void);
+void __attribute__((weak, alias("IntDefaultHandler"))) PendSV_Handler(void);
+void __attribute__((weak, alias("IntDefaultHandler"))) SysTick_Handler(void);
+
 void __attribute__((weak, alias("IntDefaultHandler"))) ADC0_SS3_Handler(void);
 void __attribute__((weak, alias("IntDefaultHandler"))) GPIO_PortF_Handler(void);
 void __attribute__((weak, alias("IntDefaultHandler"))) SSI0_Handler(void);
-void __attribute__((weak, alias("IntDefaultHandler"))) SysTick_Handler(void);
 void __attribute__((weak, alias("IntDefaultHandler"))) Timer0A_Handler(void);
 void __attribute__((weak, alias("IntDefaultHandler"))) Timer0B_Handler(void);
 void __attribute__((weak, alias("IntDefaultHandler"))) Timer1A_Handler(void);
@@ -114,10 +117,10 @@ __attribute__((section(".isr_vector"))) void (*const interruptVectorTable[])(voi
     0,                                     // Reserved
     0,                                     // Reserved
     0,                                     // Reserved
-    IntDefaultHandler,                     // SVCall handler
+    SVC_Handler,                           // SVCall handler
     IntDefaultHandler,                     // Debug monitor handler
     0,                                     // Reserved
-    IntDefaultHandler,                     // The PendSV handler
+    PendSV_Handler,                        // The PendSV handler
     SysTick_Handler,                       // The SysTick handler
     IntDefaultHandler,                     // GPIO Port A
     IntDefaultHandler,                     // GPIO Port B
