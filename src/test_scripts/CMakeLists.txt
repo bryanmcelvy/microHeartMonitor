@@ -79,6 +79,11 @@ target_link_libraries(test_gpio_new.elf GPIO Led Timer)
 add_executable(test_isr_relocate.elf test_isr_relocate.c )
 target_link_libraries(test_isr_relocate.elf Led Timer ISR)
 
+# FreeRTOS Blink
+add_executable(test_freertos_blink.elf test_freertos_blink.c ${PATH_MIDDLEWARE}/Led.c)
+target_include_directories(test_freertos_blink.elf PRIVATE ${FREERTOS_INC_DIRS})
+target_link_libraries(test_freertos_blink.elf Led freertos_tasks freertos_list freertos_port)
+
 #*****************************************************************************
 # Application SW Tests
 #*****************************************************************************
