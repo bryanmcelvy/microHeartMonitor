@@ -291,10 +291,15 @@ void ResetISR(void) {
     }
 
     // Zero fill the bss segment.
-    uint32_t * bssStartPtr = &_bss;
-    while(bssStartPtr < &_ebss) {
-        *bssStartPtr++ = 0;
-    }
+    __asm("    ldr     r0, =_bss\n"
+          "    ldr     r1, =_ebss\n"
+          "    mov     r2, #0\n"
+          "    .thumb_func\n"
+          "zero_loop:\n"
+          "        cmp     r0, r1\n"
+          "        it      lt\n"
+          "        strlt   r2, [r0], #4\n"
+          "        blt     zero_loop");
 
     /*
      * Enable the floating-point unit. This must be done here to handle the
