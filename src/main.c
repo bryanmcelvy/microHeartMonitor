@@ -4,7 +4,7 @@
  *
  * @file
  * @author  Bryan McElvy
- * @brief   Main program file.
+ * @brief   Main program file (bare-metal implementation).
  */
 
 /******************************************************************************
