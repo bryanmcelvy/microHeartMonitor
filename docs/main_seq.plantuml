@@ -1,0 +1,13 @@
+@startuml
+entity "ADC" as adc
+participant "Data\nAcquisition" as daq
+participant "Processing\nHandler" as proc
+participant "QRS\nDetector" as qrs
+participant "Liquid\nCrystal Display" as lcd
+
+adc -> daq : 12-bit\nunsigned int
+daq -> proc : raw voltage sample
+proc -> qrs : filtered sample
+proc -> lcd : filtered sample
+qrs -> lcd : avg. HR
+@enduml
