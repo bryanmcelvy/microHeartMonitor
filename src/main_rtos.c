@@ -50,13 +50,17 @@ Direct Dependencies
 FreeRTOS Task Declarations
 ******************************************************************************/
 
-#define STACK_SIZE ((UBaseType_t) 100)
+#define STACK_SIZE     ((UBaseType_t) 200)
+
+#define Daq_Handler    ADC0_SS3_Handler
+#define DAQ_VECTOR_NUM (INT_ADC0SS3)
 
 enum TASK_PRIORITIES {
-    PROC_TASK_PRI = 2,
-    QRS_TASK_PRI = 3,
-    LCD_WAVEFORM_TASK_PRI = 2,
-    LCD_HR_TASK_PRI = LCD_WAVEFORM_TASK_PRI,
+    DAQ_HANDLER_PRI = 1,
+    PROC_TASK_PRI = 3,
+    QRS_TASK_PRI = 2,
+    LCD_WAVEFORM_TASK_PRI = PROC_TASK_PRI,
+    LCD_HR_TASK_PRI = QRS_TASK_PRI,
 };
 
 static TaskHandle_t ProcessingTaskHandle = 0;
@@ -111,9 +115,6 @@ static volatile uint8_t Qrs2LcdQueueStorageArea[QRS_2_LCD_LEN * QUEUE_ITEM_SIZE]
 /******************************************************************************
 Other Declarations
 ******************************************************************************/
-
-#define Daq_Handler    ADC0_SS3_Handler
-#define DAQ_VECTOR_NUM INT_ADC0SS3
 
 static float32_t qrsDetectionBuffer[QRS_NUM_SAMP] = { 0 };
 
@@ -170,14 +171,13 @@ int main(void) {
 
     // Init. DAQ ISR
     ISR_GlobalDisable();
-    ISR_setPriority(DAQ_VECTOR_NUM, 1);
+    ISR_setPriority(DAQ_VECTOR_NUM, DAQ_HANDLER_PRI);
     ISR_Enable(DAQ_VECTOR_NUM);
     ISR_GlobalEnable();
 
     // Init. queues and add them to registry for debugging
     Daq2ProcQueue = xQueueCreateStatic(DAQ_2_PROC_LEN, QUEUE_ITEM_SIZE, Daq2ProcQueueStorageArea,
                                        &Daq2ProcQueueBuffer);
-    vQueueAddToRegistry(Daq2ProcQueue, "DAQ-to-Processing Task Queue");
     Proc2QrsQueue = xQueueCreateStatic(PROC_2_QRS_LEN, QUEUE_ITEM_SIZE, Proc2QrsQueueStorageArea,
                                        &Proc2QrsQueueBuffer);
     Proc2LcdQueue = xQueueCreateStatic(PROC_2_LCD_LEN, QUEUE_ITEM_SIZE, Proc2LcdQueueStorageArea,
@@ -189,15 +189,22 @@ int main(void) {
     ProcessingTaskHandle =
         xTaskCreateStatic(ProcessingTask, "Intermediate Processing", STACK_SIZE, NULL,
                           PROC_TASK_PRI, ProcessingStack, &ProcessingTaskBuffer);
+    vTaskSuspend(ProcessingTaskHandle);
+
     QrsDetectionTaskHandle =
         xTaskCreateStatic(QrsDetectionTask, "QRS Detection", STACK_SIZE, NULL, QRS_TASK_PRI,
                           QrsDetectionStack, &QrsDetectionTaskBuffer);
+    vTaskSuspend(QrsDetectionTaskHandle);
+
     LcdWaveformTaskHandle =
         xTaskCreateStatic(LcdWaveformTask, "LCD (Waveform)", STACK_SIZE, NULL,
                           LCD_WAVEFORM_TASK_PRI, LcdWaveformStack, &LcdWaveformTaskBuffer);
+    vTaskSuspend(LcdWaveformTaskHandle);
+
     LcdHeartRateTaskHandle =
         xTaskCreateStatic(LcdHeartRateTask, "LCD (Heart Rate)", STACK_SIZE, NULL, LCD_HR_TASK_PRI,
                           LcdHeartRateStack, &LcdHeartRateTaskBuffer);
+    vTaskSuspend(LcdHeartRateTaskHandle);
 
     vTaskStartScheduler();
     while(1) {}
