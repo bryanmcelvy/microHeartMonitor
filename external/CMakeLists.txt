@@ -49,37 +49,43 @@ target_compile_options(CMSIS_DSP_Support PRIVATE ${CMSIS_DSP_COMPILE_OPT})
 # FreeRTOS
 #**************************************************************************************************
 list(APPEND FREERTOS_HEADERS
+                ${PATH_FREERTOS}/FreeRTOSConfig.h
                 ${PATH_FREERTOS_INCLUDE}/FreeRTOS.h
                 ${PATH_FREERTOS_INCLUDE}/portable.h)
 
 # Port
-add_library(freertos_port OBJECT ${PATH_FREERTOS_SOURCE}/portable/GCC/ARM_CM4F/port.c)
-target_precompile_headers(freertos_port PRIVATE ${FREERTOS_HEADERS} ${PATH_FREERTOS_SOURCE}/portable/GCC/ARM_CM4F/portmacro.h)
-target_include_directories(freertos_port PRIVATE ${FREERTOS_INC_DIRS})
+add_library(freertos_port INTERFACE)
+target_precompile_headers(freertos_port INTERFACE ${FREERTOS_HEADERS} ${PATH_FREERTOS_SOURCE}/portable/GCC/ARM_CM4F/portmacro.h)
+target_include_directories(freertos_port INTERFACE ${FREERTOS_INC_DIRS})
+target_sources(freertos_port INTERFACE ${PATH_FREERTOS_SOURCE}/portable/GCC/ARM_CM4F/port.c)
 
 # List
-add_library(freertos_list OBJECT ${PATH_FREERTOS_SOURCE}/list.c)
-target_precompile_headers(freertos_list PRIVATE ${FREERTOS_HEADERS} ${PATH_FREERTOS_INCLUDE}/list.h)
-target_include_directories(freertos_list PRIVATE ${FREERTOS_INC_DIRS})
-target_link_libraries(freertos_list PUBLIC freertos_port)
+add_library(freertos_list INTERFACE)
+target_precompile_headers(freertos_list INTERFACE ${FREERTOS_HEADERS} ${PATH_FREERTOS_INCLUDE}/list.h)
+target_include_directories(freertos_list INTERFACE ${FREERTOS_INC_DIRS})
+target_sources(freertos_list INTERFACE ${PATH_FREERTOS_SOURCE}/list.c)
+target_link_libraries(freertos_list INTERFACE freertos_port)
 
 # Queue
-add_library(freertos_queue OBJECT ${PATH_FREERTOS_SOURCE}/queue.c)
-target_precompile_headers(freertos_queue PRIVATE ${FREERTOS_HEADERS} ${PATH_FREERTOS_INCLUDE}/queue.h)
-target_include_directories(freertos_queue PRIVATE ${FREERTOS_INC_DIRS})
-target_link_libraries(freertos_queue PUBLIC freertos_port)
+add_library(freertos_queue INTERFACE)
+target_precompile_headers(freertos_queue INTERFACE ${FREERTOS_HEADERS} ${PATH_FREERTOS_INCLUDE}/queue.h)
+target_include_directories(freertos_queue INTERFACE ${FREERTOS_INC_DIRS})
+target_sources(freertos_queue INTERFACE ${PATH_FREERTOS_SOURCE}/queue.c)
+target_link_libraries(freertos_queue INTERFACE freertos_port)
 
 # Tasks
-add_library(freertos_tasks OBJECT ${PATH_FREERTOS_SOURCE}/tasks.c)
-target_precompile_headers(freertos_tasks PRIVATE ${FREERTOS_HEADERS} ${PATH_FREERTOS_INCLUDE}/task.h)
-target_include_directories(freertos_tasks PRIVATE ${FREERTOS_INC_DIRS})
-target_link_libraries(freertos_tasks PUBLIC freertos_port)
+add_library(freertos_tasks INTERFACE)
+target_precompile_headers(freertos_tasks INTERFACE ${FREERTOS_HEADERS} ${PATH_FREERTOS_INCLUDE}/task.h)
+target_include_directories(freertos_tasks INTERFACE ${FREERTOS_INC_DIRS})
+target_sources(freertos_tasks INTERFACE ${PATH_FREERTOS_SOURCE}/tasks.c)
+target_link_libraries(freertos_tasks INTERFACE freertos_port)
 
 # Software Timers
-add_library(freertos_timers OBJECT ${PATH_FREERTOS_SOURCE}/timers.c)
-target_precompile_headers(freertos_timers PRIVATE ${FREERTOS_HEADERS} ${PATH_FREERTOS_INCLUDE}/timers.h)
-target_include_directories(freertos_timers PRIVATE ${FREERTOS_INC_DIRS})
-target_link_libraries(freertos_timers PUBLIC freertos_port)
+add_library(freertos_timers INTERFACE)
+target_precompile_headers(freertos_timers INTERFACE ${FREERTOS_HEADERS} ${PATH_FREERTOS_INCLUDE}/timers.h)
+target_include_directories(freertos_timers INTERFACE ${FREERTOS_INC_DIRS})
+target_sources(freertos_timers INTERFACE ${PATH_FREERTOS_SOURCE}/timers.c)
+target_link_libraries(freertos_timers INTERFACE freertos_port)
 
 # Custom target for building all FreeRTOS files
 add_custom_target(freertos_all DEPENDS freertos_list freertos_queue freertos_tasks freertos_timers)

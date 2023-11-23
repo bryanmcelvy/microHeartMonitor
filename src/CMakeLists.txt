@@ -47,5 +47,5 @@ target_link_libraries(${MAIN_RTOS}
                         Debug 
                         Fifo 
                         GPIO ISR PLL UART 
-                        freertos_list freertos_queue freertos_tasks freertos_list freertos_port)
+                        freertos_list freertos_queue freertos_tasks freertos_port)
 target_link_options(${MAIN_RTOS} PRIVATE "-Wl,-Map=main_rtos.map,--cref")
