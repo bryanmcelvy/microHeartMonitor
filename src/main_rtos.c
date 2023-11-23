@@ -273,12 +273,12 @@ static void ProcessingTask(void * params) {
 
 static void QrsDetectionTask(void * params) {
     while(1) {
-        // disable processing task and flush queue into QRS detection buffer
-        vTaskPrioritySet(ProcessingTaskHandle, configMAX_PRIORITIES - 1);
+        // flush queue into QRS detection buffer
+        vPortEnterCritical();
         for(uint16_t idx = 0; idx < QRS_NUM_SAMP; idx++) {
             xQueueReceive(Proc2QrsQueue, &qrsDetectionBuffer[idx], 0);
         }
-        vTaskPrioritySet(ProcessingTaskHandle, PROC_TASK_PRI);
+        vPortExitCritical();
 
         // Run QRS detection
         Debug_SendMsg("Starting QRS detection...\r\n");
