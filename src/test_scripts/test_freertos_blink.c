@@ -73,3 +73,5 @@ void ToggleBlueTask(void * parameters) {
         vTaskDelay(NUM_TICKS_BLUE);
     }
 }
+
+void vApplicationTickHook(void) {}

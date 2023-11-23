@@ -206,6 +206,11 @@ int main(void) {
 /******************************************************************************
 ISR/Task Definitions
 ******************************************************************************/
+static volatile UBaseType_t numTicks = 0;
+
+void vApplicationTickHook(void) {
+    numTicks += 1;
+}
 
 void Daq_Handler(void) {
     // read sample and convert to `float32_t`
