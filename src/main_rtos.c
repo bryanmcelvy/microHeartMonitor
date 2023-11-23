@@ -92,21 +92,21 @@ enum QUEUE_INFO {
     QRS_2_LCD_LEN = 1,                                ///< length of QRS-to-LCD task queue
 };
 
-QueueHandle_t Daq2ProcQueue = 0;
-StaticQueue_t Daq2ProcQueueBuffer = { 0 };
-uint8_t Daq2ProcQueueStorageArea[DAQ_2_PROC_LEN * QUEUE_ITEM_SIZE] = { 0 };
+static volatile QueueHandle_t Daq2ProcQueue = 0;
+static volatile StaticQueue_t Daq2ProcQueueBuffer = { 0 };
+static volatile uint8_t Daq2ProcQueueStorageArea[DAQ_2_PROC_LEN * QUEUE_ITEM_SIZE] = { 0 };
 
-QueueHandle_t Proc2QrsQueue = 0;
-StaticQueue_t Proc2QrsQueueBuffer = { 0 };
-uint8_t Proc2QrsQueueStorageArea[PROC_2_QRS_LEN * QUEUE_ITEM_SIZE] = { 0 };
+static volatile QueueHandle_t Proc2QrsQueue = 0;
+static volatile StaticQueue_t Proc2QrsQueueBuffer = { 0 };
+static volatile uint8_t Proc2QrsQueueStorageArea[PROC_2_QRS_LEN * QUEUE_ITEM_SIZE] = { 0 };
 
-QueueHandle_t Proc2LcdQueue = 0;
-StaticQueue_t Proc2LcdQueueBuffer = { 0 };
-uint8_t Proc2LcdQueueStorageArea[PROC_2_LCD_LEN * QUEUE_ITEM_SIZE] = { 0 };
+static volatile QueueHandle_t Proc2LcdQueue = 0;
+static volatile StaticQueue_t Proc2LcdQueueBuffer = { 0 };
+static volatile uint8_t Proc2LcdQueueStorageArea[PROC_2_LCD_LEN * QUEUE_ITEM_SIZE] = { 0 };
 
-QueueHandle_t Qrs2LcdQueue = 0;
-StaticQueue_t Qrs2LcdQueueBuffer;
-uint8_t Qrs2LcdQueueStorageArea[QRS_2_LCD_LEN * QUEUE_ITEM_SIZE] = { 0 };
+static volatile QueueHandle_t Qrs2LcdQueue = 0;
+static volatile StaticQueue_t Qrs2LcdQueueBuffer;
+static volatile uint8_t Qrs2LcdQueueStorageArea[QRS_2_LCD_LEN * QUEUE_ITEM_SIZE] = { 0 };
 
 /******************************************************************************
 Other Declarations
