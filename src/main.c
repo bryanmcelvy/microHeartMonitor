@@ -336,13 +336,10 @@ static void LCD_Handler(void) {
         volatile float32_t heartRate_bpm = Fifo_GetFloat(LCD_Fifo2);
 
         LCD_setCursor(LCD_TEXT_LINE_NUM, LCD_TEXT_COL_NUM);
-        LCD_writeStr((void *) "     ");               // 5 spaces
-
-        LCD_setCursor(LCD_TEXT_LINE_NUM, LCD_TEXT_COL_NUM);
         LCD_writeFloat(heartRate_bpm);
 
         heartRateIsReady = false;
     }
 }
 
-/** @} */                                             // main
+/** @} */               // main
