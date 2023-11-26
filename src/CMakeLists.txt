@@ -26,7 +26,7 @@ target_include_directories( ${MAIN_BARE_METAL}
                                 ${PATH_MIDDLEWARE}
                                 ${PATH_CMSIS_INCLUDE})
 target_link_libraries(${MAIN_BARE_METAL} Startup DAQ LCD QRS Debug Fifo GPIO ISR PLL UART)
-target_link_options(${MAIN_BARE_METAL} PRIVATE "-Wl,-Map=main.map,--cref")
+target_link_options(${MAIN_BARE_METAL} PRIVATE "-Wl,-Map=src/main.map,--cref")
 
 # Main (RTOS)
 set(MAIN_RTOS main_rtos.elf)
@@ -48,4 +48,4 @@ target_link_libraries(${MAIN_RTOS}
                         Fifo 
                         GPIO ISR PLL UART 
                         freertos_list freertos_queue freertos_tasks freertos_port)
-target_link_options(${MAIN_RTOS} PRIVATE "-Wl,-Map=main_rtos.map,--cref")
+target_link_options(${MAIN_RTOS} PRIVATE "-Wl,-Map=src/main_rtos.map,--cref")
