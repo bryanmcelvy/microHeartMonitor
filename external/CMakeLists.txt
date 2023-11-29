@@ -6,87 +6,86 @@
 #**************************************************************************************************
 # CMSIS-DSP
 #**************************************************************************************************
-list(APPEND CMSIS_DSP_COMPILE_DEF "ARM_MATH_LOOPUNROLL")
-list(APPEND CMSIS_DSP_COMPILE_OPT "-Ofast")
+
+add_library(cmsis_filt_header INTERFACE)
+target_precompile_headers(cmsis_filt_header INTERFACE ${PATH_CMSIS_INCLUDE}/dsp/filtering_functions.h)
 
 add_library(CMSIS_DSP_IIR OBJECT
-    ${PATH_CMSIS_SOURCE}/FilteringFunctions/arm_biquad_cascade_df1_f32.c    # IIR Filter
-    ${PATH_CMSIS_INCLUDE}/dsp/filtering_functions.h)
-target_include_directories(CMSIS_DSP_IIR PUBLIC ${CMSIS_ALL_INCLUDE_DIRS})
-target_compile_definitions(CMSIS_DSP_IIR PRIVATE ${CMSIS_DSP_COMPILE_DEF})
-target_compile_options(CMSIS_DSP_IIR PRIVATE ${CMSIS_DSP_COMPILE_OPT})
+    ${PATH_CMSIS_SOURCE}/FilteringFunctions/arm_biquad_cascade_df1_f32.c)    # IIR Filter
+target_link_libraries(CMSIS_DSP_IIR cmsis_filt_header)
+list(APPEND CMSIS_TARGET_LIST CMSIS_DSP_IIR)
 
 add_library(CMSIS_DSP_FIR OBJECT
-    ${PATH_CMSIS_SOURCE}/FilteringFunctions/arm_fir_f32.c                   # FIR Filter
-    ${PATH_CMSIS_INCLUDE}/dsp/filtering_functions.h)
-target_include_directories(CMSIS_DSP_FIR PUBLIC ${CMSIS_ALL_INCLUDE_DIRS})
-target_compile_definitions(CMSIS_DSP_FIR PRIVATE ${CMSIS_DSP_COMPILE_DEF})
-target_compile_options(CMSIS_DSP_FIR PRIVATE ${CMSIS_DSP_COMPILE_OPT})
+    ${PATH_CMSIS_SOURCE}/FilteringFunctions/arm_fir_f32.c)                  # FIR Filter
+target_link_libraries(CMSIS_DSP_IIR cmsis_filt_header)
+list(APPEND CMSIS_TARGET_LIST CMSIS_DSP_FIR)
 
 add_library(CMSIS_DSP_Math OBJECT
-    ${PATH_CMSIS_SOURCE}/BasicMathFunctions/arm_mult_f32.c                  # Vector Multiplication
-    ${PATH_CMSIS_INCLUDE}/dsp/basic_math_functions.h)
-target_include_directories(CMSIS_DSP_Math PUBLIC ${CMSIS_ALL_INCLUDE_DIRS})
-target_compile_definitions(CMSIS_DSP_Math PRIVATE ${CMSIS_DSP_COMPILE_DEF})
-target_compile_options(CMSIS_DSP_Math PRIVATE ${CMSIS_DSP_COMPILE_OPT})
+    ${PATH_CMSIS_SOURCE}/BasicMathFunctions/arm_mult_f32.c)                 # Vector Multiplication
+target_precompile_headers(CMSIS_DSP_Math PRIVATE ${PATH_CMSIS_INCLUDE}/dsp/basic_math_functions.h)
+list(APPEND CMSIS_TARGET_LIST CMSIS_DSP_Math)
 
 add_library(CMSIS_DSP_Stats OBJECT
     ${PATH_CMSIS_SOURCE}/StatisticsFunctions/arm_max_f32.c                  # Max
-    ${PATH_CMSIS_SOURCE}/StatisticsFunctions/arm_mean_f32.c                 # Mean
-    ${PATH_CMSIS_INCLUDE}/dsp/statistics_functions.h)
-target_include_directories(CMSIS_DSP_Stats PUBLIC ${CMSIS_ALL_INCLUDE_DIRS})
-target_compile_definitions(CMSIS_DSP_Stats PRIVATE ${CMSIS_DSP_COMPILE_DEF})
-target_compile_options(CMSIS_DSP_Stats PRIVATE ${CMSIS_DSP_COMPILE_OPT})
+    ${PATH_CMSIS_SOURCE}/StatisticsFunctions/arm_mean_f32.c)                # Mean
+target_precompile_headers(CMSIS_DSP_Stats PRIVATE ${PATH_CMSIS_INCLUDE}/dsp/statistics_functions.h)
+list(APPEND CMSIS_TARGET_LIST CMSIS_DSP_Stats)
 
 add_library(CMSIS_DSP_Support OBJECT
-    ${PATH_CMSIS_SOURCE}/SupportFunctions/arm_copy_f32.c                    # Vector Copy
-    ${PATH_CMSIS_INCLUDE}/dsp/support_functions.h)
-target_include_directories(CMSIS_DSP_Support PUBLIC ${CMSIS_ALL_INCLUDE_DIRS})
-target_compile_definitions(CMSIS_DSP_Support PRIVATE ${CMSIS_DSP_COMPILE_DEF})
-target_compile_options(CMSIS_DSP_Support PRIVATE ${CMSIS_DSP_COMPILE_OPT})
+    ${PATH_CMSIS_SOURCE}/SupportFunctions/arm_copy_f32.c)                   # Vector Copy
+target_precompile_headers(CMSIS_DSP_Support PRIVATE ${PATH_CMSIS_INCLUDE}/dsp/support_functions.h)
+list(APPEND CMSIS_TARGET_LIST CMSIS_DSP_Support)
+
+# Common Properties
+foreach(TARGET IN LISTS CMSIS_TARGET_LIST)
+    target_include_directories(${TARGET} PUBLIC ${CMSIS_ALL_INCLUDE_DIRS})
+    target_compile_definitions(${TARGET} PRIVATE "ARM_MATH_LOOPUNROLL" "DISABLEFLOAT16")
+    target_compile_options(${TARGET} PRIVATE "-Ofast")
+endforeach()
 
 #**************************************************************************************************
 # FreeRTOS
 #**************************************************************************************************
+
 list(APPEND FREERTOS_HEADERS
                 ${PATH_FREERTOS}/FreeRTOSConfig.h
                 ${PATH_FREERTOS_INCLUDE}/FreeRTOS.h
                 ${PATH_FREERTOS_INCLUDE}/portable.h)
 
-# Port
+# Cortex-M4 Port
 add_library(freertos_port INTERFACE)
-target_precompile_headers(freertos_port INTERFACE ${FREERTOS_HEADERS} ${PATH_FREERTOS_SOURCE}/portable/GCC/ARM_CM4F/portmacro.h)
+target_precompile_headers(freertos_port INTERFACE 
+                            ${FREERTOS_HEADERS} 
+                            ${PATH_FREERTOS_SOURCE}/portable/GCC/ARM_CM4F/portmacro.h)
 target_include_directories(freertos_port INTERFACE ${FREERTOS_INC_DIRS})
 target_sources(freertos_port INTERFACE ${PATH_FREERTOS_SOURCE}/portable/GCC/ARM_CM4F/port.c)
 
-# List
-add_library(freertos_list INTERFACE)
-target_precompile_headers(freertos_list INTERFACE ${FREERTOS_HEADERS} ${PATH_FREERTOS_INCLUDE}/list.h)
-target_include_directories(freertos_list INTERFACE ${FREERTOS_INC_DIRS})
+# Common Properties
+list(APPEND FREERTOS_TARGET_LIST freertos_list freertos_queue freertos_tasks freertos_timers freertos_event_groups)
+
+foreach(TARGET IN LISTS FREERTOS_TARGET_LIST)
+    add_library(${TARGET} INTERFACE)
+    target_include_directories(${TARGET} INTERFACE ${FREERTOS_INC_DIRS})
+    target_precompile_headers(${TARGET} INTERFACE ${FREERTOS_HEADERS})
+    target_link_libraries(${TARGET} INTERFACE freertos_port)
+endforeach()
+
+# Individual Properties
+target_precompile_headers(freertos_event_groups INTERFACE ${PATH_FREERTOS_INCLUDE}/event_groups.h)
+target_sources(freertos_event_groups INTERFACE ${PATH_FREERTOS_SOURCE}/event_groups.c)
+
+target_precompile_headers(freertos_list INTERFACE ${PATH_FREERTOS_INCLUDE}/list.h)
 target_sources(freertos_list INTERFACE ${PATH_FREERTOS_SOURCE}/list.c)
-target_link_libraries(freertos_list INTERFACE freertos_port)
 
-# Queue
-add_library(freertos_queue INTERFACE)
-target_precompile_headers(freertos_queue INTERFACE ${FREERTOS_HEADERS} ${PATH_FREERTOS_INCLUDE}/queue.h)
-target_include_directories(freertos_queue INTERFACE ${FREERTOS_INC_DIRS})
+target_precompile_headers(freertos_queue INTERFACE ${PATH_FREERTOS_INCLUDE}/queue.h)
 target_sources(freertos_queue INTERFACE ${PATH_FREERTOS_SOURCE}/queue.c)
-target_link_libraries(freertos_queue INTERFACE freertos_port)
 
-# Tasks
-add_library(freertos_tasks INTERFACE)
-target_precompile_headers(freertos_tasks INTERFACE ${FREERTOS_HEADERS} ${PATH_FREERTOS_INCLUDE}/task.h)
-target_include_directories(freertos_tasks INTERFACE ${FREERTOS_INC_DIRS})
+target_precompile_headers(freertos_tasks INTERFACE ${PATH_FREERTOS_INCLUDE}/task.h)
 target_sources(freertos_tasks INTERFACE ${PATH_FREERTOS_SOURCE}/tasks.c)
-target_link_libraries(freertos_tasks INTERFACE freertos_port)
 
-# Software Timers
-add_library(freertos_timers INTERFACE)
-target_precompile_headers(freertos_timers INTERFACE ${FREERTOS_HEADERS} ${PATH_FREERTOS_INCLUDE}/timers.h)
-target_include_directories(freertos_timers INTERFACE ${FREERTOS_INC_DIRS})
+target_precompile_headers(freertos_timers INTERFACE ${PATH_FREERTOS_INCLUDE}/timers.h)
 target_sources(freertos_timers INTERFACE ${PATH_FREERTOS_SOURCE}/timers.c)
-target_link_libraries(freertos_timers INTERFACE freertos_port)
 
-# Custom target for building all FreeRTOS files
-add_custom_target(freertos_all DEPENDS freertos_list freertos_queue freertos_tasks freertos_timers)
-set_target_properties(freertos_all PROPERTIES EXCLUDE_FROM_ALL 1)
+# Minimal Library
+add_library(freertos_minimal INTERFACE)
+target_link_libraries(freertos_minimal INTERFACE freertos_port freertos_list freertos_queue freertos_tasks)
