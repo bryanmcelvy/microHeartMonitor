@@ -66,7 +66,7 @@ extern void (*const interruptVectorTable[])(void);
 
 // New table, located in SRAM and defined here
 static ISR_t newVectorTable[VECTOR_TABLE_SIZE] /** @cond */ __attribute__((
-    aligned(VECTOR_TABLE_ALIGNMENT))) /** @endcond */;
+    aligned(VECTOR_TABLE_ALIGNMENT))) __attribute__((section("vtable"))) /** @endcond */;
 
 static bool isTableCopiedToRam = false;
 
