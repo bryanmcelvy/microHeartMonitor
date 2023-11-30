@@ -14,8 +14,9 @@
 
 #ifdef assert
 #undef assert
-#define assert Assert
 #endif
+
+#define assert Assert
 
 /**
  * @brief               Custom `assert` implementation that is more lightweight
