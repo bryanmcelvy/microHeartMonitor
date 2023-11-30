@@ -45,6 +45,7 @@ enum GPIO_REGISTER_OFFSETS {
     GPIO_DR2R_R_OFFSET = (uint32_t) 0x0500,                 ///< drive strength (2 [ma])
     GPIO_DR4R_R_OFFSET = (uint32_t) 0x0504,                 ///< drive strength (4 [ma])
     GPIO_DR8R_R_OFFSET = (uint32_t) 0x0508,                 ///< drive strength (8 [ma])
+    GPIO_ODR_R_OFFSET = (uint32_t) 0x05C,                   ///, open drain select
     GPIO_PUR_R_OFFSET = (uint32_t) 0x0510,                  ///< pull-up resistor
     GPIO_PDR_R_OFFSET = (uint32_t) 0x0518,                  ///< pull-down resistor
     GPIO_DEN_R_OFFSET = (uint32_t) 0x051C,                  ///< digital enable
@@ -127,6 +128,18 @@ void GPIO_configDirection(GpioPort_t gpioPort, GpioPin_t pinMask, gpioDir_t dire
             break;
         default:
             Assert(false);
+    }
+
+    return;
+}
+
+void GPIO_configOpenDrain(GpioPort_t gpioPort, GpioPin_t pinMask, bool isOpenDrain) {
+    Assert(gpioPort->isInit);
+    if(isOpenDrain) {
+        *((register_t) (gpioPort->BASE_ADDRESS + GPIO_ODR_R_OFFSET)) |= pinMask;
+    }
+    else {
+        *((register_t) (gpioPort->BASE_ADDRESS + GPIO_ODR_R_OFFSET)) &= pinMask;
     }
 
     return;

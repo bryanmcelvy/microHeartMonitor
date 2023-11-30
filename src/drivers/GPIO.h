@@ -110,6 +110,9 @@ typedef enum {
  */
 void GPIO_configDirection(GpioPort_t gpioPort, GpioPin_t pinMask, gpioDir_t direction);
 
+// TODO: Write description
+void GPIO_configOpenDrain(GpioPort_t gpioPort, GpioPin_t pinMask, bool isOpenDrain);
+
 typedef enum {
     PULLUP,
     PULLDOWN
