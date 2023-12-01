@@ -1,0 +1,19 @@
+
+// clang-format off
+
+/**
+ * @addtogroup main
+ * @{
+ */
+
+        /**
+         * @defgroup    rtos_impl RTOS Implementation
+         * @brief       The project implemented with FreeRTOS.
+         */
+
+        /**
+         * @defgroup    bm_impl Bare Metal Implementation
+         * @brief       The project implemented on bare metal (i.e. without an operating system).
+         */
+
+/** @} */

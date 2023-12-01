@@ -21,10 +21,4 @@
          * @todo            Add heart rate variability (HRV) calculation.
          */
 
-       /** 
-        * @defgroup         main             Main
-        * @brief            Main program file.
-        * 
-        */
-
 /** @} */

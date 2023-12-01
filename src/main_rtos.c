@@ -1,4 +1,7 @@
 /**
+ * @addtogroup rtos_impl
+ * @{
+ *
  * @file
  * @author  Bryan McElvy
  * @brief   Main program file (RTOS implementation).
@@ -337,4 +340,4 @@ static void LcdHeartRateTask(void * params) {
     }
 }
 
-/** @} */               // main
+/** @} */               // rtos_impl

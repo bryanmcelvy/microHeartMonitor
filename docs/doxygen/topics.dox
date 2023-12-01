@@ -15,6 +15,12 @@
  */
 
 /**
+ * @defgroup    main        Main Program File
+ * @groupgraph
+ * @brief       Files containing different implementations of the `main()` function.
+ */
+
+/**
  * @defgroup    middleware              Middleware
  * @groupgraph
  * @brief       High-level device driver modules.

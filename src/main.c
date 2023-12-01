@@ -1,5 +1,5 @@
 /**
- * @addtogroup main
+ * @addtogroup bm_impl
  * @{
  *
  * @file
@@ -342,4 +342,4 @@ static void LCD_Handler(void) {
     }
 }
 
-/** @} */               // main
+/** @} */               // bm_impl
