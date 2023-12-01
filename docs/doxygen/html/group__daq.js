@@ -1,8 +1,8 @@
 var group__daq =
 [
-    [ "DAQ.c", "_d_a_q_8c.html", null ],
-    [ "DAQ.h", "_d_a_q_8h.html", null ],
-    [ "DAQ_lookup.c", "_d_a_q__lookup_8c.html", null ],
+    [ "daq.c", "daq_8c.html", null ],
+    [ "daq.h", "daq_8h.html", null ],
+    [ "daq_lookup.c", "daq__lookup_8c.html", null ],
     [ "SAMPLING_PERIOD_MS", "group__daq.html#ga0c53804fcabd03cb2d1bba3293c4cd94", null ],
     [ "DAQ_LOOKUP_MAX", "group__daq.html#gafce256bc3a685807bf3bda6a48ada170", null ],
     [ "DAQ_LOOKUP_MIN", "group__daq.html#ga90ab8f98ba9f9019cd715893383b2f65", null ],

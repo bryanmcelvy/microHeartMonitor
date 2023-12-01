@@ -1,7 +1,7 @@
 var group__qrs =
 [
     [ "QRS.c", "_q_r_s_8c.html", null ],
-    [ "QRS.h", "_q_r_s_8h.html", null ],
+    [ "qrs.h", "qrs_8h.html", null ],
     [ "findFiducialMarks", "group__qrs.html#gad28d61d6286aab2f3d949965bca5b3c3", null ],
     [ "initLevels", "group__qrs.html#ga030cd959d6a985645111d4918a2adf24", null ],
     [ "updateLevel", "group__qrs.html#gaf32e3d936d9e3538a7b9cf0dcdab93b3", null ],

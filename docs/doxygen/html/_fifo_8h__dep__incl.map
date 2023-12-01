@@ -4,6 +4,6 @@
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="97,43,49,81,46,77,93,39"/>
 <area shape="rect" id="Node000003" href="$_i_l_i9341_8c.html" title="Source code for ILI9341 module." alt="" coords="84,79,160,105"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="125,46,125,79,119,79,119,46"/>
-<area shape="rect" id="Node000004" href="$main_8c.html" title="Main program file." alt="" coords="184,79,244,105"/>
+<area shape="rect" id="Node000004" href="$main_8c.html" title="Main program file (bare&#45;metal implementation)." alt="" coords="184,79,244,105"/>
 <area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="151,39,200,77,197,81,148,43"/>
 </map>

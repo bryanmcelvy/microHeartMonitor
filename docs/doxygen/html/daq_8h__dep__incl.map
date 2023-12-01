@@ -1,0 +1,11 @@
+<map id="daq.h" name="daq.h">
+<area shape="rect" id="Node000001" title="Application software for handling data acquision (DAQ) functions." alt="" coords="157,5,211,31"/>
+<area shape="rect" id="Node000002" href="$daq_8c.html" title="Source code for DAQ module." alt="" coords="5,79,59,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="146,40,59,81,57,76,143,36"/>
+<area shape="rect" id="Node000003" href="$daq__lookup_8c.html" title="Source code for DAQ module&#39;s lookup table." alt="" coords="83,79,181,105"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="169,45,143,80,139,77,164,42"/>
+<area shape="rect" id="Node000004" href="$main_8c.html" title="Main program file (bare&#45;metal implementation)." alt="" coords="206,79,266,105"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="204,42,229,77,225,80,199,45"/>
+<area shape="rect" id="Node000005" href="$main__rtos_8c.html" title="Main program file (RTOS implementation)." alt="" coords="290,79,379,105"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="224,36,310,76,308,81,222,40"/>
+</map>

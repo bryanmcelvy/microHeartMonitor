@@ -21,11 +21,6 @@ SECTIONS
 Direct Dependencies
 ******************************************************************************/
 
-// FreeRTOS
-#include "FreeRTOS.h"
-#include "queue.h"
-#include "task.h"
-
 // application-specific
 #include "DAQ.h"
 #include "LCD.h"
@@ -42,6 +37,9 @@ Direct Dependencies
 
 // vendor (i.e. external/device) files
 #include "arm_math_types.h"
+#include "FreeRTOS.h"
+#include "queue.h"               // FreeRTOS
+#include "task.h"                // FreeRTOS
 #include "tm4c123gh6pm.h"
 
 // other
@@ -67,24 +65,87 @@ enum TASK_PRIORITIES {
 };
 
 static TaskHandle_t ProcessingTaskHandle = 0;
-static void ProcessingTask(void * params);
 static StackType_t ProcessingStack[STACK_SIZE] = { 0 };
-static StaticTask_t ProcessingTaskBuffer;
+static StaticTask_t ProcessingTaskBuffer = { 0 };
 
 static TaskHandle_t QrsDetectionTaskHandle = 0;
-static void QrsDetectionTask(void * params);
 static StackType_t QrsDetectionStack[STACK_SIZE] = { 0 };
-static StaticTask_t QrsDetectionTaskBuffer;
+static StaticTask_t QrsDetectionTaskBuffer = { 0 };
 
 static TaskHandle_t LcdWaveformTaskHandle = 0;
-static void LcdWaveformTask(void * params);
 static StackType_t LcdWaveformStack[STACK_SIZE] = { 0 };
-static StaticTask_t LcdWaveformTaskBuffer;
+static StaticTask_t LcdWaveformTaskBuffer = { 0 };
 
 static TaskHandle_t LcdHeartRateTaskHandle = 0;
-static void LcdHeartRateTask(void * params);
 static StackType_t LcdHeartRateStack[STACK_SIZE] = { 0 };
-static StaticTask_t LcdHeartRateTaskBuffer;
+static StaticTask_t LcdHeartRateTaskBuffer = { 0 };
+
+/**
+ * @brief   ISR for the data acquisition system.
+ *
+ * @details This ISR is triggered when the ADC has finished capturing a sample, and also triggers
+ *          the intermediate processing task. It reads the 12-bit ADC output, converts it from an
+ *          integer to a raw voltage sample, and sends it to the processing task.
+ *
+ * @pre     Initialize the DAQ module.
+ * @post    The converted sample is placed in the @ref Daq2ProcQueue.
+ * @post    The processing task is resumed.
+ *
+ * @see     DAQ_Init(), ProcessingTask()
+ */
+void Daq_Handler(void);
+
+/**
+ * @brief   Task for intermediate processing of the input data.
+ *
+ * @details This task is triggered by the DAQ handler. It removes baseline drift and power line
+ *          interference (PLI) from a sample, and then sends it to the @ref QrsDetectionTask
+ *          and @ref LcdWaveformTask.
+ *
+ * @post    The converted sample is sent to the @ref QrsDetectionTask.
+ * @post    The converted sample is sent to the @ref LcdWaveformTask.
+ *
+ * @see     Daq_Handler(), QrsDetectionTask(), LcdWaveformTask()
+ */
+static void ProcessingTask(void * params);
+
+/**
+ * @brief   Task for heart rate calculation via QRS detection.
+ *
+ * @details This task is triggered by the @ref ProcessingTask. It unloads the @ref Proc2QrsQueue
+ *          within a critical section, performs QRS detection, and then sends the heart rate
+ *          value to the @ref LcdHeartRateTask.
+ *
+ * @post    The heart rate value is sent to the @ref LcdHeartRateTask to be plotted on the display.
+ *
+ * @see     ProcessingTask(), LcdHeartRateTask()
+ */
+static void QrsDetectionTask(void * params);
+
+/**
+ * @brief   Task for plotting the waveform on the LCD.
+ *
+ * @details This task is triggered by the @ref ProcessingTask. It applies a 0.5-40 [Hz] bandpass
+ *          filter to the sample and plots it.
+ *
+ * @pre     Initialize the LCD module.
+ * @post    The bandpass-filtered sample is plotted to the LCD.
+ *
+ * @see     LCD_Init(), ProcessingTask()
+ */
+static void LcdWaveformTask(void * params);
+
+/**
+ * @brief   Task for outputting the heart rate to the LCD.
+ *
+ * @details This task is triggered by the @ref QrsDetectionTask. It outputs the heart rate.
+ *
+ * @pre     Initialize the LCD module.
+ * @post    The heart rate is updated after each block is analyzed.
+ *
+ * @see     LCD_Init(), QrsDetectionTask()
+ */
+static void LcdHeartRateTask(void * params);
 
 /******************************************************************************
 FreeRTOS Queue Declarations
@@ -119,6 +180,7 @@ static volatile uint8_t Qrs2LcdQueueStorageArea[QRS_2_LCD_LEN * QUEUE_ITEM_SIZE]
 Other Declarations
 ******************************************************************************/
 
+/// input buffer for QRS detection
 static float32_t qrsDetectionBuffer[QRS_NUM_SAMP] = { 0 };
 
 enum LCD_INFO {

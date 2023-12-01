@@ -1,7 +1,0 @@
-<map id="LCD.h" name="LCD.h">
-<area shape="rect" id="Node000001" title="Header file for LCD module." alt="" coords="47,5,106,31"/>
-<area shape="rect" id="Node000002" href="$_l_c_d_8c.html" title="Source code for LCD module." alt="" coords="5,79,65,105"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="64,46,44,80,40,77,60,43"/>
-<area shape="rect" id="Node000003" href="$main_8c.html" title="Main program file." alt="" coords="89,79,149,105"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="93,43,114,77,110,80,89,46"/>
-</map>

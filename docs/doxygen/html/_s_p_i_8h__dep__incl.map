@@ -1,18 +1,20 @@
 <map id="SPI.h" name="SPI.h">
-<area shape="rect" id="Node000001" title="Header file for serial peripheral interface (SPI) module." alt="" coords="73,5,128,31"/>
-<area shape="rect" id="Node000002" href="$_i_l_i9341_8c.html" title="Source code for ILI9341 module." alt="" coords="26,153,101,178"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="96,47,69,153,64,151,91,46"/>
-<area shape="rect" id="Node000003" href="$_i_l_i9341_8h.html" title="Driver module for interfacing with an ILI9341 LCD driver." alt="" coords="100,79,176,105"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="116,43,134,77,129,80,111,46"/>
-<area shape="rect" id="Node000004" href="$_l_c_d_8c.html" title="Source code for LCD module." alt="" coords="99,226,158,252"/>
-<area shape="poly" id="edge8_Node000001_Node000004" title=" " alt="" coords="76,43,48,70,22,105,13,123,9,141,9,159,16,177,33,196,54,211,100,229,98,234,52,216,29,200,12,180,4,160,3,141,8,121,18,102,44,67,72,39"/>
-<area shape="rect" id="Node000007" href="$_s_p_i_8c.html" title="Source code for serial peripheral interface (SPI) module." alt="" coords="200,79,254,105"/>
-<area shape="poly" id="edge9_Node000001_Node000007" title=" " alt="" coords="137,37,207,76,204,81,134,41"/>
-<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="116,117,78,154,74,150,113,114"/>
-<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="139,120,132,226,127,226,134,120"/>
-<area shape="rect" id="Node000005" href="$_l_c_d_8h.html" title="Header file for LCD module." alt="" coords="175,153,234,178"/>
-<area shape="poly" id="edge5_Node000003_Node000005" title=" " alt="" coords="161,114,195,150,191,154,157,118"/>
-<area shape="poly" id="edge6_Node000005_Node000004" title=" " alt="" coords="183,191,143,228,140,224,179,187"/>
-<area shape="rect" id="Node000006" href="$main_8c.html" title="Main program file." alt="" coords="182,226,243,252"/>
-<area shape="poly" id="edge7_Node000005_Node000006" title=" " alt="" coords="210,193,214,226,209,226,205,194"/>
+<area shape="rect" id="Node000001" title="Header file for serial peripheral interface (SPI) module." alt="" coords="182,5,236,31"/>
+<area shape="rect" id="Node000002" href="$_i_l_i9341_8c.html" title="Source code for ILI9341 module." alt="" coords="10,153,85,178"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="169,39,136,58,105,81,75,119,55,154,51,151,70,116,102,77,133,53,166,35"/>
+<area shape="rect" id="Node000003" href="$_i_l_i9341_8h.html" title="Driver module for interfacing with an ILI9341 LCD driver." alt="" coords="115,79,191,105"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="192,45,164,80,160,77,188,41"/>
+<area shape="rect" id="Node000004" href="$_l_c_d_8c.html" title="Source code for LCD module." alt="" coords="203,226,263,252"/>
+<area shape="poly" id="edge9_Node000001_Node000004" title=" " alt="" coords="214,46,234,226,229,226,209,47"/>
+<area shape="rect" id="Node000008" href="$_s_p_i_8c.html" title="Source code for serial peripheral interface (SPI) module." alt="" coords="284,79,339,105"/>
+<area shape="poly" id="edge10_Node000001_Node000008" title=" " alt="" coords="240,38,296,76,292,81,237,42"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="124,116,67,154,64,150,121,111"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="169,117,229,225,224,227,164,119"/>
+<area shape="rect" id="Node000005" href="$lcd_8h.html" title="Header file for LCD module." alt="" coords="110,153,159,178"/>
+<area shape="poly" id="edge5_Node000003_Node000005" title=" " alt="" coords="149,120,140,153,135,152,143,119"/>
+<area shape="poly" id="edge6_Node000005_Node000004" title=" " alt="" coords="165,186,218,224,215,228,162,190"/>
+<area shape="rect" id="Node000006" href="$main_8c.html" title="Main program file (bare&#45;metal implementation)." alt="" coords="5,226,66,252"/>
+<area shape="poly" id="edge7_Node000005_Node000006" title=" " alt="" coords="107,190,54,228,50,224,104,186"/>
+<area shape="rect" id="Node000007" href="$main__rtos_8c.html" title="Main program file (RTOS implementation)." alt="" coords="90,226,179,252"/>
+<area shape="poly" id="edge8_Node000005_Node000007" title=" " alt="" coords="137,194,137,226,132,226,132,194"/>
 </map>

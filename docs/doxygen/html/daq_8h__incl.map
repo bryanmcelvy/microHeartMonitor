@@ -1,0 +1,9 @@
+<map id="daq.h" name="daq.h">
+<area shape="rect" id="Node000001" title="Application software for handling data acquision (DAQ) functions." alt="" coords="169,5,222,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,79,135,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="175,34,106,73,103,69,173,29"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="158,79,233,105"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="198,31,198,63,193,63,193,31"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="257,79,321,105"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="213,29,263,67,259,72,210,34"/>
+</map>

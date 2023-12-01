@@ -1,0 +1,5 @@
+<map id="Main Program File" name="Main Program File">
+<area shape="rect" id="Node000003" href="$group__bm__impl.html" title="The project implemented on bare metal (i.e. without an operating system)." alt="" coords="181,5,358,31"/>
+<area shape="rect" id="Node000001" title="Files containing different implementations of the main() function." alt="" coords="5,31,133,56"/>
+<area shape="rect" id="Node000002" href="$group__rtos__impl.html" title="The project implemented with FreeRTOS." alt="" coords="194,55,345,80"/>
+</map>

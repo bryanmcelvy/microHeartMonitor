@@ -1,7 +1,9 @@
 <map id="PLL.h" name="PLL.h">
-<area shape="rect" id="Node000001" title="Driver module for activating the phase&#45;locked&#45;loop (PLL)." alt="" coords="45,5,101,31"/>
+<area shape="rect" id="Node000001" title="Driver module for activating the phase&#45;locked&#45;loop (PLL)." alt="" coords="87,5,142,31"/>
 <area shape="rect" id="Node000002" href="$_p_l_l_8c.html" title="Implementation details for phase&#45;lock&#45;loop (PLL) functions." alt="" coords="5,79,61,105"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="61,46,42,80,37,77,57,43"/>
-<area shape="rect" id="Node000003" href="$main_8c.html" title="Main program file." alt="" coords="84,79,145,105"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="90,43,110,77,105,80,85,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="91,43,48,81,45,77,87,39"/>
+<area shape="rect" id="Node000003" href="$main_8c.html" title="Main program file (bare&#45;metal implementation)." alt="" coords="84,79,145,105"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="117,46,117,79,112,79,112,46"/>
+<area shape="rect" id="Node000004" href="$main__rtos_8c.html" title="Main program file (RTOS implementation)." alt="" coords="168,79,258,105"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="145,38,198,76,195,81,142,43"/>
 </map>

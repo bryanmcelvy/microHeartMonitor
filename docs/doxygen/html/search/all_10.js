@@ -6,5 +6,6 @@ var searchData=
   ['results_3',['results',['../page_results.html#sec_curr_result',1,'Current Results'],['../page_results.html',1,'Results']]],
   ['routines_4',['Interrupt Service Routines',['../group__isr.html',1,'']]],
   ['rows_20available_20on_20the_20display_5',['of rows available on the display',['../group__ili9341.html#autotoc_md1',1,'']]],
-  ['rx_5fpin_5fnum_6',['RX_PIN_NUM',['../struct_uart_struct__t.html#aff3d5f22d1275d0a342974ec6d5530b8',1,'UartStruct_t']]]
+  ['rtos_20implementation_6',['RTOS Implementation',['../group__rtos__impl.html',1,'']]],
+  ['rx_5fpin_5fnum_7',['RX_PIN_NUM',['../struct_uart_struct__t.html#aff3d5f22d1275d0a342974ec6d5530b8',1,'UartStruct_t']]]
 ];

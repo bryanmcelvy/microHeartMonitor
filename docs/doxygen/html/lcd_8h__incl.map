@@ -1,0 +1,23 @@
+<map id="lcd.h" name="lcd.h">
+<area shape="rect" id="Node000001" title="Header file for LCD module." alt="" coords="5,5,55,31"/>
+<area shape="rect" id="Node000002" href="$_i_l_i9341_8h.html" title="Driver module for interfacing with an ILI9341 LCD driver." alt="" coords="110,79,185,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="51,29,116,68,113,73,49,34"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="37,300,111,326"/>
+<area shape="poly" id="edge14_Node000001_Node000004" title=" " alt="" coords="33,31,42,123,61,251,69,285,64,286,55,253,37,123,28,31"/>
+<area shape="rect" id="Node000003" href="$_g_p_i_o_8h.html" title="Header file for general&#45;purpose input/output (GPIO) device driver." alt="" coords="112,226,177,252"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="152,105,156,138,157,178,152,212,147,211,151,178,151,138,147,106"/>
+<area shape="poly" id="edge12_Node000002_Node000004" title=" " alt="" coords="126,107,100,127,79,154,69,187,65,222,71,285,65,285,60,222,63,186,74,151,96,123,123,103"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="218,300,282,326"/>
+<area shape="poly" id="edge13_Node000002_Node000005" title=" " alt="" coords="180,103,218,121,260,147,300,182,317,202,331,225,334,246,325,265,309,281,290,294,287,290,306,277,321,262,329,245,326,227,313,206,297,186,257,152,215,126,178,108"/>
+<area shape="rect" id="Node000006" href="$_s_p_i_8h.html" title="Header file for serial peripheral interface (SPI) module." alt="" coords="88,153,143,178"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="144,106,129,139,125,137,140,104"/>
+<area shape="rect" id="Node000007" href="$_timer_8h.html" title="Device driver for general&#45;purpose timer modules." alt="" coords="253,226,317,252"/>
+<area shape="poly" id="edge9_Node000002_Node000007" title=" " alt="" coords="161,103,265,213,261,217,157,107"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="135,254,98,291,95,287,131,250"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="164,250,221,289,218,293,161,255"/>
+<area shape="poly" id="edge6_Node000006_Node000003" title=" " alt="" coords="123,178,136,211,131,213,118,180"/>
+<area shape="poly" id="edge7_Node000006_Node000004" title=" " alt="" coords="115,179,84,286,79,284,109,178"/>
+<area shape="poly" id="edge8_Node000006_Node000005" title=" " alt="" coords="135,177,163,198,192,224,217,255,238,286,233,288,213,259,188,228,159,202,132,181"/>
+<area shape="poly" id="edge10_Node000007_Node000004" title=" " alt="" coords="253,254,125,297,124,292,251,249"/>
+<area shape="poly" id="edge11_Node000007_Node000005" title=" " alt="" coords="281,253,265,287,260,285,277,251"/>
+</map>

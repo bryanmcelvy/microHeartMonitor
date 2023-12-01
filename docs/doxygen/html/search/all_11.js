@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['sampling_5fperiod_5fms_0',['SAMPLING_PERIOD_MS',['../group__daq.html#ga0c53804fcabd03cb2d1bba3293c4cd94',1,'DAQ.c']]],
+  ['sampling_5fperiod_5fms_0',['SAMPLING_PERIOD_MS',['../group__daq.html#ga0c53804fcabd03cb2d1bba3293c4cd94',1,'daq.c']]],
   ['serial_20peripheral_20interface_20spi_1',['Serial Peripheral Interface (SPI)',['../group__spi.html',1,'']]],
   ['service_20routines_2',['Interrupt Service Routines',['../group__isr.html',1,'']]],
   ['signallevel_3',['signallevel',['../group__qrs.html#ga2560a6c23055f6bd47dfe6bc678979c1',1,'@2::signalLevel'],['../_q_r_s_8c.html#a5802584806ac0a13e91c5d6c59d35a1d',1,'signalLevel:&#160;QRS.c']]],

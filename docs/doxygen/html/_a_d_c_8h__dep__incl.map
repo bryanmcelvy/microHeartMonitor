@@ -1,7 +1,7 @@
 <map id="ADC.h" name="ADC.h">
-<area shape="rect" id="Node000001" title="Header file for analog&#45;to&#45;digital conversion (ADC) module." alt="" coords="48,5,109,31"/>
+<area shape="rect" id="Node000001" title="Header file for analog&#45;to&#45;digital conversion (ADC) module." alt="" coords="45,5,107,31"/>
 <area shape="rect" id="Node000002" href="$_a_d_c_8c.html" title="Source code for analog&#45;to&#45;digital conversion (ADC) module." alt="" coords="5,79,67,105"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="66,46,45,80,41,77,62,43"/>
-<area shape="rect" id="Node000003" href="$_d_a_q_8c.html" title="Source code for DAQ module." alt="" coords="91,79,152,105"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="96,43,116,77,112,80,91,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="64,46,45,80,40,77,60,43"/>
+<area shape="rect" id="Node000003" href="$daq_8c.html" title="Source code for DAQ module." alt="" coords="91,79,144,105"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="93,43,113,77,108,80,88,46"/>
 </map>

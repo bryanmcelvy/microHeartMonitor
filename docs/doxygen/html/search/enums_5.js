@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['timerdirection_5ft_0',['timerDirection_t',['../group__timer.html#ga18fb5bff40adc5a80cd7d8d4be9222af',1,'Timer.h']]],
-  ['timermode_5ft_1',['timerMode_t',['../group__timer.html#ga0a1ee199efad781cb768fbd05ab38a6c',1,'Timer.h']]]
+  ['queue_5finfo_0',['QUEUE_INFO',['../group__rtos__impl.html#ga49e4d6ca726500b3304b04a6019ce49f',1,'main_rtos.c']]]
 ];

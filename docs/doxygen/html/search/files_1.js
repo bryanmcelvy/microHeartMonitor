@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['daq_2ec_0',['DAQ.c',['../_d_a_q_8c.html',1,'']]],
-  ['daq_2eh_1',['DAQ.h',['../_d_a_q_8h.html',1,'']]],
-  ['daq_5flookup_2ec_2',['DAQ_lookup.c',['../_d_a_q__lookup_8c.html',1,'']]],
+  ['daq_2ec_0',['daq.c',['../daq_8c.html',1,'']]],
+  ['daq_2eh_1',['daq.h',['../daq_8h.html',1,'']]],
+  ['daq_5flookup_2ec_2',['daq_lookup.c',['../daq__lookup_8c.html',1,'']]],
   ['debug_2ec_3',['Debug.c',['../_debug_8c.html',1,'']]],
   ['debug_2eh_4',['Debug.h',['../_debug_8h.html',1,'']]]
 ];

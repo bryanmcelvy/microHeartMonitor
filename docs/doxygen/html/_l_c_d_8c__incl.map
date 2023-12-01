@@ -1,6 +1,6 @@
 <map id="LCD.c" name="LCD.c">
 <area shape="rect" id="Node000001" title="Source code for LCD module." alt="" coords="274,5,333,31"/>
-<area shape="rect" id="Node000002" href="$_l_c_d_8h.html" title="Header file for LCD module." alt="" coords="178,79,237,105"/>
+<area shape="rect" id="Node000002" href="$lcd_8h.html" title="Header file for LCD module." alt="" coords="178,79,237,105"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="289,34,237,72,234,68,285,29"/>
 <area shape="rect" id="Node000003" href="$_i_l_i9341_8h.html" title="Driver module for interfacing with an ILI9341 LCD driver." alt="" coords="295,153,370,178"/>
 <area shape="poly" id="edge16_Node000001_Node000003" title=" " alt="" coords="308,31,330,137,325,138,303,32"/>

@@ -1,6 +1,6 @@
 <map id="main.c" name="main.c">
-<area shape="rect" id="Node000001" title="Main program file." alt="" coords="749,5,809,31"/>
-<area shape="rect" id="Node000002" href="$_d_a_q_8h.html" title="Application software for handling data acquision (DAQ) functions." alt="" coords="151,79,212,105"/>
+<area shape="rect" id="Node000001" title="Main program file (bare&#45;metal implementation)." alt="" coords="749,5,809,31"/>
+<area shape="rect" id="Node000002" href="$daq_8h.html" title="Application software for handling data acquision (DAQ) functions." alt="" coords="151,79,212,105"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="749,24,532,43,383,59,231,82,228,82,227,77,230,76,382,54,531,37,748,19"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="22,153,151,178"/>
 <area shape="poly" id="edge37_Node000001_Node000003" title=" " alt="" coords="748,23,418,42,239,60,176,70,140,81,126,93,114,108,98,139,93,137,110,105,122,89,138,77,174,65,239,54,418,37,748,18"/>
@@ -8,11 +8,11 @@
 <area shape="poly" id="edge40_Node000001_Node000004" title=" " alt="" coords="749,24,676,32,580,53,529,70,479,92,432,120,390,155,357,194,340,233,338,275,351,325,360,344,372,361,368,364,355,346,346,327,333,275,335,231,352,191,386,151,429,116,477,88,527,65,579,48,676,27,748,19"/>
 <area shape="rect" id="Node000005" title=" " alt="" coords="792,374,856,399"/>
 <area shape="poly" id="edge41_Node000001_Node000005" title=" " alt="" coords="810,18,847,23,891,33,935,50,975,77,1005,111,1021,144,1036,226,1040,256,1037,282,1026,305,1006,328,975,350,940,366,905,377,872,383,871,378,904,372,938,361,972,345,1002,324,1022,302,1032,280,1035,257,1031,227,1016,145,1001,114,972,81,933,55,889,38,846,28,809,24"/>
-<area shape="rect" id="Node000006" href="$_l_c_d_8h.html" title="Header file for LCD module." alt="" coords="536,79,595,105"/>
+<area shape="rect" id="Node000006" href="$lcd_8h.html" title="Header file for LCD module." alt="" coords="536,79,595,105"/>
 <area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="749,32,611,78,609,73,747,27"/>
 <area shape="rect" id="Node000008" href="$_g_p_i_o_8h.html" title="Header file for general&#45;purpose input/output (GPIO) device driver." alt="" coords="619,300,685,326"/>
 <area shape="poly" id="edge32_Node000001_Node000008" title=" " alt="" coords="776,32,666,287,661,285,771,30"/>
-<area shape="rect" id="Node000011" href="$_q_r_s_8h.html" title="Header file for QRS detection module." alt="" coords="15,79,76,105"/>
+<area shape="rect" id="Node000011" href="$qrs_8h.html" title="Header file for QRS detection module." alt="" coords="15,79,76,105"/>
 <area shape="poly" id="edge20_Node000001_Node000011" title=" " alt="" coords="748,23,479,39,289,56,95,82,92,82,91,77,94,76,289,51,479,34,748,18"/>
 <area shape="rect" id="Node000012" href="$_debug_8h.html" title="Header file for Debug module." alt="" coords="436,153,506,178"/>
 <area shape="poly" id="edge23_Node000001_Node000012" title=" " alt="" coords="757,34,608,107,515,148,513,144,606,102,754,29"/>
