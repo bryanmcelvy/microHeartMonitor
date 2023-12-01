@@ -13,8 +13,7 @@
 #include <stdbool.h>
 
 #ifdef assert
-#undef assert
-#define assert Assert
+#error "assert should not already be defined."
 #endif
 
 /**
@@ -26,8 +25,8 @@
  * @post                If `condition == true`, the function simply returns.
  * @post                If `condition == false`, a breakpoint is initiated.
  */
-void Assert(bool condition);
+void assert(bool condition);
 
-#endif               // NEW_ASSERT_H
+#endif                  // NEW_ASSERT_H
 
-/** @} */
+/** @} */               // common

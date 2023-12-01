@@ -78,7 +78,7 @@ Initialization
 *******************************************************************************/
 
 GpioPort_t GPIO_InitPort(GPIO_PortName_t portName) {
-    Assert(portName < GPIO_NUM_PORTS);
+    assert(portName < GPIO_NUM_PORTS);
 
     GpioPort_t gpioPort = &GPIO_PTR_ARR[portName];
     if(gpioPort->isInit == false) {
@@ -107,7 +107,7 @@ bool GPIO_isPortInit(GpioPort_t gpioPort) {
 }
 
 uint32_t GPIO_getBaseAddr(GpioPort_t gpioPort) {
-    Assert(gpioPort->isInit);
+    assert(gpioPort->isInit);
     return gpioPort->BASE_ADDRESS;
 }
 
@@ -116,7 +116,7 @@ Configuration (Digital I/O)
 *******************************************************************************/
 
 void GPIO_configDirection(GpioPort_t gpioPort, GpioPin_t pinMask, gpioDir_t direction) {
-    Assert(gpioPort->isInit);
+    assert(gpioPort->isInit);
 
     switch(direction) {
         case GPIO_INPUT:
@@ -126,14 +126,14 @@ void GPIO_configDirection(GpioPort_t gpioPort, GpioPin_t pinMask, gpioDir_t dire
             *((register_t) (gpioPort->BASE_ADDRESS + GPIO_DIR_R_OFFSET)) |= pinMask;
             break;
         default:
-            Assert(false);
+            assert(false);
     }
 
     return;
 }
 
 void GPIO_configResistor(GpioPort_t gpioPort, GpioPin_t pinMask, gpioResistor_t resistor) {
-    Assert(gpioPort->isInit);
+    assert(gpioPort->isInit);
 
     uint32_t registerOffset;
     switch(resistor) {
@@ -144,7 +144,7 @@ void GPIO_configResistor(GpioPort_t gpioPort, GpioPin_t pinMask, gpioResistor_t 
             registerOffset = GPIO_PDR_R_OFFSET;
             break;
         default:
-            Assert(false);
+            assert(false);
     }
 
     *((register_t) (gpioPort->BASE_ADDRESS + registerOffset)) |= pinMask;
@@ -152,7 +152,7 @@ void GPIO_configResistor(GpioPort_t gpioPort, GpioPin_t pinMask, gpioResistor_t 
 }
 
 void GPIO_ConfigDriveStrength(GpioPort_t gpioPort, GpioPin_t pinMask, uint8_t drive_mA) {
-    Assert(gpioPort->isInit);
+    assert(gpioPort->isInit);
 
     uint32_t driveSelectRegister_Offset;
     switch(drive_mA) {
@@ -167,21 +167,21 @@ void GPIO_ConfigDriveStrength(GpioPort_t gpioPort, GpioPin_t pinMask, uint8_t dr
             break;
         default:
             driveSelectRegister_Offset = 0;
-            Assert(false);
+            assert(false);
     }
     *((register_t) (gpioPort->BASE_ADDRESS + driveSelectRegister_Offset)) |= pinMask;
     return;
 }
 
 void GPIO_EnableDigital(GpioPort_t gpioPort, GpioPin_t pinMask) {
-    Assert(gpioPort->isInit);
+    assert(gpioPort->isInit);
 
     *((register_t) (gpioPort->BASE_ADDRESS + GPIO_DEN_R_OFFSET)) |= pinMask;
     return;
 }
 
 void GPIO_DisableDigital(GpioPort_t gpioPort, GpioPin_t pinMask) {
-    Assert(gpioPort->isInit);
+    assert(gpioPort->isInit);
 
     *((register_t) (gpioPort->BASE_ADDRESS + GPIO_DEN_R_OFFSET)) &= ~pinMask;
     return;
@@ -192,7 +192,7 @@ Configuration (Interrupts)
 *******************************************************************************/
 
 void GPIO_ConfigInterrupts_Edge(GpioPort_t gpioPort, GpioPin_t pinMask, bool risingEdge) {
-    Assert(gpioPort->isInit);
+    assert(gpioPort->isInit);
 
     // Disable interrupts
     *((register_t) (gpioPort->BASE_ADDRESS + GPIO_IM_R_OFFSET)) &= ~(pinMask);
@@ -217,7 +217,7 @@ void GPIO_ConfigInterrupts_Edge(GpioPort_t gpioPort, GpioPin_t pinMask, bool ris
 }
 
 void GPIO_ConfigInterrupts_BothEdges(GpioPort_t gpioPort, GpioPin_t pinMask) {
-    Assert(gpioPort->isInit);
+    assert(gpioPort->isInit);
 
     // Disable interrupts
     *((register_t) (gpioPort->BASE_ADDRESS + GPIO_IM_R_OFFSET)) &= ~(pinMask);
@@ -234,7 +234,7 @@ void GPIO_ConfigInterrupts_BothEdges(GpioPort_t gpioPort, GpioPin_t pinMask) {
 }
 
 void GPIO_ConfigInterrupts_LevelTrig(GpioPort_t gpioPort, GpioPin_t pinMask, bool highLevel) {
-    Assert(gpioPort->isInit);
+    assert(gpioPort->isInit);
 
     // Disable interrupts
     *((register_t) (gpioPort->BASE_ADDRESS + GPIO_IM_R_OFFSET)) &= ~(pinMask);
@@ -259,8 +259,8 @@ void GPIO_ConfigInterrupts_LevelTrig(GpioPort_t gpioPort, GpioPin_t pinMask, boo
 }
 
 void GPIO_ConfigNVIC(GpioPort_t gpioPort, uint8_t priority) {
-    Assert(gpioPort->isInit);
-    Assert(priority < 8);
+    assert(gpioPort->isInit);
+    assert(priority < 8);
 
     switch(gpioPort->BASE_ADDRESS) {
         case GPIO_PORTA_BASE_ADDRESS:
@@ -297,29 +297,29 @@ Basic Functions (Digital I/O)
 *******************************************************************************/
 
 volatile uint32_t * GPIO_getDataRegister(GpioPort_t gpioPort) {
-    Assert(gpioPort->isInit);
+    assert(gpioPort->isInit);
     return ((volatile uint32_t *) gpioPort->DATA_REGISTER);
 }
 
 uint8_t GPIO_ReadPins(GpioPort_t gpioPort, GpioPin_t pinMask) {
-    Assert(gpioPort->isInit);
+    assert(gpioPort->isInit);
     return *((register_t) gpioPort->DATA_REGISTER) & pinMask;
 }
 
 void GPIO_WriteHigh(GpioPort_t gpioPort, GpioPin_t pinMask) {
-    Assert(gpioPort->isInit);
+    assert(gpioPort->isInit);
     *((register_t) gpioPort->DATA_REGISTER) |= pinMask;
     return;
 }
 
 void GPIO_WriteLow(GpioPort_t gpioPort, GpioPin_t pinMask) {
-    Assert(gpioPort->isInit);
+    assert(gpioPort->isInit);
     *((register_t) gpioPort->DATA_REGISTER) &= ~(pinMask);
     return;
 }
 
 void GPIO_Toggle(GpioPort_t gpioPort, GpioPin_t pinMask) {
-    Assert(gpioPort->isInit);
+    assert(gpioPort->isInit);
     *((register_t) gpioPort->DATA_REGISTER) ^= pinMask;
     return;
 }
@@ -329,13 +329,13 @@ Configuration (Alternate/Analog Modes)
 *******************************************************************************/
 
 void GPIO_ConfigAltMode(GpioPort_t gpioPort, GpioPin_t pinMask) {
-    Assert(gpioPort->isInit);
+    assert(gpioPort->isInit);
     *((register_t) (gpioPort->BASE_ADDRESS + GPIO_AFSEL_R_OFFSET)) |= pinMask;
     return;
 }
 
 void GPIO_ConfigPortCtrl(GpioPort_t gpioPort, GpioPin_t pinMask, uint8_t fieldEncoding) {
-    Assert(gpioPort->isInit);
+    assert(gpioPort->isInit);
 
     // TODO: Write explanation
     register_t portCtrlRegister = (register_t) (gpioPort->BASE_ADDRESS + GPIO_PCTL_R_OFFSET);
@@ -348,7 +348,7 @@ void GPIO_ConfigPortCtrl(GpioPort_t gpioPort, GpioPin_t pinMask, uint8_t fieldEn
 }
 
 void GPIO_ConfigAnalog(GpioPort_t gpioPort, GpioPin_t pinMask) {
-    Assert(gpioPort->isInit);
+    assert(gpioPort->isInit);
     *((register_t) (gpioPort->BASE_ADDRESS + GPIO_AMSEL_R_OFFSET)) |= pinMask;
     return;
 }

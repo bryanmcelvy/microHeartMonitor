@@ -87,29 +87,29 @@ static UartStruct_t UART_ARR[8] = {
 
 Uart_t UART_Init(GpioPort_t port, uartNum_t uartNum) {
     // Check inputs
-    Assert(GPIO_isPortInit(port));
-    Assert(uartNum < 8);
+    assert(GPIO_isPortInit(port));
+    assert(uartNum < 8);
 
     // Check that inputted GPIO port and UART match each other
     uint32_t gpio_baseAddress = GPIO_getBaseAddr(port);
     switch(uartNum) {
         case UART0:
-            Assert(gpio_baseAddress == GPIO_PORTA_BASE);
+            assert(gpio_baseAddress == GPIO_PORTA_BASE);
             break;
         case UART1:
-            Assert(gpio_baseAddress == GPIO_PORTB_BASE);
+            assert(gpio_baseAddress == GPIO_PORTB_BASE);
             break;
         case UART2:
         case UART6:
-            Assert(gpio_baseAddress == GPIO_PORTD_BASE);
+            assert(gpio_baseAddress == GPIO_PORTD_BASE);
             break;
         case UART3:
         case UART4:
-            Assert(gpio_baseAddress == GPIO_PORTC_BASE);
+            assert(gpio_baseAddress == GPIO_PORTC_BASE);
             break;
         case UART5:
         case UART7:
-            Assert(gpio_baseAddress == GPIO_PORTE_BASE);
+            assert(gpio_baseAddress == GPIO_PORTE_BASE);
             break;
     }
 

@@ -94,7 +94,7 @@ void Timer_Deinit(Timer_t timer) {
 }
 
 timerName_t Timer_getName(Timer_t timer) {
-    Assert(timer->isInit);
+    assert(timer->isInit);
     return timer->NAME;
 }
 
@@ -107,7 +107,7 @@ Configuration
 *******************************************************************************/
 
 void Timer_setMode(Timer_t timer, timerMode_t timerMode, timerDirection_t timerDirection) {
-    Assert(timer->isInit);
+    assert(timer->isInit);
     *timer->controlRegister &= ~(0x101);                                    // disable timer
 
     *((register_t) (timer->BASE_ADDR + MODE)) &= ~(0x13);
@@ -133,14 +133,14 @@ void Timer_setMode(Timer_t timer, timerMode_t timerMode, timerDirection_t timerD
 }
 
 void Timer_enableAdcTrigger(Timer_t timer) {
-    Assert(timer->isInit);
+    assert(timer->isInit);
 
     *timer->controlRegister |= 0x20;
     return;
 }
 
 void Timer_disableAdcTrigger(Timer_t timer) {
-    Assert(timer->isInit);
+    assert(timer->isInit);
 
     *timer->controlRegister &= ~(0x20);
     return;
@@ -170,8 +170,8 @@ Basic Operations
 *******************************************************************************/
 
 void Timer_setInterval_ms(Timer_t timer, uint32_t time_ms) {
-    Assert(timer->isInit);
-    Assert((time_ms > 0) && (time_ms <= 53000));
+    assert(timer->isInit);
+    assert((time_ms > 0) && (time_ms <= 53000));
 
     *timer->controlRegister &= ~(0x101);               // disable timer
     uint32_t reload_val = (80000 * time_ms) - 1;
@@ -181,20 +181,20 @@ void Timer_setInterval_ms(Timer_t timer, uint32_t time_ms) {
 }
 
 uint32_t Timer_getCurrentValue(Timer_t timer) {
-    Assert(timer->isInit);
+    assert(timer->isInit);
 
     return *((register_t) timer->BASE_ADDR + VALUE);
 }
 
 void Timer_Start(Timer_t timer) {
-    Assert(timer->isInit);
+    assert(timer->isInit);
 
     *timer->controlRegister |= 0x101;                  // enable timer
     return;
 }
 
 void Timer_Stop(Timer_t timer) {
-    Assert(timer->isInit);
+    assert(timer->isInit);
 
     *timer->controlRegister &= ~(0x101);               // stop/disable timer
     return;
@@ -205,7 +205,7 @@ bool Timer_isCounting(Timer_t timer) {
 }
 
 void Timer_Wait1ms(Timer_t timer, uint32_t time_ms) {
-    Assert(timer->isInit);
+    assert(timer->isInit);
 
     Timer_setInterval_ms(timer, time_ms);
     Timer_Start(timer);

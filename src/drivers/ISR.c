@@ -71,8 +71,8 @@ static ISR_t newVectorTable[VECTOR_TABLE_SIZE] /** @cond */ __attribute__((
 static bool isTableCopiedToRam = false;
 
 void ISR_InitNewTableInRam(void) {
-    Assert(isTableCopiedToRam == false);
-    Assert(interruptsAreEnabled == false);
+    assert(isTableCopiedToRam == false);
+    assert(interruptsAreEnabled == false);
 
     for(uint32_t idx = 0; idx < VECTOR_TABLE_SIZE; idx++) {
         newVectorTable[idx] = interruptVectorTable[idx];
@@ -85,10 +85,10 @@ void ISR_InitNewTableInRam(void) {
 }
 
 void ISR_addToIntTable(ISR_t isr, const uint8_t vectorNum) {
-    Assert(isTableCopiedToRam == true);
-    Assert(interruptsAreEnabled == false);
-    Assert(vectorNum >= 16);
-    Assert(vectorNum < VECTOR_TABLE_SIZE);
+    assert(isTableCopiedToRam == true);
+    assert(interruptsAreEnabled == false);
+    assert(vectorNum >= 16);
+    assert(vectorNum < VECTOR_TABLE_SIZE);
 
     newVectorTable[vectorNum] = isr;
     return;
@@ -99,9 +99,9 @@ Individual Interrupts
 *******************************************************************************/
 
 void ISR_setPriority(const uint8_t vectorNum, const uint8_t priority) {
-    Assert(vectorNum >= 16);
-    Assert(vectorNum < VECTOR_TABLE_SIZE);
-    Assert(priority <= 7);
+    assert(vectorNum >= 16);
+    assert(vectorNum < VECTOR_TABLE_SIZE);
+    assert(priority <= 7);
 
     uint8_t interruptBitNum = vectorNum - 16;
 
@@ -111,22 +111,22 @@ void ISR_setPriority(const uint8_t vectorNum, const uint8_t priority) {
     switch((interruptBitNum % 4)) {
         case 0:
             *priorityRegisterPtr |= (priority << 5);
-            Assert(*priorityRegisterPtr & (priority << 5));
+            assert(*priorityRegisterPtr & (priority << 5));
             break;
 
         case 1:
             *priorityRegisterPtr |= (priority << 13);
-            Assert(*priorityRegisterPtr & (priority << 13));
+            assert(*priorityRegisterPtr & (priority << 13));
             break;
 
         case 2:
             *priorityRegisterPtr |= (priority << 21);
-            Assert(*priorityRegisterPtr & (priority << 21));
+            assert(*priorityRegisterPtr & (priority << 21));
             break;
 
         case 3:
             *priorityRegisterPtr |= (priority << 29);
-            Assert(*priorityRegisterPtr & (priority << 29));
+            assert(*priorityRegisterPtr & (priority << 29));
             break;
     }
 
@@ -134,8 +134,8 @@ void ISR_setPriority(const uint8_t vectorNum, const uint8_t priority) {
 }
 
 static void ISR_setStatus(const uint8_t vectorNum, const bool isEnabled) {
-    Assert(vectorNum >= 16);
-    Assert(vectorNum < VECTOR_TABLE_SIZE);
+    assert(vectorNum >= 16);
+    assert(vectorNum < VECTOR_TABLE_SIZE);
     uint32_t interruptBitNum = (uint32_t) (vectorNum - 16);
 
     // Determine correct register to use
@@ -166,8 +166,8 @@ void ISR_Disable(const uint8_t vectorNum) {
 }
 
 void ISR_triggerInterrupt(const uint8_t vectorNum) {
-    Assert(vectorNum >= 16);
-    Assert(vectorNum < VECTOR_TABLE_SIZE);
+    assert(vectorNum >= 16);
+    assert(vectorNum < VECTOR_TABLE_SIZE);
 
     NVIC_SW_TRIG_R = (NVIC_SW_TRIG_R & ~(0xFF)) | (vectorNum - 16);
     return;

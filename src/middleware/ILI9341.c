@@ -58,10 +58,10 @@ Initialization/Reset
 *******************************************************************************/
 
 void ILI9341_Init(GpioPort_t resetPinPort, GpioPin_t resetPin, Spi_t spi, Timer_t timer) {
-    Assert(ili9341.isInit == false);               // should only be initialized once
-    Assert(GPIO_isPortInit(resetPinPort));
-    Assert(SPI_isInit(spi));
-    Assert(Timer_isInit(timer));
+    assert(ili9341.isInit == false);               // should only be initialized once
+    assert(GPIO_isPortInit(resetPinPort));
+    assert(SPI_isInit(spi));
+    assert(Timer_isInit(timer));
 
     ILI9341_Fifo = Fifo_Init(ILI9341_Buffer, 8);
 
@@ -125,8 +125,8 @@ void ILI9341_resetHard(Timer_t timer) {
      *  signal for >= 10 [us] and an additional 5 [ms] before further commands
      *  can be sent.
      */
-    Assert(ili9341.resetPinDataRegister != 0);
-    Assert(Timer_isInit(timer));
+    assert(ili9341.resetPinDataRegister != 0);
+    assert(Timer_isInit(timer));
     Timer_setMode(timer, ONESHOT, UP);
 
     *ili9341.resetPinDataRegister &= ~(ili9341.resetPin);
@@ -137,7 +137,7 @@ void ILI9341_resetHard(Timer_t timer) {
 }
 
 void ILI9341_resetSoft(Timer_t timer) {
-    Assert(Timer_isInit(timer));
+    assert(Timer_isInit(timer));
     Timer_setMode(timer, ONESHOT, UP);
 
     SPI_WriteCmd(ili9341.spi, SWRESET);
@@ -187,7 +187,7 @@ static void ILI9341_setMode(uint8_t param) {
             SPI_WriteData(ili9341.spi, param);
             break;
         default:
-            Assert(false);
+            assert(false);
             break;
     }
 
@@ -226,7 +226,7 @@ void ILI9341_setSleepMode(sleepMode_t sleepMode, Timer_t timer) {
      *      sending `SPLOUT` after sending `SPLIN` or a reset,
      *      so this function waits 120 [ms] regardless of the preceding event.
      */
-    Assert(ili9341.isInit);
+    assert(ili9341.isInit);
     ILI9341_setMode(sleepMode);
 
     Timer_setMode(timer, ONESHOT, UP);
@@ -236,14 +236,14 @@ void ILI9341_setSleepMode(sleepMode_t sleepMode, Timer_t timer) {
 }
 
 void ILI9341_setDisplayArea(displayArea_t displayArea) {
-    Assert(ili9341.isInit);
+    assert(ili9341.isInit);
     ILI9341_setMode(displayArea);
 
     return;
 }
 
 void ILI9341_setColorExpression(colorExpr_t colorExpr) {
-    Assert(ili9341.isInit);
+    assert(ili9341.isInit);
     ILI9341_setMode(colorExpr);
 
     return;
@@ -267,7 +267,7 @@ void ILI9341_setPartialArea(uint16_t rowStart, uint16_t rowEnd) {
 }
 
 void ILI9341_setDispInversion(invertMode_t invertMode) {
-    Assert(ili9341.isInit);
+    assert(ili9341.isInit);
     ILI9341_setMode(invertMode);
 
     return;
@@ -275,7 +275,7 @@ void ILI9341_setDispInversion(invertMode_t invertMode) {
 
 void ILI9341_setDispOutput(outputMode_t outputMode) {
     /// TODO: Write description
-    Assert(ili9341.isInit);
+    assert(ili9341.isInit);
     ILI9341_setMode(outputMode);
 
     return;
@@ -315,7 +315,7 @@ void ILI9341_setMemAccessCtrl(bool areRowsFlipped, bool areColsFlipped, bool are
 }
 
 void ILI9341_setColorDepth(colorDepth_t colorDepth) {
-    Assert(ili9341.isInit);
+    assert(ili9341.isInit);
     ILI9341_setMode(colorDepth);
 
     return;
@@ -363,8 +363,8 @@ static void ILI9341_setAddress(uint16_t startAddress, uint16_t endAddress, bool 
     uint16_t max_num = (is_row) ? ILI9341_NUM_ROWS : ILI9341_NUM_COLS;
 
     // ensure `startAddress` and `endAddress` meet restrictions
-    Assert(endAddress < max_num);
-    Assert(startAddress <= endAddress);
+    assert(endAddress < max_num);
+    assert(startAddress <= endAddress);
 
     // configure and send command sequence
     Fifo_Put(ILI9341_Fifo, ((startAddress & 0xFF00) >> 8));

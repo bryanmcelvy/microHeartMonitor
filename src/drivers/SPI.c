@@ -79,8 +79,8 @@ static SpiStruct_t SPI_ARR[4] = {
 };
 
 Spi_t SPI_Init(GpioPort_t gpioPort, GpioPin_t dcPin, SsiNum_t ssiNum) {
-    Assert(GPIO_isPortInit(gpioPort));
-    Assert(dcPin <= GPIO_PIN7);
+    assert(GPIO_isPortInit(gpioPort));
+    assert(dcPin <= GPIO_PIN7);
 
     // check GPIO pins
     uint32_t gpio_baseAddress = GPIO_getBaseAddr(gpioPort);
@@ -88,26 +88,26 @@ Spi_t SPI_Init(GpioPort_t gpioPort, GpioPin_t dcPin, SsiNum_t ssiNum) {
 
     switch(ssiNum) {
         case SSI0:
-            Assert(gpio_baseAddress == GPIO_PORTA_BASE_ADDRESS);
+            assert(gpio_baseAddress == GPIO_PORTA_BASE_ADDRESS);
             gpioPins = GPIO_PIN2 | GPIO_PIN3 | GPIO_PIN4 | GPIO_PIN5;
             break;
         case SSI1:
-            Assert(gpio_baseAddress == GPIO_PORTF_BASE_ADDRESS);
+            assert(gpio_baseAddress == GPIO_PORTF_BASE_ADDRESS);
             gpioPins = GPIO_PIN0 | GPIO_PIN1 | GPIO_PIN2 | GPIO_PIN3;
             break;
         case SSI2:
-            Assert(gpio_baseAddress == GPIO_PORTB_BASE_ADDRESS);
+            assert(gpio_baseAddress == GPIO_PORTB_BASE_ADDRESS);
             gpioPins = GPIO_PIN4 | GPIO_PIN5 | GPIO_PIN6 | GPIO_PIN7;
             break;
         case SSI3:
-            Assert(gpio_baseAddress == GPIO_PORTD_BASE_ADDRESS);
+            assert(gpio_baseAddress == GPIO_PORTD_BASE_ADDRESS);
             gpioPins = GPIO_PIN0 | GPIO_PIN1 | GPIO_PIN2 | GPIO_PIN3;
             break;
         default:
-            Assert(false);
+            assert(false);
     }
 
-    Assert((dcPin & gpioPins) == 0);
+    assert((dcPin & gpioPins) == 0);
 
     // initialize SSI peripheral in SPI mode
     Spi_t spi = &SPI_ARR[ssiNum];
@@ -156,8 +156,8 @@ Configuration
 *******************************************************************************/
 
 void SPI_configClock(Spi_t spi, SpiClockPhase_t clockPhase, SpiClockPolarity_t clockPolarity) {
-    Assert(spi->isInit);
-    Assert(spi->isEnabled == false);
+    assert(spi->isInit);
+    assert(spi->isEnabled == false);
 
     register_t ctrlRegister0 = (register_t) (spi->BASE_ADDRESS + CTRL0_OFFSET);
 
@@ -169,7 +169,7 @@ void SPI_configClock(Spi_t spi, SpiClockPhase_t clockPhase, SpiClockPolarity_t c
             *ctrlRegister0 |= (1 << 7);
             break;
         default:
-            Assert(false);
+            assert(false);
     }
 
     switch(clockPolarity) {
@@ -180,17 +180,17 @@ void SPI_configClock(Spi_t spi, SpiClockPhase_t clockPhase, SpiClockPolarity_t c
             *ctrlRegister0 |= (1 << 6);
             break;
         default:
-            Assert(false);
+            assert(false);
     }
 
     return;
 }
 
 void SPI_setDataSize(Spi_t spi, uint8_t dataSize) {
-    Assert(spi->isInit);
-    Assert(spi->isEnabled == false);
-    Assert(dataSize >= 4);
-    Assert(dataSize <= 16);
+    assert(spi->isInit);
+    assert(spi->isEnabled == false);
+    assert(dataSize >= 4);
+    assert(dataSize <= 16);
 
     register_t ctrlRegister0 = (register_t) (spi->BASE_ADDRESS + CTRL0_OFFSET);
     *ctrlRegister0 = (*ctrlRegister0 & ~(0x0F)) | (dataSize - 1);
@@ -200,8 +200,8 @@ void SPI_setDataSize(Spi_t spi, uint8_t dataSize) {
 }
 
 void SPI_Enable(Spi_t spi) {
-    Assert(spi->isInit);
-    Assert(spi->dataSize > 0);
+    assert(spi->isInit);
+    assert(spi->dataSize > 0);
     if(spi->isEnabled == false) {
         register_t ctrlRegister1 = (register_t) (spi->BASE_ADDRESS + CTRL1_OFFSET);
         *ctrlRegister1 |= 0x02;
@@ -211,7 +211,7 @@ void SPI_Enable(Spi_t spi) {
 }
 
 void SPI_Disable(Spi_t spi) {
-    Assert(spi->isInit);
+    assert(spi->isInit);
     if(spi->isEnabled) {
         register_t ctrlRegister1 = (register_t) (spi->BASE_ADDRESS + CTRL1_OFFSET);
         *ctrlRegister1 &= ~(0x02);
@@ -224,15 +224,15 @@ Operations
 *******************************************************************************/
 
 uint16_t SPI_Read(Spi_t spi) {
-    Assert(spi->isInit);
-    Assert(spi->isEnabled);
+    assert(spi->isInit);
+    assert(spi->isEnabled);
 
     return *spi->DATA_REGISTER;
 }
 
 void SPI_WriteCmd(Spi_t spi, uint16_t cmd) {
-    Assert(spi->isInit);
-    Assert(spi->isEnabled);
+    assert(spi->isInit);
+    assert(spi->isEnabled);
 
     while(*spi->STATUS_REGISTER & 0x10) {}                           // wait while SPI is busy
 
@@ -244,8 +244,8 @@ void SPI_WriteCmd(Spi_t spi, uint16_t cmd) {
 }
 
 void SPI_WriteData(Spi_t spi, uint16_t data) {
-    Assert(spi->isInit);
-    Assert(spi->isEnabled);
+    assert(spi->isInit);
+    assert(spi->isEnabled);
 
     while((*spi->STATUS_REGISTER & 0x02) == 0) {}                 // wait while TX FIFO is full
 

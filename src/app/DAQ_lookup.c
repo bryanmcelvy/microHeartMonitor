@@ -1049,7 +1049,7 @@ static const float32_t DAQ_LOOKUP_TABLE[4096] = {
 // clang-format on
 
 float32_t DAQ_convertToMilliVolts(uint16_t sample) {
-    Assert(sample < 0x1000);
+    assert(sample < (1 << 12));
     return DAQ_LOOKUP_TABLE[sample];
 }
 

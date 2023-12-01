@@ -39,7 +39,7 @@ static FifoStruct_t fifoPool[FIFO_POOL_SIZE] = { 0 };               ///< pre-all
 static uint8_t numFreeFifos = FIFO_POOL_SIZE;
 
 Fifo_t Fifo_Init(volatile uint32_t buffer[], const uint32_t N) {
-    Assert(numFreeFifos > 0);
+    assert(numFreeFifos > 0);
 
     numFreeFifos -= 1;
     volatile Fifo_t fifo = &(fifoPool[numFreeFifos]);

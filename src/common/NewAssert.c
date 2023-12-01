@@ -11,16 +11,15 @@
 
 #include <stdbool.h>
 
-void Assert(bool condition) {
+void assert(bool condition) {
     if(condition) {
         return;
     }
     else {
 #ifdef __arm__
         __asm__("BKPT #0");
-#else
-        while(1) {}
 #endif
+        while(1) {}
     }
 }
 

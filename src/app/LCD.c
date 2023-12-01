@@ -73,7 +73,7 @@ Initialization
 *******************************************************************************/
 
 void LCD_Init(void) {
-    Assert(lcd.isInit == false);                              // should only be initialized once
+    assert(lcd.isInit == false);                              // should only be initialized once
 
     GpioPort_t portA = GPIO_InitPort(GPIO_PORT_A);
     Spi_t spi = SPI_Init(portA, GPIO_PIN6, SSI0);
@@ -125,7 +125,7 @@ void LCD_setY(uint16_t y1, uint16_t y2) {
 }
 
 void LCD_setColor(uint8_t color) {
-    Assert(color < 0x08);
+    assert(color < 0x08);
     lcd.color = color;
     return;
 }
@@ -167,8 +167,8 @@ void LCD_Fill(void) {
 }
 
 static void LCD_drawLine(uint16_t center, uint16_t lineWidth, bool is_horizontal) {
-    Assert(lineWidth > 0);
-    Assert((lineWidth % 2) != 0);
+    assert(lineWidth > 0);
+    assert((lineWidth % 2) != 0);
 
     // ensure line does not go out-of-bounds
     uint16_t padding = ((lineWidth - 1) / 2);
@@ -208,10 +208,10 @@ void LCD_drawVertLine(uint16_t xCenter, uint16_t lineWidth) {
 }
 
 void LCD_drawRectangle(uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy) {
-    Assert(x1 <= LCD_X_MAX);
-    Assert(x1 + dx <= LCD_X_MAX);
-    Assert(y1 <= LCD_Y_MAX);
-    Assert((y1 + dy) <= LCD_Y_MAX);
+    assert(x1 <= LCD_X_MAX);
+    assert(x1 + dx <= LCD_X_MAX);
+    assert(y1 <= LCD_Y_MAX);
+    assert((y1 + dy) <= LCD_Y_MAX);
 
     uint16_t x2 = (x1 + dx) - 1;
     uint16_t y2 = (y1 + dy) - 1;
@@ -239,8 +239,8 @@ Writing
 *******************************************************************************/
 
 void LCD_setCursor(uint16_t lineNum, uint16_t colNum) {
-    Assert(lineNum < NUM_LINES);
-    Assert(colNum < NUM_COLS);
+    assert(lineNum < NUM_LINES);
+    assert(colNum < NUM_COLS);
 
     lcd.lineNum = lineNum * HEIGHT_CHAR;
     lcd.colNum = colNum * LEN_CHAR;
@@ -264,7 +264,7 @@ static void LCD_updateCursor(void) {
 void LCD_writeChar(unsigned char inputChar) {
     // determine letter
     const uint8_t * letter = FONT_ARRAY[inputChar];
-    Assert(((uint32_t) &letter[0]) != 0);
+    assert(((uint32_t) &letter[0]) != 0);
 
     uint16_t lineNum = lcd.lineNum;
     uint16_t colNum = lcd.colNum;

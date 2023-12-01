@@ -6,14 +6,12 @@
 
 // NOLINTBEGIN
 
-#include "CppUTest/TestHarness.h"
-
 extern "C" {
 
 #include "NewAssert.h"
 #include <stdbool.h>
 
-void Assert(bool condition) {
+void assert(bool condition) {
     return;
 }
 }

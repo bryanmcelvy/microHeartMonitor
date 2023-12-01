@@ -190,8 +190,7 @@ float32_t DAQ_NotchFilter(volatile float32_t inputSample) {
     float32_t outputSample = 0;
 
     arm_biquad_cascade_df1_f32(notchFilter, (const float32_t *) &inputSample, &outputSample, 1);
-    Assert(isinf(outputSample) == false);
-    Assert(isnan(outputSample) == false);
+    assert(isfinite(outputSample));
 
     return outputSample;
 }
@@ -200,8 +199,7 @@ float32_t DAQ_BandpassFilter(volatile float32_t inputSample) {
     float32_t outputSample = 0;
 
     arm_biquad_cascade_df1_f32(bandpassFilter, (const float32_t *) &inputSample, &outputSample, 1);
-    Assert(isinf(outputSample) == false);
-    Assert(isnan(outputSample) == false);
+    assert(isfinite(outputSample));
 
     return outputSample;
 }

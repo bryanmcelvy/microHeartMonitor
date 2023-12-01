@@ -39,8 +39,8 @@ static LedStruct_t Led_ObjPool[LED_POOL_SIZE] = { 0 };
 static uint8_t num_free_leds = LED_POOL_SIZE;
 
 Led_t Led_Init(GpioPort_t gpioPort, GpioPin_t pin) {
-    Assert(GPIO_isPortInit(gpioPort));
-    Assert(num_free_leds > 0);
+    assert(GPIO_isPortInit(gpioPort));
+    assert(num_free_leds > 0);
 
     // Initialize GPIO port pin
     GPIO_configDirection(gpioPort, pin, GPIO_OUTPUT);
@@ -63,12 +63,12 @@ Led_t Led_Init(GpioPort_t gpioPort, GpioPin_t pin) {
 }
 
 GpioPort_t Led_GetPort(Led_t led) {
-    Assert(led->isInit);
+    assert(led->isInit);
     return led->GPIO_PORT_PTR;
 }
 
 GpioPin_t Led_GetPin(Led_t led) {
-    Assert(led->isInit);
+    assert(led->isInit);
     return led->GPIO_PIN;
 }
 
@@ -81,7 +81,7 @@ bool Led_isInit(Led_t led) {
 }
 
 bool Led_isOn(Led_t led) {
-    Assert(led->isInit);
+    assert(led->isInit);
     return led->isOn;
 }
 
@@ -90,21 +90,21 @@ Operations
 *******************************************************************************/
 
 void Led_TurnOn(Led_t led) {
-    Assert(led->isInit);
+    assert(led->isInit);
     *led->gpioDataRegister |= led->GPIO_PIN;
     led->isOn = true;
     return;
 }
 
 void Led_TurnOff(Led_t led) {
-    Assert(led->isInit);
+    assert(led->isInit);
     *led->gpioDataRegister &= ~(led->GPIO_PIN);
     led->isOn = false;
     return;
 }
 
 void Led_Toggle(Led_t led) {
-    Assert(led->isInit);
+    assert(led->isInit);
     *led->gpioDataRegister ^= led->GPIO_PIN;
     led->isOn = !led->isOn;
     return;

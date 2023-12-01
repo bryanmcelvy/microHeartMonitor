@@ -22,7 +22,7 @@ Initialization
 *******************************************************************************/
 
 void Debug_Init(Uart_t uart) {
-    Assert(UART_isInit(uart));
+    assert(UART_isInit(uart));
 
     debugUart = uart;
 
@@ -55,7 +55,7 @@ void Debug_SendFromList(Msg_t msg) {
             Debug_SendMsg("Starting QRS detection...\r\n");
             break;
         default:
-            Assert(false);
+            assert(false);
     }
     return;
 }
@@ -73,7 +73,7 @@ Assertions
 void Debug_Assert(bool condition) {
     if(condition == false) {
         Debug_SendMsg((void *) "Assertion failed. Entering infinite loop.\r\n.");
-        Assert(false);
+        assert(false);
     }
     return;
 }
