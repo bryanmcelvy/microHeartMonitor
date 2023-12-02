@@ -20,17 +20,21 @@ target_link_libraries(Timer PRIVATE NewAssert)
 add_library(GPIO STATIC GPIO.c GPIO.h)
 target_link_libraries(GPIO PRIVATE NewAssert)
 
+add_library(lib_pwm STATIC pwm.c)
+target_precompile_headers(lib_pwm PRIVATE pwm.h)
+target_link_libraries(lib_pwm
+                        PUBLIC GPIO
+                        PRIVATE NewAssert)
+
 add_library(UART STATIC UART.c UART.h)
 target_link_libraries(UART
                         PUBLIC GPIO
-                        PRIVATE NewAssert
-)
+                        PRIVATE NewAssert)
 
 add_library(SPI STATIC SPI.c SPI.h)
 target_link_libraries(SPI
                         PUBLIC GPIO
-                        PRIVATE NewAssert
-)
+                        PRIVATE NewAssert)
 
 add_library(ADC STATIC ADC.c ADC.h)
 target_include_directories(ADC PRIVATE ${CMSIS_DIRS})
