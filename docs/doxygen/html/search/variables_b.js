@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['signallevel_0',['signallevel',['../group__qrs.html#ga2560a6c23055f6bd47dfe6bc678979c1',1,'@2::signalLevel'],['../_q_r_s_8c.html#a5802584806ac0a13e91c5d6c59d35a1d',1,'signalLevel:&#160;QRS.c']]]
+  ['threshold_0',['threshold',['../group__qrs.html#gafc52cf7bafd0bc466c4772cae8ae9cd2',1,'@2::threshold'],['../_q_r_s_8c.html#aa76107d5c83fb27ecd4c75c0cd91251b',1,'threshold:&#160;QRS.c']]]
 ];

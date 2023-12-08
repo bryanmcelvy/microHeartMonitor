@@ -221,12 +221,14 @@ uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>Timer_getCurrentV
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:ga7a3dfb8799241b9e79aebe3c57f06690" id="r_ga7a3dfb8799241b9e79aebe3c57f06690"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="struct_timer_struct__t.html">TimerStruct_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__timer.html#ga7a3dfb8799241b9e79aebe3c57f06690">TIMER_POOL</a> [6]</td></tr>
-<tr class="separator:ga7a3dfb8799241b9e79aebe3c57f06690"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabab2b85e5f0335e91bfc4391e70a7636" id="r_gabab2b85e5f0335e91bfc4391e70a7636"><td class="memItemLeft" align="right" valign="top"><a id="gabab2b85e5f0335e91bfc4391e70a7636" name="gabab2b85e5f0335e91bfc4391e70a7636"></a>
+static bool&#160;</td><td class="memItemRight" valign="bottom"><b>initStatusArray</b> [6] = { false, false, false, false, false, false }</td></tr>
+<tr class="separator:gabab2b85e5f0335e91bfc4391e70a7636"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga628239c1c4d30332139d22a5e1912c5d" id="r_ga628239c1c4d30332139d22a5e1912c5d"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="struct_timer_struct__t.html">TimerStruct_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__timer.html#ga628239c1c4d30332139d22a5e1912c5d">TIMER_STRUCT_ARRAY</a> [6]</td></tr>
+<tr class="separator:ga628239c1c4d30332139d22a5e1912c5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Functions for using hardware timers. </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000006">Todo:</a></b></dt><dd>Remove statically-allocated data structures for unused timers. </dd></dl>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
 <a id="ga0a1ee199efad781cb768fbd05ab38a6c" name="ga0a1ee199efad781cb768fbd05ab38a6c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga0a1ee199efad781cb768fbd05ab38a6c">&#9670;&#160;</a></span>timerMode_t</h2>
@@ -735,8 +737,8 @@ Variables</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
-<a id="ga7a3dfb8799241b9e79aebe3c57f06690" name="ga7a3dfb8799241b9e79aebe3c57f06690"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga7a3dfb8799241b9e79aebe3c57f06690">&#9670;&#160;</a></span>TIMER_POOL</h2>
+<a id="ga628239c1c4d30332139d22a5e1912c5d" name="ga628239c1c4d30332139d22a5e1912c5d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga628239c1c4d30332139d22a5e1912c5d">&#9670;&#160;</a></span>TIMER_STRUCT_ARRAY</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -745,7 +747,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="struct_timer_struct__t.html">TimerStruct_t</a> TIMER_POOL[6]</td>
+          <td class="memname">const <a class="el" href="struct_timer_struct__t.html">TimerStruct_t</a> TIMER_STRUCT_ARRAY[6]</td>
         </tr>
       </table>
   </td>
@@ -755,12 +757,12 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">    { TIMER0, TIMER0_BASE, (register_t) (TIMER0_BASE + CTRL), (register_t) (TIMER0_BASE + INTERVAL), (register_t) (TIMER0_BASE + INT_CLEAR), <span class="keyword">false</span> },</div>
-<div class="line">    { TIMER1, TIMER1_BASE, (register_t) (TIMER1_BASE + CTRL), (register_t) (TIMER1_BASE + INTERVAL), (register_t) (TIMER1_BASE + INT_CLEAR), <span class="keyword">false</span> },</div>
-<div class="line">    { TIMER2, TIMER2_BASE, (register_t) (TIMER2_BASE + CTRL), (register_t) (TIMER2_BASE + INTERVAL), (register_t) (TIMER2_BASE + INT_CLEAR), <span class="keyword">false</span> },</div>
-<div class="line">    { TIMER3, TIMER3_BASE, (register_t) (TIMER3_BASE + CTRL), (register_t) (TIMER3_BASE + INTERVAL), (register_t) (TIMER3_BASE + INT_CLEAR), <span class="keyword">false</span> },</div>
-<div class="line">    { TIMER4, TIMER4_BASE, (register_t) (TIMER4_BASE + CTRL), (register_t) (TIMER4_BASE + INTERVAL), (register_t) (TIMER4_BASE + INT_CLEAR), <span class="keyword">false</span> },</div>
-<div class="line">    { TIMER5, TIMER5_BASE, (register_t) (TIMER5_BASE + CTRL), (register_t) (TIMER5_BASE + INTERVAL), (register_t) (TIMER5_BASE + INT_CLEAR), <span class="keyword">false</span> }</div>
+<div class="line">    { TIMER0, TIMER0_BASE, REGISTER_CAST(TIMER0_BASE + CTRL), REGISTER_CAST(TIMER0_BASE + INTERVAL), REGISTER_CAST(TIMER0_BASE + INT_CLEAR), &amp;initStatusArray[0] },</div>
+<div class="line">    { TIMER1, TIMER1_BASE, REGISTER_CAST(TIMER1_BASE + CTRL), REGISTER_CAST(TIMER1_BASE + INTERVAL), REGISTER_CAST(TIMER1_BASE + INT_CLEAR), &amp;initStatusArray[1] },</div>
+<div class="line">    { TIMER2, TIMER2_BASE, REGISTER_CAST(TIMER2_BASE + CTRL), REGISTER_CAST(TIMER2_BASE + INTERVAL), REGISTER_CAST(TIMER2_BASE + INT_CLEAR), &amp;initStatusArray[2] },</div>
+<div class="line">    { TIMER3, TIMER3_BASE, REGISTER_CAST(TIMER3_BASE + CTRL), REGISTER_CAST(TIMER3_BASE + INTERVAL), REGISTER_CAST(TIMER3_BASE + INT_CLEAR), &amp;initStatusArray[3] },</div>
+<div class="line">    { TIMER4, TIMER4_BASE, REGISTER_CAST(TIMER4_BASE + CTRL), REGISTER_CAST(TIMER4_BASE + INTERVAL), REGISTER_CAST(TIMER4_BASE + INT_CLEAR), &amp;initStatusArray[4] },</div>
+<div class="line">    { TIMER5, TIMER5_BASE, REGISTER_CAST(TIMER5_BASE + CTRL), REGISTER_CAST(TIMER5_BASE + INTERVAL), REGISTER_CAST(TIMER5_BASE + INT_CLEAR), &amp;initStatusArray[5] }</div>
 <div class="line">}</div>
 </div><!-- fragment -->
 </div>

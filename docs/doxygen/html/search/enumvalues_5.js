@@ -14,5 +14,6 @@ var searchData=
   ['lcd_5fwave_5fy_5fmin_11',['lcd_wave_y_min',['../group__bm__impl.html#ggacb915975c73f153d903100564abd605aa24665f4b9ff259bb26cfca35eb4b6d23',1,'LCD_WAVE_Y_MIN:&#160;main.c'],['../group__rtos__impl.html#ggacb915975c73f153d903100564abd605aa24665f4b9ff259bb26cfca35eb4b6d23',1,'LCD_WAVE_Y_MIN:&#160;main_rtos.c']]],
   ['led_5fblue_12',['LED_BLUE',['../group__gpio.html#gga646e75bb4c4aaab2e492e374e9a611aaaa67c57c0ff22a2772cb6a5751a3327bf',1,'GPIO.h']]],
   ['led_5fgreen_13',['LED_GREEN',['../group__gpio.html#gga646e75bb4c4aaab2e492e374e9a611aaa0ad916c7f80666dc88f6b5b22a72e742',1,'GPIO.h']]],
-  ['led_5fred_14',['LED_RED',['../group__gpio.html#gga646e75bb4c4aaab2e492e374e9a611aaad80f13022b6d309268fadc7b1da89cb9',1,'GPIO.h']]]
+  ['led_5fred_14',['LED_RED',['../group__gpio.html#gga646e75bb4c4aaab2e492e374e9a611aaad80f13022b6d309268fadc7b1da89cb9',1,'GPIO.h']]],
+  ['lock_5freg_5foffset_15',['LOCK_REG_OFFSET',['../group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aa6a595bfb40592893d46b8e389f66fc8d',1,'GPIO.c']]]
 ];

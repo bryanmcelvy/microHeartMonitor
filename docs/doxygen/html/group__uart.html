@@ -126,9 +126,9 @@ Data Structures</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:ga0bdd7d3b2e41fd447c72b362bee19e2e" id="r_ga0bdd7d3b2e41fd447c72b362bee19e2e"><td class="memItemLeft" align="right" valign="top"><a id="ga0bdd7d3b2e41fd447c72b362bee19e2e" name="ga0bdd7d3b2e41fd447c72b362bee19e2e"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>ASCII_CONVERSION</b>&#160;&#160;&#160;0x30</td></tr>
-<tr class="separator:ga0bdd7d3b2e41fd447c72b362bee19e2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga67906d33c4f25ce1e4ac27cc1a72a89d" id="r_ga67906d33c4f25ce1e4ac27cc1a72a89d"><td class="memItemLeft" align="right" valign="top"><a id="ga67906d33c4f25ce1e4ac27cc1a72a89d" name="ga67906d33c4f25ce1e4ac27cc1a72a89d"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CONVERT_INT_TO_ASCII</b>(X)&#160;&#160;&#160;((unsigned char) (X + 0x30))</td></tr>
+<tr class="separator:ga67906d33c4f25ce1e4ac27cc1a72a89d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -207,12 +207,14 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:ga2b7c7226aff4813cd68f7b7ac5a195f3" id="r_ga2b7c7226aff4813cd68f7b7ac5a195f3"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="struct_uart_struct__t.html">UartStruct_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uart.html#ga2b7c7226aff4813cd68f7b7ac5a195f3">UART_ARR</a> [8]</td></tr>
-<tr class="separator:ga2b7c7226aff4813cd68f7b7ac5a195f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0b87a5162964c8650bc65965b3e797de" id="r_ga0b87a5162964c8650bc65965b3e797de"><td class="memItemLeft" align="right" valign="top"><a id="ga0b87a5162964c8650bc65965b3e797de" name="ga0b87a5162964c8650bc65965b3e797de"></a>
+static bool&#160;</td><td class="memItemRight" valign="bottom"><b>initStatusArray</b> [8] = { false, false, false, false, false, false, false, false }</td></tr>
+<tr class="separator:ga0b87a5162964c8650bc65965b3e797de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa7a3e5aeda154177e21871b00346f075" id="r_gaa7a3e5aeda154177e21871b00346f075"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="struct_uart_struct__t.html">UartStruct_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uart.html#gaa7a3e5aeda154177e21871b00346f075">UART_STRUCT_ARRAY</a> [8]</td></tr>
+<tr class="separator:gaa7a3e5aeda154177e21871b00346f075"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Functions for serial communication via the UART peripheral. </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000007">Todo:</a></b></dt><dd>Remove statically-allocated data structures for unused UARTs. </dd></dl>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="gab13890d58fe68c4dd80f64e6dba54f66" name="gab13890d58fe68c4dd80f64e6dba54f66"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gab13890d58fe68c4dd80f64e6dba54f66">&#9670;&#160;</a></span>UART_Init()</h2>
@@ -466,8 +468,8 @@ Variables</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
-<a id="ga2b7c7226aff4813cd68f7b7ac5a195f3" name="ga2b7c7226aff4813cd68f7b7ac5a195f3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga2b7c7226aff4813cd68f7b7ac5a195f3">&#9670;&#160;</a></span>UART_ARR</h2>
+<a id="gaa7a3e5aeda154177e21871b00346f075" name="gaa7a3e5aeda154177e21871b00346f075"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa7a3e5aeda154177e21871b00346f075">&#9670;&#160;</a></span>UART_STRUCT_ARRAY</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -476,7 +478,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="struct_uart_struct__t.html">UartStruct_t</a> UART_ARR[8]</td>
+          <td class="memname">const <a class="el" href="struct_uart_struct__t.html">UartStruct_t</a> UART_STRUCT_ARRAY[8]</td>
         </tr>
       </table>
   </td>
@@ -486,14 +488,14 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">    { UART0_BASE, ((register_t) (UART0_BASE + UART_FR_R_OFFSET)), 0, GPIO_PIN0, GPIO_PIN1, <span class="keyword">false</span> },</div>
-<div class="line">    { UART1_BASE, ((register_t) (UART1_BASE + UART_FR_R_OFFSET)), 0, GPIO_PIN0, GPIO_PIN1, <span class="keyword">false</span> },</div>
-<div class="line">    { UART2_BASE, ((register_t) (UART2_BASE + UART_FR_R_OFFSET)), 0, GPIO_PIN6, GPIO_PIN7, <span class="keyword">false</span> },</div>
-<div class="line">    { UART3_BASE, ((register_t) (UART3_BASE + UART_FR_R_OFFSET)), 0, GPIO_PIN6, GPIO_PIN7, <span class="keyword">false</span> },</div>
-<div class="line">    { UART4_BASE, ((register_t) (UART4_BASE + UART_FR_R_OFFSET)), 0, GPIO_PIN4, GPIO_PIN5, <span class="keyword">false</span> },</div>
-<div class="line">    { UART5_BASE, ((register_t) (UART5_BASE + UART_FR_R_OFFSET)), 0, GPIO_PIN4, GPIO_PIN5, <span class="keyword">false</span> },</div>
-<div class="line">    { UART6_BASE, ((register_t) (UART6_BASE + UART_FR_R_OFFSET)), 0, GPIO_PIN4, GPIO_PIN5, <span class="keyword">false</span> },</div>
-<div class="line">    { UART7_BASE, ((register_t) (UART7_BASE + UART_FR_R_OFFSET)), 0, GPIO_PIN0, GPIO_PIN1, <span class="keyword">false</span> }</div>
+<div class="line">    { UART0_BASE, REGISTER_CAST(UART0_BASE + UART_FR_R_OFFSET), &amp;initStatusArray[0] },</div>
+<div class="line">    { UART1_BASE, REGISTER_CAST(UART1_BASE + UART_FR_R_OFFSET), &amp;initStatusArray[1] },</div>
+<div class="line">    { UART2_BASE, REGISTER_CAST(UART2_BASE + UART_FR_R_OFFSET), &amp;initStatusArray[2] },</div>
+<div class="line">    { UART3_BASE, REGISTER_CAST(UART3_BASE + UART_FR_R_OFFSET), &amp;initStatusArray[3] },</div>
+<div class="line">    { UART4_BASE, REGISTER_CAST(UART4_BASE + UART_FR_R_OFFSET), &amp;initStatusArray[4] },</div>
+<div class="line">    { UART5_BASE, REGISTER_CAST(UART5_BASE + UART_FR_R_OFFSET), &amp;initStatusArray[5] },</div>
+<div class="line">    { UART6_BASE, REGISTER_CAST(UART6_BASE + UART_FR_R_OFFSET), &amp;initStatusArray[6] },</div>
+<div class="line">    { UART7_BASE, REGISTER_CAST(UART7_BASE + UART_FR_R_OFFSET), &amp;initStatusArray[7] }</div>
 <div class="line">}</div>
 </div><!-- fragment -->
 </div>

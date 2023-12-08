@@ -23,14 +23,14 @@ var searchData=
   ['lcd_5fsetx_20',['LCD_setX',['../group__lcd.html#ga926aae042f038f3f1ee15d221c6dc0bd',1,'LCD.c']]],
   ['lcd_5fsety_21',['LCD_setY',['../group__lcd.html#gac5a57c3d97f2bffe51463cfe6abfd4a6',1,'LCD.c']]],
   ['lcd_5ftext_5fcol_5fnum_22',['lcd_text_col_num',['../group__rtos__impl.html#ggacb915975c73f153d903100564abd605aa385a61585829bc35a9a1515e2c2dbdae',1,'LCD_TEXT_COL_NUM:&#160;main_rtos.c'],['../group__bm__impl.html#ggacb915975c73f153d903100564abd605aa385a61585829bc35a9a1515e2c2dbdae',1,'LCD_TEXT_COL_NUM:&#160;main.c']]],
-  ['lcd_5ftext_5fline_5fnum_23',['lcd_text_line_num',['../group__bm__impl.html#ggacb915975c73f153d903100564abd605aa2aff06aa4cd3be40b47557a06ee1eb75',1,'LCD_TEXT_LINE_NUM:&#160;main.c'],['../group__rtos__impl.html#ggacb915975c73f153d903100564abd605aa2aff06aa4cd3be40b47557a06ee1eb75',1,'LCD_TEXT_LINE_NUM:&#160;main_rtos.c']]],
-  ['lcd_5ftop_5fline_24',['lcd_top_line',['../group__rtos__impl.html#ggacb915975c73f153d903100564abd605aaa1bb82e9676009ad97773ded315055b4',1,'LCD_TOP_LINE:&#160;main_rtos.c'],['../group__bm__impl.html#ggacb915975c73f153d903100564abd605aaa1bb82e9676009ad97773ded315055b4',1,'LCD_TOP_LINE:&#160;main.c']]],
+  ['lcd_5ftext_5fline_5fnum_23',['lcd_text_line_num',['../group__rtos__impl.html#ggacb915975c73f153d903100564abd605aa2aff06aa4cd3be40b47557a06ee1eb75',1,'LCD_TEXT_LINE_NUM:&#160;main_rtos.c'],['../group__bm__impl.html#ggacb915975c73f153d903100564abd605aa2aff06aa4cd3be40b47557a06ee1eb75',1,'LCD_TEXT_LINE_NUM:&#160;main.c']]],
+  ['lcd_5ftop_5fline_24',['lcd_top_line',['../group__bm__impl.html#ggacb915975c73f153d903100564abd605aaa1bb82e9676009ad97773ded315055b4',1,'LCD_TOP_LINE:&#160;main.c'],['../group__rtos__impl.html#ggacb915975c73f153d903100564abd605aaa1bb82e9676009ad97773ded315055b4',1,'LCD_TOP_LINE:&#160;main_rtos.c']]],
   ['lcd_5fupdatecursor_25',['LCD_updateCursor',['../group__lcd.html#ga2b4011314152b7f7acf20b4794f32b48',1,'LCD.c']]],
   ['lcd_5fvector_5fnum_26',['LCD_VECTOR_NUM',['../group__bm__impl.html#gga85d888f8af9c9fdfa10b6806bc81d9eea37196db4908f90488af979458427e870',1,'main.c']]],
-  ['lcd_5fwave_5fnum_5fy_27',['lcd_wave_num_y',['../group__bm__impl.html#ggacb915975c73f153d903100564abd605aad5f85dba13ac0de680a902c19aec3043',1,'LCD_WAVE_NUM_Y:&#160;main.c'],['../group__rtos__impl.html#ggacb915975c73f153d903100564abd605aad5f85dba13ac0de680a902c19aec3043',1,'LCD_WAVE_NUM_Y:&#160;main_rtos.c']]],
+  ['lcd_5fwave_5fnum_5fy_27',['lcd_wave_num_y',['../group__rtos__impl.html#ggacb915975c73f153d903100564abd605aad5f85dba13ac0de680a902c19aec3043',1,'LCD_WAVE_NUM_Y:&#160;main_rtos.c'],['../group__bm__impl.html#ggacb915975c73f153d903100564abd605aad5f85dba13ac0de680a902c19aec3043',1,'LCD_WAVE_NUM_Y:&#160;main.c']]],
   ['lcd_5fwave_5fx_5foffset_28',['lcd_wave_x_offset',['../group__rtos__impl.html#ggacb915975c73f153d903100564abd605aa0402b3d8ef1b3beb4810e9362d464ba0',1,'LCD_WAVE_X_OFFSET:&#160;main_rtos.c'],['../group__bm__impl.html#ggacb915975c73f153d903100564abd605aa0402b3d8ef1b3beb4810e9362d464ba0',1,'LCD_WAVE_X_OFFSET:&#160;main.c']]],
   ['lcd_5fwave_5fy_5fmax_29',['lcd_wave_y_max',['../group__bm__impl.html#ggacb915975c73f153d903100564abd605aae65d637414fc0a0cee1fc267fa6dc9ba',1,'LCD_WAVE_Y_MAX:&#160;main.c'],['../group__rtos__impl.html#ggacb915975c73f153d903100564abd605aae65d637414fc0a0cee1fc267fa6dc9ba',1,'LCD_WAVE_Y_MAX:&#160;main_rtos.c']]],
-  ['lcd_5fwave_5fy_5fmin_30',['lcd_wave_y_min',['../group__rtos__impl.html#ggacb915975c73f153d903100564abd605aa24665f4b9ff259bb26cfca35eb4b6d23',1,'LCD_WAVE_Y_MIN:&#160;main_rtos.c'],['../group__bm__impl.html#ggacb915975c73f153d903100564abd605aa24665f4b9ff259bb26cfca35eb4b6d23',1,'LCD_WAVE_Y_MIN:&#160;main.c']]],
+  ['lcd_5fwave_5fy_5fmin_30',['lcd_wave_y_min',['../group__bm__impl.html#ggacb915975c73f153d903100564abd605aa24665f4b9ff259bb26cfca35eb4b6d23',1,'LCD_WAVE_Y_MIN:&#160;main.c'],['../group__rtos__impl.html#ggacb915975c73f153d903100564abd605aa24665f4b9ff259bb26cfca35eb4b6d23',1,'LCD_WAVE_Y_MIN:&#160;main_rtos.c']]],
   ['lcdheartratetask_31',['LcdHeartRateTask',['../group__rtos__impl.html#ga0d3ec55ff57118cc59671bad7221f83b',1,'main_rtos.c']]],
   ['lcdwaveformtask_32',['LcdWaveformTask',['../group__rtos__impl.html#gaeeec8990171238bb26d20906bbdf34d8',1,'main_rtos.c']]],
   ['led_33',['LED',['../group__led.html',1,'']]],
@@ -51,6 +51,7 @@ var searchData=
   ['linenum_48',['linenum',['../_l_c_d_8c.html#a32676687d446a8cc07c57b2e8e8144ee',1,'lineNum:&#160;LCD.c'],['../group__lcd.html#gaa0e4432e263f8031ee92ab044873d0ce',1,'@1::lineNum']]],
   ['liquid_20crystal_20display_20lcd_49',['Liquid Crystal Display (LCD)',['../group__lcd.html',1,'']]],
   ['list_50',['list',['../bug.html',1,'Bug List'],['../todo.html',1,'Todo List']]],
-  ['locked_20loop_20pll_51',['Phase-Locked Loop (PLL)',['../group__pll.html',1,'']]],
-  ['loop_20pll_52',['Phase-Locked Loop (PLL)',['../group__pll.html',1,'']]]
+  ['lock_5freg_5foffset_51',['LOCK_REG_OFFSET',['../group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aa6a595bfb40592893d46b8e389f66fc8d',1,'GPIO.c']]],
+  ['locked_20loop_20pll_52',['Phase-Locked Loop (PLL)',['../group__pll.html',1,'']]],
+  ['loop_20pll_53',['Phase-Locked Loop (PLL)',['../group__pll.html',1,'']]]
 ];
