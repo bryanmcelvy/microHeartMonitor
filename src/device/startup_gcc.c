@@ -64,9 +64,16 @@ void __attribute__((weak, alias("Default_Handler"))) DebugMon_Handler(void);
 void __attribute__((weak, alias("Default_Handler"))) PendSV_Handler(void);
 void __attribute__((weak, alias("Default_Handler"))) SysTick_Handler(void);
 
-void __attribute__((weak, alias("Default_Handler"))) ADC0_SS3_Handler(void);
+void __attribute__((weak, alias("Default_Handler"))) GPIO_PortA_Handler(void);
+void __attribute__((weak, alias("Default_Handler"))) GPIO_PortB_Handler(void);
+void __attribute__((weak, alias("Default_Handler"))) GPIO_PortC_Handler(void);
+void __attribute__((weak, alias("Default_Handler"))) GPIO_PortD_Handler(void);
+void __attribute__((weak, alias("Default_Handler"))) GPIO_PortE_Handler(void);
 void __attribute__((weak, alias("Default_Handler"))) GPIO_PortF_Handler(void);
+
+void __attribute__((weak, alias("Default_Handler"))) ADC0_SS3_Handler(void);
 void __attribute__((weak, alias("Default_Handler"))) SSI0_Handler(void);
+
 void __attribute__((weak, alias("Default_Handler"))) Timer0A_Handler(void);
 void __attribute__((weak, alias("Default_Handler"))) Timer0B_Handler(void);
 void __attribute__((weak, alias("Default_Handler"))) Timer1A_Handler(void);
@@ -79,7 +86,14 @@ void __attribute__((weak, alias("Default_Handler"))) Timer4A_Handler(void);
 void __attribute__((weak, alias("Default_Handler"))) Timer4B_Handler(void);
 void __attribute__((weak, alias("Default_Handler"))) Timer5A_Handler(void);
 void __attribute__((weak, alias("Default_Handler"))) Timer5B_Handler(void);
+
 void __attribute__((weak, alias("Default_Handler"))) UART0_Handler(void);
+void __attribute__((weak, alias("Default_Handler"))) UART1_Handler(void);
+void __attribute__((weak, alias("Default_Handler"))) UART3_Handler(void);
+void __attribute__((weak, alias("Default_Handler"))) UART4_Handler(void);
+void __attribute__((weak, alias("Default_Handler"))) UART5_Handler(void);
+void __attribute__((weak, alias("Default_Handler"))) UART6_Handler(void);
+void __attribute__((weak, alias("Default_Handler"))) UART7_Handler(void);
 
 /******************************************************************************
 Interrupt Vector Table
@@ -105,13 +119,13 @@ __attribute__((section(".isr_vector"))) void (*const interruptVectorTable[])(voi
     0,                                                   // Reserved
     PendSV_Handler,                                      // The PendSV handler
     SysTick_Handler,                                     // The SysTick handler
-    Default_Handler,                                     // GPIO Port A
-    Default_Handler,                                     // GPIO Port B
-    Default_Handler,                                     // GPIO Port C
-    Default_Handler,                                     // GPIO Port D
-    Default_Handler,                                     // GPIO Port E
+    GPIO_PortA_Handler,                                  // GPIO Port A
+    GPIO_PortB_Handler,                                  // GPIO Port B
+    GPIO_PortC_Handler,                                  // GPIO Port C
+    GPIO_PortD_Handler,                                  // GPIO Port D
+    GPIO_PortE_Handler,                                  // GPIO Port E
     UART0_Handler,                                       // UART0 Rx and Tx
-    Default_Handler,                                     // UART1 Rx and Tx
+    UART1_Handler,                                       // UART1 Rx and Tx
     SSI0_Handler,                                        // SSI0 Rx and Tx
     Default_Handler,                                     // I2C0 Master and Slave
     Default_Handler,                                     // PWM Fault
@@ -164,11 +178,11 @@ __attribute__((section(".isr_vector"))) void (*const interruptVectorTable[])(voi
     Default_Handler,                                     // GPIO Port L
     Default_Handler,                                     // SSI2 Rx and Tx
     Default_Handler,                                     // SSI3 Rx and Tx
-    Default_Handler,                                     // UART3 Rx and Tx
-    Default_Handler,                                     // UART4 Rx and Tx
-    Default_Handler,                                     // UART5 Rx and Tx
-    Default_Handler,                                     // UART6 Rx and Tx
-    Default_Handler,                                     // UART7 Rx and Tx
+    UART3_Handler,                                       // UART3 Rx and Tx
+    UART4_Handler,                                       // UART4 Rx and Tx
+    UART5_Handler,                                       // UART5 Rx and Tx
+    UART6_Handler,                                       // UART6 Rx and Tx
+    UART7_Handler,                                       // UART7 Rx and Tx
     0,                                                   // Reserved
     0,                                                   // Reserved
     0,                                                   // Reserved
