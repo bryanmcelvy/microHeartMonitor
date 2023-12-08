@@ -14,7 +14,6 @@
         /**
          * @defgroup   gpio            General-Purpose Input/Output (GPIO)
          * @brief    Functions for using GPIO ports.
-         * @todo     Remove statically-allocated data structures for unused GPIO ports.
          */
 
         /**
@@ -30,18 +29,17 @@
         /**
          * @defgroup   spi             Serial Peripheral Interface (SPI)
          * @brief    Functions for SPI-based communication via the SSI peripheral.
+         * @todo     Remove statically-allocated data structures for unused SSIs.
          */
 
         /**
          * @defgroup   timer           Timer
          * @brief    Functions for using hardware timers.
-         * @todo     Remove statically-allocated data structures for unused timers.
          */
 
         /**
          * @defgroup   uart            Universal Asynchronous Receiver/Transmitter (UART)
          * @brief    Functions for serial communication via the UART peripheral.
-         * @todo     Remove statically-allocated data structures for unused UARTs.
          */
 
 /** @} */
