@@ -67,16 +67,17 @@ typedef struct SpiStruct_t {
     bool isInit;
 } SpiStruct_t;
 
+// clang-format off
 static SpiStruct_t SPI_ARR[4] = {
-    { SSI0_BASE_ADDR, (volatile uint32_t *) (SSI0_BASE_ADDR + DATA_OFFSET),
-      (volatile uint32_t *) (SSI0_BASE_ADDR + STATUS_OFFSET), 0, 0, 0, false, false },
-    { SSI1_BASE_ADDR, (volatile uint32_t *) (SSI1_BASE_ADDR + DATA_OFFSET),
-      (volatile uint32_t *) (SSI1_BASE_ADDR + STATUS_OFFSET), 0, 0, 0, false, false },
-    { SSI2_BASE_ADDR, (volatile uint32_t *) (SSI2_BASE_ADDR + DATA_OFFSET),
-      (volatile uint32_t *) (SSI2_BASE_ADDR + STATUS_OFFSET), 0, 0, 0, false, false },
-    { SSI3_BASE_ADDR, (volatile uint32_t *) (SSI3_BASE_ADDR + DATA_OFFSET),
-      (volatile uint32_t *) (SSI3_BASE_ADDR + STATUS_OFFSET), 0, 0, 0, false, false },
-};
+    { SSI0_BASE_ADDR, REGISTER_CAST(SSI0_BASE_ADDR + DATA_OFFSET), REGISTER_CAST(SSI0_BASE_ADDR + STATUS_OFFSET), 
+        0, 0, 0, false, false },
+    { SSI1_BASE_ADDR, REGISTER_CAST(SSI1_BASE_ADDR + DATA_OFFSET), REGISTER_CAST(SSI1_BASE_ADDR + STATUS_OFFSET), 
+        0, 0, 0, false, false },
+    { SSI2_BASE_ADDR, REGISTER_CAST(SSI2_BASE_ADDR + DATA_OFFSET), REGISTER_CAST(SSI2_BASE_ADDR + STATUS_OFFSET), 
+        0, 0, 0, false, false },
+    { SSI3_BASE_ADDR, REGISTER_CAST(SSI3_BASE_ADDR + DATA_OFFSET), REGISTER_CAST(SSI3_BASE_ADDR + STATUS_OFFSET), 
+        0, 0, 0, false, false },
+};               // clang-format on
 
 Spi_t SPI_Init(GpioPort_t gpioPort, GpioPin_t dcPin, SsiNum_t ssiNum) {
     assert(GPIO_isPortInit(gpioPort));
