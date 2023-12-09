@@ -15,6 +15,7 @@ Preprocessor Directives
 
 #include "NewAssert.h"
 
+#include "m-profile/cmsis_gcc_m.h"
 #include "tm4c123gh6pm.h"
 
 #include <stdbool.h>
@@ -87,7 +88,9 @@ GpioPort_t GPIO_InitPort(GPIO_PortName_t portName) {
     if(*gpioPort->isInit == false) {
         // Start clock for port and wait for it to be ready
         SYSCTL_RCGCGPIO_R |= (1 << portName);
-        while((SYSCTL_PRGPIO_R & (1 << portName)) == 0) {}
+        while((SYSCTL_PRGPIO_R & (1 << portName)) == 0) {
+            __NOP();
+        }
 
         // Disable alternate and analog modes
         REGISTER_VAL(gpioPort->BASE_ADDRESS + ALT_MODE_REG_OFFSET) &= ~(0xFF);

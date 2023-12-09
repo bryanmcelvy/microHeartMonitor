@@ -21,6 +21,7 @@ SECTIONS
 
 #include "NewAssert.h"
 
+#include "m-profile/cmsis_gcc_m.h"
 #include "tm4c123gh6pm.h"
 
 #include <stdbool.h>
@@ -157,7 +158,9 @@ Uart_t UART_Init(GpioPort_t port, uartNum_t uartNum) {
     Uart_t uart = &UART_STRUCT_ARRAY[uartNum];
     if(*uart->isInitPtr == false) {
         SYSCTL_RCGCUART_R |= (1 << uartNum);
-        while((SYSCTL_PRUART_R & (1 << uartNum)) == 0) {}
+        while((SYSCTL_PRUART_R & (1 << uartNum)) == 0) {
+            __NOP();
+        }
 
         // initialize GPIO pins
         GPIO_ConfigAltMode(port, RX_PIN_NUM | TX_PIN_NUM);
@@ -199,7 +202,9 @@ Reading
 *******************************************************************************/
 
 unsigned char UART_ReadChar(Uart_t uart) {
-    while((*uart->FLAG_REGISTER & 0x10) != 0) {}
+    while((*uart->FLAG_REGISTER & 0x10) != 0) {
+        __NOP();
+    }
     return (unsigned char) REGISTER_VAL(uart->BASE_ADDRESS);
 }
 
@@ -208,7 +213,9 @@ Writing
 *******************************************************************************/
 
 void UART_WriteChar(Uart_t uart, unsigned char inputChar) {
-    while((*uart->FLAG_REGISTER & 0x20) != 0) {}
+    while((*uart->FLAG_REGISTER & 0x20) != 0) {
+        __NOP();
+    }
     REGISTER_VAL(uart->BASE_ADDRESS) = inputChar;
     return;
 }

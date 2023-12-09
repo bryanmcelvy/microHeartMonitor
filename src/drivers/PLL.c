@@ -9,6 +9,7 @@
 
 #include "PLL.h"
 
+#include "m-profile/cmsis_gcc_m.h"
 #include "tm4c123gh6pm.h"
 
 void PLL_Init(void) {
@@ -30,8 +31,10 @@ void PLL_Init(void) {
     SYSCTL_RCC_R |= (1 << 22);                    // enable system clock divider
 
     // Re-activate PLL
-    while((SYSCTL_RIS_R & 0x40) == 0) {}               // wait for PLL to lock
-    SYSCTL_RCC2_R &= ~(1 << 11);                       // clear BYPASS2 to enable PLL
+    while((SYSCTL_RIS_R & 0x40) == 0) {               // wait for PLL to lock
+        __NOP();
+    }
+    SYSCTL_RCC2_R &= ~(1 << 11);                      // clear BYPASS2 to enable PLL
 }
 
 /** @} */

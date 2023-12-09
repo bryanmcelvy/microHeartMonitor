@@ -11,6 +11,7 @@
 
 #include "NewAssert.h"
 
+#include "m-profile/cmsis_gcc_m.h"
 #include "tm4c123gh6pm.h"
 
 #include <stdbool.h>
@@ -71,7 +72,9 @@ Timer_t Timer_Init(timerName_t timerName) {
     if(*timer->isInit == false) {
         // Start clock to timer
         SYSCTL_RCGCTIMER_R |= (1 << timerName);
-        while((SYSCTL_PRTIMER_R & (1 << timerName)) == 0) {}
+        while((SYSCTL_PRTIMER_R & (1 << timerName)) == 0) {
+            __NOP();
+        }
         *timer->isInit = true;
     }
 
@@ -89,7 +92,9 @@ void Timer_Deinit(Timer_t timer) {
 
         // disable clock to timer
         SYSCTL_RCGCTIMER_R &= ~(1 << timerNum);
-        while(SYSCTL_PRTIMER_R & (1 << timerNum)) {}
+        while(SYSCTL_PRTIMER_R & (1 << timerNum)) {
+            __NOP();
+        }
         *timer->isInit = false;
     }
     return;
@@ -210,7 +215,9 @@ void Timer_Wait1ms(Timer_t timer, uint32_t time_ms) {
 
     Timer_setInterval_ms(timer, time_ms);
     Timer_Start(timer);
-    while(Timer_isCounting(timer)) {}
+    while(Timer_isCounting(timer)) {
+        __NOP();
+    }
 
     return;
 }
