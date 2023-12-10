@@ -10,6 +10,10 @@ include_directories(${PATH_COMMON} ${PATH_DEVICE} ${PATH_DRIVERS})
 add_library(ISR OBJECT ISR.c ISR.h)
 target_link_libraries(ISR cmsis_core_header)
 
+add_library(lib_sysctrl STATIC sysctrl.c)
+target_precompile_headers(lib_sysctrl PUBLIC sysctrl.h)
+target_link_libraries(lib_sysctrl cmsis_core_header NewAssert)
+
 add_library(PLL STATIC PLL.c PLL.h)
 target_link_libraries(PLL cmsis_core_header)
 
