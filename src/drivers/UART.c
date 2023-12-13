@@ -254,7 +254,7 @@ void UART_WriteInt(Uart_t uart, int32_t n) {
     return;
 }
 
-void UART_WriteFloat(Uart_t uart, double n, uint8_t numDecimals) {
+void UART_WriteFloat(Uart_t uart, float n, uint8_t numDecimals) {
     // Send negative sign (`-`) if needed
     if(n < 0) {
         UART_WriteChar(uart, '-');

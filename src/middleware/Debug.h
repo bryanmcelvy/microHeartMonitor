@@ -83,7 +83,7 @@ void Debug_SendFromList(Msg_t msg);
  *
  * @see                 Debug_SendMsg()
  */
-void Debug_WriteFloat(double value);
+void Debug_WriteFloat(float value);
 
 /** @} */               // Serial Output
 

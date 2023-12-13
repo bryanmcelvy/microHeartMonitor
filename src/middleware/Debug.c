@@ -60,7 +60,7 @@ void Debug_SendFromList(Msg_t msg) {
     return;
 }
 
-void Debug_WriteFloat(double value) {
+void Debug_WriteFloat(float value) {
     UART_WriteFloat(debugUart, value, 1);
     UART_WriteStr(debugUart, "\r\n");
     return;

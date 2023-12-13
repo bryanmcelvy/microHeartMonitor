@@ -111,7 +111,7 @@ void UART_WriteInt(Uart_t uart, int32_t n);
  * @param[in] n                 Floating-point number to be converted and transmitted.
  * @param[in] num_decimals      Number of digits after the decimal point to include.
  */
-void UART_WriteFloat(Uart_t uart, double n, uint8_t numDecimals);
+void UART_WriteFloat(Uart_t uart, float n, uint8_t numDecimals);
 
 #endif
 
