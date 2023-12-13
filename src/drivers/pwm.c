@@ -65,7 +65,7 @@ enum PWM_REGISTER_OFFSETS {
 
 typedef struct PwmStruct_t {
     uint32_t PWM_MODULE_BASE;
-    PwmPin_e pinName;
+    register_t genCtrlRegPtr;
 
     uint32_t frequency;
     uint32_t dutyCycle;
@@ -73,7 +73,24 @@ typedef struct PwmStruct_t {
     bool isInit;
 } PwmStruct_t;
 
-static PwmStruct_t PWM_POOL[16] = { 0 };
+static PwmStruct_t PWM_POOL[16] = {
+    { PWM0_BASE, REGISTER_CAST(PWM0_BASE + PWM0_CTRL + GEN_A_CTRL_OFFSET), 0, 100, false, false },
+    { PWM0_BASE, REGISTER_CAST(PWM0_BASE + PWM0_CTRL + GEN_B_CTRL_OFFSET), 0, 100, false, false },
+    { PWM0_BASE, REGISTER_CAST(PWM0_BASE + PWM1_CTRL + GEN_A_CTRL_OFFSET), 0, 100, false, false },
+    { PWM0_BASE, REGISTER_CAST(PWM0_BASE + PWM1_CTRL + GEN_B_CTRL_OFFSET), 0, 100, false, false },
+    { PWM0_BASE, REGISTER_CAST(PWM0_BASE + PWM2_CTRL + GEN_A_CTRL_OFFSET), 0, 100, false, false },
+    { PWM0_BASE, REGISTER_CAST(PWM0_BASE + PWM2_CTRL + GEN_B_CTRL_OFFSET), 0, 100, false, false },
+    { PWM0_BASE, REGISTER_CAST(PWM0_BASE + PWM3_CTRL + GEN_A_CTRL_OFFSET), 0, 100, false, false },
+    { PWM0_BASE, REGISTER_CAST(PWM0_BASE + PWM3_CTRL + GEN_B_CTRL_OFFSET), 0, 100, false, false },
+    { PWM1_BASE, REGISTER_CAST(PWM1_BASE + PWM0_CTRL + GEN_A_CTRL_OFFSET), 0, 100, false, false },
+    { PWM1_BASE, REGISTER_CAST(PWM1_BASE + PWM0_CTRL + GEN_B_CTRL_OFFSET), 0, 100, false, false },
+    { PWM1_BASE, REGISTER_CAST(PWM1_BASE + PWM1_CTRL + GEN_A_CTRL_OFFSET), 0, 100, false, false },
+    { PWM1_BASE, REGISTER_CAST(PWM1_BASE + PWM1_CTRL + GEN_B_CTRL_OFFSET), 0, 100, false, false },
+    { PWM1_BASE, REGISTER_CAST(PWM1_BASE + PWM2_CTRL + GEN_A_CTRL_OFFSET), 0, 100, false, false },
+    { PWM1_BASE, REGISTER_CAST(PWM1_BASE + PWM2_CTRL + GEN_B_CTRL_OFFSET), 0, 100, false, false },
+    { PWM1_BASE, REGISTER_CAST(PWM1_BASE + PWM3_CTRL + GEN_A_CTRL_OFFSET), 0, 100, false, false },
+    { PWM1_BASE, REGISTER_CAST(PWM1_BASE + PWM3_CTRL + GEN_B_CTRL_OFFSET), 0, 100, false, false },
+};
 
 /* Functions */
 
