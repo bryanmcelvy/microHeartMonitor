@@ -24,42 +24,32 @@ enum PWM_BASE_ADDRESSES {
     PWM1_BASE = (uint32_t) 0x40029000
 };
 
+// offsets from base address
 enum PWM_REGISTER_OFFSETS {
     MASTER_CTRL = (uint32_t) 0,
     OUTPUT_ENABLE = (uint32_t) 0x008,
 
     PWM0_CTRL = (uint32_t) 0x040,
-    PWM0_LOAD = (uint32_t) 0x050,
-    PWM0_COUNTER = (uint32_t) 0x054,
-    PWM0_COMPARE_A = (uint32_t) 0x058,
-    PWM0_COMPARE_B = (uint32_t) 0x05C,
-    PWM0_GEN_A_CTRL = (uint32_t) 0x060,
-    PWM0_GEN_B_CTRL = (uint32_t) 0x064,
-
-    PWM1_CTRL = PWM0_CTRL + 0x40,
-    PWM1_LOAD = PWM0_LOAD + 0x40,
-    PWM1_COUNTER = PWM0_COUNTER + 0x40,
-    PWM1_COMPARE_A = PWM0_COMPARE_A + 0x40,
-    PWM1_COMPARE_B = PWM0_COMPARE_B + 0x40,
-    PWM1_GEN_A_CTRL = PWM0_GEN_A_CTRL + 0x40,
-    PWM1_GEN_B_CTRL = PWM0_GEN_B_CTRL + 0x40,
-
-    PWM2_CTRL = PWM1_CTRL + 0x40,
-    PWM2_LOAD = PWM1_LOAD + 0x40,
-    PWM2_COUNTER = PWM1_COUNTER + 0x40,
-    PWM2_COMPARE_A = PWM1_COMPARE_A + 0x40,
-    PWM2_COMPARE_B = PWM1_COMPARE_B + 0x40,
-    PWM2_GEN_A_CTRL = PWM1_GEN_A_CTRL + 0x40,
-    PWM2_GEN_B_CTRL = PWM1_GEN_B_CTRL + 0x40,
-
-    PWM3_CTRL = PWM2_CTRL + 0x40,
-    PWM3_LOAD = PWM2_LOAD + 0x40,
-    PWM3_COUNTER = PWM2_COUNTER + 0x40,
-    PWM3_COMPARE_A = PWM2_COMPARE_A + 0x40,
-    PWM3_COMPARE_B = PWM2_COMPARE_B + 0x40,
-    PWM3_GEN_A_CTRL = PWM2_GEN_A_CTRL + 0x40,
-    PWM3_GEN_B_CTRL = PWM2_GEN_B_CTRL + 0x40,
+    PWM1_CTRL = (uint32_t) 0x080,
+    PWM2_CTRL = (uint32_t) 0x0C0,
+    PWM3_CTRL = (uint32_t) 0x100,
 };
+
+// offsets from control register
+enum PWM_CTRL_REG_OFFSETS {
+    LOAD_OFFSET = 0x010,
+    COUNTER_OFFSET = 0x014,
+    COMPARE_A_OFFSET = 0x018,
+    COMPARE_B_OFFSET = 0x01C,
+    GEN_A_CTRL_OFFSET = 0x020,
+    GEN_B_CTRL_OFFSET = 0x024,
+};
+
+// generator to use
+typedef enum {
+    GEN_A,
+    GEN_B
+} PwmGen_t;
 
 /* Type Declaration */
 
@@ -219,24 +209,24 @@ Pwm_t Pwm_Init(GpioPort_t gpioPort, PwmPin_e pwmPin) {
         SYSCTL_RCC_R = (SYSCTL_RCC_R & ~(0x7 << 17)) | SYSCTL_RCC_PWMDIV_8;
 
         // Configure PWM generator block
-        uint32_t pwmModuleBase = (pwmModuleNum == 0) ? PWM0_BASE : PWM1_BASE;
-
+        uint32_t ctrlRegAddr;
         switch(pwmPin / 4) {
             case 0:
-                *((register_t) pwmModuleBase + PWM0_CTRL) &= ~(0x7FFFF);
+                ctrlRegAddr = PWM0_CTRL;
                 break;
             case 1:
-                *((register_t) pwmModuleBase + PWM1_CTRL) &= ~(0x7FFFF);
+                ctrlRegAddr = PWM1_CTRL;
                 break;
             case 2:
-                *((register_t) pwmModuleBase + PWM2_CTRL) &= ~(0x7FFFF);
+                ctrlRegAddr = PWM2_CTRL;
                 break;
             case 3:
-                *((register_t) pwmModuleBase + PWM3_CTRL) &= ~(0x7FFFF);
+                ctrlRegAddr = PWM3_CTRL;
                 break;
         }
+        uint32_t pwmModuleBase = (pwmModuleNum == 0) ? PWM0_BASE : PWM1_BASE;
+        REGISTER_VAL(pwmModuleBase + ctrlRegAddr) &= ~(0x7FFFF);
 
-        // Populate struct
         pwm->isInit = true;
     }
 
