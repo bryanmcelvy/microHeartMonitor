@@ -11,8 +11,9 @@ var searchData=
   ['coeffs_5fnotch_8',['COEFFS_NOTCH',['../group__daq.html#ga2cd0db35fb97172da32574f77a4d4feb',1,'daq.c']]],
   ['colnum_9',['colnum',['../_l_c_d_8c.html#a9b5bd48cf59da2abbc679bdd75981fa2',1,'colNum:&#160;LCD.c'],['../group__lcd.html#gab09441eb6d2087a1cc8533a34961788e',1,'@1::colNum']]],
   ['columns_20available_20on_20the_20display_10',['of columns available on the display',['../group__ili9341.html#autotoc_md0',1,'']]],
-  ['common_11',['common',['../group__common.html',1,'Common'],['../page_meth.html#sec_meth_com',1,'Common']]],
-  ['conversion_20adc_12',['Analog-to-Digital Conversion (ADC)',['../group__adc.html',1,'']]],
-  ['crystal_20display_20lcd_13',['Liquid Crystal Display (LCD)',['../group__lcd.html',1,'']]],
-  ['current_20results_14',['Current Results',['../page_results.html#sec_curr_result',1,'']]]
+  ['commit_5freg_5foffset_11',['COMMIT_REG_OFFSET',['../group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aa46b187c582ed589ea4f1086ed25f0641',1,'GPIO.c']]],
+  ['common_12',['common',['../group__common.html',1,'Common'],['../page_meth.html#sec_meth_com',1,'Common']]],
+  ['conversion_20adc_13',['Analog-to-Digital Conversion (ADC)',['../group__adc.html',1,'']]],
+  ['crystal_20display_20lcd_14',['Liquid Crystal Display (LCD)',['../group__lcd.html',1,'']]],
+  ['current_20results_15',['Current Results',['../page_results.html#sec_curr_result',1,'']]]
 ];

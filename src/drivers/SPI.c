@@ -13,6 +13,7 @@
 
 #include "NewAssert.h"
 
+#include "m-profile/cmsis_gcc_m.h"
 #include "tm4c123gh6pm.h"
 
 #include <stdbool.h>
@@ -67,16 +68,17 @@ typedef struct SpiStruct_t {
     bool isInit;
 } SpiStruct_t;
 
+// clang-format off
 static SpiStruct_t SPI_ARR[4] = {
-    { SSI0_BASE_ADDR, (volatile uint32_t *) (SSI0_BASE_ADDR + DATA_OFFSET),
-      (volatile uint32_t *) (SSI0_BASE_ADDR + STATUS_OFFSET), 0, 0, 0, false, false },
-    { SSI1_BASE_ADDR, (volatile uint32_t *) (SSI1_BASE_ADDR + DATA_OFFSET),
-      (volatile uint32_t *) (SSI1_BASE_ADDR + STATUS_OFFSET), 0, 0, 0, false, false },
-    { SSI2_BASE_ADDR, (volatile uint32_t *) (SSI2_BASE_ADDR + DATA_OFFSET),
-      (volatile uint32_t *) (SSI2_BASE_ADDR + STATUS_OFFSET), 0, 0, 0, false, false },
-    { SSI3_BASE_ADDR, (volatile uint32_t *) (SSI3_BASE_ADDR + DATA_OFFSET),
-      (volatile uint32_t *) (SSI3_BASE_ADDR + STATUS_OFFSET), 0, 0, 0, false, false },
-};
+    { SSI0_BASE_ADDR, REGISTER_CAST(SSI0_BASE_ADDR + DATA_OFFSET), REGISTER_CAST(SSI0_BASE_ADDR + STATUS_OFFSET), 
+        0, 0, 0, false, false },
+    { SSI1_BASE_ADDR, REGISTER_CAST(SSI1_BASE_ADDR + DATA_OFFSET), REGISTER_CAST(SSI1_BASE_ADDR + STATUS_OFFSET), 
+        0, 0, 0, false, false },
+    { SSI2_BASE_ADDR, REGISTER_CAST(SSI2_BASE_ADDR + DATA_OFFSET), REGISTER_CAST(SSI2_BASE_ADDR + STATUS_OFFSET), 
+        0, 0, 0, false, false },
+    { SSI3_BASE_ADDR, REGISTER_CAST(SSI3_BASE_ADDR + DATA_OFFSET), REGISTER_CAST(SSI3_BASE_ADDR + STATUS_OFFSET), 
+        0, 0, 0, false, false },
+};               // clang-format on
 
 Spi_t SPI_Init(GpioPort_t gpioPort, GpioPin_t dcPin, SsiNum_t ssiNum) {
     assert(GPIO_isPortInit(gpioPort));
@@ -122,7 +124,9 @@ Spi_t SPI_Init(GpioPort_t gpioPort, GpioPin_t dcPin, SsiNum_t ssiNum) {
 
         // enable clock to SSI, and wait for it to be ready
         SYSCTL_RCGCSSI_R |= (1 << ssiNum);
-        while((SYSCTL_PRSSI_R & (1 << ssiNum)) == 0) {}
+        while((SYSCTL_PRSSI_R & (1 << ssiNum)) == 0) {
+            __NOP();
+        }
 
         // config control registers
         register_t ctrlRegister0 = (register_t) (spi->BASE_ADDRESS + CTRL0_OFFSET);
@@ -234,12 +238,16 @@ void SPI_WriteCmd(Spi_t spi, uint16_t cmd) {
     assert(spi->isInit);
     assert(spi->isEnabled);
 
-    while(*spi->STATUS_REGISTER & 0x10) {}                           // wait while SPI is busy
+    while(*spi->STATUS_REGISTER & SSI_SR_BSY) {                      // wait while SPI is busy
+        __NOP();
+    }
 
     *spi->gpioDataRegister &= ~(spi->gpioDataCommPin);               // signal incoming command
     *spi->DATA_REGISTER = cmd & ((1 << spi->dataSize) - 1);
 
-    while(*spi->STATUS_REGISTER & 0x10) {}                        // wait for transmission to finish
+    while(*spi->STATUS_REGISTER & SSI_SR_BSY) {                      // allow transmission to finish
+        __NOP();
+    }
     return;
 }
 
@@ -247,12 +255,14 @@ void SPI_WriteData(Spi_t spi, uint16_t data) {
     assert(spi->isInit);
     assert(spi->isEnabled);
 
-    while((*spi->STATUS_REGISTER & 0x02) == 0) {}                 // wait while TX FIFO is full
+    while((*spi->STATUS_REGISTER & SSI_SR_TNF) == 0) {               // wait while TX FIFO is full
+        __NOP();
+    }
 
-    *spi->gpioDataRegister |= spi->gpioDataCommPin;               // signal incoming data
+    *spi->gpioDataRegister |= spi->gpioDataCommPin;                  // signal incoming data
     *spi->DATA_REGISTER = data & ((1 << spi->dataSize) - 1);
 
     return;
 }
 
-/** @} */                                                         // spi
+/** @} */                                                            // spi

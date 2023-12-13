@@ -5,5 +5,5 @@ var annotated_dup =
     [ "Led_t", "struct_led_struct__t.html", "struct_led_struct__t" ],
     [ "Spi_t", "struct_spi_struct__t.html", null ],
     [ "Timer_t", "struct_timer_struct__t.html", null ],
-    [ "Uart_t", "struct_uart_struct__t.html", "struct_uart_struct__t" ]
+    [ "Uart_t", "struct_uart_struct__t.html", null ]
 ];

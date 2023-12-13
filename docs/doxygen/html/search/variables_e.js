@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['x1_0',['x1',['../group__lcd.html#ga200518cc6f324a65c6cfa6a7b6bbb0ab',1,'@1::x1'],['../_l_c_d_8c.html#aedb5fdfe3c1d1a915b668ba7f3950753',1,'x1:&#160;LCD.c']]],
-  ['x2_1',['x2',['../group__lcd.html#gaa3b8aba21c1ea339c5bf781e95915326',1,'@1::x2'],['../_l_c_d_8c.html#ac5bc000f8954f38b7a641a485a26bae7',1,'x2:&#160;LCD.c']]]
+  ['y1_0',['y1',['../group__lcd.html#ga44827eab3edb3edf1bd66f7d4b799a0a',1,'@1::y1'],['../_l_c_d_8c.html#a47ada631c22a9d40348069145654f255',1,'y1:&#160;LCD.c']]],
+  ['y2_1',['y2',['../group__lcd.html#ga1556e1662ae212e35a3c3ab262c8dc30',1,'@1::y2'],['../_l_c_d_8c.html#aa377184ba406b3f0c4ac18c935378204',1,'y2:&#160;LCD.c']]]
 ];

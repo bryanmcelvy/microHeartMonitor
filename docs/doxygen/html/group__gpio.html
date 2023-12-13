@@ -143,36 +143,39 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="separator:ga89db67b783afd655c23c4538f88ad5d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac31f938af7d335ce902b2f89f622fb5a" id="r_gac31f938af7d335ce902b2f89f622fb5a"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__gpio.html#gac31f938af7d335ce902b2f89f622fb5a">GPIO_REGISTER_OFFSETS</a> { <br />
-&#160;&#160;<a class="el" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aa41620dff2b5eac69b50f3ce0b07cf87f">GPIO_DATA_R_OFFSET</a> = (uint32_t) 0x03FC
-, <a class="el" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aa4d20878977368aa1c9a1cf0693315ea3">GPIO_DIR_R_OFFSET</a> = (uint32_t) 0x0400
-, <a class="el" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aad0ee0fd8ec45100a3fcabc48bf33f1d9">GPIO_IS_R_OFFSET</a> = (uint32_t) 0x0404
-, <a class="el" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aaa274f951d5d1cdab31c3da91d170d9e4">GPIO_IBE_R_OFFSET</a> = (uint32_t) 0x0408
+&#160;&#160;<a class="el" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aa6a03d71056542d55d70b01eb1a538355">DATA_REG_OFFSET</a> = (uint32_t) 0x03FC
+, <a class="el" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aaa5065969d7c442b9c4dfaee9618bcc75">DIRECTION_REG_OFFSET</a> = (uint32_t) 0x0400
+, <a class="el" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aa35b382df84e7df212779f05466ad3fdd">INT_SENSE_REG_OFFSET</a> = (uint32_t) 0x0404
+, <a class="el" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aac1446cd904f59b2bad3ccae9e7a5e12c">INT_BOTH_EDGE_REG_OFFSET</a> = (uint32_t) 0x0408
 , <br />
-&#160;&#160;<a class="el" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aa4fc7c9b489956cfc9dcb8a16921d56c8">GPIO_IEV_R_OFFSET</a> = (uint32_t) 0x040C
-, <a class="el" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aa7de52c7cd5cd1bd2f20ad1396143a8ca">GPIO_IM_R_OFFSET</a> = (uint32_t) 0x0410
-, <a class="el" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aaf714eebcc73d4d80915dfe52e885b6db">GPIO_ICR_R_OFFSET</a> = (uint32_t) 0x041C
-, <a class="el" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aaaa2659b49cc51369d6b6891f28f1f3ad">GPIO_AFSEL_R_OFFSET</a> = (uint32_t) 0x0420
+&#160;&#160;<a class="el" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aa4a5ccb292bfbfe6bc13ce83d7cd7b66d">INT_EVENT_REG_OFFSET</a> = (uint32_t) 0x040C
+, <a class="el" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aad4f8480f4d831346c86aed5f648b807f">INT_MASK_REG_OFFSET</a> = (uint32_t) 0x0410
+, <a class="el" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aa0e4ef422a36c43faa8399dc58c16c695">INT_CLEAR_REG_OFFSET</a> = (uint32_t) 0x041C
+, <a class="el" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aac7b378e77fdb29770c64cb3583a0ec2a">ALT_FUNC_REG_OFFSET</a> = (uint32_t) 0x0420
 , <br />
-&#160;&#160;<a class="el" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aa9816b4f97e2d19b512d5068e7adb41eb">GPIO_DR2R_R_OFFSET</a> = (uint32_t) 0x0500
-, <a class="el" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aa3b8b6ab7253694470208660d4b93b61a">GPIO_DR4R_R_OFFSET</a> = (uint32_t) 0x0504
-, <a class="el" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aaf6b51d0b8ec2b43a80210fd0e85bc88e">GPIO_DR8R_R_OFFSET</a> = (uint32_t) 0x0508
-, <a class="el" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aa6426f004b52d6c80c7362b15061daa95">GPIO_PUR_R_OFFSET</a> = (uint32_t) 0x0510
+&#160;&#160;<a class="el" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aa7eed66e53858f14ea4333742e5046fa2">DRIVE_STR_2MA_REG_OFFSET</a> = (uint32_t) 0x0500
+, <a class="el" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aae863504d1622bccb84900d22eb79b15c">DRIVE_STR_4MA_REG_OFFSET</a> = (uint32_t) 0x0504
+, <a class="el" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aa9196bef4b287888e566415df4c7098ae">DRIVE_STR_8MA_REG_OFFSET</a> = (uint32_t) 0x0508
+, <a class="el" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aa306c781dd84e137d64f74bd8fcffb94c">PULLUP_REG_OFFSET</a> = (uint32_t) 0x0510
 , <br />
-&#160;&#160;<a class="el" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aacdf1c72f3607fcd6302c7f5072da6280">GPIO_PDR_R_OFFSET</a> = (uint32_t) 0x0518
-, <a class="el" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aa427707c497edf113c50c0d5a543098bd">GPIO_DEN_R_OFFSET</a> = (uint32_t) 0x051C
-, <a class="el" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aa256c6788e8fc51ca0ded0cd7a8afb652">GPIO_LOCK_R_OFFSET</a> = (uint32_t) 0x0520
-, <a class="el" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aa326f0e9e1894f5a70c0e75e6e6805eca">GPIO_COMMIT_R_OFFSET</a> = (uint32_t) 0x0524
+&#160;&#160;<a class="el" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aa3cabdeb1526248c3036b4c70a7c24b95">PULLDOWN_REG_OFFSET</a> = (uint32_t) 0x0518
+, <a class="el" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aafc7d20e143f78ecb2e8ec998aef9f713">DIGITAL_ENABLE_REG_OFFSET</a> = (uint32_t) 0x051C
+, <a class="el" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aa6a595bfb40592893d46b8e389f66fc8d">LOCK_REG_OFFSET</a> = (uint32_t) 0x0520
+, <a class="el" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aa46b187c582ed589ea4f1086ed25f0641">COMMIT_REG_OFFSET</a> = (uint32_t) 0x0524
 , <br />
-&#160;&#160;<a class="el" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aa52bb732d5f4f0e0e42003e9ad1358045">GPIO_AMSEL_R_OFFSET</a> = (uint32_t) 0x0528
-, <a class="el" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aaff27f44fbdd2d387df9027193e07ceb5">GPIO_PCTL_R_OFFSET</a> = (uint32_t) 0x052C
+&#160;&#160;<a class="el" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aad21d3d5ce0959d77bc3d8ffd5f744eed">ALT_MODE_REG_OFFSET</a> = (uint32_t) 0x0528
+, <a class="el" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aa72e10504f2d01ad47db595010991d8f1">PORT_CTRL_REG_OFFSET</a> = (uint32_t) 0x052C
 <br />
  }</td></tr>
 <tr class="separator:gac31f938af7d335ce902b2f89f622fb5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:ga9bca73cfe42ee57ef38fcb28e45fbd60" id="r_ga9bca73cfe42ee57ef38fcb28e45fbd60"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="struct_gpio_port_struct__t.html">GpioPortStruct_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__gpio.html#ga9bca73cfe42ee57ef38fcb28e45fbd60">GPIO_PTR_ARR</a> [6]</td></tr>
-<tr class="separator:ga9bca73cfe42ee57ef38fcb28e45fbd60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabab2b85e5f0335e91bfc4391e70a7636" id="r_gabab2b85e5f0335e91bfc4391e70a7636"><td class="memItemLeft" align="right" valign="top"><a id="gabab2b85e5f0335e91bfc4391e70a7636" name="gabab2b85e5f0335e91bfc4391e70a7636"></a>
+static bool&#160;</td><td class="memItemRight" valign="bottom"><b>initStatusArray</b> [6] = { false, false, false, false, false, false }</td></tr>
+<tr class="separator:gabab2b85e5f0335e91bfc4391e70a7636"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga126dba6bbd82f520da94492e0a1a14f6" id="r_ga126dba6bbd82f520da94492e0a1a14f6"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="struct_gpio_port_struct__t.html">GpioPortStruct_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__gpio.html#ga126dba6bbd82f520da94492e0a1a14f6">GPIO_STRUCT_ARRAY</a> [6]</td></tr>
+<tr class="separator:ga126dba6bbd82f520da94492e0a1a14f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader">Initialization</h2></td></tr>
 <tr class="memitem:gae2dc8857000c42daf9b963ca3fbdf547" id="r_gae2dc8857000c42daf9b963ca3fbdf547"><td class="memItemLeft" align="right" valign="top"><a id="gae2dc8857000c42daf9b963ca3fbdf547" name="gae2dc8857000c42daf9b963ca3fbdf547"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>GPIO_PortName_t</b> { <br />
@@ -299,7 +302,6 @@ Variables</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Functions for using GPIO ports. </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000005">Todo:</a></b></dt><dd>Remove statically-allocated data structures for unused GPIO ports. </dd></dl>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
 <a id="gac31f938af7d335ce902b2f89f622fb5a" name="gac31f938af7d335ce902b2f89f622fb5a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gac31f938af7d335ce902b2f89f622fb5a">&#9670;&#160;</a></span>GPIO_REGISTER_OFFSETS</h2>
@@ -313,41 +315,41 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ggac31f938af7d335ce902b2f89f622fb5aa41620dff2b5eac69b50f3ce0b07cf87f" name="ggac31f938af7d335ce902b2f89f622fb5aa41620dff2b5eac69b50f3ce0b07cf87f"></a>GPIO_DATA_R_OFFSET&#160;</td><td class="fielddoc"><p>data </p>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ggac31f938af7d335ce902b2f89f622fb5aa6a03d71056542d55d70b01eb1a538355" name="ggac31f938af7d335ce902b2f89f622fb5aa6a03d71056542d55d70b01eb1a538355"></a>DATA_REG_OFFSET&#160;</td><td class="fielddoc"><p>data </p>
 </td></tr>
-<tr><td class="fieldname"><a id="ggac31f938af7d335ce902b2f89f622fb5aa4d20878977368aa1c9a1cf0693315ea3" name="ggac31f938af7d335ce902b2f89f622fb5aa4d20878977368aa1c9a1cf0693315ea3"></a>GPIO_DIR_R_OFFSET&#160;</td><td class="fielddoc"><p>direction </p>
+<tr><td class="fieldname"><a id="ggac31f938af7d335ce902b2f89f622fb5aaa5065969d7c442b9c4dfaee9618bcc75" name="ggac31f938af7d335ce902b2f89f622fb5aaa5065969d7c442b9c4dfaee9618bcc75"></a>DIRECTION_REG_OFFSET&#160;</td><td class="fielddoc"><p>direction </p>
 </td></tr>
-<tr><td class="fieldname"><a id="ggac31f938af7d335ce902b2f89f622fb5aad0ee0fd8ec45100a3fcabc48bf33f1d9" name="ggac31f938af7d335ce902b2f89f622fb5aad0ee0fd8ec45100a3fcabc48bf33f1d9"></a>GPIO_IS_R_OFFSET&#160;</td><td class="fielddoc"><p>interrupt sense </p>
+<tr><td class="fieldname"><a id="ggac31f938af7d335ce902b2f89f622fb5aa35b382df84e7df212779f05466ad3fdd" name="ggac31f938af7d335ce902b2f89f622fb5aa35b382df84e7df212779f05466ad3fdd"></a>INT_SENSE_REG_OFFSET&#160;</td><td class="fielddoc"><p>interrupt sense </p>
 </td></tr>
-<tr><td class="fieldname"><a id="ggac31f938af7d335ce902b2f89f622fb5aaa274f951d5d1cdab31c3da91d170d9e4" name="ggac31f938af7d335ce902b2f89f622fb5aaa274f951d5d1cdab31c3da91d170d9e4"></a>GPIO_IBE_R_OFFSET&#160;</td><td class="fielddoc"><p>interrupt both edges </p>
+<tr><td class="fieldname"><a id="ggac31f938af7d335ce902b2f89f622fb5aac1446cd904f59b2bad3ccae9e7a5e12c" name="ggac31f938af7d335ce902b2f89f622fb5aac1446cd904f59b2bad3ccae9e7a5e12c"></a>INT_BOTH_EDGE_REG_OFFSET&#160;</td><td class="fielddoc"><p>interrupt both edges </p>
 </td></tr>
-<tr><td class="fieldname"><a id="ggac31f938af7d335ce902b2f89f622fb5aa4fc7c9b489956cfc9dcb8a16921d56c8" name="ggac31f938af7d335ce902b2f89f622fb5aa4fc7c9b489956cfc9dcb8a16921d56c8"></a>GPIO_IEV_R_OFFSET&#160;</td><td class="fielddoc"><p>interrupt event </p>
+<tr><td class="fieldname"><a id="ggac31f938af7d335ce902b2f89f622fb5aa4a5ccb292bfbfe6bc13ce83d7cd7b66d" name="ggac31f938af7d335ce902b2f89f622fb5aa4a5ccb292bfbfe6bc13ce83d7cd7b66d"></a>INT_EVENT_REG_OFFSET&#160;</td><td class="fielddoc"><p>interrupt event </p>
 </td></tr>
-<tr><td class="fieldname"><a id="ggac31f938af7d335ce902b2f89f622fb5aa7de52c7cd5cd1bd2f20ad1396143a8ca" name="ggac31f938af7d335ce902b2f89f622fb5aa7de52c7cd5cd1bd2f20ad1396143a8ca"></a>GPIO_IM_R_OFFSET&#160;</td><td class="fielddoc"><p>interrupt mask </p>
+<tr><td class="fieldname"><a id="ggac31f938af7d335ce902b2f89f622fb5aad4f8480f4d831346c86aed5f648b807f" name="ggac31f938af7d335ce902b2f89f622fb5aad4f8480f4d831346c86aed5f648b807f"></a>INT_MASK_REG_OFFSET&#160;</td><td class="fielddoc"><p>interrupt mask </p>
 </td></tr>
-<tr><td class="fieldname"><a id="ggac31f938af7d335ce902b2f89f622fb5aaf714eebcc73d4d80915dfe52e885b6db" name="ggac31f938af7d335ce902b2f89f622fb5aaf714eebcc73d4d80915dfe52e885b6db"></a>GPIO_ICR_R_OFFSET&#160;</td><td class="fielddoc"><p>interrupt clear </p>
+<tr><td class="fieldname"><a id="ggac31f938af7d335ce902b2f89f622fb5aa0e4ef422a36c43faa8399dc58c16c695" name="ggac31f938af7d335ce902b2f89f622fb5aa0e4ef422a36c43faa8399dc58c16c695"></a>INT_CLEAR_REG_OFFSET&#160;</td><td class="fielddoc"><p>interrupt clear </p>
 </td></tr>
-<tr><td class="fieldname"><a id="ggac31f938af7d335ce902b2f89f622fb5aaaa2659b49cc51369d6b6891f28f1f3ad" name="ggac31f938af7d335ce902b2f89f622fb5aaaa2659b49cc51369d6b6891f28f1f3ad"></a>GPIO_AFSEL_R_OFFSET&#160;</td><td class="fielddoc"><p>alternate function select </p>
+<tr><td class="fieldname"><a id="ggac31f938af7d335ce902b2f89f622fb5aac7b378e77fdb29770c64cb3583a0ec2a" name="ggac31f938af7d335ce902b2f89f622fb5aac7b378e77fdb29770c64cb3583a0ec2a"></a>ALT_FUNC_REG_OFFSET&#160;</td><td class="fielddoc"><p>alternate function select </p>
 </td></tr>
-<tr><td class="fieldname"><a id="ggac31f938af7d335ce902b2f89f622fb5aa9816b4f97e2d19b512d5068e7adb41eb" name="ggac31f938af7d335ce902b2f89f622fb5aa9816b4f97e2d19b512d5068e7adb41eb"></a>GPIO_DR2R_R_OFFSET&#160;</td><td class="fielddoc"><p>drive strength (2 [ma]) </p>
+<tr><td class="fieldname"><a id="ggac31f938af7d335ce902b2f89f622fb5aa7eed66e53858f14ea4333742e5046fa2" name="ggac31f938af7d335ce902b2f89f622fb5aa7eed66e53858f14ea4333742e5046fa2"></a>DRIVE_STR_2MA_REG_OFFSET&#160;</td><td class="fielddoc"><p>drive strength (2 [ma]) </p>
 </td></tr>
-<tr><td class="fieldname"><a id="ggac31f938af7d335ce902b2f89f622fb5aa3b8b6ab7253694470208660d4b93b61a" name="ggac31f938af7d335ce902b2f89f622fb5aa3b8b6ab7253694470208660d4b93b61a"></a>GPIO_DR4R_R_OFFSET&#160;</td><td class="fielddoc"><p>drive strength (4 [ma]) </p>
+<tr><td class="fieldname"><a id="ggac31f938af7d335ce902b2f89f622fb5aae863504d1622bccb84900d22eb79b15c" name="ggac31f938af7d335ce902b2f89f622fb5aae863504d1622bccb84900d22eb79b15c"></a>DRIVE_STR_4MA_REG_OFFSET&#160;</td><td class="fielddoc"><p>drive strength (4 [ma]) </p>
 </td></tr>
-<tr><td class="fieldname"><a id="ggac31f938af7d335ce902b2f89f622fb5aaf6b51d0b8ec2b43a80210fd0e85bc88e" name="ggac31f938af7d335ce902b2f89f622fb5aaf6b51d0b8ec2b43a80210fd0e85bc88e"></a>GPIO_DR8R_R_OFFSET&#160;</td><td class="fielddoc"><p>drive strength (8 [ma]) </p>
+<tr><td class="fieldname"><a id="ggac31f938af7d335ce902b2f89f622fb5aa9196bef4b287888e566415df4c7098ae" name="ggac31f938af7d335ce902b2f89f622fb5aa9196bef4b287888e566415df4c7098ae"></a>DRIVE_STR_8MA_REG_OFFSET&#160;</td><td class="fielddoc"><p>drive strength (8 [ma]) </p>
 </td></tr>
-<tr><td class="fieldname"><a id="ggac31f938af7d335ce902b2f89f622fb5aa6426f004b52d6c80c7362b15061daa95" name="ggac31f938af7d335ce902b2f89f622fb5aa6426f004b52d6c80c7362b15061daa95"></a>GPIO_PUR_R_OFFSET&#160;</td><td class="fielddoc"><p>pull-up resistor </p>
+<tr><td class="fieldname"><a id="ggac31f938af7d335ce902b2f89f622fb5aa306c781dd84e137d64f74bd8fcffb94c" name="ggac31f938af7d335ce902b2f89f622fb5aa306c781dd84e137d64f74bd8fcffb94c"></a>PULLUP_REG_OFFSET&#160;</td><td class="fielddoc"><p>pull-up resistor </p>
 </td></tr>
-<tr><td class="fieldname"><a id="ggac31f938af7d335ce902b2f89f622fb5aacdf1c72f3607fcd6302c7f5072da6280" name="ggac31f938af7d335ce902b2f89f622fb5aacdf1c72f3607fcd6302c7f5072da6280"></a>GPIO_PDR_R_OFFSET&#160;</td><td class="fielddoc"><p>pull-down resistor </p>
+<tr><td class="fieldname"><a id="ggac31f938af7d335ce902b2f89f622fb5aa3cabdeb1526248c3036b4c70a7c24b95" name="ggac31f938af7d335ce902b2f89f622fb5aa3cabdeb1526248c3036b4c70a7c24b95"></a>PULLDOWN_REG_OFFSET&#160;</td><td class="fielddoc"><p>pull-down resistor </p>
 </td></tr>
-<tr><td class="fieldname"><a id="ggac31f938af7d335ce902b2f89f622fb5aa427707c497edf113c50c0d5a543098bd" name="ggac31f938af7d335ce902b2f89f622fb5aa427707c497edf113c50c0d5a543098bd"></a>GPIO_DEN_R_OFFSET&#160;</td><td class="fielddoc"><p>digital enable </p>
+<tr><td class="fieldname"><a id="ggac31f938af7d335ce902b2f89f622fb5aafc7d20e143f78ecb2e8ec998aef9f713" name="ggac31f938af7d335ce902b2f89f622fb5aafc7d20e143f78ecb2e8ec998aef9f713"></a>DIGITAL_ENABLE_REG_OFFSET&#160;</td><td class="fielddoc"><p>digital enable </p>
 </td></tr>
-<tr><td class="fieldname"><a id="ggac31f938af7d335ce902b2f89f622fb5aa256c6788e8fc51ca0ded0cd7a8afb652" name="ggac31f938af7d335ce902b2f89f622fb5aa256c6788e8fc51ca0ded0cd7a8afb652"></a>GPIO_LOCK_R_OFFSET&#160;</td><td class="fielddoc"><p>lock </p>
+<tr><td class="fieldname"><a id="ggac31f938af7d335ce902b2f89f622fb5aa6a595bfb40592893d46b8e389f66fc8d" name="ggac31f938af7d335ce902b2f89f622fb5aa6a595bfb40592893d46b8e389f66fc8d"></a>LOCK_REG_OFFSET&#160;</td><td class="fielddoc"><p>lock </p>
 </td></tr>
-<tr><td class="fieldname"><a id="ggac31f938af7d335ce902b2f89f622fb5aa326f0e9e1894f5a70c0e75e6e6805eca" name="ggac31f938af7d335ce902b2f89f622fb5aa326f0e9e1894f5a70c0e75e6e6805eca"></a>GPIO_COMMIT_R_OFFSET&#160;</td><td class="fielddoc"><p>commit </p>
+<tr><td class="fieldname"><a id="ggac31f938af7d335ce902b2f89f622fb5aa46b187c582ed589ea4f1086ed25f0641" name="ggac31f938af7d335ce902b2f89f622fb5aa46b187c582ed589ea4f1086ed25f0641"></a>COMMIT_REG_OFFSET&#160;</td><td class="fielddoc"><p>commit </p>
 </td></tr>
-<tr><td class="fieldname"><a id="ggac31f938af7d335ce902b2f89f622fb5aa52bb732d5f4f0e0e42003e9ad1358045" name="ggac31f938af7d335ce902b2f89f622fb5aa52bb732d5f4f0e0e42003e9ad1358045"></a>GPIO_AMSEL_R_OFFSET&#160;</td><td class="fielddoc"><p>alternate mode select </p>
+<tr><td class="fieldname"><a id="ggac31f938af7d335ce902b2f89f622fb5aad21d3d5ce0959d77bc3d8ffd5f744eed" name="ggac31f938af7d335ce902b2f89f622fb5aad21d3d5ce0959d77bc3d8ffd5f744eed"></a>ALT_MODE_REG_OFFSET&#160;</td><td class="fielddoc"><p>alternate mode select </p>
 </td></tr>
-<tr><td class="fieldname"><a id="ggac31f938af7d335ce902b2f89f622fb5aaff27f44fbdd2d387df9027193e07ceb5" name="ggac31f938af7d335ce902b2f89f622fb5aaff27f44fbdd2d387df9027193e07ceb5"></a>GPIO_PCTL_R_OFFSET&#160;</td><td class="fielddoc"><p>port control </p>
+<tr><td class="fieldname"><a id="ggac31f938af7d335ce902b2f89f622fb5aa72e10504f2d01ad47db595010991d8f1" name="ggac31f938af7d335ce902b2f89f622fb5aa72e10504f2d01ad47db595010991d8f1"></a>PORT_CTRL_REG_OFFSET&#160;</td><td class="fielddoc"><p>port control </p>
 </td></tr>
 </table>
 
@@ -1126,8 +1128,8 @@ Variables</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
-<a id="ga9bca73cfe42ee57ef38fcb28e45fbd60" name="ga9bca73cfe42ee57ef38fcb28e45fbd60"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga9bca73cfe42ee57ef38fcb28e45fbd60">&#9670;&#160;</a></span>GPIO_PTR_ARR</h2>
+<a id="ga126dba6bbd82f520da94492e0a1a14f6" name="ga126dba6bbd82f520da94492e0a1a14f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga126dba6bbd82f520da94492e0a1a14f6">&#9670;&#160;</a></span>GPIO_STRUCT_ARRAY</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1136,7 +1138,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="struct_gpio_port_struct__t.html">GpioPortStruct_t</a> GPIO_PTR_ARR[6]</td>
+          <td class="memname">const <a class="el" href="struct_gpio_port_struct__t.html">GpioPortStruct_t</a> GPIO_STRUCT_ARRAY[6]</td>
         </tr>
       </table>
   </td>
@@ -1146,12 +1148,12 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">    { GPIO_PORTA_BASE_ADDRESS, (GPIO_PORTA_BASE_ADDRESS + <a class="code hl_enumvalue" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aa41620dff2b5eac69b50f3ce0b07cf87f" title="data">GPIO_DATA_R_OFFSET</a>), <span class="keyword">false</span> },</div>
-<div class="line">    { GPIO_PORTB_BASE_ADDRESS, (GPIO_PORTB_BASE_ADDRESS + <a class="code hl_enumvalue" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aa41620dff2b5eac69b50f3ce0b07cf87f" title="data">GPIO_DATA_R_OFFSET</a>), <span class="keyword">false</span> },</div>
-<div class="line">    { GPIO_PORTC_BASE_ADDRESS, (GPIO_PORTC_BASE_ADDRESS + <a class="code hl_enumvalue" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aa41620dff2b5eac69b50f3ce0b07cf87f" title="data">GPIO_DATA_R_OFFSET</a>), <span class="keyword">false</span> },</div>
-<div class="line">    { GPIO_PORTD_BASE_ADDRESS, (GPIO_PORTD_BASE_ADDRESS + <a class="code hl_enumvalue" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aa41620dff2b5eac69b50f3ce0b07cf87f" title="data">GPIO_DATA_R_OFFSET</a>), <span class="keyword">false</span> },</div>
-<div class="line">    { GPIO_PORTE_BASE_ADDRESS, (GPIO_PORTE_BASE_ADDRESS + <a class="code hl_enumvalue" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aa41620dff2b5eac69b50f3ce0b07cf87f" title="data">GPIO_DATA_R_OFFSET</a>), <span class="keyword">false</span> },</div>
-<div class="line">    { GPIO_PORTF_BASE_ADDRESS, (GPIO_PORTF_BASE_ADDRESS + <a class="code hl_enumvalue" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aa41620dff2b5eac69b50f3ce0b07cf87f" title="data">GPIO_DATA_R_OFFSET</a>), <span class="keyword">false</span> },</div>
+<div class="line">    { GPIO_PORTA_BASE_ADDRESS, (GPIO_PORTA_BASE_ADDRESS + <a class="code hl_enumvalue" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aa6a03d71056542d55d70b01eb1a538355" title="data">DATA_REG_OFFSET</a>), &amp;initStatusArray[0] },</div>
+<div class="line">    { GPIO_PORTB_BASE_ADDRESS, (GPIO_PORTB_BASE_ADDRESS + <a class="code hl_enumvalue" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aa6a03d71056542d55d70b01eb1a538355" title="data">DATA_REG_OFFSET</a>), &amp;initStatusArray[1] },</div>
+<div class="line">    { GPIO_PORTC_BASE_ADDRESS, (GPIO_PORTC_BASE_ADDRESS + <a class="code hl_enumvalue" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aa6a03d71056542d55d70b01eb1a538355" title="data">DATA_REG_OFFSET</a>), &amp;initStatusArray[2] },</div>
+<div class="line">    { GPIO_PORTD_BASE_ADDRESS, (GPIO_PORTD_BASE_ADDRESS + <a class="code hl_enumvalue" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aa6a03d71056542d55d70b01eb1a538355" title="data">DATA_REG_OFFSET</a>), &amp;initStatusArray[3] },</div>
+<div class="line">    { GPIO_PORTE_BASE_ADDRESS, (GPIO_PORTE_BASE_ADDRESS + <a class="code hl_enumvalue" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aa6a03d71056542d55d70b01eb1a538355" title="data">DATA_REG_OFFSET</a>), &amp;initStatusArray[4] },</div>
+<div class="line">    { GPIO_PORTF_BASE_ADDRESS, (GPIO_PORTF_BASE_ADDRESS + <a class="code hl_enumvalue" href="group__gpio.html#ggac31f938af7d335ce902b2f89f622fb5aa6a03d71056542d55d70b01eb1a538355" title="data">DATA_REG_OFFSET</a>), &amp;initStatusArray[5] }</div>
 <div class="line">}</div>
 </div><!-- fragment -->
 </div>

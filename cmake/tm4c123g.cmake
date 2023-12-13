@@ -28,7 +28,7 @@ set(CMAKE_OBJDUMP                               ${TOOLCHAIN_PREFIX}-objdump)
 set(CPU_FLAGS                                   "-mcpu=cortex-m4 -mthumb")
 set(FPU_FLAGS                                   "-mfloat-abi=hard -mfpu=fpv4-sp-d16 -mfp16-format=ieee")
 set(WARNING_FLAGS                               "-Wall -Wextra -pedantic -Wstack-usage=2000")
-set(COMMON_FLAGS                                "${CPU_FLAGS} ${FPU_FLAGS} ${WARNING_FLAGS} -ffunction-sections -fdata-sections -fstack-usage -nostartfiles")
+set(COMMON_FLAGS                                "${CPU_FLAGS} ${FPU_FLAGS} ${WARNING_FLAGS} -H -ffunction-sections -fdata-sections -fstack-usage -nostartfiles")
 
 set(CMAKE_ASM_FLAGS                             "${COMMON_FLAGS}")
 set(CMAKE_C_FLAGS                               "${COMMON_FLAGS} -std=c99")

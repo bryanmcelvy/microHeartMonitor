@@ -21,12 +21,13 @@ SECTIONS
 
 #include "NewAssert.h"
 
+#include "m-profile/cmsis_gcc_m.h"
 #include "tm4c123gh6pm.h"
 
 #include <stdbool.h>
 #include <stdint.h>
 
-#define ASCII_CONVERSION 0x30
+#define CONVERT_INT_TO_ASCII(X) ((unsigned char) (X + 0x30))
 
 /******************************************************************************
 Constant Declarations
@@ -66,24 +67,24 @@ Initialization
 *******************************************************************************/
 
 typedef struct UartStruct_t {
-    const uint32_t BASE_ADDRESS;
-    register_t FLAG_R_ADDRESS;
-    GpioPort_t GPIO_PORT;               ///< pointer to GPIO port data structure
-    GpioPin_t RX_PIN_NUM;               ///< GPIO pin number
-    GpioPin_t TX_PIN_NUM;               ///< GPIO pin number
-    bool isInit;
+    uint32_t BASE_ADDRESS;
+    register_t FLAG_REGISTER;
+    bool * isInitPtr;
 } UartStruct_t;
 
-static UartStruct_t UART_ARR[8] = {
-    { UART0_BASE, ((register_t) (UART0_BASE + UART_FR_R_OFFSET)), 0, GPIO_PIN0, GPIO_PIN1, false },
-    { UART1_BASE, ((register_t) (UART1_BASE + UART_FR_R_OFFSET)), 0, GPIO_PIN0, GPIO_PIN1, false },
-    { UART2_BASE, ((register_t) (UART2_BASE + UART_FR_R_OFFSET)), 0, GPIO_PIN6, GPIO_PIN7, false },
-    { UART3_BASE, ((register_t) (UART3_BASE + UART_FR_R_OFFSET)), 0, GPIO_PIN6, GPIO_PIN7, false },
-    { UART4_BASE, ((register_t) (UART4_BASE + UART_FR_R_OFFSET)), 0, GPIO_PIN4, GPIO_PIN5, false },
-    { UART5_BASE, ((register_t) (UART5_BASE + UART_FR_R_OFFSET)), 0, GPIO_PIN4, GPIO_PIN5, false },
-    { UART6_BASE, ((register_t) (UART6_BASE + UART_FR_R_OFFSET)), 0, GPIO_PIN4, GPIO_PIN5, false },
-    { UART7_BASE, ((register_t) (UART7_BASE + UART_FR_R_OFFSET)), 0, GPIO_PIN0, GPIO_PIN1, false }
-};
+static bool initStatusArray[8] = { false, false, false, false, false, false, false, false };
+
+// clang-format off
+static const UartStruct_t UART_STRUCT_ARRAY[8] = {
+    { UART0_BASE, REGISTER_CAST(UART0_BASE + UART_FR_R_OFFSET), &initStatusArray[0] },
+    { UART1_BASE, REGISTER_CAST(UART1_BASE + UART_FR_R_OFFSET), &initStatusArray[1] },
+    { UART2_BASE, REGISTER_CAST(UART2_BASE + UART_FR_R_OFFSET), &initStatusArray[2] },
+    { UART3_BASE, REGISTER_CAST(UART3_BASE + UART_FR_R_OFFSET), &initStatusArray[3] },
+    { UART4_BASE, REGISTER_CAST(UART4_BASE + UART_FR_R_OFFSET), &initStatusArray[4] },
+    { UART5_BASE, REGISTER_CAST(UART5_BASE + UART_FR_R_OFFSET), &initStatusArray[5] },
+    { UART6_BASE, REGISTER_CAST(UART6_BASE + UART_FR_R_OFFSET), &initStatusArray[6] },
+    { UART7_BASE, REGISTER_CAST(UART7_BASE + UART_FR_R_OFFSET), &initStatusArray[7] }
+};               // clang-format on
 
 Uart_t UART_Init(GpioPort_t port, uartNum_t uartNum) {
     // Check inputs
@@ -92,24 +93,49 @@ Uart_t UART_Init(GpioPort_t port, uartNum_t uartNum) {
 
     // Check that inputted GPIO port and UART match each other
     uint32_t gpio_baseAddress = GPIO_getBaseAddr(port);
+    GpioPin_t RX_PIN_NUM;
+    GpioPin_t TX_PIN_NUM;
+
     switch(uartNum) {
         case UART0:
             assert(gpio_baseAddress == GPIO_PORTA_BASE);
+            RX_PIN_NUM = GPIO_PIN0;
+            TX_PIN_NUM = GPIO_PIN1;
             break;
         case UART1:
             assert(gpio_baseAddress == GPIO_PORTB_BASE);
+            RX_PIN_NUM = GPIO_PIN0;
+            TX_PIN_NUM = GPIO_PIN1;
             break;
         case UART2:
-        case UART6:
             assert(gpio_baseAddress == GPIO_PORTD_BASE);
+            RX_PIN_NUM = GPIO_PIN6;
+            TX_PIN_NUM = GPIO_PIN7;
             break;
         case UART3:
+            assert(gpio_baseAddress == GPIO_PORTC_BASE);
+            RX_PIN_NUM = GPIO_PIN6;
+            TX_PIN_NUM = GPIO_PIN7;
+            break;
         case UART4:
             assert(gpio_baseAddress == GPIO_PORTC_BASE);
+            RX_PIN_NUM = GPIO_PIN4;
+            TX_PIN_NUM = GPIO_PIN5;
             break;
         case UART5:
+            assert(gpio_baseAddress == GPIO_PORTE_BASE);
+            RX_PIN_NUM = GPIO_PIN4;
+            TX_PIN_NUM = GPIO_PIN5;
+            break;
+        case UART6:
+            assert(gpio_baseAddress == GPIO_PORTD_BASE);
+            RX_PIN_NUM = GPIO_PIN4;
+            TX_PIN_NUM = GPIO_PIN5;
+            break;
         case UART7:
             assert(gpio_baseAddress == GPIO_PORTE_BASE);
+            RX_PIN_NUM = GPIO_PIN0;
+            TX_PIN_NUM = GPIO_PIN1;
             break;
     }
 
@@ -129,44 +155,46 @@ Uart_t UART_Init(GpioPort_t port, uartNum_t uartNum) {
     // clang-format on
 
     // Initialize UART
-    Uart_t uart = &UART_ARR[uartNum];
-    if(uart->isInit == false) {
+    Uart_t uart = &UART_STRUCT_ARRAY[uartNum];
+    if(*uart->isInitPtr == false) {
         SYSCTL_RCGCUART_R |= (1 << uartNum);
-        while((SYSCTL_PRUART_R & (1 << uartNum)) == 0) {}
+        while((SYSCTL_PRUART_R & (1 << uartNum)) == 0) {
+            __NOP();
+        }
 
         // initialize GPIO pins
-        GPIO_ConfigAltMode(port, uart->RX_PIN_NUM | uart->TX_PIN_NUM);
+        GPIO_ConfigAltMode(port, RX_PIN_NUM | TX_PIN_NUM);
         if(gpio_baseAddress == GPIO_PORTC_BASE) {
-            GPIO_ConfigPortCtrl(port, uart->RX_PIN_NUM | uart->TX_PIN_NUM, 2);
+            GPIO_ConfigPortCtrl(port, RX_PIN_NUM | TX_PIN_NUM, 2);
         }
         else {
-            GPIO_ConfigPortCtrl(port, uart->RX_PIN_NUM | uart->TX_PIN_NUM, 1);
+            GPIO_ConfigPortCtrl(port, RX_PIN_NUM | TX_PIN_NUM, 1);
         }
-        GPIO_ConfigDriveStrength(port, uart->RX_PIN_NUM | uart->TX_PIN_NUM, 8);
-        GPIO_EnableDigital(port, uart->RX_PIN_NUM | uart->TX_PIN_NUM);
+        GPIO_ConfigDriveStrength(port, RX_PIN_NUM | TX_PIN_NUM, 8);
+        GPIO_EnableDigital(port, RX_PIN_NUM | TX_PIN_NUM);
 
         // disable UART
-        *((register_t) (uart->BASE_ADDRESS + CTL_R_OFFSET)) &= ~(1 << uartNum);
+        REGISTER_VAL(uart->BASE_ADDRESS + CTL_R_OFFSET) &= ~(1 << uartNum);
 
         // 8-bit length, FIFO
-        *((register_t) (uart->BASE_ADDRESS + IBRD_R_OFFSET)) |= 43;
-        *((register_t) (uart->BASE_ADDRESS + FBRD_R_OFFSET)) |= 26;
+        REGISTER_VAL(uart->BASE_ADDRESS + IBRD_R_OFFSET) |= 43;
+        REGISTER_VAL(uart->BASE_ADDRESS + FBRD_R_OFFSET) |= 26;
 
         // (NOTE: access *AFTER* `BRD`)
-        *((register_t) (uart->BASE_ADDRESS + LCRH_R_OFFSET)) |= 0x70;
-        *((register_t) (uart->BASE_ADDRESS + CC_R_OFFSET)) &= ~(0x0F);               // system clock
+        REGISTER_VAL(uart->BASE_ADDRESS + LCRH_R_OFFSET) |= 0x70;
+        REGISTER_VAL(uart->BASE_ADDRESS + CC_R_OFFSET) &= ~(0x0F);               // system clock
 
         // re-enable
-        *((register_t) (uart->BASE_ADDRESS + CTL_R_OFFSET)) |= (1 << uartNum);
+        REGISTER_VAL(uart->BASE_ADDRESS + CTL_R_OFFSET) |= (1 << uartNum);
 
-        uart->isInit = true;
+        *uart->isInitPtr = true;
     }
 
     return uart;
 }
 
 bool UART_isInit(Uart_t uart) {
-    return uart->isInit;
+    return *uart->isInitPtr;
 }
 
 /******************************************************************************
@@ -174,8 +202,10 @@ Reading
 *******************************************************************************/
 
 unsigned char UART_ReadChar(Uart_t uart) {
-    while((*uart->FLAG_R_ADDRESS & 0x10) != 0) {}
-    return (unsigned char) *((register_t) (uart->BASE_ADDRESS));
+    while((*uart->FLAG_REGISTER & 0x10) != 0) {
+        __NOP();
+    }
+    return (unsigned char) REGISTER_VAL(uart->BASE_ADDRESS);
 }
 
 /******************************************************************************
@@ -183,8 +213,10 @@ Writing
 *******************************************************************************/
 
 void UART_WriteChar(Uart_t uart, unsigned char inputChar) {
-    while((*uart->FLAG_R_ADDRESS & 0x20) != 0) {}
-    *((register_t) (uart->BASE_ADDRESS)) = inputChar;
+    while((*uart->FLAG_REGISTER & 0x20) != 0) {
+        __NOP();
+    }
+    REGISTER_VAL(uart->BASE_ADDRESS) = inputChar;
     return;
 }
 
@@ -205,7 +237,7 @@ void UART_WriteInt(Uart_t uart, int32_t n) {
     }
 
     if(n < 10) {
-        UART_WriteChar(uart, ASCII_CONVERSION + n);
+        UART_WriteChar(uart, CONVERT_INT_TO_ASCII(n));
     }
     else {
         int32_t nearestPowOf10 = 1;
@@ -214,7 +246,7 @@ void UART_WriteInt(Uart_t uart, int32_t n) {
         }
 
         while(nearestPowOf10 > 0) {
-            UART_WriteChar(uart, ASCII_CONVERSION + (n / nearestPowOf10));
+            UART_WriteChar(uart, CONVERT_INT_TO_ASCII(n / nearestPowOf10));
             n %= nearestPowOf10;
             nearestPowOf10 /= 10;
         }
@@ -239,7 +271,7 @@ void UART_WriteFloat(Uart_t uart, double n, uint8_t numDecimals) {
         for(uint8_t count = 0; count < numDecimals; count++) {
             n = (n - b) * (double) 10;
             b = n / (int32_t) 1;
-            UART_WriteChar(uart, ASCII_CONVERSION + b);
+            UART_WriteChar(uart, CONVERT_INT_TO_ASCII(b));
         }
     }
     return;

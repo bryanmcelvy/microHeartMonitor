@@ -208,6 +208,7 @@ Variables</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Functions for SPI-based communication via the SSI peripheral. </p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000005">Todo:</a></b></dt><dd>Remove statically-allocated data structures for unused SSIs. </dd></dl>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="ga83e904678d18299d6f71a172a86c3bfa" name="ga83e904678d18299d6f71a172a86c3bfa"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga83e904678d18299d6f71a172a86c3bfa">&#9670;&#160;</a></span>SPI_Init()</h2>
@@ -562,14 +563,14 @@ The data is added to the hardware's transmit FIFO. </dd></dl>
 </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">    { SSI0_BASE_ADDR, (<span class="keyword">volatile</span> uint32_t *) (SSI0_BASE_ADDR + DATA_OFFSET),</div>
-<div class="line">      (<span class="keyword">volatile</span> uint32_t *) (SSI0_BASE_ADDR + STATUS_OFFSET), 0, 0, 0, <span class="keyword">false</span>, <span class="keyword">false</span> },</div>
-<div class="line">    { SSI1_BASE_ADDR, (<span class="keyword">volatile</span> uint32_t *) (SSI1_BASE_ADDR + DATA_OFFSET),</div>
-<div class="line">      (<span class="keyword">volatile</span> uint32_t *) (SSI1_BASE_ADDR + STATUS_OFFSET), 0, 0, 0, <span class="keyword">false</span>, <span class="keyword">false</span> },</div>
-<div class="line">    { SSI2_BASE_ADDR, (<span class="keyword">volatile</span> uint32_t *) (SSI2_BASE_ADDR + DATA_OFFSET),</div>
-<div class="line">      (<span class="keyword">volatile</span> uint32_t *) (SSI2_BASE_ADDR + STATUS_OFFSET), 0, 0, 0, <span class="keyword">false</span>, <span class="keyword">false</span> },</div>
-<div class="line">    { SSI3_BASE_ADDR, (<span class="keyword">volatile</span> uint32_t *) (SSI3_BASE_ADDR + DATA_OFFSET),</div>
-<div class="line">      (<span class="keyword">volatile</span> uint32_t *) (SSI3_BASE_ADDR + STATUS_OFFSET), 0, 0, 0, <span class="keyword">false</span>, <span class="keyword">false</span> },</div>
+<div class="line">    { SSI0_BASE_ADDR, REGISTER_CAST(SSI0_BASE_ADDR + DATA_OFFSET), REGISTER_CAST(SSI0_BASE_ADDR + STATUS_OFFSET), </div>
+<div class="line">        0, 0, 0, <span class="keyword">false</span>, <span class="keyword">false</span> },</div>
+<div class="line">    { SSI1_BASE_ADDR, REGISTER_CAST(SSI1_BASE_ADDR + DATA_OFFSET), REGISTER_CAST(SSI1_BASE_ADDR + STATUS_OFFSET), </div>
+<div class="line">        0, 0, 0, <span class="keyword">false</span>, <span class="keyword">false</span> },</div>
+<div class="line">    { SSI2_BASE_ADDR, REGISTER_CAST(SSI2_BASE_ADDR + DATA_OFFSET), REGISTER_CAST(SSI2_BASE_ADDR + STATUS_OFFSET), </div>
+<div class="line">        0, 0, 0, <span class="keyword">false</span>, <span class="keyword">false</span> },</div>
+<div class="line">    { SSI3_BASE_ADDR, REGISTER_CAST(SSI3_BASE_ADDR + DATA_OFFSET), REGISTER_CAST(SSI3_BASE_ADDR + STATUS_OFFSET), </div>
+<div class="line">        0, 0, 0, <span class="keyword">false</span>, <span class="keyword">false</span> },</div>
 <div class="line">}</div>
 </div><!-- fragment -->
 </div>

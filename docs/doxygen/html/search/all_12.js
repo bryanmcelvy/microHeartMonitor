@@ -2,7 +2,7 @@ var searchData=
 [
   ['terms_0',['Key Terms',['../page_intro.html#sec_terms',1,'']]],
   ['the_20display_1',['the display',['../group__ili9341.html#autotoc_md0',1,'of columns available on the display'],['../group__ili9341.html#autotoc_md1',1,'of rows available on the display']]],
-  ['threshold_2',['threshold',['../_q_r_s_8c.html#aa76107d5c83fb27ecd4c75c0cd91251b',1,'threshold:&#160;QRS.c'],['../group__qrs.html#gafc52cf7bafd0bc466c4772cae8ae9cd2',1,'@2::threshold']]],
+  ['threshold_2',['threshold',['../group__qrs.html#gafc52cf7bafd0bc466c4772cae8ae9cd2',1,'@2::threshold'],['../_q_r_s_8c.html#aa76107d5c83fb27ecd4c75c0cd91251b',1,'threshold:&#160;QRS.c']]],
   ['timer_3',['Timer',['../group__timer.html',1,'']]],
   ['timer_2ec_4',['Timer.c',['../_timer_8c.html',1,'']]],
   ['timer_2eh_5',['Timer.h',['../_timer_8h.html',1,'']]],
@@ -27,6 +27,5 @@ var searchData=
   ['to_20digital_20conversion_20adc_24',['Analog-to-Digital Conversion (ADC)',['../group__adc.html',1,'']]],
   ['to_20do_25',['To-do',['../page_results.html#sec_todo',1,'']]],
   ['todo_20list_26',['Todo List',['../todo.html',1,'']]],
-  ['transmitter_20uart_27',['Universal Asynchronous Receiver/Transmitter (UART)',['../group__uart.html',1,'']]],
-  ['tx_5fpin_5fnum_28',['TX_PIN_NUM',['../struct_uart_struct__t.html#ab5fcaf405651bdb3d927cfdeb159d205',1,'UartStruct_t']]]
+  ['transmitter_20uart_27',['Universal Asynchronous Receiver/Transmitter (UART)',['../group__uart.html',1,'']]]
 ];

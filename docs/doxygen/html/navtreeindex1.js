@@ -138,9 +138,6 @@ var NAVTREEINDEX1 =
 "struct_spi_struct__t.html":[7,4,4,2],
 "struct_timer_struct__t.html":[7,4,5,2],
 "struct_uart_struct__t.html":[7,4,6,2],
-"struct_uart_struct__t.html#a41206de588ba474c2046be62b9795b86":[7,4,6,2,0],
-"struct_uart_struct__t.html#ab5fcaf405651bdb3d927cfdeb159d205":[7,4,6,2,2],
-"struct_uart_struct__t.html#aff3d5f22d1275d0a342974ec6d5530b8":[7,4,6,2,1],
 "todo.html":[5],
 "topics.html":[7]
 };
