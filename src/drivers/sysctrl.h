@@ -4,6 +4,10 @@
 #include <stdbool.h>
 #include <stdint-gcc.h>
 
+/******************************************************************************
+Clock Gating Control
+*******************************************************************************/
+
 typedef enum {
     ADC,
     DMA,
@@ -23,6 +27,10 @@ typedef enum {
 
 void SysCtrl_setClkGatingCtrl(SysCtrlClkMode_e mode, SysCtrlPeripheral_e peripheral, uint8_t num);
 
+/******************************************************************************
+Sleep Mode
+*******************************************************************************/
+
 typedef enum {
     WAIT_FOR_INT,
     WAIT_FOR_EVENT,
@@ -30,6 +38,10 @@ typedef enum {
 } SysCtrlSleepModes_e;
 
 void SysCtrl_enterSleepMode(SysCtrlSleepModes_e sleepMode);
+
+/******************************************************************************
+Phase-Locked Loop (PLL)
+*******************************************************************************/
 
 void SysCtrl_PLL_Init(uint8_t divisor);
 

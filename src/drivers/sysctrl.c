@@ -8,6 +8,10 @@
 #include <stdbool.h>
 #include <stdint-gcc.h>
 
+/******************************************************************************
+Clock Gating Control
+*******************************************************************************/
+
 #define SYSCTRL_BASE ((uint32_t) 0x400FE000)
 
 enum MODE_REGISTER_OFFSETS {
@@ -92,6 +96,10 @@ void SysCtrl_setClkGatingCtrl(SysCtrlClkMode_e mode, SysCtrlPeripheral_e periphe
     return;
 }
 
+/******************************************************************************
+Sleep Mode
+*******************************************************************************/
+
 #define CM4_SYSCTRL_ADDR ((uint32_t) 0xE000ED10)
 
 void SysCtrl_enterSleepMode(SysCtrlSleepModes_e sleepMode) {
@@ -112,6 +120,10 @@ void SysCtrl_enterSleepMode(SysCtrlSleepModes_e sleepMode) {
     }
     return;
 }
+
+/******************************************************************************
+Phase-Locked Loop (PLL)
+*******************************************************************************/
 
 void SysCtrl_PLL_Init(uint8_t divisor) {
     assert(divisor > 4);
