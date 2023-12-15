@@ -6,39 +6,44 @@
  */
 
         /**
-         * @defgroup   adc             Analog-to-Digital Conversion (ADC)
+         * @defgroup adc           Analog-to-Digital Conversion (ADC)
          * @brief    Functions for analog-to-digital conversion.
          * @todo     Refactor to be more general.
          */
 
         /**
-         * @defgroup   gpio            General-Purpose Input/Output (GPIO)
+         * @defgroup gpio          General-Purpose Input/Output (GPIO)
          * @brief    Functions for using GPIO ports.
          */
 
         /**
-         * @defgroup   isr             Interrupt Service Routines
+         * @defgroup isr           Interrupt Service Routines
          * @brief    Functions for manipulating the interrupt vector table and setting up interrupt handlers via the NVIC.
          */
 
         /**
-         * @defgroup   pll             Phase-Locked Loop (PLL)
+         * @defgroup pll           Phase-Locked Loop (PLL)
          * @brief    Function for initializing the phase-locked loop.
          */
 
         /**
-         * @defgroup   spi             Serial Peripheral Interface (SPI)
+         * @defgroup spi           Serial Peripheral Interface (SPI)
          * @brief    Functions for SPI-based communication via the SSI peripheral.
          * @todo     Remove statically-allocated data structures for unused SSIs.
          */
 
         /**
-         * @defgroup   timer           Timer
+         * @defgroup sysctrl       System Control
+         * @brief    Functions for configuring the system clock and sleep mode.
+         */
+
+        /**
+         * @defgroup timer         Timer
          * @brief    Functions for using hardware timers.
          */
 
         /**
-         * @defgroup   uart            Universal Asynchronous Receiver/Transmitter (UART)
+         * @defgroup uart          Universal Asynchronous Receiver/Transmitter (UART)
          * @brief    Functions for serial communication via the UART peripheral.
          */
 
