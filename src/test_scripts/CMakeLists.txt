@@ -36,7 +36,7 @@ target_link_libraries(test_systick_int.elf SysTick)
 
 # Timer 0
 add_executable(test_timer0.elf test_timer0.c )
-target_link_libraries(test_timer0.elf GPIO Timer)
+target_link_libraries(test_timer0.elf GPIO Timer lib_sysctrl)
 
 # GPIO Interrupts
 add_executable(test_gpio_int.elf test_gpio_int.c )
@@ -83,6 +83,10 @@ target_link_libraries(test_isr_relocate.elf Led Timer ISR)
 add_executable(test_freertos_blink.elf test_freertos_blink.c ${PATH_MIDDLEWARE}/Led.c)
 target_include_directories(test_freertos_blink.elf PRIVATE ${FREERTOS_INC_DIRS})
 target_link_libraries(test_freertos_blink.elf Led freertos_tasks freertos_list freertos_port)
+
+# SysCtrl PLL
+add_executable(test_sysctrl_pll.elf test_sysctrl_pll.c )
+target_link_libraries(test_sysctrl_pll.elf Debug lib_sysctrl)
 
 #*****************************************************************************
 # Application SW Tests
