@@ -46,7 +46,7 @@
 
 typedef volatile uint32_t * register_t;
 #define REGISTER_CAST(X) ((volatile uint32_t *) (X))
-#define REGISTER_VAL(X) *REGISTER_CAST(X)
+#define REGISTER_VAL(X) (*REGISTER_CAST(X))
 
 //*****************************************************************************
 //
