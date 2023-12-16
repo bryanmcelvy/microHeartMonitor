@@ -20,7 +20,7 @@ target_link_libraries(PLL cmsis_core_header)
 add_library(SysTick STATIC SysTick.c SysTick.h)
 
 add_library(Timer STATIC Timer.c Timer.h)
-target_link_libraries(Timer PRIVATE cmsis_core_header NewAssert)
+target_link_libraries(Timer PRIVATE cmsis_core_header lib_sysctrl NewAssert)
 
 add_library(GPIO STATIC GPIO.c GPIO.h)
 target_link_libraries(GPIO PRIVATE cmsis_core_header NewAssert)

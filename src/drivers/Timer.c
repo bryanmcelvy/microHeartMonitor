@@ -9,6 +9,8 @@
 
 #include "Timer.h"
 
+#include "sysctrl.h"
+
 #include "NewAssert.h"
 
 #include "m-profile/cmsis_gcc_m.h"
@@ -70,11 +72,7 @@ Initialization
 Timer_t Timer_Init(timerName_t timerName) {
     Timer_t timer = &TIMER_STRUCT_ARRAY[timerName];
     if(*timer->isInit == false) {
-        // Start clock to timer
-        SYSCTL_RCGCTIMER_R |= (1 << timerName);
-        while((SYSCTL_PRTIMER_R & (1 << timerName)) == 0) {
-            __NOP();
-        }
+        SysCtrl_configPeripheralClk(SYSCTRL_RUN, SYSCTRL_TIMER, timerName, SYSCTRL_CLK_ON);
         *timer->isInit = true;
     }
 
@@ -88,13 +86,10 @@ Timer_t Timer_Init(timerName_t timerName) {
 void Timer_Deinit(Timer_t timer) {
     if(*timer->isInit) {
         *timer->controlRegister &= ~(0x101);               // stop timer
-        uint8_t timerNum = timer->name;
 
         // disable clock to timer
-        SYSCTL_RCGCTIMER_R &= ~(1 << timerNum);
-        while(SYSCTL_PRTIMER_R & (1 << timerNum)) {
-            __NOP();
-        }
+        uint8_t timerNum = timer->name;
+        SysCtrl_configPeripheralClk(SYSCTRL_RUN, SYSCTRL_TIMER, timerNum, SYSCTRL_CLK_OFF);
         *timer->isInit = false;
     }
     return;
