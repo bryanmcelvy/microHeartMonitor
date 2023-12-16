@@ -74,4 +74,7 @@ void ToggleBlueTask(void * parameters) {
     }
 }
 
+// empty function definitions to prevent linker errors
 void vApplicationTickHook(void) {}
+
+void vApplicationIdleHook(void) {}
