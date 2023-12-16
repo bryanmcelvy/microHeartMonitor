@@ -46,6 +46,6 @@ target_link_libraries(${MAIN_RTOS}
                         DAQ LCD QRS 
                         Debug 
                         Fifo 
-                        GPIO ISR PLL UART 
+                        GPIO ISR lib_sysctrl UART 
                         freertos_minimal)
 target_link_options(${MAIN_RTOS} PRIVATE "-Wl,-Map=src/main_rtos.map,--cref")

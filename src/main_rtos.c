@@ -32,7 +32,7 @@ Direct Dependencies
 // drivers
 #include "GPIO.h"
 #include "ISR.h"
-#include "PLL.h"
+#include "sysctrl.h"
 #include "UART.h"
 
 // vendor (i.e. external/device) files
@@ -205,7 +205,7 @@ int main(void) {
     static GpioPort_t portA = 0;
     static Uart_t uart0 = 0;
 
-    PLL_Init();
+    SysCtrl_PLL_Init(SYSCTRL_PLL_80MHZ);
 
     // Init. debug module
     portA = GPIO_InitPort(GPIO_PORT_A);
@@ -279,6 +279,10 @@ int main(void) {
 ISR/Task Definitions
 ******************************************************************************/
 static volatile UBaseType_t numTicks = 0;
+
+void vApplicationIdleHook(void) {
+    SysCtrl_enterSleepMode(WAIT_FOR_INT);
+}
 
 void vApplicationTickHook(void) {
     numTicks += 1;
