@@ -57,20 +57,20 @@ Clock Gating Control
 *******************************************************************************/
 
 typedef enum {
-    RUN,                               ///< run mode
-    SLEEP,                             ///< sleep mode
-    DEEP_SLEEP                         ///< deep sleep mode
+    SYSCTRL_RUN,                       ///< run mode
+    SYSCTRL_SLEEP,                     ///< sleep mode
+    SYSCTRL_DEEP_SLEEP                 ///< deep sleep mode
 } SysCtrlClkMode_e;
 
 typedef enum {
-    ADC,                               ///< Analog-to-Digital Converter
-    DMA,                               ///< Direct Memory Access
-    GPIO,                              ///< General-Purpose Input/Output
-    I2C,                               ///< Inter-Integrated Circuit
-    PWM,                               ///< Pulse Width Modulator
-    SSI,                               ///< Synchronous Serial Interface
-    TIMER,                             ///< General-Purpose Timer
-    UART,                              ///< Universal Asynchronous Receiver/Transmitter
+    SYSCTRL_ADC,                       ///< Analog-to-Digital Converter
+    SYSCTRL_DMA,                       ///< Direct Memory Access
+    SYSCTRL_GPIO,                      ///< General-Purpose Input/Output
+    SYSCTRL_I2C,                       ///< Inter-Integrated Circuit
+    SYSCTRL_PWM,                       ///< Pulse Width Modulator
+    SYSCTRL_SSI,                       ///< Synchronous Serial Interface
+    SYSCTRL_TIMER,                     ///< General-Purpose Timer
+    SYSCTRL_UART,                      ///< Universal Asynchronous Receiver/Transmitter
 } SysCtrlPeripheral_e;
 
 typedef enum {

@@ -105,13 +105,13 @@ void SysCtrl_configPeripheralClk(SysCtrlClkMode_e mode, SysCtrlPeripheral_e peri
     // Determine register offsets for the mode and peripheral
     uint32_t modeOffset;
     switch(mode) {
-        case RUN:
+        case SYSCTRL_RUN:
             modeOffset = RUN_OFFSET;
             break;
-        case SLEEP:
+        case SYSCTRL_SLEEP:
             modeOffset = SLEEP_OFFSET;
             break;
-        case DEEP_SLEEP:
+        case SYSCTRL_DEEP_SLEEP:
             modeOffset = DEEP_SLEEP_OFFSET;
             break;
         default:
@@ -120,35 +120,35 @@ void SysCtrl_configPeripheralClk(SysCtrlClkMode_e mode, SysCtrlPeripheral_e peri
 
     uint32_t peripheralOffset;
     switch(peripheral) {
-        case ADC:
+        case SYSCTRL_ADC:
             assert(num < 2);
             peripheralOffset = ADC_OFFSET;
             break;
-        case DMA:
+        case SYSCTRL_DMA:
             assert(num == 0);
             peripheralOffset = DMA_OFFSET;
             break;
-        case GPIO:
+        case SYSCTRL_GPIO:
             assert(num < 6);
             peripheralOffset = GPIO_OFFSET;
             break;
-        case I2C:
+        case SYSCTRL_I2C:
             assert(num < 4);
             peripheralOffset = I2C_OFFSET;
             break;
-        case PWM:
+        case SYSCTRL_PWM:
             assert(num < 2);
             peripheralOffset = PWM_OFFSET;
             break;
-        case SSI:
+        case SYSCTRL_SSI:
             assert(num < 4);
             peripheralOffset = SSI_OFFSET;
             break;
-        case TIMER:
+        case SYSCTRL_TIMER:
             assert(num < 6);
             peripheralOffset = TIMER_OFFSET;
             break;
-        case UART:
+        case SYSCTRL_UART:
             assert(num < 8);
             peripheralOffset = UART_OFFSET;
             break;
