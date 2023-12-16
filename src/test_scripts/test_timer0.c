@@ -16,7 +16,7 @@ int main(void) {
 
     PLL_Init();               // set bus frequency to 80 MHz
     Timer_t timer0 = Timer_Init(TIMER0);
-    Timer_setMode(timer0, PERIODIC, UP);
+    Timer_setMode(timer0, ONESHOT, UP);
 
     // Init. LED pins
     GpioPort_t portF = GPIO_InitPort(F);
