@@ -10,6 +10,7 @@
 #include "SPI.h"
 
 #include "GPIO.h"
+#include "sysctrl.h"
 
 #include "NewAssert.h"
 
@@ -122,11 +123,8 @@ Spi_t SPI_Init(GpioPort_t gpioPort, GpioPin_t dcPin, SsiNum_t ssiNum) {
 
         GPIO_EnableDigital(gpioPort, gpioPins | dcPin);
 
-        // enable clock to SSI, and wait for it to be ready
-        SYSCTL_RCGCSSI_R |= (1 << ssiNum);
-        while((SYSCTL_PRSSI_R & (1 << ssiNum)) == 0) {
-            __NOP();
-        }
+        // enable clock to SSI
+        SysCtrl_configPeripheralClk(SYSCTRL_RUN, SYSCTRL_SSI, ssiNum, SYSCTRL_CLK_ON);
 
         // config control registers
         register_t ctrlRegister0 = (register_t) (spi->BASE_ADDRESS + CTRL0_OFFSET);

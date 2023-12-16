@@ -10,16 +10,13 @@
 #include "ADC.h"
 
 #include "GPIO.h"
+#include "sysctrl.h"
 
 #include "m-profile/cmsis_gcc_m.h"
 #include "tm4c123gh6pm.h"
 
 void ADC_Init(void) {
-    // enable clock to ADC0 and wait for it to be ready
-    SYSCTL_RCGCADC_R |= 0x01;
-    while((SYSCTL_PRADC_R & 0x01) == 0) {
-        __NOP();
-    }
+    SysCtrl_configPeripheralClk(SYSCTRL_RUN, SYSCTRL_ADC, 0, SYSCTRL_CLK_ON);
 
     // configure GPIO port
     GpioPort_t portE = GPIO_InitPort(E);

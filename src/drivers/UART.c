@@ -18,6 +18,7 @@ SECTIONS
 *******************************************************************************/
 
 #include "GPIO.h"
+#include "sysctrl.h"
 
 #include "NewAssert.h"
 
@@ -157,10 +158,7 @@ Uart_t UART_Init(GpioPort_t port, uartNum_t uartNum) {
     // Initialize UART
     Uart_t uart = &UART_STRUCT_ARRAY[uartNum];
     if(*uart->isInitPtr == false) {
-        SYSCTL_RCGCUART_R |= (1 << uartNum);
-        while((SYSCTL_PRUART_R & (1 << uartNum)) == 0) {
-            __NOP();
-        }
+        SysCtrl_configPeripheralClk(SYSCTRL_RUN, SYSCTRL_UART, uartNum, SYSCTRL_CLK_ON);
 
         // initialize GPIO pins
         GPIO_ConfigAltMode(port, RX_PIN_NUM | TX_PIN_NUM);
