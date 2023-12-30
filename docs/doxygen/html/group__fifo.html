@@ -140,9 +140,8 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:ga43a21a8d954df409f746591c279f570b" id="r_ga43a21a8d954df409f746591c279f570b"><td class="memItemLeft" align="right" valign="top"><a id="ga43a21a8d954df409f746591c279f570b" name="ga43a21a8d954df409f746591c279f570b"></a>
-static <a class="el" href="struct_fifo_struct__t.html">FifoStruct_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>fifoPool</b> [FIFO_POOL_SIZE] = { 0 }</td></tr>
-<tr class="memdesc:ga43a21a8d954df409f746591c279f570b"><td class="mdescLeft">&#160;</td><td class="mdescRight">pre-allocated pool <br /></td></tr>
+<tr class="memitem:ga43a21a8d954df409f746591c279f570b" id="r_ga43a21a8d954df409f746591c279f570b"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="struct_fifo_struct__t.html">FifoStruct_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__fifo.html#ga43a21a8d954df409f746591c279f570b">fifoPool</a> [FIFO_POOL_SIZE] = { 0 }</td></tr>
+<tr class="memdesc:ga43a21a8d954df409f746591c279f570b"><td class="mdescLeft">&#160;</td><td class="mdescRight">pre-allocated pool  <br /></td></tr>
 <tr class="separator:ga43a21a8d954df409f746591c279f570b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6ac176fb7da63751ba78059515a0f880" id="r_ga6ac176fb7da63751ba78059515a0f880"><td class="memItemLeft" align="right" valign="top"><a id="ga6ac176fb7da63751ba78059515a0f880" name="ga6ac176fb7da63751ba78059515a0f880"></a>
 static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>numFreeFifos</b> = FIFO_POOL_SIZE</td></tr>
@@ -226,7 +225,20 @@ static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>numFreeFifo
   </dd>
 </dl>
 <dl class="section post"><dt>Postcondition</dt><dd>The number of available FIFO buffers is reduced by 1. </dd></dl>
-
+<div class="fragment"><div class="line"><span class="lineno">   46</span>                                                               {</div>
+<div class="line"><span class="lineno">   47</span>    <a class="code hl_function" href="group__common.html#gaba660db7260350c29c3fd3dc9af35556" title="Custom assert implementation that is more lightweight than the one from newlib.">assert</a>(numFreeFifos &gt; 0);</div>
+<div class="line"><span class="lineno">   48</span> </div>
+<div class="line"><span class="lineno">   49</span>    numFreeFifos -= 1;</div>
+<div class="line"><span class="lineno">   50</span>    <span class="keyword">volatile</span> Fifo_t fifo = &amp;(<a class="code hl_variable" href="group__fifo.html#ga43a21a8d954df409f746591c279f570b" title="pre-allocated pool">fifoPool</a>[numFreeFifos]);</div>
+<div class="line"><span class="lineno">   51</span> </div>
+<div class="line"><span class="lineno">   52</span>    fifo-&gt;buffer = buffer;</div>
+<div class="line"><span class="lineno">   53</span>    fifo-&gt;N = N;</div>
+<div class="line"><span class="lineno">   54</span>    fifo-&gt;frontIdx = 0;</div>
+<div class="line"><span class="lineno">   55</span>    fifo-&gt;backIdx = 0;</div>
+<div class="line"><span class="lineno">   56</span> </div>
+<div class="line"><span class="lineno">   57</span>    <span class="keywordflow">return</span> fifo;</div>
+<div class="line"><span class="lineno">   58</span>}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="ga0a83842220ad1e1684490f0c8c3ca1e9" name="ga0a83842220ad1e1684490f0c8c3ca1e9"></a>
@@ -253,7 +265,11 @@ static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>numFreeFifo
   </dd>
 </dl>
 <dl class="section post"><dt>Postcondition</dt><dd>The FIFO is now considered empty. The underlying buffer's contents are not affected. </dd></dl>
-
+<div class="fragment"><div class="line"><span class="lineno">   60</span>                                      {</div>
+<div class="line"><span class="lineno">   61</span>    fifo-&gt;backIdx = fifo-&gt;frontIdx;</div>
+<div class="line"><span class="lineno">   62</span>    <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">   63</span>}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="gaf68b2cfb40ab050d1de771f7ce276ae1" name="gaf68b2cfb40ab050d1de771f7ce276ae1"></a>
@@ -292,7 +308,16 @@ static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>numFreeFifo
 </dl>
 <dl class="section post"><dt>Postcondition</dt><dd>If the FIFO is not full, <code>val</code> is placed in the buffer. If the FIFO is full, nothing happens.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group__fifo.html#ga666d3b6d48902e82cd5c33883a9ccf23" title="Add a floating-point value to the end of the buffer.">Fifo_PutFloat()</a> </dd></dl>
-
+<div class="fragment"><div class="line"><span class="lineno">   69</span>                                                        {</div>
+<div class="line"><span class="lineno">   70</span>    <span class="comment">// NOTE: not using FIFO_isFull() here to reduce call stack usage</span></div>
+<div class="line"><span class="lineno">   71</span>    <span class="keywordflow">if</span>(((fifo-&gt;backIdx + 1) % fifo-&gt;N) != fifo-&gt;frontIdx) {</div>
+<div class="line"><span class="lineno">   72</span>        memcpy(&amp;fifo-&gt;buffer[fifo-&gt;backIdx], &amp;val, <span class="keyword">sizeof</span>(fifo-&gt;buffer[0]));</div>
+<div class="line"><span class="lineno">   73</span>        fifo-&gt;backIdx = (fifo-&gt;backIdx + 1) % fifo-&gt;N;</div>
+<div class="line"><span class="lineno">   74</span>    }</div>
+<div class="line"><span class="lineno">   75</span> </div>
+<div class="line"><span class="lineno">   76</span>    <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">   77</span>}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="ga6a20ad9b707e4b8ccbef29f6ebaf7ea8" name="ga6a20ad9b707e4b8ccbef29f6ebaf7ea8"></a>
@@ -321,7 +346,21 @@ static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>numFreeFifo
 </dl>
 <dl class="section post"><dt>Postcondition</dt><dd>If the FIFO is not empty, the next value is returned. If the FIFO is empty, <code>0</code> is returned.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group__fifo.html#gaa380ef9605518fc998d51d06cc2b65fc" title="Remove the first value of the buffer, and cast it to float.">Fifo_GetFloat()</a> </dd></dl>
-
+<div class="fragment"><div class="line"><span class="lineno">   79</span>                                        {</div>
+<div class="line"><span class="lineno">   80</span>    uint32_t val;</div>
+<div class="line"><span class="lineno">   81</span> </div>
+<div class="line"><span class="lineno">   82</span>    <span class="comment">// NOTE: not using FIFO_isEmpty() here to reduce call stack usage</span></div>
+<div class="line"><span class="lineno">   83</span>    <span class="keywordflow">if</span>(fifo-&gt;frontIdx == fifo-&gt;backIdx) {</div>
+<div class="line"><span class="lineno">   84</span>        val = 0;</div>
+<div class="line"><span class="lineno">   85</span>    }</div>
+<div class="line"><span class="lineno">   86</span>    <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">   87</span>        memcpy(&amp;val, &amp;fifo-&gt;buffer[fifo-&gt;frontIdx], <span class="keyword">sizeof</span>(fifo-&gt;buffer[0]));</div>
+<div class="line"><span class="lineno">   88</span>        fifo-&gt;frontIdx = (fifo-&gt;frontIdx + 1) % fifo-&gt;N;</div>
+<div class="line"><span class="lineno">   89</span>    }</div>
+<div class="line"><span class="lineno">   90</span> </div>
+<div class="line"><span class="lineno">   91</span>    <span class="keywordflow">return</span> val;</div>
+<div class="line"><span class="lineno">   92</span>}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="ga52f0797f2c3af8db878babcdacc6242c" name="ga52f0797f2c3af8db878babcdacc6242c"></a>
@@ -360,7 +399,19 @@ static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>numFreeFifo
 </dl>
 <dl class="section post"><dt>Postcondition</dt><dd>The FIFO buffer's contents are transferred to the output buffer.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group__fifo.html#ga6e95564c4286c38fbec21c15213566ad" title="Empty the FIFO buffer into an array of floating-point values.">Fifo_FlushFloat()</a> </dd></dl>
-
+<div class="fragment"><div class="line"><span class="lineno">   94</span>                                                               {</div>
+<div class="line"><span class="lineno">   95</span>    uint32_t idx = 0;</div>
+<div class="line"><span class="lineno">   96</span> </div>
+<div class="line"><span class="lineno">   97</span>    <span class="comment">// NOTE: not using FIFO_isEmpty() here to reduce call stack usage</span></div>
+<div class="line"><span class="lineno">   98</span>    <span class="keywordflow">while</span>(fifo-&gt;frontIdx != fifo-&gt;backIdx) {</div>
+<div class="line"><span class="lineno">   99</span>        memcpy(&amp;outputBuffer[idx], &amp;fifo-&gt;buffer[fifo-&gt;frontIdx], <span class="keyword">sizeof</span>(fifo-&gt;buffer[0]));</div>
+<div class="line"><span class="lineno">  100</span>        idx += 1;</div>
+<div class="line"><span class="lineno">  101</span>        fifo-&gt;frontIdx = (fifo-&gt;frontIdx + 1) % fifo-&gt;N;</div>
+<div class="line"><span class="lineno">  102</span>    }</div>
+<div class="line"><span class="lineno">  103</span> </div>
+<div class="line"><span class="lineno">  104</span>    <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  105</span>}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="ga666d3b6d48902e82cd5c33883a9ccf23" name="ga666d3b6d48902e82cd5c33883a9ccf23"></a>
@@ -405,7 +456,11 @@ static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>numFreeFifo
 </div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group__fifo.html#gaf68b2cfb40ab050d1de771f7ce276ae1" title="Add a value to the end of the buffer.">Fifo_Put()</a> </dd></dl>
 <dl class="section remark"><dt>Remarks</dt><dd>To properly use floating-point values, type-punning is necessary.</dd></dl>
-
+<div class="fragment"><div class="line"><span class="lineno">  111</span>                                                          {</div>
+<div class="line"><span class="lineno">  113</span>    <a class="code hl_function" href="group__fifo.html#gaf68b2cfb40ab050d1de771f7ce276ae1" title="Add a value to the end of the buffer.">Fifo_Put</a>(fifo, *((uint32_t *) &amp;val));</div>
+<div class="line"><span class="lineno">  114</span>    <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  115</span>}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="gaa380ef9605518fc998d51d06cc2b65fc" name="gaa380ef9605518fc998d51d06cc2b65fc"></a>
@@ -440,7 +495,12 @@ static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>numFreeFifo
 </div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group__fifo.html#ga6a20ad9b707e4b8ccbef29f6ebaf7ea8" title="Remove the first value of the buffer.">Fifo_Get()</a> </dd></dl>
 <dl class="section remark"><dt>Remarks</dt><dd>To properly use floating-point values, type-punning is necessary.</dd></dl>
-
+<div class="fragment"><div class="line"><span class="lineno">  117</span>                                          {</div>
+<div class="line"><span class="lineno">  119</span>    <span class="keywordtype">float</span> val;</div>
+<div class="line"><span class="lineno">  120</span>    *((uint32_t *) &amp;val) = <a class="code hl_function" href="group__fifo.html#ga6a20ad9b707e4b8ccbef29f6ebaf7ea8" title="Remove the first value of the buffer.">Fifo_Get</a>(fifo);</div>
+<div class="line"><span class="lineno">  121</span>    <span class="keywordflow">return</span> val;</div>
+<div class="line"><span class="lineno">  122</span>}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="ga6e95564c4286c38fbec21c15213566ad" name="ga6e95564c4286c38fbec21c15213566ad"></a>
@@ -483,7 +543,11 @@ static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>numFreeFifo
 <div class="line"><a class="code hl_function" href="group__fifo.html#ga6e95564c4286c38fbec21c15213566ad" title="Empty the FIFO buffer into an array of floating-point values.">Fifo_FlushFloat</a>(fifo, outputBuffer); <span class="comment">// same thing, but cleaner</span></div>
 </div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group__fifo.html#ga52f0797f2c3af8db878babcdacc6242c" title="Empty the FIFO buffer&#39;s contents into an array.">Fifo_Flush()</a> </dd></dl>
-
+<div class="fragment"><div class="line"><span class="lineno">  124</span>                                                                 {</div>
+<div class="line"><span class="lineno">  125</span>    <a class="code hl_function" href="group__fifo.html#ga52f0797f2c3af8db878babcdacc6242c" title="Empty the FIFO buffer&#39;s contents into an array.">Fifo_Flush</a>(fifo, (uint32_t *) outputBuffer);</div>
+<div class="line"><span class="lineno">  126</span>    <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  127</span>}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="ga29a8388a2915767fa7885b0f1627d1f0" name="ga29a8388a2915767fa7885b0f1627d1f0"></a>
@@ -510,7 +574,19 @@ static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>numFreeFifo
   </table>
   </dd>
 </dl>
-
+<div class="fragment"><div class="line"><span class="lineno">  133</span>                                            {</div>
+<div class="line"><span class="lineno">  134</span>    uint32_t ret_val;</div>
+<div class="line"><span class="lineno">  135</span> </div>
+<div class="line"><span class="lineno">  136</span>    <span class="keywordflow">if</span>(fifo-&gt;frontIdx == fifo-&gt;backIdx) {</div>
+<div class="line"><span class="lineno">  137</span>        ret_val = 0;</div>
+<div class="line"><span class="lineno">  138</span>    }</div>
+<div class="line"><span class="lineno">  139</span>    <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  140</span>        memcpy(&amp;ret_val, &amp;fifo-&gt;buffer[fifo-&gt;frontIdx], <span class="keyword">sizeof</span>(fifo-&gt;buffer[0]));</div>
+<div class="line"><span class="lineno">  141</span>    }</div>
+<div class="line"><span class="lineno">  142</span> </div>
+<div class="line"><span class="lineno">  143</span>    <span class="keywordflow">return</span> ret_val;</div>
+<div class="line"><span class="lineno">  144</span>}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="gab70a834e9ca12db9817f15f9342d9fb7" name="gab70a834e9ca12db9817f15f9342d9fb7"></a>
@@ -548,7 +624,19 @@ static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>numFreeFifo
   </dd>
 </dl>
 <dl class="section post"><dt>Postcondition</dt><dd>The FIFO buffer's contents are copied to the output buffer. </dd></dl>
-
+<div class="fragment"><div class="line"><span class="lineno">  146</span>                                                                 {</div>
+<div class="line"><span class="lineno">  147</span>    uint32_t frontIdx = fifo-&gt;frontIdx;</div>
+<div class="line"><span class="lineno">  148</span>    uint32_t idx = 0;</div>
+<div class="line"><span class="lineno">  149</span> </div>
+<div class="line"><span class="lineno">  150</span>    <span class="keywordflow">while</span>(frontIdx != fifo-&gt;backIdx) {</div>
+<div class="line"><span class="lineno">  151</span>        memcpy(&amp;outputBuffer[idx], &amp;fifo-&gt;buffer[frontIdx], <span class="keyword">sizeof</span>(fifo-&gt;buffer[0]));</div>
+<div class="line"><span class="lineno">  152</span>        idx += 1;</div>
+<div class="line"><span class="lineno">  153</span>        frontIdx = (frontIdx + 1) % fifo-&gt;N;               <span class="comment">// wrap around to end</span></div>
+<div class="line"><span class="lineno">  154</span>    }</div>
+<div class="line"><span class="lineno">  155</span> </div>
+<div class="line"><span class="lineno">  156</span>    <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  157</span>}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="ga27bfb943ac834fd7a1bf79cbce3e4af8" name="ga27bfb943ac834fd7a1bf79cbce3e4af8"></a>
@@ -576,7 +664,10 @@ static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>numFreeFifo
   </table>
   </dd>
 </dl>
-
+<div class="fragment"><div class="line"><span class="lineno">  163</span>                                       {</div>
+<div class="line"><span class="lineno">  164</span>    <span class="keywordflow">return</span> (<span class="keywordtype">bool</span>) (((fifo-&gt;backIdx + 1) % fifo-&gt;N) == fifo-&gt;frontIdx);</div>
+<div class="line"><span class="lineno">  165</span>}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="gae944d60dc7c317e611e1a06712eb60a3" name="gae944d60dc7c317e611e1a06712eb60a3"></a>
@@ -604,7 +695,10 @@ static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>numFreeFifo
   </table>
   </dd>
 </dl>
-
+<div class="fragment"><div class="line"><span class="lineno">  167</span>                                        {</div>
+<div class="line"><span class="lineno">  168</span>    <span class="keywordflow">return</span> (<span class="keywordtype">bool</span>) (fifo-&gt;frontIdx == fifo-&gt;backIdx);</div>
+<div class="line"><span class="lineno">  169</span>}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="ga7c7a581b982e97b236cdc2840ce956f0" name="ga7c7a581b982e97b236cdc2840ce956f0"></a>
@@ -631,7 +725,51 @@ static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>numFreeFifo
   </table>
   </dd>
 </dl>
+<div class="fragment"><div class="line"><span class="lineno">  171</span>                                                {</div>
+<div class="line"><span class="lineno">  172</span>    uint32_t size;</div>
+<div class="line"><span class="lineno">  173</span> </div>
+<div class="line"><span class="lineno">  174</span>    <span class="keywordflow">if</span>(fifo-&gt;frontIdx == fifo-&gt;backIdx) {                                      <span class="comment">// empty</span></div>
+<div class="line"><span class="lineno">  175</span>        size = 0;</div>
+<div class="line"><span class="lineno">  176</span>    }</div>
+<div class="line"><span class="lineno">  177</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span>(((fifo-&gt;backIdx + 1) % fifo-&gt;N) == fifo-&gt;frontIdx) {               <span class="comment">// full</span></div>
+<div class="line"><span class="lineno">  178</span>        size = fifo-&gt;N - 1;</div>
+<div class="line"><span class="lineno">  179</span>    }</div>
+<div class="line"><span class="lineno">  180</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span>(fifo-&gt;frontIdx &lt; fifo-&gt;backIdx) {</div>
+<div class="line"><span class="lineno">  181</span>        size = fifo-&gt;backIdx - fifo-&gt;frontIdx;</div>
+<div class="line"><span class="lineno">  182</span>    }</div>
+<div class="line"><span class="lineno">  183</span>    <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  184</span>        size = fifo-&gt;N - (fifo-&gt;frontIdx - fifo-&gt;backIdx);</div>
+<div class="line"><span class="lineno">  185</span>    }</div>
+<div class="line"><span class="lineno">  186</span> </div>
+<div class="line"><span class="lineno">  187</span>    <span class="keywordflow">return</span> size;</div>
+<div class="line"><span class="lineno">  188</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="ga43a21a8d954df409f746591c279f570b" name="ga43a21a8d954df409f746591c279f570b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga43a21a8d954df409f746591c279f570b">&#9670;&#160;</a></span>fifoPool</h2>
 
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_fifo_struct__t.html">FifoStruct_t</a> fifoPool[FIFO_POOL_SIZE] = { 0 }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>pre-allocated pool </p>
+<div class="fragment"><div class="line"><span class="lineno">   39</span>{ 0 };               </div>
+</div><!-- fragment -->
 </div>
 </div>
 </div><!-- contents -->

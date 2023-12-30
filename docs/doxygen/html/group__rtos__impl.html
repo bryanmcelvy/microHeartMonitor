@@ -129,7 +129,7 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:ga6980ee978a12fa5a5b6c89119741adca" id="r_ga6980ee978a12fa5a5b6c89119741adca"><td class="memItemLeft" align="right" valign="top"><a id="ga6980ee978a12fa5a5b6c89119741adca" name="ga6980ee978a12fa5a5b6c89119741adca"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>TASK_PRIORITIES</b> { <br />
+<tr class="memitem:ga6980ee978a12fa5a5b6c89119741adca" id="r_ga6980ee978a12fa5a5b6c89119741adca"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><b>TASK_PRIORITIES</b> { <br />
 &#160;&#160;<b>DAQ_HANDLER_PRI</b> = 1
 , <b>PROC_TASK_PRI</b> = 3
 , <b>QRS_TASK_PRI</b> = 2
@@ -176,11 +176,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga0d3ec55ff57118cc59671bad7221f83b" id="r_ga0d3ec55ff57118cc59671bad7221f83b"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rtos__impl.html#ga0d3ec55ff57118cc59671bad7221f83b">LcdHeartRateTask</a> (void *params)</td></tr>
 <tr class="memdesc:ga0d3ec55ff57118cc59671bad7221f83b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Task for outputting the heart rate to the LCD.  <br /></td></tr>
 <tr class="separator:ga0d3ec55ff57118cc59671bad7221f83b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga840291bc02cba5474a4cb46a9b9566fe" id="r_ga840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top"><a id="ga840291bc02cba5474a4cb46a9b9566fe" name="ga840291bc02cba5474a4cb46a9b9566fe"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>main</b> (void)</td></tr>
+<tr class="memitem:ga840291bc02cba5474a4cb46a9b9566fe" id="r_ga840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rtos__impl.html#ga840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
 <tr class="separator:ga840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9ca051aa77e17583aa5a85d5de5c199a" id="r_ga9ca051aa77e17583aa5a85d5de5c199a"><td class="memItemLeft" align="right" valign="top"><a id="ga9ca051aa77e17583aa5a85d5de5c199a" name="ga9ca051aa77e17583aa5a85d5de5c199a"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>vApplicationTickHook</b> (void)</td></tr>
+<tr class="memitem:ga9ca051aa77e17583aa5a85d5de5c199a" id="r_ga9ca051aa77e17583aa5a85d5de5c199a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rtos__impl.html#ga9ca051aa77e17583aa5a85d5de5c199a">vApplicationTickHook</a> (void)</td></tr>
 <tr class="separator:ga9ca051aa77e17583aa5a85d5de5c199a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
@@ -188,65 +186,51 @@ Variables</h2></td></tr>
 <tr class="memitem:gac87c72d949947604ef6c164eac336723" id="r_gac87c72d949947604ef6c164eac336723"><td class="memItemLeft" align="right" valign="top"><a id="gac87c72d949947604ef6c164eac336723" name="gac87c72d949947604ef6c164eac336723"></a>
 static TaskHandle_t&#160;</td><td class="memItemRight" valign="bottom"><b>ProcessingTaskHandle</b> = 0</td></tr>
 <tr class="separator:gac87c72d949947604ef6c164eac336723"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga869e105d14dccaede4b65ddb96020708" id="r_ga869e105d14dccaede4b65ddb96020708"><td class="memItemLeft" align="right" valign="top"><a id="ga869e105d14dccaede4b65ddb96020708" name="ga869e105d14dccaede4b65ddb96020708"></a>
-static StackType_t&#160;</td><td class="memItemRight" valign="bottom"><b>ProcessingStack</b> [STACK_SIZE] = { 0 }</td></tr>
+<tr class="memitem:ga869e105d14dccaede4b65ddb96020708" id="r_ga869e105d14dccaede4b65ddb96020708"><td class="memItemLeft" align="right" valign="top">static StackType_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rtos__impl.html#ga869e105d14dccaede4b65ddb96020708">ProcessingStack</a> [STACK_SIZE] = { 0 }</td></tr>
 <tr class="separator:ga869e105d14dccaede4b65ddb96020708"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gafde8214e90ba0288356c67de8ce6489b" id="r_gafde8214e90ba0288356c67de8ce6489b"><td class="memItemLeft" align="right" valign="top"><a id="gafde8214e90ba0288356c67de8ce6489b" name="gafde8214e90ba0288356c67de8ce6489b"></a>
-static StaticTask_t&#160;</td><td class="memItemRight" valign="bottom"><b>ProcessingTaskBuffer</b> = { 0 }</td></tr>
+<tr class="memitem:gafde8214e90ba0288356c67de8ce6489b" id="r_gafde8214e90ba0288356c67de8ce6489b"><td class="memItemLeft" align="right" valign="top">static StaticTask_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rtos__impl.html#gafde8214e90ba0288356c67de8ce6489b">ProcessingTaskBuffer</a> = { 0 }</td></tr>
 <tr class="separator:gafde8214e90ba0288356c67de8ce6489b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gabbe04889434d657f69a81dd467ebe5e2" id="r_gabbe04889434d657f69a81dd467ebe5e2"><td class="memItemLeft" align="right" valign="top"><a id="gabbe04889434d657f69a81dd467ebe5e2" name="gabbe04889434d657f69a81dd467ebe5e2"></a>
 static TaskHandle_t&#160;</td><td class="memItemRight" valign="bottom"><b>QrsDetectionTaskHandle</b> = 0</td></tr>
 <tr class="separator:gabbe04889434d657f69a81dd467ebe5e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab5004dcb29a636e59daafb074b1431fb" id="r_gab5004dcb29a636e59daafb074b1431fb"><td class="memItemLeft" align="right" valign="top"><a id="gab5004dcb29a636e59daafb074b1431fb" name="gab5004dcb29a636e59daafb074b1431fb"></a>
-static StackType_t&#160;</td><td class="memItemRight" valign="bottom"><b>QrsDetectionStack</b> [STACK_SIZE] = { 0 }</td></tr>
+<tr class="memitem:gab5004dcb29a636e59daafb074b1431fb" id="r_gab5004dcb29a636e59daafb074b1431fb"><td class="memItemLeft" align="right" valign="top">static StackType_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rtos__impl.html#gab5004dcb29a636e59daafb074b1431fb">QrsDetectionStack</a> [STACK_SIZE] = { 0 }</td></tr>
 <tr class="separator:gab5004dcb29a636e59daafb074b1431fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gabc3d5df1d56a4e7da4a10bb7ab9be86d" id="r_gabc3d5df1d56a4e7da4a10bb7ab9be86d"><td class="memItemLeft" align="right" valign="top"><a id="gabc3d5df1d56a4e7da4a10bb7ab9be86d" name="gabc3d5df1d56a4e7da4a10bb7ab9be86d"></a>
-static StaticTask_t&#160;</td><td class="memItemRight" valign="bottom"><b>QrsDetectionTaskBuffer</b> = { 0 }</td></tr>
+<tr class="memitem:gabc3d5df1d56a4e7da4a10bb7ab9be86d" id="r_gabc3d5df1d56a4e7da4a10bb7ab9be86d"><td class="memItemLeft" align="right" valign="top">static StaticTask_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rtos__impl.html#gabc3d5df1d56a4e7da4a10bb7ab9be86d">QrsDetectionTaskBuffer</a> = { 0 }</td></tr>
 <tr class="separator:gabc3d5df1d56a4e7da4a10bb7ab9be86d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga1e76962e10f543b62208420598a7220c" id="r_ga1e76962e10f543b62208420598a7220c"><td class="memItemLeft" align="right" valign="top"><a id="ga1e76962e10f543b62208420598a7220c" name="ga1e76962e10f543b62208420598a7220c"></a>
 static TaskHandle_t&#160;</td><td class="memItemRight" valign="bottom"><b>LcdWaveformTaskHandle</b> = 0</td></tr>
 <tr class="separator:ga1e76962e10f543b62208420598a7220c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga474c3e5a10c596a77eebe27075b11fb5" id="r_ga474c3e5a10c596a77eebe27075b11fb5"><td class="memItemLeft" align="right" valign="top"><a id="ga474c3e5a10c596a77eebe27075b11fb5" name="ga474c3e5a10c596a77eebe27075b11fb5"></a>
-static StackType_t&#160;</td><td class="memItemRight" valign="bottom"><b>LcdWaveformStack</b> [STACK_SIZE] = { 0 }</td></tr>
+<tr class="memitem:ga474c3e5a10c596a77eebe27075b11fb5" id="r_ga474c3e5a10c596a77eebe27075b11fb5"><td class="memItemLeft" align="right" valign="top">static StackType_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rtos__impl.html#ga474c3e5a10c596a77eebe27075b11fb5">LcdWaveformStack</a> [STACK_SIZE] = { 0 }</td></tr>
 <tr class="separator:ga474c3e5a10c596a77eebe27075b11fb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae8de334f227cd8c670976824df9ceaec" id="r_gae8de334f227cd8c670976824df9ceaec"><td class="memItemLeft" align="right" valign="top"><a id="gae8de334f227cd8c670976824df9ceaec" name="gae8de334f227cd8c670976824df9ceaec"></a>
-static StaticTask_t&#160;</td><td class="memItemRight" valign="bottom"><b>LcdWaveformTaskBuffer</b> = { 0 }</td></tr>
+<tr class="memitem:gae8de334f227cd8c670976824df9ceaec" id="r_gae8de334f227cd8c670976824df9ceaec"><td class="memItemLeft" align="right" valign="top">static StaticTask_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rtos__impl.html#gae8de334f227cd8c670976824df9ceaec">LcdWaveformTaskBuffer</a> = { 0 }</td></tr>
 <tr class="separator:gae8de334f227cd8c670976824df9ceaec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5cf73e6915a2650eab8f9d63e1d0e636" id="r_ga5cf73e6915a2650eab8f9d63e1d0e636"><td class="memItemLeft" align="right" valign="top"><a id="ga5cf73e6915a2650eab8f9d63e1d0e636" name="ga5cf73e6915a2650eab8f9d63e1d0e636"></a>
 static TaskHandle_t&#160;</td><td class="memItemRight" valign="bottom"><b>LcdHeartRateTaskHandle</b> = 0</td></tr>
 <tr class="separator:ga5cf73e6915a2650eab8f9d63e1d0e636"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae29c8debefb0c2dfed854c110e072737" id="r_gae29c8debefb0c2dfed854c110e072737"><td class="memItemLeft" align="right" valign="top"><a id="gae29c8debefb0c2dfed854c110e072737" name="gae29c8debefb0c2dfed854c110e072737"></a>
-static StackType_t&#160;</td><td class="memItemRight" valign="bottom"><b>LcdHeartRateStack</b> [STACK_SIZE] = { 0 }</td></tr>
+<tr class="memitem:gae29c8debefb0c2dfed854c110e072737" id="r_gae29c8debefb0c2dfed854c110e072737"><td class="memItemLeft" align="right" valign="top">static StackType_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rtos__impl.html#gae29c8debefb0c2dfed854c110e072737">LcdHeartRateStack</a> [STACK_SIZE] = { 0 }</td></tr>
 <tr class="separator:gae29c8debefb0c2dfed854c110e072737"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga88d51e08264bcb88b3f771138d186abe" id="r_ga88d51e08264bcb88b3f771138d186abe"><td class="memItemLeft" align="right" valign="top"><a id="ga88d51e08264bcb88b3f771138d186abe" name="ga88d51e08264bcb88b3f771138d186abe"></a>
-static StaticTask_t&#160;</td><td class="memItemRight" valign="bottom"><b>LcdHeartRateTaskBuffer</b> = { 0 }</td></tr>
+<tr class="memitem:ga88d51e08264bcb88b3f771138d186abe" id="r_ga88d51e08264bcb88b3f771138d186abe"><td class="memItemLeft" align="right" valign="top">static StaticTask_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rtos__impl.html#ga88d51e08264bcb88b3f771138d186abe">LcdHeartRateTaskBuffer</a> = { 0 }</td></tr>
 <tr class="separator:ga88d51e08264bcb88b3f771138d186abe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gafa0936db442bd0680ee60755aabf5a08" id="r_gafa0936db442bd0680ee60755aabf5a08"><td class="memItemLeft" align="right" valign="top"><a id="gafa0936db442bd0680ee60755aabf5a08" name="gafa0936db442bd0680ee60755aabf5a08"></a>
 static volatile QueueHandle_t&#160;</td><td class="memItemRight" valign="bottom"><b>Daq2ProcQueue</b> = 0</td></tr>
 <tr class="separator:gafa0936db442bd0680ee60755aabf5a08"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae3550d8374e6566a467b13eae2e744be" id="r_gae3550d8374e6566a467b13eae2e744be"><td class="memItemLeft" align="right" valign="top"><a id="gae3550d8374e6566a467b13eae2e744be" name="gae3550d8374e6566a467b13eae2e744be"></a>
-static volatile StaticQueue_t&#160;</td><td class="memItemRight" valign="bottom"><b>Daq2ProcQueueBuffer</b> = { 0 }</td></tr>
+<tr class="memitem:gae3550d8374e6566a467b13eae2e744be" id="r_gae3550d8374e6566a467b13eae2e744be"><td class="memItemLeft" align="right" valign="top">static volatile StaticQueue_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rtos__impl.html#gae3550d8374e6566a467b13eae2e744be">Daq2ProcQueueBuffer</a> = { 0 }</td></tr>
 <tr class="separator:gae3550d8374e6566a467b13eae2e744be"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga3064cf2f37a180403323446c693f527c" id="r_ga3064cf2f37a180403323446c693f527c"><td class="memItemLeft" align="right" valign="top"><a id="ga3064cf2f37a180403323446c693f527c" name="ga3064cf2f37a180403323446c693f527c"></a>
-static volatile uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>Daq2ProcQueueStorageArea</b> [<a class="el" href="group__rtos__impl.html#gga49e4d6ca726500b3304b04a6019ce49fa378c0c9aa31a78cea7b8f8dd8c8cbe88">DAQ_2_PROC_LEN</a> *<a class="el" href="group__rtos__impl.html#gga49e4d6ca726500b3304b04a6019ce49fa9e3e48797a114d652ba064b5d97962b8">QUEUE_ITEM_SIZE</a>] = { 0 }</td></tr>
+<tr class="memitem:ga3064cf2f37a180403323446c693f527c" id="r_ga3064cf2f37a180403323446c693f527c"><td class="memItemLeft" align="right" valign="top">static volatile uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rtos__impl.html#ga3064cf2f37a180403323446c693f527c">Daq2ProcQueueStorageArea</a> [<a class="el" href="group__rtos__impl.html#gga49e4d6ca726500b3304b04a6019ce49fa378c0c9aa31a78cea7b8f8dd8c8cbe88">DAQ_2_PROC_LEN</a> *<a class="el" href="group__rtos__impl.html#gga49e4d6ca726500b3304b04a6019ce49fa9e3e48797a114d652ba064b5d97962b8">QUEUE_ITEM_SIZE</a>] = { 0 }</td></tr>
 <tr class="separator:ga3064cf2f37a180403323446c693f527c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga93936cf63b969d6e812f8b62f0c17e8e" id="r_ga93936cf63b969d6e812f8b62f0c17e8e"><td class="memItemLeft" align="right" valign="top"><a id="ga93936cf63b969d6e812f8b62f0c17e8e" name="ga93936cf63b969d6e812f8b62f0c17e8e"></a>
 static volatile QueueHandle_t&#160;</td><td class="memItemRight" valign="bottom"><b>Proc2QrsQueue</b> = 0</td></tr>
 <tr class="separator:ga93936cf63b969d6e812f8b62f0c17e8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga4fdc14cb2b8d91223e4a92e754e985e8" id="r_ga4fdc14cb2b8d91223e4a92e754e985e8"><td class="memItemLeft" align="right" valign="top"><a id="ga4fdc14cb2b8d91223e4a92e754e985e8" name="ga4fdc14cb2b8d91223e4a92e754e985e8"></a>
-static volatile StaticQueue_t&#160;</td><td class="memItemRight" valign="bottom"><b>Proc2QrsQueueBuffer</b> = { 0 }</td></tr>
+<tr class="memitem:ga4fdc14cb2b8d91223e4a92e754e985e8" id="r_ga4fdc14cb2b8d91223e4a92e754e985e8"><td class="memItemLeft" align="right" valign="top">static volatile StaticQueue_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rtos__impl.html#ga4fdc14cb2b8d91223e4a92e754e985e8">Proc2QrsQueueBuffer</a> = { 0 }</td></tr>
 <tr class="separator:ga4fdc14cb2b8d91223e4a92e754e985e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga2f76757cde83f9ceaee4898dfc4edef7" id="r_ga2f76757cde83f9ceaee4898dfc4edef7"><td class="memItemLeft" align="right" valign="top"><a id="ga2f76757cde83f9ceaee4898dfc4edef7" name="ga2f76757cde83f9ceaee4898dfc4edef7"></a>
-static volatile uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>Proc2QrsQueueStorageArea</b> [<a class="el" href="group__rtos__impl.html#gga49e4d6ca726500b3304b04a6019ce49fa4944e8a4844d27f5b54b6935f7503360">PROC_2_QRS_LEN</a> *<a class="el" href="group__rtos__impl.html#gga49e4d6ca726500b3304b04a6019ce49fa9e3e48797a114d652ba064b5d97962b8">QUEUE_ITEM_SIZE</a>] = { 0 }</td></tr>
+<tr class="memitem:ga2f76757cde83f9ceaee4898dfc4edef7" id="r_ga2f76757cde83f9ceaee4898dfc4edef7"><td class="memItemLeft" align="right" valign="top">static volatile uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rtos__impl.html#ga2f76757cde83f9ceaee4898dfc4edef7">Proc2QrsQueueStorageArea</a> [<a class="el" href="group__rtos__impl.html#gga49e4d6ca726500b3304b04a6019ce49fa4944e8a4844d27f5b54b6935f7503360">PROC_2_QRS_LEN</a> *<a class="el" href="group__rtos__impl.html#gga49e4d6ca726500b3304b04a6019ce49fa9e3e48797a114d652ba064b5d97962b8">QUEUE_ITEM_SIZE</a>] = { 0 }</td></tr>
 <tr class="separator:ga2f76757cde83f9ceaee4898dfc4edef7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaa353495e6a49fbc21fee28e16dac3cbb" id="r_gaa353495e6a49fbc21fee28e16dac3cbb"><td class="memItemLeft" align="right" valign="top"><a id="gaa353495e6a49fbc21fee28e16dac3cbb" name="gaa353495e6a49fbc21fee28e16dac3cbb"></a>
 static volatile QueueHandle_t&#160;</td><td class="memItemRight" valign="bottom"><b>Proc2LcdQueue</b> = 0</td></tr>
 <tr class="separator:gaa353495e6a49fbc21fee28e16dac3cbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga486d8e6ab6b3cd08c7d5d74b69a1c822" id="r_ga486d8e6ab6b3cd08c7d5d74b69a1c822"><td class="memItemLeft" align="right" valign="top"><a id="ga486d8e6ab6b3cd08c7d5d74b69a1c822" name="ga486d8e6ab6b3cd08c7d5d74b69a1c822"></a>
-static volatile StaticQueue_t&#160;</td><td class="memItemRight" valign="bottom"><b>Proc2LcdQueueBuffer</b> = { 0 }</td></tr>
+<tr class="memitem:ga486d8e6ab6b3cd08c7d5d74b69a1c822" id="r_ga486d8e6ab6b3cd08c7d5d74b69a1c822"><td class="memItemLeft" align="right" valign="top">static volatile StaticQueue_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rtos__impl.html#ga486d8e6ab6b3cd08c7d5d74b69a1c822">Proc2LcdQueueBuffer</a> = { 0 }</td></tr>
 <tr class="separator:ga486d8e6ab6b3cd08c7d5d74b69a1c822"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf1686d6f4a7e7597e7b12cc2201af39d" id="r_gaf1686d6f4a7e7597e7b12cc2201af39d"><td class="memItemLeft" align="right" valign="top"><a id="gaf1686d6f4a7e7597e7b12cc2201af39d" name="gaf1686d6f4a7e7597e7b12cc2201af39d"></a>
-static volatile uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>Proc2LcdQueueStorageArea</b> [<a class="el" href="group__rtos__impl.html#gga49e4d6ca726500b3304b04a6019ce49fa2e83b113907a846b32d3dd79e6a92535">PROC_2_LCD_LEN</a> *<a class="el" href="group__rtos__impl.html#gga49e4d6ca726500b3304b04a6019ce49fa9e3e48797a114d652ba064b5d97962b8">QUEUE_ITEM_SIZE</a>] = { 0 }</td></tr>
+<tr class="memitem:gaf1686d6f4a7e7597e7b12cc2201af39d" id="r_gaf1686d6f4a7e7597e7b12cc2201af39d"><td class="memItemLeft" align="right" valign="top">static volatile uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rtos__impl.html#gaf1686d6f4a7e7597e7b12cc2201af39d">Proc2LcdQueueStorageArea</a> [<a class="el" href="group__rtos__impl.html#gga49e4d6ca726500b3304b04a6019ce49fa2e83b113907a846b32d3dd79e6a92535">PROC_2_LCD_LEN</a> *<a class="el" href="group__rtos__impl.html#gga49e4d6ca726500b3304b04a6019ce49fa9e3e48797a114d652ba064b5d97962b8">QUEUE_ITEM_SIZE</a>] = { 0 }</td></tr>
 <tr class="separator:gaf1686d6f4a7e7597e7b12cc2201af39d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3f2052fa7c50f2e1c9953cc76a2c241a" id="r_ga3f2052fa7c50f2e1c9953cc76a2c241a"><td class="memItemLeft" align="right" valign="top"><a id="ga3f2052fa7c50f2e1c9953cc76a2c241a" name="ga3f2052fa7c50f2e1c9953cc76a2c241a"></a>
 static volatile QueueHandle_t&#160;</td><td class="memItemRight" valign="bottom"><b>Qrs2LcdQueue</b> = 0</td></tr>
@@ -254,15 +238,12 @@ static volatile QueueHandle_t&#160;</td><td class="memItemRight" valign="bottom"
 <tr class="memitem:gab84c0a055de1968949d556a66a9484d5" id="r_gab84c0a055de1968949d556a66a9484d5"><td class="memItemLeft" align="right" valign="top"><a id="gab84c0a055de1968949d556a66a9484d5" name="gab84c0a055de1968949d556a66a9484d5"></a>
 static volatile StaticQueue_t&#160;</td><td class="memItemRight" valign="bottom"><b>Qrs2LcdQueueBuffer</b></td></tr>
 <tr class="separator:gab84c0a055de1968949d556a66a9484d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga854f4de2a58a7e25aab747dc4b52fd5e" id="r_ga854f4de2a58a7e25aab747dc4b52fd5e"><td class="memItemLeft" align="right" valign="top"><a id="ga854f4de2a58a7e25aab747dc4b52fd5e" name="ga854f4de2a58a7e25aab747dc4b52fd5e"></a>
-static volatile uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>Qrs2LcdQueueStorageArea</b> [<a class="el" href="group__rtos__impl.html#gga49e4d6ca726500b3304b04a6019ce49fa541940342bdb0465515ad00bfdb4a6a4">QRS_2_LCD_LEN</a> *<a class="el" href="group__rtos__impl.html#gga49e4d6ca726500b3304b04a6019ce49fa9e3e48797a114d652ba064b5d97962b8">QUEUE_ITEM_SIZE</a>] = { 0 }</td></tr>
+<tr class="memitem:ga854f4de2a58a7e25aab747dc4b52fd5e" id="r_ga854f4de2a58a7e25aab747dc4b52fd5e"><td class="memItemLeft" align="right" valign="top">static volatile uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rtos__impl.html#ga854f4de2a58a7e25aab747dc4b52fd5e">Qrs2LcdQueueStorageArea</a> [<a class="el" href="group__rtos__impl.html#gga49e4d6ca726500b3304b04a6019ce49fa541940342bdb0465515ad00bfdb4a6a4">QRS_2_LCD_LEN</a> *<a class="el" href="group__rtos__impl.html#gga49e4d6ca726500b3304b04a6019ce49fa9e3e48797a114d652ba064b5d97962b8">QUEUE_ITEM_SIZE</a>] = { 0 }</td></tr>
 <tr class="separator:ga854f4de2a58a7e25aab747dc4b52fd5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga3faf86ce258f39db0feed5241846dc44" id="r_ga3faf86ce258f39db0feed5241846dc44"><td class="memItemLeft" align="right" valign="top"><a id="ga3faf86ce258f39db0feed5241846dc44" name="ga3faf86ce258f39db0feed5241846dc44"></a>
-static float32_t&#160;</td><td class="memItemRight" valign="bottom"><b>qrsDetectionBuffer</b> [QRS_NUM_SAMP] = { 0 }</td></tr>
-<tr class="memdesc:ga3faf86ce258f39db0feed5241846dc44"><td class="mdescLeft">&#160;</td><td class="mdescRight">input buffer for QRS detection <br /></td></tr>
+<tr class="memitem:ga3faf86ce258f39db0feed5241846dc44" id="r_ga3faf86ce258f39db0feed5241846dc44"><td class="memItemLeft" align="right" valign="top">static float32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rtos__impl.html#ga3faf86ce258f39db0feed5241846dc44">qrsDetectionBuffer</a> [QRS_NUM_SAMP] = { 0 }</td></tr>
+<tr class="memdesc:ga3faf86ce258f39db0feed5241846dc44"><td class="mdescLeft">&#160;</td><td class="mdescRight">input buffer for QRS detection  <br /></td></tr>
 <tr class="separator:ga3faf86ce258f39db0feed5241846dc44"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7770de0f966cc411431ef9efd88dac19" id="r_ga7770de0f966cc411431ef9efd88dac19"><td class="memItemLeft" align="right" valign="top"><a id="ga7770de0f966cc411431ef9efd88dac19" name="ga7770de0f966cc411431ef9efd88dac19"></a>
-static uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>LCD_prevSampleBuffer</b> [LCD_X_MAX] = { 0 }</td></tr>
+<tr class="memitem:ga7770de0f966cc411431ef9efd88dac19" id="r_ga7770de0f966cc411431ef9efd88dac19"><td class="memItemLeft" align="right" valign="top">static uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rtos__impl.html#ga7770de0f966cc411431ef9efd88dac19">LCD_prevSampleBuffer</a> [LCD_X_MAX] = { 0 }</td></tr>
 <tr class="separator:ga7770de0f966cc411431ef9efd88dac19"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaabc00153d9aa219ab1c82807cf6c15ef" id="r_gaabc00153d9aa219ab1c82807cf6c15ef"><td class="memItemLeft" align="right" valign="top"><a id="gaabc00153d9aa219ab1c82807cf6c15ef" name="gaabc00153d9aa219ab1c82807cf6c15ef"></a>
 static volatile UBaseType_t&#160;</td><td class="memItemRight" valign="bottom"><b>numTicks</b> = 0</td></tr>
@@ -294,10 +275,45 @@ static volatile UBaseType_t&#160;</td><td class="memItemRight" valign="bottom"><
 <dd>
 The processing task is resumed.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group__daq.html#ga1d718b59416dc3f6b886f8e8925985ee" title="Initialize the data acquisition (DAQ) module.">DAQ_Init()</a>, <a class="el" href="group__rtos__impl.html#ga69a84b7dee702e06b8a25daf175960fd" title="Task for intermediate processing of the input data.">ProcessingTask()</a> </dd></dl>
-
+<div class="fragment"><div class="line"><span class="lineno">  287</span>                       {</div>
+<div class="line"><span class="lineno">  288</span>    <span class="comment">// read sample and convert to `float32_t`</span></div>
+<div class="line"><span class="lineno">  289</span>    uint16_t rawSample = <a class="code hl_function" href="group__daq.html#gafd2f671cea1ac5b39db136608c614a46" title="Read a sample from the ADC.">DAQ_readSample</a>();</div>
+<div class="line"><span class="lineno">  290</span>    <span class="keyword">volatile</span> float32_t sample = <a class="code hl_function" href="group__daq.html#gab3247b9add055361e5ae8892b7cba861" title="Convert a 12-bit ADC sample to a floating-point voltage value via LUT.">DAQ_convertToMilliVolts</a>(rawSample);</div>
+<div class="line"><span class="lineno">  291</span> </div>
+<div class="line"><span class="lineno">  292</span>    <span class="comment">// send to intermediate processing task</span></div>
+<div class="line"><span class="lineno">  293</span>    BaseType_t status = xQueueSendToBackFromISR(Daq2ProcQueue, &amp;sample, NULL);</div>
+<div class="line"><span class="lineno">  294</span>    <a class="code hl_function" href="group__debug.html#ga73f3f52e28557ffff4596db7b13579b8" title="Stops program if condition is true. Useful for bug detection during debugging.">Debug_Assert</a>(status == pdTRUE);</div>
+<div class="line"><span class="lineno">  295</span> </div>
+<div class="line"><span class="lineno">  296</span>    <span class="comment">// acknowledge interrupt and unsuspend processing task</span></div>
+<div class="line"><span class="lineno">  297</span>    <a class="code hl_function" href="group__daq.html#gaa27c1ef31ec2bfc6c3a01919160324a6" title="Acknowledge the ADC interrupt.">DAQ_acknowledgeInterrupt</a>();</div>
+<div class="line"><span class="lineno">  298</span>    BaseType_t xYieldRequired = xTaskResumeFromISR(ProcessingTaskHandle);</div>
+<div class="line"><span class="lineno">  299</span>    portYIELD_FROM_ISR(xYieldRequired);</div>
+<div class="line"><span class="lineno">  300</span>}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="ga6980ee978a12fa5a5b6c89119741adca" name="ga6980ee978a12fa5a5b6c89119741adca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6980ee978a12fa5a5b6c89119741adca">&#9670;&#160;</a></span>TASK_PRIORITIES</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum TASK_PRIORITIES</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">   59</span>                     {</div>
+<div class="line"><span class="lineno">   60</span>    DAQ_HANDLER_PRI = 1,</div>
+<div class="line"><span class="lineno">   61</span>    PROC_TASK_PRI = 3,</div>
+<div class="line"><span class="lineno">   62</span>    QRS_TASK_PRI = 2,</div>
+<div class="line"><span class="lineno">   63</span>    LCD_WAVEFORM_TASK_PRI = PROC_TASK_PRI,</div>
+<div class="line"><span class="lineno">   64</span>    LCD_HR_TASK_PRI = QRS_TASK_PRI,</div>
+<div class="line"><span class="lineno">   65</span>};</div>
+</div><!-- fragment -->
+</div>
+</div>
 <a id="ga49e4d6ca726500b3304b04a6019ce49f" name="ga49e4d6ca726500b3304b04a6019ce49f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga49e4d6ca726500b3304b04a6019ce49f">&#9670;&#160;</a></span>QUEUE_INFO</h2>
 
@@ -321,7 +337,15 @@ The processing task is resumed.</dd></dl>
 <tr><td class="fieldname"><a id="gga49e4d6ca726500b3304b04a6019ce49fa541940342bdb0465515ad00bfdb4a6a4" name="gga49e4d6ca726500b3304b04a6019ce49fa541940342bdb0465515ad00bfdb4a6a4"></a>QRS_2_LCD_LEN&#160;</td><td class="fielddoc"><p>length of QRS-to-LCD task queue </p>
 </td></tr>
 </table>
-
+<div class="fragment"><div class="line"><span class="lineno">  154</span>                {</div>
+<div class="line"><span class="lineno">  155</span>    <a class="code hl_enumvalue" href="group__rtos__impl.html#gga49e4d6ca726500b3304b04a6019ce49fa9e3e48797a114d652ba064b5d97962b8" title="size in bytes for each queue">QUEUE_ITEM_SIZE</a> = <span class="keyword">sizeof</span>(uint32_t),               </div>
+<div class="line"><span class="lineno">  156</span> </div>
+<div class="line"><span class="lineno">  157</span>    <a class="code hl_enumvalue" href="group__rtos__impl.html#gga49e4d6ca726500b3304b04a6019ce49fa378c0c9aa31a78cea7b8f8dd8c8cbe88" title="length of DAQ-to-Processing task queue">DAQ_2_PROC_LEN</a> = 3,                               </div>
+<div class="line"><span class="lineno">  158</span>    <a class="code hl_enumvalue" href="group__rtos__impl.html#gga49e4d6ca726500b3304b04a6019ce49fa4944e8a4844d27f5b54b6935f7503360" title="length of Processing-to-QRS task queue">PROC_2_QRS_LEN</a> = QRS_NUM_SAMP,                    </div>
+<div class="line"><span class="lineno">  159</span>    <a class="code hl_enumvalue" href="group__rtos__impl.html#gga49e4d6ca726500b3304b04a6019ce49fa2e83b113907a846b32d3dd79e6a92535" title="length of Processing-to-LCD task queue">PROC_2_LCD_LEN</a> = <a class="code hl_enumvalue" href="group__rtos__impl.html#gga49e4d6ca726500b3304b04a6019ce49fa378c0c9aa31a78cea7b8f8dd8c8cbe88" title="length of DAQ-to-Processing task queue">DAQ_2_PROC_LEN</a>,                  </div>
+<div class="line"><span class="lineno">  160</span>    <a class="code hl_enumvalue" href="group__rtos__impl.html#gga49e4d6ca726500b3304b04a6019ce49fa541940342bdb0465515ad00bfdb4a6a4" title="length of QRS-to-LCD task queue">QRS_2_LCD_LEN</a> = 1,                                </div>
+<div class="line"><span class="lineno">  161</span>};</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="gacb915975c73f153d903100564abd605a" name="gacb915975c73f153d903100564abd605a"></a>
@@ -351,7 +375,18 @@ The processing task is resumed.</dd></dl>
 <tr><td class="fieldname"><a id="ggacb915975c73f153d903100564abd605aa385a61585829bc35a9a1515e2c2dbdae" name="ggacb915975c73f153d903100564abd605aa385a61585829bc35a9a1515e2c2dbdae"></a>LCD_TEXT_COL_NUM&#160;</td><td class="fielddoc"><p>starting col. num. for heart rate </p>
 </td></tr>
 </table>
-
+<div class="fragment"><div class="line"><span class="lineno">  186</span>              {</div>
+<div class="line"><span class="lineno">  187</span>    <a class="code hl_enumvalue" href="group__rtos__impl.html#ggacb915975c73f153d903100564abd605aaa1bb82e9676009ad97773ded315055b4" title="separates wavefrom from text">LCD_TOP_LINE</a> = (LCD_Y_MAX - 24),               </div>
+<div class="line"><span class="lineno">  188</span> </div>
+<div class="line"><span class="lineno">  189</span>    <a class="code hl_enumvalue" href="group__rtos__impl.html#ggacb915975c73f153d903100564abd605aad5f85dba13ac0de680a902c19aec3043" title="num. of y-vals available for plotting waveform">LCD_WAVE_NUM_Y</a> = <a class="code hl_enumvalue" href="group__rtos__impl.html#ggacb915975c73f153d903100564abd605aaa1bb82e9676009ad97773ded315055b4" title="separates wavefrom from text">LCD_TOP_LINE</a>,               </div>
+<div class="line"><span class="lineno">  190</span>    <a class="code hl_enumvalue" href="group__rtos__impl.html#ggacb915975c73f153d903100564abd605aa0402b3d8ef1b3beb4810e9362d464ba0" title="waveform&#39;s offset from X axis">LCD_WAVE_X_OFFSET</a> = 0,                       </div>
+<div class="line"><span class="lineno">  191</span>    <a class="code hl_enumvalue" href="group__rtos__impl.html#ggacb915975c73f153d903100564abd605aa24665f4b9ff259bb26cfca35eb4b6d23" title="waveform&#39;s min y-value">LCD_WAVE_Y_MIN</a> = (0 + <a class="code hl_enumvalue" href="group__rtos__impl.html#ggacb915975c73f153d903100564abd605aa0402b3d8ef1b3beb4810e9362d464ba0" title="waveform&#39;s offset from X axis">LCD_WAVE_X_OFFSET</a>),                            </div>
+<div class="line"><span class="lineno">  192</span>    <a class="code hl_enumvalue" href="group__rtos__impl.html#ggacb915975c73f153d903100564abd605aae65d637414fc0a0cee1fc267fa6dc9ba" title="waveform&#39;s max y-value">LCD_WAVE_Y_MAX</a> = (<a class="code hl_enumvalue" href="group__rtos__impl.html#ggacb915975c73f153d903100564abd605aad5f85dba13ac0de680a902c19aec3043" title="num. of y-vals available for plotting waveform">LCD_WAVE_NUM_Y</a> + <a class="code hl_enumvalue" href="group__rtos__impl.html#ggacb915975c73f153d903100564abd605aa0402b3d8ef1b3beb4810e9362d464ba0" title="waveform&#39;s offset from X axis">LCD_WAVE_X_OFFSET</a>),               </div>
+<div class="line"><span class="lineno">  193</span> </div>
+<div class="line"><span class="lineno">  194</span>    <a class="code hl_enumvalue" href="group__rtos__impl.html#ggacb915975c73f153d903100564abd605aa2aff06aa4cd3be40b47557a06ee1eb75" title="line num. of text">LCD_TEXT_LINE_NUM</a> = 28,                                              </div>
+<div class="line"><span class="lineno">  195</span>    <a class="code hl_enumvalue" href="group__rtos__impl.html#ggacb915975c73f153d903100564abd605aa385a61585829bc35a9a1515e2c2dbdae" title="starting col. num. for heart rate">LCD_TEXT_COL_NUM</a> = 24               </div>
+<div class="line"><span class="lineno">  196</span>};</div>
+</div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
@@ -385,7 +420,43 @@ The processing task is resumed.</dd></dl>
 <dd>
 The converted sample is sent to the <a class="el" href="group__rtos__impl.html#gaeeec8990171238bb26d20906bbdf34d8">LcdWaveformTask</a>.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group__rtos__impl.html#ga2b264d5ae9cd53578a6c7b6625b06aa8" title="ISR for the data acquisition system.">Daq_Handler()</a>, <a class="el" href="group__rtos__impl.html#ga39152e23a2dcb771e7af6fdd2c216cb9" title="Task for heart rate calculation via QRS detection.">QrsDetectionTask()</a>, <a class="el" href="group__rtos__impl.html#gaeeec8990171238bb26d20906bbdf34d8" title="Task for plotting the waveform on the LCD.">LcdWaveformTask()</a> </dd></dl>
-
+<div class="fragment"><div class="line"><span class="lineno">  302</span>                                          {</div>
+<div class="line"><span class="lineno">  303</span>    <span class="keywordflow">while</span>(1) {</div>
+<div class="line"><span class="lineno">  304</span>        <span class="keyword">static</span> float32_t sum = 0;</div>
+<div class="line"><span class="lineno">  305</span>        <span class="keyword">static</span> uint32_t N = 0;</div>
+<div class="line"><span class="lineno">  306</span> </div>
+<div class="line"><span class="lineno">  307</span>        <span class="comment">// process sample(s) and place in queues</span></div>
+<div class="line"><span class="lineno">  308</span>        <span class="keywordflow">while</span>(uxQueueMessagesWaiting(Daq2ProcQueue) &gt; 0) {</div>
+<div class="line"><span class="lineno">  309</span>            <span class="keyword">volatile</span> float32_t sample;</div>
+<div class="line"><span class="lineno">  310</span>            xQueueReceive(Daq2ProcQueue, &amp;sample, 0);</div>
+<div class="line"><span class="lineno">  311</span> </div>
+<div class="line"><span class="lineno">  312</span>            <span class="comment">// apply running mean subtraction to remove baseline drift</span></div>
+<div class="line"><span class="lineno">  313</span>            sum += sample;</div>
+<div class="line"><span class="lineno">  314</span>            N += 1;</div>
+<div class="line"><span class="lineno">  315</span>            sample -= sum / ((float32_t) N);</div>
+<div class="line"><span class="lineno">  316</span> </div>
+<div class="line"><span class="lineno">  317</span>            <span class="comment">// apply 60 [Hz] notch filter to remove power line noise</span></div>
+<div class="line"><span class="lineno">  318</span>            sample = <a class="code hl_function" href="group__daq.html#ga6c281c9655bd48e71078f03438e3bb01" title="Apply a 60 [Hz] notch filter to an input sample.">DAQ_NotchFilter</a>(sample);</div>
+<div class="line"><span class="lineno">  319</span> </div>
+<div class="line"><span class="lineno">  320</span>            <span class="comment">// place in queues</span></div>
+<div class="line"><span class="lineno">  321</span>            BaseType_t status;</div>
+<div class="line"><span class="lineno">  322</span> </div>
+<div class="line"><span class="lineno">  323</span>            status = xQueueSendToBack(Proc2QrsQueue, &amp;sample, 0);</div>
+<div class="line"><span class="lineno">  324</span>            <a class="code hl_function" href="group__debug.html#ga73f3f52e28557ffff4596db7b13579b8" title="Stops program if condition is true. Useful for bug detection during debugging.">Debug_Assert</a>(status == pdTRUE);</div>
+<div class="line"><span class="lineno">  325</span> </div>
+<div class="line"><span class="lineno">  326</span>            status = xQueueSendToBack(Proc2LcdQueue, &amp;sample, 0);</div>
+<div class="line"><span class="lineno">  327</span>            <a class="code hl_function" href="group__debug.html#ga73f3f52e28557ffff4596db7b13579b8" title="Stops program if condition is true. Useful for bug detection during debugging.">Debug_Assert</a>(status == pdTRUE);</div>
+<div class="line"><span class="lineno">  328</span>        }</div>
+<div class="line"><span class="lineno">  329</span> </div>
+<div class="line"><span class="lineno">  330</span>        <span class="comment">// activate next task(s) and suspend itself</span></div>
+<div class="line"><span class="lineno">  331</span>        <span class="keywordflow">if</span>(uxQueueSpacesAvailable(Proc2QrsQueue) == pdFALSE) {</div>
+<div class="line"><span class="lineno">  332</span>            vTaskResume(QrsDetectionTaskHandle);</div>
+<div class="line"><span class="lineno">  333</span>        }</div>
+<div class="line"><span class="lineno">  334</span>        vTaskResume(LcdWaveformTaskHandle);</div>
+<div class="line"><span class="lineno">  335</span>        vTaskSuspend(NULL);</div>
+<div class="line"><span class="lineno">  336</span>    }</div>
+<div class="line"><span class="lineno">  337</span>}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="ga39152e23a2dcb771e7af6fdd2c216cb9" name="ga39152e23a2dcb771e7af6fdd2c216cb9"></a>
@@ -416,7 +487,33 @@ The converted sample is sent to the <a class="el" href="group__rtos__impl.html#g
 <p>This task is triggered by the <a class="el" href="group__rtos__impl.html#ga69a84b7dee702e06b8a25daf175960fd">ProcessingTask</a>. It unloads the Proc2QrsQueue within a critical section, performs QRS detection, and then sends the heart rate value to the <a class="el" href="group__rtos__impl.html#ga0d3ec55ff57118cc59671bad7221f83b">LcdHeartRateTask</a>.</p>
 <dl class="section post"><dt>Postcondition</dt><dd>The heart rate value is sent to the <a class="el" href="group__rtos__impl.html#ga0d3ec55ff57118cc59671bad7221f83b">LcdHeartRateTask</a> to be plotted on the display.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group__rtos__impl.html#ga69a84b7dee702e06b8a25daf175960fd" title="Task for intermediate processing of the input data.">ProcessingTask()</a>, <a class="el" href="group__rtos__impl.html#ga0d3ec55ff57118cc59671bad7221f83b" title="Task for outputting the heart rate to the LCD.">LcdHeartRateTask()</a> </dd></dl>
-
+<div class="fragment"><div class="line"><span class="lineno">  339</span>                                            {</div>
+<div class="line"><span class="lineno">  340</span>    <span class="keywordflow">while</span>(1) {</div>
+<div class="line"><span class="lineno">  341</span>        <span class="comment">// flush queue into QRS detection buffer</span></div>
+<div class="line"><span class="lineno">  342</span>        vPortEnterCritical();</div>
+<div class="line"><span class="lineno">  343</span>        <span class="keywordflow">for</span>(uint16_t idx = 0; idx &lt; QRS_NUM_SAMP; idx++) {</div>
+<div class="line"><span class="lineno">  344</span>            xQueueReceive(Proc2QrsQueue, &amp;<a class="code hl_variable" href="group__rtos__impl.html#ga3faf86ce258f39db0feed5241846dc44" title="input buffer for QRS detection">qrsDetectionBuffer</a>[idx], 0);</div>
+<div class="line"><span class="lineno">  345</span>        }</div>
+<div class="line"><span class="lineno">  346</span>        vPortExitCritical();</div>
+<div class="line"><span class="lineno">  347</span> </div>
+<div class="line"><span class="lineno">  348</span>        <span class="comment">// Run QRS detection</span></div>
+<div class="line"><span class="lineno">  349</span>        <a class="code hl_function" href="group__debug.html#ga4454c84f101ce12e4f4d485cbe5416ad" title="Send a message to the serial port.">Debug_SendMsg</a>(<span class="stringliteral">&quot;Starting QRS detection...\r\n&quot;</span>);</div>
+<div class="line"><span class="lineno">  350</span> </div>
+<div class="line"><span class="lineno">  351</span>        <a class="code hl_function" href="group__qrs.html#ga23e7aac4cbf3423df23afce8a43de44d" title="Preprocess the ECG data to remove noise and/or exaggerate the signal characteristic(s) of interest.">QRS_Preprocess</a>(<a class="code hl_variable" href="group__rtos__impl.html#ga3faf86ce258f39db0feed5241846dc44" title="input buffer for QRS detection">qrsDetectionBuffer</a>, <a class="code hl_variable" href="group__rtos__impl.html#ga3faf86ce258f39db0feed5241846dc44" title="input buffer for QRS detection">qrsDetectionBuffer</a>);</div>
+<div class="line"><span class="lineno">  352</span>        float32_t heartRate_bpm = <a class="code hl_function" href="group__qrs.html#ga189dec78669b6441ec04fc100f16b8fc" title="Calculate the average heart rate (HR) using predetermined decision rules.">QRS_applyDecisionRules</a>(<a class="code hl_variable" href="group__rtos__impl.html#ga3faf86ce258f39db0feed5241846dc44" title="input buffer for QRS detection">qrsDetectionBuffer</a>);</div>
+<div class="line"><span class="lineno">  353</span>        <a class="code hl_function" href="group__debug.html#ga73f3f52e28557ffff4596db7b13579b8" title="Stops program if condition is true. Useful for bug detection during debugging.">Debug_Assert</a>(isfinite(heartRate_bpm));</div>
+<div class="line"><span class="lineno">  354</span> </div>
+<div class="line"><span class="lineno">  355</span>        <span class="comment">// Output heart rate to serial port</span></div>
+<div class="line"><span class="lineno">  356</span>        <a class="code hl_function" href="group__debug.html#gaa11645a0bee9501f3d74367ff1a5d09f" title="Write a floating-point value to the serial port.">Debug_WriteFloat</a>(heartRate_bpm);</div>
+<div class="line"><span class="lineno">  357</span> </div>
+<div class="line"><span class="lineno">  358</span>        <span class="comment">// Output heart rate to LCD</span></div>
+<div class="line"><span class="lineno">  359</span>        xQueueSendToBack(Qrs2LcdQueue, &amp;heartRate_bpm, 0);</div>
+<div class="line"><span class="lineno">  360</span>        vTaskResume(LcdHeartRateTaskHandle);</div>
+<div class="line"><span class="lineno">  361</span> </div>
+<div class="line"><span class="lineno">  362</span>        vTaskSuspend(NULL);</div>
+<div class="line"><span class="lineno">  363</span>    }</div>
+<div class="line"><span class="lineno">  364</span>}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="gaeeec8990171238bb26d20906bbdf34d8" name="gaeeec8990171238bb26d20906bbdf34d8"></a>
@@ -448,7 +545,33 @@ The converted sample is sent to the <a class="el" href="group__rtos__impl.html#g
 <dl class="section pre"><dt>Precondition</dt><dd>Initialize the LCD module. </dd></dl>
 <dl class="section post"><dt>Postcondition</dt><dd>The bandpass-filtered sample is plotted to the LCD.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group__lcd.html#gaa53c9d40f3aa552a9974cd55ac510cb3" title="Initialize the LCD.">LCD_Init()</a>, <a class="el" href="group__rtos__impl.html#ga69a84b7dee702e06b8a25daf175960fd" title="Task for intermediate processing of the input data.">ProcessingTask()</a> </dd></dl>
-
+<div class="fragment"><div class="line"><span class="lineno">  366</span>                                           {</div>
+<div class="line"><span class="lineno">  367</span>    <span class="keywordflow">while</span>(1) {</div>
+<div class="line"><span class="lineno">  368</span>        <span class="keyword">static</span> uint16_t x = 0;</div>
+<div class="line"><span class="lineno">  369</span>        <span class="keyword">static</span> <span class="keyword">const</span> float32_t maxVal = <a class="code hl_define" href="group__daq.html#gafce256bc3a685807bf3bda6a48ada170" title="maximum lookup table value">DAQ_LOOKUP_MAX</a> * 2;</div>
+<div class="line"><span class="lineno">  370</span> </div>
+<div class="line"><span class="lineno">  371</span>        <span class="keywordflow">while</span>(uxQueueMessagesWaiting(Proc2LcdQueue) &gt; 0) {</div>
+<div class="line"><span class="lineno">  372</span>            float32_t sample;</div>
+<div class="line"><span class="lineno">  373</span>            xQueueReceive(Proc2LcdQueue, &amp;sample, 0);</div>
+<div class="line"><span class="lineno">  374</span>            sample = <a class="code hl_function" href="group__daq.html#ga35ff46e91eea5df8ef60023803f63bda" title="Apply a 0.5-40 [Hz] bandpass filter to an input sample.">DAQ_BandpassFilter</a>(sample);</div>
+<div class="line"><span class="lineno">  375</span> </div>
+<div class="line"><span class="lineno">  376</span>            <span class="comment">// remove previous y-value from LCD</span></div>
+<div class="line"><span class="lineno">  377</span>            uint16_t y = LCD_prevSampleBuffer[x];</div>
+<div class="line"><span class="lineno">  378</span>            <a class="code hl_function" href="group__lcd.html#ga7083e0c0d2ef4ae2b9d8fe1b4c6dcdcd" title="Plot a sample at coordinates (x, y).">LCD_plotSample</a>(x, y, LCD_BLACK);</div>
+<div class="line"><span class="lineno">  379</span> </div>
+<div class="line"><span class="lineno">  380</span>            <span class="comment">// shift/scale `sample` from (est.) range [-11, 11) to [LCD_WAVE_Y_MIN, LCD_WAVE_Y_MAX)</span></div>
+<div class="line"><span class="lineno">  381</span>            y = <a class="code hl_enumvalue" href="group__rtos__impl.html#ggacb915975c73f153d903100564abd605aa24665f4b9ff259bb26cfca35eb4b6d23" title="waveform&#39;s min y-value">LCD_WAVE_Y_MIN</a> + ((uint16_t) (((sample + maxVal) / (maxVal * 2)) * <a class="code hl_enumvalue" href="group__rtos__impl.html#ggacb915975c73f153d903100564abd605aae65d637414fc0a0cee1fc267fa6dc9ba" title="waveform&#39;s max y-value">LCD_WAVE_Y_MAX</a>));</div>
+<div class="line"><span class="lineno">  382</span>            <a class="code hl_function" href="group__lcd.html#ga7083e0c0d2ef4ae2b9d8fe1b4c6dcdcd" title="Plot a sample at coordinates (x, y).">LCD_plotSample</a>(x, y, LCD_RED);</div>
+<div class="line"><span class="lineno">  383</span> </div>
+<div class="line"><span class="lineno">  384</span>            <span class="comment">// store y-value and update x</span></div>
+<div class="line"><span class="lineno">  385</span>            LCD_prevSampleBuffer[x] = y;</div>
+<div class="line"><span class="lineno">  386</span>            x = (x + 1) % LCD_X_MAX;</div>
+<div class="line"><span class="lineno">  387</span>        }</div>
+<div class="line"><span class="lineno">  388</span> </div>
+<div class="line"><span class="lineno">  389</span>        vTaskSuspend(NULL);</div>
+<div class="line"><span class="lineno">  390</span>    }</div>
+<div class="line"><span class="lineno">  391</span>}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="ga0d3ec55ff57118cc59671bad7221f83b" name="ga0d3ec55ff57118cc59671bad7221f83b"></a>
@@ -480,7 +603,524 @@ The converted sample is sent to the <a class="el" href="group__rtos__impl.html#g
 <dl class="section pre"><dt>Precondition</dt><dd>Initialize the LCD module. </dd></dl>
 <dl class="section post"><dt>Postcondition</dt><dd>The heart rate is updated after each block is analyzed.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group__lcd.html#gaa53c9d40f3aa552a9974cd55ac510cb3" title="Initialize the LCD.">LCD_Init()</a>, <a class="el" href="group__rtos__impl.html#ga39152e23a2dcb771e7af6fdd2c216cb9" title="Task for heart rate calculation via QRS detection.">QrsDetectionTask()</a> </dd></dl>
+<div class="fragment"><div class="line"><span class="lineno">  393</span>                                            {</div>
+<div class="line"><span class="lineno">  394</span>    <span class="keywordflow">while</span>(1) {</div>
+<div class="line"><span class="lineno">  395</span>        <span class="keyword">volatile</span> float32_t heartRate_bpm;</div>
+<div class="line"><span class="lineno">  396</span>        xQueueReceive(Qrs2LcdQueue, &amp;heartRate_bpm, 0);</div>
+<div class="line"><span class="lineno">  397</span> </div>
+<div class="line"><span class="lineno">  398</span>        <a class="code hl_function" href="group__lcd.html#ga57ddc181b0786fe5c1de439c4eb66a4c" title="Set the cursor to line x, column y.">LCD_setCursor</a>(<a class="code hl_enumvalue" href="group__rtos__impl.html#ggacb915975c73f153d903100564abd605aa2aff06aa4cd3be40b47557a06ee1eb75" title="line num. of text">LCD_TEXT_LINE_NUM</a>, <a class="code hl_enumvalue" href="group__rtos__impl.html#ggacb915975c73f153d903100564abd605aa385a61585829bc35a9a1515e2c2dbdae" title="starting col. num. for heart rate">LCD_TEXT_COL_NUM</a>);</div>
+<div class="line"><span class="lineno">  399</span>        LCD_writeFloat(heartRate_bpm);</div>
+<div class="line"><span class="lineno">  400</span> </div>
+<div class="line"><span class="lineno">  401</span>        vTaskSuspend(NULL);</div>
+<div class="line"><span class="lineno">  402</span>    }</div>
+<div class="line"><span class="lineno">  403</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ga840291bc02cba5474a4cb46a9b9566fe" name="ga840291bc02cba5474a4cb46a9b9566fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga840291bc02cba5474a4cb46a9b9566fe">&#9670;&#160;</a></span>main()</h2>
 
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int main </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  204</span>               {</div>
+<div class="line"><span class="lineno">  205</span>    <span class="keyword">static</span> GpioPort_t portA = 0;</div>
+<div class="line"><span class="lineno">  206</span>    <span class="keyword">static</span> Uart_t uart0 = 0;</div>
+<div class="line"><span class="lineno">  207</span> </div>
+<div class="line"><span class="lineno">  208</span>    <a class="code hl_function" href="group__pll.html#ga53f1e60b4a581dabc1a6fd9447a3eb15" title="Initialize the phase-locked-loop to change the bus frequency.">PLL_Init</a>();</div>
+<div class="line"><span class="lineno">  209</span> </div>
+<div class="line"><span class="lineno">  210</span>    <span class="comment">// Init. debug module</span></div>
+<div class="line"><span class="lineno">  211</span>    portA = <a class="code hl_function" href="group__gpio.html#ga08dc5447832fe78e237240adfc3ad12e" title="Initialize a GPIO Port and return a pointer to its struct.">GPIO_InitPort</a>(GPIO_PORT_A);</div>
+<div class="line"><span class="lineno">  212</span>    uart0 = <a class="code hl_function" href="group__uart.html#gab13890d58fe68c4dd80f64e6dba54f66" title="Initialize the specified UART peripheral.">UART_Init</a>(portA, UART0);</div>
+<div class="line"><span class="lineno">  213</span>    <a class="code hl_function" href="group__debug.html#ga9e063501839d003061cfd09ed4d2fdfa" title="Initialize the Debug module.">Debug_Init</a>(uart0);</div>
+<div class="line"><span class="lineno">  214</span> </div>
+<div class="line"><span class="lineno">  215</span>    <span class="comment">// Init./config. LCD</span></div>
+<div class="line"><span class="lineno">  216</span>    <a class="code hl_function" href="group__lcd.html#gaa53c9d40f3aa552a9974cd55ac510cb3" title="Initialize the LCD.">LCD_Init</a>();</div>
+<div class="line"><span class="lineno">  217</span>    <a class="code hl_function" href="group__lcd.html#ga6ed60bd705f235e845e5c65507862b25" title="Toggle display output ON or OFF (OFF by default).">LCD_setOutputMode</a>(<span class="keyword">false</span>);</div>
+<div class="line"><span class="lineno">  218</span> </div>
+<div class="line"><span class="lineno">  219</span>    <a class="code hl_function" href="group__lcd.html#ga0144733d5f74031c48da53d3eb5fb551" title="Set the color value.">LCD_setColor</a>(LCD_WHITE);</div>
+<div class="line"><span class="lineno">  220</span>    <a class="code hl_function" href="group__lcd.html#gae5f784971170ce8fa66deddb1ad33991" title="Draw a horizontal line across the entire display.">LCD_drawHoriLine</a>(<a class="code hl_enumvalue" href="group__rtos__impl.html#ggacb915975c73f153d903100564abd605aaa1bb82e9676009ad97773ded315055b4" title="separates wavefrom from text">LCD_TOP_LINE</a>, 1);</div>
+<div class="line"><span class="lineno">  221</span> </div>
+<div class="line"><span class="lineno">  222</span>    <a class="code hl_function" href="group__lcd.html#ga0144733d5f74031c48da53d3eb5fb551" title="Set the color value.">LCD_setColor</a>(LCD_RED);</div>
+<div class="line"><span class="lineno">  223</span>    <a class="code hl_function" href="group__lcd.html#ga57ddc181b0786fe5c1de439c4eb66a4c" title="Set the cursor to line x, column y.">LCD_setCursor</a>(<a class="code hl_enumvalue" href="group__rtos__impl.html#ggacb915975c73f153d903100564abd605aa2aff06aa4cd3be40b47557a06ee1eb75" title="line num. of text">LCD_TEXT_LINE_NUM</a>, 0);</div>
+<div class="line"><span class="lineno">  224</span>    LCD_writeStr(<span class="stringliteral">&quot;Heart Rate:      bpm&quot;</span>);</div>
+<div class="line"><span class="lineno">  225</span> </div>
+<div class="line"><span class="lineno">  226</span>    <a class="code hl_function" href="group__lcd.html#ga6ed60bd705f235e845e5c65507862b25" title="Toggle display output ON or OFF (OFF by default).">LCD_setOutputMode</a>(<span class="keyword">true</span>);</div>
+<div class="line"><span class="lineno">  227</span> </div>
+<div class="line"><span class="lineno">  228</span>    <a class="code hl_function" href="group__debug.html#ga1d61d286494b31c9564310305f006d8c" title="Send a message from the message list.">Debug_SendFromList</a>(DEBUG_LCD_INIT);</div>
+<div class="line"><span class="lineno">  229</span> </div>
+<div class="line"><span class="lineno">  230</span>    <span class="comment">// Init. other app. modules</span></div>
+<div class="line"><span class="lineno">  231</span>    <a class="code hl_function" href="group__qrs.html#ga66b93594125ecb89623cf21c02ae6621" title="Initialize the QRS detector.">QRS_Init</a>();</div>
+<div class="line"><span class="lineno">  232</span>    <a class="code hl_function" href="group__debug.html#ga1d61d286494b31c9564310305f006d8c" title="Send a message from the message list.">Debug_SendFromList</a>(DEBUG_QRS_INIT);</div>
+<div class="line"><span class="lineno">  233</span> </div>
+<div class="line"><span class="lineno">  234</span>    <a class="code hl_function" href="group__daq.html#ga1d718b59416dc3f6b886f8e8925985ee" title="Initialize the data acquisition (DAQ) module.">DAQ_Init</a>();</div>
+<div class="line"><span class="lineno">  235</span>    <a class="code hl_function" href="group__debug.html#ga1d61d286494b31c9564310305f006d8c" title="Send a message from the message list.">Debug_SendFromList</a>(DEBUG_DAQ_INIT);</div>
+<div class="line"><span class="lineno">  236</span> </div>
+<div class="line"><span class="lineno">  237</span>    <span class="comment">// Init. DAQ ISR</span></div>
+<div class="line"><span class="lineno">  238</span>    <a class="code hl_function" href="group__isr.html#ga23a5ef027b6d1b3aeac0a98b611fca0c" title="Disable all interrupts globally.">ISR_GlobalDisable</a>();</div>
+<div class="line"><span class="lineno">  239</span>    <a class="code hl_function" href="group__isr.html#ga11659defe8dcb444a43fd6868dc85192" title="Set the priority for an interrupt.">ISR_setPriority</a>(DAQ_VECTOR_NUM, DAQ_HANDLER_PRI);</div>
+<div class="line"><span class="lineno">  240</span>    <a class="code hl_function" href="group__isr.html#ga3d747d4c00d6bd2baf42e4a5efc1c6b7" title="Enable an interrupt in the NVIC.">ISR_Enable</a>(DAQ_VECTOR_NUM);</div>
+<div class="line"><span class="lineno">  241</span>    <a class="code hl_function" href="group__isr.html#gaa18a80bd0870828cb40c0bf26faee065" title="Enable all interrupts globally.">ISR_GlobalEnable</a>();</div>
+<div class="line"><span class="lineno">  242</span> </div>
+<div class="line"><span class="lineno">  243</span>    <span class="comment">// Init. queues and add them to registry for debugging</span></div>
+<div class="line"><span class="lineno">  244</span>    Daq2ProcQueue = xQueueCreateStatic(<a class="code hl_enumvalue" href="group__rtos__impl.html#gga49e4d6ca726500b3304b04a6019ce49fa378c0c9aa31a78cea7b8f8dd8c8cbe88" title="length of DAQ-to-Processing task queue">DAQ_2_PROC_LEN</a>, <a class="code hl_enumvalue" href="group__rtos__impl.html#gga49e4d6ca726500b3304b04a6019ce49fa9e3e48797a114d652ba064b5d97962b8" title="size in bytes for each queue">QUEUE_ITEM_SIZE</a>, Daq2ProcQueueStorageArea,</div>
+<div class="line"><span class="lineno">  245</span>                                       &amp;Daq2ProcQueueBuffer);</div>
+<div class="line"><span class="lineno">  246</span>    Proc2QrsQueue = xQueueCreateStatic(<a class="code hl_enumvalue" href="group__rtos__impl.html#gga49e4d6ca726500b3304b04a6019ce49fa4944e8a4844d27f5b54b6935f7503360" title="length of Processing-to-QRS task queue">PROC_2_QRS_LEN</a>, <a class="code hl_enumvalue" href="group__rtos__impl.html#gga49e4d6ca726500b3304b04a6019ce49fa9e3e48797a114d652ba064b5d97962b8" title="size in bytes for each queue">QUEUE_ITEM_SIZE</a>, Proc2QrsQueueStorageArea,</div>
+<div class="line"><span class="lineno">  247</span>                                       &amp;Proc2QrsQueueBuffer);</div>
+<div class="line"><span class="lineno">  248</span>    Proc2LcdQueue = xQueueCreateStatic(<a class="code hl_enumvalue" href="group__rtos__impl.html#gga49e4d6ca726500b3304b04a6019ce49fa2e83b113907a846b32d3dd79e6a92535" title="length of Processing-to-LCD task queue">PROC_2_LCD_LEN</a>, <a class="code hl_enumvalue" href="group__rtos__impl.html#gga49e4d6ca726500b3304b04a6019ce49fa9e3e48797a114d652ba064b5d97962b8" title="size in bytes for each queue">QUEUE_ITEM_SIZE</a>, Proc2LcdQueueStorageArea,</div>
+<div class="line"><span class="lineno">  249</span>                                       &amp;Proc2LcdQueueBuffer);</div>
+<div class="line"><span class="lineno">  250</span>    Qrs2LcdQueue = xQueueCreateStatic(<a class="code hl_enumvalue" href="group__rtos__impl.html#gga49e4d6ca726500b3304b04a6019ce49fa541940342bdb0465515ad00bfdb4a6a4" title="length of QRS-to-LCD task queue">QRS_2_LCD_LEN</a>, <a class="code hl_enumvalue" href="group__rtos__impl.html#gga49e4d6ca726500b3304b04a6019ce49fa9e3e48797a114d652ba064b5d97962b8" title="size in bytes for each queue">QUEUE_ITEM_SIZE</a>, Qrs2LcdQueueStorageArea,</div>
+<div class="line"><span class="lineno">  251</span>                                      &amp;Qrs2LcdQueueBuffer);</div>
+<div class="line"><span class="lineno">  252</span> </div>
+<div class="line"><span class="lineno">  253</span>    <span class="comment">// Init. tasks and start scheduler</span></div>
+<div class="line"><span class="lineno">  254</span>    ProcessingTaskHandle =</div>
+<div class="line"><span class="lineno">  255</span>        xTaskCreateStatic(<a class="code hl_function" href="group__rtos__impl.html#ga69a84b7dee702e06b8a25daf175960fd" title="Task for intermediate processing of the input data.">ProcessingTask</a>, <span class="stringliteral">&quot;Intermediate Processing&quot;</span>, STACK_SIZE, NULL,</div>
+<div class="line"><span class="lineno">  256</span>                          PROC_TASK_PRI, ProcessingStack, &amp;ProcessingTaskBuffer);</div>
+<div class="line"><span class="lineno">  257</span>    vTaskSuspend(ProcessingTaskHandle);</div>
+<div class="line"><span class="lineno">  258</span> </div>
+<div class="line"><span class="lineno">  259</span>    QrsDetectionTaskHandle =</div>
+<div class="line"><span class="lineno">  260</span>        xTaskCreateStatic(<a class="code hl_function" href="group__rtos__impl.html#ga39152e23a2dcb771e7af6fdd2c216cb9" title="Task for heart rate calculation via QRS detection.">QrsDetectionTask</a>, <span class="stringliteral">&quot;QRS Detection&quot;</span>, STACK_SIZE, NULL, QRS_TASK_PRI,</div>
+<div class="line"><span class="lineno">  261</span>                          QrsDetectionStack, &amp;QrsDetectionTaskBuffer);</div>
+<div class="line"><span class="lineno">  262</span>    vTaskSuspend(QrsDetectionTaskHandle);</div>
+<div class="line"><span class="lineno">  263</span> </div>
+<div class="line"><span class="lineno">  264</span>    LcdWaveformTaskHandle =</div>
+<div class="line"><span class="lineno">  265</span>        xTaskCreateStatic(<a class="code hl_function" href="group__rtos__impl.html#gaeeec8990171238bb26d20906bbdf34d8" title="Task for plotting the waveform on the LCD.">LcdWaveformTask</a>, <span class="stringliteral">&quot;LCD (Waveform)&quot;</span>, STACK_SIZE, NULL,</div>
+<div class="line"><span class="lineno">  266</span>                          LCD_WAVEFORM_TASK_PRI, LcdWaveformStack, &amp;LcdWaveformTaskBuffer);</div>
+<div class="line"><span class="lineno">  267</span>    vTaskSuspend(LcdWaveformTaskHandle);</div>
+<div class="line"><span class="lineno">  268</span> </div>
+<div class="line"><span class="lineno">  269</span>    LcdHeartRateTaskHandle =</div>
+<div class="line"><span class="lineno">  270</span>        xTaskCreateStatic(<a class="code hl_function" href="group__rtos__impl.html#ga0d3ec55ff57118cc59671bad7221f83b" title="Task for outputting the heart rate to the LCD.">LcdHeartRateTask</a>, <span class="stringliteral">&quot;LCD (Heart Rate)&quot;</span>, STACK_SIZE, NULL, LCD_HR_TASK_PRI,</div>
+<div class="line"><span class="lineno">  271</span>                          LcdHeartRateStack, &amp;LcdHeartRateTaskBuffer);</div>
+<div class="line"><span class="lineno">  272</span>    vTaskSuspend(LcdHeartRateTaskHandle);</div>
+<div class="line"><span class="lineno">  273</span> </div>
+<div class="line"><span class="lineno">  274</span>    vTaskStartScheduler();</div>
+<div class="line"><span class="lineno">  275</span>    <span class="keywordflow">while</span>(1) {}</div>
+<div class="line"><span class="lineno">  276</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ga9ca051aa77e17583aa5a85d5de5c199a" name="ga9ca051aa77e17583aa5a85d5de5c199a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9ca051aa77e17583aa5a85d5de5c199a">&#9670;&#160;</a></span>vApplicationTickHook()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void vApplicationTickHook </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  283</span>                                {</div>
+<div class="line"><span class="lineno">  284</span>    numTicks += 1;</div>
+<div class="line"><span class="lineno">  285</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="ga869e105d14dccaede4b65ddb96020708" name="ga869e105d14dccaede4b65ddb96020708"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga869e105d14dccaede4b65ddb96020708">&#9670;&#160;</a></span>ProcessingStack</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">StackType_t ProcessingStack[STACK_SIZE] = { 0 }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">   68</span>{ 0 };</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="gafde8214e90ba0288356c67de8ce6489b" name="gafde8214e90ba0288356c67de8ce6489b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gafde8214e90ba0288356c67de8ce6489b">&#9670;&#160;</a></span>ProcessingTaskBuffer</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">StaticTask_t ProcessingTaskBuffer = { 0 }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">   69</span>{ 0 };</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="gab5004dcb29a636e59daafb074b1431fb" name="gab5004dcb29a636e59daafb074b1431fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab5004dcb29a636e59daafb074b1431fb">&#9670;&#160;</a></span>QrsDetectionStack</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">StackType_t QrsDetectionStack[STACK_SIZE] = { 0 }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">   72</span>{ 0 };</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="gabc3d5df1d56a4e7da4a10bb7ab9be86d" name="gabc3d5df1d56a4e7da4a10bb7ab9be86d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gabc3d5df1d56a4e7da4a10bb7ab9be86d">&#9670;&#160;</a></span>QrsDetectionTaskBuffer</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">StaticTask_t QrsDetectionTaskBuffer = { 0 }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">   73</span>{ 0 };</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ga474c3e5a10c596a77eebe27075b11fb5" name="ga474c3e5a10c596a77eebe27075b11fb5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga474c3e5a10c596a77eebe27075b11fb5">&#9670;&#160;</a></span>LcdWaveformStack</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">StackType_t LcdWaveformStack[STACK_SIZE] = { 0 }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">   76</span>{ 0 };</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="gae8de334f227cd8c670976824df9ceaec" name="gae8de334f227cd8c670976824df9ceaec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae8de334f227cd8c670976824df9ceaec">&#9670;&#160;</a></span>LcdWaveformTaskBuffer</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">StaticTask_t LcdWaveformTaskBuffer = { 0 }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">   77</span>{ 0 };</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="gae29c8debefb0c2dfed854c110e072737" name="gae29c8debefb0c2dfed854c110e072737"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae29c8debefb0c2dfed854c110e072737">&#9670;&#160;</a></span>LcdHeartRateStack</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">StackType_t LcdHeartRateStack[STACK_SIZE] = { 0 }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">   80</span>{ 0 };</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ga88d51e08264bcb88b3f771138d186abe" name="ga88d51e08264bcb88b3f771138d186abe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga88d51e08264bcb88b3f771138d186abe">&#9670;&#160;</a></span>LcdHeartRateTaskBuffer</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">StaticTask_t LcdHeartRateTaskBuffer = { 0 }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">   81</span>{ 0 };</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="gae3550d8374e6566a467b13eae2e744be" name="gae3550d8374e6566a467b13eae2e744be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae3550d8374e6566a467b13eae2e744be">&#9670;&#160;</a></span>Daq2ProcQueueBuffer</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile StaticQueue_t Daq2ProcQueueBuffer = { 0 }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  164</span>{ 0 };</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ga3064cf2f37a180403323446c693f527c" name="ga3064cf2f37a180403323446c693f527c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3064cf2f37a180403323446c693f527c">&#9670;&#160;</a></span>Daq2ProcQueueStorageArea</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile uint8_t Daq2ProcQueueStorageArea[<a class="el" href="group__rtos__impl.html#gga49e4d6ca726500b3304b04a6019ce49fa378c0c9aa31a78cea7b8f8dd8c8cbe88">DAQ_2_PROC_LEN</a> *<a class="el" href="group__rtos__impl.html#gga49e4d6ca726500b3304b04a6019ce49fa9e3e48797a114d652ba064b5d97962b8">QUEUE_ITEM_SIZE</a>] = { 0 }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  165</span>{ 0 };</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ga4fdc14cb2b8d91223e4a92e754e985e8" name="ga4fdc14cb2b8d91223e4a92e754e985e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4fdc14cb2b8d91223e4a92e754e985e8">&#9670;&#160;</a></span>Proc2QrsQueueBuffer</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile StaticQueue_t Proc2QrsQueueBuffer = { 0 }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  168</span>{ 0 };</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ga2f76757cde83f9ceaee4898dfc4edef7" name="ga2f76757cde83f9ceaee4898dfc4edef7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2f76757cde83f9ceaee4898dfc4edef7">&#9670;&#160;</a></span>Proc2QrsQueueStorageArea</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile uint8_t Proc2QrsQueueStorageArea[<a class="el" href="group__rtos__impl.html#gga49e4d6ca726500b3304b04a6019ce49fa4944e8a4844d27f5b54b6935f7503360">PROC_2_QRS_LEN</a> *<a class="el" href="group__rtos__impl.html#gga49e4d6ca726500b3304b04a6019ce49fa9e3e48797a114d652ba064b5d97962b8">QUEUE_ITEM_SIZE</a>] = { 0 }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  169</span>{ 0 };</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ga486d8e6ab6b3cd08c7d5d74b69a1c822" name="ga486d8e6ab6b3cd08c7d5d74b69a1c822"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga486d8e6ab6b3cd08c7d5d74b69a1c822">&#9670;&#160;</a></span>Proc2LcdQueueBuffer</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile StaticQueue_t Proc2LcdQueueBuffer = { 0 }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  172</span>{ 0 };</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="gaf1686d6f4a7e7597e7b12cc2201af39d" name="gaf1686d6f4a7e7597e7b12cc2201af39d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf1686d6f4a7e7597e7b12cc2201af39d">&#9670;&#160;</a></span>Proc2LcdQueueStorageArea</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile uint8_t Proc2LcdQueueStorageArea[<a class="el" href="group__rtos__impl.html#gga49e4d6ca726500b3304b04a6019ce49fa2e83b113907a846b32d3dd79e6a92535">PROC_2_LCD_LEN</a> *<a class="el" href="group__rtos__impl.html#gga49e4d6ca726500b3304b04a6019ce49fa9e3e48797a114d652ba064b5d97962b8">QUEUE_ITEM_SIZE</a>] = { 0 }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  173</span>{ 0 };</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ga854f4de2a58a7e25aab747dc4b52fd5e" name="ga854f4de2a58a7e25aab747dc4b52fd5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga854f4de2a58a7e25aab747dc4b52fd5e">&#9670;&#160;</a></span>Qrs2LcdQueueStorageArea</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile uint8_t Qrs2LcdQueueStorageArea[<a class="el" href="group__rtos__impl.html#gga49e4d6ca726500b3304b04a6019ce49fa541940342bdb0465515ad00bfdb4a6a4">QRS_2_LCD_LEN</a> *<a class="el" href="group__rtos__impl.html#gga49e4d6ca726500b3304b04a6019ce49fa9e3e48797a114d652ba064b5d97962b8">QUEUE_ITEM_SIZE</a>] = { 0 }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  177</span>{ 0 };</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ga3faf86ce258f39db0feed5241846dc44" name="ga3faf86ce258f39db0feed5241846dc44"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3faf86ce258f39db0feed5241846dc44">&#9670;&#160;</a></span>qrsDetectionBuffer</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float32_t qrsDetectionBuffer[QRS_NUM_SAMP] = { 0 }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>input buffer for QRS detection </p>
+<div class="fragment"><div class="line"><span class="lineno">  184</span>{ 0 };</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ga7770de0f966cc411431ef9efd88dac19" name="ga7770de0f966cc411431ef9efd88dac19"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7770de0f966cc411431ef9efd88dac19">&#9670;&#160;</a></span>LCD_prevSampleBuffer</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t LCD_prevSampleBuffer[LCD_X_MAX] = { 0 }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  198</span>{ 0 };</div>
+</div><!-- fragment -->
 </div>
 </div>
 </div><!-- contents -->

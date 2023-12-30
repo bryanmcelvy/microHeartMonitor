@@ -122,7 +122,7 @@ static Uart_t&#160;</td><td class="memItemRight" valign="bottom"><b>debugUart</b
 <tr class="separator:ga47aea52f8d3646b1e17bef139ce8ec23"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader">Serial Output</h2></td></tr>
-<tr class="memitem:ga6a08abd695884a7804da8ecc8e00d801" id="r_ga6a08abd695884a7804da8ecc8e00d801"><td class="memItemLeft" align="right" valign="top"><a id="ga6a08abd695884a7804da8ecc8e00d801" name="ga6a08abd695884a7804da8ecc8e00d801"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>Msg_t</b> { <b>DEBUG_DAQ_INIT</b>
+<tr class="memitem:ga6a08abd695884a7804da8ecc8e00d801" id="r_ga6a08abd695884a7804da8ecc8e00d801"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><b>Msg_t</b> { <b>DEBUG_DAQ_INIT</b>
 , <b>DEBUG_QRS_INIT</b>
 , <b>DEBUG_LCD_INIT</b>
 , <b>DEBUG_QRS_START</b>
@@ -150,6 +150,27 @@ static Uart_t&#160;</td><td class="memItemRight" valign="bottom"><b>debugUart</b
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Module for debugging functions, including serial output and assertions. </p>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="ga6a08abd695884a7804da8ecc8e00d801" name="ga6a08abd695884a7804da8ecc8e00d801"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6a08abd695884a7804da8ecc8e00d801">&#9670;&#160;</a></span>Msg_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum Msg_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">   59</span>             {</div>
+<div class="line"><span class="lineno">   60</span>    DEBUG_DAQ_INIT,</div>
+<div class="line"><span class="lineno">   61</span>    DEBUG_QRS_INIT,</div>
+<div class="line"><span class="lineno">   62</span>    DEBUG_LCD_INIT,</div>
+<div class="line"><span class="lineno">   63</span>    DEBUG_QRS_START</div>
+<div class="line"><span class="lineno">   64</span>} Msg_t;</div>
+</div><!-- fragment -->
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="ga9e063501839d003061cfd09ed4d2fdfa" name="ga9e063501839d003061cfd09ed4d2fdfa"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga9e063501839d003061cfd09ed4d2fdfa">&#9670;&#160;</a></span>Debug_Init()</h2>
@@ -177,7 +198,16 @@ static Uart_t&#160;</td><td class="memItemRight" valign="bottom"><b>debugUart</b
 </dl>
 <dl class="section post"><dt>Postcondition</dt><dd>An initialization message is sent to the serial port.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group__uart.html#gab13890d58fe68c4dd80f64e6dba54f66" title="Initialize the specified UART peripheral.">UART_Init()</a> </dd></dl>
-
+<div class="fragment"><div class="line"><span class="lineno">   24</span>                             {</div>
+<div class="line"><span class="lineno">   25</span>    <a class="code hl_function" href="group__common.html#gaba660db7260350c29c3fd3dc9af35556" title="Custom assert implementation that is more lightweight than the one from newlib.">assert</a>(<a class="code hl_function" href="group__uart.html#ga3630497eb4a7aebac65927777d338e58" title="Check if the UART object is initialized.">UART_isInit</a>(uart));</div>
+<div class="line"><span class="lineno">   26</span> </div>
+<div class="line"><span class="lineno">   27</span>    debugUart = uart;</div>
+<div class="line"><span class="lineno">   28</span> </div>
+<div class="line"><span class="lineno">   29</span>    <a class="code hl_function" href="group__debug.html#ga4454c84f101ce12e4f4d485cbe5416ad" title="Send a message to the serial port.">Debug_SendMsg</a>((<span class="keywordtype">void</span> *) <span class="stringliteral">&quot;Starting transmission...\r\n&quot;</span>);</div>
+<div class="line"><span class="lineno">   30</span>    <a class="code hl_function" href="group__debug.html#ga4454c84f101ce12e4f4d485cbe5416ad" title="Send a message to the serial port.">Debug_SendMsg</a>((<span class="keywordtype">void</span> *) <span class="stringliteral">&quot;Debug module initialized.\r\n&quot;</span>);</div>
+<div class="line"><span class="lineno">   31</span>    <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">   32</span>}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="ga4454c84f101ce12e4f4d485cbe5416ad" name="ga4454c84f101ce12e4f4d485cbe5416ad"></a>
@@ -206,7 +236,11 @@ static Uart_t&#160;</td><td class="memItemRight" valign="bottom"><b>debugUart</b
 </dl>
 <dl class="section post"><dt>Postcondition</dt><dd>A floating point value is written to the serial port.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group__debug.html#ga4454c84f101ce12e4f4d485cbe5416ad" title="Send a message to the serial port.">Debug_SendMsg()</a> </dd></dl>
-
+<div class="fragment"><div class="line"><span class="lineno">   38</span>                                   {</div>
+<div class="line"><span class="lineno">   39</span>    <a class="code hl_function" href="group__uart.html#gaf29f2cf48664205e0b651fbaeb5bc88c" title="Write a C string to the UART.">UART_WriteStr</a>(debugUart, message);</div>
+<div class="line"><span class="lineno">   40</span>    <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">   41</span>}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="ga1d61d286494b31c9564310305f006d8c" name="ga1d61d286494b31c9564310305f006d8c"></a>
@@ -235,7 +269,26 @@ static Uart_t&#160;</td><td class="memItemRight" valign="bottom"><b>debugUart</b
 </dl>
 <dl class="section post"><dt>Postcondition</dt><dd>The corresponding message is sent to the serial port.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group__debug.html#ga4454c84f101ce12e4f4d485cbe5416ad" title="Send a message to the serial port.">Debug_SendMsg()</a> </dd></dl>
-
+<div class="fragment"><div class="line"><span class="lineno">   43</span>                                   {</div>
+<div class="line"><span class="lineno">   44</span>    <span class="keywordflow">switch</span>(msg) {</div>
+<div class="line"><span class="lineno">   45</span>        <span class="keywordflow">case</span> DEBUG_DAQ_INIT:</div>
+<div class="line"><span class="lineno">   46</span>            <a class="code hl_function" href="group__debug.html#ga4454c84f101ce12e4f4d485cbe5416ad" title="Send a message to the serial port.">Debug_SendMsg</a>(<span class="stringliteral">&quot;Data acquisition module initialized.\r\n&quot;</span>);</div>
+<div class="line"><span class="lineno">   47</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">   48</span>        <span class="keywordflow">case</span> DEBUG_QRS_INIT:</div>
+<div class="line"><span class="lineno">   49</span>            <a class="code hl_function" href="group__debug.html#ga4454c84f101ce12e4f4d485cbe5416ad" title="Send a message to the serial port.">Debug_SendMsg</a>(<span class="stringliteral">&quot;QRS detection module initialized.\r\n&quot;</span>);</div>
+<div class="line"><span class="lineno">   50</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">   51</span>        <span class="keywordflow">case</span> DEBUG_LCD_INIT:</div>
+<div class="line"><span class="lineno">   52</span>            <a class="code hl_function" href="group__debug.html#ga4454c84f101ce12e4f4d485cbe5416ad" title="Send a message to the serial port.">Debug_SendMsg</a>(<span class="stringliteral">&quot;LCD module initialized.\r\n&quot;</span>);</div>
+<div class="line"><span class="lineno">   53</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">   54</span>        <span class="keywordflow">case</span> DEBUG_QRS_START:</div>
+<div class="line"><span class="lineno">   55</span>            <a class="code hl_function" href="group__debug.html#ga4454c84f101ce12e4f4d485cbe5416ad" title="Send a message to the serial port.">Debug_SendMsg</a>(<span class="stringliteral">&quot;Starting QRS detection...\r\n&quot;</span>);</div>
+<div class="line"><span class="lineno">   56</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">   57</span>        <span class="keywordflow">default</span>:</div>
+<div class="line"><span class="lineno">   58</span>            <a class="code hl_function" href="group__common.html#gaba660db7260350c29c3fd3dc9af35556" title="Custom assert implementation that is more lightweight than the one from newlib.">assert</a>(<span class="keyword">false</span>);</div>
+<div class="line"><span class="lineno">   59</span>    }</div>
+<div class="line"><span class="lineno">   60</span>    <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">   61</span>}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="gaa11645a0bee9501f3d74367ff1a5d09f" name="gaa11645a0bee9501f3d74367ff1a5d09f"></a>
@@ -264,7 +317,12 @@ static Uart_t&#160;</td><td class="memItemRight" valign="bottom"><b>debugUart</b
 </dl>
 <dl class="section post"><dt>Postcondition</dt><dd>A floating point value is written to the serial port.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group__debug.html#ga4454c84f101ce12e4f4d485cbe5416ad" title="Send a message to the serial port.">Debug_SendMsg()</a> </dd></dl>
-
+<div class="fragment"><div class="line"><span class="lineno">   63</span>                                    {</div>
+<div class="line"><span class="lineno">   64</span>    <a class="code hl_function" href="group__uart.html#ga53e057e6d10802f09acb9a82c22197b7" title="Write a floating-point number the UART.">UART_WriteFloat</a>(debugUart, value, 1);</div>
+<div class="line"><span class="lineno">   65</span>    <a class="code hl_function" href="group__uart.html#gaf29f2cf48664205e0b651fbaeb5bc88c" title="Write a C string to the UART.">UART_WriteStr</a>(debugUart, <span class="stringliteral">&quot;\r\n&quot;</span>);</div>
+<div class="line"><span class="lineno">   66</span>    <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">   67</span>}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="ga73f3f52e28557ffff4596db7b13579b8" name="ga73f3f52e28557ffff4596db7b13579b8"></a>
@@ -292,7 +350,14 @@ static Uart_t&#160;</td><td class="memItemRight" valign="bottom"><b>debugUart</b
   </dd>
 </dl>
 <dl class="section post"><dt>Postcondition</dt><dd>If <code>condition == true</code>, the program continues normally. If <code>condition == false</code>, a message is sent and a breakpoint is activated. </dd></dl>
-
+<div class="fragment"><div class="line"><span class="lineno">   73</span>                                  {</div>
+<div class="line"><span class="lineno">   74</span>    <span class="keywordflow">if</span>(condition == <span class="keyword">false</span>) {</div>
+<div class="line"><span class="lineno">   75</span>        <a class="code hl_function" href="group__debug.html#ga4454c84f101ce12e4f4d485cbe5416ad" title="Send a message to the serial port.">Debug_SendMsg</a>((<span class="keywordtype">void</span> *) <span class="stringliteral">&quot;Assertion failed. Entering infinite loop.\r\n.&quot;</span>);</div>
+<div class="line"><span class="lineno">   76</span>        <a class="code hl_function" href="group__common.html#gaba660db7260350c29c3fd3dc9af35556" title="Custom assert implementation that is more lightweight than the one from newlib.">assert</a>(<span class="keyword">false</span>);</div>
+<div class="line"><span class="lineno">   77</span>    }</div>
+<div class="line"><span class="lineno">   78</span>    <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">   79</span>}</div>
+</div><!-- fragment -->
 </div>
 </div>
 </div><!-- contents -->

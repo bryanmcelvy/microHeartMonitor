@@ -42,7 +42,6 @@ Initialization
  *                      configured for timer-triggered sample capture.
  * @post                The timer is initialized in `PERIODIC` mode and triggers the
  *                      ADC every \f$ 5 ms \f$ (i.e. sampling frequency \f$ f_s = 200 Hz \f$).
- * @post                The DAQ module has access to its lookup table (LUT).
  */
 void DAQ_Init(void);
 

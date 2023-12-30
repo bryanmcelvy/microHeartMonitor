@@ -130,8 +130,7 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:ga01784fcdea7b6c3ba5cc5823f7c3c51a" id="r_ga01784fcdea7b6c3ba5cc5823f7c3c51a"><td class="memItemLeft" align="right" valign="top"><a id="ga01784fcdea7b6c3ba5cc5823f7c3c51a" name="ga01784fcdea7b6c3ba5cc5823f7c3c51a"></a>
-static <a class="el" href="struct_led_struct__t.html">LedStruct_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Led_ObjPool</b> [LED_POOL_SIZE] = { 0 }</td></tr>
+<tr class="memitem:ga01784fcdea7b6c3ba5cc5823f7c3c51a" id="r_ga01784fcdea7b6c3ba5cc5823f7c3c51a"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="struct_led_struct__t.html">LedStruct_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__led.html#ga01784fcdea7b6c3ba5cc5823f7c3c51a">Led_ObjPool</a> [LED_POOL_SIZE] = { 0 }</td></tr>
 <tr class="separator:ga01784fcdea7b6c3ba5cc5823f7c3c51a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga431b5d41657b54de3a9d7c1600ce8100" id="r_ga431b5d41657b54de3a9d7c1600ce8100"><td class="memItemLeft" align="right" valign="top"><a id="ga431b5d41657b54de3a9d7c1600ce8100" name="ga431b5d41657b54de3a9d7c1600ce8100"></a>
 static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>num_free_leds</b> = LED_POOL_SIZE</td></tr>
@@ -205,7 +204,30 @@ static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>num_free_le
   </table>
   </dd>
 </dl>
-
+<div class="fragment"><div class="line"><span class="lineno">   41</span>                                                   {</div>
+<div class="line"><span class="lineno">   42</span>    <a class="code hl_function" href="group__common.html#gaba660db7260350c29c3fd3dc9af35556" title="Custom assert implementation that is more lightweight than the one from newlib.">assert</a>(<a class="code hl_function" href="group__gpio.html#gada2450873e062684ed25f816e43651a7" title="Check if the GPIO port is initialized.">GPIO_isPortInit</a>(gpioPort));</div>
+<div class="line"><span class="lineno">   43</span>    <a class="code hl_function" href="group__common.html#gaba660db7260350c29c3fd3dc9af35556" title="Custom assert implementation that is more lightweight than the one from newlib.">assert</a>(num_free_leds &gt; 0);</div>
+<div class="line"><span class="lineno">   44</span> </div>
+<div class="line"><span class="lineno">   45</span>    <span class="comment">// Initialize GPIO port pin</span></div>
+<div class="line"><span class="lineno">   46</span>    <a class="code hl_function" href="group__gpio.html#ga3964ec3bfa307a3fb05c46bc6e667d14" title="Configure the direction of the specified GPIO pins.">GPIO_configDirection</a>(gpioPort, pin, GPIO_OUTPUT);</div>
+<div class="line"><span class="lineno">   47</span>    <a class="code hl_function" href="group__gpio.html#ga44c9d83952ff847b15023517d8bc7cbf" title="Activate the specified pins&#39; internal pull-up or pull-down resistors.">GPIO_configResistor</a>(gpioPort, pin, PULLDOWN);</div>
+<div class="line"><span class="lineno">   48</span> </div>
+<div class="line"><span class="lineno">   49</span>    <a class="code hl_function" href="group__gpio.html#ga0210f31fbfddad738ec8305da5538bc5" title="Enable digital I/O for the specified pins.">GPIO_EnableDigital</a>(gpioPort, pin);</div>
+<div class="line"><span class="lineno">   50</span>    <a class="code hl_function" href="group__gpio.html#ga8e24c982797b3bf962dc6f57f7855b93" title="Write a 0 to the specified GPIO pins.">GPIO_WriteLow</a>(gpioPort, pin);</div>
+<div class="line"><span class="lineno">   51</span> </div>
+<div class="line"><span class="lineno">   52</span>    <span class="comment">// Initialize LED struct</span></div>
+<div class="line"><span class="lineno">   53</span>    num_free_leds -= 1;</div>
+<div class="line"><span class="lineno">   54</span>    Led_t led = &amp;Led_ObjPool[num_free_leds];</div>
+<div class="line"><span class="lineno">   55</span> </div>
+<div class="line"><span class="lineno">   56</span>    led-&gt;<a class="code hl_variable" href="struct_led_struct__t.html#a84e167ff88529dea3939773160b9ca21" title="pointer to GPIO port data structure">GPIO_PORT_PTR</a> = gpioPort;</div>
+<div class="line"><span class="lineno">   57</span>    led-&gt;GPIO_PIN = pin;</div>
+<div class="line"><span class="lineno">   58</span>    led-&gt;gpioDataRegister = <a class="code hl_function" href="group__gpio.html#ga8da0e45bb698c55d81528b9daba51aed" title="Get the address of a GPIO port&#39;s data register.">GPIO_getDataRegister</a>(gpioPort);</div>
+<div class="line"><span class="lineno">   59</span>    led-&gt;isOn = <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">   60</span>    led-&gt;isInit = <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">   61</span> </div>
+<div class="line"><span class="lineno">   62</span>    <span class="keywordflow">return</span> led;</div>
+<div class="line"><span class="lineno">   63</span>}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="ga59e3488a62f9f465bf709b37425072a8" name="ga59e3488a62f9f465bf709b37425072a8"></a>
@@ -234,7 +256,11 @@ static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>num_free_le
   </dd>
 </dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group__led.html#ga7b6c5929207c8029e6e1e228a4570984" title="Initialize a light-emitting diode (LED) as an Led_t.">Led_Init()</a>, <a class="el" href="group__led.html#ga025461c2988c5a5011a9da1a65d5ea90" title="Get the GPIO pin associated with the LED.">Led_GetPin()</a> </dd></dl>
-
+<div class="fragment"><div class="line"><span class="lineno">   65</span>                                  {</div>
+<div class="line"><span class="lineno">   66</span>    <a class="code hl_function" href="group__common.html#gaba660db7260350c29c3fd3dc9af35556" title="Custom assert implementation that is more lightweight than the one from newlib.">assert</a>(led-&gt;isInit);</div>
+<div class="line"><span class="lineno">   67</span>    <span class="keywordflow">return</span> led-&gt;GPIO_PORT_PTR;</div>
+<div class="line"><span class="lineno">   68</span>}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="ga025461c2988c5a5011a9da1a65d5ea90" name="ga025461c2988c5a5011a9da1a65d5ea90"></a>
@@ -263,7 +289,11 @@ static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>num_free_le
   </dd>
 </dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group__led.html#ga7b6c5929207c8029e6e1e228a4570984" title="Initialize a light-emitting diode (LED) as an Led_t.">Led_Init()</a>, <a class="el" href="group__led.html#ga59e3488a62f9f465bf709b37425072a8" title="Get the GPIO port associated with the LED.">Led_GetPort()</a> </dd></dl>
-
+<div class="fragment"><div class="line"><span class="lineno">   70</span>                                {</div>
+<div class="line"><span class="lineno">   71</span>    <a class="code hl_function" href="group__common.html#gaba660db7260350c29c3fd3dc9af35556" title="Custom assert implementation that is more lightweight than the one from newlib.">assert</a>(led-&gt;isInit);</div>
+<div class="line"><span class="lineno">   72</span>    <span class="keywordflow">return</span> led-&gt;GPIO_PIN;</div>
+<div class="line"><span class="lineno">   73</span>}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="ga19af798fbd52a70cbc4fd9ff96a8c733" name="ga19af798fbd52a70cbc4fd9ff96a8c733"></a>
@@ -292,7 +322,10 @@ static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>num_free_le
   </dd>
 </dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group__led.html#ga7b6c5929207c8029e6e1e228a4570984" title="Initialize a light-emitting diode (LED) as an Led_t.">Led_Init()</a> </dd></dl>
-
+<div class="fragment"><div class="line"><span class="lineno">   79</span>                           {</div>
+<div class="line"><span class="lineno">   80</span>    <span class="keywordflow">return</span> led-&gt;isInit;</div>
+<div class="line"><span class="lineno">   81</span>}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="ga19e33088ef24504ca59c39e9d2429425" name="ga19e33088ef24504ca59c39e9d2429425"></a>
@@ -322,7 +355,11 @@ static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>num_free_le
   </dd>
 </dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group__led.html#gadbdf8392d20cdb78a87439bee14c1c02" title="Turn an LED ON.">Led_TurnOn()</a>, <a class="el" href="group__led.html#gab475f3d318a1b7b45f50990f07e7feb6" title="Turn an LED OFF.">Led_TurnOff()</a>, <a class="el" href="group__led.html#gae7f8086c4e6cb70ef7f44bbbd0008a9b" title="Toggle an LED.">Led_Toggle()</a> </dd></dl>
-
+<div class="fragment"><div class="line"><span class="lineno">   83</span>                         {</div>
+<div class="line"><span class="lineno">   84</span>    <a class="code hl_function" href="group__common.html#gaba660db7260350c29c3fd3dc9af35556" title="Custom assert implementation that is more lightweight than the one from newlib.">assert</a>(led-&gt;isInit);</div>
+<div class="line"><span class="lineno">   85</span>    <span class="keywordflow">return</span> led-&gt;isOn;</div>
+<div class="line"><span class="lineno">   86</span>}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="gadbdf8392d20cdb78a87439bee14c1c02" name="gadbdf8392d20cdb78a87439bee14c1c02"></a>
@@ -351,7 +388,13 @@ static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>num_free_le
 </dl>
 <dl class="section post"><dt>Postcondition</dt><dd>The LED is turned ON.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group__led.html#gab475f3d318a1b7b45f50990f07e7feb6" title="Turn an LED OFF.">Led_TurnOff()</a>, <a class="el" href="group__led.html#gae7f8086c4e6cb70ef7f44bbbd0008a9b" title="Toggle an LED.">Led_Toggle()</a> </dd></dl>
-
+<div class="fragment"><div class="line"><span class="lineno">   92</span>                           {</div>
+<div class="line"><span class="lineno">   93</span>    <a class="code hl_function" href="group__common.html#gaba660db7260350c29c3fd3dc9af35556" title="Custom assert implementation that is more lightweight than the one from newlib.">assert</a>(led-&gt;isInit);</div>
+<div class="line"><span class="lineno">   94</span>    *led-&gt;gpioDataRegister |= led-&gt;GPIO_PIN;</div>
+<div class="line"><span class="lineno">   95</span>    led-&gt;isOn = <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">   96</span>    <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">   97</span>}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="gab475f3d318a1b7b45f50990f07e7feb6" name="gab475f3d318a1b7b45f50990f07e7feb6"></a>
@@ -380,7 +423,13 @@ static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>num_free_le
 </dl>
 <dl class="section post"><dt>Postcondition</dt><dd>The LED is turned OFF.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group__led.html#gadbdf8392d20cdb78a87439bee14c1c02" title="Turn an LED ON.">Led_TurnOn()</a>, <a class="el" href="group__led.html#gae7f8086c4e6cb70ef7f44bbbd0008a9b" title="Toggle an LED.">Led_Toggle()</a> </dd></dl>
-
+<div class="fragment"><div class="line"><span class="lineno">   99</span>                            {</div>
+<div class="line"><span class="lineno">  100</span>    <a class="code hl_function" href="group__common.html#gaba660db7260350c29c3fd3dc9af35556" title="Custom assert implementation that is more lightweight than the one from newlib.">assert</a>(led-&gt;isInit);</div>
+<div class="line"><span class="lineno">  101</span>    *led-&gt;gpioDataRegister &amp;= ~(led-&gt;GPIO_PIN);</div>
+<div class="line"><span class="lineno">  102</span>    led-&gt;isOn = <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  103</span>    <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  104</span>}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="gae7f8086c4e6cb70ef7f44bbbd0008a9b" name="gae7f8086c4e6cb70ef7f44bbbd0008a9b"></a>
@@ -409,7 +458,37 @@ static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>num_free_le
 </dl>
 <dl class="section post"><dt>Postcondition</dt><dd>The LED's state is flipped (i.e. ON -&gt; OFF or OFF -&gt; ON).</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group__led.html#gadbdf8392d20cdb78a87439bee14c1c02" title="Turn an LED ON.">Led_TurnOn()</a>, <a class="el" href="group__led.html#gab475f3d318a1b7b45f50990f07e7feb6" title="Turn an LED OFF.">Led_TurnOff()</a> </dd></dl>
+<div class="fragment"><div class="line"><span class="lineno">  106</span>                           {</div>
+<div class="line"><span class="lineno">  107</span>    <a class="code hl_function" href="group__common.html#gaba660db7260350c29c3fd3dc9af35556" title="Custom assert implementation that is more lightweight than the one from newlib.">assert</a>(led-&gt;isInit);</div>
+<div class="line"><span class="lineno">  108</span>    *led-&gt;gpioDataRegister ^= led-&gt;GPIO_PIN;</div>
+<div class="line"><span class="lineno">  109</span>    led-&gt;isOn = !led-&gt;isOn;</div>
+<div class="line"><span class="lineno">  110</span>    <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  111</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="ga01784fcdea7b6c3ba5cc5823f7c3c51a" name="ga01784fcdea7b6c3ba5cc5823f7c3c51a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga01784fcdea7b6c3ba5cc5823f7c3c51a">&#9670;&#160;</a></span>Led_ObjPool</h2>
 
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_led_struct__t.html">LedStruct_t</a> Led_ObjPool[LED_POOL_SIZE] = { 0 }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">   38</span>{ 0 };</div>
+</div><!-- fragment -->
 </div>
 </div>
 </div><!-- contents -->

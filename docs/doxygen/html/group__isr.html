@@ -143,8 +143,7 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga8081ff631d3db3d137b2b3e11ed2f14a" id="r_ga8081ff631d3db3d137b2b3e11ed2f14a"><td class="memItemLeft" align="right" valign="top"><a id="ga8081ff631d3db3d137b2b3e11ed2f14a" name="ga8081ff631d3db3d137b2b3e11ed2f14a"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><b>ISR_setStatus</b> (const uint8_t vectorNum, const bool isEnabled)</td></tr>
+<tr class="memitem:ga8081ff631d3db3d137b2b3e11ed2f14a" id="r_ga8081ff631d3db3d137b2b3e11ed2f14a"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__isr.html#ga8081ff631d3db3d137b2b3e11ed2f14a">ISR_setStatus</a> (const uint8_t vectorNum, const bool isEnabled)</td></tr>
 <tr class="separator:ga8081ff631d3db3d137b2b3e11ed2f14a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
@@ -199,6 +198,63 @@ typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><b>ISR_t</b>) 
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Functions for manipulating the interrupt vector table and setting up interrupt handlers via the NVIC. </p>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="ga8081ff631d3db3d137b2b3e11ed2f14a" name="ga8081ff631d3db3d137b2b3e11ed2f14a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8081ff631d3db3d137b2b3e11ed2f14a">&#9670;&#160;</a></span>ISR_setStatus()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void ISR_setStatus </td>
+          <td>(</td>
+          <td class="paramtype">const uint8_t&#160;</td>
+          <td class="paramname"><em>vectorNum</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const bool&#160;</td>
+          <td class="paramname"><em>isEnabled</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  136</span>                                                                         {</div>
+<div class="line"><span class="lineno">  137</span>    <a class="code hl_function" href="group__common.html#gaba660db7260350c29c3fd3dc9af35556" title="Custom assert implementation that is more lightweight than the one from newlib.">assert</a>(vectorNum &gt;= 16);</div>
+<div class="line"><span class="lineno">  138</span>    <a class="code hl_function" href="group__common.html#gaba660db7260350c29c3fd3dc9af35556" title="Custom assert implementation that is more lightweight than the one from newlib.">assert</a>(vectorNum &lt; VECTOR_TABLE_SIZE);</div>
+<div class="line"><span class="lineno">  139</span>    uint32_t interruptBitNum = (uint32_t) (vectorNum - 16);</div>
+<div class="line"><span class="lineno">  140</span> </div>
+<div class="line"><span class="lineno">  141</span>    <span class="comment">// Determine correct register to use</span></div>
+<div class="line"><span class="lineno">  142</span>    uint32_t registerNum = 0;</div>
+<div class="line"><span class="lineno">  143</span>    <span class="keywordflow">while</span>(interruptBitNum &gt;= ((registerNum + 1) * 32)) {</div>
+<div class="line"><span class="lineno">  144</span>        registerNum += 1;</div>
+<div class="line"><span class="lineno">  145</span>    }</div>
+<div class="line"><span class="lineno">  146</span>    uint32_t REG_BASE_ADDR = (isEnabled) ? NVIC_EN_BASE_ADDR : NVIC_DIS_BASE_ADDR;</div>
+<div class="line"><span class="lineno">  147</span>    register_t registerPtr = (register_t) (REG_BASE_ADDR + (4 * registerNum));</div>
+<div class="line"><span class="lineno">  148</span> </div>
+<div class="line"><span class="lineno">  149</span>    <span class="comment">// Enable/disable the ISR</span></div>
+<div class="line"><span class="lineno">  150</span>    <span class="keywordflow">if</span>(interruptBitNum &gt; 31) {</div>
+<div class="line"><span class="lineno">  151</span>        interruptBitNum -= (registerNum * 32);</div>
+<div class="line"><span class="lineno">  152</span>    }</div>
+<div class="line"><span class="lineno">  153</span>    *registerPtr |= (1 &lt;&lt; interruptBitNum);</div>
+<div class="line"><span class="lineno">  154</span> </div>
+<div class="line"><span class="lineno">  155</span>    <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  156</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
 <a id="ga23a5ef027b6d1b3aeac0a98b611fca0c" name="ga23a5ef027b6d1b3aeac0a98b611fca0c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga23a5ef027b6d1b3aeac0a98b611fca0c">&#9670;&#160;</a></span>ISR_GlobalDisable()</h2>
 
@@ -218,7 +274,12 @@ typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><b>ISR_t</b>) 
 <p>Disable all interrupts globally. </p>
 <dl class="section note"><dt>Note</dt><dd>Does not affect Reset, NMI, or hard faults. </dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group__isr.html#gaa18a80bd0870828cb40c0bf26faee065" title="Enable all interrupts globally.">ISR_GlobalEnable()</a> </dd></dl>
-
+<div class="fragment"><div class="line"><span class="lineno">   48</span>                             {</div>
+<div class="line"><span class="lineno">   49</span>    interruptsAreEnabled = <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">   50</span>    __set_PRIMASK(1);</div>
+<div class="line"><span class="lineno">   51</span>    <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">   52</span>}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="gaa18a80bd0870828cb40c0bf26faee065" name="gaa18a80bd0870828cb40c0bf26faee065"></a>
@@ -240,7 +301,12 @@ typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><b>ISR_t</b>) 
 <p>Enable all interrupts globally. </p>
 <dl class="section note"><dt>Note</dt><dd>Does not affect Reset, NMI, or hard faults. </dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group__isr.html#ga23a5ef027b6d1b3aeac0a98b611fca0c" title="Disable all interrupts globally.">ISR_GlobalDisable()</a> </dd></dl>
-
+<div class="fragment"><div class="line"><span class="lineno">   54</span>                            {</div>
+<div class="line"><span class="lineno">   55</span>    interruptsAreEnabled = <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">   56</span>    __set_PRIMASK(0);</div>
+<div class="line"><span class="lineno">   57</span>    <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">   58</span>}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="ga1a8cdef6eb7ae1b0782060ad424ffe84" name="ga1a8cdef6eb7ae1b0782060ad424ffe84"></a>
@@ -263,7 +329,20 @@ typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><b>ISR_t</b>) 
 <dl class="section pre"><dt>Precondition</dt><dd>Disable interrupts globally before calling this. </dd></dl>
 <dl class="section post"><dt>Postcondition</dt><dd>The vector table is now located in RAM, allowing the ISRs listed in the startup file to be replaced.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group__isr.html#ga23a5ef027b6d1b3aeac0a98b611fca0c" title="Disable all interrupts globally.">ISR_GlobalDisable()</a>, <a class="el" href="group__isr.html#gaeffe767c18c92a042f2dce7f90b2c7e8" title="Add an ISR to the interrupt table.">ISR_addToIntTable()</a> </dd></dl>
-
+<div class="fragment"><div class="line"><span class="lineno">   73</span>                                 {</div>
+<div class="line"><span class="lineno">   74</span>    <a class="code hl_function" href="group__common.html#gaba660db7260350c29c3fd3dc9af35556" title="Custom assert implementation that is more lightweight than the one from newlib.">assert</a>(isTableCopiedToRam == <span class="keyword">false</span>);</div>
+<div class="line"><span class="lineno">   75</span>    <a class="code hl_function" href="group__common.html#gaba660db7260350c29c3fd3dc9af35556" title="Custom assert implementation that is more lightweight than the one from newlib.">assert</a>(interruptsAreEnabled == <span class="keyword">false</span>);</div>
+<div class="line"><span class="lineno">   76</span> </div>
+<div class="line"><span class="lineno">   77</span>    <span class="keywordflow">for</span>(uint32_t idx = 0; idx &lt; VECTOR_TABLE_SIZE; idx++) {</div>
+<div class="line"><span class="lineno">   78</span>        newVectorTable[idx] = interruptVectorTable[idx];</div>
+<div class="line"><span class="lineno">   79</span>    }</div>
+<div class="line"><span class="lineno">   80</span> </div>
+<div class="line"><span class="lineno">   81</span>    NVIC_VTABLE_R = (uint32_t) &amp;newVectorTable;</div>
+<div class="line"><span class="lineno">   82</span>    isTableCopiedToRam = <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">   83</span> </div>
+<div class="line"><span class="lineno">   84</span>    <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">   85</span>}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="gaeffe767c18c92a042f2dce7f90b2c7e8" name="gaeffe767c18c92a042f2dce7f90b2c7e8"></a>
@@ -303,7 +382,16 @@ typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><b>ISR_t</b>) 
 </dl>
 <dl class="section post"><dt>Postcondition</dt><dd>The ISR is now added to the vector table and available to be called.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group__isr.html#ga1a8cdef6eb7ae1b0782060ad424ffe84" title="Relocate the vector table to RAM.">ISR_InitNewTableInRam()</a> </dd></dl>
-
+<div class="fragment"><div class="line"><span class="lineno">   87</span>                                                           {</div>
+<div class="line"><span class="lineno">   88</span>    <a class="code hl_function" href="group__common.html#gaba660db7260350c29c3fd3dc9af35556" title="Custom assert implementation that is more lightweight than the one from newlib.">assert</a>(isTableCopiedToRam == <span class="keyword">true</span>);</div>
+<div class="line"><span class="lineno">   89</span>    <a class="code hl_function" href="group__common.html#gaba660db7260350c29c3fd3dc9af35556" title="Custom assert implementation that is more lightweight than the one from newlib.">assert</a>(interruptsAreEnabled == <span class="keyword">false</span>);</div>
+<div class="line"><span class="lineno">   90</span>    <a class="code hl_function" href="group__common.html#gaba660db7260350c29c3fd3dc9af35556" title="Custom assert implementation that is more lightweight than the one from newlib.">assert</a>(vectorNum &gt;= 16);</div>
+<div class="line"><span class="lineno">   91</span>    <a class="code hl_function" href="group__common.html#gaba660db7260350c29c3fd3dc9af35556" title="Custom assert implementation that is more lightweight than the one from newlib.">assert</a>(vectorNum &lt; VECTOR_TABLE_SIZE);</div>
+<div class="line"><span class="lineno">   92</span> </div>
+<div class="line"><span class="lineno">   93</span>    newVectorTable[vectorNum] = isr;</div>
+<div class="line"><span class="lineno">   94</span>    <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">   95</span>}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="ga11659defe8dcb444a43fd6868dc85192" name="ga11659defe8dcb444a43fd6868dc85192"></a>
@@ -343,7 +431,41 @@ typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><b>ISR_t</b>) 
 </dl>
 <dl class="section post"><dt>Postcondition</dt><dd>The interrupt's priority has now been changed in the NVIC.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group__isr.html#ga6b616eb63eb69bd461785555aa89d027" title="Disable an interrupt in the NVIC.">ISR_Disable()</a> </dd></dl>
-
+<div class="fragment"><div class="line"><span class="lineno">  101</span>                                                                      {</div>
+<div class="line"><span class="lineno">  102</span>    <a class="code hl_function" href="group__common.html#gaba660db7260350c29c3fd3dc9af35556" title="Custom assert implementation that is more lightweight than the one from newlib.">assert</a>(vectorNum &gt;= 16);</div>
+<div class="line"><span class="lineno">  103</span>    <a class="code hl_function" href="group__common.html#gaba660db7260350c29c3fd3dc9af35556" title="Custom assert implementation that is more lightweight than the one from newlib.">assert</a>(vectorNum &lt; VECTOR_TABLE_SIZE);</div>
+<div class="line"><span class="lineno">  104</span>    <a class="code hl_function" href="group__common.html#gaba660db7260350c29c3fd3dc9af35556" title="Custom assert implementation that is more lightweight than the one from newlib.">assert</a>(priority &lt;= 7);</div>
+<div class="line"><span class="lineno">  105</span> </div>
+<div class="line"><span class="lineno">  106</span>    uint8_t interruptBitNum = vectorNum - 16;</div>
+<div class="line"><span class="lineno">  107</span> </div>
+<div class="line"><span class="lineno">  108</span>    <span class="comment">// Determine correct register and assign priority</span></div>
+<div class="line"><span class="lineno">  109</span>    uint8_t priorityRegisterNum = (interruptBitNum - (interruptBitNum % 4)) / 4;</div>
+<div class="line"><span class="lineno">  110</span>    register_t priorityRegisterPtr = (register_t) (NVIC_PRI_BASE_ADDR + (4 * priorityRegisterNum));</div>
+<div class="line"><span class="lineno">  111</span>    <span class="keywordflow">switch</span>((interruptBitNum % 4)) {</div>
+<div class="line"><span class="lineno">  112</span>        <span class="keywordflow">case</span> 0:</div>
+<div class="line"><span class="lineno">  113</span>            *priorityRegisterPtr |= (priority &lt;&lt; 5);</div>
+<div class="line"><span class="lineno">  114</span>            <a class="code hl_function" href="group__common.html#gaba660db7260350c29c3fd3dc9af35556" title="Custom assert implementation that is more lightweight than the one from newlib.">assert</a>(*priorityRegisterPtr &amp; (priority &lt;&lt; 5));</div>
+<div class="line"><span class="lineno">  115</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  116</span> </div>
+<div class="line"><span class="lineno">  117</span>        <span class="keywordflow">case</span> 1:</div>
+<div class="line"><span class="lineno">  118</span>            *priorityRegisterPtr |= (priority &lt;&lt; 13);</div>
+<div class="line"><span class="lineno">  119</span>            <a class="code hl_function" href="group__common.html#gaba660db7260350c29c3fd3dc9af35556" title="Custom assert implementation that is more lightweight than the one from newlib.">assert</a>(*priorityRegisterPtr &amp; (priority &lt;&lt; 13));</div>
+<div class="line"><span class="lineno">  120</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  121</span> </div>
+<div class="line"><span class="lineno">  122</span>        <span class="keywordflow">case</span> 2:</div>
+<div class="line"><span class="lineno">  123</span>            *priorityRegisterPtr |= (priority &lt;&lt; 21);</div>
+<div class="line"><span class="lineno">  124</span>            <a class="code hl_function" href="group__common.html#gaba660db7260350c29c3fd3dc9af35556" title="Custom assert implementation that is more lightweight than the one from newlib.">assert</a>(*priorityRegisterPtr &amp; (priority &lt;&lt; 21));</div>
+<div class="line"><span class="lineno">  125</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  126</span> </div>
+<div class="line"><span class="lineno">  127</span>        <span class="keywordflow">case</span> 3:</div>
+<div class="line"><span class="lineno">  128</span>            *priorityRegisterPtr |= (priority &lt;&lt; 29);</div>
+<div class="line"><span class="lineno">  129</span>            <a class="code hl_function" href="group__common.html#gaba660db7260350c29c3fd3dc9af35556" title="Custom assert implementation that is more lightweight than the one from newlib.">assert</a>(*priorityRegisterPtr &amp; (priority &lt;&lt; 29));</div>
+<div class="line"><span class="lineno">  130</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  131</span>    }</div>
+<div class="line"><span class="lineno">  132</span> </div>
+<div class="line"><span class="lineno">  133</span>    <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  134</span>}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="ga3d747d4c00d6bd2baf42e4a5efc1c6b7" name="ga3d747d4c00d6bd2baf42e4a5efc1c6b7"></a>
@@ -374,7 +496,11 @@ If needed, set the interrupt's priority (default 0, or highest priority) before 
 </dl>
 <dl class="section post"><dt>Postcondition</dt><dd>The interrupt is now enabled in the NVIC.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group__isr.html#gaeffe767c18c92a042f2dce7f90b2c7e8" title="Add an ISR to the interrupt table.">ISR_addToIntTable()</a>, <a class="el" href="group__isr.html#ga11659defe8dcb444a43fd6868dc85192" title="Set the priority for an interrupt.">ISR_setPriority()</a>, <a class="el" href="group__isr.html#ga6b616eb63eb69bd461785555aa89d027" title="Disable an interrupt in the NVIC.">ISR_Disable()</a> </dd></dl>
-
+<div class="fragment"><div class="line"><span class="lineno">  158</span>                                         {</div>
+<div class="line"><span class="lineno">  159</span>    ISR_setStatus(vectorNum, <span class="keyword">true</span>);</div>
+<div class="line"><span class="lineno">  160</span>    <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  161</span>}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="ga6b616eb63eb69bd461785555aa89d027" name="ga6b616eb63eb69bd461785555aa89d027"></a>
@@ -402,7 +528,11 @@ If needed, set the interrupt's priority (default 0, or highest priority) before 
 </dl>
 <dl class="section post"><dt>Postcondition</dt><dd>The interrupt is now disabled in the NVIC.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group__isr.html#ga3d747d4c00d6bd2baf42e4a5efc1c6b7" title="Enable an interrupt in the NVIC.">ISR_Enable()</a> </dd></dl>
-
+<div class="fragment"><div class="line"><span class="lineno">  163</span>                                          {</div>
+<div class="line"><span class="lineno">  164</span>    ISR_setStatus(vectorNum, <span class="keyword">false</span>);</div>
+<div class="line"><span class="lineno">  165</span>    <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  166</span>}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="gac004fff65fc230dae1cf4567dd221f13" name="gac004fff65fc230dae1cf4567dd221f13"></a>
@@ -433,7 +563,14 @@ Enable all interrupts.</dd></dl>
 </dl>
 <dl class="section post"><dt>Postcondition</dt><dd>The ISR should trigger once any higher priority ISRs return.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd>ISR_clearPending() </dd></dl>
-
+<div class="fragment"><div class="line"><span class="lineno">  168</span>                                                   {</div>
+<div class="line"><span class="lineno">  169</span>    <a class="code hl_function" href="group__common.html#gaba660db7260350c29c3fd3dc9af35556" title="Custom assert implementation that is more lightweight than the one from newlib.">assert</a>(vectorNum &gt;= 16);</div>
+<div class="line"><span class="lineno">  170</span>    <a class="code hl_function" href="group__common.html#gaba660db7260350c29c3fd3dc9af35556" title="Custom assert implementation that is more lightweight than the one from newlib.">assert</a>(vectorNum &lt; VECTOR_TABLE_SIZE);</div>
+<div class="line"><span class="lineno">  171</span> </div>
+<div class="line"><span class="lineno">  172</span>    NVIC_SW_TRIG_R = (NVIC_SW_TRIG_R &amp; ~(0xFF)) | (vectorNum - 16);</div>
+<div class="line"><span class="lineno">  173</span>    <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  174</span>}</div>
+</div><!-- fragment -->
 </div>
 </div>
 </div><!-- contents -->

@@ -1,21 +1,23 @@
 <map id="SPI.c" name="SPI.c">
-<area shape="rect" id="Node000001" title="Source code for serial peripheral interface (SPI) module." alt="" coords="185,5,240,31"/>
-<area shape="rect" id="Node000002" href="$_s_p_i_8h.html" title="Header file for serial peripheral interface (SPI) module." alt="" coords="217,79,272,105"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="220,30,235,64,230,66,215,32"/>
-<area shape="rect" id="Node000003" href="$_g_p_i_o_8h.html" title="Header file for general&#45;purpose input/output (GPIO) device driver." alt="" coords="144,153,209,178"/>
-<area shape="poly" id="edge7_Node000001_Node000003" title=" " alt="" coords="212,32,186,138,180,137,207,31"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="87,226,162,252"/>
-<area shape="poly" id="edge11_Node000001_Node000004" title=" " alt="" coords="186,31,144,47,95,73,48,108,28,130,12,154,8,165,9,175,22,193,45,208,74,220,71,225,43,213,18,197,4,176,3,164,7,151,24,126,45,104,93,68,142,42,184,26"/>
-<area shape="rect" id="Node000005" title=" " alt="" coords="266,226,330,252"/>
-<area shape="poly" id="edge12_Node000001_Node000005" title=" " alt="" coords="236,29,263,49,285,78,298,112,304,148,304,211,299,211,299,149,293,113,281,80,259,53,233,34"/>
-<area shape="rect" id="Node000006" href="$_new_assert_8h.html" title="Header file for custom assert implementation." alt="" coords="22,153,120,178"/>
-<area shape="poly" id="edge8_Node000001_Node000006" title=" " alt="" coords="203,33,95,143,91,140,199,29"/>
-<area shape="rect" id="Node000007" title=" " alt="" coords="386,79,508,105"/>
-<area shape="poly" id="edge10_Node000001_Node000007" title=" " alt="" coords="241,25,394,72,392,77,239,30"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="235,107,200,143,196,140,231,103"/>
-<area shape="poly" id="edge5_Node000002_Node000004" title=" " alt="" coords="247,105,241,140,235,161,224,180,200,204,172,221,169,217,196,200,220,177,230,159,236,139,241,104"/>
-<area shape="poly" id="edge6_Node000002_Node000005" title=" " alt="" coords="251,104,291,211,286,213,246,106"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="170,180,144,215,140,212,166,177"/>
-<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="198,177,265,216,263,220,196,181"/>
-<area shape="poly" id="edge9_Node000006_Node000004" title=" " alt="" coords="82,177,108,212,104,215,78,180"/>
+<area shape="rect" id="Node000001" title="Source code for serial peripheral interface (SPI) module." alt="" coords="286,5,340,31"/>
+<area shape="rect" id="Node000002" href="$_s_p_i_8h.html" title="Header file for serial peripheral interface (SPI) module." alt="" coords="219,79,273,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="304,33,270,69,266,66,300,29"/>
+<area shape="rect" id="Node000003" href="$_g_p_i_o_8h.html" title="Header file for general&#45;purpose input/output (GPIO) device driver." alt="" coords="280,153,345,178"/>
+<area shape="poly" id="edge7_Node000001_Node000003" title=" " alt="" coords="315,31,315,137,310,137,310,31"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="129,226,203,252"/>
+<area shape="poly" id="edge12_Node000001_Node000004" title=" " alt="" coords="286,31,246,50,226,64,209,81,191,112,179,147,169,211,164,210,174,146,186,110,205,77,223,59,243,45,284,26"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="281,226,345,252"/>
+<area shape="poly" id="edge13_Node000001_Node000005" title=" " alt="" coords="323,30,339,57,356,94,365,136,365,158,361,179,351,199,338,217,334,213,346,196,355,177,360,157,360,137,350,96,335,59,319,33"/>
+<area shape="rect" id="Node000006" href="$_new_assert_8h.html" title="Header file for custom assert implementation." alt="" coords="5,153,103,178"/>
+<area shape="poly" id="edge8_Node000001_Node000006" title=" " alt="" coords="286,26,209,43,165,59,124,81,93,110,70,141,66,138,89,106,120,77,163,54,207,37,285,20"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="421,79,588,105"/>
+<area shape="poly" id="edge10_Node000001_Node000007" title=" " alt="" coords="341,27,459,71,457,76,339,32"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="612,79,733,105"/>
+<area shape="poly" id="edge11_Node000001_Node000008" title=" " alt="" coords="341,22,597,73,596,78,340,28"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="259,103,293,139,289,143,255,107"/>
+<area shape="poly" id="edge5_Node000002_Node000004" title=" " alt="" coords="242,106,182,214,178,211,237,104"/>
+<area shape="poly" id="edge6_Node000002_Node000005" title=" " alt="" coords="250,105,257,138,271,177,294,213,290,216,266,180,252,140,245,106"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="289,181,206,221,204,217,287,176"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="315,179,315,211,310,211,310,179"/>
+<area shape="poly" id="edge9_Node000006_Node000004" title=" " alt="" coords="74,177,136,215,133,220,72,181"/>
 </map>

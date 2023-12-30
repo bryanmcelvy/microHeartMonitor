@@ -1,7 +1,9 @@
 <map id="PLL.c" name="PLL.c">
-<area shape="rect" id="Node000001" title="Implementation details for phase&#45;lock&#45;loop (PLL) functions." alt="" coords="61,5,117,31"/>
+<area shape="rect" id="Node000001" title="Implementation details for phase&#45;lock&#45;loop (PLL) functions." alt="" coords="141,5,197,31"/>
 <area shape="rect" id="Node000002" href="$_p_l_l_8h.html" title="Driver module for activating the phase&#45;locked&#45;loop (PLL)." alt="" coords="5,79,61,105"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="82,33,54,68,50,65,78,30"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="84,79,206,105"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="100,30,128,65,124,68,96,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="147,34,71,74,68,69,145,29"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="85,79,253,105"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="172,31,172,63,166,63,166,31"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="276,79,398,105"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="198,29,295,70,293,75,196,34"/>
 </map>

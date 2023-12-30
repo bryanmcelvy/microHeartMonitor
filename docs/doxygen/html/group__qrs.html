@@ -122,7 +122,7 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>QRS_NUM_FID_MARKS</b>&#160;&#160;&#160;40</td></tr>
 <tr class="separator:ga06d3ab858cf424a90bdec4de1e7fb2db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad93f0e49ce14743a04bba54e0a93791a" id="r_gad93f0e49ce14743a04bba54e0a93791a"><td class="memItemLeft" align="right" valign="top"><a id="gad93f0e49ce14743a04bba54e0a93791a" name="gad93f0e49ce14743a04bba54e0a93791a"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>FLOAT_COMPARE_TOLERANCE</b>&#160;&#160;&#160;(float32_t)(1E-5f)</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>FLOAT_COMPARE_TOLERANCE</b>&#160;&#160;&#160;((float32_t) 1E-5f)</td></tr>
 <tr class="separator:gad93f0e49ce14743a04bba54e0a93791a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gacf320bd9c50a335acc2fe8591331e40e" id="r_gacf320bd9c50a335acc2fe8591331e40e"><td class="memItemLeft" align="right" valign="top"><a id="gacf320bd9c50a335acc2fe8591331e40e" name="gacf320bd9c50a335acc2fe8591331e40e"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>IS_GREATER</b>(X,  Y)&#160;&#160;&#160;(bool) ((X - Y) &gt; FLOAT_COMPARE_TOLERANCE)</td></tr>
@@ -171,7 +171,7 @@ struct {&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
 <tr class="separator:ga396b5235bf6e7bad06cee2fb528c0f54"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader">Digital Filter Variables</h2></td></tr>
-<tr class="memitem:ga2775f0e0c9c1fbf3479fba15da7b8293" id="r_ga2775f0e0c9c1fbf3479fba15da7b8293"><td class="memItemLeft" align="right" valign="top"><a id="ga2775f0e0c9c1fbf3479fba15da7b8293" name="ga2775f0e0c9c1fbf3479fba15da7b8293"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>DIGITAL_FILTER_PARAMS</b> { <br />
+<tr class="memitem:ga2775f0e0c9c1fbf3479fba15da7b8293" id="r_ga2775f0e0c9c1fbf3479fba15da7b8293"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><b>DIGITAL_FILTER_PARAMS</b> { <br />
 &#160;&#160;<b>NUM_STAGES_BANDPASS</b> = 4
 , <b>NUM_COEFF_BANDPASS</b> = NUM_STAGES_BANDPASS * 5
 , <b>STATE_BUFF_SIZE_BANDPASS</b> = NUM_STAGES_BANDPASS * 4
@@ -201,35 +201,29 @@ typedef arm_fir_instance_f32&#160;</td><td class="memItemRight" valign="bottom">
 <tr class="memitem:ga00c285b355f2c44be9326901aceda6e9" id="r_ga00c285b355f2c44be9326901aceda6e9"><td class="memItemLeft" align="right" valign="top">static const float32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qrs.html#ga00c285b355f2c44be9326901aceda6e9">COEFF_MOVAVG</a> [NUM_COEFF_MOVAVG]</td></tr>
 <tr class="memdesc:ga00c285b355f2c44be9326901aceda6e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Coefficients of the moving average (AKA moving-window integration) filter.  <br /></td></tr>
 <tr class="separator:ga00c285b355f2c44be9326901aceda6e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf8b1ef5a139506ea5871d6fc1186d270" id="r_gaf8b1ef5a139506ea5871d6fc1186d270"><td class="memItemLeft" align="right" valign="top"><a id="gaf8b1ef5a139506ea5871d6fc1186d270" name="gaf8b1ef5a139506ea5871d6fc1186d270"></a>
-static float32_t&#160;</td><td class="memItemRight" valign="bottom"><b>stateBuffer_bandPass</b> [STATE_BUFF_SIZE_BANDPASS] = { 0 }</td></tr>
+<tr class="memitem:gaf8b1ef5a139506ea5871d6fc1186d270" id="r_gaf8b1ef5a139506ea5871d6fc1186d270"><td class="memItemLeft" align="right" valign="top">static float32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qrs.html#gaf8b1ef5a139506ea5871d6fc1186d270">stateBuffer_bandPass</a> [STATE_BUFF_SIZE_BANDPASS] = { 0 }</td></tr>
 <tr class="separator:gaf8b1ef5a139506ea5871d6fc1186d270"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga00c97417289fb75c55a68a11bd15c214" id="r_ga00c97417289fb75c55a68a11bd15c214"><td class="memItemLeft" align="right" valign="top"><a id="ga00c97417289fb75c55a68a11bd15c214" name="ga00c97417289fb75c55a68a11bd15c214"></a>
-static const IIR_Filt_t&#160;</td><td class="memItemRight" valign="bottom"><b>bandpassFiltStruct</b> = { NUM_STAGES_BANDPASS, stateBuffer_bandPass, <a class="el" href="group__qrs.html#gaa81f10d3bedfb58d09a3538c8d477814">COEFF_BANDPASS</a> }</td></tr>
+<tr class="memitem:ga00c97417289fb75c55a68a11bd15c214" id="r_ga00c97417289fb75c55a68a11bd15c214"><td class="memItemLeft" align="right" valign="top">static const IIR_Filt_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qrs.html#ga00c97417289fb75c55a68a11bd15c214">bandpassFiltStruct</a> = { NUM_STAGES_BANDPASS, stateBuffer_bandPass, <a class="el" href="group__qrs.html#gaa81f10d3bedfb58d09a3538c8d477814">COEFF_BANDPASS</a> }</td></tr>
 <tr class="separator:ga00c97417289fb75c55a68a11bd15c214"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6ba4ee92fc40b1cf8ca2dba85f0c6fd2" id="r_ga6ba4ee92fc40b1cf8ca2dba85f0c6fd2"><td class="memItemLeft" align="right" valign="top"><a id="ga6ba4ee92fc40b1cf8ca2dba85f0c6fd2" name="ga6ba4ee92fc40b1cf8ca2dba85f0c6fd2"></a>
 static const IIR_Filt_t *const&#160;</td><td class="memItemRight" valign="bottom"><b>bandpassFilter</b> = &amp;bandpassFiltStruct</td></tr>
 <tr class="separator:ga6ba4ee92fc40b1cf8ca2dba85f0c6fd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6f006095b4d56c8f6c37e00b1815364c" id="r_ga6f006095b4d56c8f6c37e00b1815364c"><td class="memItemLeft" align="right" valign="top"><a id="ga6f006095b4d56c8f6c37e00b1815364c" name="ga6f006095b4d56c8f6c37e00b1815364c"></a>
-static float32_t&#160;</td><td class="memItemRight" valign="bottom"><b>stateBuffer_DerFilt</b> [STATE_BUFF_SIZE_DERFILT] = { 0 }</td></tr>
+<tr class="memitem:ga6f006095b4d56c8f6c37e00b1815364c" id="r_ga6f006095b4d56c8f6c37e00b1815364c"><td class="memItemLeft" align="right" valign="top">static float32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qrs.html#ga6f006095b4d56c8f6c37e00b1815364c">stateBuffer_DerFilt</a> [STATE_BUFF_SIZE_DERFILT] = { 0 }</td></tr>
 <tr class="separator:ga6f006095b4d56c8f6c37e00b1815364c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0e14d893187762ee51abcc65bfc4995d" id="r_ga0e14d893187762ee51abcc65bfc4995d"><td class="memItemLeft" align="right" valign="top"><a id="ga0e14d893187762ee51abcc65bfc4995d" name="ga0e14d893187762ee51abcc65bfc4995d"></a>
-static const FIR_Filt_t&#160;</td><td class="memItemRight" valign="bottom"><b>derivativeFiltStruct</b> = { NUM_COEFF_DERFILT, stateBuffer_DerFilt, <a class="el" href="group__qrs.html#ga89e51f5c593608b2deb597c865993e60">COEFF_DERFILT</a> }</td></tr>
+<tr class="memitem:ga0e14d893187762ee51abcc65bfc4995d" id="r_ga0e14d893187762ee51abcc65bfc4995d"><td class="memItemLeft" align="right" valign="top">static const FIR_Filt_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qrs.html#ga0e14d893187762ee51abcc65bfc4995d">derivativeFiltStruct</a> = { NUM_COEFF_DERFILT, stateBuffer_DerFilt, <a class="el" href="group__qrs.html#ga89e51f5c593608b2deb597c865993e60">COEFF_DERFILT</a> }</td></tr>
 <tr class="separator:ga0e14d893187762ee51abcc65bfc4995d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga746de8e4933cec58d016d15c60889720" id="r_ga746de8e4933cec58d016d15c60889720"><td class="memItemLeft" align="right" valign="top"><a id="ga746de8e4933cec58d016d15c60889720" name="ga746de8e4933cec58d016d15c60889720"></a>
 static const FIR_Filt_t *const&#160;</td><td class="memItemRight" valign="bottom"><b>derivativeFilter</b> = &amp;derivativeFiltStruct</td></tr>
 <tr class="separator:ga746de8e4933cec58d016d15c60889720"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga72ce31948fa328359dcf375929ebf185" id="r_ga72ce31948fa328359dcf375929ebf185"><td class="memItemLeft" align="right" valign="top"><a id="ga72ce31948fa328359dcf375929ebf185" name="ga72ce31948fa328359dcf375929ebf185"></a>
-static float32_t&#160;</td><td class="memItemRight" valign="bottom"><b>stateBuffer_MovingAvg</b> [STATE_BUFF_SIZE_MOVAVG] = { 0 }</td></tr>
+<tr class="memitem:ga72ce31948fa328359dcf375929ebf185" id="r_ga72ce31948fa328359dcf375929ebf185"><td class="memItemLeft" align="right" valign="top">static float32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qrs.html#ga72ce31948fa328359dcf375929ebf185">stateBuffer_MovingAvg</a> [STATE_BUFF_SIZE_MOVAVG] = { 0 }</td></tr>
 <tr class="separator:ga72ce31948fa328359dcf375929ebf185"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab331ee8284225236dec1d4d2f042cc71" id="r_gab331ee8284225236dec1d4d2f042cc71"><td class="memItemLeft" align="right" valign="top"><a id="gab331ee8284225236dec1d4d2f042cc71" name="gab331ee8284225236dec1d4d2f042cc71"></a>
-static const FIR_Filt_t&#160;</td><td class="memItemRight" valign="bottom"><b>movingAvgFiltStruct</b> = { NUM_COEFF_MOVAVG, stateBuffer_MovingAvg, <a class="el" href="group__qrs.html#ga00c285b355f2c44be9326901aceda6e9">COEFF_MOVAVG</a> }</td></tr>
+<tr class="memitem:gab331ee8284225236dec1d4d2f042cc71" id="r_gab331ee8284225236dec1d4d2f042cc71"><td class="memItemLeft" align="right" valign="top">static const FIR_Filt_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qrs.html#gab331ee8284225236dec1d4d2f042cc71">movingAvgFiltStruct</a> = { NUM_COEFF_MOVAVG, stateBuffer_MovingAvg, <a class="el" href="group__qrs.html#ga00c285b355f2c44be9326901aceda6e9">COEFF_MOVAVG</a> }</td></tr>
 <tr class="separator:gab331ee8284225236dec1d4d2f042cc71"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaa663272fbf6747beab383a9fc4bd6cd0" id="r_gaa663272fbf6747beab383a9fc4bd6cd0"><td class="memItemLeft" align="right" valign="top"><a id="gaa663272fbf6747beab383a9fc4bd6cd0" name="gaa663272fbf6747beab383a9fc4bd6cd0"></a>
 static const FIR_Filt_t *const&#160;</td><td class="memItemRight" valign="bottom"><b>movingAverageFilter</b> = &amp;movingAvgFiltStruct</td></tr>
 <tr class="separator:gaa663272fbf6747beab383a9fc4bd6cd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader">Implementation-specific Functions</h2></td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader">Pan-Tompkins Algorithm-specific Functions</h2></td></tr>
 <tr class="memitem:gad28d61d6286aab2f3d949965bca5b3c3" id="r_gad28d61d6286aab2f3d949965bca5b3c3"><td class="memItemLeft" align="right" valign="top">static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qrs.html#gad28d61d6286aab2f3d949965bca5b3c3">findFiducialMarks</a> (const float32_t yn[], uint16_t fidMarkArray[])</td></tr>
 <tr class="memdesc:gad28d61d6286aab2f3d949965bca5b3c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mark local peaks in the input signal <code>y</code> as potential candidates for QRS complexes (AKA "fiducial marks").  <br /></td></tr>
 <tr class="separator:gad28d61d6286aab2f3d949965bca5b3c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -257,6 +251,37 @@ static const FIR_Filt_t *const&#160;</td><td class="memItemRight" valign="bottom
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Module for analyzing ECG data to determine heart rate. </p>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>Add heart rate variability (HRV) calculation. </dd></dl>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="ga2775f0e0c9c1fbf3479fba15da7b8293" name="ga2775f0e0c9c1fbf3479fba15da7b8293"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2775f0e0c9c1fbf3479fba15da7b8293">&#9670;&#160;</a></span>DIGITAL_FILTER_PARAMS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum DIGITAL_FILTER_PARAMS</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  114</span>                           {</div>
+<div class="line"><span class="lineno">  115</span>    <span class="comment">// IIR Bandpass Filter</span></div>
+<div class="line"><span class="lineno">  116</span>    NUM_STAGES_BANDPASS = 4,</div>
+<div class="line"><span class="lineno">  117</span>    NUM_COEFF_BANDPASS = NUM_STAGES_BANDPASS * 5,</div>
+<div class="line"><span class="lineno">  118</span>    STATE_BUFF_SIZE_BANDPASS = NUM_STAGES_BANDPASS * 4,</div>
+<div class="line"><span class="lineno">  119</span> </div>
+<div class="line"><span class="lineno">  120</span>    <span class="comment">// FIR Derivative Filter</span></div>
+<div class="line"><span class="lineno">  121</span>    NUM_COEFF_DERFILT = 5,</div>
+<div class="line"><span class="lineno">  122</span>    BLOCK_SIZE_DERFILT = (1 &lt;&lt; 8),</div>
+<div class="line"><span class="lineno">  123</span>    STATE_BUFF_SIZE_DERFILT = NUM_COEFF_DERFILT + BLOCK_SIZE_DERFILT - 1,</div>
+<div class="line"><span class="lineno">  124</span> </div>
+<div class="line"><span class="lineno">  125</span>    <span class="comment">// FIR Moving Average Filter</span></div>
+<div class="line"><span class="lineno">  126</span>    NUM_COEFF_MOVAVG = 10,</div>
+<div class="line"><span class="lineno">  127</span>    BLOCK_SIZE_MOVAVG = BLOCK_SIZE_DERFILT,</div>
+<div class="line"><span class="lineno">  128</span>    STATE_BUFF_SIZE_MOVAVG = NUM_COEFF_MOVAVG + BLOCK_SIZE_MOVAVG - 1,</div>
+<div class="line"><span class="lineno">  129</span>};</div>
+</div><!-- fragment -->
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="gad28d61d6286aab2f3d949965bca5b3c3" name="gad28d61d6286aab2f3d949965bca5b3c3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gad28d61d6286aab2f3d949965bca5b3c3">&#9670;&#160;</a></span>findFiducialMarks()</h2>
@@ -303,7 +328,40 @@ static const FIR_Filt_t *const&#160;</td><td class="memItemRight" valign="bottom
 </dl>
 <dl class="section post"><dt>Postcondition</dt><dd><code>fidMarkArray</code> will hold the values of the fiducial marks. </dd></dl>
 <p>The fiducial marks must be spaced apart by at least 200 [ms] (40 samples @ fs = 200 [Hz]). If a peak is found within this range, the one with the largest amplitude is taken to be the correct peak and the other is ignored.</p>
-
+<div class="fragment"><div class="line"><span class="lineno">  343</span>                                                                                {</div>
+<div class="line"><span class="lineno">  344</span>    uint8_t numMarks = 0;                      <span class="comment">// running counter of peak candidates</span></div>
+<div class="line"><span class="lineno">  345</span>    uint16_t countSincePrev = 1;               <span class="comment">// samples checked since previous peak candidate</span></div>
+<div class="line"><span class="lineno">  346</span>    uint16_t n_prevMark = 0;                   <span class="comment">// sample number of previous peak candidate</span></div>
+<div class="line"><span class="lineno">  347</span> </div>
+<div class="line"><span class="lineno">  348</span>    <span class="keywordflow">for</span>(uint16_t n = 1; n &lt; (QRS_NUM_SAMP - 1); n++) {</div>
+<div class="line"><span class="lineno">  349</span>        <span class="keywordflow">if</span>(IS_GREATER(yn[n], yn[n - 1]) &amp;&amp;</div>
+<div class="line"><span class="lineno">  350</span>           IS_GREATER(yn[n], yn[n + 1])) {               <span class="comment">// Verify `y[n]` is a peak</span></div>
+<div class="line"><span class="lineno">  356</span>            <span class="keywordflow">if</span>(countSincePrev &gt;= 40) {</div>
+<div class="line"><span class="lineno">  357</span>                fidMarkArray[numMarks] = n;</div>
+<div class="line"><span class="lineno">  358</span>                numMarks += 1;</div>
+<div class="line"><span class="lineno">  359</span> </div>
+<div class="line"><span class="lineno">  360</span>                n_prevMark = n;</div>
+<div class="line"><span class="lineno">  361</span>                countSincePrev = 0;</div>
+<div class="line"><span class="lineno">  362</span>            }</div>
+<div class="line"><span class="lineno">  363</span>            <span class="keywordflow">else</span> <span class="keywordflow">if</span>(countSincePrev &lt; 40) {</div>
+<div class="line"><span class="lineno">  364</span>                <span class="keywordflow">if</span>(IS_GREATER(yn[n], yn[n_prevMark])) {</div>
+<div class="line"><span class="lineno">  365</span>                    fidMarkArray[numMarks - 1] = n;</div>
+<div class="line"><span class="lineno">  366</span>                    n_prevMark = n;</div>
+<div class="line"><span class="lineno">  367</span>                    countSincePrev = 0;</div>
+<div class="line"><span class="lineno">  368</span>                }</div>
+<div class="line"><span class="lineno">  369</span>                <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  370</span>                    countSincePrev += 1;</div>
+<div class="line"><span class="lineno">  371</span>                }</div>
+<div class="line"><span class="lineno">  372</span>            }</div>
+<div class="line"><span class="lineno">  373</span>        }</div>
+<div class="line"><span class="lineno">  374</span>        <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  375</span>            countSincePrev += 1;</div>
+<div class="line"><span class="lineno">  376</span>        }</div>
+<div class="line"><span class="lineno">  377</span>    }</div>
+<div class="line"><span class="lineno">  378</span> </div>
+<div class="line"><span class="lineno">  379</span>    <span class="keywordflow">return</span> numMarks;</div>
+<div class="line"><span class="lineno">  380</span>}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="ga030cd959d6a985645111d4918a2adf24" name="ga030cd959d6a985645111d4918a2adf24"></a>
@@ -356,7 +414,19 @@ static const FIR_Filt_t *const&#160;</td><td class="memItemRight" valign="bottom
   </dd>
 </dl>
 <dl class="section post"><dt>Postcondition</dt><dd>The signal and noise levels are initialized. </dd></dl>
-
+<div class="fragment"><div class="line"><span class="lineno">  330</span>                                                                                             {</div>
+<div class="line"><span class="lineno">  331</span>    float32_t max;</div>
+<div class="line"><span class="lineno">  332</span>    uint32_t maxIdx;</div>
+<div class="line"><span class="lineno">  333</span>    arm_max_f32(yn, QRS_SAMP_FREQ * 2, &amp;max, &amp;maxIdx);</div>
+<div class="line"><span class="lineno">  334</span>    *sigLvlPtr = 0.25f * max;</div>
+<div class="line"><span class="lineno">  335</span> </div>
+<div class="line"><span class="lineno">  336</span>    float32_t mean;</div>
+<div class="line"><span class="lineno">  337</span>    arm_mean_f32(yn, QRS_SAMP_FREQ * 2, &amp;mean);</div>
+<div class="line"><span class="lineno">  338</span>    *noiseLvlPtr = 0.5f * mean;</div>
+<div class="line"><span class="lineno">  339</span> </div>
+<div class="line"><span class="lineno">  340</span>    <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  341</span>}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="gaf32e3d936d9e3538a7b9cf0dcdab93b3" name="gaf32e3d936d9e3538a7b9cf0dcdab93b3"></a>
@@ -411,7 +481,10 @@ $" src="form_24.png" width="461" height="16"/></p>
 noiseLevel_1     = f(peakAmplitude, noiseLevel_0)
                  = \frac{1}{8}peakAmplitude + \frac{7}{8}noiseLevel_0
 $" src="form_25.png" width="446" height="16"/></p>
-
+<div class="fragment"><div class="line"><span class="lineno">  382</span>                                                                             {</div>
+<div class="line"><span class="lineno">  397</span>    <span class="keywordflow">return</span> ((0.125f * peakAmplitude) + (0.875f * level));</div>
+<div class="line"><span class="lineno">  398</span>}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="ga5b611d004725bb35743710c3f18b4022" name="ga5b611d004725bb35743710c3f18b4022"></a>
@@ -461,7 +534,10 @@ $" src="form_25.png" width="446" height="16"/></p>
 <p><img class="formulaInl" alt="$
 threshold = f(signalLevel, noiseLevel) = noiseLevel + 0.25(signalLevel - noiseLevel)
 $" src="form_26.png" width="429" height="29"/></p>
-
+<div class="fragment"><div class="line"><span class="lineno">  400</span>                                                                                          {</div>
+<div class="line"><span class="lineno">  406</span>    <span class="keywordflow">return</span> (<a class="code hl_variable" href="_q_r_s_8c.html#a9eef3c7be031e34630901e275d9d55ff" title="estimated noise level">noiseLevel</a> + (0.25f * (<a class="code hl_variable" href="_q_r_s_8c.html#a5802584806ac0a13e91c5d6c59d35a1d" title="estimated signal level">signalLevel</a> - <a class="code hl_variable" href="_q_r_s_8c.html#a9eef3c7be031e34630901e275d9d55ff" title="estimated noise level">noiseLevel</a>)));</div>
+<div class="line"><span class="lineno">  407</span>}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="ga66b93594125ecb89623cf21c02ae6621" name="ga66b93594125ecb89623cf21c02ae6621"></a>
@@ -483,7 +559,10 @@ $" src="form_26.png" width="429" height="29"/></p>
 <p>Initialize the QRS detector. </p>
 <dl class="section note"><dt>Note</dt><dd>This function isn't necessary anymore, but I'm keeping it here just in case. </dd></dl>
 <p>This function originally initialized the filter <code>struct</code>s but now does nothing since those have been made <code>const</code> and their initialization functions have been removed entirely.</p>
-
+<div class="fragment"><div class="line"><span class="lineno">  224</span>                    {</div>
+<div class="line"><span class="lineno">  229</span>    <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  230</span>}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="ga23e7aac4cbf3423df23afce8a43de44d" name="ga23e7aac4cbf3423df23afce8a43de44d"></a>
@@ -533,7 +612,24 @@ $" src="form_26.png" width="429" height="29"/></p>
 <p> <br  />
   </p>
 <dl class="section note"><dt>Note</dt><dd>The FIR filters are applied in blocks to decrease the amount of memory needed for their state buffers.</dd></dl>
-
+<div class="fragment"><div class="line"><span class="lineno">  232</span>                                                          {</div>
+<div class="line"><span class="lineno">  245</span>    <span class="comment">// copy samples from input buffer `xn` to output buffer `yn`</span></div>
+<div class="line"><span class="lineno">  246</span>    <span class="keywordflow">if</span>(((uint32_t) &amp;xn[0]) != ((uint32_t) &amp;yn[0])) {               <span class="comment">// skip if they&#39;re the same</span></div>
+<div class="line"><span class="lineno">  247</span>        arm_copy_f32(xn, yn, QRS_NUM_SAMP);</div>
+<div class="line"><span class="lineno">  248</span>    }</div>
+<div class="line"><span class="lineno">  249</span> </div>
+<div class="line"><span class="lineno">  250</span>    <span class="comment">// apply filters</span></div>
+<div class="line"><span class="lineno">  251</span>    arm_biquad_cascade_df1_f32(bandpassFilter, yn, yn, QRS_NUM_SAMP);</div>
+<div class="line"><span class="lineno">  252</span> </div>
+<div class="line"><span class="lineno">  253</span>    <span class="keywordflow">for</span>(uint16_t n = 0; n &lt; QRS_NUM_SAMP; n += BLOCK_SIZE_DERFILT) {</div>
+<div class="line"><span class="lineno">  258</span>        arm_fir_f32(derivativeFilter, &amp;yn[n], &amp;yn[n], BLOCK_SIZE_DERFILT);</div>
+<div class="line"><span class="lineno">  259</span>        arm_mult_f32(&amp;yn[n], &amp;yn[n], &amp;yn[n], BLOCK_SIZE_DERFILT);               <span class="comment">// square</span></div>
+<div class="line"><span class="lineno">  260</span>        arm_fir_f32(movingAverageFilter, &amp;yn[n], &amp;yn[n], BLOCK_SIZE_MOVAVG);</div>
+<div class="line"><span class="lineno">  261</span>    }</div>
+<div class="line"><span class="lineno">  262</span> </div>
+<div class="line"><span class="lineno">  263</span>    <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  264</span>}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="ga189dec78669b6441ec04fc100f16b8fc" name="ga189dec78669b6441ec04fc100f16b8fc"></a>
@@ -565,7 +661,61 @@ $" src="form_26.png" width="429" height="29"/></p>
 <dl class="bug"><dt><b><a class="el" href="bug.html#_bug000001">Bug:</a></b></dt><dd>The current implementation processes one block of data at a time and discards the entire block immediately after. As a result, QRS complexes that are cutoff between one block and another are not being counted.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group__qrs.html#ga23e7aac4cbf3423df23afce8a43de44d" title="Preprocess the ECG data to remove noise and/or exaggerate the signal characteristic(s) of interest.">QRS_Preprocess()</a> </dd></dl>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000003">Todo:</a></b></dt><dd>Write implementation explanation </dd></dl>
-
+<div class="fragment"><div class="line"><span class="lineno">  266</span>                                                       {</div>
+<div class="line"><span class="lineno">  268</span> </div>
+<div class="line"><span class="lineno">  269</span>    <span class="comment">// copy variables from `Detector` for readability</span></div>
+<div class="line"><span class="lineno">  270</span>    float32_t <a class="code hl_variable" href="_q_r_s_8c.html#a5802584806ac0a13e91c5d6c59d35a1d" title="estimated signal level">signalLevel</a> = Detector.signalLevel;</div>
+<div class="line"><span class="lineno">  271</span>    float32_t <a class="code hl_variable" href="_q_r_s_8c.html#a9eef3c7be031e34630901e275d9d55ff" title="estimated noise level">noiseLevel</a> = Detector.noiseLevel;</div>
+<div class="line"><span class="lineno">  272</span>    float32_t <a class="code hl_variable" href="_q_r_s_8c.html#aa76107d5c83fb27ecd4c75c0cd91251b" title="amplitude threshold">threshold</a> = Detector.threshold;</div>
+<div class="line"><span class="lineno">  273</span> </div>
+<div class="line"><span class="lineno">  274</span>    uint16_t * fidMarkArray = Detector.fidMarkArray;</div>
+<div class="line"><span class="lineno">  275</span> </div>
+<div class="line"><span class="lineno">  276</span>    float32_t * timeBuffer = Detector.utilityBuffer1;                    <span class="comment">// time in [s] of each peak</span></div>
+<div class="line"><span class="lineno">  277</span>    float32_t * heartRateBuffer = Detector.utilityBuffer2;               <span class="comment">// HR in [BPM]</span></div>
+<div class="line"><span class="lineno">  278</span> </div>
+<div class="line"><span class="lineno">  279</span>    <span class="comment">// calibrate detector on first pass</span></div>
+<div class="line"><span class="lineno">  280</span>    <span class="keywordflow">if</span>(Detector.isCalibrated == <span class="keyword">false</span>) {</div>
+<div class="line"><span class="lineno">  281</span>        <a class="code hl_function" href="group__qrs.html#ga030cd959d6a985645111d4918a2adf24" title="Initialize the signal and noise levels for the QRS detector using the initial block of input signal d...">initLevels</a>(yn, &amp;<a class="code hl_variable" href="_q_r_s_8c.html#a5802584806ac0a13e91c5d6c59d35a1d" title="estimated signal level">signalLevel</a>, &amp;<a class="code hl_variable" href="_q_r_s_8c.html#a9eef3c7be031e34630901e275d9d55ff" title="estimated noise level">noiseLevel</a>);</div>
+<div class="line"><span class="lineno">  282</span>        <a class="code hl_variable" href="_q_r_s_8c.html#aa76107d5c83fb27ecd4c75c0cd91251b" title="amplitude threshold">threshold</a> = <a class="code hl_function" href="group__qrs.html#ga5b611d004725bb35743710c3f18b4022" title="Update the amplitude threshold used to identify peaks based on the signal and noise levels.">updateThreshold</a>(<a class="code hl_variable" href="_q_r_s_8c.html#a5802584806ac0a13e91c5d6c59d35a1d" title="estimated signal level">signalLevel</a>, <a class="code hl_variable" href="_q_r_s_8c.html#a9eef3c7be031e34630901e275d9d55ff" title="estimated noise level">noiseLevel</a>);</div>
+<div class="line"><span class="lineno">  283</span>        Detector.isCalibrated = <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  284</span>    }</div>
+<div class="line"><span class="lineno">  285</span> </div>
+<div class="line"><span class="lineno">  286</span>    <span class="comment">// classify fiducial marks as signal (confirmed R peaks) or noise</span></div>
+<div class="line"><span class="lineno">  287</span>    uint8_t numMarks = <a class="code hl_function" href="group__qrs.html#gad28d61d6286aab2f3d949965bca5b3c3" title="Mark local peaks in the input signal y as potential candidates for QRS complexes (AKA &quot;fiducial marks...">findFiducialMarks</a>(yn, fidMarkArray);</div>
+<div class="line"><span class="lineno">  288</span>    uint8_t numPeaks = 0;</div>
+<div class="line"><span class="lineno">  289</span> </div>
+<div class="line"><span class="lineno">  290</span>    <span class="keywordflow">for</span>(uint8_t idx = 0; idx &lt; numMarks; idx++) {</div>
+<div class="line"><span class="lineno">  291</span>        uint16_t n = fidMarkArray[idx];</div>
+<div class="line"><span class="lineno">  292</span> </div>
+<div class="line"><span class="lineno">  293</span>        <span class="keywordflow">if</span>(IS_GREATER(yn[n], <a class="code hl_variable" href="_q_r_s_8c.html#aa76107d5c83fb27ecd4c75c0cd91251b" title="amplitude threshold">threshold</a>)) {</div>
+<div class="line"><span class="lineno">  294</span>            timeBuffer[numPeaks] = n * QRS_SAMP_PERIOD_SEC;</div>
+<div class="line"><span class="lineno">  295</span>            numPeaks += 1;</div>
+<div class="line"><span class="lineno">  296</span> </div>
+<div class="line"><span class="lineno">  297</span>            <a class="code hl_variable" href="_q_r_s_8c.html#a5802584806ac0a13e91c5d6c59d35a1d" title="estimated signal level">signalLevel</a> = <a class="code hl_function" href="group__qrs.html#gaf32e3d936d9e3538a7b9cf0dcdab93b3" title="Update the signal level (if a fiducial mark is a confirmed peak) or the noise level (if a fiducial ma...">updateLevel</a>(yn[n], <a class="code hl_variable" href="_q_r_s_8c.html#a5802584806ac0a13e91c5d6c59d35a1d" title="estimated signal level">signalLevel</a>);</div>
+<div class="line"><span class="lineno">  298</span>        }</div>
+<div class="line"><span class="lineno">  299</span>        <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  300</span>            <a class="code hl_variable" href="_q_r_s_8c.html#a9eef3c7be031e34630901e275d9d55ff" title="estimated noise level">noiseLevel</a> = <a class="code hl_function" href="group__qrs.html#gaf32e3d936d9e3538a7b9cf0dcdab93b3" title="Update the signal level (if a fiducial mark is a confirmed peak) or the noise level (if a fiducial ma...">updateLevel</a>(yn[n], <a class="code hl_variable" href="_q_r_s_8c.html#a9eef3c7be031e34630901e275d9d55ff" title="estimated noise level">noiseLevel</a>);</div>
+<div class="line"><span class="lineno">  301</span>        }</div>
+<div class="line"><span class="lineno">  302</span> </div>
+<div class="line"><span class="lineno">  303</span>        <a class="code hl_variable" href="_q_r_s_8c.html#aa76107d5c83fb27ecd4c75c0cd91251b" title="amplitude threshold">threshold</a> = <a class="code hl_function" href="group__qrs.html#ga5b611d004725bb35743710c3f18b4022" title="Update the amplitude threshold used to identify peaks based on the signal and noise levels.">updateThreshold</a>(<a class="code hl_variable" href="_q_r_s_8c.html#a5802584806ac0a13e91c5d6c59d35a1d" title="estimated signal level">signalLevel</a>, <a class="code hl_variable" href="_q_r_s_8c.html#a9eef3c7be031e34630901e275d9d55ff" title="estimated noise level">noiseLevel</a>);</div>
+<div class="line"><span class="lineno">  304</span>    }</div>
+<div class="line"><span class="lineno">  305</span> </div>
+<div class="line"><span class="lineno">  306</span>    <span class="comment">// store updated values in `Detector`</span></div>
+<div class="line"><span class="lineno">  307</span>    Detector.signalLevel = <a class="code hl_variable" href="_q_r_s_8c.html#a5802584806ac0a13e91c5d6c59d35a1d" title="estimated signal level">signalLevel</a>;</div>
+<div class="line"><span class="lineno">  308</span>    Detector.noiseLevel = <a class="code hl_variable" href="_q_r_s_8c.html#a9eef3c7be031e34630901e275d9d55ff" title="estimated noise level">noiseLevel</a>;</div>
+<div class="line"><span class="lineno">  309</span>    Detector.threshold = <a class="code hl_variable" href="_q_r_s_8c.html#aa76107d5c83fb27ecd4c75c0cd91251b" title="amplitude threshold">threshold</a>;</div>
+<div class="line"><span class="lineno">  310</span> </div>
+<div class="line"><span class="lineno">  311</span>    <span class="comment">// calculate RR interval and convert to HR</span></div>
+<div class="line"><span class="lineno">  312</span>    <span class="keywordflow">for</span>(uint8_t idx = 0; idx &lt; (numPeaks - 1); idx++) {</div>
+<div class="line"><span class="lineno">  313</span>        heartRateBuffer[idx] = 60.0f / (timeBuffer[idx + 1] - timeBuffer[idx]);</div>
+<div class="line"><span class="lineno">  314</span>    }</div>
+<div class="line"><span class="lineno">  315</span> </div>
+<div class="line"><span class="lineno">  316</span>    float32_t avgHeartRate_bpm;</div>
+<div class="line"><span class="lineno">  317</span>    arm_mean_f32(heartRateBuffer, numPeaks, &amp;avgHeartRate_bpm);</div>
+<div class="line"><span class="lineno">  318</span> </div>
+<div class="line"><span class="lineno">  319</span>    <span class="keywordflow">return</span> avgHeartRate_bpm;</div>
+<div class="line"><span class="lineno">  320</span>}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
@@ -624,7 +774,21 @@ $" src="form_26.png" width="429" height="29"/></p>
 <div class="image">
 <img src="qrs_bandpass.png" alt="" width="750cm"/>
 </div>
-  
+  <div class="fragment"><div class="line"><span class="lineno">  162</span>                                                            {</div>
+<div class="line"><span class="lineno">  163</span>    <span class="comment">// Section 1</span></div>
+<div class="line"><span class="lineno">  164</span>    0.002937758108600974f, 0.005875516217201948f, 0.002937758108600974f, </div>
+<div class="line"><span class="lineno">  165</span>    1.0485996007919312f, -0.2961403429508209f, </div>
+<div class="line"><span class="lineno">  166</span>    <span class="comment">// Section 2</span></div>
+<div class="line"><span class="lineno">  167</span>    1.0f, 2.0f, 1.0f, </div>
+<div class="line"><span class="lineno">  168</span>    1.3876197338104248f, -0.492422878742218f, </div>
+<div class="line"><span class="lineno">  169</span>    <span class="comment">// Section 3</span></div>
+<div class="line"><span class="lineno">  170</span>    1.0f, -2.0f, 1.0f, </div>
+<div class="line"><span class="lineno">  171</span>    1.3209134340286255f, -0.6327387690544128f, </div>
+<div class="line"><span class="lineno">  172</span>    <span class="comment">// Section 4</span></div>
+<div class="line"><span class="lineno">  173</span>    1.0f, -2.0f, 1.0f, </div>
+<div class="line"><span class="lineno">  174</span>    1.6299355030059814f, -0.7530401945114136f, </div>
+<div class="line"><span class="lineno">  175</span>};</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="ga89e51f5c593608b2deb597c865993e60" name="ga89e51f5c593608b2deb597c865993e60"></a>
@@ -654,7 +818,10 @@ $" src="form_26.png" width="429" height="29"/></p>
 <div class="image">
 <img src="qrs_derivative.png" alt="" width="750cm"/>
 </div>
-  
+  <div class="fragment"><div class="line"><span class="lineno">  183</span>                                                          {</div>
+<div class="line"><span class="lineno">  184</span>    -0.125f, -0.25f, 0.0f, 0.25f, 0.125f</div>
+<div class="line"><span class="lineno">  185</span>};</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="ga00c285b355f2c44be9326901aceda6e9" name="ga00c285b355f2c44be9326901aceda6e9"></a>
@@ -686,7 +853,150 @@ $" src="form_26.png" width="429" height="29"/></p>
 <div class="image">
 <img src="qrs_moving_avg.png" alt="" width="750cm"/>
 </div>
-  
+  <div class="fragment"><div class="line"><span class="lineno">  193</span>                                                        {</div>
+<div class="line"><span class="lineno">  194</span>    0.10000000149011612f, 0.10000000149011612f, 0.10000000149011612f, </div>
+<div class="line"><span class="lineno">  195</span>    0.10000000149011612f, 0.10000000149011612f, 0.10000000149011612f,</div>
+<div class="line"><span class="lineno">  196</span>    0.10000000149011612f, 0.10000000149011612f, 0.10000000149011612f, 0.10000000149011612f</div>
+<div class="line"><span class="lineno">  197</span>};</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="gaf8b1ef5a139506ea5871d6fc1186d270" name="gaf8b1ef5a139506ea5871d6fc1186d270"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf8b1ef5a139506ea5871d6fc1186d270">&#9670;&#160;</a></span>stateBuffer_bandPass</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float32_t stateBuffer_bandPass[STATE_BUFF_SIZE_BANDPASS] = { 0 }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  202</span>{ 0 };</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ga00c97417289fb75c55a68a11bd15c214" name="ga00c97417289fb75c55a68a11bd15c214"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga00c97417289fb75c55a68a11bd15c214">&#9670;&#160;</a></span>bandpassFiltStruct</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const IIR_Filt_t bandpassFiltStruct = { NUM_STAGES_BANDPASS, stateBuffer_bandPass, <a class="el" href="group__qrs.html#gaa81f10d3bedfb58d09a3538c8d477814">COEFF_BANDPASS</a> }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  203</span>{ NUM_STAGES_BANDPASS, stateBuffer_bandPass, <a class="code hl_variable" href="group__qrs.html#gaa81f10d3bedfb58d09a3538c8d477814" title="Coefficients of the bandpass filter in biquad (AKA second-order section, or &quot;sos&quot;) form.">COEFF_BANDPASS</a> };</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ga6f006095b4d56c8f6c37e00b1815364c" name="ga6f006095b4d56c8f6c37e00b1815364c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6f006095b4d56c8f6c37e00b1815364c">&#9670;&#160;</a></span>stateBuffer_DerFilt</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float32_t stateBuffer_DerFilt[STATE_BUFF_SIZE_DERFILT] = { 0 }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  206</span>{ 0 };</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ga0e14d893187762ee51abcc65bfc4995d" name="ga0e14d893187762ee51abcc65bfc4995d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga0e14d893187762ee51abcc65bfc4995d">&#9670;&#160;</a></span>derivativeFiltStruct</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const FIR_Filt_t derivativeFiltStruct = { NUM_COEFF_DERFILT, stateBuffer_DerFilt, <a class="el" href="group__qrs.html#ga89e51f5c593608b2deb597c865993e60">COEFF_DERFILT</a> }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  207</span>{ NUM_COEFF_DERFILT, stateBuffer_DerFilt, <a class="code hl_variable" href="group__qrs.html#ga89e51f5c593608b2deb597c865993e60" title="Coefficients of the derivative filter, written in time-reversed order.">COEFF_DERFILT</a> };</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ga72ce31948fa328359dcf375929ebf185" name="ga72ce31948fa328359dcf375929ebf185"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga72ce31948fa328359dcf375929ebf185">&#9670;&#160;</a></span>stateBuffer_MovingAvg</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float32_t stateBuffer_MovingAvg[STATE_BUFF_SIZE_MOVAVG] = { 0 }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  210</span>{ 0 };</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="gab331ee8284225236dec1d4d2f042cc71" name="gab331ee8284225236dec1d4d2f042cc71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab331ee8284225236dec1d4d2f042cc71">&#9670;&#160;</a></span>movingAvgFiltStruct</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const FIR_Filt_t movingAvgFiltStruct = { NUM_COEFF_MOVAVG, stateBuffer_MovingAvg, <a class="el" href="group__qrs.html#ga00c285b355f2c44be9326901aceda6e9">COEFF_MOVAVG</a> }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  211</span>{ NUM_COEFF_MOVAVG, stateBuffer_MovingAvg, <a class="code hl_variable" href="group__qrs.html#ga00c285b355f2c44be9326901aceda6e9" title="Coefficients of the moving average (AKA moving-window integration) filter.">COEFF_MOVAVG</a> };</div>
+</div><!-- fragment -->
 </div>
 </div>
 </div><!-- contents -->

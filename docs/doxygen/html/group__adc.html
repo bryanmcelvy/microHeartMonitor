@@ -143,7 +143,35 @@ Functions</h2></td></tr>
 
 <p>Initialize ADC0 as a single-input analog-to-digital converter. </p>
 <dl class="section post"><dt>Postcondition</dt><dd>Analog input 8 (<code>Ain8</code>) – AKA GPIO pin PE5 – captures samples when triggered by one of the hardware timers, and initiates an interrupt once sample capture is complete. </dd></dl>
-
+<div class="fragment"><div class="line"><span class="lineno">   17</span>                    {</div>
+<div class="line"><span class="lineno">   18</span>    <span class="comment">// enable clock to ADC0 and wait for it to be ready</span></div>
+<div class="line"><span class="lineno">   19</span>    SYSCTL_RCGCADC_R |= 0x01;</div>
+<div class="line"><span class="lineno">   20</span>    <span class="keywordflow">while</span>((SYSCTL_PRADC_R &amp; 0x01) == 0) {</div>
+<div class="line"><span class="lineno">   21</span>        __NOP();</div>
+<div class="line"><span class="lineno">   22</span>    }</div>
+<div class="line"><span class="lineno">   23</span> </div>
+<div class="line"><span class="lineno">   24</span>    <span class="comment">// configure GPIO port</span></div>
+<div class="line"><span class="lineno">   25</span>    GpioPort_t portE = <a class="code hl_function" href="group__gpio.html#ga08dc5447832fe78e237240adfc3ad12e" title="Initialize a GPIO Port and return a pointer to its struct.">GPIO_InitPort</a>(E);</div>
+<div class="line"><span class="lineno">   26</span>    <a class="code hl_function" href="group__gpio.html#ga3964ec3bfa307a3fb05c46bc6e667d14" title="Configure the direction of the specified GPIO pins.">GPIO_configDirection</a>(portE, GPIO_PIN5, GPIO_INPUT);</div>
+<div class="line"><span class="lineno">   27</span>    <a class="code hl_function" href="group__gpio.html#ga4829449a6f8fe7c2e02223ea7cbdff40" title="Activate the alternate mode for the specified pins.">GPIO_ConfigAltMode</a>(portE, GPIO_PIN5);</div>
+<div class="line"><span class="lineno">   28</span>    <a class="code hl_function" href="group__gpio.html#ga432b99ac6a78dddca5aea920d8431fad" title="Disable digital I/O for the specified pins.">GPIO_DisableDigital</a>(portE, GPIO_PIN5);</div>
+<div class="line"><span class="lineno">   29</span>    <a class="code hl_function" href="group__gpio.html#ga0a3c512bdacf252db8b525ccc3135f41" title="Activate analog mode for the specified GPIO pins.">GPIO_ConfigAnalog</a>(portE, GPIO_PIN5);</div>
+<div class="line"><span class="lineno">   30</span> </div>
+<div class="line"><span class="lineno">   31</span>    ADC0_ACTSS_R &amp;= ~(0x0F);                                <span class="comment">// disable all sequencers</span></div>
+<div class="line"><span class="lineno">   32</span>    ADC0_PC_R = (ADC0_PC_R &amp; ~(0x0F)) | 0x01;               <span class="comment">// max f_s = 125 [Hz]</span></div>
+<div class="line"><span class="lineno">   33</span>    ADC0_SSPRI_R = (ADC0_SSPRI_R                            <span class="comment">// give SS3 highest priority</span></div>
+<div class="line"><span class="lineno">   34</span>                    &amp; ~(0x3000)) |</div>
+<div class="line"><span class="lineno">   35</span>                   0x0123;</div>
+<div class="line"><span class="lineno">   36</span>    ADC0_EMUX_R |= 0x5000;                                  <span class="comment">// set trigger source to Timer3A</span></div>
+<div class="line"><span class="lineno">   37</span>    ADC0_SSMUX3_R = 8;                                      <span class="comment">// analog input 8 (Ain8 = PE5)</span></div>
+<div class="line"><span class="lineno">   38</span>    ADC0_SSCTL3_R = 0x06;               <span class="comment">// disable temp. sensor, enable interrupts</span></div>
+<div class="line"><span class="lineno">   39</span>    ADC0_ISC_R |= 0x08;                 <span class="comment">// clear interrupt flag</span></div>
+<div class="line"><span class="lineno">   40</span>    ADC0_IM_R |= 0x08;                  <span class="comment">// enable interrupt</span></div>
+<div class="line"><span class="lineno">   41</span> </div>
+<div class="line"><span class="lineno">   42</span>    ADC0_ACTSS_R |= 0x08;               <span class="comment">// enable SS3</span></div>
+<div class="line"><span class="lineno">   43</span>    <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">   44</span>}</div>
+</div><!-- fragment -->
 </div>
 </div>
 </div><!-- contents -->

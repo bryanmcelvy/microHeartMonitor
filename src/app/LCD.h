@@ -105,7 +105,7 @@ void LCD_setColor(uint8_t color);
 /******************************************************************************
 Drawing
 *******************************************************************************/
-/** @name Drawing */               /// @{
+/** @name Drawing Functions */               /// @{
 
 /**
  * @brief               Draw on the LCD.
@@ -179,12 +179,12 @@ void LCD_drawRectangle(uint16_t x1, uint16_t dx, uint16_t y1, uint16_t dy);
  */
 void LCD_plotSample(uint16_t x, uint16_t y, uint8_t color);
 
-/** @} */               // Drawing
+/** @} */               // Drawing Functions
 
 /******************************************************************************
 Writing
 *******************************************************************************/
-/** @name Writing */               /// @{
+/** @name Writing Functions */               /// @{
 
 enum LCD_WRITING_INFO {
     HEIGHT_CHAR = 8,
@@ -214,7 +214,7 @@ void LCD_writeInt(int32_t num);
 // TODO: Write description
 void LCD_writeFloat(float num);
 
-/// @} // Writing
+/// @} // Writing Functions
 
 /** @} */               // lcd
 

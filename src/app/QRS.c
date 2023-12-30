@@ -41,7 +41,7 @@ Preprocessor Directives
 
 #define QRS_NUM_FID_MARKS       40
 
-#define FLOAT_COMPARE_TOLERANCE (float32_t)(1E-5f)
+#define FLOAT_COMPARE_TOLERANCE ((float32_t) 1E-5f)
 #define IS_GREATER(X, Y)        (bool) ((X - Y) > FLOAT_COMPARE_TOLERANCE)
 
 /*******************************************************************************
@@ -325,7 +325,7 @@ float32_t QRS_applyDecisionRules(const float32_t yn[]) {
 Static Function Definitions
 ********************************************************************************/
 
-/** @name Implementation-specific Functions */               /// @{
+/** @name Pan-Tompkins Algorithm-specific Functions */               /// @{
 
 static void initLevels(const float32_t yn[], float32_t * sigLvlPtr, float32_t * noiseLvlPtr) {
     float32_t max;
@@ -341,7 +341,7 @@ static void initLevels(const float32_t yn[], float32_t * sigLvlPtr, float32_t * 
 }
 
 static uint8_t findFiducialMarks(const float32_t yn[], uint16_t fidMarkArray[]) {
-    uint8_t numMarks = 0;                                    // running counter of peak candidates
+    uint8_t numMarks = 0;                      // running counter of peak candidates
     uint16_t countSincePrev = 1;               // samples checked since previous peak candidate
     uint16_t n_prevMark = 0;                   // sample number of previous peak candidate
 

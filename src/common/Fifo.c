@@ -11,6 +11,7 @@
 
 /******************************************************************************
 SECTIONS
+        Struct Definition + Static Allocation
         Initialization
         Basic Operations (Int)
         Basic Operations (Float)
@@ -25,7 +26,7 @@ SECTIONS
 #include <string.h>
 
 /******************************************************************************
-Initialization
+Struct Definition + Static Allocation
 *******************************************************************************/
 
 typedef struct FifoStruct_t {
@@ -37,6 +38,10 @@ typedef struct FifoStruct_t {
 
 static FifoStruct_t fifoPool[FIFO_POOL_SIZE] = { 0 };               ///< pre-allocated pool
 static uint8_t numFreeFifos = FIFO_POOL_SIZE;
+
+/******************************************************************************
+Initialization
+*******************************************************************************/
 
 Fifo_t Fifo_Init(volatile uint32_t buffer[], const uint32_t N) {
     assert(numFreeFifos > 0);
