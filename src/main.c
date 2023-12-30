@@ -68,8 +68,6 @@ enum ISR_VECTOR_NUMS {
  *
  * @see     DAQ_Init(), Processing_Handler()
  *
- * @image   html software/main3_daq.png "Flowchart for the DAQ handler." width=150cm
- * @image   latex software/main3_daq.png "Flowchart for the DAQ handler."
  * @callgraph
  */
 static void DAQ_Handler(void);
@@ -87,8 +85,6 @@ static void DAQ_Handler(void);
  *
  * @see     DAQ_Handler(), main(), LCD_Handler()
  *
- * @image   html software/main4_proc.png "Flowchart for the processing handler." width=350cm
- * @image   latex software/main4_proc.png "Flowchart for the processing handler."
  * @callgraph
  */
 static void Processing_Handler(void);
@@ -105,8 +101,6 @@ static void Processing_Handler(void);
  *
  * @see     LCD_Init(), Processing_Handler(), main()
  *
- * @image   html software/main5_lcd.png "Flowchart for the LCD handler." width=350cm
- * @image   latex software/main5_lcd.png "Flowchart for the LCD handler."
  * @callgraph
  */
 static void LCD_Handler(void);
@@ -171,10 +165,6 @@ Function Definitions
  *                  enables the ISRs; initializes all modules and static variables;
  *                  and performs QRS detection once the buffer has been filled.
  *
- * @image html software/main1_init.png "Flowchart for the initialization phase."  width=150cm
- * @image latex software/main1_init.png "Flowchart for the initialization phase."
- * @image html software/main2_superloop.png "Flowchart for the superloop."  width=150cm
- * @image latex software/main2_superloop.png "Flowchart for the superloop."
  * @callgraph
  */
 int main(void) {
