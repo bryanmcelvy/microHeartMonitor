@@ -1,5 +1,11 @@
 # μHeartMonitor: An ECG-based Heart Rate Monitor
 
+<div style="text-align: center;">
+
+### [HTML Documentation](https://bryanmcelvy.github.io/microHeartMonitor) – [PDF Documentation](/docs/refman.pdf)
+
+</div>
+
 An electrocardiogram-based heart rate monitor project implemented with a TM4C123 microcontroller and custom analog front-end circuitry. Please read below for more information on what exactly this project is and why I decided to do it!
 
 ## Navigation
@@ -32,8 +38,3 @@ The project is primarily built using CMake, which generates Makefiles based on t
 ***Short version***: Because I was interested in doing it and saw utility in doing so.
 
 ***Long version***: See the "Motivation" subsection in the documentation.
-
-## Documentation
-**HTML/Github Pages Documentation**: [Link](https://bryanmcelvy.github.io/microHeartMonitor)
-
-**PDF Documentation**: [Link](/docs/refman.pdf)
