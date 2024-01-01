@@ -16,15 +16,6 @@ SECTIONS
         Status Checks
 *******************************************************************************/
 
-static void copyData(void * source, void * dest, const size_t N) {
-    uint8_t * srcPtr = source;
-    uint8_t * destPtr = dest;
-    for(uint32_t n = 0; n < N; n++) {
-        *destPtr++ = *srcPtr++;
-    }
-    return;
-}
-
 /******************************************************************************
 Initialization (Static Allocation)
 *******************************************************************************/
@@ -84,6 +75,15 @@ void Fifo_DynDestroy(Fifo_t fifo) {
 Basic Operations
 *******************************************************************************/
 
+static void copyData(void * source, void * dest, const size_t N) {
+    uint8_t * srcPtr = source;
+    uint8_t * destPtr = dest;
+    for(uint32_t n = 0; n < N; n++) {
+        *destPtr++ = *srcPtr++;
+    }
+    return;
+}
+
 #define UPDATE_FRONT_IDX(F) (((F)->frontIdx + 1) % (F)->N)
 #define UPDATE_BACK_IDX(F)  (((F)->backIdx + 1) % (F)->N)
 
@@ -111,10 +111,8 @@ FifoStatus_e Fifo_Get(volatile Fifo_t fifo, void * outputValPtr) {
     }
 }
 
-#define GET_ARRAY_LEN(A) ((int) (sizeof((A)) / sizeof((A)[0])))
-
 FifoStatus_e Fifo_Flush(volatile Fifo_t fifo, void * outputBuffer) {
-    if(GET_ARRAY_LEN(outputBuffer) != fifo->N) {
+    if(fifo->frontIdx == fifo->backIdx) {
         return FIFO_FAILURE;
     }
     else {
@@ -146,17 +144,17 @@ FifoStatus_e Fifo_PeekOne(volatile Fifo_t fifo, void * outputValPtr) {
 }
 
 FifoStatus_e Fifo_PeekAll(volatile Fifo_t fifo, void * outputBuffer) {
-    if(GET_ARRAY_LEN(outputBuffer) != fifo->N) {
+    if(fifo->frontIdx == fifo->backIdx) {
         return FIFO_FAILURE;
     }
     else {
         uint8_t * destPtr = outputBuffer;
-        uint32_t frontIdx = fifo->frontIdx;
-        while(fifo->frontIdx != fifo->backIdx) {
-            uint8_t * sourcePtr = ((uint8_t *) fifo->buffer) + (fifo->frontIdx * fifo->dataSize);
+        uint32_t tempFrontIdx = fifo->frontIdx;
+        while(tempFrontIdx != fifo->backIdx) {
+            uint8_t * sourcePtr = ((uint8_t *) fifo->buffer) + (tempFrontIdx * fifo->dataSize);
             copyData(sourcePtr, destPtr, fifo->dataSize);
 
-            frontIdx = (frontIdx + 1) % fifo->N;
+            tempFrontIdx = (tempFrontIdx + 1) % fifo->N;
             destPtr += (fifo->dataSize);
         }
         return FIFO_SUCCESS;
