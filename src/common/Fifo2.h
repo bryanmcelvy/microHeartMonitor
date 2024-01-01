@@ -13,9 +13,9 @@
 /******************************************************************************
 SECTIONS
         Preprocessor Directives
-        Initialization
+        Initialization (Static Allocation)
+        Initialization (Dynamic Allocation)
         Basic Operations (Int)
-        Basic Operations (Float)
         Peeking
         Status Checks
 *******************************************************************************/
@@ -35,7 +35,7 @@ Preprocessor Directives
 #endif
 
 /******************************************************************************
-Initialization
+Initialization (Static Allocation)
 *******************************************************************************/
 
 typedef struct FifoStruct_t * Fifo_t;
@@ -43,6 +43,14 @@ typedef struct FifoStruct_t * Fifo_t;
 Fifo_t Fifo_Init(volatile uint32_t buffer[], const uint32_t N, size_t dataSize);
 
 void Fifo_Reset(volatile Fifo_t fifo);
+
+/******************************************************************************
+Initialization (Dynamic)
+*******************************************************************************/
+
+Fifo_t Fifo_DynCreate(const uint32_t N, const size_t dataSize);
+
+void Fifo_DynDestroy(Fifo_t fifo);
 
 /******************************************************************************
 Basic Operations

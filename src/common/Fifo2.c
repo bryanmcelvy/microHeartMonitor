@@ -5,12 +5,13 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
+#include <stdlib.h>
 
 /******************************************************************************
 SECTIONS
-        Initialization
+        Initialization (Static Allocation)
+        Initialization (Dynamic Allocation)
         Basic Operations (Int)
-        Basic Operations (Float)
         Peeking
         Status Checks
 *******************************************************************************/
@@ -25,7 +26,7 @@ static void copyData(void * source, void * dest, const size_t N) {
 }
 
 /******************************************************************************
-Initialization
+Initialization (Static Allocation)
 *******************************************************************************/
 
 typedef struct FifoStruct_t {
@@ -56,6 +57,26 @@ Fifo_t Fifo_Init(volatile uint32_t buffer[], const uint32_t N, size_t dataSize) 
 
 void Fifo_Reset(volatile Fifo_t fifo) {
     fifo->backIdx = fifo->frontIdx;
+    return;
+}
+
+/******************************************************************************
+Initialization (Dynamic Allocation)
+*******************************************************************************/
+
+Fifo_t Fifo_DynCreate(const uint32_t N, const size_t dataSize) {
+    Fifo_t fifo = malloc(sizeof(FifoStruct_t));
+    fifo->N = N;
+    fifo->dataSize = dataSize;
+    fifo->frontIdx = 0;
+    fifo->backIdx = 0;
+    fifo->buffer = malloc(N * dataSize);
+    return fifo;
+}
+
+void Fifo_DynDestroy(Fifo_t fifo) {
+    free(fifo->buffer);
+    free(fifo);
     return;
 }
 
