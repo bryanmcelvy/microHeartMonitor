@@ -10,8 +10,8 @@ extern "C" {
 #include <stdlib.h>
 }
 
-#define FIFO_BUFFER_SIZE    10
-#define FIFO_CAPACITY       FIFO_BUFFER_SIZE - 1
+#define FIFO_BUFFER_SIZE    (10)
+#define FIFO_CAPACITY       (FIFO_BUFFER_SIZE - 1)
 
 /******************************************************************************
 SECTIONS
